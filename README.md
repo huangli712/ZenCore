@@ -1,6 +1,6 @@
-# ZEN
+# ZenCore
 
-ZEN is a modern DFT + DMFT computation framework. This package is currently under developement. **IT DOESN'T WORK NOW!**
+ZenCore implements the core library of the Zen DFT + DMFT computation framework. This package is currently under developement. **IT DOESN'T WORK NOW!**
 
 ## Version
 
