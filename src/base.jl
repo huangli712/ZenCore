@@ -72,43 +72,6 @@ function final()
 end
 
 """
-    cycle0()
-
-Perform DFT calculations only. If there are something wrong, then you
-have chance to adjust the DFT input files manually (for example, you
-can modify vasp_incar()/vasp.jl by yourself).
-
-See also: [`cycle1`](@ref), [`cycle2`](@ref), [`go`](@ref).
-"""
-function cycle0()
-    # C-1: Create IterInfo struct
-    it = IterInfo()
-
-    # C00: Create Logger struct
-    lr = Logger(query_case())
-
-    # C01: Perform DFT calculation (for the first time)
-    dft_run(it, lr)
-
-    # C02: Perform DFT calculation (for the second time)
-    if get_d("loptim")
-        dft_run(it, lr)
-    end
-
-    # C98: Close Logger.log
-    if isopen(lr.log)
-        flush(lr.log)
-        close(lr.log)
-    end
-
-    # C99: Close Logger.cycle
-    if isopen(lr.cycle)
-        flush(lr.cycle)
-        close(lr.cycle)
-    end
-end
-
-"""
     cycle1()
 
 Perform one-shot DFT + DMFT calculations. In other words, the charge
@@ -242,6 +205,43 @@ See also: [`cycle0`](@ref), [`cycle1`](@ref), [`go`](@ref).
 """
 function cycle2()
     sorry()
+end
+
+"""
+    cycle3()
+
+Perform DFT calculations only. If there are something wrong, then you
+have chance to adjust the DFT input files manually (for example, you
+can modify vasp_incar()/vasp.jl by yourself).
+
+See also: [`cycle1`](@ref), [`cycle2`](@ref), [`go`](@ref).
+"""
+function cycle3()
+    # C-1: Create IterInfo struct
+    it = IterInfo()
+
+    # C00: Create Logger struct
+    lr = Logger(query_case())
+
+    # C01: Perform DFT calculation (for the first time)
+    dft_run(it, lr)
+
+    # C02: Perform DFT calculation (for the second time)
+    if get_d("loptim")
+        dft_run(it, lr)
+    end
+
+    # C98: Close Logger.log
+    if isopen(lr.log)
+        flush(lr.log)
+        close(lr.log)
+    end
+
+    # C99: Close Logger.cycle
+    if isopen(lr.cycle)
+        flush(lr.cycle)
+        close(lr.cycle)
+    end
 end
 
 #
