@@ -558,7 +558,8 @@ export GetImpurity
 #
 # Summary:
 #
-# Tools for tackling with the self-energy functions.
+# Tools for treating the self-energy functions, hybridization functions,
+# and local impurity levels.
 #
 # Members:
 #
@@ -592,7 +593,7 @@ and speed up the later calculations.
 function __init__()
     prompt("ZEN", "Loading...")
 
-    # Get an array of the names exported by the `Zen` module
+    # Get an array of the names exported by the `ZenCore` module
     nl = names(ZenCore)
 
     # Go through each name
