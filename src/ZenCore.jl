@@ -207,6 +207,7 @@ export tetra_p_ek4
 # IterInfo -> Struct for DFT + DMFT iteration information.
 # Lattice  -> Struct for crystallography information.
 # Mapping  -> Struct for mapping between impurity problems and projectors.
+# Impurity -> Struct for quantum impurity problems.
 # PrTrait  -> Struct for projectors.
 # PrGroup  -> Struct for groups of projectors.
 # PrWindow -> Struct for band window.
@@ -222,6 +223,7 @@ export Logger
 export IterInfo
 export Lattice
 export Mapping
+export Impurity
 export PrTrait
 export PrGroup
 export PrWindow
