@@ -54,19 +54,13 @@ module ZenCore
 # Here we import `libm` explicitly to provide a callable interface for
 # the `erf` function. See `util.jl/erf()` for more details.
 #
-# Remarks 3:
-#
-# Actually, `Reexport` is not included in the standard library. It is
-# a third-party library.
-#
 
 using TOML
 using LinearAlgebra
 using Distributed
 using Dates
+using Printf
 using Base.Math: libm
-using Reexport
-@reexport using Printf
 
 #
 # global.jl
