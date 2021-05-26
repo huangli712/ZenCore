@@ -230,6 +230,7 @@ occup -> Impurity occupancy.\n
 upara -> Coulomb interaction parameter.\n
 jpara -> Hund's coupling parameter.\n
 lpara -> Spin-orbit coupling parameter.\n
+beta  -> Inverse temperature.\n
 nband -> Number of correlated orbitals (spin is not included).
 
 See also: [`Mapping`](@ref), [`PrGroup`](@ref).
@@ -244,6 +245,7 @@ mutable struct Impurity
     upara :: F64
     jpara :: F64
     lpara :: F64
+    beta  :: F64
     nband :: I64
 end
 
@@ -387,13 +389,13 @@ function Mapping(nsite::I64, ngrp::I64)
 end
 
 """
-    Impurity
+    Impurity(index::I64, ...)
 
 Outer constructor for Impurity struct.
 """
 function Impurity(index::I64, 
                   atoms::String, sites::I64, shell::String, ising::String,
-                  occup::F64, upara::F64, jpara::F64, lpara::F64)
+                  occup::F64, upara::F64, jpara::F64, lpara::F64, beta::F64)
     # Define the mapping between `shell` and number of orbitals
     shell_to_dim = Dict{String,I64}(
                  "s"     => 1,
@@ -408,7 +410,7 @@ function Impurity(index::I64,
     nband = shell_to_dim[shell]
 
     # Call the default constructor
-    Impurity(index, atoms, sites, shell, ising, occup, upara, jpara, lpara, nband)
+    Impurity(index, atoms, sites, shell, ising, occup, upara, jpara, lpara, beta, nband)
 end
 
 """
@@ -559,6 +561,28 @@ function Base.show(io::IO, map::Mapping)
     println(io, "i_wnd : ", map.i_wnd)
     println(io, "g_imp : ", map.g_imp)
     println(io, "w_imp : ", map.w_imp)
+end
+
+"""
+    Base.show(io::IO, imp::Impurity)
+
+Base.show() function for Impurity struct.
+
+See also: [`Impurity`](@ref).
+"""
+function Base.show(io::IO, imp::Impurity)
+    println(io, "Impurity struct")
+    println(io, "index : ", imp.index)
+    println(io, "atoms : ", imp.atoms)
+    println(io, "sites : ", imp.sites)
+    println(io, "shell : ", imp.shell)
+    println(io, "ising : ", imp.ising)
+    println(io, "occup : ", imp.occup)
+    println(io, "upara : ", imp.upara)
+    println(io, "jpara : ", imp.jpara)
+    println(io, "lpara : ", imp.lpara)
+    println(io, "beta  : ", imp.beta)
+    println(io, "nband : ", imp.nband)
 end
 
 """
