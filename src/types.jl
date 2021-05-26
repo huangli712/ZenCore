@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/05/01
+# Last modified: 2021/05/26
 #
 
 #
@@ -109,7 +109,7 @@ See also: [`PCASE`](@ref), [`PDFT`](@ref), [`PDMFT`](@ref), [`PIMP`](@ref).
 """
 const PSOLVER= Dict{String,Array{Any,1}}(
           "engine"   => [missing, 1, :String, "Name of quantum impurity solver"],
-          "params"   => [missing, 1, :Array , "Parameter sets of quantum impurity solver"],
+          "params"   => [missing, 1, :Array , "Additional parameter sets of quantum impurity solver"],
       )
 
 #
@@ -162,7 +162,7 @@ end
     Lattice
 
 Mutable struct. Contain the crystallography information. This struct is
-designed for the `POSCAR` file used by the vasp code.
+designed for the `POSCAR` file used by the `vasp` code.
 
 ## Members
 
@@ -200,18 +200,39 @@ of projectors.
 
 ## Members
 
-i_grp -> Mapping from impurity problems to groups of projectors.\n
-i_wnd -> Mapping from impurity problems to windows of dft bands.\n
-g_imp -> Mapping from groups of projectors to impurity problems.\n
-w_imp -> Mapping from windows of dft bands to impurity problems.
+i_grp -> Mapping from quntum impurity problems to groups of projectors.\n
+i_wnd -> Mapping from quantum impurity problems to windows of dft bands.\n
+g_imp -> Mapping from groups of projectors to quantum impurity problems.\n
+w_imp -> Mapping from windows of dft bands to quantum impurity problems.
 
-See also: [`PrGroup`](@ref).
+See also: [`Impurity`](@ref), [`PrGroup`](@ref).
 """
 mutable struct Mapping
     i_grp :: Array{I64,1}
     i_wnd :: Array{I64,1}
     g_imp :: Array{I64,1}
     w_imp :: Array{I64,1}
+end
+
+"""
+    Impurity
+
+Mutable struct. Essential information of quantum impurity problem.
+
+## Members
+
+See also: [`Mapping`](@ref), [`PrGroup`](@ref).
+"""
+mutable struct Impurity
+    index :: I64
+    atoms :: String
+    sites :: I64
+    shell :: String
+    ising :: String
+    occup :: F64
+    upara :: F64
+    jpara :: F64
+    lpara :: F64
 end
 
 """
