@@ -67,7 +67,7 @@ using Base.Math: libm
 #
 # Summary:
 #
-# Define type aliases and some string constants for the Zen framework.
+# Define type aliases and some string constants for the ZenCore package.
 #
 # Members:
 #
@@ -80,7 +80,7 @@ using Base.Math: libm
 # __VERSION__ -> Version of this package.
 # __RELEASE__ -> Released date of this package.
 # __AUTHORS__ -> Authors of this package.
-# authors     -> Print the authors of Zen to screen.
+# authors     -> Print the authors of ZenCore to screen.
 #
 include("global.jl")
 #

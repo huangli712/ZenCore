@@ -349,7 +349,7 @@ function welcome()
     @ps2 "ZZZZZZZZZZZZ EEEEEEEEEEEE NNNNNNNNNNNN  | "  :green "A Modern DFT + DMFT Computation Framework\n" :magenta
     @ps1 "          Z               N          N  |\n" :green
     @ps1 "         Z                N          N  |\n" :green
-    @ps2 "   ZZZZZZ    EEEEEEEEEEEE N          N  | "  :green "Library: $__LIBNAME__\n" :magenta
+    @ps2 "   ZZZZZZ    EEEEEEEEEEEE N          N  | "  :green "Package: $__LIBNAME__\n" :magenta
     @ps2 "  Z                       N          N  | "  :green "Version: $__VERSION__\n" :magenta
     @ps2 " Z                        N          N  | "  :green "Release: $__RELEASE__\n" :magenta
     @ps2 "ZZZZZZZZZZZZ EEEEEEEEEEEE N          N  | "  :green "Powered by the julia programming language\n" :magenta
