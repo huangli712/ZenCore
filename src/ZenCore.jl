@@ -29,7 +29,7 @@ Zen supports the following quantum impurity solvers:
 
 ZenCore implements the core library of the Zen computation framework. It
 connects various components of Zen, and drive them to work together. It
-provides an easy-to-use user and flexible user interface, and numerous
+provides an easy-to-use and flexible user interface, including numerous
 applications and tools.
 
 For more details about how to install and use the Zen framework and the
