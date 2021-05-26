@@ -525,6 +525,12 @@ export dmft_save
 # s_norg_init -> Prepare input files for the NORG impurity solver.
 # s_norg_exec -> Execute the NORG impurity solver.
 # s_norg_save -> Backup output files for the NORG impurity solver.
+# ctqmc_setup -> Prepare configuration parameters for CT-QMC impurity solver.
+# ctqmc_hyb_l -> Prepare hybridization function for CT-QMC impurity solver.
+# ctqmc_eimpx -> Prepare local impurity levels for CT-QMC impurity solver.
+# ctqmc_sig_l -> Return self-energy function by CT-QMC impurity solver.
+# ctqmc_nimpx -> Return impurity occupancy by CT-QMC impurity solver. 
+# GetImpurity -> Build Impurity struct according to configuration file.
 #
 include("solver.jl")
 #
@@ -544,6 +550,8 @@ export ctqmc_setup
 export ctqmc_hyb_l
 export ctqmc_sig_l
 export ctqmc_eimpx
+export ctqmc_nimpx
+export GetImpurity
 
 #
 # sigma.jl
@@ -618,7 +626,7 @@ function __init__()
         end
     end
 
-    prompt("ZEN", "Well, Zen is compiled and loaded ($cf functions).")
+    prompt("ZEN", "Well, ZenCore is compiled and loaded ($cf functions).")
     prompt("ZEN", "We are ready to go!")
     println()
 end
