@@ -234,8 +234,8 @@ end
     query_core()
 
 Query the src/core directory of Zen. Actually, the `ZEN_CORE` denotes
-the directory that contains the Zen.jl file. Be careful, ZEN_CORE must
-be included in LOAD_PATH.
+the directory that contains the ZenCore.jl file. Be careful, ZEN_CORE
+must be included in LOAD_PATH.
 
 See also: [`query_home`](@ref).
 """
