@@ -288,7 +288,7 @@ Tr     -> Array. It contains the transformation matrix. This parameter
           could be useful to select certain subset of orbitals or perform
           a simple global rotation.
 
-See also: [`PrTrait`](@ref), [`PrWindow`](@ref), [`Mapping`](@ref).
+See also: [`PrTrait`](@ref), [`PrWindow`](@ref), [`Mapping`](@ref), [`Impurity`](@ref).
 """
 mutable struct PrGroup
     site  :: I64
@@ -384,6 +384,31 @@ function Mapping(nsite::I64, ngrp::I64)
 
     # Call the default constructor
     Mapping(i_grp, i_wnd, g_imp, w_imp)
+end
+
+"""
+    Impurity
+
+Outer constructor for Impurity struct.
+"""
+function Impurity(index::I64, 
+                  atoms::String, sites::I64, shell::String, ising::String,
+                  occup::F64, upara::F64, jpara::F64, lpara::F64)
+    # Define the mapping between `shell` and number of orbitals
+    shell_to_dim = Dict{String,I64}(
+                 "s"     => 1,
+                 "p"     => 3,
+                 "d"     => 5,
+                 "f"     => 7,
+                 "d_t2g" => 3, # Only a subset of d orbitals
+                 "d_eg"  => 2, # Only a subset of d orbitals
+             )
+
+    # Determine number of orbitals of the quantum impurity problem
+    nband = shell_to_dim[shell]
+
+    # Call the default constructor
+    Impurity(index, atoms, sites, shell, ising, occup, upara, jpara, lpara, nband)
 end
 
 """
