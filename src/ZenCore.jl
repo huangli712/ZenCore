@@ -508,17 +508,17 @@ export dmft_save
 #
 # Summary:
 #
-# Wrapper for various quantum impurity solvers. Now only the CT-HYB1,
-# CT-HYB2, HIA, and NORG quantum impurity solvers are supported.
+# Wrapper for various quantum impurity solvers. Now only the CT-HYB₁,
+# CT-HYB₂, HIA, and NORG quantum impurity solvers are supported.
 #
 # Members:
 #
-# s_qmc1_init -> Prepare input files for the CT-HYB1 impurity solver.
-# s_qmc1_exec -> Execute the CT-HYB1 impurity solver.
-# s_qmc1_save -> Backup output files for the CT-HYB1 impurity solver.
-# s_qmc2_init -> Prepare input files for the CT-HYB2 impurity solver.
-# s_qmc2_exec -> Execute the CT-HYB2 impurity solver.
-# s_qmc2_save -> Backup output files for the CT-HYB2 impurity solver.
+# s_qmc1_init -> Prepare input files for the CT-HYB₁ impurity solver.
+# s_qmc1_exec -> Execute the CT-HYB₁ impurity solver.
+# s_qmc1_save -> Backup output files for the CT-HYB₁ impurity solver.
+# s_qmc2_init -> Prepare input files for the CT-HYB₂ impurity solver.
+# s_qmc2_exec -> Execute the CT-HYB₂ impurity solver.
+# s_qmc2_save -> Backup output files for the CT-HYB₂ impurity solver.
 # s_hub1_init -> Prepare input files for the HIA impurity solver.
 # s_hub1_exec -> Execute the HIA impurity solver.
 # s_hub1_save -> Backup output files for the HIA impurity solver.
