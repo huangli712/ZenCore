@@ -230,6 +230,7 @@ occup -> Impurity occupancy.\n
 upara -> Coulomb interaction parameter.\n
 jpara -> Hund's coupling parameter.\n
 lpara -> Spin-orbit coupling parameter.\n
+nband -> Number of correlated orbitals (spin is not included).
 
 See also: [`Mapping`](@ref), [`PrGroup`](@ref).
 """
@@ -243,6 +244,7 @@ mutable struct Impurity
     upara :: F64
     jpara :: F64
     lpara :: F64
+    nband :: I64
 end
 
 """
