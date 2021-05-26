@@ -244,6 +244,12 @@ function cycle3()
     end
 end
 
+function cycle4() end
+function cycle5() end
+function cycle6() end
+function cycle7() end
+function cycle8() end
+
 #
 # Service Functions
 #
