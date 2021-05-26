@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Stable
 #
-# Last modified: 2021/05/09
+# Last modified: 2021/05/26
 #
 
 """
@@ -64,7 +64,7 @@ Name of this julia package.
 
 See also: [`__VERSION__`](@ref).
 """
-const __LIBNAME__ = "ZEN Framework"
+const __LIBNAME__ = "ZenCore"
 
 """
     __VERSION__
@@ -73,7 +73,7 @@ Version of this julia package.
 
 See also: [`__RELEASE__`](@ref).
 """
-const __VERSION__ = v"0.1.2-devel.210509"
+const __VERSION__ = v"0.2.0-devel.210526"
 
 """
     __RELEASE__
