@@ -299,9 +299,9 @@ export str_s
 # ready       -> Prepare runtime environment for DFT + DMFT calculations.
 # go          -> Dispatcher for DFT + DMFT calculations.
 # final       -> Finalize the DFT + DMFT calculations.
-# cycle0      -> Perform DFT calculations only (for test purpose).
 # cycle1      -> Perform DFT + DMFT calculations (one-shot mode).
 # cycle2      -> Perform DFT + DMFT calculations (fully self-consistent mode).
+# cycle3      -> Perform DFT calculations only (for test purpose).
 # monitor     -> Monitor the DFT + DMFT calculations.
 # make_trees  -> Make working directories.
 # rm_trees    -> Remove working directories.
@@ -317,9 +317,9 @@ include("base.jl")
 export ready
 export go
 export final
-export cycle0
 export cycle1
 export cycle2
+export cycle3
 export monitor
 export make_trees
 export rm_trees
