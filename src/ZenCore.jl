@@ -301,7 +301,12 @@ export str_s
 # final       -> Finalize the DFT + DMFT calculations.
 # cycle1      -> Perform DFT + DMFT calculations (one-shot mode).
 # cycle2      -> Perform DFT + DMFT calculations (fully self-consistent mode).
-# cycle3      -> Perform DFT calculations only (for test purpose).
+# cycle3      -> Execute DFT engine only (for test purpose).
+# cycle4      -> Execute DMFT engine only (for test purpose).
+# cycle5      -> Execute quantum impurity solvers only (for test purpose).
+# cycle6      -> Execute Kohn-Sham adaptor only (for test purpose). 
+# cycle7      -> Execute self-energy engine only (for test purpose).
+# cycle8      -> Execute mixer engine only (for test purpose).
 # monitor     -> Monitor the DFT + DMFT calculations.
 # make_trees  -> Make working directories.
 # rm_trees    -> Remove working directories.
@@ -320,6 +325,11 @@ export final
 export cycle1
 export cycle2
 export cycle3
+export cycle4
+export cycle5
+export cycle6
+export cycle7
+export cycle8
 export monitor
 export make_trees
 export rm_trees
