@@ -38,7 +38,7 @@ See also: [`s_qmc1_init`](@ref), [`s_qmc1_save`](@ref).
 """
 function s_qmc1_exec(it::IterInfo)
     # Print the header
-    println("Engine : CT-HYB$(subscript(1))")
+    println("Engine : CT-HYB₁")
 
     # Get the home directory of quantum impurity solver
     solver_home = query_solver("ct_hyb1")
@@ -108,7 +108,7 @@ See also: [`s_qmc2_init`](@ref), [`s_qmc2_save`](@ref).
 """
 function s_qmc2_exec(it::IterInfo)
     # Print the header
-    println("Engine : CT-HYB$(subscript(2))")
+    println("Engine : CT-HYB₂")
 
     # Print the footer for a better visualization
     println()
