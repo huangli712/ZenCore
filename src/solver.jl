@@ -304,9 +304,6 @@ function ctqmc_hyb_l()
     end
 end
 
-function ctqmc_sig_l()
-end
-
 function ctqmc_eimpx()
     Eimpx = []
     cdim  = 0
@@ -369,4 +366,13 @@ function ctqmc_eimpx()
         end
         end
     end
+end
+
+function ctqmc_sig_l()
+end
+
+function ctqmc_nimpx()
+end
+
+function GetImpurity()
 end

@@ -548,8 +548,8 @@ export s_norg_exec
 export s_norg_save
 export ctqmc_setup
 export ctqmc_hyb_l
-export ctqmc_sig_l
 export ctqmc_eimpx
+export ctqmc_sig_l
 export ctqmc_nimpx
 export GetImpurity
 
