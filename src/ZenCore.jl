@@ -1,14 +1,14 @@
 #
 # Project : Pansy
-# Source  : Zen.jl
+# Source  : ZenCore.jl
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/04/23
+# Last modified: 2021/05/26
 #
 
 """
-    Zen
+    Zen and ZenCore
 
 Zen is a modern DFT + DMFT computation framework. It can be used to
 study the correlated electronic structures of a wide range of strongly
@@ -27,12 +27,16 @@ Zen supports the following quantum impurity solvers:
 * `HIA`
 * `NORG`
 
-For more details about how to install and use the Zen framework, please
-visit the following website:
+ZenCore implements the core library of the Zen computation framework. It
+connects various components of Zen, and drive them to work together. It
+provides an easy-to-use user and flexible user interface, and numerous
+applications and tools.
 
-`http://doc.zen`
+For more details about how to install and use the Zen framework and the
+ZenCore library, please visit the following website:
+* `http://doc.zen`
 """
-module Zen
+module ZenCore
 
 #
 # Using standard libraries
@@ -118,7 +122,7 @@ export authors
 # query_inps    -> Query input files.
 # query_stop    -> Query case.stop file.
 # query_home    -> Query home directory of Zen.
-# query_core    -> Query core directory of Zen (where is Zen.jl).
+# query_core    -> Query home directory of ZenCore (where is ZenCore.jl).
 # query_dft     -> Query home directory of DFT engine.
 # query_dmft    -> Query home directory of DMFT engine.
 # query_solver  -> Query home directory of quantum impurity solvers.
@@ -530,6 +534,10 @@ export s_hub1_save
 export s_norg_init
 export s_norg_exec
 export s_norg_save
+export ctqmc_setup
+export ctqmc_hyb_l
+export ctqmc_sig_l
+export ctqmc_eimpx
 
 #
 # sigma.jl
@@ -571,7 +579,7 @@ function __init__()
     prompt("ZEN", "Loading...")
 
     # Get an array of the names exported by the `Zen` module
-    nl = names(Zen)
+    nl = names(ZenCore)
 
     # Go through each name
     cf = 0 # Counter

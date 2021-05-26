@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/04/25
+# Last modified: 2021/05/25
 #
 
 """
@@ -67,7 +67,7 @@ function sigma_reset()
         push!(D, ndim)
 
         # Create a temporary array for self-energy function
-        S = zeros(C64, nmesh, ndim, ndim, nspin)
+        S = zeros(C64, ndim, ndim, nmesh, nspin)
 
         # Push S into SA to save it
         push!(SA, S)
@@ -100,7 +100,7 @@ function sigma_reset()
                     # There are 2 columns and ndim * ndim rows
                     for a = 1:D[i]
                         for b = 1:D[i]
-                            x = SA[i][m, b, a, s]
+                            x = SA[i][b, a, m, s]
                             @printf(fout, "%16.12f %16.12f\n", real(x), imag(x))
                         end
                     end
@@ -116,14 +116,14 @@ function sigma_reset()
 end
 
 """
-    sigma_dcount()
+    sigma_dcount(it::IterInfo)
 
 Calculate double counting terms for local self-energy functions and
 write them to `sigma.dc`.
 
 See also: [`sigma_reset`](@ref).
 """
-function sigma_dcount()
+function sigma_dcount(it::IterInfo)
     # Print the log
     println("Sigma : Dcount")
 
@@ -197,6 +197,12 @@ function sigma_dcount()
                 break
         end
 
+        # Special treatment for the first iteration
+        @show it
+        if it.dmft_cycle <= 1 && it.dmft1_iter <= 1
+            fill!(DC, 0.0)
+        end
+
         # Push DC into DCA to save it
         push!(DCA, DC)
     end
@@ -225,7 +231,11 @@ function sigma_dcount()
                 # numbers with zero imaginary parts.
                 for a = 1:D[i]
                     for b = 1:D[i]
-                        @printf(fout, "%16.12f %16.12f\n", DCA[i][b, a, s], 0.0)
+                        if a == b
+                            @printf(fout, "%16.12f %16.12f\n", DCA[i][b, a, s], 0.0)
+                        else
+                            @printf(fout, "%16.12f %16.12f\n", 0.0, 0.0)
+                        end
                     end
                 end
                 println(fout)
@@ -241,7 +251,7 @@ end
 """
     sigma_split()
 
-Split the hybridization functions (or similar local functions) and then
+Split the hybridization functions (and local impurity levels) and then
 distribute them into the `impurity.i` folder.
 
 See also: [`sigma_gather`](@ref).
@@ -249,6 +259,205 @@ See also: [`sigma_gather`](@ref).
 function sigma_split()
     # Print the log
     println("Sigma : Split")
+
+    # Declare the frequency mesh and hybridization function
+    fmesh = []
+    Delta = []
+    Eimpx = []
+    ndim  = []
+
+    # Filename for hybridization functions
+    fhyb = "dmft1/dmft.hyb_l"
+
+    # Make sure the existence of hybridization functions
+    @assert isfile(fhyb)
+
+    # Parse `fhyb`, extract the hybridization functions 
+    open(fhyb, "r") do fin
+
+        # Get the dimensional parameters
+        nsite = parse(I64, line_to_array(fin)[3])
+        nspin = parse(I64, line_to_array(fin)[3])
+        nmesh = parse(I64, line_to_array(fin)[3])
+        qdim = parse(I64, line_to_array(fin)[4])
+
+        # Skip two lines
+        readline(fin)
+        readline(fin)
+
+        # Create an array for frequency mesh
+        fmesh = zeros(F64, nmesh)
+
+        # Create an array for hybridization functions
+        Delta = zeros(C64, qdim, qdim, nmesh, nspin, nsite)
+        ndim = zeros(I64, nsite)
+
+        # Read the data
+        for t = 1:nsite
+            for s = 1:nspin
+                # Parse indices and dimensional parameter
+                strs = readline(fin)
+                _t = parse(I64, line_to_array(strs)[3])
+                _s = parse(I64, line_to_array(strs)[5])
+                cdim = parse(I64, line_to_array(strs)[7])
+                ndim[t] = cdim
+                @assert _t == t && _s == s
+                for m = 1:nmesh
+                    # Parse frequency mesh
+                    fmesh[m] = parse(F64, line_to_array(fin)[3])
+                    # Parse hybridization functions
+                    for q = 1:cdim
+                        for p = 1:cdim
+                            _re, _im = parse.(F64, line_to_array(fin)[3:4])
+                            Delta[p,q,m,s,t] = _re + _im * im
+                        end
+                    end
+                end
+                # Skip two lines
+                readline(fin)
+                readline(fin)
+            end
+        end
+
+    end
+
+    # Next, we are going to split the hybridization functions according
+    # to the quantum impurity problems
+
+    # Extract the dimensional parameters
+    _, qdim, nmesh, nspin, nsite = size(Delta)
+
+    # Go through each quantum impurity problems
+    for t = 1:nsite
+
+        # Determine filename for hybridization functions
+        fhyb = "impurity.$t/dmft.hyb_l"
+
+        # Write the data
+        open(fhyb, "w") do fout
+            # Write dimensional parameters
+            @printf(fout, "# nsite: %4i\n", nsite)
+            @printf(fout, "# nspin: %4i\n", nspin)
+            @printf(fout, "# nmesh: %4i\n", nmesh)
+            @printf(fout, "# qdim : %4i\n", qdim)
+
+            # Write separators
+            println(fout)
+            println(fout)
+
+            # Go through each spin
+            for s = 1:nspin
+                @printf(fout, "# site:%4i  spin:%4i  dims:%4i\n", t, s, ndim[t])
+                # Go through each frequency point
+                for m = 1:nmesh
+                    @printf(fout, "w:%6i%16.8f\n", m, fmesh[m])
+                    # Go through the orbital space
+                    for q = 1:ndim[t]
+                        for p = 1:ndim[t]
+                            z = Delta[p,q,m,s,t]
+                            @printf(fout, "%4i%4i%16.8f%16.8f\n", p, q, real(z), imag(z))
+                        end
+                    end
+                end
+                # Write separators
+                println(fout)
+                println(fout)
+            end
+        end
+
+    end
+
+    # Filename for local impurity levels
+    flev = "dmft1/dmft.eimpx"
+
+    # Make sure the existence of local impurity levels
+    @assert isfile(flev)
+
+    # Parse `flev`, extract the local impurity levels
+    open(flev, "r") do fin
+
+        # Get the dimensional parameters
+        nsite = parse(I64, line_to_array(fin)[3])
+        nspin = parse(I64, line_to_array(fin)[3])
+        qdim = parse(I64, line_to_array(fin)[4])
+
+        # Skip two lines
+        readline(fin)
+        readline(fin)
+
+        # Create an array for local impurity levels
+        Eimpx = zeros(C64, qdim, qdim, nspin, nsite)
+        ndim = zeros(I64, nsite)
+
+        # Read the data
+        for t = 1:nsite
+            for s = 1:nspin
+                # Parse indices and dimensional parameter
+                strs = readline(fin)
+                _t = parse(I64, line_to_array(strs)[3])
+                _s = parse(I64, line_to_array(strs)[5])
+                cdim = parse(I64, line_to_array(strs)[7])
+                ndim[t] = cdim
+                @assert _t == t && _s == s
+
+                # Parse local impurity levels
+                for q = 1:cdim
+                    for p = 1:cdim
+                        _re, _im = parse.(F64, line_to_array(fin)[3:4])
+                        Eimpx[p,q,s,t] = _re + _im * im
+                    end
+                end
+
+                # Skip two lines
+                readline(fin)
+                readline(fin)
+            end
+        end
+    end
+
+    # Next, we are going to split the local impurity levels according
+    # to the quantum impurity problems
+
+    # Extract the dimensional parameters
+    _, qdim, nspin, nsite = size(Eimpx)
+
+    # Go through each quantum impurity problems
+    for t = 1:nsite
+
+        # Determine filename for local impurity levels
+        flev = "impurity.$t/dmft.eimpx"
+
+        # Write the data
+        open(flev, "w") do fout
+            # Write dimensional parameters
+            @printf(fout, "# nsite: %4i\n", nsite)
+            @printf(fout, "# nspin: %4i\n", nspin)
+            @printf(fout, "# qdim : %4i\n", qdim)
+
+            # Write separators
+            println(fout)
+            println(fout)
+
+            # Go through each spin
+            for s = 1:nspin
+                # Write dimensional parameters
+                @printf(fout, "# site:%4i  spin:%4i  dims:%4i\n", t, s, ndim[t])
+
+                # Go through the orbital space
+                for q = 1:ndim[t]
+                    for p = 1:ndim[t]
+                        z = Eimpx[p,q,s,t]
+                        @printf(fout, "%4i%4i%16.8f%16.8f\n", p, q, real(z), imag(z))
+                    end
+                end
+
+                # Write separators
+                println(fout)
+                println(fout)
+            end
+        end
+
+    end
 
     # Print blank line for better visualization
     println()
