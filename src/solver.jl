@@ -336,6 +336,8 @@ See also: [`ctqmc_hyb_l`](@ref).
 function ctqmc_eimpx(Eimpx::Array{C64,3})
     _, nband, nspin = size(Eimpx)
 
+    GetSymmetry(Eimpx)
+
     open("solver.eimp.in", "w") do fout
         for s = 1:nspin
             for p = 1:nband
