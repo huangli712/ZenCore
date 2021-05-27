@@ -293,6 +293,76 @@ end
 See also: [`ctqmc_eimpx`](@ref).
 """
 function ctqmc_hyb_l()
+    _, nband, nmesh, nspin = size(Delta)
+    @assert nband >= cdim
+
+    open("solver.hyb.in", "w") do fout
+        for s = 1:nspin
+            for p = 1:cdim
+                orb = (s - 1) * cdim + p
+                for m = 1:nmesh
+                    z = Delta[p,p,m,s]
+                    @printf(fout, "%6i%16.8f%16.8f%16.8f%16.8f%16.8f\n", orb, fmesh[m], real(z), imag(z), 0.0, 0.0)
+                end
+                println(fout)
+                println(fout)
+            end
+        end
+
+        if nspin == 1
+        for s = 1:nspin
+            for p = 1:cdim
+                orb = (2 - 1) * cdim + p
+                for m = 1:nmesh
+                    z = Delta[p,p,m,s]
+                    @printf(fout, "%6i%16.8f%16.8f%16.8f%16.8f%16.8f\n", orb, fmesh[m], real(z), imag(z), 0.0, 0.0)
+                end
+                println(fout)
+                println(fout)
+            end
+        end
+        end
+    end
+end
+
+function ctqmc_eimpx()
+    _, nband, nspin = size(Eimpx)
+    @assert nband >= cdim
+
+    open("solver.eimp.in", "w") do fout
+        for s = 1:nspin
+            for p = 1:cdim
+                orb = (s - 1) * cdim + p
+                z = Eimpx[p, p, s]
+                @printf(fout, "%4i%16.8f%4i\n", orb, real(z), orb)
+            end
+        end
+
+        if nspin == 1
+        for s = 1:nspin
+            for p = 1:cdim
+                orb = (2 - 1) * cdim + p
+                z = Eimpx[p, p, s]
+                @printf(fout, "%4i%16.8f%4i\n", orb, real(z), orb)
+            end
+        end
+        end
+    end
+end
+
+function ctqmc_sig_l()
+end
+
+function ctqmc_nimpx()
+end
+
+#
+# Service Functions
+#
+
+"""
+"""
+function GetHyb_l()
     fmesh = []
     Delta = []
     cdim  = 0
@@ -336,40 +406,11 @@ function ctqmc_hyb_l()
             readline(fin)
         end
     end
-
-    _, nband, nmesh, nspin = size(Delta)
-    @assert nband >= cdim
-
-    open("solver.hyb.in", "w") do fout
-        for s = 1:nspin
-            for p = 1:cdim
-                orb = (s - 1) * cdim + p
-                for m = 1:nmesh
-                    z = Delta[p,p,m,s]
-                    @printf(fout, "%6i%16.8f%16.8f%16.8f%16.8f%16.8f\n", orb, fmesh[m], real(z), imag(z), 0.0, 0.0)
-                end
-                println(fout)
-                println(fout)
-            end
-        end
-
-        if nspin == 1
-        for s = 1:nspin
-            for p = 1:cdim
-                orb = (2 - 1) * cdim + p
-                for m = 1:nmesh
-                    z = Delta[p,p,m,s]
-                    @printf(fout, "%6i%16.8f%16.8f%16.8f%16.8f%16.8f\n", orb, fmesh[m], real(z), imag(z), 0.0, 0.0)
-                end
-                println(fout)
-                println(fout)
-            end
-        end
-        end
-    end
 end
 
-function ctqmc_eimpx()
+"""
+"""
+function GetEimpx()
     Eimpx = []
     cdim  = 0
 
@@ -408,45 +449,6 @@ function ctqmc_eimpx()
         end
 
     end
-
-    _, nband, nspin = size(Eimpx)
-    @assert nband >= cdim
-
-    open("solver.eimp.in", "w") do fout
-        for s = 1:nspin
-            for p = 1:cdim
-                orb = (s - 1) * cdim + p
-                z = Eimpx[p, p, s]
-                @printf(fout, "%4i%16.8f%4i\n", orb, real(z), orb)
-            end
-        end
-
-        if nspin == 1
-        for s = 1:nspin
-            for p = 1:cdim
-                orb = (2 - 1) * cdim + p
-                z = Eimpx[p, p, s]
-                @printf(fout, "%4i%16.8f%4i\n", orb, real(z), orb)
-            end
-        end
-        end
-    end
-end
-
-function ctqmc_sig_l()
-end
-
-function ctqmc_nimpx()
-end
-
-#
-# Service Functions
-#
-
-function GetHyb_l()
-end
-
-function GetEimpx()
 end
 
 function GetSig_l()
