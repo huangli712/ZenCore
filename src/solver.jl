@@ -361,6 +361,8 @@ the `sigma.bare` file, which is essential for the DMFT engine.
 See also: [`Impurity`](@ref), [`GetSig_l`](@ref).
 """
 function ctqmc_sig_l(imp::Impurity)
+    # File name for self-energy functions
+    fnmat = "solver.nmat.dat"
 end
 
 """
