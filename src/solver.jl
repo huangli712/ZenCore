@@ -451,14 +451,26 @@ function GetEimpx()
     end
 end
 
+"""
+"""
 function GetSig_l()
 end
 
-function GetNimpx()
+"""
+    GetNimpx(imp::Impurity)
+
+Extract impurity occupancy from the output files of various quantum
+impurity solvers. Then the field `occup` in Impurity struct will be
+updated, which will then be used to update the double counting term
+for self-energy functions.
+
+See also: [`Impurity`](@ref), [`ctqmc_nimpx`](@ref).
+"""
+function GetNimpx(imp::Impurity)
 end
 
 #
-# Service Functions
+# Service Functions: For Impurity Problems
 #
 
 """
