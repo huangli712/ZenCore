@@ -287,6 +287,11 @@ See also: [`Impurity`](@ref), [`ctqmc_setup`](@ref).
 function ctqmc_atomx(imp::Impurity)
 end
 
+"""
+    ctqmc_hyb_l()
+
+See also: [`ctqmc_eimpx`](@ref).
+"""
 function ctqmc_hyb_l()
     fmesh = []
     Delta = []
