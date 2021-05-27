@@ -326,7 +326,12 @@ function ctqmc_hyb_l()
 end
 
 """
+    ctqmc_eimpx(Eimpx::Array{C64,3})
 
+Write the local impurity levels to the `solver.eimp.in` file, which is
+suitable for the CT-QMC quantum impurity solver.
+
+See also: [`ctqmc_hyb_l`](@ref).
 """
 function ctqmc_eimpx(Eimpx::Array{C64,3})
     _, nband, nspin = size(Eimpx)
