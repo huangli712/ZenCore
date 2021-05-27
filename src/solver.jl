@@ -423,8 +423,8 @@ function GetEimpx(imp::Impurity)
     @assert dirvect[1] == "impurity"
     @assert parse(I64, dirvect[2]) == imp.index
 
+    # Declare an empty array for local impurity levels 
     Eimpx = []
-    cdim  = 0
 
     open("dmft.eimpx", "r") do fin
     
