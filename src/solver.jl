@@ -377,14 +377,17 @@ end
 """
     GetImpurity()
 
+Return an array of Impurity struct, which encapsulates useful information
+about the quantum impurity problems.
+  
 See also: [`Impurity`](@ref).
 """
 function GetImpurity()
     AI = Impurity[]
 
     for i = 1:get_i("nsite")
-        index = i
         str = get_i("atoms")[i]
+        index = i
         atoms = String(line_to_array(str)[1])
         sites = parse(I64, line_to_array(str)[3])
         shell = get_i("shell")[i]
