@@ -417,6 +417,12 @@ by sigma_split(). The data are essential for quantum impurity solvers.
 See also: [`Impurity`](@ref).
 """
 function GetEimpx(imp::Impurity)
+    # Examine the current directory
+    dirname = basename(pwd())
+    dirvect = split(dirname, ".")
+    @assert dirvect[1] == "impurity"
+    @assert parse(I64, dirvect[2]) == imp.index
+
     Eimpx = []
     cdim  = 0
 
