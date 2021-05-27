@@ -288,9 +288,10 @@ function cycle5()
     # C00: Create Logger struct
     lr = Logger(query_case())
 
-    GetImpurity()
+    # C01: Initialize the quantum impurity problems
+    ai = GetImpurity()
 
-    # C01: Execuate the quantum impurity solvers
+    # C02: Execuate the quantum impurity solvers
     solver_run(it, lr)
 
     # C98: Close Logger.log
