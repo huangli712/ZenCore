@@ -228,8 +228,6 @@ function ctqmc_setup(imp::Impurity)
     # File name of configuration file
     fctqmc = "solver.ctqmc.in"
 
-    println(get_s("params"))
-
     # Extract parameters from `Impurity` struct 
     #
     # mune is fixed to zero, because the chemical potential is adsorbed
@@ -251,28 +249,29 @@ function ctqmc_setup(imp::Impurity)
         println(fout)
 
         # Print the standard parameters
-        println(fout, "# Standard  parameters: Running mode")
+        println(fout, "# Standard parameters: Running mode")
         println(fout, "isscf = 1")
         println(fout)
         #
-        println(fout, "# Standard  parameters: System's size")
+        println(fout, "# Standard parameters: System's size")
         println(fout, "nband = $nband")
         println(fout, "norbs = $norbs")
         println(fout, "ncfgs = $ncfgs")
         println(fout)
         #
-        println(fout, "# Standard  parameters: Interaction")
+        println(fout, "# Standard parameters: Interaction")
         println(fout, "Uc    = $Uc")
         println(fout, "Jz    = $Jz")
         println(fout)
         #
-        println(fout, "# Standard  parameters: Others")
+        println(fout, "# Standard parameters: Others")
         println(fout, "mune  = $mune")
         println(fout, "beta  = $beta")
         println(fout)
 
         # Print the user-supplied parameters
         println(fout, "# Auxiliary parameters: By users")
+        foreach(x -> println(fout, x), get_s("params"))
 
     end
 end
