@@ -304,7 +304,7 @@ export str_s
 # cycle3      -> Execute DFT engine only (for testing purpose).
 # cycle4      -> Execute DMFT engine only (for testing purpose).
 # cycle5      -> Execute quantum impurity solvers only (for testing purpose).
-# cycle6      -> Execute Kohn-Sham adaptor only (for testing purpose). 
+# cycle6      -> Execute Kohn-Sham adaptor only (for testing purpose).
 # cycle7      -> Execute self-energy engine only (for testing purpose).
 # cycle8      -> Execute mixer engine only (for testing purpose).
 # monitor     -> Monitor the DFT + DMFT calculations.
@@ -530,7 +530,7 @@ export dmft_save
 # ctqmc_hyb_l -> Prepare hybridization function for CT-QMC impurity solver.
 # ctqmc_eimpx -> Prepare local impurity levels for CT-QMC impurity solver.
 # ctqmc_sig_l -> Return self-energy function by CT-QMC impurity solver.
-# ctqmc_nimpx -> Return impurity occupancy by CT-QMC impurity solver. 
+# ctqmc_nimpx -> Return impurity occupancy by CT-QMC impurity solver.
 # GetHyb_l    -> Parse the hybridization functions.
 # GetEimpx    -> Parse the local impurity levels.
 # GetSig_l    -> Parse the self-energy functions.

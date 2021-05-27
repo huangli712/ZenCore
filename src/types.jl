@@ -393,7 +393,7 @@ end
 
 Outer constructor for Impurity struct.
 """
-function Impurity(index::I64, 
+function Impurity(index::I64,
                   atoms::String, sites::I64, shell::String, ising::String,
                   occup::F64, upara::F64, jpara::F64, lpara::F64, beta::F64)
     # Define the mapping between `shell` and number of orbitals

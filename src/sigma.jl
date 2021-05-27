@@ -272,7 +272,7 @@ function sigma_split()
     # Make sure the existence of hybridization functions
     @assert isfile(fhyb)
 
-    # Parse `fhyb`, extract the hybridization functions 
+    # Parse `fhyb`, extract the hybridization functions
     open(fhyb, "r") do fin
 
         # Get the dimensional parameters

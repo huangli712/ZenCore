@@ -175,7 +175,7 @@ function plo_map(PG::Array{PrGroup,1})
     # Setup Map.i_wnd and Map.w_imp
     Map.i_wnd[:] = Map.i_grp[:]
     Map.w_imp[:] = Map.g_imp[:]
-    
+
     # Return the desired struct
     return Map
 end
