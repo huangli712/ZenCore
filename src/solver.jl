@@ -472,13 +472,14 @@ function GetSig_l(imp::Impurity)
 
     # Activate the corresponding solver_sig_l() functions for various
     # quantum impurity solvers
+    sig_l = nothing
     @cswitch engine begin
         @case "ct_hyb1"
-            ctqmc_nimpx(imp)
+            sig_l = ctqmc_sig_l(imp)
             break
 
         @case "ct_hyb2"
-            ctqmc_nimpx(imp)
+            sig_l = ctqmc_sig_l(imp)
             break
 
         @case "hub1"
@@ -496,6 +497,9 @@ function GetSig_l(imp::Impurity)
 
     # Enter the parent directory
     cd("..")
+
+    # Return the desired array
+    return sig_l
 end
 
 """
