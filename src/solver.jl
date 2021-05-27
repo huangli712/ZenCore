@@ -443,6 +443,22 @@ end
 # Service Functions
 #
 
+function GetHyb_l()
+end
+
+function GetEimpx()
+end
+
+function GetSig_l()
+end
+
+function GetNimpx()
+end
+
+#
+# Service Functions
+#
+
 """
     GetImpurity()
 
