@@ -359,6 +359,11 @@ end
 Parse the `solver.nmat.dat` file to extract the impurity occupancy. Then
 the field `occup` in Impurity struct will be updated.
 
+In this function, only the total impurity occupancy of the current site
+is return. However, sometimes we need to known the spin-up and spin-down
+components. Later, we will expand the Impurity struct and this function
+to fulfill this requirement. 
+
 See also: [`Impurity`](@ref).
 """
 function ctqmc_nimpx(imp::Impurity)
