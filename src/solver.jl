@@ -728,6 +728,9 @@ end
 # Service Functions: For Impurity Problems
 #
 
+function GetSymmetry(Eimpx::Array{C64,3})
+end
+
 """
     GetImpurity()
 
