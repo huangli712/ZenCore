@@ -211,6 +211,19 @@ function s_norg_save(it::IterInfo)
     sorry()
 end
 
+#
+# Service Functions
+#
+
+"""
+    ctqmc_setup(imp::Impurity)
+
+Generate configuration file (`solver.ctqmc.in`) for CT-QMC quantum
+impurity solvers automatically (according to the information encoded
+in the Impurity struct).
+
+See also: [`Impurity`](@ref).
+"""
 function ctqmc_setup()
     open("solver.ctqmc.in", "w") do fout
         println(fout, "isscf = 1")
