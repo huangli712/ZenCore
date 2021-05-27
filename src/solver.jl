@@ -335,12 +335,11 @@ See also: [`ctqmc_hyb_l`](@ref).
 """
 function ctqmc_eimpx(Eimpx::Array{C64,3})
     _, nband, nspin = size(Eimpx)
-    @assert nband >= cdim
 
     open("solver.eimp.in", "w") do fout
         for s = 1:nspin
-            for p = 1:cdim
-                orb = (s - 1) * cdim + p
+            for p = 1:nband
+                orb = (s - 1) * nband + p
                 z = Eimpx[p, p, s]
                 @printf(fout, "%4i%16.8f%4i\n", orb, real(z), orb)
             end
@@ -348,8 +347,8 @@ function ctqmc_eimpx(Eimpx::Array{C64,3})
 
         if nspin == 1
         for s = 1:nspin
-            for p = 1:cdim
-                orb = (2 - 1) * cdim + p
+            for p = 1:nband
+                orb = (2 - 1) * nband + p
                 z = Eimpx[p, p, s]
                 @printf(fout, "%4i%16.8f%4i\n", orb, real(z), orb)
             end
@@ -728,7 +727,11 @@ end
 # Service Functions: For Impurity Problems
 #
 
+"""
+    GetSymmetry(Eimpx::Array{C64,3})
+"""
 function GetSymmetry(Eimpx::Array{C64,3})
+    sorry()
 end
 
 """
