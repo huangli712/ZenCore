@@ -382,4 +382,23 @@ See also: [`Impurity`](@ref).
 function GetImpurity()
     println("here")
 
+    AI = Impurity[]
+
+    for i = 1:get_i("nsite")
+        index = i
+        str = get_i("atoms")[i]
+        atoms = line_to_array(str)[1]
+        sites = parse(I64, line_to_array(str)[3])
+        shell = get_i("shell")[i]
+        ising = get_i("ising")[i]
+        occup = get_i("occup")[i]
+        upara = get_i("upara")[i]
+        jpara = get_i("jpara")[i]
+        lpara = get_i("lpara")[i]
+        beta  = get_d("beta")
+
+        Im = Impurity(index, atoms, sites, shell, ising, occup, upara, jpara, lpara, beta)
+
+        push!(AI, Im)
+    end
 end
