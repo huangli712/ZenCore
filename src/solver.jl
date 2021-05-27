@@ -224,7 +224,8 @@ in the Impurity struct).
 
 See also: [`Impurity`](@ref).
 """
-function ctqmc_setup()
+function ctqmc_setup(imp::Impurity)
+
     open("solver.ctqmc.in", "w") do fout
         println(fout, "isscf = 1")
         println(fout, "isspn = 1")
