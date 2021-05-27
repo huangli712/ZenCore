@@ -394,7 +394,8 @@ function GetHyb_l(imp::Impurity)
         nsite = parse(I64, line_to_array(fin)[3])
         nspin = parse(I64, line_to_array(fin)[3])
         nmesh = parse(I64, line_to_array(fin)[3])
-        qdim = parse(I64, line_to_array(fin)[4])
+        qdim  = parse(I64, line_to_array(fin)[4])
+        @assert qdim ≥ nband
 
         # Skip two lines
         readline(fin)
@@ -404,7 +405,7 @@ function GetHyb_l(imp::Impurity)
         fmesh = zeros(F64, nmesh)
 
         # Create an array for hybridization functions
-        Delta = zeros(C64, qdim, qdim, nmesh, nspin)
+        Delta = zeros(C64, nband, nband, nmesh, nspin)
 
         for s = 1:nspin
             strs = readline(fin)
