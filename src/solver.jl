@@ -472,6 +472,8 @@ impurity solvers. Then the field `occup` in Impurity struct will be
 updated, which will then be used to update the double counting term
 for self-energy functions.
 
+The argument `imp` will be modified in this function.
+
 See also: [`Impurity`](@ref), [`ctqmc_nimpx`](@ref).
 """
 function GetNimpx(imp::Impurity)
@@ -494,7 +496,7 @@ function GetImpurity()
     # Initialize an array of Impurity struct
     AI = Impurity[]
 
-    # Go through each quantum impurity problems
+    # Go through each quantum impurity problem
     for i = 1:get_i("nsite")
 
         # Extract essential parameters
