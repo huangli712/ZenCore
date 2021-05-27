@@ -228,6 +228,8 @@ function ctqmc_setup(imp::Impurity)
     # File name of configuration file
     fctqmc = "solver.ctqmc.in"
 
+    println(get_s("params"))
+
     # Extract parameters from `Impurity` struct 
     #
     # mune is fixed to zero, because the chemical potential is adsorbed
