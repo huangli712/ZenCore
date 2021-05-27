@@ -461,7 +461,14 @@ Then they will be fed back to the DMFT engine.
 See also: [`Impurity`](@ref), [`ctqmc_sig_l`](@ref).
 """
 function GetSig_l(imp::Impurity)
-    sorry()
+    # Get the index for current quantum impurity problem
+    index = imp.index
+
+    # Change the directory
+    cd("impurity.$index")
+
+    # Determine the chosen solver
+    engine = get_s("engine")
 end
 
 """
