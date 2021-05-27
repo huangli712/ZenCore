@@ -385,7 +385,16 @@ function ctqmc_sig_l(imp::Impurity)
 
     # Parse the data file for the self-energy functions
     open(fsgm, "r") do fin
-        
+        for s = 1:nspin
+            for b = 1:nband
+                for m = 1:nmesh
+                end # END OF M LOOP
+
+                # Skip two lines
+                readline(fin)
+                readline(fin)
+            end # END OF B LOOP
+        end # END OF S LOOP
     end
 end
 
