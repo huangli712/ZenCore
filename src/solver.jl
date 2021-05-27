@@ -362,7 +362,11 @@ See also: [`Impurity`](@ref), [`GetSig_l`](@ref).
 """
 function ctqmc_sig_l(imp::Impurity)
     # File name for self-energy functions
-    fnmat = "solver.nmat.dat"
+    fsgm = "solver.sgm.dat"
+
+    # To make sure the data file is present
+    @assert isfile(fsgm)
+
 end
 
 """
