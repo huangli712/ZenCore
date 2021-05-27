@@ -248,25 +248,29 @@ function ctqmc_setup(imp::Impurity)
         println(fout, "# PLEASE DO NOT MODIFY IT MANUALLY!")
         println(fout)
 
+        # Print the standard parameters
         println(fout, "# Standard  parameters: Running mode")
         println(fout, "isscf = 1")
         println(fout)
-
+        #
         println(fout, "# Standard  parameters: System's size")
         println(fout, "nband = $nband")
         println(fout, "norbs = $norbs")
         println(fout, "ncfgs = $ncfgs")
         println(fout)
-
+        #
         println(fout, "# Standard  parameters: Interaction")
         println(fout, "Uc    = $Uc")
         println(fout, "Jz    = $Jz")
         println(fout)
-
+        #
         println(fout, "# Standard  parameters: Others")
         println(fout, "mune  = $mune")
         println(fout, "beta  = $beta")
         println(fout)
+
+        # Print the user-supplied parameters
+        println(fout, "# User's parameters")
 
     end
 end
