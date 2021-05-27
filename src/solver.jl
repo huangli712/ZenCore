@@ -222,7 +222,7 @@ Generate configuration file (`solver.ctqmc.in`) for CT-QMC quantum
 impurity solvers automatically (according to the information encoded
 in the Impurity struct).
 
-See also: [`Impurity`](@ref).
+See also: [`Impurity`](@ref), [`ctqmc_atomx`](@ref).
 """
 function ctqmc_setup(imp::Impurity)
     # File name of configuration file
@@ -279,6 +279,11 @@ function ctqmc_setup(imp::Impurity)
     end
 end
 
+"""
+    ctqmc_atomx(imp::Impurity)
+
+See also: [`Impurity`](@ref), [`ctqmc_setup`](@ref).
+"""
 function ctqmc_atomx(imp::Impurity)
 end
 
