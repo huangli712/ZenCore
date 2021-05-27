@@ -249,7 +249,27 @@ to see whether the DMFT engine works properly.
 
 See also: [`cycle1`](@ref), [`cycle2`](@ref).
 """
-function cycle4()
+function cycle4(task::I64)
+    # C-1: Create IterInfo struct
+    it = IterInfo()
+
+    # C00: Create Logger struct
+    lr = Logger(query_case())
+
+    # C01: Execuate the DMFT engine
+    dmft_run(it, lr, task)
+
+    # C98: Close Logger.log
+    if isopen(lr.log)
+        flush(lr.log)
+        close(lr.log)
+    end
+
+    # C99: Close Logger.cycle
+    if isopen(lr.cycle)
+        flush(lr.cycle)
+        close(lr.cycle)
+    end
 end
 
 function cycle5() end
