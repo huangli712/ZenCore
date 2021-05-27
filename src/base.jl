@@ -506,6 +506,9 @@ function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
         # Determine the chosen solver
         engine = get_s("engine")
 
+        # Extract the Impurity strcut
+        imp = ai[i]
+
         # Print the log
         prompt("Solvers")
         prompt(lr.log, engine)
@@ -516,7 +519,7 @@ function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
         # Activate the chosen quantum impurity solver
         @cswitch engine begin
             @case "ct_hyb1"
-                s_qmc1_init(it)
+                s_qmc1_init(it, imp)
                 s_qmc1_exec(it)
                 s_qmc1_save(it)
                 break
