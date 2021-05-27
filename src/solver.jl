@@ -270,7 +270,7 @@ function ctqmc_setup(imp::Impurity)
         println(fout)
 
         # Print the user-supplied parameters
-        println(fout, "# User's parameters")
+        println(fout, "# Auxiliary parameters: By users")
 
     end
 end
