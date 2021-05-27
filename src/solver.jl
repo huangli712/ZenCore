@@ -409,8 +409,14 @@ function GetHyb_l()
 end
 
 """
+    GetEimpx(imp::Impurity)
+
+Extract local impurity levels from `dmft.eimpx` file, which is generated
+by sigma_split(). The data are essential for quantum impurity solvers.
+
+See also: [`Impurity`](@ref).
 """
-function GetEimpx()
+function GetEimpx(imp::Impurity)
     Eimpx = []
     cdim  = 0
 
