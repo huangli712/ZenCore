@@ -388,6 +388,8 @@ function GetImpurity()
 
     # Go through each quantum impurity problems
     for i = 1:get_i("nsite")
+
+        # Extract essential parameters
         str = get_i("atoms")[i]
         index = i
         atoms = String(line_to_array(str)[1])
@@ -399,12 +401,15 @@ function GetImpurity()
         jpara = get_i("jpara")[i]
         lpara = get_i("lpara")[i]
         beta  = get_m("beta")
-        println(typeof(atoms))
 
+        # Call the constructor
         Im = Impurity(index, atoms, sites, shell, ising, occup, upara, jpara, lpara, beta)
 
+        # Save Im in AI
         push!(AI, Im)
+
     end
 
+    # Return the desired array
     return AI
 end
