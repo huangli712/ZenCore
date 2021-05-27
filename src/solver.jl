@@ -362,7 +362,7 @@ end
 
 """
 """
-function GetHyb_l()
+function GetHyb_l(imp::Impurity)
     fmesh = []
     Delta = []
     cdim  = 0
