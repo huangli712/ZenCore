@@ -407,27 +407,44 @@ function GetHyb_l(imp::Impurity)
         # Create an array for hybridization functions
         Delta = zeros(C64, nband, nband, nmesh, nspin)
 
+        # Go through each spin orientation
         for s = 1:nspin
+
+            # Analyze the important parameters
             strs = readline(fin)
             _t = parse(I64, line_to_array(strs)[3])
             _s = parse(I64, line_to_array(strs)[5])
-            cdim = parse(I64, line_to_array(strs)[7])
-            @assert _t == 1 && _s == s
+            _d = parse(I64, line_to_array(strs)[7])
+            @assert _t == index
+            @assert _s == s
+            @assert _d == nband
+
+            # Go through each frequency point
             for m = 1:nmesh
+
+                # Extract frequency
                 fmesh[m] = parse(F64, line_to_array(fin)[3])
-                # Parse hybridization functions
-                for q = 1:cdim
-                    for p = 1:cdim
+
+                # Parse the hybridization functions
+                for q = 1:nband
+                    for p = 1:nband
                         _re, _im = parse.(F64, line_to_array(fin)[3:4])
                         Delta[p,q,m,s] = _re + _im * im
                     end
                 end
-            end
+
+            end # END OF M LOOP
+
             # Skip two lines
             readline(fin)
             readline(fin)
-        end
+
+        end # END OF S LOOP
+
     end
+
+    # Return the desired arrays
+    return (fmesh, Delta)
 end
 
 """
