@@ -477,7 +477,14 @@ The argument `imp` will be modified in this function.
 See also: [`Impurity`](@ref), [`ctqmc_nimpx`](@ref).
 """
 function GetNimpx(imp::Impurity)
-    sorry()
+    # Get the index for current quantum impurity problem
+    index = imp.index
+
+    # Change the directory
+    cd("impurity.$index")
+
+    # Enter the parent directory
+    cd("..")
 end
 
 #
