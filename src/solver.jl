@@ -346,13 +346,13 @@ function ctqmc_eimpx(Eimpx::Array{C64,3})
         end
 
         if nspin == 1
-        for s = 1:nspin
-            for p = 1:nband
-                orb = (2 - 1) * nband + p
-                z = Eimpx[p, p, s]
-                @printf(fout, "%4i%16.8f%4i\n", orb, real(z), orb)
+            for s = 1:nspin
+                for p = 1:nband
+                    orb = (2 - 1) * nband + p
+                    z = Eimpx[p, p, s]
+                    @printf(fout, "%4i%16.8f%4i\n", orb, real(z), orb)
+                end
             end
-        end
         end
     end
 end
