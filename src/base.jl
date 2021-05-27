@@ -292,7 +292,7 @@ function cycle5()
     ai = GetImpurity()
 
     # C02: Execuate the quantum impurity solvers
-    solver_run(it, lr)
+    solver_run(it, lr, ai)
 
     # C98: Close Logger.log
     if isopen(lr.log)
