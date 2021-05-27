@@ -417,35 +417,46 @@ by sigma_split(). The data are essential for quantum impurity solvers.
 See also: [`Impurity`](@ref).
 """
 function GetEimpx(imp::Impurity)
+    # Get index of the quantum impurity problem
+    index = imp.index
+
+    # Get number of orbitals for the quantum impurity problem
+    nband = imp.nband
+
     # Examine the current directory
     dirname = basename(pwd())
     dirvect = split(dirname, ".")
     @assert dirvect[1] == "impurity"
-    @assert parse(I64, dirvect[2]) == imp.index
+    @assert parse(I64, dirvect[2]) == index
 
     # Declare an empty array for local impurity levels 
     Eimpx = []
 
+    # Parse the `dmft.eimpx` file
     open("dmft.eimpx", "r") do fin
     
         # Get the dimensional parameters
         nsite = parse(I64, line_to_array(fin)[3])
         nspin = parse(I64, line_to_array(fin)[3])
-        qdim = parse(I64, line_to_array(fin)[4])
+        qdim  = parse(I64, line_to_array(fin)[4])
+        @assert qdim ≥ nband
 
         # Skip two lines
         readline(fin)
         readline(fin)
 
         # Create an array for local impurity levels
-        Eimpx = zeros(C64, qdim, qdim, nspin)
+        Eimpx = zeros(C64, nband, nband, nspin)
 
+        # Go through each spin orientation
         for s = 1:nspin
             strs = readline(fin)
             _t = parse(I64, line_to_array(strs)[3])
             _s = parse(I64, line_to_array(strs)[5])
-            cdim = parse(I64, line_to_array(strs)[7])
-            @assert _t == 1 && _s == s
+            _d = parse(I64, line_to_array(strs)[7])
+            @assert _t == index
+            @assert _s == s
+            @assert _d == nband
 
             # Parse local impurity levels
             for q = 1:cdim
