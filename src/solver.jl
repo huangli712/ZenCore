@@ -270,6 +270,9 @@ function ctqmc_setup(imp::Impurity)
         println(fout)
 
         # Print the user-supplied parameters
+        #
+        # The correctness of these auxiliary parameters should be checked
+        # in config.jl.
         println(fout, "# Auxiliary parameters: By users")
         foreach(x -> println(fout, x), get_s("params"))
 
