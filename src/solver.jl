@@ -370,6 +370,7 @@ function ctqmc_sig_l(imp::Impurity)
     # Extract parameters from Impurity struct
     nband = imp.nband
     norbs = nband * 2
+    nspin = 2 # In the CT-QMC impurity solver, nspin is fixed to 2.
 
     # We don't know how many frequency points are used a priori.
     # Here, we used a trick to determine `nmesh`.
@@ -379,7 +380,13 @@ function ctqmc_sig_l(imp::Impurity)
     # Create an array for frequency mesh
     fmesh = zeros(F64, nmesh)
 
-    # Create an array
+    # Create an array for self-energy functions
+    Σ = zeros(C64, nband, nband, nmesh, nspin)
+
+    # Parse the data file for the self-energy functions
+    open(fsgm, "r") do fin
+        
+    end
 end
 
 """
