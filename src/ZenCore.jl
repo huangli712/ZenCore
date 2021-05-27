@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/05/26
+# Last modified: 2021/05/27
 #
 
 """
@@ -526,6 +526,7 @@ export dmft_save
 # s_norg_exec -> Execute the NORG impurity solver.
 # s_norg_save -> Backup output files for the NORG impurity solver.
 # ctqmc_setup -> Prepare configuration parameters for CT-QMC impurity solver.
+# ctqmc_atomx -> Prepare configuration parameters for atomic problem solver.
 # ctqmc_hyb_l -> Prepare hybridization function for CT-QMC impurity solver.
 # ctqmc_eimpx -> Prepare local impurity levels for CT-QMC impurity solver.
 # ctqmc_sig_l -> Return self-energy function by CT-QMC impurity solver.
@@ -547,6 +548,7 @@ export s_norg_init
 export s_norg_exec
 export s_norg_save
 export ctqmc_setup
+export ctqmc_atomx
 export ctqmc_hyb_l
 export ctqmc_eimpx
 export ctqmc_sig_l
