@@ -385,17 +385,41 @@ function ctqmc_sig_l(imp::Impurity)
 
     # Parse the data file for the self-energy functions
     open(fsgm, "r") do fin
+
+        # Go through each spin orientation
         for s = 1:nspin
+
+            # Go through each band
             for b = 1:nband
+
+                # Go through each frequency point
                 for m = 1:nmesh
+
+                    # Split the line
+                    arr = line_to_array(fin)
+
+                    # Extract frequency
+                    fmesh[m] = parse(F64, arr[2])
+
+                    # Extract self-energy functions
+                    _re = parse(F64, arr[3])
+                    _im = parse(F64, arr[4])
+                    Σ[b,b,m,s] = _re + _im * im
+
                 end # END OF M LOOP
 
                 # Skip two lines
                 readline(fin)
                 readline(fin)
+
             end # END OF B LOOP
+
         end # END OF S LOOP
+
     end
+
+    # Return the desired arrays
+    return (fmesh, Σ)
 end
 
 """
