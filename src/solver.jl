@@ -490,11 +490,11 @@ function GetNimpx(imp::Impurity)
     # quantum impurity solvers
     @cswitch engine begin
         @case "ct_hyb1"
-            s_qmc1_init(it, imp)
+            ctqmc_nimpx()
             break
 
         @case "ct_hyb2"
-            s_qmc2_init(it)
+            ctqmc_nimpx()
             break
 
         @case "hub1"
