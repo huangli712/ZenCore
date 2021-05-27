@@ -383,8 +383,10 @@ about the quantum impurity problems.
 See also: [`Impurity`](@ref).
 """
 function GetImpurity()
+    # Initialize an array of Impurity struct
     AI = Impurity[]
 
+    # Go through each quantum impurity problems
     for i = 1:get_i("nsite")
         str = get_i("atoms")[i]
         index = i
