@@ -279,6 +279,9 @@ function ctqmc_setup(imp::Impurity)
     end
 end
 
+function ctqmc_atomx(imp::Impurity)
+end
+
 function ctqmc_hyb_l()
     fmesh = []
     Delta = []
