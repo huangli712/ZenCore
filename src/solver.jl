@@ -469,6 +469,33 @@ function GetSig_l(imp::Impurity)
 
     # Determine the chosen solver
     engine = get_s("engine")
+
+    # Activate the corresponding solver_sig_l() functions for various
+    # quantum impurity solvers
+    @cswitch engine begin
+        @case "ct_hyb1"
+            ctqmc_nimpx(imp)
+            break
+
+        @case "ct_hyb2"
+            ctqmc_nimpx(imp)
+            break
+
+        @case "hub1"
+            sorry()
+            break
+
+        @case "norg"
+            sorry()
+            break
+
+        @default
+            sorry()
+            break
+    end
+
+    # Enter the parent directory
+    cd("..")
 end
 
 """
