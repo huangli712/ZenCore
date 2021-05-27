@@ -461,8 +461,8 @@ function GetEimpx(imp::Impurity)
             @assert _d == nband
 
             # Parse local impurity levels
-            for q = 1:cdim
-                for p = 1:cdim
+            for q = 1:nband
+                for p = 1:nband
                     _re, _im = parse.(F64, line_to_array(fin)[3:4])
                     Eimpx[p,q,s] = _re + _im * im
                 end
@@ -474,6 +474,9 @@ function GetEimpx(imp::Impurity)
         end
 
     end
+
+    # Return the desired array
+    return Eimpx
 end
 
 """
