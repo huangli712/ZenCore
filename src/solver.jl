@@ -450,6 +450,8 @@ function GetEimpx(imp::Impurity)
 
         # Go through each spin orientation
         for s = 1:nspin
+
+            # Analyze the important parameters
             strs = readline(fin)
             _t = parse(I64, line_to_array(strs)[3])
             _s = parse(I64, line_to_array(strs)[5])
