@@ -483,6 +483,41 @@ function GetNimpx(imp::Impurity)
     # Change the directory
     cd("impurity.$index")
 
+    # Determine the chosen solver
+    engine = get_s("engine")
+
+    # Activate the corresponding solver_nimpx() functions for various
+    # quantum impurity solvers
+    @cswitch engine begin
+        @case "ct_hyb1"
+            s_qmc1_init(it, imp)
+            s_qmc1_exec(it)
+            s_qmc1_save(it)
+            break
+
+        @case "ct_hyb2"
+            s_qmc2_init(it)
+            s_qmc2_exec(it)
+            s_qmc2_save(it)
+            break
+
+        @case "hub1"
+            s_hub1_init(it)
+            s_hub1_exec(it)
+            s_hub1_save(it)
+            break
+
+        @case "norg"
+            s_norg_init(it)
+            s_norg_exec(it)
+            s_norg_save(it)
+            break
+
+        @default
+            sorry()
+            break
+    end
+
     # Enter the parent directory
     cd("..")
 end
