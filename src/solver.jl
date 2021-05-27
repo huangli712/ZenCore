@@ -228,6 +228,18 @@ function ctqmc_setup(imp::Impurity)
     # File name of configuration file
     fctqmc = "solver.ctqmc.in"
 
+    # Extract parameters from `Impurity` struct 
+    #
+    # mune is fixed to zero, because the chemical potential is adsorbed
+    # in the local impurity level.
+    nband = imp.nband
+    norbs = 2 * nband
+    ncfgs = 2^norbs
+    Uc    = imp.upara
+    Jz    = imp.jpara
+    mune  = 0.0
+    beta  = imp.beta
+
     # Create the configuration file
     open(fctqmc, "w") do fout
         # Print some warning message 
@@ -240,7 +252,7 @@ function ctqmc_setup(imp::Impurity)
         println(fout)
 
         println(fout, "# Standard  parameters: System's size")
-        println(fout, "nband = 5")
+        println(fout, "nband = imp.nband")
         println(fout, "norbs = 10")
         println(fout, "ncfgs = 1024")
         println(fout)
@@ -250,7 +262,7 @@ function ctqmc_setup(imp::Impurity)
         println(fout, "Jz    = 0.7")
         println(fout)
 
-        println(fout, "# Standard  parameters: Interaction")
+        println(fout, "# Standard  parameters: Others")
         println(fout, "mune  = 0.0")
         println(fout, "beta  = 40.0")
         println(fout)
