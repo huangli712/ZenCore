@@ -355,6 +355,9 @@ end
 
 Parse the `solver.sgm.dat` file to extract the bare self-energy functions.
 
+In the sigma_gather() function, these data will be combined to generate
+the `sigma.bare` file, which is essential for the DMFT engine.
+
 See also: [`Impurity`](@ref), [`GetSig_l`](@ref).
 """
 function ctqmc_sig_l(imp::Impurity)
