@@ -282,6 +282,26 @@ work properly.
 See also: [`cycle1`](@ref), [`cycle2`](@ref).
 """
 function cycle5()
+    # C-1: Create IterInfo struct
+    it = IterInfo()
+
+    # C00: Create Logger struct
+    lr = Logger(query_case())
+
+    # C01: Execuate the quantum impurity solvers
+    solver_run(it, lr)
+
+    # C98: Close Logger.log
+    if isopen(lr.log)
+        flush(lr.log)
+        close(lr.log)
+    end
+
+    # C99: Close Logger.cycle
+    if isopen(lr.cycle)
+        flush(lr.cycle)
+        close(lr.cycle)
+    end
 end
 
 function cycle6() end
