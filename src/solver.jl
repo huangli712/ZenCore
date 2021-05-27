@@ -353,7 +353,15 @@ end
 function ctqmc_sig_l()
 end
 
-function ctqmc_nimpx()
+"""
+    ctqmc_nimpx(imp::Impurity)
+
+Parse the `solver.nmat.dat` file to extract the impurity occupancy. Then
+the field `occup` in Impurity struct will be updated.
+
+See also: [`Impurity`](@ref).
+"""
+function ctqmc_nimpx(imp::Impurity)
 end
 
 #
