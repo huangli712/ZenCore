@@ -486,7 +486,7 @@ function dmft_run(it::IterInfo, lr::Logger, task::I64)
 end
 
 """
-    solver_run(it::IterInfo, lr::Logger)
+    solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
 
 Simple driver for quantum impurity solvers. It performs three tasks: (1)
 Examine the runtime environment for quantum impurity solver. (2) Launch
@@ -499,7 +499,7 @@ solvers, this function must be adapted.
 
 See also: [`adaptor_run`](@ref), [`dft_run`](@ref), [`dmft_run`](@ref).
 """
-function solver_run(it::IterInfo, lr::Logger)
+function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
     # Loop over each impurity site
     for i = 1:get_i("nsite")
 
