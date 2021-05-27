@@ -369,6 +369,19 @@ by sigma_split(). The data are essential for quantum impurity solvers.
 See also: [`Impurity`](@ref), [`GetEimpx`](@ref).
 """
 function GetHyb_l(imp::Impurity)
+    # Get index of the quantum impurity problem
+    index = imp.index
+
+    # Get number of orbitals for the quantum impurity problem
+    nband = imp.nband
+
+    # Examine the current directory
+    dirname = basename(pwd())
+    dirvect = split(dirname, ".")
+    @assert dirvect[1] == "impurity"
+    @assert parse(I64, dirvect[2]) == index
+
+
     fmesh = []
     Delta = []
     cdim  = 0
