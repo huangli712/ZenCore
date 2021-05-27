@@ -452,8 +452,16 @@ function GetEimpx()
 end
 
 """
+    GetSig_l(imp::Impurity)
+
+Extract self-energy functions from the output files of various quantum
+impurity solvers. The data will be combined in sigma_gather() function. 
+Then they will be fed back to the DMFT engine.
+
+See also: [`Impurity`](@ref), [`ctqmc_sig_l`](@ref).
 """
-function GetSig_l()
+function GetSig_l(imp::Impurity)
+    sorry()
 end
 
 """
@@ -467,6 +475,7 @@ for self-energy functions.
 See also: [`Impurity`](@ref), [`ctqmc_nimpx`](@ref).
 """
 function GetNimpx(imp::Impurity)
+    sorry()
 end
 
 #
