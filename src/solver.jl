@@ -367,6 +367,11 @@ to fulfill this requirement.
 See also: [`Impurity`](@ref).
 """
 function ctqmc_nimpx(imp::Impurity)
+    lines = readlines("solver.nmat.dat")
+    filter!(x -> contains(x, "sum"), lines)
+    @assert length(lines) == 1
+    arr = line_to_array(iters[end])
+    imp.occup = parse(F64, arr[2])
 end
 
 #
