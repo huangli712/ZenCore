@@ -361,6 +361,12 @@ end
 #
 
 """
+    GetHyb_l(imp::Impurity)
+
+Extract hybridization functions from `dmft.hyb_l` file, which is generated
+by sigma_split(). The data are essential for quantum impurity solvers.
+
+See also: [`Impurity`](@ref), [`GetEimpx`](@ref).
 """
 function GetHyb_l(imp::Impurity)
     fmesh = []
@@ -414,7 +420,7 @@ end
 Extract local impurity levels from `dmft.eimpx` file, which is generated
 by sigma_split(). The data are essential for quantum impurity solvers.
 
-See also: [`Impurity`](@ref).
+See also: [`Impurity`](@ref), [`GetHyb_l`](@ref).
 """
 function GetEimpx(imp::Impurity)
     # Get index of the quantum impurity problem
