@@ -40,11 +40,6 @@ function go()
 
     # Choose suitable computational driver
     @cswitch mode begin
-        # DFT calculations only
-        @case 0
-            cycle0()
-            break
-
         # One-shot DFT + DMFT calculations
         @case 1
             cycle1()
@@ -66,6 +61,8 @@ end
     final()
 
 Finalize the DFT + DMFT calculations.
+
+See also: [`go`](@ref).
 """
 function final()
     sorry()
