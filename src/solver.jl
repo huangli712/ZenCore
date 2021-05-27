@@ -351,6 +351,10 @@ function ctqmc_eimpx()
 end
 
 """
+    ctqmc_sig_l(imp::Impurity)
+
+Parse the `solver.sgm.dat` file to extract the bare self-energy functions.
+
 See also: [`Impurity`](@ref), [`GetSig_l`](@ref).
 """
 function ctqmc_sig_l(imp::Impurity)
