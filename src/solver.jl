@@ -366,6 +366,8 @@ end
 Extract hybridization functions from `dmft.hyb_l` file, which is generated
 by sigma_split(). The data are essential for quantum impurity solvers.
 
+The frequency mesh is also extracted in this function.
+
 See also: [`Impurity`](@ref), [`GetEimpx`](@ref).
 """
 function GetHyb_l(imp::Impurity)
@@ -381,11 +383,11 @@ function GetHyb_l(imp::Impurity)
     @assert dirvect[1] == "impurity"
     @assert parse(I64, dirvect[2]) == index
 
-
+    # Declare empty arrays for frequency mesh and hybridization functions
     fmesh = []
     Delta = []
-    cdim  = 0
 
+    # Parse the `dmft.hyb_l` file
     open("dmft.hyb_l", "r") do fin
 
         # Get the dimensional parameters
