@@ -350,7 +350,10 @@ function ctqmc_eimpx()
     end
 end
 
-function ctqmc_sig_l()
+"""
+See also: [`Impurity`](@ref), [`GetSig_l`](@ref).
+"""
+function ctqmc_sig_l(imp::Impurity)
 end
 
 """
@@ -364,7 +367,7 @@ is return. However, sometimes we need to known the spin-up and spin-down
 components. Later, we will expand the Impurity struct and this function
 to fulfill this requirement. 
 
-See also: [`Impurity`](@ref).
+See also: [`Impurity`](@ref), [`GetNimpx`](@ref).
 """
 function ctqmc_nimpx(imp::Impurity)
     # File name for impurity occupancy
