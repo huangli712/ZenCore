@@ -242,7 +242,7 @@ function cycle3()
 end
 
 """
-    cycle4()
+    cycle4(task::I64)
 
 Perform DMFT calculations only. The users can execute it in the REPL mode
 to see whether the DMFT engine works properly.
@@ -272,7 +272,18 @@ function cycle4(task::I64)
     end
 end
 
-function cycle5() end
+"""
+    cycle5()
+
+Perform calculations using quantum impurity solvers only. The users can
+execute it in the REPL mode to see whether the quantum impurity solvers
+work properly.
+
+See also: [`cycle1`](@ref), [`cycle2`](@ref).
+"""
+function cycle5()
+end
+
 function cycle6() end
 function cycle7() end
 function cycle8() end
