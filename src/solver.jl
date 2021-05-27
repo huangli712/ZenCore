@@ -8,21 +8,21 @@
 #
 
 #
-# CT-HYB1 Quantum Impurity Solver
+# CT-HYB₁ Quantum Impurity Solver
 #
 
 """
-    s_qmc1_init(it::IterInfo)
+    s_qmc1_init(it::IterInfo, imp::Impurity)
 
-Check runtime environment of the CT-HYB1 quantum impurity solver. Prepare
+Check runtime environment of the CT-HYB₁ quantum impurity solver. Prepare
 the necessary input files.
 
 This quantum impurity solver is from the `iQIST` software package.
 
 See also: [`s_qmc1_exec`](@ref), [`s_qmc1_save`](@ref).
 """
-function s_qmc1_init(it::IterInfo)
-    ctqmc_setup()
+function s_qmc1_init(it::IterInfo, imp::Impurity)
+    ctqmc_setup(imp)
     ctqmc_hyb_l()
     ctqmc_eimpx()
 end
@@ -30,7 +30,7 @@ end
 """
     s_qmc1_exec(it::IterInfo)
 
-Launch the CT-HYB1 quantum impurity solver.
+Launch the CT-HYB₁ quantum impurity solver.
 
 This quantum impurity solver is from the `iQIST` software package.
 
@@ -70,7 +70,7 @@ end
 """
     s_qmc1_save(it::IterInfo)
 
-Backup output files of the CT-HYB1 quantum impurity solver.
+Backup output files of the CT-HYB₁ quantum impurity solver.
 
 This quantum impurity solver is from the `iQIST` software package.
 
@@ -80,13 +80,13 @@ function s_qmc1_save(it::IterInfo)
 end
 
 #
-# CT-HYB2 Quantum Impurity Solver
+# CT-HYB₂ Quantum Impurity Solver
 #
 
 """
     s_qmc2_init(it::IterInfo)
 
-Check runtime environment of the CT-HYB2 quantum impurity solver. Prepare
+Check runtime environment of the CT-HYB₂ quantum impurity solver. Prepare
 the necessary input files.
 
 This quantum impurity solver is from the `iQIST` software package.
@@ -100,7 +100,7 @@ end
 """
     s_qmc2_exec(it::IterInfo)
 
-Launch the CT-HYB2 quantum impurity solver.
+Launch the CT-HYB₂ quantum impurity solver.
 
 This quantum impurity solver is from the `iQIST` software package.
 
@@ -117,7 +117,7 @@ end
 """
     s_qmc2_save(it::IterInfo)
 
-Backup output files of the CT-HYB2 quantum impurity solver.
+Backup output files of the CT-HYB₂ quantum impurity solver.
 
 This quantum impurity solver is from the `iQIST` software package.
 
