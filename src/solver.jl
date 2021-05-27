@@ -325,7 +325,10 @@ function ctqmc_hyb_l()
     end
 end
 
-function ctqmc_eimpx()
+"""
+
+"""
+function ctqmc_eimpx(Eimpx::Array{C64,3})
     _, nband, nspin = size(Eimpx)
     @assert nband >= cdim
 
