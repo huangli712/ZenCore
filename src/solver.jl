@@ -367,11 +367,21 @@ to fulfill this requirement.
 See also: [`Impurity`](@ref).
 """
 function ctqmc_nimpx(imp::Impurity)
-    lines = readlines("solver.nmat.dat")
+    # File name for impurity occupancy
+    fnmat = "solver.nmat.dat"
+
+    # To make sure the data file is present
+    @assert isfile(fnmat)
+
+    # Parse the data file to extract total impurity occupancy
+    lines = readlines(fnmat)
     filter!(x -> contains(x, "sum"), lines)
     @assert length(lines) == 1
     arr = line_to_array(iters[end])
-    imp.occup = parse(F64, arr[2])
+    occup = parse(F64, arr[2])
+
+    # Update Impurity struct
+    imp.occup = occup
 end
 
 #
