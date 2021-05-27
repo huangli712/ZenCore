@@ -75,7 +75,7 @@ Perform one-shot DFT + DMFT calculations. In other words, the charge
 density won't be fed back to the DFT engine. The self-consistency is
 only achieved at the DMFT level.
 
-See also: [`cycle0`](@ref), [`cycle2`](@ref), [`go`](@ref).
+See also: [`cycle2`](@ref), [`go`](@ref).
 """
 function cycle1()
     # C-1: Create IterInfo struct
@@ -198,7 +198,7 @@ end
 Perform fully self-consistent DFT + DMFT calculations. The self-consistency
 is achieved at both DFT and DMFT levels.
 
-See also: [`cycle0`](@ref), [`cycle1`](@ref), [`go`](@ref).
+See also: [`cycle1`](@ref), [`go`](@ref).
 """
 function cycle2()
     sorry()
