@@ -241,7 +241,17 @@ function cycle3()
     end
 end
 
-function cycle4() end
+"""
+    cycle4()
+
+Perform DMFT calculations only. The users can execute it in the REPL mode
+to see whether the DMFT engine works properly.
+
+See also: [`cycle1`](@ref), [`cycle2`](@ref).
+"""
+function cycle4()
+end
+
 function cycle5() end
 function cycle6() end
 function cycle7() end
