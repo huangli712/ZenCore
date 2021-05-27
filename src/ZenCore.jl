@@ -531,6 +531,10 @@ export dmft_save
 # ctqmc_eimpx -> Prepare local impurity levels for CT-QMC impurity solver.
 # ctqmc_sig_l -> Return self-energy function by CT-QMC impurity solver.
 # ctqmc_nimpx -> Return impurity occupancy by CT-QMC impurity solver. 
+# GetHyb_l
+# GetEimpx
+# GetSig_l
+# GetNimpx
 # GetImpurity -> Build Impurity struct according to configuration file.
 #
 include("solver.jl")
@@ -547,12 +551,17 @@ export s_hub1_save
 export s_norg_init
 export s_norg_exec
 export s_norg_save
+export solver_eimp
 export ctqmc_setup
 export ctqmc_atomx
 export ctqmc_hyb_l
 export ctqmc_eimpx
 export ctqmc_sig_l
 export ctqmc_nimpx
+export GetHyb_l
+export GetEimpx
+export GetSig_l
+export GetNimpx
 export GetImpurity
 
 #

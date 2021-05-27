@@ -439,6 +439,10 @@ end
 function ctqmc_nimpx()
 end
 
+#
+# Service Functions
+#
+
 """
     GetImpurity()
 
