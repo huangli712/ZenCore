@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/05/26
+# Last modified: 2021/05/27
 #
 
 #
@@ -374,5 +374,12 @@ end
 function ctqmc_nimpx()
 end
 
+"""
+    GetImpurity()
+
+See also: [`Impurity`](@ref).
+"""
 function GetImpurity()
+    println("here")
+
 end
