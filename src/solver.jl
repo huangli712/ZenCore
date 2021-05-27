@@ -367,6 +367,19 @@ function ctqmc_sig_l(imp::Impurity)
     # To make sure the data file is present
     @assert isfile(fsgm)
 
+    # Extract parameters from Impurity struct
+    nband = imp.nband
+    norbs = nband * 2
+
+    # We don't know how many frequency points are used a priori.
+    # Here, we used a trick to determine `nmesh`.
+    lines = readline(fsgm)
+    nmesh = length(lines) / norbs - 2
+
+    # Create an array for frequency mesh
+    fmesh = zeros(F64, nmesh)
+
+    # Create an array
 end
 
 """
