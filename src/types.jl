@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/05/26
+# Last modified: 2021/05/27
 #
 
 #
@@ -205,7 +205,7 @@ i_wnd -> Mapping from quantum impurity problems to windows of dft bands.\n
 g_imp -> Mapping from groups of projectors to quantum impurity problems.\n
 w_imp -> Mapping from windows of dft bands to quantum impurity problems.
 
-See also: [`Impurity`](@ref), [`PrGroup`](@ref).
+See also: [`Impurity`](@ref), [`PrGroup`](@ref), [`PrWindow`](@ref).
 """
 mutable struct Mapping
     i_grp :: Array{I64,1}
@@ -233,7 +233,7 @@ lpara -> Spin-orbit coupling parameter.\n
 beta  -> Inverse temperature.\n
 nband -> Number of correlated orbitals (spin is not included).
 
-See also: [`Mapping`](@ref), [`PrGroup`](@ref).
+See also: [`Mapping`](@ref), [`PrGroup`](@ref), [`PrWindow`](@ref).
 """
 mutable struct Impurity
     index :: I64
@@ -316,7 +316,7 @@ bwin -> Tuple. It is the band window or energy window, which is used
         to filter the Kohn-Sham band structure. The mesh for calculating
         density of states is also deduced from `bwin`.
 
-See also: [`PrTrait`](@ref), [`PrGroup`](@ref).
+See also: [`PrTrait`](@ref), [`PrGroup`](@ref), [`Mapping`](@ref), [`Impurity`](@ref).
 """
 mutable struct PrWindow
     bmin  :: I64
