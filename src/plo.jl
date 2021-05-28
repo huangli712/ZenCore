@@ -124,7 +124,7 @@ function plo_map(PG::Array{PrGroup,1}, ai::Array{Impurity,1})
     @assert nsite === length(ai)
 
     # The lshell creates a mapping from shell (string) to l (integer).
-    # It is used to parse get_i("shell") to extract the `l` parameter.
+    # It is used to parse Impurity.shell to extract the `l` parameter.
     lshell = Dict{String,I64}(
                  "s"     => 0,
                  "p"     => 1,
@@ -135,20 +135,19 @@ function plo_map(PG::Array{PrGroup,1}, ai::Array{Impurity,1})
              )
 
     # Loop over each site (the quantum impurity problem) to gather some
-    # relevant information, such as `site` and `l`. We use a Array of
+    # relevant information, such as `site` and `l`. We use an array of
     # Tuple (site_l) to record them.
     site_l = Tuple[]
     for i = 1:nsite
         # Determine site
-        str = get_i("atoms")[i]
-        site = parse(I64, line_to_array(str)[3])
+        sites = ai[i].sites
 
         # Determine l and its specification
-        str = get_i("shell")[i]
-        l = get(lshell, str, nothing)
+        shell = ai[i].shell
+        l = get(lshell, shell, nothing)
 
         # Push the data into site_l
-        push!(site_l, (site, l, str))
+        push!(site_l, (sites, l, shell))
     end
 
     # Create the Mapping struct
