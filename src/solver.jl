@@ -335,19 +335,26 @@ suitable for the CT-QMC quantum impurity solver.
 See also: [`ctqmc_hyb_l`](@ref).
 """
 function ctqmc_eimpx(Eimpx::Array{C64,3})
+    # Extract key parameters from `Eimpx`
     _, nband, nspin = size(Eimpx)
 
+    # Analyze the orbital degeneracy
     GetSymmetry(Eimpx)
 
+    # Write the local impurity levels to `solver.eimp.in`
     open("solver.eimp.in", "w") do fout
+        # If nspin is 2, everything is OK. However, if nspin is 1, the
+        # spin-down part is missed.
         for s = 1:nspin
             for p = 1:nband
                 orb = (s - 1) * nband + p
                 z = Eimpx[p, p, s]
                 @printf(fout, "%4i%16.8f%4i\n", orb, real(z), orb)
             end
-        end
+        end # END OF S LOOP
 
+        # Supplement the spin-down part if it is missed. Here, we just
+        # assume that the spin-up and spin-down parts are degenerated.
         if nspin == 1
             for s = 1:nspin
                 for p = 1:nband
@@ -355,7 +362,7 @@ function ctqmc_eimpx(Eimpx::Array{C64,3})
                     z = Eimpx[p, p, s]
                     @printf(fout, "%4i%16.8f%4i\n", orb, real(z), orb)
                 end
-            end
+            end # END OF S LOOP
         end
     end
 end
