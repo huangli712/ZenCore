@@ -282,6 +282,8 @@ end
 """
     ctqmc_atomx(imp::Impurity)
 
+Generate configuration file for the atomic problem solver.
+
 See also: [`Impurity`](@ref), [`ctqmc_setup`](@ref).
 """
 function ctqmc_atomx(imp::Impurity)
