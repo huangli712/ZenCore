@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/05/01
+# Last modified: 2021/05/28
 #
 
 #
@@ -12,7 +12,7 @@
 #
 
 """
-    plo_adaptor(D::Dict{Symbol,Any})
+    plo_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
 
 Adaptor support. It will preprocess the raw projector matrix. The dict
 `D` contains all of the necessary Kohn-Sham data, which will be modified
@@ -25,7 +25,7 @@ be written to external files or terminal for reference.
 
 See also: [`vasp_adaptor`](@ref), [`ir_adaptor`](@ref), [`adaptor_exec`](@ref).
 """
-function plo_adaptor(D::Dict{Symbol,Any})
+function plo_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     # P01: Print the header
     println("Adaptor : PLO")
 
