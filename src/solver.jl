@@ -309,7 +309,8 @@ function ctqmc_hyb_l(fmesh::Array{F64,1}, Delta::Array{C64,4})
                 orb = (s - 1) * nband + p
                 for m = 1:nmesh
                     z = Delta[p,p,m,s]
-                    @printf(fout, "%6i%16.8f%16.8f%16.8f%16.8f%16.8f\n", orb, fmesh[m], real(z), imag(z), 0.0, 0.0)
+                    @printf(fout, "%6i%16.8f%16.8f%16.8f%16.8f%16.8f\n",
+                        orb, fmesh[m], real(z), imag(z), 0.0, 0.0)
                 end
                 println(fout)
                 println(fout)
@@ -324,7 +325,8 @@ function ctqmc_hyb_l(fmesh::Array{F64,1}, Delta::Array{C64,4})
                     orb = (2 - 1) * nband + p
                     for m = 1:nmesh
                         z = Delta[p,p,m,s]
-                        @printf(fout, "%6i%16.8f%16.8f%16.8f%16.8f%16.8f\n", orb, fmesh[m], real(z), imag(z), 0.0, 0.0)
+                        @printf(fout, "%6i%16.8f%16.8f%16.8f%16.8f%16.8f\n",
+                            orb, fmesh[m], real(z), imag(z), 0.0, 0.0)
                     end
                     println(fout)
                     println(fout)
