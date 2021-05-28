@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/05/27
+# Last modified: 2021/05/28
 #
 
 #
@@ -322,8 +322,11 @@ function cycle6()
     # C00: Create Logger struct
     lr = Logger(query_case())
 
-    # C01: Execute the Kohn-Sham adaptor
-    adaptor_run(it, lr)
+    # C01: Initialize the quantum impurity problems
+    ai = GetImpurity()
+
+    # C02: Execute the Kohn-Sham adaptor
+    adaptor_run(it, lr, ai)
 
     # C98: Close Logger.log
     if isopen(lr.log)
