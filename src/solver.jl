@@ -511,7 +511,7 @@ function ctqmc_nimpx(imp::Impurity)
     lines = readlines(fnmat)
     filter!(x -> contains(x, "sum"), lines)
     @assert length(lines) == 1
-    arr = line_to_array(iters[end])
+    arr = line_to_array(lines[end])
     occup = parse(F64, arr[2])
 
     # Update Impurity struct
