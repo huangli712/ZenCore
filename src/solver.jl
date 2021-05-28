@@ -762,9 +762,13 @@ end
 
 """
     GetSymmetry(Eimpx::Array{C64,3})
+
+Analyze the symmetry according to the diagonal elements of the matrix of
+the local impurity levels.
+
+See also: [`GetEimpx`](@ref).
 """
 function GetSymmetry(Eimpx::Array{C64,3})
-    sorry()
 end
 
 """
