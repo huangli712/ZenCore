@@ -363,7 +363,6 @@ function ctqmc_eimpx(Eimpx::Array{C64,3})
 
     # Analyze the orbital degeneracy
     symm = GetSymmetry(Eimpx)
-    println(symm)
 
     # Write the local impurity levels to `solver.eimp.in`
     open("solver.eimp.in", "w") do fout
@@ -373,7 +372,7 @@ function ctqmc_eimpx(Eimpx::Array{C64,3})
             for p = 1:nband
                 orb = (s - 1) * nband + p
                 z = Eimpx[p, p, s]
-                @printf(fout, "%4i%16.8f%4i\n", orb, real(z), orb)
+                @printf(fout, "%4i%16.8f%4i\n", orb, real(z), symm[p,s])
             end
         end # END OF S LOOP
 
@@ -384,7 +383,7 @@ function ctqmc_eimpx(Eimpx::Array{C64,3})
                 for p = 1:nband
                     orb = (2 - 1) * nband + p
                     z = Eimpx[p, p, s]
-                    @printf(fout, "%4i%16.8f%4i\n", orb, real(z), orb)
+                    @printf(fout, "%4i%16.8f%4i\n", orb, real(z), symm[p,s])
                 end
             end # END OF S LOOP
         end
