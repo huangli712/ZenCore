@@ -88,6 +88,31 @@ This quantum impurity solver is from the `iQIST` software package.
 See also: [`s_qmc1_init`](@ref), [`s_qmc1_exec`](@ref).
 """
 function s_qmc1_save(it::IterInfo)
+    # Determine which files are important
+    #
+    # Major output
+    fout = ["solver.out"]
+    #
+    # Green's functions
+    fgrn = ["solver.grn.dat", "solver.green.dat"]
+    #
+    # Hybridization functions
+    fhyb = ["solver.hyb.dat", "solver.hybri.dat"]
+    #
+    # Self-energy functions
+    fsgm = ["solver.sgm.dat"]
+    #
+    # Auxiliary output files
+    faux = ["solver.nmat.dat", "solver.paux.dat", "solver.prob.dat", "solver.hist.dat"]
+
+    # Next, we have to backup the above files.
+    foreach( x ->
+        begin
+            file_src = x
+            file_dst = "$x.$(it.dmft_cycle).$(it.dmft1_iter)"
+            cp(file_src, file_dst, force = true)
+        end,
+    union(fout, fgrn, fsgm, faux) )
 end
 
 #
@@ -774,6 +799,7 @@ function GetSymmetry(Eimpx::Array{C64,3})
     _, nband, nspin = size(Eimpx)
 
     # Extract the diagonal elements of Eimpx
+    # We only need the real parts
     eimp = zeros(F64, nband, nspin)
     for s = 1:nspin
         for b = 1:nband
