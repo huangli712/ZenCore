@@ -786,7 +786,10 @@ function GetSymmetry(Eimpx::Array{C64,3})
 
     for s = 1:nspin
         E = unique(eimp[:,s])
-        #V = [i for i in 1:length(E)]
+        println(E)
+        for b = 1:nband
+            println(findfirst(isequal(eimp[b]), E))
+        end
     end
 end
 
