@@ -112,7 +112,7 @@ function s_qmc1_save(it::IterInfo)
             file_dst = "$x.$(it.dmft_cycle).$(it.dmft1_iter)"
             cp(file_src, file_dst, force = true)
         end,
-    union(fout, fgrn, fsgm, faux) )
+    union(fout, fgrn, fhyb, fsgm, faux) )
 end
 
 #
