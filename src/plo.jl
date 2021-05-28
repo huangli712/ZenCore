@@ -35,13 +35,13 @@ function plo_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         @assert haskey(D, k)
     end
 
-    # P04: Adjust the band structure
+    # P03: Adjust the band structure
     #
     # D[:enk] will be updated
     println("  Calibrate eigenvalues")
     plo_fermi(D[:enk], D[:fermi])
 
-    # P05: Setup the PrGroup strcut further
+    # P04: Setup the PrGroup strcut further
     #
     # D[:PG] will be updated
     println("  Complete groups")
