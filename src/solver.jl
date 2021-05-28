@@ -777,20 +777,27 @@ function GetSymmetry(Eimpx::Array{C64,3})
     for s = 1:nspin
         for b = 1:nband
             eimp[b,s] = round(real(Eimpx[b,b,s]), digits = 4)
-            println("$b $s :", eimp[b,s])
         end
     end
 
     # Create an array for symmetry
     symm = zeros(I64, nband, nspin)
 
+    # Go through each spin orientation
     for s = 1:nspin
+
+        # Get the unique energy levels
         E = unique(eimp[:,s])
-        println(E)
+
+        # Scan all the impurity levels, find out its corresponding value in E
         for b = 1:nband
-            println(findfirst(isequal(eimp[b]), E))
+            symm[b,s] = findfirst(isequal(eimp[b]), E)
         end
-    end
+
+    end # END OF S LOOP
+
+    # Return the desired array
+    return symm
 end
 
 """
