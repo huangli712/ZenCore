@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/05/27
+# Last modified: 2021/05/28
 #
 
 #
@@ -196,7 +196,7 @@ end
     Mapping
 
 Mutable struct. Mapping between quantum impurity problems and groups
-of projectors.
+of projectors (or band windows).
 
 ## Members
 
@@ -370,19 +370,20 @@ function Lattice(_case::String, scale::F64, nsort::I64, natom::I64)
 end
 
 """
-    Mapping(nsite::I64, ngrp::I64)
+    Mapping(nsite::I64, ngrp::I64, nwnd::I64)
 
 Outer constructor for Mapping struct.
 """
-function Mapping(nsite::I64, ngrp::I64)
+function Mapping(nsite::I64, ngrp::I64, nwnd::I64)
     # Sanity check
     @assert ngrp >= nsite
+    @assert nwnd == ngrp
 
     # Initialize the arrays
     i_grp = zeros(I64, nsite)
     i_wnd = zeros(I64, nsite)
     g_imp = zeros(I64, ngrp)
-    w_imp = zeros(I64, ngrp)
+    w_imp = zeros(I64, nwnd)
 
     # Call the default constructor
     Mapping(i_grp, i_wnd, g_imp, w_imp)
