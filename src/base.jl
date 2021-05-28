@@ -322,6 +322,9 @@ function cycle6()
     # C00: Create Logger struct
     lr = Logger(query_case())
 
+    # C01: Execute the Kohn-Sham adaptor
+    adaptor_run(it, lr)
+
     # C98: Close Logger.log
     if isopen(lr.log)
         flush(lr.log)
