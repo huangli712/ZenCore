@@ -35,13 +35,20 @@ function plo_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         @assert haskey(D, k)
     end
 
-    # P03: Adjust the band structure
+    # P03: Create connections/mappings between projectors (or band
+    # windows) and quantum impurity problems
+    #
+    # D[:MAP] will be created
+    println("  Establish mapping")
+    D[:MAP] = plo_map(D[:PG], ai)
+
+    # P04: Adjust the band structure
     #
     # D[:enk] will be updated
     println("  Calibrate eigenvalues")
     plo_fermi(D[:enk], D[:fermi])
 
-    # P04: Setup the PrGroup strcut further
+    # P05: Setup the PrGroup strcut further
     #
     # D[:PG] will be updated
     println("  Complete groups")
@@ -52,12 +59,6 @@ function plo_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     # D[:PW] will be created
     println("  Generate window")
     D[:PW] = plo_window(D[:PG], D[:enk])
-
-    # P03: Create connections between projectors and impurity problems
-    #
-    # D[:MAP] will be created
-    println("  Create impurities-projectors mapping")
-    D[:MAP] = plo_map(D[:PG])
 
     # P07: Transform the projectors
     #
