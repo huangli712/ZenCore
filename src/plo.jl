@@ -108,18 +108,20 @@ end
 Create connections / mappings between projectors (or band windows) and
 quantum impurity problems. Return a Mapping struct.
 
-See also: [`PrGroup`](@ref), [`Mapping`](@ref).
+See also: [`PrGroup`](@ref), [`PrWindow`](@ref), [`Mapping`](@ref).
 """
-function plo_map(PG::Array{PrGroup,1})
+function plo_map(PG::Array{PrGroup,1}, ai::Array{Impurity,1})
     # Extract key parameters
-    # Here, `nsite` is number of impurity problems and `ngrp` is number
-    # of groups for projectors.
+    #
+    # Here, `nsite` is the number of quantum impurity problems, `ngrp` is
+    # the number of groups for projectors, and `nwnd` is the number of
+    # band windows.
     nsite = get_i("nsite")
     ngrp = length(PG)
+    nwnd = ngrp
 
-    # Additional check for the parameters contained in PIMP dict
-    @assert nsite === length(get_i("atoms"))
-    @assert nsite === length(get_i("shell"))
+    # Additional check for nsite
+    @assert nsite === length(ai)
 
     # The lshell creates a mapping from shell (string) to l (integer).
     # It is used to parse get_i("shell") to extract the `l` parameter.
