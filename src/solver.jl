@@ -319,17 +319,17 @@ function ctqmc_hyb_l(fmesh::Array{F64,1}, Delta::Array{C64,4})
         # Supplement the spin-down part if it is missed. Here, we just
         # assume that the spin-up and spin-down parts are degenerated.
         if nspin == 1
-        for s = 1:nspin
-            for p = 1:nband
-                orb = (2 - 1) * nband + p
-                for m = 1:nmesh
-                    z = Delta[p,p,m,s]
-                    @printf(fout, "%6i%16.8f%16.8f%16.8f%16.8f%16.8f\n", orb, fmesh[m], real(z), imag(z), 0.0, 0.0)
+            for s = 1:nspin
+                for p = 1:nband
+                    orb = (2 - 1) * nband + p
+                    for m = 1:nmesh
+                        z = Delta[p,p,m,s]
+                        @printf(fout, "%6i%16.8f%16.8f%16.8f%16.8f%16.8f\n", orb, fmesh[m], real(z), imag(z), 0.0, 0.0)
+                    end
+                    println(fout)
+                    println(fout)
                 end
-                println(fout)
-                println(fout)
-            end
-        end
+            end # END OF S LOOP
         end
     end
 end
