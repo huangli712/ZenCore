@@ -359,6 +359,7 @@ function vasp_incar(fermi::F64)
 # The current algorithm is suitable for paramagnetic systems. It has not
 # been tested for magnetically ordered materials.
 #
+
     # For number of bands
     nbands = vaspio_nband(pwd())
     write(ios, "NBANDS   = $nbands \n")
@@ -1081,8 +1082,8 @@ function vaspio_eigen(f::String)
                 enk[j, i, s] = parse(F64, arr[s+1])
                 occupy[j, i, s] = parse(F64, arr[s+1+nspin])
             end
-        end
-    end
+        end # END OF J LOOP
+    end # END OF I LOOP
 
     # close the iostream
     close(fin)
@@ -1181,9 +1182,9 @@ function vaspio_projs(f::String)
                 for p = 1:nproj
                     chipsi[p, b, k, s] = line_to_cmplx(fin)
                 end
-            end
-        end
-    end
+            end # END OF B LOOP
+        end # END OF K LOOP
+    end # END OF S LOOP
 
     # Close the iostream
     close(fin)
