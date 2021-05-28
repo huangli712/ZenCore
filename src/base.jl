@@ -307,7 +307,16 @@ function cycle5()
     end
 end
 
+"""
+    cycle6()
+
+Perform calculations using Kohn-Sham adaptor only. The users can execute
+it in the REPL mode to see whether the Kohn-Sham adaptor work properly.
+
+See also: [`cycle1`](@ref), [`cycle2`](@ref).
+"""
 function cycle6() end
+
 function cycle7() end
 function cycle8() end
 
