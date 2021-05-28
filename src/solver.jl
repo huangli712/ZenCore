@@ -362,7 +362,8 @@ function ctqmc_eimpx(Eimpx::Array{C64,3})
     _, nband, nspin = size(Eimpx)
 
     # Analyze the orbital degeneracy
-    GetSymmetry(Eimpx)
+    symm = GetSymmetry(Eimpx)
+    println(symm)
 
     # Write the local impurity levels to `solver.eimp.in`
     open("solver.eimp.in", "w") do fout
