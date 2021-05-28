@@ -297,12 +297,16 @@ suitable for the CT-QMC quantum impurity solver.
 See also: [`ctqmc_eimpx`](@ref).
 """
 function ctqmc_hyb_l(fmesh::Array{F64,1}, Delta::Array{C64,4})
+    # Extract key parameters from `Delta`
     _, nband, nmesh, nspin = size(Delta)
 
+    # Write the hybridization functions to `solver.hyb.in`
     open("solver.hyb.in", "w") do fout
+        # If nspin is 2, everything is OK. However, if nspin is 1, the
+        # spin-down part is missed.
         for s = 1:nspin
-            for p = 1:cdim
-                orb = (s - 1) * cdim + p
+            for p = 1:nband
+                orb = (s - 1) * nband + p
                 for m = 1:nmesh
                     z = Delta[p,p,m,s]
                     @printf(fout, "%6i%16.8f%16.8f%16.8f%16.8f%16.8f\n", orb, fmesh[m], real(z), imag(z), 0.0, 0.0)
@@ -310,12 +314,14 @@ function ctqmc_hyb_l(fmesh::Array{F64,1}, Delta::Array{C64,4})
                 println(fout)
                 println(fout)
             end
-        end
+        end # END OF S LOOP
 
+        # Supplement the spin-down part if it is missed. Here, we just
+        # assume that the spin-up and spin-down parts are degenerated.
         if nspin == 1
         for s = 1:nspin
-            for p = 1:cdim
-                orb = (2 - 1) * cdim + p
+            for p = 1:nband
+                orb = (2 - 1) * nband + p
                 for m = 1:nmesh
                     z = Delta[p,p,m,s]
                     @printf(fout, "%6i%16.8f%16.8f%16.8f%16.8f%16.8f\n", orb, fmesh[m], real(z), imag(z), 0.0, 0.0)
