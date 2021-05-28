@@ -22,7 +22,11 @@ This quantum impurity solver is from the `iQIST` software package.
 See also: [`s_qmc1_exec`](@ref), [`s_qmc1_save`](@ref).
 """
 function s_qmc1_init(it::IterInfo, imp::Impurity)
+    # Generate configuration file for quantum impurity solver
     ctqmc_setup(imp)
+
+function GetHyb_l(imp::Impurity)
+
     ctqmc_hyb_l()
     ctqmc_eimpx()
 end
