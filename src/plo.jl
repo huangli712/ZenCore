@@ -116,6 +116,8 @@ function plo_map(PG::Array{PrGroup,1}, ai::Array{Impurity,1})
     # Here, `nsite` is the number of quantum impurity problems, `ngrp` is
     # the number of groups for projectors, and `nwnd` is the number of
     # band windows.
+    #
+    # In this code, we have to ensure `nwnd` is always equal to `ngrp`.
     nsite = get_i("nsite")
     ngrp = length(PG)
     nwnd = ngrp
@@ -151,7 +153,7 @@ function plo_map(PG::Array{PrGroup,1}, ai::Array{Impurity,1})
     end
 
     # Create the Mapping struct
-    Map = Mapping(nsite, ngrp)
+    Map = Mapping(nsite, ngrp, nwnd)
 
     # Determine Map.i_grp (imp -> grp) and Map.g_imp (grp -> imp)
     for i = 1:nsite
