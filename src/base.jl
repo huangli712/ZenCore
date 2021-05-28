@@ -590,7 +590,7 @@ function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
 end
 
 """
-    adaptor_run(it::IterInfo, lr::Logger)
+    adaptor_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
 
 Simple driver for the adaptor. It performs three tasks: (1) Initialize
 the adaptor, to check whether the essential files exist. (2) Parse the
@@ -603,7 +603,7 @@ more adaptors, please adapt this function.
 
 See also: [`dft_run`](@ref), [`dmft_run`](@ref), [`solver_run`](@ref).
 """
-function adaptor_run(it::IterInfo, lr::Logger)
+function adaptor_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
     # Enter dft directory
     cd("dft")
 
