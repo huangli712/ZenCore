@@ -30,7 +30,12 @@ function s_qmc1_init(it::IterInfo, imp::Impurity)
 
     # Write frequency mesh and hybridization function to `solver.hyb.in`
     ctqmc_hyb_l(fmesh, Delta)
-    ctqmc_eimpx()
+
+    # Extract local impurity levels from `dmft.eimpx`
+    Eimpx = GetEimpx(imp)
+
+    # Write local impurity levels to `solver.eimp.in`
+    ctqmc_eimpx(Eimpx)
 end
 
 """
