@@ -769,6 +769,25 @@ the local impurity levels.
 See also: [`GetEimpx`](@ref).
 """
 function GetSymmetry(Eimpx::Array{C64,3})
+    # Extract some key parameters from Eimpx
+    _, nband, nspin = size(Eimpx)
+
+    # Extract the diagonal elements of Eimpx
+    eimp = zeros(F64, nband, nspin)
+    for s = 1:nspin
+        for b = 1:nband
+            eimp[b,s] = round(real(Eimpx[b,b,s]), digits = 4)
+            println("$b $s :", eimp[b,s])
+        end
+    end
+
+    # Create an array for symmetry
+    symm = zeros(I64, nband, nspin)
+
+    for s = 1:nspin
+        E = unique(eimp[:,s])
+        #V = [i for i in 1:length(E)]
+    end
 end
 
 """
