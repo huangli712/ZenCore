@@ -293,9 +293,8 @@ end
 
 See also: [`ctqmc_eimpx`](@ref).
 """
-function ctqmc_hyb_l()
+function ctqmc_hyb_l(fmesh::Array{F64,1}, Delta::Array{C64,4})
     _, nband, nmesh, nspin = size(Delta)
-    @assert nband >= cdim
 
     open("solver.hyb.in", "w") do fout
         for s = 1:nspin
