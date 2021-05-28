@@ -103,10 +103,10 @@ end
 #
 
 """
-    plo_map(PG::Array{PrGroup,1})
+    plo_map(PG::Array{PrGroup,1}, ai::Array{Impurity,1})
 
-Create connections / mappings between projectors and quantum impurity
-problems. Return a Mapping struct.
+Create connections / mappings between projectors (or band windows) and
+quantum impurity problems. Return a Mapping struct.
 
 See also: [`PrGroup`](@ref), [`Mapping`](@ref).
 """
