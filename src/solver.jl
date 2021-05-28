@@ -289,7 +289,10 @@ function ctqmc_atomx(imp::Impurity)
 end
 
 """
-    ctqmc_hyb_l()
+    ctqmc_hyb_l(fmesh::Array{F64,1}, Delta::Array{C64,4})
+
+Write the hybridization functions to the `solver.hyb.in` file, which is
+suitable for the CT-QMC quantum impurity solver.
 
 See also: [`ctqmc_eimpx`](@ref).
 """
