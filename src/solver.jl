@@ -25,7 +25,8 @@ function s_qmc1_init(it::IterInfo, imp::Impurity)
     # Generate configuration file for quantum impurity solver
     ctqmc_setup(imp)
 
-function GetHyb_l(imp::Impurity)
+    # Extract frequency mesh and hybridization function
+    fmesh, Delta = GetHyb_l(imp)
 
     ctqmc_hyb_l()
     ctqmc_eimpx()
