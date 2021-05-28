@@ -676,14 +676,15 @@ function GetSig_l(imp::Impurity)
 
     # Activate the corresponding solver_sig_l() functions for various
     # quantum impurity solvers
+    fmesh = nothing
     sig_l = nothing
     @cswitch engine begin
         @case "ct_hyb1"
-            sig_l = ctqmc_sig_l(imp)
+            fmesh, sig_l = ctqmc_sig_l(imp)
             break
 
         @case "ct_hyb2"
-            sig_l = ctqmc_sig_l(imp)
+            fmesh, sig_l = ctqmc_sig_l(imp)
             break
 
         @case "hub1"
@@ -703,7 +704,7 @@ function GetSig_l(imp::Impurity)
     cd("..")
 
     # Return the desired array
-    return sig_l
+    return (fmesh, sig_l)
 end
 
 """
