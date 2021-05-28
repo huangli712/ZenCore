@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/05/27
+# Last modified: 2021/05/28
 #
 
 """
@@ -535,6 +535,7 @@ export dmft_save
 # GetEimpx    -> Parse the local impurity levels.
 # GetSig_l    -> Parse the self-energy functions.
 # GetNimpx    -> Parse the impurity occupancy.
+# GetSymmetry -> Analyze orbital degeneracy via local impurity levels.
 # GetImpurity -> Build Impurity struct according to configuration file.
 #
 include("solver.jl")
@@ -551,7 +552,6 @@ export s_hub1_save
 export s_norg_init
 export s_norg_exec
 export s_norg_save
-export solver_eimp
 export ctqmc_setup
 export ctqmc_atomx
 export ctqmc_hyb_l
@@ -562,6 +562,7 @@ export GetHyb_l
 export GetEimpx
 export GetSig_l
 export GetNimpx
+export GetSymmetry
 export GetImpurity
 
 #
