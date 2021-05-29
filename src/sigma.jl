@@ -193,6 +193,7 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
                 # numbers with zero imaginary parts.
                 for p = 1:ai[i].nband
                     for q = 1:ai[i].nband
+                        # Only the diagonal elements are useful
                         if p == q
                             @printf(fout, "%16.12f %16.12f\n", DCA[i][q, p, s], 0.0)
                         else
