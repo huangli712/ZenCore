@@ -45,10 +45,10 @@ function sigma_reset(ai::Array{Impurity,1})
     # Go through the impurity problems
     for i = 1:nsite
         # Get the dimension of impurity problem
-        ndim = ai[i].nband
+        nband = ai[i].nband
 
         # Create a temporary array for self-energy function
-        S = zeros(C64, ndim, ndim, nmesh, nspin)
+        S = zeros(C64, nband, nband, nmesh, nspin)
 
         # Push S into SA to save it
         push!(SA, S)
@@ -77,18 +77,21 @@ function sigma_reset(ai::Array{Impurity,1})
             for s = 1:nspin
                 println(fout, "# site: $i spin: $s")
                 for m = 1:nmesh
+                    # Write frequency grid
                     @printf(fout, "%4s %6i %16.12f\n", "w:", m, fmesh[m])
-                    # There are 2 columns and ndim * ndim rows
+                    # Write self-energy function data
+                    # There are 2 columns and nband * nband rows
                     for p = 1:ai[i].nband
                         for q = 1:ai[i].nband
                             x = SA[i][q, p, m, s]
                             @printf(fout, "%16.12f %16.12f\n", real(x), imag(x))
                         end
                     end
-                end
+                end # END OF M LOOP
+                # Write separator for each frequency point
                 println(fout)
-            end
-        end
+            end # END OF S LOOP
+        end # END OF I LOOP
     end
 
     # Print blank line for better visualization
