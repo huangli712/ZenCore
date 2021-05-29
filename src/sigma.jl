@@ -282,16 +282,17 @@ function cal_dc_exact(U::F64, J::F64, N::F64)
 end
 
 """
-    split_hyb_l()
+    split_hyb_l(ai::Array{Impurity,1})
+
+Split the dmft1/dmft.hyb_l file into impurity.[i]/dmft.hyb_l files, which
+i denotes the index of quantum impurity problems.
 
 See also: [`split_eimpx`](@ref), [`sigma_split`](@ref).
 """
-function split_hyb_l()
+function split_hyb_l(ai::Array{Impurity,1})
     # Declare the frequency mesh and hybridization function
     fmesh = []
     Delta = []
-    Eimpx = []
-    ndim  = []
 
     # Filename for hybridization functions
     fhyb = "dmft1/dmft.hyb_l"
