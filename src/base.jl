@@ -761,7 +761,7 @@ function sigma_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::Strin
     @cswitch task begin
         # Generate default self-energy functions and store them
         @case "reset"
-            sigma_reset()
+            sigma_reset(ai)
             break
 
         # Calculate the double counting term and store it

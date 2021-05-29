@@ -4,17 +4,17 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/05/25
+# Last modified: 2021/05/29
 #
 
 """
-    sigma_reset()
+    sigma_reset(ai::Array{Impurity,1})
 
 Create initial self-energy functions and write them to `sigma.bare`.
 
 See also: [`sigma_dcount`](@ref).
 """
-function sigma_reset()
+function sigma_reset(ai::Array{Impurity,1})
     # Print the log
     println("Sigma : Reset")
 
