@@ -133,7 +133,6 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
         # Get realistic occupation number
         GetNimpx(ai[i])
         occup = ai[i].occup
-        @show occup, N
 
         # Get number of orbitals
         nband = ai[i].nband
@@ -151,7 +150,8 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
 
             # Fully localized limit scheme with dynamic occupation number
             @case "fll2"
-                sorry()
+                sigdc = cal_dc_fll(U, J, occup)
+                fill!(DC, sigdc)
                 break
 
             # Around mean-field scheme
