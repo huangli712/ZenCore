@@ -321,6 +321,7 @@ function split_hyb_l(ai::Array{Impurity,1})
         Delta = zeros(C64, qdim, qdim, nmesh, nspin, nsite)
 
         # Read the data
+        # Go through each impurity site and spin
         for t = 1:nsite
             for s = 1:nspin
                 # Parse indices and dimensional parameter
@@ -332,22 +333,24 @@ function split_hyb_l(ai::Array{Impurity,1})
                 @assert _s == s
                 @assert _d == ai[t].nband
 
+                # Go through each frequency point
                 for m = 1:nmesh
                     # Parse frequency mesh
                     fmesh[m] = parse(F64, line_to_array(fin)[3])
                     # Parse hybridization functions
-                    for q = 1:cdim
-                        for p = 1:cdim
+                    for q = 1:ai[t].nband
+                        for p = 1:ai[t].nband
                             _re, _im = parse.(F64, line_to_array(fin)[3:4])
                             Delta[p,q,m,s,t] = _re + _im * im
                         end
                     end
-                end
+                end # END OF M LOOP
+
                 # Skip two lines
                 readline(fin)
                 readline(fin)
-            end
-        end
+            end # END OF S LOOP
+        end # END OF T LOOP
 
     end
 
