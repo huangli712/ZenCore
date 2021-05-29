@@ -127,7 +127,7 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
         U = ai[i].upara
         J = ai[i].jpara
 
-        # Get occupation numbers
+        # Get nominal occupation number
         N = get_i("occup")[i]
 
         # Get number of orbitals
@@ -161,14 +161,13 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
         end
 
         # Special treatment for the first iteration
-        @show it
         if it.dmft_cycle <= 1 && it.dmft1_iter <= 1
             fill!(DC, 0.0)
         end
 
         # Push DC into DCA to save it
         push!(DCA, DC)
-    end
+    end # END OF I LOOP
     println("  Create double counting terms: $(get_m("dcount"))")
 
     # Write double counting terms to sigma.dc
