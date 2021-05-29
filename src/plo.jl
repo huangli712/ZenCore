@@ -348,6 +348,10 @@ function plo_window(PG::Array{PrGroup,1}, enk::Array{F64,3})
         push!(PW, PrWindow(kwin, bwin))
     end
 
+    # Well, now CW contains all the windows for correlated groups of
+    # projectors. In Zen, we assume that all of the correlated groups of
+    # projectors must the same energy / band windows.
+
     # Return the desired arrays
     return PW
 end
