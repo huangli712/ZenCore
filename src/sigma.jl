@@ -228,8 +228,10 @@ function sigma_split(ai::Array{Impurity,1})
     # Print the log
     println("Sigma : Split")
 
+    # Split the hybridization functions
     split_hyb_l(ai)
 
+    # Split the local impurity levels
     split_eimpx(ai)
 
     # Print blank line for better visualization
