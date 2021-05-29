@@ -302,7 +302,6 @@ function split_hyb_l(ai::Array{Impurity,1})
 
     # Parse `fhyb`, extract the hybridization functions
     open(fhyb, "r") do fin
-
         # Get the dimensional parameters
         nsite = parse(I64, line_to_array(fin)[3])
         nspin = parse(I64, line_to_array(fin)[3])
@@ -351,7 +350,6 @@ function split_hyb_l(ai::Array{Impurity,1})
                 readline(fin)
             end # END OF S LOOP
         end # END OF T LOOP
-
     end
 
     # Next, we are going to split the hybridization functions according
@@ -360,9 +358,8 @@ function split_hyb_l(ai::Array{Impurity,1})
     # Extract the dimensional parameters
     _, qdim, nmesh, nspin, nsite = size(Delta)
 
-    # Go through each quantum impurity problems
+    # Go through each quantum impurity problem
     for t = 1:nsite
-
         # Determine filename for hybridization functions
         fhyb = "impurity.$t/dmft.hyb_l"
 
@@ -380,7 +377,8 @@ function split_hyb_l(ai::Array{Impurity,1})
 
             # Go through each spin
             for s = 1:nspin
-                @printf(fout, "# site:%4i  spin:%4i  dims:%4i\n", t, s, ndim[t])
+                # Write key parameters
+                @printf(fout, "# site:%4i  spin:%4i  dims:%4i\n", t, s, ai[t].nband)
                 # Go through each frequency point
                 for m = 1:nmesh
                     @printf(fout, "w:%6i%16.8f\n", m, fmesh[m])
@@ -391,14 +389,13 @@ function split_hyb_l(ai::Array{Impurity,1})
                             @printf(fout, "%4i%4i%16.8f%16.8f\n", p, q, real(z), imag(z))
                         end
                     end
-                end
+                end # END OF M LOOP
                 # Write separators
                 println(fout)
                 println(fout)
-            end
+            end # END OF S LOOP
         end
-
-    end
+    end # END OF T LOOP
 end
 
 """
