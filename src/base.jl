@@ -360,7 +360,7 @@ function cycle7(task::String = "reset")
     ai = GetImpurity()
 
     # C02: Execute the Kohn-Sham adaptor
-    sigma_core(it, lr, ai, "split")
+    sigma_core(it, lr, ai, task)
 
     # C98: Close Logger.log
     if isopen(lr.log)
