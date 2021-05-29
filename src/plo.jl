@@ -614,7 +614,7 @@ function get_win2(enk::Array{F64,3}, bwin::Tuple{F64,F64})
             kwin[k, s, 1] = ib1
             kwin[k, s, 2] = ib2
         end
-    end
+    end # END OF S LOOP
 
     # Return the desired array
     return kwin
