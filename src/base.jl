@@ -352,7 +352,17 @@ See also: [`cycle1`](@ref), [`cycle2`](@ref).
 function cycle7()
 end
 
-function cycle8() end
+"""
+    cycle8()
+
+Perform calculations using mixer engine only. The users can execute
+it in the REPL mode to see whether the mixer engine works properly.
+
+See also: [`cycle1`](@ref), [`cycle2`](@ref).
+"""
+function cycle8()
+    sorry()
+end
 
 #
 # Service Functions
