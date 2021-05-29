@@ -368,7 +368,7 @@ function plo_window(PG::Array{PrGroup,1}, enk::Array{F64,3})
     unique!(CW)
     @assert length(CW) == 1
 
-    # Return the desired arrays
+    # Return the desired array
     return PW
 end
 
@@ -422,7 +422,7 @@ function plo_rotate(PG::Array{PrGroup,1}, chipsi::Array{C64,4})
         push!(Rchipsi, R)
     end
 
-    # Return the desired arrays
+    # Return the desired array
     return Rchipsi
 end
 
@@ -464,14 +464,14 @@ function plo_filter(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1})
 
                 # We just copy data from chipsi[p] to F
                 F[:, 1:ib3, k, s] = chipsi[p][:, ib1:ib2, k, s]
-            end
-        end
+            end # END OF K LOOP
+        end # END OF S LOOP
 
         # Push F into Fchipsi to save it
         push!(Fchipsi, F)
-    end
+    end # END OF P LOOP
 
-    # Return the desired arrays
+    # Return the desired array
     return Fchipsi
 end
 
