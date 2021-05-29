@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/05/28
+# Last modified: 2021/05/29
 #
 
 #
@@ -23,7 +23,7 @@ calculate some physical quantities, such as the density matrix, overlap
 matrix, and local hamiltonian, and partial density of states, which will
 be written to external files or terminal for reference.
 
-See also: [`vasp_adaptor`](@ref), [`ir_adaptor`](@ref), [`adaptor_exec`](@ref).
+See also: [`vasp_adaptor`](@ref), [`ir_adaptor`](@ref).
 """
 function plo_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     # P01: Print the header

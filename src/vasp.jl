@@ -20,7 +20,7 @@ code and then fulfill the `DFTData` dict (i.e `D`).
 The following vasp's files are needed: `POSCAR`, `IBZKPT`, `EIGENVAL`,
 `LOCPROJ`, and `DOSCAR`.
 
-See also: [`plo_adaptor`](@ref), [`ir_adaptor`](@ref), [`adaptor_exec`](@ref).
+See also: [`plo_adaptor`](@ref), [`ir_adaptor`](@ref).
 """
 function vasp_adaptor(D::Dict{Symbol,Any})
     # V01: Print the header
