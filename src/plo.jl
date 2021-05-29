@@ -202,7 +202,7 @@ end
 """
     plo_group(MAP::Mapping, PG::Array{PrGroup,1})
 
-Use the information contained in the `PIMP` dict to further complete
+Use the information contained in the `Mapping` struct to further complete
 the `PrGroup` struct.
 
 See also: [`PIMP`](@ref), [`Mapping`](@ref), [`PrGroup`](@ref).
