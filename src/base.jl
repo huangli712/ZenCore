@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/05/28
+# Last modified: 2021/05/29
 #
 
 #
@@ -771,7 +771,7 @@ function sigma_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::Strin
 
         # Split the hybridization functions and store them
         @case "split"
-            sigma_split()
+            sigma_split(ai)
             break
 
         # Collect impurity self-energy functions and combine them

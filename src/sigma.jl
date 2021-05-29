@@ -217,16 +217,20 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
 end
 
 """
-    sigma_split()
+    sigma_split(ai::Array{Impurity,1})
 
 Split the hybridization functions (and local impurity levels) and then
 distribute them into the `impurity.i` folder.
 
 See also: [`sigma_gather`](@ref).
 """
-function sigma_split()
+function sigma_split(ai::Array{Impurity,1})
     # Print the log
     println("Sigma : Split")
+
+    split_hyb_l(ai)
+
+    split_eimpx(ai)
 
     # Print blank line for better visualization
     println()
