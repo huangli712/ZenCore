@@ -130,19 +130,11 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
         # Get occupation numbers
         N = get_i("occup")[i]
 
-        # Get number of orbitals: `ndim`
-        #
-        # Retrieve specification for impurity problem
-        str = get_i("shell")[i]
-        #
-        # Get the dimension of impurity problem
-        ndim = get(sdim, str, 1)
-        #
-        # Save `ndim` in `D`
-        push!(D, ndim)
+        # Get number of orbitals
+        nband = ai[i].nband
 
         # Create a temporary array for the double counting terms
-        DC = zeros(F64, ndim, ndim, nspin)
+        DC = zeros(F64, nband, nband, nspin)
 
         # Choose suitable double counting scheme
         @cswitch get_m("dcount") begin
