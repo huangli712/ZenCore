@@ -505,7 +505,9 @@ function ctqmc_nimpx(imp::Impurity)
     fnmat = "solver.nmat.dat"
 
     # To make sure the data file is present
-    @assert isfile(fnmat)
+    if !isfile(fnmat)
+        return
+    end
 
     # Parse the data file to extract total impurity occupancy
     lines = readlines(fnmat)

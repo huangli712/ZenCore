@@ -130,6 +130,11 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
         # Get nominal occupation number
         N = get_i("occup")[i]
 
+        # Get realistic occupation number
+        GetNimpx(ai[i])
+        occup = ai[i].occup
+        @show occup, N
+
         # Get number of orbitals
         nband = ai[i].nband
 
