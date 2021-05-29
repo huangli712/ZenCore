@@ -228,6 +228,60 @@ function sigma_split()
     # Print the log
     println("Sigma : Split")
 
+    # Print blank line for better visualization
+    println()
+end
+
+"""
+    sigma_gather()
+
+Gather the self-energy functions (or similar local functions) from the
+`impurity.i` folder and then combine them into a single `sigma.bare` file.
+
+See also: [`sigma_split`](@ref).
+"""
+function sigma_gather()
+    # Print the log
+    println("Sigma : Gather")
+
+    # Print blank line for better visualization
+    println()
+end
+
+"""
+    cal_dc_fll(U::F64, J::F64, N::F64)
+
+Evaluate the double counting term by the fully localized limit scheme.
+
+See also: [`cal_dc_amf`](@ref), [`cal_dc_exact`](@ref).
+"""
+function cal_dc_fll(U::F64, J::F64, N::F64)
+    U * ( N - 0.5 ) - J / 2.0 * ( N - 1.0 )
+end
+
+"""
+    cal_dc_amf(U::F64, J::F64, N::F64)
+
+Evaluate the double counting term by the around mean-field scheme.
+
+See also: [`cal_dc_fll`](@ref), [`cal_dc_exact`](@ref).
+"""
+function cal_dc_amf(U::F64, J::F64, N::F64)
+    sorry()
+end
+
+"""
+    cal_dc_exact(U::F64, J::F64, N::F64)
+
+Evaluate the double counting term by the exact scheme.
+
+See also: [`cal_dc_fll`](@ref), [`cal_dc_amf`](@ref).
+"""
+function cal_dc_exact(U::F64, J::F64, N::F64)
+    sorry()
+end
+
+function split_hyb_l()
     # Declare the frequency mesh and hybridization function
     fmesh = []
     Delta = []
@@ -334,7 +388,9 @@ function sigma_split()
         end
 
     end
+end
 
+function split_eimpx()
     # Filename for local impurity levels
     flev = "dmft1/dmft.eimpx"
 
@@ -426,56 +482,4 @@ function sigma_split()
         end
 
     end
-
-    # Print blank line for better visualization
-    println()
-end
-
-"""
-    sigma_gather()
-
-Gather the self-energy functions (or similar local functions) from the
-`impurity.i` folder and then combine them into a single `sigma.bare` file.
-
-See also: [`sigma_split`](@ref).
-"""
-function sigma_gather()
-    # Print the log
-    println("Sigma : Gather")
-
-    # Print blank line for better visualization
-    println()
-end
-
-"""
-    cal_dc_fll(U::F64, J::F64, N::F64)
-
-Evaluate the double counting term by the fully localized limit scheme.
-
-See also: [`cal_dc_amf`](@ref), [`cal_dc_exact`](@ref).
-"""
-function cal_dc_fll(U::F64, J::F64, N::F64)
-    U * ( N - 0.5 ) - J / 2.0 * ( N - 1.0 )
-end
-
-"""
-    cal_dc_amf(U::F64, J::F64, N::F64)
-
-Evaluate the double counting term by the around mean-field scheme.
-
-See also: [`cal_dc_fll`](@ref), [`cal_dc_exact`](@ref).
-"""
-function cal_dc_amf(U::F64, J::F64, N::F64)
-    sorry()
-end
-
-"""
-    cal_dc_exact(U::F64, J::F64, N::F64)
-
-Evaluate the double counting term by the exact scheme.
-
-See also: [`cal_dc_fll`](@ref), [`cal_dc_amf`](@ref).
-"""
-function cal_dc_exact(U::F64, J::F64, N::F64)
-    sorry()
 end
