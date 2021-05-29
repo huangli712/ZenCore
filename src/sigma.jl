@@ -281,6 +281,11 @@ function cal_dc_exact(U::F64, J::F64, N::F64)
     sorry()
 end
 
+"""
+    split_hyb_l()
+
+See also: [`split_eimpx`](@ref), [`sigma_split`](@ref).
+"""
 function split_hyb_l()
     # Declare the frequency mesh and hybridization function
     fmesh = []
@@ -390,6 +395,10 @@ function split_hyb_l()
     end
 end
 
+"""
+    split_eimpx()
+
+"""
 function split_eimpx()
     # Filename for local impurity levels
     flev = "dmft1/dmft.eimpx"
