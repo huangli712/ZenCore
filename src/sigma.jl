@@ -67,21 +67,21 @@ function sigma_reset(ai::Array{Impurity,1})
         println(fout, "nmesh -> $nmesh")
         println(fout, "nspin -> $nspin")
         for i = 1:nsite
-            println(fout, "ndim$i -> $(D[i])")
+            println(fout, "ndim$i -> $(ai[i].nband)")
         end
         println(fout)
 
         # Write the body
-        # Go through each impurity problem
+        # Go through each quantum impurity problem
         for i = 1:nsite
             for s = 1:nspin
                 println(fout, "# site: $i spin: $s")
                 for m = 1:nmesh
                     @printf(fout, "%4s %6i %16.12f\n", "w:", m, fmesh[m])
                     # There are 2 columns and ndim * ndim rows
-                    for a = 1:D[i]
-                        for b = 1:D[i]
-                            x = SA[i][b, a, m, s]
+                    for p = 1:ai[i].nband
+                        for q = 1:ai[i].nband
+                            x = SA[i][q, p, m, s]
                             @printf(fout, "%16.12f %16.12f\n", real(x), imag(x))
                         end
                     end
