@@ -457,8 +457,8 @@ function split_eimpx(ai::Array{Impurity,1})
                 # Skip two lines
                 readline(fin)
                 readline(fin)
-            end
-        end
+            end # END OF S LOOP
+        end # END OF T LOOP
     end
 
     # Next, we are going to split the local impurity levels according
