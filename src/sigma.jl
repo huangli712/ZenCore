@@ -42,19 +42,10 @@ function sigma_reset(ai::Array{Impurity,1})
     # Initialize an array for self-energy functions
     SA = Array{C64,4}[]
     #
-    # `D` is used to record the dimensional parameter of the self-energy
-    D = I64[]
-    #
     # Go through the impurity problems
     for i = 1:nsite
-        # Retrieve specification for impurity problem
-        str = get_i("shell")[i]
-
         # Get the dimension of impurity problem
-        ndim = get(sdim, str, 1)
-        #
-        # Save `ndim` in `D`
-        push!(D, ndim)
+        ndim = ai[i].nband
 
         # Create a temporary array for self-energy function
         S = zeros(C64, ndim, ndim, nmesh, nspin)
