@@ -285,7 +285,7 @@ end
     split_hyb_l(ai::Array{Impurity,1})
 
 Split the dmft1/dmft.hyb_l file into impurity.[i]/dmft.hyb_l files, which
-i denotes the index of quantum impurity problems.
+`i` denotes the index of quantum impurity problems.
 
 See also: [`split_eimpx`](@ref), [`sigma_split`](@ref).
 """
@@ -401,6 +401,10 @@ end
 """
     split_eimpx()
 
+Split the dmft1/dmft.eimpx file into impurity.[i]/dmft.eimpx files, which
+`i` denotes the index of quantum impurity problems.
+
+See also: [`split_hyb_l`](@ref), [`sigma_split`](@ref).
 """
 function split_eimpx()
     # Filename for local impurity levels
