@@ -111,20 +111,10 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
     # Print the log
     println("Sigma : Dcount")
 
-    # The sdim creates a mapping from shell (string) to ndim (integer).
-    # It is used to parse get_i("shell") to extract the `ndim` parameter.
-    sdim = Dict{String,I64}(
-               "s"     => 1,
-               "p"     => 3,
-               "d"     => 5,
-               "f"     => 7,
-               "d_t2g" => 3, # Only a subset of d orbitals
-               "d_eg"  => 2, # Only a subset of d orbitals
-           )
-
     # Extract some necessary parameters
     nsite = get_i("nsite")
     nspin = ( get_d("lspins") ? 2 : 1 )
+    @assert nsite == length(ai)
 
     # Create double counting terms for self-energy functions
     #
