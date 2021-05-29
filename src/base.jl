@@ -311,7 +311,7 @@ end
     cycle6()
 
 Perform calculations using Kohn-Sham adaptor only. The users can execute
-it in the REPL mode to see whether the Kohn-Sham adaptor work properly.
+it in the REPL mode to see whether the Kohn-Sham adaptor works properly.
 
 See also: [`cycle1`](@ref), [`cycle2`](@ref).
 """
@@ -344,8 +344,8 @@ end
 """
     cycle7()
 
-Perform calculations using Kohn-Sham adaptor only. The users can execute
-it in the REPL mode to see whether the Kohn-Sham adaptor work properly.
+Perform calculations using self-energy engine only. The users can execute
+it in the REPL mode to see whether the self-energy engine works properly.
 
 See also: [`cycle1`](@ref), [`cycle2`](@ref).
 """
