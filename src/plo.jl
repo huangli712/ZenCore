@@ -167,16 +167,20 @@ function plo_map(PG::Array{PrGroup,1}, ai::Array{Impurity,1})
     end
 
     # Examine Map.i_grp
+    #
     # For a given quantum impurity problem, we can always find out the
     # corresponding group of projectors.
     @assert all(x -> (0 < x <= ngrp), Map.i_grp)
 
     # Examine Map.g_imp
+    #
     # For a given group of projectors, if we fail to find out the
     # corresponding quantum impurity problem, it must be non-correlated.
     @assert all(x -> (0 <= x <= nsite), Map.g_imp)
 
     # Setup Map.i_wnd and Map.w_imp
+    #
+    # They are actually copies of i_grp and g_imp.
     Map.i_wnd[:] = Map.i_grp[:]
     Map.w_imp[:] = Map.g_imp[:]
 
