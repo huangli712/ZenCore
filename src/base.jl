@@ -342,14 +342,14 @@ function cycle6()
 end
 
 """
-    cycle7()
+    cycle7(task::String = "reset")
 
 Perform calculations using self-energy engine only. The users can execute
 it in the REPL mode to see whether the self-energy engine works properly.
 
 See also: [`cycle1`](@ref), [`cycle2`](@ref).
 """
-function cycle7()
+function cycle7(task::String = "reset")
     # C-1: Create IterInfo struct
     it = IterInfo()
 
@@ -360,7 +360,7 @@ function cycle7()
     ai = GetImpurity()
 
     # C02: Execute the Kohn-Sham adaptor
-    adaptor_run(it, lr, ai)
+    sigma_core(it, lr, ai, "split")
 
     # C98: Close Logger.log
     if isopen(lr.log)
