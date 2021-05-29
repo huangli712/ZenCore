@@ -499,8 +499,7 @@ function split_eimpx(ai::Array{Impurity,1})
                 # Write separators
                 println(fout)
                 println(fout)
-            end
+            end # END OF S LOOP
         end
-
-    end
+    end # END OF T LOOP
 end
