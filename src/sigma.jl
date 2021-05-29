@@ -179,7 +179,7 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
         println(fout, "nsite -> $nsite")
         println(fout, "nspin -> $nspin")
         for i = 1:nsite
-            println(fout, "ndim$i -> $(D[i])")
+            println(fout, "ndim$i -> $(ai[i].nband)")
         end
         println(fout)
 
@@ -188,13 +188,13 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
         for i = 1:nsite
             for s = 1:nspin
                 println(fout, "# site: $i spin: $s")
-                # There are 2 columns and ndim * ndim rows
+                # There are 2 columns and nband * nband rows
                 # The double counting terms are assumed to be complex
                 # numbers with zero imaginary parts.
-                for a = 1:D[i]
-                    for b = 1:D[i]
-                        if a == b
-                            @printf(fout, "%16.12f %16.12f\n", DCA[i][b, a, s], 0.0)
+                for p = 1:ai[i].nband
+                    for q = 1:ai[i].nband
+                        if p == q
+                            @printf(fout, "%16.12f %16.12f\n", DCA[i][q, p, s], 0.0)
                         else
                             @printf(fout, "%16.12f %16.12f\n", 0.0, 0.0)
                         end
