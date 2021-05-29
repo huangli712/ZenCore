@@ -199,11 +199,11 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
                         else
                             @printf(fout, "%16.12f %16.12f\n", 0.0, 0.0)
                         end
-                    end
-                end
+                    end # END OF Q LOOP
+                end # END OF P LOOP
                 println(fout)
-            end
-        end
+            end # END OF S LOOP
+        end # END OF I LOOP
     end
 
     # Print blank line for better visualization
