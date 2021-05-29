@@ -766,7 +766,7 @@ function sigma_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::Strin
 
         # Calculate the double counting term and store it
         @case "dcount"
-            sigma_dcount(it)
+            sigma_dcount(it, ai)
             break
 
         # Split the hybridization functions and store them

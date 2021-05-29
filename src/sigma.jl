@@ -100,14 +100,14 @@ function sigma_reset(ai::Array{Impurity,1})
 end
 
 """
-    sigma_dcount(it::IterInfo)
+    sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
 
 Calculate double counting terms for local self-energy functions and
 write them to `sigma.dc`.
 
 See also: [`sigma_reset`](@ref).
 """
-function sigma_dcount(it::IterInfo)
+function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
     # Print the log
     println("Sigma : Dcount")
 
