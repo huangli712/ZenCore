@@ -739,7 +739,7 @@ function adaptor_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
 end
 
 """
-    sigma_core(it::IterInfo, lr::Logger, task::String = "reset")
+    sigma_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::String = "reset")
 
 Simple driver for functions for processing the self-energy functions
 and hybridization functions.
@@ -749,7 +749,7 @@ won't change the current directory.
 
 See also: [`mixer_core`](@ref).
 """
-function sigma_core(it::IterInfo, lr::Logger, task::String = "reset")
+function sigma_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::String = "reset")
     # Check the given task
     @assert task in ("reset", "dcount", "split", "gather")
 
