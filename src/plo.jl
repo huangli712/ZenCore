@@ -362,6 +362,9 @@ function plo_window(PG::Array{PrGroup,1}, enk::Array{F64,3})
     # where PrGroup 1 and PrGroup 2 are correlated. Then, PrWindow 1
     # and PrWindow must be the same (though their indices are different).
     # In other words, their `kwin` must be the same.
+    #
+    # In order to achieve this goal, the unique elements in CW must be
+    # 1. This is the basic idea for the following codes.
 
     # Return the desired arrays
     return PW
