@@ -350,7 +350,18 @@ function plo_window(PG::Array{PrGroup,1}, enk::Array{F64,3})
 
     # Well, now CW contains all the windows for correlated groups of
     # projectors. In Zen, we assume that all of the correlated groups of
-    # projectors must the same energy / band windows.
+    # projectors must share the same energy / band windows. In other
+    # words, the real windows of them must be the same (the indices for
+    # these windows can be different). For example, please consider the
+    # following case. We have three PrGroups and (of course) PrWindows:
+    #
+    # PrGroup 1 <-> PrWindow 1
+    # PrGroup 2 <-> PrWindow 2
+    # PrGroup 3 <-> PrWindow 3
+    #
+    # where PrGroup 1 and PrGroup 2 are correlated. Then, PrWindow 1
+    # and PrWindow must be the same (though their indices are different).
+    # In other words, their `kwin` must be the same.
 
     # Return the desired arrays
     return PW
