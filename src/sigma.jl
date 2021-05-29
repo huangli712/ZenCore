@@ -399,14 +399,14 @@ function split_hyb_l(ai::Array{Impurity,1})
 end
 
 """
-    split_eimpx()
+    split_eimpx(ai::Array{Impurity,1})
 
 Split the dmft1/dmft.eimpx file into impurity.[i]/dmft.eimpx files, which
 `i` denotes the index of quantum impurity problems.
 
 See also: [`split_hyb_l`](@ref), [`sigma_split`](@ref).
 """
-function split_eimpx()
+function split_eimpx(ai::Array{Impurity,1})
     # Filename for local impurity levels
     flev = "dmft1/dmft.eimpx"
 
