@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/05/28
+# Last modified: 2021/05/29
 #
 
 """
@@ -582,6 +582,8 @@ export GetImpurity
 # cal_dc_fll   -> Fully localized limit scheme for double counting term.
 # cal_dc_amf   -> Around mean-field scheme for double counting term.
 # cal_dc_exact -> Exact double counting scheme.
+# split_hyb_l  -> Split the hybridization functions.
+# split_eimpx  -> Split the local impurity levels.
 #
 include("sigma.jl")
 #
@@ -592,6 +594,8 @@ export sigma_gather
 export cal_dc_fll
 export cal_dc_amf
 export cal_dc_exact
+export split_hyb_l
+export split_eimpx
 
 """
     __init__()
