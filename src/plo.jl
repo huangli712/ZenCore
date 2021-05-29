@@ -180,7 +180,7 @@ function plo_map(PG::Array{PrGroup,1}, ai::Array{Impurity,1})
 
     # Setup Map.i_wnd and Map.w_imp
     #
-    # They are actually copies of i_grp and g_imp.
+    # They are actually copies of i_grp and g_imp
     Map.i_wnd[:] = Map.i_grp[:]
     Map.w_imp[:] = Map.g_imp[:]
 
@@ -216,13 +216,13 @@ function plo_group(MAP::Mapping, PG::Array{PrGroup,1})
 #
 # 2. In this function, `corr`, `shell`,  and `Tr` which are members of
 #    PrGroup struct will be modified according to users' configuration,
-#    in other words, the case.toml file.
+#    in other words, the case.toml file (PIMP dict -> Mapping struct).
 #
 
     # Scan the groups of projectors, setup them one by one.
     for g in eachindex(PG)
         # Examine PrGroup, check number of projectors
-        @assert 2 * PG[g].l + 1 === length(PG[g].Pr)
+        @assert 2 * PG[g].l + 1 == length(PG[g].Pr)
 
         # Extract the index of quantum impurity problem for the current
         # group of projectors
