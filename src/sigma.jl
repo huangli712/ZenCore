@@ -407,6 +407,9 @@ Split the dmft1/dmft.eimpx file into impurity.[i]/dmft.eimpx files, which
 See also: [`split_hyb_l`](@ref), [`sigma_split`](@ref).
 """
 function split_eimpx(ai::Array{Impurity,1})
+    # Declare the local impurity levels
+    Eimpx = []
+
     # Filename for local impurity levels
     flev = "dmft1/dmft.eimpx"
 
@@ -415,11 +418,11 @@ function split_eimpx(ai::Array{Impurity,1})
 
     # Parse `flev`, extract the local impurity levels
     open(flev, "r") do fin
-
         # Get the dimensional parameters
         nsite = parse(I64, line_to_array(fin)[3])
         nspin = parse(I64, line_to_array(fin)[3])
-        qdim = parse(I64, line_to_array(fin)[4])
+        qdim  = parse(I64, line_to_array(fin)[4])
+        @assert nsite == length(ai)
 
         # Skip two lines
         readline(fin)
