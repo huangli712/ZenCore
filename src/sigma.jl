@@ -390,8 +390,8 @@ function split_hyb_l(ai::Array{Impurity,1})
                 for m = 1:nmesh
                     @printf(fout, "w:%6i%16.8f\n", m, fmesh[m])
                     # Go through the orbital space
-                    for q = 1:ndim[t]
-                        for p = 1:ndim[t]
+                    for q = 1:ai[t].nband
+                        for p = 1:ai[t].nband
                             z = Delta[p,q,m,s,t]
                             @printf(fout, "%4i%4i%16.8f%16.8f\n", p, q, real(z), imag(z))
                         end
