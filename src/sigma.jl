@@ -307,7 +307,8 @@ function split_hyb_l(ai::Array{Impurity,1})
         nsite = parse(I64, line_to_array(fin)[3])
         nspin = parse(I64, line_to_array(fin)[3])
         nmesh = parse(I64, line_to_array(fin)[3])
-        qdim = parse(I64, line_to_array(fin)[4])
+        qdim  = parse(I64, line_to_array(fin)[4])
+        @assert nsite == length(ai)
 
         # Skip two lines
         readline(fin)
@@ -318,7 +319,6 @@ function split_hyb_l(ai::Array{Impurity,1})
 
         # Create an array for hybridization functions
         Delta = zeros(C64, qdim, qdim, nmesh, nspin, nsite)
-        ndim = zeros(I64, nsite)
 
         # Read the data
         for t = 1:nsite
@@ -327,9 +327,11 @@ function split_hyb_l(ai::Array{Impurity,1})
                 strs = readline(fin)
                 _t = parse(I64, line_to_array(strs)[3])
                 _s = parse(I64, line_to_array(strs)[5])
-                cdim = parse(I64, line_to_array(strs)[7])
-                ndim[t] = cdim
-                @assert _t == t && _s == s
+                _d = parse(I64, line_to_array(strs)[7])
+                @assert _t == t
+                @assert _s == s
+                @assert _d == ai[t].nband
+
                 for m = 1:nmesh
                     # Parse frequency mesh
                     fmesh[m] = parse(F64, line_to_array(fin)[3])
