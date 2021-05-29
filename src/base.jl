@@ -350,6 +350,29 @@ it in the REPL mode to see whether the self-energy engine works properly.
 See also: [`cycle1`](@ref), [`cycle2`](@ref).
 """
 function cycle7()
+    # C-1: Create IterInfo struct
+    it = IterInfo()
+
+    # C00: Create Logger struct
+    lr = Logger(query_case())
+
+    # C01: Initialize the quantum impurity problems
+    ai = GetImpurity()
+
+    # C02: Execute the Kohn-Sham adaptor
+    adaptor_run(it, lr, ai)
+
+    # C98: Close Logger.log
+    if isopen(lr.log)
+        flush(lr.log)
+        close(lr.log)
+    end
+
+    # C99: Close Logger.cycle
+    if isopen(lr.cycle)
+        flush(lr.cycle)
+        close(lr.cycle)
+    end
 end
 
 """
