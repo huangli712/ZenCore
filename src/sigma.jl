@@ -379,6 +379,7 @@ function split_hyb_l(ai::Array{Impurity,1})
             for s = 1:nspin
                 # Write key parameters
                 @printf(fout, "# site:%4i  spin:%4i  dims:%4i\n", t, s, ai[t].nband)
+
                 # Go through each frequency point
                 for m = 1:nmesh
                     @printf(fout, "w:%6i%16.8f\n", m, fmesh[m])
@@ -390,6 +391,7 @@ function split_hyb_l(ai::Array{Impurity,1})
                         end
                     end
                 end # END OF M LOOP
+
                 # Write separators
                 println(fout)
                 println(fout)
@@ -467,7 +469,6 @@ function split_eimpx(ai::Array{Impurity,1})
 
     # Go through each quantum impurity problems
     for t = 1:nsite
-
         # Determine filename for local impurity levels
         flev = "impurity.$t/dmft.eimpx"
 
@@ -484,7 +485,7 @@ function split_eimpx(ai::Array{Impurity,1})
 
             # Go through each spin
             for s = 1:nspin
-                # Write dimensional parameters
+                # Write key parameters
                 @printf(fout, "# site:%4i  spin:%4i  dims:%4i\n", t, s, ndim[t])
 
                 # Go through the orbital space
