@@ -124,8 +124,8 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
     # Go through the impurity problems and calculate dc
     for i = 1:nsite
         # Get interaction parameters
-        U = get_i("upara")[i]
-        J = get_i("jpara")[i]
+        U = ai[i].upara
+        J = ai[i].jpara
 
         # Get occupation numbers
         N = get_i("occup")[i]
