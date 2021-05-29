@@ -307,6 +307,10 @@ function plo_window(PG::Array{PrGroup,1}, enk::Array{F64,3})
     # Initialize an array of PrWindow struct
     PW = PrWindow[]
 
+    # Initialize an array of Tuple to record the window for correlated
+    # groups of projectors
+    CW = Tuple[]
+
     # Scan the groups of projectors, setup PrWindow for them.
     for p in eachindex(PG)
         # Determine bwin. Don't forget it is a Tuple. bwin = (emin, emax).
