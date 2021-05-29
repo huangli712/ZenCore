@@ -322,6 +322,13 @@ function plo_window(PG::Array{PrGroup,1}, enk::Array{F64,3})
             bwin = (window[2*p-1], window[2*p])
         end
 
+        # Record the current window if the corresponding group of
+        # projectors is correlated. Later it will be used to analyze
+        # the correctness of band window.
+        if PG[p].corr
+            push!(CW, bwin)
+        end
+
         # Examine `bwin` further. Its elements should obey the order. This
         # window must be defined by band indices (they are integers) or
         # energies (two float numbers).
