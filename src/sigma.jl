@@ -121,9 +121,6 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
     # Initialize an array for dc
     DCA = Array{F64,3}[]
     #
-    # `D` is used to record the dimensional parameter of the self-energy
-    D = I64[]
-    #
     # Go through the impurity problems and calculate dc
     for i = 1:nsite
         # Get interaction parameters
