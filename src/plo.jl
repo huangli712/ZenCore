@@ -365,6 +365,8 @@ function plo_window(PG::Array{PrGroup,1}, enk::Array{F64,3})
     #
     # In order to achieve this goal, the unique elements in CW must be
     # 1. This is the basic idea for the following codes.
+    unique!(CW)
+    @assert length(CW) == 1
 
     # Return the desired arrays
     return PW
