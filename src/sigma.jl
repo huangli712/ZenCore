@@ -453,8 +453,8 @@ function split_eimpx(ai::Array{Impurity,1})
                 @assert _d == ai[t].nband
 
                 # Parse local impurity levels
-                for q = 1:cdim
-                    for p = 1:cdim
+                for q = 1:ai[t].nband
+                    for p = 1:ai[t].nband
                         _re, _im = parse.(F64, line_to_array(fin)[3:4])
                         Eimpx[p,q,s,t] = _re + _im * im
                     end
@@ -495,8 +495,8 @@ function split_eimpx(ai::Array{Impurity,1})
                 @printf(fout, "# site:%4i  spin:%4i  dims:%4i\n", t, s, ndim[t])
 
                 # Go through the orbital space
-                for q = 1:ndim[t]
-                    for p = 1:ndim[t]
+                for q = 1:ai[t].nband
+                    for p = 1:ai[t].nband
                         z = Eimpx[p,q,s,t]
                         @printf(fout, "%4i%4i%16.8f%16.8f\n", p, q, real(z), imag(z))
                     end
