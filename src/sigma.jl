@@ -492,7 +492,7 @@ function split_eimpx(ai::Array{Impurity,1})
             # Go through each spin
             for s = 1:nspin
                 # Write key parameters
-                @printf(fout, "# site:%4i  spin:%4i  dims:%4i\n", t, s, ndim[t])
+                @printf(fout, "# site:%4i  spin:%4i  dims:%4i\n", t, s, ai[t].nband)
 
                 # Go through the orbital space
                 for q = 1:ai[t].nband
