@@ -430,18 +430,19 @@ function split_eimpx(ai::Array{Impurity,1})
 
         # Create an array for local impurity levels
         Eimpx = zeros(C64, qdim, qdim, nspin, nsite)
-        ndim = zeros(I64, nsite)
 
         # Read the data
+        # Go through each impurity site and spin
         for t = 1:nsite
             for s = 1:nspin
                 # Parse indices and dimensional parameter
                 strs = readline(fin)
                 _t = parse(I64, line_to_array(strs)[3])
                 _s = parse(I64, line_to_array(strs)[5])
-                cdim = parse(I64, line_to_array(strs)[7])
-                ndim[t] = cdim
-                @assert _t == t && _s == s
+                _d = parse(I64, line_to_array(strs)[7])
+                @assert _t == t
+                @assert _s == s
+                @assert _d == ai[t].nband
 
                 # Parse local impurity levels
                 for q = 1:cdim
