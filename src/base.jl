@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/05/29
+# Last modified: 2021/05/30
 #
 
 #
@@ -776,7 +776,7 @@ function sigma_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::Strin
 
         # Collect impurity self-energy functions and combine them
         @case "gather"
-            sigma_gather()
+            sigma_gather(ai)
             break
 
         @default

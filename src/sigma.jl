@@ -239,14 +239,14 @@ function sigma_split(ai::Array{Impurity,1})
 end
 
 """
-    sigma_gather()
+    sigma_gather(ai::Array{Impurity,1})
 
 Gather the self-energy functions (or similar local functions) from the
 `impurity.i` folder and then combine them into a single `sigma.bare` file.
 
 See also: [`sigma_split`](@ref).
 """
-function sigma_gather()
+function sigma_gather(ai::Array{Impurity,1})
     # Print the log
     println("Sigma : Gather")
 
