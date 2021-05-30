@@ -429,6 +429,7 @@ function split_hyb_l(ai::Array{Impurity,1})
             end # END OF S LOOP
         end # END OF T LOOP
     end
+    println("  Read hybridization functions from: $fhyb")
 
     # Next, we are going to split the hybridization functions according
     # to the quantum impurity problems
@@ -475,6 +476,7 @@ function split_hyb_l(ai::Array{Impurity,1})
                 println(fout)
             end # END OF S LOOP
         end
+        println("  Split hybridization functions into: $fhyb")
     end # END OF T LOOP
 end
 
@@ -538,6 +540,7 @@ function split_eimpx(ai::Array{Impurity,1})
             end # END OF S LOOP
         end # END OF T LOOP
     end
+    println("  Read local impurity levels from: $flev")
 
     # Next, we are going to split the local impurity levels according
     # to the quantum impurity problems
@@ -579,5 +582,6 @@ function split_eimpx(ai::Array{Impurity,1})
                 println(fout)
             end # END OF S LOOP
         end
+        println("  Split local impurity levels into: $flev")
     end # END OF T LOOP
 end
