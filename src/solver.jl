@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/05/28
+# Last modified: 2021/05/30
 #
 
 #
@@ -439,8 +439,8 @@ function ctqmc_sig_l(imp::Impurity)
 
     # We don't know how many frequency points are used a priori.
     # Here, we used a trick to determine `nmesh`.
-    lines = readline(fsgm)
-    nmesh = length(lines) / norbs - 2
+    nline = countlines(fsgm)
+    nmesh = convert(I64, nline / norbs - 2)
 
     # Create an array for frequency mesh
     fmesh = zeros(F64, nmesh)
