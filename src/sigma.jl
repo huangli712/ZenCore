@@ -251,7 +251,9 @@ function sigma_gather(ai::Array{Impurity,1})
     println("Sigma : Gather")
 
     # Extract some necessary parameters
+    axis = get_m("axis")
     nmesh = get_m("nmesh")
+    beta = get_m("beta")
     nsite = get_i("nsite")
     nspin = ( get_d("lspins") ? 2 : 1 )
     @assert nsite == length(ai)
@@ -280,6 +282,45 @@ function sigma_gather(ai::Array{Impurity,1})
     # Now the self-energy functions for all quantum impurity problems and
     # the corresponding frequency mesh are ready. We are going to write
     # them into the `sigma.bare` file.
+
+    # Write self-energy functions to sigma.bare
+    open("dmft1/sigma.bare", "w") do fout
+        # Write the header
+        println(fout, "# File: sigma.bare")
+        println(fout, "# Data: bare self-energy functions")
+        println(fout)
+        println(fout, "axis  -> $axis")
+        println(fout, "beta  -> $beta")
+        println(fout, "nsite -> $nsite")
+        println(fout, "nmesh -> $nmesh")
+        println(fout, "nspin -> $nspin")
+        for i = 1:nsite
+            println(fout, "ndim$i -> $(ai[i].nband)")
+        end
+        println(fout)
+
+        # Write the body
+        # Go through each quantum impurity problem
+        for i = 1:nsite
+            for s = 1:nspin
+                println(fout, "# site: $i spin: $s")
+                for m = 1:nmesh
+                    # Write frequency grid
+                    @printf(fout, "%4s %6i %16.12f\n", "w:", m, fmesh[m])
+                    # Write self-energy function data
+                    # There are 2 columns and nband * nband rows
+                    for p = 1:ai[i].nband
+                        for q = 1:ai[i].nband
+                            x = SA[i][q, p, m, s]
+                            @printf(fout, "%16.12f %16.12f\n", real(x), imag(x))
+                        end
+                    end
+                end # END OF M LOOP
+                # Write separator for each frequency point
+                println(fout)
+            end # END OF S LOOP
+        end # END OF I LOOP
+    end
 
     # Print blank line for better visualization
     println()
