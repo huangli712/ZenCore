@@ -250,7 +250,19 @@ function sigma_gather(ai::Array{Impurity,1})
     # Print the log
     println("Sigma : Gather")
 
-    nsite = length(ai)
+    # Extract some necessary parameters
+    nmesh = get_m("nmesh")
+    nsite = get_i("nsite")
+    nspin = ( get_d("lspins") ? 2 : 1 )
+    @assert nsite == length(ai)
+
+    # Create empty array for self-energy functions
+    SA = Array{C64,4}[]
+
+    # Declare frequency mesh
+    fmesh = nothing
+
+    # Go through each quantum impurity problems
     for t = 1:nsite
         fmesh, sig_l = GetSig_l(ai[t])
     end
