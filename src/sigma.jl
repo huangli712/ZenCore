@@ -264,8 +264,18 @@ function sigma_gather(ai::Array{Impurity,1})
 
     # Go through each quantum impurity problems
     for t = 1:nsite
+
+        # Extract the frequency mesh and self-energy function
         fmesh, sig_l = GetSig_l(ai[t])
-    end
+
+        # Extract and verify the dimensional parameters
+        _, _b, _m, _s = size(sig_l)
+        @assert _b == ai[t].nband
+        @assert _m == nmesh
+
+        # Store sig_l in SA
+        push!(SA, sig_l)
+    end # END OF T LOOP
 
     # Print blank line for better visualization
     println()
