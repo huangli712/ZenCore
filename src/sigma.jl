@@ -277,6 +277,10 @@ function sigma_gather(ai::Array{Impurity,1})
         push!(SA, sig_l)
     end # END OF T LOOP
 
+    # Now the self-energy functions for all quantum impurity problems and
+    # the corresponding frequency mesh are ready. We are going to write
+    # them into the `sigma.bare` file.
+
     # Print blank line for better visualization
     println()
 end
