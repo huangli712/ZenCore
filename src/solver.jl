@@ -863,7 +863,7 @@ function GetImpurity()
         # Save Im in AI
         push!(AI, Im)
 
-    end
+    end # END OF I LOOP
 
     # Return the desired array
     return AI

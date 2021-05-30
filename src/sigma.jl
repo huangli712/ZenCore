@@ -250,6 +250,11 @@ function sigma_gather(ai::Array{Impurity,1})
     # Print the log
     println("Sigma : Gather")
 
+    nsite = length(ai)
+    for t = 1:nsite
+        fmesh, sig_l = GetSig_l(ai[t])
+    end
+
     # Print blank line for better visualization
     println()
 end
