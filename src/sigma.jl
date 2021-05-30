@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/05/29
+# Last modified: 2021/05/30
 #
 
 """
@@ -93,9 +93,9 @@ function sigma_reset(ai::Array{Impurity,1})
             end # END OF S LOOP
         end # END OF I LOOP
     end
+    println("The local self-energy functions are written to sigma.bare")
 
     # Print blank line for better visualization
-    println("The local self-energy functions are written to sigma.bare")
     println()
 end
 
@@ -210,9 +210,9 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
             end # END OF S LOOP
         end # END OF I LOOP
     end
+    println("The double counting terms are written to sigma.dc")
 
     # Print blank line for better visualization
-    println("The double counting terms are written to sigma.dc")
     println()
 end
 
@@ -321,6 +321,7 @@ function sigma_gather(ai::Array{Impurity,1})
             end # END OF S LOOP
         end # END OF I LOOP
     end
+    println("The local self-energy functions are written to sigma.bare")
 
     # Print blank line for better visualization
     println()
