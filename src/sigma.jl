@@ -93,7 +93,7 @@ function sigma_reset(ai::Array{Impurity,1})
             end # END OF S LOOP
         end # END OF I LOOP
     end
-    println("The local self-energy functions are written to sigma.bare")
+    println("  Write self-energy functions into dmft1/sigma.bare")
 
     # Print blank line for better visualization
     println()
@@ -210,7 +210,7 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
             end # END OF S LOOP
         end # END OF I LOOP
     end
-    println("The double counting terms are written to sigma.dc")
+    println("  Write double counting terms into: dmft1/sigma.dc")
 
     # Print blank line for better visualization
     println()
