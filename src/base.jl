@@ -85,9 +85,12 @@ function cycle1()
     lr = Logger(query_case())
 
 #
-# Initialization (C01-C04)
+# Initialization (C01-C05)
 #
     prompt("ZEN", "Initialization")
+
+    # C01: Initialize the quantum impurity problems
+    ai = GetImpurity()
 
 #
 # Remarks 1:
@@ -101,7 +104,7 @@ function cycle1()
 # is enough.
 #
 
-    # C01: Perform DFT calculation (for the first time)
+    # C02: Perform DFT calculation (for the first time)
     dft_run(it, lr)
 
 #
@@ -115,7 +118,7 @@ function cycle1()
 # again within this new window by doing addition DFT calculation.
 #
 
-    # C02: Perform DFT calculation (for the second time)
+    # C03: Perform DFT calculation (for the second time)
     if get_d("loptim")
         dft_run(it, lr)
     end
@@ -131,11 +134,11 @@ function cycle1()
 # write down the processed data to some specified files using the IR format.
 #
 
-    # C03: To bridge the gap between DFT engine and DMFT engine by adaptor
-    adaptor_run(it, lr)
+    # C04: To bridge the gap between DFT engine and DMFT engine by adaptor
+    adaptor_run(it, lr, ai)
 
-    # C04: Prepare default self-energy functions
-    sigma_core(it, lr, "reset")
+    # C05: Prepare default self-energy functions
+    sigma_core(it, lr, ai, "reset")
 
 #
 # Remarks 4:
@@ -145,7 +148,7 @@ function cycle1()
 #
 
 #
-# DFT + DMFT Iterations (C05-C10)
+# DFT + DMFT Iterations (C06-C11)
 #
     prompt("ZEN", "Iterations")
 
@@ -160,22 +163,22 @@ function cycle1()
         it.dmft1_iter = it.dmft1_iter + 1
         it.full_cycle = it.full_cycle + 1
 
-        # C05: Tackle with the double counting term
-        sigma_core(it, lr, "dcount")
+        # C06: Tackle with the double counting term
+        sigma_core(it, lr, ai, "dcount")
 
-        # C06: Perform DMFT calculation with `task` = 1
+        # C07: Perform DMFT calculation with `task` = 1
         dmft_run(it, lr, 1)
 
-        # C07: Split and distribute the data (hybridization functions)
-        sigma_core(it, lr, "split")
+        # C08: Split and distribute the data (hybridization functions)
+        sigma_core(it, lr, ai, "split")
 
-        # C08: Solve the quantum impurity problems
-        solver_run(it, lr)
+        # C09: Solve the quantum impurity problems
+        solver_run(it, lr, ai)
 
-        # C09: Gather and combine the data (impurity self-functions)
-        sigma_core(it, lr, "gather")
+        # C10: Gather and combine the data (impurity self-functions)
+        sigma_core(it, lr, ai, "gather")
 
-        # C10: Mixer for self-energy functions or hybridization functions
+        # C11: Mixer for self-energy functions or hybridization functions
         mixer_core(lr)
     end
 
