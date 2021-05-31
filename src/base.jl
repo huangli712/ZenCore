@@ -169,8 +169,8 @@ function cycle1()
         # C07: Perform DMFT calculation with `task` = 1
         dmft_run(it, lr, 1)
 
-        # C08: Mix hybridization functions
-        mixer_core(it, lr, ai, "hyb_l")
+        # C08: Mix hybridization functions and local impurity levels
+        mixer_core(it, lr, ai, "delta")
         mixer_core(it, lr, ai, "eimpx")
 
         # C09: Split and distribute the data (hybridization functions)
@@ -796,14 +796,17 @@ function sigma_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::Strin
 end
 
 """
-    mixer_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::String = "hyb_l")
+    mixer_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::String = "delta")
 
 Simple driver for the mixer. It will try to mix the self-energy functions
 or hybridization functions and generate a new one.
 
+Now it supports four tasks: `sigma`, `delta`, `eimpx`, `gamma`. It
+won't change the current directory.
+
 See also: [`sigma_core`](@ref).
 """
-function mixer_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::String = "hyb_l")
+function mixer_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::String = "delta")
     # Print the log
     prompt("Mixer")
     prompt(lr.log, "mixer")
