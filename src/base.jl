@@ -816,24 +816,24 @@ function mixer_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::Strin
 
     # Launch suitable subroutine
     @cswitch task begin
-        # Generate default self-energy functions and store them
+        # Try to mix the self-energy functions
         @case "sigma"
             mixer_sigma()
             break
 
-        # Calculate the double counting term and store it
+        # Try to mix the hybridization functions
         @case "delta"
             mixer_delta()
             break
 
-        # Split the hybridization functions and store them
+        # Try to mix the local impurity levels
         @case "eimpx"
-            mixer_eimpx(ai)
+            mixer_eimpx()
             break
 
-        # Collect impurity self-energy functions and combine them
+        # Try to mix the charge density
         @case "gamma"
-            mixer_gamma(ai)
+            mixer_gamma()
             break
 
         @default
