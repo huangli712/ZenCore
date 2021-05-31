@@ -354,15 +354,23 @@ function write_sigma(fmesh::Array{F64,1}, SA::Array{Array{C64,4},1}, ai::Array{I
                 println(fout)
             end # END OF S LOOP
         end # END OF I LOOP
-    end # END IOSTREAM
+    end # END OF IOSTREAM
 end
 
 """
     write_sigdc(DCA::Array{Array{F64,3},1}, ai::Array{Impurity,1})
 
+Write the double counting terms into the `dmft1/sigma.dc` file, which is
+the key input for the dynamical mean-field theory engine.
+
 See also: [`write_sigma`](@ref).
 """
 function write_sigdc(DCA::Array{Array{F64,3},1}, ai::Array{Impurity,1})
+    # Extract some necessary parameters
+    nsite = get_i("nsite")
+    nspin = ( get_d("lspins") ? 2 : 1 )
+    @assert nsite == length(ai)
+
    # Write double counting terms to sigma.dc
     open("dmft1/sigma.dc", "w") do fout
         # Write the header
@@ -383,7 +391,7 @@ function write_sigdc(DCA::Array{Array{F64,3},1}, ai::Array{Impurity,1})
                 println(fout, "# site: $i spin: $s")
                 # There are 2 columns and nband * nband rows
                 # The double counting terms are assumed to be complex
-                # numbers with zero imaginary parts.
+                # numbers but with zero imaginary parts.
                 for p = 1:ai[i].nband
                     for q = 1:ai[i].nband
                         # Only the diagonal elements are useful
@@ -394,8 +402,9 @@ function write_sigdc(DCA::Array{Array{F64,3},1}, ai::Array{Impurity,1})
                         end
                     end # END OF Q LOOP
                 end # END OF P LOOP
+                # Write separator for each site and spin block
                 println(fout)
             end # END OF S LOOP
         end # END OF I LOOP
-    end
+    end # END OF IOSTREAM
 end
