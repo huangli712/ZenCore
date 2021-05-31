@@ -277,6 +277,30 @@ function read_sigma(ai::Array{Impurity,1})
 
     # Make sure the existence of self-energy functions
     @assert isfile(fsig)
+
+    # Parse `fsig`, extract the self-energy functions
+    open(fsig, "r") do fin
+        # Get the dimensional parameters
+        readline(fin)
+        readline(fin)
+        readline(fin)
+        axis  = parse(I64, line_to_array(fin)[3])
+        beta  = parse(F64, line_to_array(fin)[3])
+        nsite = parse(I64, line_to_array(fin)[3])
+        nmesh = parse(I64, line_to_array(fin)[3])
+        nspin = parse(I64, line_to_array(fin)[3])
+        for t = 1:nsite
+            qdim  = parse(I64, line_to_array(fin)[3])
+            @assert qdim == ai[t].nband
+        end
+        readline(fin)
+
+        for t = 1:nsite
+            for s = 1:nspin
+            end # END OF S LOOP
+        end # END OF T LOOP 
+
+    end # END OF IOSTREAM
 end
 
 """
