@@ -400,7 +400,11 @@ function cycle8(task::String = "sigma")
     # C01: Initialize the quantum impurity problems
     ai = GetImpurity()
 
-    # C02: Execute the Kohn-Sham adaptor
+    # C02: Further setup the IterInfo struct
+    it.dmft_cycle = 1
+    it.dmft1_iter = 10
+
+    # C03: Execute the Kohn-Sham adaptor
     mixer_core(it, lr, ai, task)
 
     # C98: Close Logger.log
