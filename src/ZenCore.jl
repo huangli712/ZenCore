@@ -617,6 +617,10 @@ export write_sigdc
 #
 # Members:
 #
+# mixer_sigma ->
+# mixer_hyb_l ->
+# mixer_eimpx ->
+# mixer_gamma ->
 #
 include("mixer.jl")
 #
