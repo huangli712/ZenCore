@@ -398,7 +398,7 @@ function ctqmc_eimpx(Eimpx::Array{C64,3})
                 orb = (s - 1) * nband + p
                 z = Eimpx[p, p, s]
                 @printf(fout, "%4i%16.8f%4i\n", orb, real(z), symm[p,s])
-            end
+            end # END OF P LOOP
         end # END OF S LOOP
 
         # Supplement the spin-down part if it is missed. Here, we just
@@ -409,10 +409,10 @@ function ctqmc_eimpx(Eimpx::Array{C64,3})
                     orb = (2 - 1) * nband + p
                     z = Eimpx[p, p, s]
                     @printf(fout, "%4i%16.8f%4i\n", orb, real(z), symm[p,s])
-                end
+                end # END OF P LOOP
             end # END OF S LOOP
         end
-    end
+    end # END OF IOSTREAM
 end
 
 """
