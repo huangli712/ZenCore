@@ -812,9 +812,34 @@ function mixer_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::Strin
 
     # Print the log
     prompt("Mixer")
-    prompt(lr.log, "mixer")
+    prompt(lr.log, "mixer::$task")
 
-    println()
+    # Launch suitable subroutine
+    @cswitch task begin
+        # Generate default self-energy functions and store them
+        @case "reset"
+            sigma_reset(ai)
+            break
+
+        # Calculate the double counting term and store it
+        @case "dcount"
+            sigma_dcount(it, ai)
+            break
+
+        # Split the hybridization functions and store them
+        @case "split"
+            sigma_split(ai)
+            break
+
+        # Collect impurity self-energy functions and combine them
+        @case "gather"
+            sigma_gather(ai)
+            break
+
+        @default
+            sorry()
+            break
+    end
 
     # Monitor the status
     monitor(true)
