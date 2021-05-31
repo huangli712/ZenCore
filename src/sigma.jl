@@ -86,7 +86,7 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
     # Initialize an array for dc
     DCA = Array{F64,3}[]
     #
-    # Go through the impurity problems and calculate dc
+    # Go through the quantum impurity problems and calculate dc
     for i = 1:nsite
         # Get interaction parameters
         U = ai[i].upara
@@ -140,6 +140,8 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
     end # END OF I LOOP
     println("  Create double counting terms: $(get_m("dcount"))")
 
+    # Write double counting terms
+    write_sigma(DCA, ai)
     println("  Write double counting terms into: dmft1/sigma.dc")
 
     # Print blank line for better visualization
