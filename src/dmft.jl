@@ -507,7 +507,15 @@ end
 function write_delta()
 end
 
-function write_eimpx(Eimpx)
+"""
+    write_eimpx(Eimpx::Array{C64,4}, ai::Array{Impurity,1})
+
+Split local impurity levels into the `impurity.i/dmft.eimpx` file, which
+is essential for the quantum impurity solver.
+
+See also: [`Impurity`](@ref), [`read_eimpx`](@ref).
+"""
+function write_eimpx(Eimpx::Array{C64,4}, ai::Array{Impurity,1})
     # Extract the dimensional parameters
     _, qdim, nspin, nsite = size(Eimpx)
 
