@@ -585,13 +585,15 @@ export GetImpurity
 #
 # sigma_reset  -> Create initial self-energy functions.
 # sigma_dcount -> Calculate double counting term.
-# sigma_split  -> Split the self-energy functions or hybridization functions.
+# sigma_split  -> Split the hybridization functions and local impurity levels.
 # sigma_gather -> Gather and combine the self-energy functions.
 # cal_dc_fll   -> Fully localized limit scheme for double counting term.
 # cal_dc_amf   -> Around mean-field scheme for double counting term.
 # cal_dc_exact -> Exact double counting scheme.
-# split_hyb_l  -> Split the hybridization functions.
-# split_eimpx  -> Split the local impurity levels.
+# read_sigma   -> Read dmft1/sigma.bare file.
+# read_sigdc   -> Read dmft1/sigma.dc file.
+# write_sigma  -> Write dmft1/sigma.bare file.
+# write_sigdc  -> Write dmft1/sigma.dc file.
 #
 include("sigma.jl")
 #
