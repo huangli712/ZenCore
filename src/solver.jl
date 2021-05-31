@@ -636,7 +636,7 @@ end
 Analyze the symmetry according to the diagonal elements of the matrix of
 the local impurity levels.
 
-See also: [`GetEimpx`](@ref).
+See also: [`ctqmc_eimpx`](@ref).
 """
 function GetSymmetry(Eimpx::Array{C64,3})
     # Extract some key parameters from Eimpx
@@ -649,7 +649,7 @@ function GetSymmetry(Eimpx::Array{C64,3})
         for b = 1:nband
             eimp[b,s] = round(real(Eimpx[b,b,s]), digits = 4)
         end
-    end
+    end # END OF S LOOP
 
     # Create an array for symmetry
     symm = zeros(I64, nband, nspin)
