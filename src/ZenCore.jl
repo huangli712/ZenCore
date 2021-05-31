@@ -539,9 +539,9 @@ export write_eimpx
 # ctqmc_atomx -> Prepare configuration parameters for atomic problem solver.
 # ctqmc_hyb_l -> Prepare hybridization function for CT-QMC impurity solver.
 # ctqmc_eimpx -> Prepare local impurity levels for CT-QMC impurity solver.
-# ctqmc_sig_l -> Return self-energy function by CT-QMC impurity solver.
+# ctqmc_sigma -> Return self-energy function by CT-QMC impurity solver.
 # ctqmc_nimpx -> Return impurity occupancy by CT-QMC impurity solver.
-# GetSig_l    -> Parse the self-energy functions.
+# GetSigma    -> Parse the self-energy functions.
 # GetNimpx    -> Parse the impurity occupancy.
 # GetSymmetry -> Analyze orbital degeneracy via local impurity levels.
 # GetImpurity -> Build Impurity struct according to configuration file.
@@ -564,9 +564,9 @@ export ctqmc_setup
 export ctqmc_atomx
 export ctqmc_hyb_l
 export ctqmc_eimpx
-export ctqmc_sig_l
+export ctqmc_sigma
 export ctqmc_nimpx
-export GetSig_l
+export GetSigma
 export GetNimpx
 export GetSymmetry
 export GetImpurity
