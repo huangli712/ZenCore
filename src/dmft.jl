@@ -148,7 +148,7 @@ function dmft_save(it::IterInfo, task::I64)
 end
 
 """
-    read_hyb_l(imp::Impurity)
+    read_delta(imp::Impurity)
 
 Extract hybridization functions from `dmft.hyb_l` file, which is generated
 by sigma_split(). The data are essential for quantum impurity solvers.
@@ -157,7 +157,7 @@ The frequency mesh is also extracted in this function.
 
 See also: [`Impurity`](@ref), [`read_eimpx`](@ref).
 """
-function read_hyb_l(imp::Impurity)
+function read_delta(imp::Impurity)
     # Get index of the quantum impurity problem
     index = imp.index
 
@@ -235,14 +235,14 @@ function read_hyb_l(imp::Impurity)
 end
 
 """
-    read_hyb_l(ai::Array{Impurity,1})
+    read_delta(ai::Array{Impurity,1})
 
 Split the dmft1/dmft.hyb_l file into impurity.[i]/dmft.hyb_l files, which
 `i` denotes the index of quantum impurity problems.
 
-See also: [`split_eimpx`](@ref), [`sigma_split`](@ref).
+See also: [`sigma_split`](@ref).
 """
-function read_hyb_l(ai::Array{Impurity,1})
+function read_delta(ai::Array{Impurity,1})
     # Declare the frequency mesh and hybridization function
     fmesh = []
     Delta = []
@@ -316,7 +316,7 @@ function read_hyb_l(ai::Array{Impurity,1})
 Extract local impurity levels from `dmft.eimpx` file, which is generated
 by sigma_split(). The data are essential for quantum impurity solvers.
 
-See also: [`Impurity`](@ref), [`read_hyb_l`](@ref).
+See also: [`Impurity`](@ref), [`read_delta`](@ref).
 """
 function read_eimpx(imp::Impurity)
     # Get index of the quantum impurity problem
@@ -387,7 +387,7 @@ end
 Split the dmft1/dmft.eimpx file into impurity.[i]/dmft.eimpx files, which
 `i` denotes the index of quantum impurity problems.
 
-See also: [`split_hyb_l`](@ref), [`sigma_split`](@ref).
+See also: [`sigma_split`](@ref).
 """
 function read_eimpx(ai::Array{Impurity,1})
     # Declare the local impurity levels
@@ -447,7 +447,7 @@ function read_eimpx(ai::Array{Impurity,1})
     # to the quantum impurity problems
 end
 
-function write_hyb_l(Delta)
+function write_delta(Delta)
    # Extract the dimensional parameters
     _, qdim, nmesh, nspin, nsite = size(Delta)
 
@@ -494,7 +494,7 @@ function write_hyb_l(Delta)
     end # END OF T LOOP
 end
 
-function write_hyb_l()
+function write_delta()
 end
 
 function write_eimpx(Eimpx)

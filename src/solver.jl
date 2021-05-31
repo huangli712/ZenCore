@@ -29,7 +29,7 @@ function s_qmc1_init(it::IterInfo, imp::Impurity)
     fmesh, Delta = GetHyb_l(imp)
 
     # Write frequency mesh and hybridization function to `solver.hyb.in`
-    ctqmc_hyb_l(fmesh, Delta)
+    ctqmc_delta(fmesh, Delta)
 
     # Extract local impurity levels from `dmft.eimpx`
     Eimpx = GetEimpx(imp)
@@ -327,14 +327,14 @@ function ctqmc_atomx(imp::Impurity)
 end
 
 """
-    ctqmc_hyb_l(fmesh::Array{F64,1}, Delta::Array{C64,4})
+    ctqmc_delta(fmesh::Array{F64,1}, Delta::Array{C64,4})
 
 Write the hybridization functions to the `solver.hyb.in` file, which is
 suitable for the CT-QMC quantum impurity solver.
 
 See also: [`ctqmc_eimpx`](@ref).
 """
-function ctqmc_hyb_l(fmesh::Array{F64,1}, Delta::Array{C64,4})
+function ctqmc_delta(fmesh::Array{F64,1}, Delta::Array{C64,4})
     # Extract key parameters from `Delta`
     _, nband, nmesh, nspin = size(Delta)
 
@@ -380,7 +380,7 @@ end
 Write the local impurity levels to the `solver.eimp.in` file, which is
 suitable for the CT-QMC quantum impurity solver.
 
-See also: [`ctqmc_hyb_l`](@ref).
+See also: [`ctqmc_delta`](@ref).
 """
 function ctqmc_eimpx(Eimpx::Array{C64,3})
     # Extract key parameters from `Eimpx`
