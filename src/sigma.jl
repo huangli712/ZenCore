@@ -391,6 +391,13 @@ function read_sigdc(ai::Array{Impurity,1})
                 @assert _t == t
                 @assert _s == s
 
+                # Parse self-energy functions
+                for q = 1:ai[t].nband
+                    for p = 1:ai[t].nband
+                        DC[p,q,s] = parse.(F64, line_to_array(fin)[1])
+                    end
+                end
+
             end # END OF S LOOP
 
         end # END OF T LOOP
