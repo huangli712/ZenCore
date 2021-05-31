@@ -617,10 +617,10 @@ export write_sigdc
 #
 # Members:
 #
-# mixer_sigma ->
-# mixer_hyb_l ->
-# mixer_eimpx ->
-# mixer_gamma ->
+# mixer_sigma -> Mix self-energy functions.
+# mixer_hyb_l -> Mix hybridization functions.
+# mixer_eimpx -> Mix local impurity levels.
+# mixer_gamma -> Mix charge density.
 #
 include("mixer.jl")
 #
