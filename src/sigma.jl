@@ -307,6 +307,13 @@ field theory engine.
 See also: [`write_sigdc`](@ref).
 """
 function write_sigma(fmesh::Array{F64,1}, SA::Array{Array{C64,4},1})
+    # Extract some necessary parameters
+    axis = get_m("axis")
+    nmesh = get_m("nmesh")
+    beta = get_m("beta")
+    nsite = get_i("nsite")
+    nspin = ( get_d("lspins") ? 2 : 1 )
+
     # Write self-energy functions to sigma.bare
     open("dmft1/sigma.bare", "w") do fout
         # Write the header
