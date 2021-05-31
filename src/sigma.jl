@@ -361,6 +361,18 @@ function read_sigdc(ai::Array{Impurity,1})
 
     # Parse `fsig`, extract the double counting terms
     open(fsig, "r") do fin
+        # Get the dimensional parameters
+        readline(fin)
+        readline(fin)
+        readline(fin)
+        nsite = parse(I64, line_to_array(fin)[3])
+        nspin = parse(I64, line_to_array(fin)[3])
+        for t = 1:nsite
+            qdim  = parse(I64, line_to_array(fin)[3])
+            @assert qdim == ai[t].nband
+        end
+        readline(fin)
+
     end # END OF IOSTREAM
 end
 
