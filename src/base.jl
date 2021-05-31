@@ -852,17 +852,17 @@ function mixer_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::Strin
 
         # Try to mix the hybridization functions
         @case "delta"
-            mixer_delta()
+            mixer_delta(it)
             break
 
         # Try to mix the local impurity levels
         @case "eimpx"
-            mixer_eimpx()
+            mixer_eimpx(it)
             break
 
         # Try to mix the charge density
         @case "gamma"
-            mixer_gamma()
+            mixer_gamma(it)
             break
 
         @default

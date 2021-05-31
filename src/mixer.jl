@@ -8,35 +8,53 @@
 #
 
 """
-    mixer_sigma()
+    mixer_sigma(it::IterInfo)
 
 See also: [`mixer_core`](@ref).
 """
 function mixer_sigma(it::IterInfo)
     # Print the log
     println("Mixer : Sigma")
+
+    # Print blank line for better visualization
+    println()
 end
 
 """
-    mixer_delta()
+    mixer_delta(it::IterInfo)
 
 See also: [`mixer_core`](@ref).
 """
-function mixer_delta()
+function mixer_delta(it::IterInfo)
+    # Print the log
+    println("Mixer : Delta")
+
+    # Print blank line for better visualization
+    println()
 end
 
 """
-    mixer_eimpx()
+    mixer_eimpx(it::IterInfo)
 
 See also: [`mixer_core`](@ref).
 """
-function mixer_eimpx()
+function mixer_eimpx(it::IterInfo)
+    # Print the log
+    println("Mixer : Eimpx")
+
+    # Print blank line for better visualization
+    println()
 end
 
 """
-    mixer_gamma()
+    mixer_gamma(it::IterInfo)
 
 See also: [`mixer_core`](@ref).
 """
-function mixer_gamma()
+function mixer_gamma(it::IterInfo)
+    # Print the log
+    println("Mixer : Gamma")
+
+    # Print blank line for better visualization
+    println()
 end
