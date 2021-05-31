@@ -373,6 +373,14 @@ function read_sigdc(ai::Array{Impurity,1})
         end
         readline(fin)
 
+        # Create an array for double counting terms
+        DCA = Array{F64,3}[]
+
+        # Read the body
+        # Go through each quantum impurity problem
+        for t = 1:nsite
+        end # END OF T LOOP
+
     end # END OF IOSTREAM
 end
 
