@@ -297,6 +297,15 @@ end
 function read_sigdc()
 end
 
+"""
+    write_sigma()
+
+Write the self-energy functions and the corresponding frequency mesh into
+the `dmft1/sigma.bare` file, which is key input for the dynamical mean-
+field theory engine.
+ 
+See also: [`write_sigdc`](@ref).
+"""
 function write_sigma()
     # Write self-energy functions to sigma.bare
     open("dmft1/sigma.bare", "w") do fout
