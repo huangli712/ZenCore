@@ -12,7 +12,8 @@
 
 See also: [`mixer_core`](@ref).
 """
-function mixer_sigma()
+function mixer_sigma(it::IterInfo)
+    println("here")
 end
 
 """

@@ -847,7 +847,7 @@ function mixer_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::Strin
     @cswitch task begin
         # Try to mix the self-energy functions
         @case "sigma"
-            mixer_sigma()
+            mixer_sigma(it)
             break
 
         # Try to mix the hybridization functions
