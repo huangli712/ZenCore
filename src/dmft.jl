@@ -147,6 +147,10 @@ function dmft_save(it::IterInfo, task::I64)
     end
 end
 
+#
+# Service Functions: For I/O Operations
+#
+
 """
     read_delta(imp::Impurity)
 
@@ -310,6 +314,10 @@ function read_delta(ai::Array{Impurity,1})
     return (fmesh, Delta)
 end
 
+#
+# Service Functions: For I/O Operations
+#
+
 """
     read_eimpx(imp::Impurity)
 
@@ -446,6 +454,10 @@ function read_eimpx(ai::Array{Impurity,1})
     return Eimpx
 end
 
+#
+# Service Functions: For I/O Operations
+#
+
 """
     write_delta(fmesh::Array{F64,1}, Delta::Array{C64,5}, ai::Array{Impurity,1})
 
@@ -506,6 +518,10 @@ end
 
 function write_delta()
 end
+
+#
+# Service Functions: For I/O Operations
+#
 
 """
     write_eimpx(Eimpx::Array{C64,4}, ai::Array{Impurity,1})
