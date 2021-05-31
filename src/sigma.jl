@@ -360,3 +360,15 @@ See also: [`cal_dc_fll`](@ref), [`cal_dc_amf`](@ref).
 function cal_dc_exact(U::F64, J::F64, N::F64)
     sorry()
 end
+
+function read_sigma()
+end
+
+function read_sigdc()
+end
+
+function write_sigma()
+end
+
+function write_sigdc()
+end
