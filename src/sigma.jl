@@ -295,6 +295,12 @@ function read_sigma(ai::Array{Impurity,1})
         end
         readline(fin)
 
+        # Create an array for frequency mesh
+        fmesh = zeros(F64, nmesh)
+
+        # Create an array for self-energy functions
+        Sigma = zeros(C64, qdim, qdim, nmesh, nspin, nsite)
+
         # Read the body
         # Go through each quantum impurity problem and spin
         for t = 1:nsite
