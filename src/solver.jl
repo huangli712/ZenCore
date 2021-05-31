@@ -423,7 +423,7 @@ Parse the `solver.sgm.dat` file to extract the bare self-energy functions.
 In the sigma_gather() function, these data will be combined to generate
 the `sigma.bare` file, which is essential for the DMFT engine.
 
-See also: [`Impurity`](@ref), [`GetSig_l`](@ref).
+See also: [`Impurity`](@ref), [`GetSigma`](@ref).
 """
 function ctqmc_sigma(imp::Impurity)
     # File name for self-energy functions
@@ -519,7 +519,7 @@ end
 #
 
 """
-    GetSig_l(imp::Impurity)
+    GetSigma(imp::Impurity)
 
 Extract self-energy functions from the output files of various quantum
 impurity solvers. The data will be combined in sigma_gather() function.
@@ -527,7 +527,7 @@ Then they will be fed back to the DMFT engine.
 
 See also: [`Impurity`](@ref), [`ctqmc_sigma`](@ref).
 """
-function GetSig_l(imp::Impurity)
+function GetSigma(imp::Impurity)
     # Get the index for current quantum impurity problem
     index = imp.index
 
