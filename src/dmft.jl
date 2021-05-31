@@ -273,7 +273,7 @@ function read_delta(ai::Array{Impurity,1})
         Delta = zeros(C64, qdim, qdim, nmesh, nspin, nsite)
 
         # Read the data
-        # Go through each impurity site and spin
+        # Go through each quantum impurity site and spin
         for t = 1:nsite
             for s = 1:nspin
                 # Parse indices and dimensional parameter
@@ -303,12 +303,12 @@ function read_delta(ai::Array{Impurity,1})
                 readline(fin)
             end # END OF S LOOP
         end # END OF T LOOP
-    end
+    end # END OF IOSTREAM
     println("  Read hybridization functions from: $fhyb")
 
-    # Next, we are going to split the hybridization functions according
-    # to the quantum impurity problems
- end
+    # Return the desired arrays
+    return (fmesh, Delta)
+end
 
 """
     read_eimpx(imp::Impurity)
