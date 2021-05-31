@@ -32,7 +32,7 @@ function s_qmc1_init(it::IterInfo, imp::Impurity)
     ctqmc_delta(fmesh, Delta)
 
     # Extract local impurity levels from `dmft.eimpx`
-    Eimpx = GetEimpx(imp)
+    Eimpx = read_eimpx(imp)
 
     # Write local impurity levels to `solver.eimp.in`
     ctqmc_eimpx(Eimpx)
@@ -352,7 +352,7 @@ function ctqmc_delta(fmesh::Array{F64,1}, Delta::Array{C64,4})
                 end
                 println(fout)
                 println(fout)
-            end
+            end # END OF P LOOP
         end # END OF S LOOP
 
         # Supplement the spin-down part if it is missed. Here, we just
@@ -368,10 +368,10 @@ function ctqmc_delta(fmesh::Array{F64,1}, Delta::Array{C64,4})
                     end
                     println(fout)
                     println(fout)
-                end
+                end # END OF P LOOP
             end # END OF S LOOP
         end
-    end
+    end # END OF IOSTREAM
 end
 
 """
