@@ -10,7 +10,8 @@
 """
     sigma_reset(ai::Array{Impurity,1})
 
-Create initial self-energy functions and write them to `sigma.bare`.
+Create initial self-energy functions and write them to `sigma.bare`. The
+`sigma.bare` file is key input for the dynamical mean-field theory engine. 
 
 See also: [`sigma_dcount`](@ref).
 """
@@ -19,11 +20,11 @@ function sigma_reset(ai::Array{Impurity,1})
     println("Sigma : Reset")
 
     # Extract some necessary parameters
-    axis = get_m("axis")
-    nmesh = get_m("nmesh")
-    beta = get_m("beta")
+    #axis = get_m("axis")
+    #nmesh = get_m("nmesh")
+    #beta = get_m("beta")
     nsite = get_i("nsite")
-    nspin = ( get_d("lspins") ? 2 : 1 )
+    #nspin = ( get_d("lspins") ? 2 : 1 )
     @assert nsite == length(ai)
 
     # Create frequency mesh
