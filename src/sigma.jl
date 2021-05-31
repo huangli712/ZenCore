@@ -57,7 +57,7 @@ function sigma_reset(ai::Array{Impurity,1})
     println("  Create local self-energy functions")
 
     # Write self-energy functions and the corresponding frequency mesh
-    write_sigma(fmesh, SA)
+    write_sigma(fmesh, SA, ai)
     println("  Write self-energy functions into dmft1/sigma.bare")
 
     # Print blank line for better visualization
@@ -298,7 +298,7 @@ function read_sigdc()
 end
 
 """
-    write_sigma(fmesh::Array{F64,1}, SA::Array{Array{C64,4},1})
+    write_sigma(fmesh::Array{F64,1}, SA::Array{Array{C64,4},1}, ai::Array{Impurity,1})
 
 Write the self-energy functions and the corresponding frequency mesh into
 the `dmft1/sigma.bare` file, which is key input for the dynamical mean-
@@ -306,7 +306,7 @@ field theory engine.
  
 See also: [`write_sigdc`](@ref).
 """
-function write_sigma(fmesh::Array{F64,1}, SA::Array{Array{C64,4},1})
+function write_sigma(fmesh::Array{F64,1}, SA::Array{Array{C64,4},1}, ai::Array{Impurity,1})
     # Extract some necessary parameters
     axis = get_m("axis")
     nmesh = get_m("nmesh")
