@@ -493,13 +493,13 @@ export irio_charge
 #
 # Members:
 #
-# dmft_init -> Prepare input files for the DMFT engine.
-# dmft_exec -> Execute the DMFT engine.
-# dmft_save -> Backup output files for the DMFT engine.
-# read_hyb_l
-# read_eimpx
-# write_hyb_l
-# write_eimpx
+# dmft_init   -> Prepare input files for the DMFT engine.
+# dmft_exec   -> Execute the DMFT engine.
+# dmft_save   -> Backup output files for the DMFT engine.
+# read_hyb_l  -> Read dmft1/dmft.hyb_l or impurity.i/dmft.hyb_l.
+# read_eimpx  -> Read dmft1/dmft.eimpx or impurity.i/dmft.eimpx.
+# write_hyb_l -> Write dmft1/dmft.hyb_l or impurity.i/dmft.hyb_l.
+# write_eimpx -> Write dmft1/dmft.eimpx or impurity.i/dmft.eimpx.
 #
 include("dmft.jl")
 #
