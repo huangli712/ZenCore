@@ -498,9 +498,9 @@ export irio_charge
 # dmft_init   -> Prepare input files for the DMFT engine.
 # dmft_exec   -> Execute the DMFT engine.
 # dmft_save   -> Backup output files for the DMFT engine.
-# read_hyb_l  -> Read dmft1/dmft.hyb_l or impurity.i/dmft.hyb_l.
+# read_delta  -> Read dmft1/dmft.hyb_l or impurity.i/dmft.hyb_l.
 # read_eimpx  -> Read dmft1/dmft.eimpx or impurity.i/dmft.eimpx.
-# write_hyb_l -> Write dmft1/dmft.hyb_l or impurity.i/dmft.hyb_l.
+# write_delta -> Write dmft1/dmft.hyb_l or impurity.i/dmft.hyb_l.
 # write_eimpx -> Write dmft1/dmft.eimpx or impurity.i/dmft.eimpx.
 #
 include("dmft.jl")
@@ -508,9 +508,9 @@ include("dmft.jl")
 export dmft_init
 export dmft_exec
 export dmft_save
-export read_hyb_l
+export read_delta
 export read_eimpx
-export write_hyb_l
+export write_delta
 export write_eimpx
 
 #
@@ -537,7 +537,7 @@ export write_eimpx
 # s_norg_save -> Backup output files for the NORG impurity solver.
 # ctqmc_setup -> Prepare configuration parameters for CT-QMC impurity solver.
 # ctqmc_atomx -> Prepare configuration parameters for atomic problem solver.
-# ctqmc_hyb_l -> Prepare hybridization function for CT-QMC impurity solver.
+# ctqmc_delta -> Prepare hybridization function for CT-QMC impurity solver.
 # ctqmc_eimpx -> Prepare local impurity levels for CT-QMC impurity solver.
 # ctqmc_sigma -> Return self-energy function by CT-QMC impurity solver.
 # ctqmc_nimpx -> Return impurity occupancy by CT-QMC impurity solver.
@@ -562,7 +562,7 @@ export s_norg_exec
 export s_norg_save
 export ctqmc_setup
 export ctqmc_atomx
-export ctqmc_hyb_l
+export ctqmc_delta
 export ctqmc_eimpx
 export ctqmc_sigma
 export ctqmc_nimpx
@@ -618,14 +618,14 @@ export write_sigdc
 # Members:
 #
 # mixer_sigma -> Mix self-energy functions.
-# mixer_hyb_l -> Mix hybridization functions.
+# mixer_delta -> Mix hybridization functions.
 # mixer_eimpx -> Mix local impurity levels.
 # mixer_gamma -> Mix charge density.
 #
 include("mixer.jl")
 #
 export mixer_sigma
-export mixer_hyb_l
+export mixer_delta
 export mixer_eimpx
 export mixer_gamma
 
