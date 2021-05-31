@@ -20,11 +20,11 @@ function sigma_reset(ai::Array{Impurity,1})
     println("Sigma : Reset")
 
     # Extract some necessary parameters
-    #axis = get_m("axis")
-    #nmesh = get_m("nmesh")
-    #beta = get_m("beta")
+    axis = get_m("axis")
+    nmesh = get_m("nmesh")
+    beta = get_m("beta")
     nsite = get_i("nsite")
-    #nspin = ( get_d("lspins") ? 2 : 1 )
+    nspin = ( get_d("lspins") ? 2 : 1 )
     @assert nsite == length(ai)
 
     # Create frequency mesh
@@ -38,12 +38,12 @@ function sigma_reset(ai::Array{Impurity,1})
         sorry()
     end
 
-    # Create self-energy functions
+    # Create default self-energy functions
     #
     # Initialize an array for self-energy functions
     SA = Array{C64,4}[]
     #
-    # Go through the impurity problems
+    # Go through the quantum impurity problems
     for i = 1:nsite
         # Get the dimension of impurity problem
         nband = ai[i].nband
@@ -53,9 +53,11 @@ function sigma_reset(ai::Array{Impurity,1})
 
         # Push S into SA to save it
         push!(SA, S)
-    end
+    end # END OF I LOOP
     println("  Create local self-energy functions")
 
+    # Write self-energy functions and the corresponding frequency mesh
+    write_sigma(fmesh, SA)
     println("  Write self-energy functions into dmft1/sigma.bare")
 
     # Print blank line for better visualization
