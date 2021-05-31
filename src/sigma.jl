@@ -310,7 +310,13 @@ function read_sigma(ai::Array{Impurity,1})
                 for m = 1:nmesh
                     # Parse frequency mesh
                     fmesh[m] = parse(F64, line_to_array(fin)[3])
-
+                    # Parse self-energy functions
+                    for q = 1:ai[t].nband
+                        for p = 1:ai[t].nband
+                            _re, _im = parse.(F64, line_to_array(fin)[1:2])
+                            Sigma[p,q,m,s,t] = _re + _im * im
+                        end
+                    end
                 end # END OF M LOOP
 
             end # END OF S LOOP
