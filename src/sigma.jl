@@ -339,7 +339,7 @@ function read_sigma(ai::Array{Impurity,1})
     end # END OF IOSTREAM
 
     # Return the desired arrays
-    return (fmesh, SA)
+    return fmesh, SA
 end
 
 """

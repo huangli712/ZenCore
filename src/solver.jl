@@ -26,7 +26,7 @@ function s_qmc1_init(it::IterInfo, imp::Impurity)
     ctqmc_setup(imp)
 
     # Extract frequency mesh and hybridization function from `dmft.hyb_l`
-    fmesh, Delta = GetHyb_l(imp)
+    fmesh, Delta = read_delta(imp)
 
     # Write frequency mesh and hybridization function to `solver.hyb.in`
     ctqmc_delta(fmesh, Delta)

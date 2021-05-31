@@ -231,7 +231,7 @@ function read_delta(imp::Impurity)
     end
 
     # Return the desired arrays
-    return (fmesh, Delta)
+    return fmesh, Delta
 end
 
 """
