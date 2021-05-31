@@ -612,6 +612,9 @@ export write_sigdc
 #
 # Summary:
 #
+# Tools for mixing the self-energy functions, hybridization functions,
+# local impurity levels, and charge density.
+#
 # Members:
 #
 #
