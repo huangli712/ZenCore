@@ -350,6 +350,14 @@ Read the double counting terms from the `dmft1/sigma.dc` file.
 See also: [`read_sigma`](@ref).
 """
 function read_sigdc(ai::Array{Impurity,1})
+    # Declare the double counting terms
+    DCA = nothing
+
+    # Filename for double counting terms
+    fsig = "dmft1/sigma.dc"
+
+    # Make sure the existence of double counting terms
+    @assert isfile(fsig)
 end
 
 """
