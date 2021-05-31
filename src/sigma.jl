@@ -162,7 +162,7 @@ function sigma_split(ai::Array{Impurity,1})
     println("Sigma : Split")
 
     # Split the hybridization functions
-    split_hyb_l(ai)
+    read_delta(ai)
 
     # Split the local impurity levels
     split_eimpx(ai)

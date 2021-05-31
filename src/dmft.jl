@@ -237,8 +237,8 @@ end
 """
     read_delta(ai::Array{Impurity,1})
 
-Split the dmft1/dmft.hyb_l file into impurity.[i]/dmft.hyb_l files, which
-`i` denotes the index of quantum impurity problems.
+Read the dmft1/dmft.hyb_l file, extract the hybridization functions and
+the corresponding frequency mesh.
 
 See also: [`sigma_split`](@ref).
 """
