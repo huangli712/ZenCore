@@ -509,6 +509,9 @@ function write_delta(fmesh::Array{F64,1}, Delta::Array{C64,5}, ai::Array{Impurit
     end # END OF T LOOP
 end
 
+"""
+Write dmft1/dmft.hyb_l
+"""
 function write_delta()
 end
 
@@ -568,5 +571,8 @@ function write_eimpx(Eimpx::Array{C64,4}, ai::Array{Impurity,1})
     end # END OF T LOOP
 end
 
+"""
+Write dmft1/dmft.eimpx
+"""
 function write_eimpx()
 end
