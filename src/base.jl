@@ -170,7 +170,8 @@ function cycle1()
         dmft_run(it, lr, 1)
 
         # C08: Mix hybridization functions
-        mixer_core(it, lr, ai)
+        mixer_core(it, lr, ai, "hyb_l")
+        mixer_core(it, lr, ai, "eimpx")
 
         # C09: Split and distribute the data (hybridization functions)
         sigma_core(it, lr, ai, "split")
@@ -182,7 +183,7 @@ function cycle1()
         sigma_core(it, lr, ai, "gather")
 
         # C12: Mixer for self-energy functions
-        mixer_core(it, lr, ai)
+        mixer_core(it, lr, ai, "sigma")
     end
 
     # C98: Close Logger.log
