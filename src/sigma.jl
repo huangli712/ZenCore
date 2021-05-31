@@ -137,41 +137,6 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
     end # END OF I LOOP
     println("  Create double counting terms: $(get_m("dcount"))")
 
-    # Write double counting terms to sigma.dc
-    open("dmft1/sigma.dc", "w") do fout
-        # Write the header
-        println(fout, "# File: sigma.dc")
-        println(fout, "# Data: double counting terms")
-        println(fout)
-        println(fout, "nsite -> $nsite")
-        println(fout, "nspin -> $nspin")
-        for i = 1:nsite
-            println(fout, "ndim$i -> $(ai[i].nband)")
-        end
-        println(fout)
-
-        # Write the body
-        # Go through each impurity problem
-        for i = 1:nsite
-            for s = 1:nspin
-                println(fout, "# site: $i spin: $s")
-                # There are 2 columns and nband * nband rows
-                # The double counting terms are assumed to be complex
-                # numbers with zero imaginary parts.
-                for p = 1:ai[i].nband
-                    for q = 1:ai[i].nband
-                        # Only the diagonal elements are useful
-                        if p == q
-                            @printf(fout, "%16.12f %16.12f\n", DCA[i][q, p, s], 0.0)
-                        else
-                            @printf(fout, "%16.12f %16.12f\n", 0.0, 0.0)
-                        end
-                    end # END OF Q LOOP
-                end # END OF P LOOP
-                println(fout)
-            end # END OF S LOOP
-        end # END OF I LOOP
-    end
     println("  Write double counting terms into: dmft1/sigma.dc")
 
     # Print blank line for better visualization
@@ -371,4 +336,39 @@ function write_sigma()
 end
 
 function write_sigdc()
+   # Write double counting terms to sigma.dc
+    open("dmft1/sigma.dc", "w") do fout
+        # Write the header
+        println(fout, "# File: sigma.dc")
+        println(fout, "# Data: double counting terms")
+        println(fout)
+        println(fout, "nsite -> $nsite")
+        println(fout, "nspin -> $nspin")
+        for i = 1:nsite
+            println(fout, "ndim$i -> $(ai[i].nband)")
+        end
+        println(fout)
+
+        # Write the body
+        # Go through each impurity problem
+        for i = 1:nsite
+            for s = 1:nspin
+                println(fout, "# site: $i spin: $s")
+                # There are 2 columns and nband * nband rows
+                # The double counting terms are assumed to be complex
+                # numbers with zero imaginary parts.
+                for p = 1:ai[i].nband
+                    for q = 1:ai[i].nband
+                        # Only the diagonal elements are useful
+                        if p == q
+                            @printf(fout, "%16.12f %16.12f\n", DCA[i][q, p, s], 0.0)
+                        else
+                            @printf(fout, "%16.12f %16.12f\n", 0.0, 0.0)
+                        end
+                    end # END OF Q LOOP
+                end # END OF P LOOP
+                println(fout)
+            end # END OF S LOOP
+        end # END OF I LOOP
+    end
 end
