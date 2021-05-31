@@ -602,12 +602,14 @@ export sigma_gather
 export cal_dc_fll
 export cal_dc_amf
 export cal_dc_exact
-export split_hyb_l
-export split_eimpx
 export read_sigma
 export read_sigdc
 export write_sigma
 export write_sigdc
+
+#
+include("mixer.jl")
+#
 
 """
     __init__()
