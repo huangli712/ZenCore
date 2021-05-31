@@ -379,6 +379,8 @@ function read_sigdc(ai::Array{Impurity,1})
         # Read the body
         # Go through each quantum impurity problem
         for t = 1:nsite
+            # Create an array for the site-dependent double counting terms
+            DC = zeros(F64, ai[t].nband, ai[t].nband, nspin)
         end # END OF T LOOP
 
     end # END OF IOSTREAM
