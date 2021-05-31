@@ -807,6 +807,9 @@ won't change the current directory.
 See also: [`sigma_core`](@ref).
 """
 function mixer_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::String = "delta")
+    # Check the given task
+    @assert task in ("sigma", "delta", "eimpx", "gamma")
+
     # Print the log
     prompt("Mixer")
     prompt(lr.log, "mixer")
