@@ -220,44 +220,8 @@ function sigma_gather(ai::Array{Impurity,1})
     # them into the `sigma.bare` file.
 
     # Write self-energy functions to sigma.bare
-    open("dmft1/sigma.bare", "w") do fout
-        # Write the header
-        println(fout, "# File: sigma.bare")
-        println(fout, "# Data: bare self-energy functions")
-        println(fout)
-        println(fout, "axis  -> $axis")
-        println(fout, "beta  -> $beta")
-        println(fout, "nsite -> $nsite")
-        println(fout, "nmesh -> $nmesh")
-        println(fout, "nspin -> $nspin")
-        for i = 1:nsite
-            println(fout, "ndim$i -> $(ai[i].nband)")
-        end
-        println(fout)
-
-        # Write the body
-        # Go through each quantum impurity problem
-        for i = 1:nsite
-            for s = 1:nspin
-                println(fout, "# site: $i spin: $s")
-                for m = 1:nmesh
-                    # Write frequency grid
-                    @printf(fout, "%4s %6i %16.12f\n", "w:", m, fmesh[m])
-                    # Write self-energy function data
-                    # There are 2 columns and nband * nband rows
-                    for p = 1:ai[i].nband
-                        for q = 1:ai[i].nband
-                            x = SA[i][q, p, m, s]
-                            @printf(fout, "%16.12f %16.12f\n", real(x), imag(x))
-                        end
-                    end
-                end # END OF M LOOP
-                # Write separator for each frequency point
-                println(fout)
-            end # END OF S LOOP
-        end # END OF I LOOP
-    end
-    println("The local self-energy functions are written to sigma.bare")
+    write_sigma(fmesh, SA, ai)
+    println("  Write self-energy functions into dmft1/sigma.bare")
 
     # Print blank line for better visualization
     println()
