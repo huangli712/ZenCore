@@ -176,12 +176,11 @@ function read_delta(imp::Impurity)
     @assert parse(I64, dirvect[2]) == index
 
     # Declare empty arrays for frequency mesh and hybridization functions
-    fmesh = []
-    Delta = []
+    fmesh = nothing
+    Delta = nothing
 
     # Parse the `impurity.i/dmft.hyb_l` file
     open("dmft.hyb_l", "r") do fin
-
         # Get the dimensional parameters
         nsite = parse(I64, line_to_array(fin)[3])
         nspin = parse(I64, line_to_array(fin)[3])
@@ -201,7 +200,6 @@ function read_delta(imp::Impurity)
 
         # Go through each spin orientation
         for s = 1:nspin
-
             # Analyze the important parameters
             strs = readline(fin)
             _t = parse(I64, line_to_array(strs)[3])
@@ -213,7 +211,6 @@ function read_delta(imp::Impurity)
 
             # Go through each frequency point
             for m = 1:nmesh
-
                 # Extract frequency
                 fmesh[m] = parse(F64, line_to_array(fin)[3])
 
@@ -224,15 +221,12 @@ function read_delta(imp::Impurity)
                         Delta[p,q,m,s] = _re + _im * im
                     end
                 end
-
             end # END OF M LOOP
 
             # Skip two lines
             readline(fin)
             readline(fin)
-
         end # END OF S LOOP
-
     end # END OF IOSTREAM
 
     # Return the desired arrays
