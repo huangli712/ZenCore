@@ -590,6 +590,9 @@ function GetNimpx(imp::Impurity)
     index = imp.index
 
     # Change the directory
+    #
+    # Since this function is called by sigma_dcount(). we have to change
+    # the current directory.
     cd("impurity.$index")
 
     # Determine the chosen solver
