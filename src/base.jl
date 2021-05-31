@@ -795,7 +795,7 @@ function sigma_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::Strin
 end
 
 """
-    mixer_core(lr::Logger)
+    mixer_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::String = "hyb_l")
 
 Simple driver for the mixer. It will try to mix the self-energy functions
 or hybridization functions and generate a new one.
