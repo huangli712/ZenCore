@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/05/31
+# Last modified: 2021/06/01
 #
 
 #
@@ -326,6 +326,10 @@ function ctqmc_atomx(imp::Impurity)
     sorry()
 end
 
+#
+# Service Functions: For I/O Operations
+#
+
 """
     ctqmc_delta(fmesh::Array{F64,1}, Delta::Array{C64,4})
 
@@ -414,6 +418,10 @@ function ctqmc_eimpx(Eimpx::Array{C64,3})
         end
     end # END OF IOSTREAM
 end
+
+#
+# Service Functions: For I/O Operations
+#
 
 """
     ctqmc_sigma(imp::Impurity)
