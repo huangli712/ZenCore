@@ -203,7 +203,7 @@ function sigma_gather(ai::Array{Impurity,1})
     for t = 1:nsite
 
         # Extract the frequency mesh and self-energy function
-        fmesh, sig_l = GetSig_l(ai[t])
+        fmesh, sig_l = GetSigma(ai[t])
         println("  Read self-energy functions for impurity: $t")
 
         # Extract and verify the dimensional parameters
