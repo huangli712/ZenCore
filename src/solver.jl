@@ -475,10 +475,10 @@ function ctqmc_sigma(imp::Impurity)
             end # END OF B LOOP
         end # END OF S LOOP
 
-    end
+    end # END OF IOSTREAM
 
     # Return the desired arrays
-    return (fmesh, Σ)
+    return fmesh, Σ
 end
 
 """
@@ -532,6 +532,9 @@ function GetSigma(imp::Impurity)
     index = imp.index
 
     # Change the directory
+    #
+    # Since this function is called by sigma_gather(). we have to change
+    # the current directory. 
     cd("impurity.$index")
 
     # Determine the chosen solver
