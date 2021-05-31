@@ -357,7 +357,12 @@ function write_sigma(fmesh::Array{F64,1}, SA::Array{Array{C64,4},1}, ai::Array{I
     end # END IOSTREAM
 end
 
-function write_sigdc()
+"""
+    write_sigdc(DCA::Array{Array{F64,3},1}, ai::Array{Impurity,1})
+
+See also: [`write_sigma`](@ref).
+"""
+function write_sigdc(DCA::Array{Array{F64,3},1}, ai::Array{Impurity,1})
    # Write double counting terms to sigma.dc
     open("dmft1/sigma.dc", "w") do fout
         # Write the header
