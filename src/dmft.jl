@@ -445,46 +445,6 @@ function read_eimpx(ai::Array{Impurity,1})
 
     # Next, we are going to split the local impurity levels according
     # to the quantum impurity problems
-
-    # Extract the dimensional parameters
-    _, qdim, nspin, nsite = size(Eimpx)
-
-    # Go through each quantum impurity problems
-    for t = 1:nsite
-        # Determine filename for local impurity levels
-        flev = "impurity.$t/dmft.eimpx"
-
-        # Write the data
-        open(flev, "w") do fout
-            # Write dimensional parameters
-            @printf(fout, "# nsite: %4i\n", nsite)
-            @printf(fout, "# nspin: %4i\n", nspin)
-            @printf(fout, "# qdim : %4i\n", qdim)
-
-            # Write separators
-            println(fout)
-            println(fout)
-
-            # Go through each spin
-            for s = 1:nspin
-                # Write key parameters
-                @printf(fout, "# site:%4i  spin:%4i  dims:%4i\n", t, s, ai[t].nband)
-
-                # Go through the orbital space
-                for q = 1:ai[t].nband
-                    for p = 1:ai[t].nband
-                        z = Eimpx[p,q,s,t]
-                        @printf(fout, "%4i%4i%16.8f%16.8f\n", p, q, real(z), imag(z))
-                    end
-                end
-
-                # Write separators
-                println(fout)
-                println(fout)
-            end # END OF S LOOP
-        end
-        println("  Split local impurity levels into: $flev")
-    end # END OF T LOOP
 end
 
 function write_hyb_l(Delta)
@@ -538,6 +498,45 @@ function write_hyb_l()
 end
 
 function write_eimpx(Eimpx)
+    # Extract the dimensional parameters
+    _, qdim, nspin, nsite = size(Eimpx)
+
+    # Go through each quantum impurity problems
+    for t = 1:nsite
+        # Determine filename for local impurity levels
+        flev = "impurity.$t/dmft.eimpx"
+
+        # Write the data
+        open(flev, "w") do fout
+            # Write dimensional parameters
+            @printf(fout, "# nsite: %4i\n", nsite)
+            @printf(fout, "# nspin: %4i\n", nspin)
+            @printf(fout, "# qdim : %4i\n", qdim)
+
+            # Write separators
+            println(fout)
+            println(fout)
+
+            # Go through each spin
+            for s = 1:nspin
+                # Write key parameters
+                @printf(fout, "# site:%4i  spin:%4i  dims:%4i\n", t, s, ai[t].nband)
+
+                # Go through the orbital space
+                for q = 1:ai[t].nband
+                    for p = 1:ai[t].nband
+                        z = Eimpx[p,q,s,t]
+                        @printf(fout, "%4i%4i%16.8f%16.8f\n", p, q, real(z), imag(z))
+                    end
+                end
+
+                # Write separators
+                println(fout)
+                println(fout)
+            end # END OF S LOOP
+        end
+        println("  Split local impurity levels into: $flev")
+    end # END OF T LOOP
 end
 
 function write_eimpx()
