@@ -458,7 +458,7 @@ Split hybridization functions and the corresponding frequency mesh into
 the `impurity.i/dmft.hyb_l` file, which is essential for the quantum
 impurity solver.
 
-See also: [`Impurity`](@ref), [`read_delta`](@ref).
+See also: [`Impurity`](@ref), [`read_delta`](@ref), [`write_eimpx`](@ref).
 """
 function write_delta(fmesh::Array{F64,1}, Delta::Array{C64,5}, ai::Array{Impurity,1})
    # Extract the dimensional parameters
@@ -522,7 +522,7 @@ end
 Split local impurity levels into the `impurity.i/dmft.eimpx` file, which
 is essential for the quantum impurity solver.
 
-See also: [`Impurity`](@ref), [`read_eimpx`](@ref).
+See also: [`Impurity`](@ref), [`read_eimpx`](@ref), [`write_delta`](@ref).
 """
 function write_eimpx(Eimpx::Array{C64,4}, ai::Array{Impurity,1})
     # Extract the dimensional parameters
