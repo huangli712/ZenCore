@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/05/30
+# Last modified: 2021/05/31
 #
 
 """
@@ -496,12 +496,20 @@ export irio_charge
 # dmft_init -> Prepare input files for the DMFT engine.
 # dmft_exec -> Execute the DMFT engine.
 # dmft_save -> Backup output files for the DMFT engine.
+# read_hyb_l
+# read_eimpx
+# write_hyb_l
+# write_eimpx
 #
 include("dmft.jl")
 #
 export dmft_init
 export dmft_exec
 export dmft_save
+export read_hyb_l
+export read_eimpx
+export write_hyb_l
+export write_eimpx
 
 #
 # solver.jl
@@ -598,12 +606,8 @@ export split_hyb_l
 export split_eimpx
 export read_sigma
 export read_sigdc
-export read_hyb_l
-export read_eimpx
 export write_sigma
 export write_sigdc
-export write_hyb_l
-export write_eimpx
 
 """
     __init__()

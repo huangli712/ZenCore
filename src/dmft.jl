@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/05/25
+# Last modified: 2021/05/31
 #
 
 """
@@ -145,4 +145,16 @@ function dmft_save(it::IterInfo, task::I64)
         f = file_list[i]
         cp(f, "$f.$(it.dmft_cycle).$(it.dmft1_iter)", force = true)
     end
+end
+
+function read_hyb_l()
+end
+
+function read_hyb_l()
+end
+
+function read_eimpx()
+end
+
+function read_eimpx()
 end
