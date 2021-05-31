@@ -343,13 +343,13 @@ function read_sigma(ai::Array{Impurity,1})
 end
 
 """
-    read_sigdc()
+    read_sigdc(ai::Array{Impurity,1})
 
 Read the double counting terms from the `dmft1/sigma.dc` file.
 
 See also: [`read_sigma`](@ref).
 """
-function read_sigdc()
+function read_sigdc(ai::Array{Impurity,1})
 end
 
 """
