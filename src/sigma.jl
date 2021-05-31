@@ -295,8 +295,24 @@ function read_sigma(ai::Array{Impurity,1})
         end
         readline(fin)
 
+        # Read the body
+        # Go through each quantum impurity problem and spin
         for t = 1:nsite
             for s = 1:nspin
+                # Parse indices and dimensional parameter
+                strs = readline(fin)
+                _t = parse(I64, line_to_array(strs)[3])
+                _s = parse(I64, line_to_array(strs)[5])
+                @assert _t == t
+                @assert _s == s
+
+                # Go through each frequency point
+                for m = 1:nmesh
+                    # Parse frequency mesh
+                    fmesh[m] = parse(F64, line_to_array(fin)[3])
+
+                end # END OF M LOOP
+
             end # END OF S LOOP
         end # END OF T LOOP 
 
@@ -347,7 +363,7 @@ function write_sigma(fmesh::Array{F64,1}, SA::Array{Array{C64,4},1}, ai::Array{I
         println(fout)
 
         # Write the body
-        # Go through each quantum impurity problem
+        # Go through each quantum impurity problem and spin
         for i = 1:nsite
             for s = 1:nspin
                 println(fout, "# site: $i spin: $s")
