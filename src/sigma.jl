@@ -68,7 +68,8 @@ end
     sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
 
 Calculate double counting terms for local self-energy functions and
-write them to `sigma.dc`.
+write them to `sigma.dc`, which is key input for the dynamical mean-
+field theory engine.
 
 See also: [`sigma_reset`](@ref).
 """
