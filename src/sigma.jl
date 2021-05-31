@@ -381,6 +381,18 @@ function read_sigdc(ai::Array{Impurity,1})
         for t = 1:nsite
             # Create an array for the site-dependent double counting terms
             DC = zeros(F64, ai[t].nband, ai[t].nband, nspin)
+
+            # Go through each spin
+            for s = 1:nspin
+                # Parse indices and dimensional parameter
+                strs = readline(fin)
+                _t = parse(I64, line_to_array(strs)[3])
+                _s = parse(I64, line_to_array(strs)[5])
+                @assert _t == t
+                @assert _s == s
+
+            end # END OF S LOOP
+
         end # END OF T LOOP
 
     end # END OF IOSTREAM
