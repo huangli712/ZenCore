@@ -298,7 +298,7 @@ function read_sigdc()
 end
 
 """
-    write_sigma()
+    write_sigma(fmesh::Array{F64,1}, SA::Array{Array{C64,4},1})
 
 Write the self-energy functions and the corresponding frequency mesh into
 the `dmft1/sigma.bare` file, which is key input for the dynamical mean-
@@ -306,7 +306,7 @@ field theory engine.
  
 See also: [`write_sigdc`](@ref).
 """
-function write_sigma()
+function write_sigma(fmesh::Array{F64,1}, SA::Array{Array{C64,4},1})
     # Write self-energy functions to sigma.bare
     open("dmft1/sigma.bare", "w") do fout
         # Write the header
