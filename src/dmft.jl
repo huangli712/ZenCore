@@ -306,7 +306,7 @@ function read_delta(ai::Array{Impurity,1})
     println("  Read hybridization functions from: $fhyb")
 
     # Return the desired arrays
-    return (fmesh, Delta)
+    return fmesh, Delta
 end
 
 #
