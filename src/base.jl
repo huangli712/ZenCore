@@ -391,6 +391,29 @@ it in the REPL mode to see whether the mixer engine works properly.
 See also: [`cycle1`](@ref), [`cycle2`](@ref).
 """
 function cycle8(task::String = "sigma")
+    # C-1: Create IterInfo struct
+    it = IterInfo()
+
+    # C00: Create Logger struct
+    lr = Logger(query_case())
+
+    # C01: Initialize the quantum impurity problems
+    ai = GetImpurity()
+
+    # C02: Execute the Kohn-Sham adaptor
+    mixer_core(it, lr, ai, task)
+
+    # C98: Close Logger.log
+    if isopen(lr.log)
+        flush(lr.log)
+        close(lr.log)
+    end
+
+    # C99: Close Logger.cycle
+    if isopen(lr.cycle)
+        flush(lr.cycle)
+        close(lr.cycle)
+    end
 end
 
 #
