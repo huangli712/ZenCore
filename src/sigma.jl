@@ -294,9 +294,19 @@ function cal_dc_exact(U::F64, J::F64, N::F64)
     sorry()
 end
 
+"""
+    read_sigma()
+
+See also: [`read_sigdc`](@ref).
+"""
 function read_sigma()
 end
 
+"""
+    read_sigdc()
+
+See also: [`read_sigma`](@ref).
+"""
 function read_sigdc()
 end
 
