@@ -314,7 +314,7 @@ function write_sigma(fmesh::Array{F64,1}, SA::Array{Array{C64,4},1}, ai::Array{I
     nsite = get_i("nsite")
     nspin = ( get_d("lspins") ? 2 : 1 )
 
-    # Write self-energy functions to sigma.bare
+    # Write self-energy functions to dmft1/sigma.bare
     open("dmft1/sigma.bare", "w") do fout
         # Write the header
         println(fout, "# File: sigma.bare")
@@ -351,7 +351,7 @@ function write_sigma(fmesh::Array{F64,1}, SA::Array{Array{C64,4},1}, ai::Array{I
                 println(fout)
             end # END OF S LOOP
         end # END OF I LOOP
-    end
+    end # END IOSTREAM
 end
 
 function write_sigdc()
