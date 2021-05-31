@@ -237,7 +237,75 @@ end
 function read_hyb_l()
 end
 
-function read_eimpx()
+"""
+    read_eimpx(imp::Impurity)
+
+Extract local impurity levels from `dmft.eimpx` file, which is generated
+by sigma_split(). The data are essential for quantum impurity solvers.
+
+See also: [`Impurity`](@ref), [`read_hyb_l`](@ref).
+"""
+function read_eimpx(imp::Impurity)
+    # Get index of the quantum impurity problem
+    index = imp.index
+
+    # Get number of orbitals for the quantum impurity problem
+    nband = imp.nband
+
+    # Examine the current directory
+    dirname = basename(pwd())
+    dirvect = split(dirname, ".")
+    @assert dirvect[1] == "impurity"
+    @assert parse(I64, dirvect[2]) == index
+
+    # Declare an empty array for local impurity levels
+    Eimpx = []
+
+    # Parse the `dmft.eimpx` file
+    open("dmft.eimpx", "r") do fin
+
+        # Get the dimensional parameters
+        nsite = parse(I64, line_to_array(fin)[3])
+        nspin = parse(I64, line_to_array(fin)[3])
+        qdim  = parse(I64, line_to_array(fin)[4])
+        @assert qdim ≥ nband
+
+        # Skip two lines
+        readline(fin)
+        readline(fin)
+
+        # Create an array for local impurity levels
+        Eimpx = zeros(C64, nband, nband, nspin)
+
+        # Go through each spin orientation
+        for s = 1:nspin
+
+            # Analyze the important parameters
+            strs = readline(fin)
+            _t = parse(I64, line_to_array(strs)[3])
+            _s = parse(I64, line_to_array(strs)[5])
+            _d = parse(I64, line_to_array(strs)[7])
+            @assert _t == index
+            @assert _s == s
+            @assert _d == nband
+
+            # Parse local impurity levels
+            for q = 1:nband
+                for p = 1:nband
+                    _re, _im = parse.(F64, line_to_array(fin)[3:4])
+                    Eimpx[p,q,s] = _re + _im * im
+                end
+            end
+
+            # Skip two lines
+            readline(fin)
+            readline(fin)
+        end
+
+    end
+
+    # Return the desired array
+    return Eimpx
 end
 
 function read_eimpx()
