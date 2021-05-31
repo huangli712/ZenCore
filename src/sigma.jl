@@ -358,6 +358,10 @@ function read_sigdc(ai::Array{Impurity,1})
 
     # Make sure the existence of double counting terms
     @assert isfile(fsig)
+
+    # Parse `fsig`, extract the double counting terms
+    open(fsig, "r") do fin
+    end # END OF IOSTREAM
 end
 
 """
