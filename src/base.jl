@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/05/30
+# Last modified: 2021/06/01
 #
 
 #
@@ -169,17 +169,20 @@ function cycle1()
         # C07: Perform DMFT calculation with `task` = 1
         dmft_run(it, lr, 1)
 
-        # C08: Split and distribute the data (hybridization functions)
+        # C08: Mix hybridization functions
+        mixer_core(it, lr, ai)
+
+        # C09: Split and distribute the data (hybridization functions)
         sigma_core(it, lr, ai, "split")
 
-        # C09: Solve the quantum impurity problems
+        # C10: Solve the quantum impurity problems
         solver_run(it, lr, ai)
 
-        # C10: Gather and combine the data (impurity self-functions)
+        # C11: Gather and combine the data (impurity self-functions)
         sigma_core(it, lr, ai, "gather")
 
-        # C11: Mixer for self-energy functions or hybridization functions
-        mixer_core(lr)
+        # C12: Mixer for self-energy functions
+        mixer_core(it, lr, ai)
     end
 
     # C98: Close Logger.log
