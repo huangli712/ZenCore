@@ -802,7 +802,7 @@ or hybridization functions and generate a new one.
 
 See also: [`sigma_core`](@ref).
 """
-function mixer_core(lr::Logger)
+function mixer_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::String = "hyb_l")
     # Print the log
     prompt("Mixer")
     prompt(lr.log, "mixer")
