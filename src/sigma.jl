@@ -142,7 +142,7 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
     println("  Create double counting terms: $(get_m("dcount"))")
 
     # Write double counting terms
-    write_sigma(DCA, ai)
+    write_sigdc(DCA, ai)
     println("  Write double counting terms into: dmft1/sigma.dc")
 
     # Print blank line for better visualization
