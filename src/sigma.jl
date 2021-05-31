@@ -406,6 +406,9 @@ function read_sigdc(ai::Array{Impurity,1})
             push!(DCA, DC)
         end # END OF T LOOP
     end # END OF IOSTREAM
+
+    # Return the desire array
+    return DCA
 end
 
 """
