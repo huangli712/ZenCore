@@ -261,13 +261,22 @@ function cal_dc_exact(U::F64, J::F64, N::F64)
 end
 
 """
-    read_sigma()
+    read_sigma(ai::Array{Impurity,1})
 
 Read the self-energy functions from the `dmft1/sigma.bare` file.
 
 See also: [`read_sigdc`](@ref).
 """
-function read_sigma()
+function read_sigma(ai::Array{Impurity,1})
+    # Declare the frequency mesh and self-energy functions
+    fmesh = []
+    Sigma = []
+
+    # Filename for self-energy functions
+    fsig = "dmft1/sigma.bare"
+
+    # Make sure the existence of self-energy functions
+    @assert isfile(fsig)
 end
 
 """
