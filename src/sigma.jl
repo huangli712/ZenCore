@@ -167,6 +167,7 @@ function sigma_split(ai::Array{Impurity,1})
 
     # Split the local impurity levels
     Eimpx = read_eimpx(ai)
+    write_eimpx(Eimpx, ai)
 
     # Print blank line for better visualization
     println()

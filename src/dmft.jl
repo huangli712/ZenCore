@@ -552,7 +552,9 @@ function write_eimpx(Eimpx::Array{C64,4}, ai::Array{Impurity,1})
                 println(fout)
                 println(fout)
             end # END OF S LOOP
-        end
+        end # END OF IOSTREAM
+
+        # Print message to the screen
         println("  Split local impurity levels into: $flev")
     end # END OF T LOOP
 end
