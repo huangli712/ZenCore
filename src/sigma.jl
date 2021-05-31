@@ -4,7 +4,11 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/05/31
+# Last modified: 2021/06/01
+#
+
+#
+# Driver Functions
 #
 
 """
@@ -227,6 +231,10 @@ function sigma_gather(ai::Array{Impurity,1})
     println()
 end
 
+#
+# Service Functions: For Double Counting Terms
+#
+
 """
     cal_dc_fll(U::F64, J::F64, N::F64)
 
@@ -259,6 +267,10 @@ See also: [`cal_dc_fll`](@ref), [`cal_dc_amf`](@ref).
 function cal_dc_exact(U::F64, J::F64, N::F64)
     sorry()
 end
+
+#
+# Service Functions: For I/O Operations
+#
 
 """
     read_sigma(ai::Array{Impurity,1})
@@ -410,6 +422,10 @@ function read_sigdc(ai::Array{Impurity,1})
     # Return the desire array
     return DCA
 end
+
+#
+# Service Functions: For I/O Operations
+#
 
 """
     write_sigma(fmesh::Array{F64,1}, SA::Array{Array{C64,4},1}, ai::Array{Impurity,1})
