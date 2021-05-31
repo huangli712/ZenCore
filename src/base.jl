@@ -832,6 +832,13 @@ function mixer_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::Strin
     # Check the given task
     @assert task in ("sigma", "delta", "eimpx", "gamma")
 
+    # Check iteration number
+    if it.dmft_cycle == 1
+        if it.dmft1_iter < 2
+            return
+        end
+    end
+
     # Print the log
     prompt("Mixer")
     prompt(lr.log, "mixer::$task")
