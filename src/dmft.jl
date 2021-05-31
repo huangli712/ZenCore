@@ -240,7 +240,7 @@ end
 Read the dmft1/dmft.hyb_l file, extract the hybridization functions and
 the corresponding frequency mesh.
 
-See also: [`sigma_split`](@ref).
+See also: [`sigma_split`](@ref), [`read_eimpx`](@ref).
 """
 function read_delta(ai::Array{Impurity,1})
     # Declare the frequency mesh and hybridization function
@@ -384,10 +384,9 @@ end
 """
     read_eimpx(ai::Array{Impurity,1})
 
-Split the dmft1/dmft.eimpx file into impurity.[i]/dmft.eimpx files, which
-`i` denotes the index of quantum impurity problems.
+Read the dmft1/dmft.eimpx file, extract the local impurity levels.
 
-See also: [`sigma_split`](@ref).
+See also: [`sigma_split`](@ref), [`read_delta`](@ref).
 """
 function read_eimpx(ai::Array{Impurity,1})
     # Declare the local impurity levels
@@ -415,7 +414,7 @@ function read_eimpx(ai::Array{Impurity,1})
         Eimpx = zeros(C64, qdim, qdim, nspin, nsite)
 
         # Read the data
-        # Go through each impurity site and spin
+        # Go through each quantum impurity site and spin
         for t = 1:nsite
             for s = 1:nspin
                 # Parse indices and dimensional parameter
@@ -440,14 +439,23 @@ function read_eimpx(ai::Array{Impurity,1})
                 readline(fin)
             end # END OF S LOOP
         end # END OF T LOOP
-    end
+    end # END OF IOSTREAM
     println("  Read local impurity levels from: $flev")
 
-    # Next, we are going to split the local impurity levels according
-    # to the quantum impurity problems
+    # Return the desired array
+    return Eimpx
 end
 
-function write_delta(Delta)
+"""
+    write_delta(fmesh::Array{F64,1}, Delta::Array{C64,5}, ai::Array{Impurity,1})
+
+Split hybridization functions and the corresponding frequency mesh into
+the `impurity.i/dmft.hyb_l` file, which is essential for the quantum
+impurity solver.
+
+See also: [`Impurity`](@ref), [`read_delta`](@ref).
+"""
+function write_delta(fmesh::Array{F64,1}, Delta::Array{C64,5}, ai::Array{Impurity,1})
    # Extract the dimensional parameters
     _, qdim, nmesh, nspin, nsite = size(Delta)
 
@@ -489,7 +497,9 @@ function write_delta(Delta)
                 println(fout)
                 println(fout)
             end # END OF S LOOP
-        end
+        end # END OF IOSTREAM
+
+        # Print message to the screen
         println("  Split hybridization functions into: $fhyb")
     end # END OF T LOOP
 end

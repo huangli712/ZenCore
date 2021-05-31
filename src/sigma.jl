@@ -162,11 +162,11 @@ function sigma_split(ai::Array{Impurity,1})
     println("Sigma : Split")
 
     # Split the hybridization functions
-    read_delta(ai)
-    println("here")
+    fmesh, Delta = read_delta(ai)
+    write_delta(fmesh, Delta, ai)
 
     # Split the local impurity levels
-    split_eimpx(ai)
+    Eimpx = read_eimpx(ai)
 
     # Print blank line for better visualization
     println()
