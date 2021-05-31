@@ -269,8 +269,8 @@ See also: [`read_sigdc`](@ref).
 """
 function read_sigma(ai::Array{Impurity,1})
     # Declare the frequency mesh and self-energy functions
-    fmesh = []
-    Sigma = []
+    fmesh = nothing
+    SA = nothing
 
     # Filename for self-energy functions
     fsig = "dmft1/sigma.bare"
@@ -299,11 +299,15 @@ function read_sigma(ai::Array{Impurity,1})
         fmesh = zeros(F64, nmesh)
 
         # Create an array for self-energy functions
-        Sigma = zeros(C64, qdim, qdim, nmesh, nspin, nsite)
+        SA = Array{C64,4}[]
 
         # Read the body
-        # Go through each quantum impurity problem and spin
+        # Go through each quantum impurity problem
         for t = 1:nsite
+            # Create an array for the site-dependent self-energy functions
+            Sigma = zeros(C64, ai[t].nband, ai[t].nband, nmesh, nspin)
+
+            # Go through each spin
             for s = 1:nspin
                 # Parse indices and dimensional parameter
                 strs = readline(fin)
@@ -320,15 +324,22 @@ function read_sigma(ai::Array{Impurity,1})
                     for q = 1:ai[t].nband
                         for p = 1:ai[t].nband
                             _re, _im = parse.(F64, line_to_array(fin)[1:2])
-                            Sigma[p,q,m,s,t] = _re + _im * im
+                            Sigma[p,q,m,s] = _re + _im * im
                         end
                     end
                 end # END OF M LOOP
 
+                # Skip separator
+                readline(fin)
             end # END OF S LOOP
-        end # END OF T LOOP 
 
+            # Store Sigma in SA
+            push!(SA, Sigma)
+        end # END OF T LOOP 
     end # END OF IOSTREAM
+
+    # Return the desired arrays
+    return (fmesh, SA)
 end
 
 """
