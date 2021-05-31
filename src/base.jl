@@ -817,23 +817,23 @@ function mixer_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::Strin
     # Launch suitable subroutine
     @cswitch task begin
         # Generate default self-energy functions and store them
-        @case "reset"
-            sigma_reset(ai)
+        @case "sigma"
+            mixer_sigma()
             break
 
         # Calculate the double counting term and store it
-        @case "dcount"
-            sigma_dcount(it, ai)
+        @case "delta"
+            mixer_delta()
             break
 
         # Split the hybridization functions and store them
-        @case "split"
-            sigma_split(ai)
+        @case "eimpx"
+            mixer_eimpx(ai)
             break
 
         # Collect impurity self-energy functions and combine them
-        @case "gather"
-            sigma_gather(ai)
+        @case "gamma"
+            mixer_gamma(ai)
             break
 
         @default
