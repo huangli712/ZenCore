@@ -818,7 +818,7 @@ function sigma_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::Strin
 end
 
 """
-    mixer_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::String = "delta")
+    mixer_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::String = "sigma")
 
 Simple driver for the mixer. It will try to mix the self-energy functions
 or hybridization functions and generate a new one.
@@ -828,7 +828,7 @@ won't change the current directory.
 
 See also: [`sigma_core`](@ref).
 """
-function mixer_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::String = "delta")
+function mixer_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::String = "sigma")
     # Check the given task
     @assert task in ("sigma", "delta", "eimpx", "gamma")
 
