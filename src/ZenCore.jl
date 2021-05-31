@@ -620,6 +620,10 @@ export write_sigdc
 #
 include("mixer.jl")
 #
+export mixer_sigma
+export mixer_hyb_l
+export mixer_eimpx
+export mixer_gamma
 
 """
     __init__()
