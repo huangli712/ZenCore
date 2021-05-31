@@ -401,6 +401,9 @@ function read_sigdc(ai::Array{Impurity,1})
                 # Skip separator
                 readline(fin)
             end # END OF S LOOP
+
+            # Store DC in DCA
+            push!(DCA, DC)
         end # END OF T LOOP
     end # END OF IOSTREAM
 end
