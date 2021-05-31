@@ -398,10 +398,10 @@ function read_sigdc(ai::Array{Impurity,1})
                     end
                 end
 
+                # Skip separator
+                readline(fin)
             end # END OF S LOOP
-
         end # END OF T LOOP
-
     end # END OF IOSTREAM
 end
 
