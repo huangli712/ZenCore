@@ -489,7 +489,9 @@ export irio_charge
 #
 # Summary:
 #
-# Wrapper for dynamical mean-field theory engine.
+# Wrapper for dynamical mean-field theory engine. It also provides some
+# essential tools to deal with the hybridization functions and local
+# impurity levels.
 #
 # Members:
 #
