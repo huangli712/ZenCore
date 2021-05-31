@@ -4,7 +4,7 @@ ZenCore implements the core library of the Zen DFT + DMFT computation framework.
 
 ## Version
 
-v0.2.2-devel.210528
+v0.3.0-devel.210601
 
 ## License
 
