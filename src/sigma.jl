@@ -263,6 +263,8 @@ end
 """
     read_sigma()
 
+Read the self-energy functions from the `dmft1/sigma.bare` file.
+
 See also: [`read_sigdc`](@ref).
 """
 function read_sigma()
@@ -270,6 +272,8 @@ end
 
 """
     read_sigdc()
+
+Read the double counting terms from the `dmft1/sigma.dc` file.
 
 See also: [`read_sigma`](@ref).
 """
