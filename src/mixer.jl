@@ -13,7 +13,8 @@
 See also: [`mixer_core`](@ref).
 """
 function mixer_sigma(it::IterInfo)
-    println("here")
+    # Print the log
+    println("Mixer : Sigma")
 end
 
 """
