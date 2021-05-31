@@ -416,7 +416,7 @@ function ctqmc_eimpx(Eimpx::Array{C64,3})
 end
 
 """
-    ctqmc_sig_l(imp::Impurity)
+    ctqmc_sigma(imp::Impurity)
 
 Parse the `solver.sgm.dat` file to extract the bare self-energy functions.
 
@@ -425,7 +425,7 @@ the `sigma.bare` file, which is essential for the DMFT engine.
 
 See also: [`Impurity`](@ref), [`GetSig_l`](@ref).
 """
-function ctqmc_sig_l(imp::Impurity)
+function ctqmc_sigma(imp::Impurity)
     # File name for self-energy functions
     fsgm = "solver.sgm.dat"
 
@@ -525,7 +525,7 @@ Extract self-energy functions from the output files of various quantum
 impurity solvers. The data will be combined in sigma_gather() function.
 Then they will be fed back to the DMFT engine.
 
-See also: [`Impurity`](@ref), [`ctqmc_sig_l`](@ref).
+See also: [`Impurity`](@ref), [`ctqmc_sigma`](@ref).
 """
 function GetSig_l(imp::Impurity)
     # Get the index for current quantum impurity problem
@@ -543,11 +543,11 @@ function GetSig_l(imp::Impurity)
     sig_l = nothing
     @cswitch engine begin
         @case "ct_hyb1"
-            fmesh, sig_l = ctqmc_sig_l(imp)
+            fmesh, sig_l = ctqmc_sigma(imp)
             break
 
         @case "ct_hyb2"
-            fmesh, sig_l = ctqmc_sig_l(imp)
+            fmesh, sig_l = ctqmc_sigma(imp)
             break
 
         @case "hub1"
