@@ -336,11 +336,10 @@ function read_eimpx(imp::Impurity)
     @assert parse(I64, dirvect[2]) == index
 
     # Declare an empty array for local impurity levels
-    Eimpx = []
+    Eimpx = nothing
 
     # Parse the `dmft.eimpx` file
     open("dmft.eimpx", "r") do fin
-
         # Get the dimensional parameters
         nsite = parse(I64, line_to_array(fin)[3])
         nspin = parse(I64, line_to_array(fin)[3])
@@ -356,7 +355,6 @@ function read_eimpx(imp::Impurity)
 
         # Go through each spin orientation
         for s = 1:nspin
-
             # Analyze the important parameters
             strs = readline(fin)
             _t = parse(I64, line_to_array(strs)[3])
@@ -377,9 +375,8 @@ function read_eimpx(imp::Impurity)
             # Skip two lines
             readline(fin)
             readline(fin)
-        end
-
-    end
+        end # END OF S LOOP
+    end # END OF IOSTREAM
 
     # Return the desired array
     return Eimpx
