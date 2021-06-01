@@ -62,7 +62,6 @@ function sigma_reset(ai::Array{Impurity,1})
 
     # Write self-energy functions and the corresponding frequency mesh
     write_sigma(fmesh, SA, ai)
-    println("  Write self-energy functions into dmft1/sigma.bare")
 
     # Print blank line for better visualization
     println()
@@ -482,6 +481,9 @@ function write_sigma(fmesh::Array{F64,1}, SA::Array{Array{C64,4},1}, ai::Array{I
             end # END OF S LOOP
         end # END OF I LOOP
     end # END OF IOSTREAM
+
+    # Print message to the screen
+    println("  Write self-energy functions into: dmft1/sigma.bare")
 end
 
 """
@@ -534,4 +536,7 @@ function write_sigdc(DCA::Array{Array{F64,3},1}, ai::Array{Impurity,1})
             end # END OF S LOOP
         end # END OF I LOOP
     end # END OF IOSTREAM
+
+    # Print message to the screen
+    println("  Write double counting terms into: dmft1/sigma.dc")
 end
