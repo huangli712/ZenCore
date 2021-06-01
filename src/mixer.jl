@@ -69,7 +69,9 @@ function mixer_eimpx(it::IterInfo, ai::Array{Impurity,1})
     # Mix the local impurity levels
     Enew = Ecurr * get_m("mixer") + Eprev * (1.0 - get_m("mixer"))
 
-    
+    # Write the new local impurity levels into `dmft1/dmft.eimpx`
+    write_eimpx(Enew, ai, "dmft1/dmft.eimpx")
+
     # Print blank line for better visualization
     println()
 end
