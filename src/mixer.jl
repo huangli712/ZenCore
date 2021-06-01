@@ -57,6 +57,9 @@ function mixer_delta(it::IterInfo, ai::Array{Impurity,1})
     # Mix the hybridization functions
     Dnew = Dcurr * get_m("mixer") + Dprev * (1.0 - get_m("mixer"))
 
+    # Write the new hybridization functions into `dmft1/dmft.hyb_l`
+    write_delta(fcurr, Enew, ai, "dmft1/dmft.eimpx")
+
     # Print blank line for better visualization
     println()
 end
