@@ -49,9 +49,9 @@ function mixer_delta(it::IterInfo, ai::Array{Impurity,1})
     # Check whether these files are available
     @assert isfile(fcurr) && isfile(fprev)
 
-    # Read in the local impurity levels (previous and current)
-    Ecurr = read_eimpx(ai, fcurr)
-    Eprev = read_eimpx(ai, fprev)
+    # Read in the hybridization functions (previous and current)
+    Dcurr = read_eimpx(ai, fcurr)
+    Dprev = read_eimpx(ai, fprev)
     @assert size(Ecurr) == size(Eprev)
 
     # Print blank line for better visualization

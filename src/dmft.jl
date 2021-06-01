@@ -238,20 +238,17 @@ function read_delta(imp::Impurity)
 end
 
 """
-    read_delta(ai::Array{Impurity,1})
+    read_delta(ai::Array{Impurity,1}, fhyb::String = "dmft1/dmft.hyb_l")
 
 Read the dmft1/dmft.hyb_l file, extract the hybridization functions and
 the corresponding frequency mesh.
 
 See also: [`sigma_split`](@ref), [`read_eimpx`](@ref).
 """
-function read_delta(ai::Array{Impurity,1})
+function read_delta(ai::Array{Impurity,1}, fhyb::String = "dmft1/dmft.hyb_l")
     # Declare the frequency mesh and hybridization function
     fmesh = []
     Delta = []
-
-    # Filename for hybridization functions
-    fhyb = "dmft1/dmft.hyb_l"
 
     # Make sure the existence of hybridization functions
     @assert isfile(fhyb)
