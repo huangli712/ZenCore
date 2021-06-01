@@ -584,22 +584,22 @@ function write_eimpx(Eimpx::Array{C64,4}, ai::Array{Impurity,1}, flev::String)
     # Extract the dimensional parameters
     _, qdim, nspin, nsite = size(Eimpx)
 
-    # Go through each quantum impurity problems
-    for t = 1:nsite
-        # Determine filename for local impurity levels
-        flev = "impurity.$t/dmft.eimpx"
+    # Determine filename for local impurity levels
+    @assert flev == "dmft1/dmft.eimpx"
 
-        # Write the data
-        open(flev, "w") do fout
-            # Write dimensional parameters
-            @printf(fout, "# nsite: %4i\n", nsite)
-            @printf(fout, "# nspin: %4i\n", nspin)
-            @printf(fout, "# qdim : %4i\n", qdim)
+    # Write the data
+    open(flev, "w") do fout
+        # Write dimensional parameters
+        @printf(fout, "# nsite: %4i\n", nsite)
+        @printf(fout, "# nspin: %4i\n", nspin)
+        @printf(fout, "# qdim : %4i\n", qdim)
 
-            # Write separators
-            println(fout)
-            println(fout)
+        # Write separators
+        println(fout)
+        println(fout)
 
+        # Go through each quantum impurity problems
+        for t = 1:nsite
             # Go through each spin
             for s = 1:nspin
                 # Write key parameters
@@ -617,9 +617,9 @@ function write_eimpx(Eimpx::Array{C64,4}, ai::Array{Impurity,1}, flev::String)
                 println(fout)
                 println(fout)
             end # END OF S LOOP
-        end # END OF IOSTREAM
+        end # END OF T LOOP
+    end # END OF IOSTREAM
 
-        # Print message to the screen
-        println("  Split local impurity levels into: $flev")
-    end # END OF T LOOP
+    # Print message to the screen
+    println("  Write local impurity levels into: $flev")
 end
