@@ -508,15 +508,14 @@ function write_delta(fmesh::Array{F64,1}, Delta::Array{C64,5}, ai::Array{Impurit
 end
 
 """
-    write_delta(fmesh::Array{F64,1}, Delta::Array{C64,5}, ai::Array{Impurity,1})
+    write_delta(fmesh::Array{F64,1}, Delta::Array{C64,5}, ai::Array{Impurity,1}, fhyb::String)
 
-Split hybridization functions and the corresponding frequency mesh into
-the `impurity.i/dmft.hyb_l` file, which is essential for the quantum
-impurity solver.
+Write hybridization functions into the `fhyb` file. This function is usually
+called by `mixer_delta()` to update the `dmft1/dmft.hyb_l` file.
 
 See also: [`Impurity`](@ref), [`read_delta`](@ref), [`write_eimpx`](@ref).
 """
-function write_delta(fmesh::Array{F64,1}, Delta::Array{C64,5}, ai::Array{Impurity,1})
+function write_delta(fmesh::Array{F64,1}, Delta::Array{C64,5}, ai::Array{Impurity,1}, fhyb::String)
    # Extract the dimensional parameters
     _, qdim, nmesh, nspin, nsite = size(Delta)
 
