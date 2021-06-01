@@ -861,7 +861,7 @@ function mixer_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::Strin
 
         # Try to mix the local impurity levels
         @case "eimpx"
-            mixer_eimpx(it)
+            mixer_eimpx(it, ai)
             break
 
         # Try to mix the charge density

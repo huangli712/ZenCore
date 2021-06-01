@@ -34,13 +34,13 @@ function mixer_delta(it::IterInfo)
 end
 
 """
-    mixer_eimpx(it::IterInfo)
+    mixer_eimpx(it::IterInfo, ai::Array{Impurity,1})
 
 Try to mix the local impurity levels.
 
 See also: [`mixer_core`](@ref).
 """
-function mixer_eimpx(it::IterInfo)
+function mixer_eimpx(it::IterInfo, ai::Array{Impurity,1})
     # Print the log
     println("Mixer : Eimpx")
 
