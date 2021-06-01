@@ -32,6 +32,23 @@ function mixer_delta(it::IterInfo, ai::Array{Impurity,1})
     # Print the log
     println("Mixer : Delta")
 
+    # Get current dmft loop
+    cycle = it.dmft_cycle
+
+    # Get current iteration
+    curr = it.dmft1_iter
+
+    # Get previous iteration
+    prev = it.dmft1_iter - 1
+    @assert prev > 0
+
+    # Determine filenames for hybridization functions
+    fcurr = "dmft1/dmft.hyb_l.$cycle.$curr"
+    fprev = "dmft1/dmft.hyb_l.$cycle.$prev"
+
+    # Check whether these files are available
+    @assert isfile(fcurr) && isfile(fprev)
+
     # Print blank line for better visualization
     println()
 end
