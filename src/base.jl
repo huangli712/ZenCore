@@ -450,6 +450,14 @@ function monitor(force_exit::Bool = false)
 end
 
 """
+    log_it(it::IterInfo, lr::Logger)
+
+See also: [`IterInfo`](@ref), [`Logger`](@ref).
+"""
+function log_it(it::IterInfo, lr::Logger)
+end
+
+"""
     make_trees()
 
 Prepare the working directories at advance.
