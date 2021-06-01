@@ -153,6 +153,8 @@ function cycle1()
     prompt("ZEN", "Iterations")
 
     for iter = 1:get_m("niter")
+        log_it(it, lr)
+
         # Print the log
         prompt("ZEN", "Cycle $iter")
         prompt(lr.log, "")
@@ -462,10 +464,10 @@ function log_it(it::IterInfo, lr::Logger)
     if it.full_cycle == 0
         println(lr.cycle, "#   I₀   I₁   I₂")
     else
-        print(lr.cycle, "%4i", it.full_cycle)
-        print(lr.cycle, "%4i", it.dmft_cycle)
-        print(lr.cycle, "%4i", it.dmft1_iter)
-        print(lr.cycle, "%4i", it.dmft2_iter)
+        @printf(lr.cycle, "%4i", it.full_cycle)
+        @printf(lr.cycle, "%4i", it.dmft_cycle)
+        @printf(lr.cycle, "%4i", it.dmft1_iter)
+        @printf(lr.cycle, "%4i", it.dmft2_iter)
         println(lr.cycle)
     end
     flush(lr.cycle)
