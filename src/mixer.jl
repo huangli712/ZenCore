@@ -4,17 +4,34 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/01
+# Last modified: 2021/06/02
 #
 
 """
     mixer_sigma(it::IterInfo, ai::Array{Impurity,1})
+
+Try to mix the self-energy functions and then use the mixed values to
+update the `dmft1/sigma.bare` file.
 
 See also: [`mixer_core`](@ref).
 """
 function mixer_sigma(it::IterInfo, ai::Array{Impurity,1})
     # Print the log
     println("Mixer : Sigma")
+
+    # Get current dmft loop
+    cycle = it.dmft_cycle
+
+    # Get current iteration
+    curr = it.dmft1_iter
+
+    # Get previous iteration
+    prev = it.dmft1_iter - 1
+    @assert prev > 0
+
+    # Determine filenames for hybridization functions
+    fcurr = "dmft1/dmft.hyb_l.$cycle.$curr"
+    fprev = "dmft1/dmft.hyb_l.$cycle.$prev"
 
     # Print blank line for better visualization
     println()
