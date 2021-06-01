@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/05/31
+# Last modified: 2021/06/02
 #
 
 """
@@ -308,6 +308,7 @@ export str_s
 # cycle7      -> Execute self-energy engine only (for testing purpose).
 # cycle8      -> Execute mixer engine only (for testing purpose).
 # monitor     -> Monitor the DFT + DMFT calculations.
+# log_it      -> Record the iteration information.
 # make_trees  -> Make working directories.
 # rm_trees    -> Remove working directories.
 # dft_run     -> Driver for DFT engine.
@@ -331,6 +332,7 @@ export cycle6
 export cycle7
 export cycle8
 export monitor
+export log_it
 export make_trees
 export rm_trees
 export dft_run
