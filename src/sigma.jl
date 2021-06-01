@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/01
+# Last modified: 2021/06/02
 #
 
 #
@@ -277,19 +277,16 @@ end
 #
 
 """
-    read_sigma(ai::Array{Impurity,1})
+    read_sigma(ai::Array{Impurity,1}, fsig::String = "dmft1/sigma.bare")
 
 Read the self-energy functions from the `dmft1/sigma.bare` file.
 
 See also: [`read_sigdc`](@ref).
 """
-function read_sigma(ai::Array{Impurity,1})
+function read_sigma(ai::Array{Impurity,1}, fsig::String = "dmft1/sigma.bare")
     # Declare the frequency mesh and self-energy functions
     fmesh = nothing
     SA = nothing
-
-    # Filename for self-energy functions
-    fsig = "dmft1/sigma.bare"
 
     # Make sure the existence of self-energy functions
     @assert isfile(fsig)
