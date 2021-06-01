@@ -36,6 +36,11 @@ function mixer_sigma(it::IterInfo, ai::Array{Impurity,1})
     # Check whether these files are available
     @assert isfile(fcurr) && isfile(fprev)
 
+    # Read in the self-energy functions (previous and current)
+    fcurr, Scurr = read_sigma(ai, fcurr)
+    fprev, Sprev = read_sigma(ai, fprev)
+    @assert size(Scurr) == size(Sprev) && size(fcurr) == size(fprev)
+
     # Print blank line for better visualization
     println()
 end
