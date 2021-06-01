@@ -516,26 +516,26 @@ called by `mixer_delta()` to update the `dmft1/dmft.hyb_l` file.
 See also: [`Impurity`](@ref), [`read_delta`](@ref), [`write_eimpx`](@ref).
 """
 function write_delta(fmesh::Array{F64,1}, Delta::Array{C64,5}, ai::Array{Impurity,1}, fhyb::String)
-   # Extract the dimensional parameters
+    # Extract the dimensional parameters
     _, qdim, nmesh, nspin, nsite = size(Delta)
 
-    # Go through each quantum impurity problem
-    for t = 1:nsite
-        # Determine filename for hybridization functions
-        fhyb = "impurity.$t/dmft.hyb_l"
+    # Determine filename for hybridization functions
+    @assert fhyb == "dmft1/dmft.hyb_l"
 
-        # Write the data
-        open(fhyb, "w") do fout
-            # Write dimensional parameters
-            @printf(fout, "# nsite: %4i\n", nsite)
-            @printf(fout, "# nspin: %4i\n", nspin)
-            @printf(fout, "# nmesh: %4i\n", nmesh)
-            @printf(fout, "# qdim : %4i\n", qdim)
+    # Write the data
+    open(fhyb, "w") do fout
+        # Write dimensional parameters
+        @printf(fout, "# nsite: %4i\n", nsite)
+        @printf(fout, "# nspin: %4i\n", nspin)
+        @printf(fout, "# nmesh: %4i\n", nmesh)
+        @printf(fout, "# qdim : %4i\n", qdim)
 
-            # Write separators
-            println(fout)
-            println(fout)
+        # Write separators
+        println(fout)
+        println(fout)
 
+        # Go through each quantum impurity problem
+        for t = 1:nsite
             # Go through each spin
             for s = 1:nspin
                 # Write key parameters
@@ -557,11 +557,11 @@ function write_delta(fmesh::Array{F64,1}, Delta::Array{C64,5}, ai::Array{Impurit
                 println(fout)
                 println(fout)
             end # END OF S LOOP
-        end # END OF IOSTREAM
+        end # END OF T LOOP
+    end # END OF IOSTREAM
 
-        # Print message to the screen
-        println("  Split hybridization functions into: $fhyb")
-    end # END OF T LOOP
+    # Print message to the screen
+    println("  Write hybridization functions into: $fhyb")
 end
 
 
