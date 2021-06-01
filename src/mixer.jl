@@ -44,6 +44,9 @@ function mixer_sigma(it::IterInfo, ai::Array{Impurity,1})
     # Mix the self-energy functions
     Snew = Scurr * get_m("mixer") + Sprev * (1.0 - get_m("mixer"))
 
+    # Write the new self-energy functions into `dmft1/sigma.bare`
+    write_sigma(fcurr, Snew, ai)
+
     # Print blank line for better visualization
     println()
 end
