@@ -29,9 +29,12 @@ function mixer_sigma(it::IterInfo, ai::Array{Impurity,1})
     prev = it.dmft1_iter - 1
     @assert prev > 0
 
-    # Determine filenames for hybridization functions
+    # Determine filenames for self-energy functions
     fcurr = "dmft1/sigma.bare.$cycle.$curr"
     fprev = "dmft1/sigma.bare.$cycle.$prev"
+
+    # Check whether these files are available
+    @assert isfile(fcurr) && isfile(fprev)
 
     # Print blank line for better visualization
     println()
