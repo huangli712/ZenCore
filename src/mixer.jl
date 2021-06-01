@@ -21,11 +21,14 @@ function mixer_sigma(it::IterInfo)
 end
 
 """
-    mixer_delta(it::IterInfo)
+    mixer_delta(it::IterInfo, ai::Array{Impurity,1})
+
+Try to mix the hybridization functions and then use the mixed values to
+update the `dmft1/dmft.hyb_l` file.
 
 See also: [`mixer_core`](@ref).
 """
-function mixer_delta(it::IterInfo)
+function mixer_delta(it::IterInfo, ai::Array{Impurity,1})
     # Print the log
     println("Mixer : Delta")
 
@@ -36,7 +39,8 @@ end
 """
     mixer_eimpx(it::IterInfo, ai::Array{Impurity,1})
 
-Try to mix the local impurity levels.
+Try to mix the local impurity levels and then use the mixed value to
+update the `dmft1/dmft.eimpx` file.
 
 See also: [`mixer_core`](@ref).
 """
