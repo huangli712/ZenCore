@@ -64,9 +64,10 @@ function mixer_eimpx(it::IterInfo, ai::Array{Impurity,1})
     # Read in the local impurity levels (previous and current)
     Ecurr = read_eimpx(ai, fcurr)
     Eprev = read_eimpx(ai, fprev)
+    @assert size(Ecurr) == size(Eprev)
 
     # Mix the local impurity levels
-    @. Enew = Ecurr * get_m("mixer") + Eprev * (1.0 - get_m("mixer"))
+    Enew = Ecurr * get_m("mixer") + Eprev * (1.0 - get_m("mixer"))
 
     # Print blank line for better visualization
     println()
