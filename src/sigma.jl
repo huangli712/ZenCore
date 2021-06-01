@@ -356,18 +356,15 @@ function read_sigma(ai::Array{Impurity,1}, fsig::String = "dmft1/sigma.bare")
 end
 
 """
-    read_sigdc(ai::Array{Impurity,1})
+    read_sigdc(ai::Array{Impurity,1}, fsig::String = "dmft1/sigma.dc")
 
 Read the double counting terms from the `dmft1/sigma.dc` file.
 
 See also: [`read_sigma`](@ref).
 """
-function read_sigdc(ai::Array{Impurity,1})
+function read_sigdc(ai::Array{Impurity,1}, fsig::String = "dmft1/sigma.dc")
     # Declare the double counting terms
     DCA = nothing
-
-    # Filename for double counting terms
-    fsig = "dmft1/sigma.dc"
 
     # Make sure the existence of double counting terms
     @assert isfile(fsig)
