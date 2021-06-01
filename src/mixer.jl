@@ -57,9 +57,11 @@ function mixer_eimpx(it::IterInfo)
     # Determine filenames for local impurity levels
     fcurr = "dmft1/dmft.eimpx.$cycle.$curr"
     fprev = "dmft1/dmft.eimpx.$cycle.$prev"
+    @show fcurr, fprev
 
     # Check whether these files are available
     @assert isfile(fcurr) && isfile(fprev)
+
 
     # Print blank line for better visualization
     println()

@@ -387,18 +387,15 @@ function read_eimpx(imp::Impurity)
 end
 
 """
-    read_eimpx(ai::Array{Impurity,1})
+    read_eimpx(ai::Array{Impurity,1}, flev::String = "dmft1/dmft.eimpx")
 
 Read the dmft1/dmft.eimpx file, extract the local impurity levels.
 
 See also: [`sigma_split`](@ref), [`read_delta`](@ref).
 """
-function read_eimpx(ai::Array{Impurity,1})
+function read_eimpx(ai::Array{Impurity,1}, flev::String = "dmft1/dmft.eimpx")
     # Declare the local impurity levels
     Eimpx = []
-
-    # Filename for local impurity levels
-    flev = "dmft1/dmft.eimpx"
 
     # Make sure the existence of local impurity levels
     @assert isfile(flev)
