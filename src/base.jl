@@ -809,7 +809,7 @@ function sigma_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::Strin
 
         # Collect impurity self-energy functions and combine them
         @case "gather"
-            sigma_gather(ai)
+            sigma_gather(it, ai)
             break
 
         @default
