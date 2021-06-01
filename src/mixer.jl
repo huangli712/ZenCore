@@ -57,11 +57,13 @@ function mixer_eimpx(it::IterInfo, ai::Array{Impurity,1})
     # Determine filenames for local impurity levels
     fcurr = "dmft1/dmft.eimpx.$cycle.$curr"
     fprev = "dmft1/dmft.eimpx.$cycle.$prev"
-    @show fcurr, fprev
 
     # Check whether these files are available
     @assert isfile(fcurr) && isfile(fprev)
 
+    # Read in the local impurity levels (previous and current)
+    Ecurr = read_eimpx(ai, fcurr)
+    Eprev = read_eimpx(ai, fprev)
 
     # Print blank line for better visualization
     println()
