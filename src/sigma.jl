@@ -227,6 +227,10 @@ function sigma_gather(it::IterInfo, ai::Array{Impurity,1})
     write_sigma(fmesh, SA, ai)
     println("  Write self-energy functions into dmft1/sigma.bare")
 
+    # Backup the self-energy functions
+    fsig = "dmft1/sigma.bare"
+    cp(fsig, "$fsig.$(it.dmft_cycle).$(it.dmft1_iter)", force = true)
+
     # Print blank line for better visualization
     println()
 end
