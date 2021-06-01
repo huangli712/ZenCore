@@ -148,7 +148,7 @@ function cycle1()
 #
 
 #
-# DFT + DMFT Iterations (C06-C11)
+# DFT + DMFT Iterations (C06-C12)
 #
     prompt("ZEN", "Iterations")
 
