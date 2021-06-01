@@ -50,9 +50,12 @@ function mixer_delta(it::IterInfo, ai::Array{Impurity,1})
     @assert isfile(fcurr) && isfile(fprev)
 
     # Read in the hybridization functions (previous and current)
-    Dcurr = read_eimpx(ai, fcurr)
-    Dprev = read_eimpx(ai, fprev)
-    @assert size(Ecurr) == size(Eprev)
+    fcurr, Dcurr = read_delta(ai, fcurr)
+    fprev, Dprev = read_delta(ai, fprev)
+    @assert size(Dcurr) == size(Dprev) && size(fcurr) == size(fprev)
+
+    # Mix the hybridization functions
+    Dnew = Dcurr * get_m("mixer") + Dprev * (1.0 - get_m("mixer"))
 
     # Print blank line for better visualization
     println()
