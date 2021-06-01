@@ -856,7 +856,7 @@ function mixer_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::Strin
 
         # Try to mix the hybridization functions
         @case "delta"
-            mixer_delta(it)
+            mixer_delta(it, ai)
             break
 
         # Try to mix the local impurity levels
