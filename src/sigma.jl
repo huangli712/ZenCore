@@ -146,7 +146,6 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
 
     # Write double counting terms
     write_sigdc(DCA, ai)
-    println("  Write double counting terms into: dmft1/sigma.dc")
 
     # Print blank line for better visualization
     println()
@@ -224,7 +223,6 @@ function sigma_gather(it::IterInfo, ai::Array{Impurity,1})
 
     # Write self-energy functions to sigma.bare
     write_sigma(fmesh, SA, ai)
-    println("  Write self-energy functions into dmft1/sigma.bare")
 
     # Backup the self-energy functions
     fsig = "dmft1/sigma.bare"
