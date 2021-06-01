@@ -44,6 +44,9 @@ function mixer_eimpx(it::IterInfo)
     # Print the log
     println("Mixer : Eimpx")
 
+    # Get current dmft loop
+    cycle = it.dmft_cycle
+
     # Get current iteration
     curr = it.dmft1_iter
 
@@ -52,6 +55,11 @@ function mixer_eimpx(it::IterInfo)
     @assert prev > 0
 
     # Determine filenames for local impurity levels
+    fcurr = "dmft1/dmft.eimpx.$cycle.$curr"
+    fprev = "dmft1/dmft.eimpx.$cycle.$prev"
+
+    # Check whether these files are available
+    @assert isfile(fcurr) && isfile(fprev)
 
     # Print blank line for better visualization
     println()
