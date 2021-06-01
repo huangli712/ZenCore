@@ -8,11 +8,11 @@
 #
 
 """
-    mixer_sigma(it::IterInfo)
+    mixer_sigma(it::IterInfo, ai::Array{Impurity,1})
 
 See also: [`mixer_core`](@ref).
 """
-function mixer_sigma(it::IterInfo)
+function mixer_sigma(it::IterInfo, ai::Array{Impurity,1})
     # Print the log
     println("Mixer : Sigma")
 
