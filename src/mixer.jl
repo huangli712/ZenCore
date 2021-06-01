@@ -30,8 +30,8 @@ function mixer_sigma(it::IterInfo, ai::Array{Impurity,1})
     @assert prev > 0
 
     # Determine filenames for hybridization functions
-    fcurr = "dmft1/dmft.hyb_l.$cycle.$curr"
-    fprev = "dmft1/dmft.hyb_l.$cycle.$prev"
+    fcurr = "dmft1/sigma.bare.$cycle.$curr"
+    fprev = "dmft1/sigma.bare.$cycle.$prev"
 
     # Print blank line for better visualization
     println()
