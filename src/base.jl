@@ -184,6 +184,8 @@ function cycle1()
 
         # C12: Mixer for self-energy functions
         mixer_core(it, lr, ai, "sigma")
+
+        log_it(it, lr)
     end
 
     # C98: Close Logger.log
@@ -452,9 +454,21 @@ end
 """
     log_it(it::IterInfo, lr::Logger)
 
+Try to record the iteration information in the `case.cycle` file.
+
 See also: [`IterInfo`](@ref), [`Logger`](@ref).
 """
 function log_it(it::IterInfo, lr::Logger)
+    if it.full_cycle == 0
+        println(lr.cycle, "#   I₀   I₁   I₂")
+    else
+        print(lr.cycle, "%4i", it.full_cycle)
+        print(lr.cycle, "%4i", it.dmft_cycle)
+        print(lr.cycle, "%4i", it.dmft1_iter)
+        print(lr.cycle, "%4i", it.dmft2_iter)
+        println(lr.cycle)
+    end
+    flush(lr.cycle)
 end
 
 """
