@@ -41,6 +41,9 @@ function mixer_sigma(it::IterInfo, ai::Array{Impurity,1})
     fprev, Sprev = read_sigma(ai, fprev)
     @assert size(Scurr) == size(Sprev) && size(fcurr) == size(fprev)
 
+    # Mix the self-energy functions
+    Snew = Scurr * get_m("mixer") + Sprev * (1.0 - get_m("mixer"))
+
     # Print blank line for better visualization
     println()
 end
