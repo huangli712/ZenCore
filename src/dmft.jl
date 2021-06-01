@@ -575,8 +575,8 @@ end
 """
     write_eimpx(Eimpx::Array{C64,4}, ai::Array{Impurity,1}, flev::String)
 
-Split local impurity levels into the `impurity.i/dmft.eimpx` file, which
-is essential for the quantum impurity solver.
+Write local impurity levels into the `flev` file. This function is usually
+called by `mixer_eimpx()` to update the `dmft1/dmft.eimpx` file.
 
 See also: [`Impurity`](@ref), [`read_eimpx`](@ref), [`write_delta`](@ref).
 """
