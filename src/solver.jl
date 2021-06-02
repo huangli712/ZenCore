@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/01
+# Last modified: 2021/06/02
 #
 
 #
@@ -109,7 +109,7 @@ function s_qmc1_save(it::IterInfo)
     foreach( x ->
         begin
             file_src = x
-            file_dst = "$x.$(it.dmft_cycle).$(it.dmft1_iter)"
+            file_dst = "$x.$(it.I₃).$(it.I₁)"
             cp(file_src, file_dst, force = true)
         end,
     union(fout, fgrn, fhyb, fsgm, faux) )
