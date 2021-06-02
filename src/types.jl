@@ -159,8 +159,8 @@ mutable struct IterInfo
     I₄ :: I64
     μ₀ :: F64
     μ₂ :: F64
-    dc :: Vector{F64,1}
-    nf :: Vector{F64,1}
+    dc :: Array{F64,1}
+    nf :: Array{F64,1}
     et :: F64
 end
 

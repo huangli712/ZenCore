@@ -160,9 +160,9 @@ function cycle1()
         prompt(lr.log, "< dft_dmft_cycle >")
 
         # Update IterInfo struct
-        it.dmft_cycle = 1
-        it.dmft1_iter = it.dmft1_iter + 1
-        it.full_cycle = it.full_cycle + 1
+        it.I₃ = 1
+        it.I₁ = it.I₁ + 1
+        it.I₄ = it.I₄ + 1
 
         # C06: Tackle with the double counting term
         sigma_core(it, lr, ai, "dcount")
@@ -465,10 +465,11 @@ function log_it(it::IterInfo, lr::Logger)
         println(lr.cycle, "   #   #   #   #")
         println(repeat('-', 50))
     else
-        @printf(lr.cycle, "%4i", it.full_cycle)
-        @printf(lr.cycle, "%4i", it.dmft_cycle)
-        @printf(lr.cycle, "%4i", it.dmft1_iter)
-        @printf(lr.cycle, "%4i", it.dmft2_iter)
+        @printf(lr.cycle, "%-4i", it.I₄)
+        @printf(lr.cycle, "%-4i", it.I₃)
+        @printf(lr.cycle, "%-4i", it.I₁)
+        @printf(lr.cycle, "%-4i", it.I₂)
+
         println(lr.cycle)
     end
     flush(lr.cycle)
