@@ -160,9 +160,7 @@ function cycle1()
         prompt(lr.log, "< dft_dmft_cycle >")
 
         # Update IterInfo struct
-        it.I₃ = 1
-        it.I₁ = it.I₁ + 1
-        it.I₄ = it.I₄ + 1
+        incr_it(it)
 
         # C06: Tackle with the double counting term
         sigma_core(it, lr, ai, "dcount")
@@ -456,6 +454,14 @@ end
 function incr_it(it::IterInfo)
     # Get calculation mode
     mode = get_m("mode")
+
+    if mode == 1
+        it.I₃ = 1
+        it.I₁ = it.I₁ + 1
+        it.I₄ = it.I₄ + 1
+    else
+        sorry()
+    end
 end
 
 """
