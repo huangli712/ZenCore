@@ -149,11 +149,33 @@ function dmft_save(it::IterInfo, task::I64)
         f = file_list[i]
         cp(f, "$f.$(it.I₃).$(it.I₁)", force = true)
     end
+
+    # Extract the fermi level, and use it to update the IterInfo struct.
+    it.μ₁ = read_fermi()
 end
 
 #
 # Service Functions: For I/O Operations
 #
+
+"""
+    read_fermi()
+
+Parse the dmft1/dmft.fermi file to extract the chemical potential.
+
+See also: [`dmft_save`](@ref).
+"""
+function read_fermi()
+    fname = "dmft.fermi"
+    fermi = 0.0
+
+    if isfile(fname)
+        str = readline("dmft.fermi")
+        fermi = parse(F64, line_to_array(str)[3])
+    end
+
+    return fermi
+end
 
 """
     read_delta(imp::Impurity)
