@@ -462,14 +462,23 @@ See also: [`IterInfo`](@ref), [`Logger`](@ref).
 """
 function log_it(it::IterInfo, lr::Logger)
     if it.I₄ == 0
-        println(lr.cycle, "#   #   #   #")
+        print(lr.cycle, "#   #   #   #   μ₁        ")
+        for t = 1:get_i("nsite")
+            print(lr.cycle, "dc        ")
+        end
+        for t = 1:get_i("nsite")
+            print(lr.cycle, "nf        ")
+        end
+        println(lr.cycle, "et")
         println(lr.cycle, repeat('-', 50))
+        println("dd")
     else
         @printf(lr.cycle, "%-4i", it.I₄)
         @printf(lr.cycle, "%-4i", it.I₃)
         @printf(lr.cycle, "%-4i", it.I₁)
         @printf(lr.cycle, "%-4i", it.I₂)
-
+        @printf(lr.cycle, "%-9.4f", it.μ₁)
+        @printf(lr.cycle, "%-9.4f", it.et)
         println(lr.cycle)
     end
     flush(lr.cycle)
