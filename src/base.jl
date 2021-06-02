@@ -176,7 +176,7 @@ function cycle1()
         sigma_core(it, lr, ai, "split")
 
         # C10: Solve the quantum impurity problems
-        #solver_run(it, lr, ai)
+        solver_run(it, lr, ai)
 
         # C11: Gather and combine the data (impurity self-functions)
         sigma_core(it, lr, ai, "gather")
@@ -699,7 +699,7 @@ function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
             @case "ct_hyb1"
                 s_qmc1_init(it, imp)
                 s_qmc1_exec(it)
-                s_qmc1_save(it)
+                s_qmc1_save(it, imp)
                 break
 
             @case "ct_hyb2"

@@ -79,7 +79,7 @@ function s_qmc1_exec(it::IterInfo)
 end
 
 """
-    s_qmc1_save(it::IterInfo)
+    s_qmc1_save(it::IterInfo, imp::Impurity)
 
 Backup output files of the CT-HYB₁ quantum impurity solver.
 
@@ -87,7 +87,7 @@ This quantum impurity solver is from the `iQIST` software package.
 
 See also: [`s_qmc1_init`](@ref), [`s_qmc1_exec`](@ref).
 """
-function s_qmc1_save(it::IterInfo)
+function s_qmc1_save(it::IterInfo, imp::Impurity)
     # Determine which files are important
     #
     # Major output
