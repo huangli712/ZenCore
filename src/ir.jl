@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/05/01
+# Last modified: 2021/06/02
 #
 
 #
@@ -111,7 +111,7 @@ function ir_save(it::IterInfo)
     # Store the data files
     for i in eachindex(file_list)
         file_src = file_list[i] * ".ir"
-        file_dst = file_list[i] * ".ir.$(it.dmft_cycle)"
+        file_dst = file_list[i] * ".ir.$(it.I₃)"
         cp(file_src, file_dst, force = true)
     end
 end

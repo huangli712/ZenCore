@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/01
+# Last modified: 2021/06/02
 #
 
 #
@@ -147,7 +147,7 @@ function dmft_save(it::IterInfo, task::I64)
     # Store the data files
     for i in eachindex(file_list)
         f = file_list[i]
-        cp(f, "$f.$(it.dmft_cycle).$(it.dmft1_iter)", force = true)
+        cp(f, "$f.$(it.I₃).$(it.I₁)", force = true)
     end
 end
 
