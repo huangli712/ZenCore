@@ -540,12 +540,15 @@ See also: [`IterInfo`](@ref).
 """
 function Base.show(io::IO, it::IterInfo)
     println(io, "IterInfo struct")
-    println(io, "dmft1_iter : ", it.dmft1_iter)
-    println(io, "dmft2_iter : ", it.dmft2_iter)
-    println(io, "dmft_cycle : ", it.dmft_cycle)
-    println(io, "full_cycle : ", it.full_cycle)
-    println(io, "dft_fermi  : ", it.dft_fermi)
-    println(io, "dmft_fermi : ", it.dmft_fermi)
+    println(io, "I₁ : ", it.I₁)
+    println(io, "I₂ : ", it.I₂)
+    println(io, "I₃ : ", it.I₃)
+    println(io, "I₄ : ", it.I₄)
+    println(io, "μ₀ : ", it.μ₀)
+    println(io, "μ₁ : ", it.μ₁)
+    println(io, "dc : ", it.dc)
+    println(io, "nf : ", it.nf)
+    println(io, "et : ", it.et)
 end
 
 """
