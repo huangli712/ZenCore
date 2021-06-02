@@ -151,10 +151,9 @@ function cycle1()
 # DFT + DMFT Iterations (C06-C12)
 #
     prompt("ZEN", "Iterations")
+    log_it(it, lr)
 
     for iter = 1:get_m("niter")
-        log_it(it, lr)
-
         # Print the log
         prompt("ZEN", "Cycle $iter")
         prompt(lr.log, "")
@@ -187,6 +186,7 @@ function cycle1()
         # C12: Mixer for self-energy functions
         mixer_core(it, lr, ai, "sigma")
 
+        # Print the cycle info
         log_it(it, lr)
     end
 
