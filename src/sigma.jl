@@ -135,7 +135,7 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
         end
 
         # Special treatment for the first iteration
-        if it.dmft_cycle <= 1 && it.dmft1_iter <= 1
+        if it.I₃ <= 1 && it.I₁ <= 1
             fill!(DC, 0.0)
         end
 
@@ -226,7 +226,7 @@ function sigma_gather(it::IterInfo, ai::Array{Impurity,1})
 
     # Backup the self-energy functions
     fsig = "dmft1/sigma.bare"
-    cp(fsig, "$fsig.$(it.dmft_cycle).$(it.dmft1_iter)", force = true)
+    cp(fsig, "$fsig.$(it.I₃).$(it.I₁)", force = true)
 
     # Print blank line for better visualization
     println()
