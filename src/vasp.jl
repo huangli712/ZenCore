@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/04/25
+# Last modified: 2021/06/02
 #
 
 #
@@ -74,7 +74,7 @@ function vasp_init(it::IterInfo)
     cp("../POSCAR", joinpath(pwd(), "POSCAR"), force = true)
     #
     # How about INCAR
-    if it.dmft_cycle == 0
+    if it.I₃ == 0
         # Generate INCAR automatically
         vasp_incar(it.dft_fermi)
     else
@@ -208,7 +208,7 @@ function vasp_save(it::IterInfo)
     # Go through the file list, backup the files one by one.
     for i in eachindex(fl)
         f = fl[i]
-        cp(f, "$f.$(it.dmft_cycle).$(it.dmft2_iter)", force = true)
+        cp(f, "$f.$(it.I₃).$(it.I₂)", force = true)
     end
 
     # Anyway, the fermi level is extracted from DOSCAR, and its value
