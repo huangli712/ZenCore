@@ -462,7 +462,7 @@ See also: [`IterInfo`](@ref), [`Logger`](@ref).
 """
 function log_it(it::IterInfo, lr::Logger)
     if it.full_cycle == 0
-        println(lr.cycle, "#   I₀   I₁   I₂")
+        println(lr.cycle, "    #   I₀   I₁   I₂")
     else
         @printf(lr.cycle, "%4i", it.full_cycle)
         @printf(lr.cycle, "%4i", it.dmft_cycle)
