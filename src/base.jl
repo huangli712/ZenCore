@@ -405,8 +405,8 @@ function cycle8(task::String = "sigma")
     ai = GetImpurity()
 
     # C02: Further setup the IterInfo struct
-    it.dmft_cycle = 1
-    it.dmft1_iter = 10
+    it.I₃ = 1
+    it.I₁ = 10
 
     # C03: Execute the Kohn-Sham adaptor
     mixer_core(it, lr, ai, task)
