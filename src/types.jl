@@ -140,22 +140,26 @@ Mutable struct. Record the DFT + DMFT iteration information.
 
 ## Members
 
-dmft1_iter -> Number of iterations between dmft1 and quantum impurity solver.\n
-dmft2_iter -> Number of iterations between dmft2 and DFT engine.\n
-dmft_cycle -> Number of DFT + DMFT iterations.\n
-full_cycle -> Counter for each iteration.\n
-dft_fermi  -> Fermi level obtained by DFT engine.\n
-dmft_fermi -> Fermi level obtained by DMFT engine (dmft1).
+I₁ -> Number of iterations between dmft1 and quantum impurity solver.\n
+I₂ -> Number of iterations between dmft2 and DFT engine.\n
+I₃ -> Number of DFT + DMFT iterations.\n
+I₄ -> Counter for each iteration.\n
+μ₀ -> Fermi level obtained by DFT engine.\n
+μ₁ -> Fermi level obtained by DMFT engine (dmft1 or dmft2).\n
+dc -> Double counting terms.\n
+nf -> Number of impurity occupancy.\n
 
 See also: [`Logger`](@ref).
 """
 mutable struct IterInfo
-    dmft1_iter :: I64
-    dmft2_iter :: I64
-    dmft_cycle :: I64
-    full_cycle :: I64
-     dft_fermi :: F64
-    dmft_fermi :: F64
+    I₁ :: I64
+    I₂ :: I64
+    I₃ :: I64
+    I₄ :: I64
+    μ₀ :: F64
+    μ₂ :: F64
+    dc :: F64
+    nf :: F64
 end
 
 """
