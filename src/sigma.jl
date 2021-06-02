@@ -74,6 +74,8 @@ Calculate double counting terms for local self-energy functions and
 write them to `sigma.dc`, which is key input for the dynamical mean-
 field theory engine.
 
+The field `it.dc` will be updated in this function as well.
+
 See also: [`sigma_reset`](@ref).
 """
 function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
@@ -136,8 +138,12 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
 
         # Special treatment for the first iteration
         if it.I₃ <= 1 && it.I₁ <= 1
-            fill!(DC, 0.0)
+            sigdc = 0.0
+            fill!(DC, sigdc)
         end
+
+        # Use `sigdc` to update the IterInfo struct
+        it.dc[i] = DC[1,1,1]
 
         # Push DC into DCA to save it
         push!(DCA, DC)

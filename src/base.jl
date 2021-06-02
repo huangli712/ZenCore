@@ -483,7 +483,7 @@ See also: [`IterInfo`](@ref), [`Logger`](@ref).
 function save_it(it::IterInfo, lr::Logger)
     # Extract parameter `nsite`
     nsite = get_i("nsite")
-    @assert nsite == size(it.nf)
+    @assert nsite == length(it.nf)
 
     # Write the header
     if it.I₄ == 0
