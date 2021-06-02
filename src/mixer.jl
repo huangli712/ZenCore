@@ -20,13 +20,13 @@ function mixer_sigma(it::IterInfo, ai::Array{Impurity,1})
     println("Mixer : Sigma")
 
     # Get current dmft loop
-    cycle = it.dmft_cycle
+    cycle = it.I₃
 
     # Get current iteration
-    curr = it.dmft1_iter
+    curr = it.I₁
 
     # Get previous iteration
-    prev = it.dmft1_iter - 1
+    prev = it.I₁ - 1
     @assert prev > 0
 
     # Determine filenames for self-energy functions
@@ -64,13 +64,13 @@ function mixer_delta(it::IterInfo, ai::Array{Impurity,1})
     println("Mixer : Delta")
 
     # Get current dmft loop
-    cycle = it.dmft_cycle
+    cycle = it.I₃
 
     # Get current iteration
-    curr = it.dmft1_iter
+    curr = it.I₁
 
     # Get previous iteration
-    prev = it.dmft1_iter - 1
+    prev = it.I₁ - 1
     @assert prev > 0
 
     # Determine filenames for hybridization functions
@@ -108,13 +108,13 @@ function mixer_eimpx(it::IterInfo, ai::Array{Impurity,1})
     println("Mixer : Eimpx")
 
     # Get current dmft loop
-    cycle = it.dmft_cycle
+    cycle = it.I₃
 
     # Get current iteration
-    curr = it.dmft1_iter
+    curr = it.I₁
 
     # Get previous iteration
-    prev = it.dmft1_iter - 1
+    prev = it.I₁ - 1
     @assert prev > 0
 
     # Determine filenames for local impurity levels
