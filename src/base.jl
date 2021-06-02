@@ -462,8 +462,8 @@ See also: [`IterInfo`](@ref), [`Logger`](@ref).
 """
 function log_it(it::IterInfo, lr::Logger)
     if it.I₄ == 0
-        println(lr.cycle, "   #   #   #   #")
-        println(repeat('-', 50))
+        println(lr.cycle, "#   #   #   #")
+        println(lr.cycle, repeat('-', 50))
     else
         @printf(lr.cycle, "%-4i", it.I₄)
         @printf(lr.cycle, "%-4i", it.I₃)
