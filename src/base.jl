@@ -151,7 +151,7 @@ function cycle1()
 # DFT + DMFT Iterations (C06-C12)
 #
     prompt("ZEN", "Iterations")
-    log_it(it, lr)
+    save_it(it, lr)
 
     for iter = 1:get_m("niter")
         # Print the log
@@ -187,7 +187,7 @@ function cycle1()
         mixer_core(it, lr, ai, "sigma")
 
         # Print the cycle info
-        log_it(it, lr)
+        save_it(it, lr)
     end
 
     # C98: Close Logger.log
