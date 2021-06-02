@@ -76,7 +76,7 @@ function vasp_init(it::IterInfo)
     # How about INCAR
     if it.I₃ == 0
         # Generate INCAR automatically
-        vasp_incar(it.dft_fermi)
+        vasp_incar(it.μ₀)
     else
         # Maybe we need to update INCAR file here
         vasp_incar(it.dmft_fermi)
@@ -195,7 +195,7 @@ end
     vasp_save(it::IterInfo)
 
 Backup the output files of vasp if necessary. Furthermore, the fermi level
-in `IterInfo` struct is also updated (`IterInfo.dft_fermi`).
+in `IterInfo` struct is also updated (`IterInfo.μ₀`).
 
 See also: [`vasp_init`](@ref), [`vasp_exec`](@ref).
 """
