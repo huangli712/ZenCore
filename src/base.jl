@@ -105,7 +105,7 @@ function cycle1()
 #
 
     # C02: Perform DFT calculation (for the first time)
-    dft_run(it, lr)
+    #dft_run(it, lr)
 
 #
 # Remarks 2:
@@ -120,7 +120,7 @@ function cycle1()
 
     # C03: Perform DFT calculation (for the second time)
     if get_d("loptim")
-        dft_run(it, lr)
+        #dft_run(it, lr)
     end
 
 #
