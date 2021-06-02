@@ -461,7 +461,7 @@ Try to record the iteration information in the `case.cycle` file.
 See also: [`IterInfo`](@ref), [`Logger`](@ref).
 """
 function log_it(it::IterInfo, lr::Logger)
-    if it.full_cycle == 0
+    if it.I₄ == 0
         println(lr.cycle, "   #   #   #   #")
         println(repeat('-', 50))
     else
