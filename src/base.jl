@@ -178,7 +178,7 @@ function cycle1()
         sigma_core(it, lr, ai, "split")
 
         # C10: Solve the quantum impurity problems
-        solver_run(it, lr, ai)
+        #solver_run(it, lr, ai)
 
         # C11: Gather and combine the data (impurity self-functions)
         sigma_core(it, lr, ai, "gather")
@@ -462,7 +462,7 @@ See also: [`IterInfo`](@ref), [`Logger`](@ref).
 """
 function log_it(it::IterInfo, lr::Logger)
     if it.full_cycle == 0
-        println(lr.cycle, "    #   I₀   I₁   I₂")
+        println(lr.cycle, "  I₄  I₃  I₁  I₂")
     else
         @printf(lr.cycle, "%4i", it.full_cycle)
         @printf(lr.cycle, "%4i", it.dmft_cycle)
