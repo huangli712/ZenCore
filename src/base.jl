@@ -461,24 +461,30 @@ Try to record the iteration information in the `case.cycle` file.
 See also: [`IterInfo`](@ref), [`Logger`](@ref).
 """
 function log_it(it::IterInfo, lr::Logger)
+    nsite = get_i("nsite")
     if it.I₄ == 0
         print(lr.cycle, "#   #   #   #   μ₁        ")
-        for t = 1:get_i("nsite")
+        for t = 1:nsite
             print(lr.cycle, "dc        ")
         end
-        for t = 1:get_i("nsite")
+        for t = 1:nsite
             print(lr.cycle, "nf        ")
         end
         println(lr.cycle, "et")
-        println(lr.cycle, repeat('-', 50))
-        println("dd")
+        println(lr.cycle, repeat('-', 4*4 + 20*(nsite + 1)))
     else
         @printf(lr.cycle, "%-4i", it.I₄)
         @printf(lr.cycle, "%-4i", it.I₃)
         @printf(lr.cycle, "%-4i", it.I₁)
         @printf(lr.cycle, "%-4i", it.I₂)
-        @printf(lr.cycle, "%-9.4f", it.μ₁)
-        @printf(lr.cycle, "%-9.4f", it.et)
+        @printf(lr.cycle, "%-10.5f", it.μ₁)
+        for t = 1:nsite
+            @printf(lr.cycle, "%-10.5f", it.dc[t])
+        end
+        for t = 1:nsite
+            @printf(lr.cycle, "%-10.5f", it.nf[t])
+        end
+        @printf(lr.cycle, "%-10.5f", it.et)
         println(lr.cycle)
     end
     flush(lr.cycle)
