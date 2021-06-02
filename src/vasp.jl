@@ -79,7 +79,7 @@ function vasp_init(it::IterInfo)
         vasp_incar(it.μ₀)
     else
         # Maybe we need to update INCAR file here
-        vasp_incar(it.dmft_fermi)
+        vasp_incar(it.μ₁)
     end
     #
     # Well, perhaps we need to generate the KPOINTS file by ourselves.
@@ -212,8 +212,8 @@ function vasp_save(it::IterInfo)
     end
 
     # Anyway, the fermi level is extracted from DOSCAR, and its value
-    # will be saved at IterInfo.dft_fermi.
-    it.dft_fermi = vaspio_fermi(pwd())
+    # will be saved at IterInfo.μ₀.
+    it.μ₀ = vaspio_fermi(pwd())
 end
 
 #
