@@ -863,8 +863,8 @@ function mixer_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::Strin
     @assert task in ("sigma", "delta", "eimpx", "gamma")
 
     # Check iteration number
-    if it.dmft_cycle == 1
-        if it.dmft1_iter < 2
+    if it.I₃ == 1
+        if it.I₁ < 2
             return
         end
     end
