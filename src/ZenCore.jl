@@ -308,6 +308,7 @@ export str_s
 # cycle7      -> Execute self-energy engine only (for testing purpose).
 # cycle8      -> Execute mixer engine only (for testing purpose).
 # monitor     -> Monitor the DFT + DMFT calculations.
+# incr_it     -> Increase the counters in the IterInfo struct.
 # save_it     -> Record the iteration information.
 # make_trees  -> Make working directories.
 # rm_trees    -> Remove working directories.
@@ -332,6 +333,7 @@ export cycle6
 export cycle7
 export cycle8
 export monitor
+export incr_it
 export save_it
 export make_trees
 export rm_trees
