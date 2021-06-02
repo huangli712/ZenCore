@@ -453,15 +453,24 @@ function monitor(force_exit::Bool = false)
     end
 end
 
+function incr_it(it::IterInfo)
+    # Get calculation mode
+    mode = get_m("mode")
+end
+
 """
-    log_it(it::IterInfo, lr::Logger)
+    save_it(it::IterInfo, lr::Logger)
 
 Try to record the iteration information in the `case.cycle` file.
 
 See also: [`IterInfo`](@ref), [`Logger`](@ref).
 """
-function log_it(it::IterInfo, lr::Logger)
+function save_it(it::IterInfo, lr::Logger)
+    # Extract parameter `nsite`
     nsite = get_i("nsite")
+    @assert nsite == size(it.nf)
+
+    # Write the header
     if it.I₄ == 0
         print(lr.cycle, "#   #   #   #   μ₁        ")
         for t = 1:nsite
@@ -471,7 +480,9 @@ function log_it(it::IterInfo, lr::Logger)
             print(lr.cycle, "nf        ")
         end
         println(lr.cycle, "et")
+        # Write separator
         println(lr.cycle, repeat('-', 4*4 + 20*(nsite + 1)))
+    # Write iteration information
     else
         @printf(lr.cycle, "%-4i", it.I₄)
         @printf(lr.cycle, "%-4i", it.I₃)
@@ -487,6 +498,8 @@ function log_it(it::IterInfo, lr::Logger)
         @printf(lr.cycle, "%-10.5f", it.et)
         println(lr.cycle)
     end
+
+    # Flush the IOStream
     flush(lr.cycle)
 end
 
