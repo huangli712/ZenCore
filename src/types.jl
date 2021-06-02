@@ -148,6 +148,7 @@ I₄ -> Counter for each iteration.\n
 μ₁ -> Fermi level obtained by DMFT engine (dmft1 or dmft2).\n
 dc -> Double counting terms.\n
 nf -> Number of impurity occupancy.\n
+et -> Total DFT + DMFT energy.
 
 See also: [`Logger`](@ref).
 """
@@ -158,8 +159,9 @@ mutable struct IterInfo
     I₄ :: I64
     μ₀ :: F64
     μ₂ :: F64
-    dc :: F64
-    nf :: F64
+    dc :: Vector{F64,1}
+    nf :: Vector{F64,1}
+    et :: F64
 end
 
 """
@@ -349,12 +351,24 @@ function Logger(case::String = "case")
 end
 
 """
-    IterInfo(iter::I64 = 0, fermi::F64 = 0.0)
+    IterInfo()
 
 Outer constructor for IterInfo struct.
 """
-function IterInfo(iter::I64 = 0, fermi::F64 = 0.0)
-    IterInfo(iter, iter, iter, iter, fermi, fermi)
+function IterInfo()
+    # Extract the parameter `nsite`
+    nsite = get_i("nsite")
+    @assert nsite ≥ 1
+
+    # Initialize key fields
+    I = 0
+    μ = 0.0
+    dc = fill(0.0, nsite)
+    nf = fill(0.0, nsite)
+    et = 0.0
+
+    # Call the default constructor
+    IterInfo(I, I, I, I, μ, μ, dc, nf, et)
 end
 
 """
