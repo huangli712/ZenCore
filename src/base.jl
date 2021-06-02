@@ -503,7 +503,11 @@ function save_it(it::IterInfo, lr::Logger)
         @printf(lr.cycle, "%-4i", it.I₃)
         @printf(lr.cycle, "%-4i", it.I₁)
         @printf(lr.cycle, "%-4i", it.I₂)
-        @printf(lr.cycle, "%-10.5f", it.μ₁)
+        if it.μ₁ < 0.0
+            @printf(lr.cycle, "%-10.5f", it.μ₁)
+        else
+            @printf(lr.cycle, "+%-9.5f", it.μ₁)
+        end
         for t = 1:nsite
             @printf(lr.cycle, "%-10.5f", it.dc[t])
         end
