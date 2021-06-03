@@ -210,7 +210,11 @@ is achieved at both DFT and DMFT levels.
 See also: [`cycle1`](@ref), [`go`](@ref).
 """
 function cycle2()
-    sorry()
+    # C-1: Create IterInfo struct
+    it = IterInfo()
+
+    # C00: Create Logger struct
+    lr = Logger(query_case())
 end
 
 """
