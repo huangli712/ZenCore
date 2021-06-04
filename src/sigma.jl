@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/02
+# Last modified: 2021/06/04
 #
 
 #
@@ -194,11 +194,8 @@ function sigma_gather(it::IterInfo, ai::Array{Impurity,1})
     println("Sigma : Gather")
 
     # Extract some necessary parameters
-    axis = get_m("axis")
     nmesh = get_m("nmesh")
-    beta = get_m("beta")
     nsite = get_i("nsite")
-    nspin = ( get_d("lspins") ? 2 : 1 )
     @assert nsite == length(ai)
 
     # Create empty array for self-energy functions
