@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/05/29
+# Last modified: 2021/06/04
 #
 
 #
@@ -384,6 +384,7 @@ See also: [`PrGroup`](@ref), [`plo_filter`](@ref), [`plo_orthog`](@ref).
 function plo_rotate(PG::Array{PrGroup,1}, chipsi::Array{C64,4})
     # Extract some key parameters from raw projector matrix
     nproj, nband, nkpt, nspin = size(chipsi)
+    @assert nproj ≥ 1
 
     # Initialize new array. It stores the rotated projectors.
     # Now it is empty, but we will allocate memory for it later.
@@ -445,7 +446,7 @@ function plo_filter(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1})
 
         # Create a temporary array F
         F = zeros(C64, ndim, PW[p].nbnd, nkpt, nspin)
-        @assert PW[p].nbnd >= ndim
+        @assert nband ≥ PW[p].nbnd ≥ ndim
 
         # Go through each spin and k-point
         for s = 1:nspin
@@ -764,6 +765,7 @@ See also: [`view_ovlp`](@ref).
 function calc_ovlp(chipsi::Array{C64,4}, weight::Array{F64,1})
     # Extract some key parameters
     nproj, nband, nkpt, nspin = size(chipsi)
+    @assert nband ≥ nproj
 
     # Create overlap array
     ovlp = zeros(F64, nproj, nproj, nspin)
@@ -828,6 +830,7 @@ See also: [`view_dm`](@ref).
 function calc_dm(chipsi::Array{C64,4}, weight::Array{F64,1}, occupy::Array{F64,3})
     # Extract some key parameters
     nproj, nband, nkpt, nspin = size(chipsi)
+    @assert nband ≥ nproj
 
     # Evaluate spin factor
     sf = (nspin === 1 ? 2 : 1)
