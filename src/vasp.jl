@@ -1039,7 +1039,7 @@ function vaspio_eigen(f::String)
     end
 
     # Read in some key parameters: nelect, nkpt, nbands
-    nelect, nkpt, nband = parse.(I64, line_to_array(fin))
+    _, nkpt, nband = parse.(I64, line_to_array(fin))
 
     # Create arrays
     enk = zeros(F64, nband, nkpt, nspin)
