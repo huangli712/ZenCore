@@ -11,15 +11,20 @@
 # Driver Functions
 #
 
+
+#=
+*Remarks*:
+ 
+ ```math 
+ \int [1]
+ ````
+=#
+
 """
     ir_adaptor(D::Dict{Symbol,Any})
 
-``H_t`` Write the Kohn-Sham data to specified files using the IR format. Note
-that the Kohn-Sham data are encapsulated in the `D` **dict**.
-
-```math
-\int
-```
+Write the Kohn-Sham data to specified files using the IR format. Note
+that the Kohn-Sham data are encapsulated in the `D` dict.
 
 See also: [`vasp_adaptor`](@ref), [`plo_adaptor`](@ref).
 """
