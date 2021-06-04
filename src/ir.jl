@@ -14,8 +14,12 @@
 """
     ir_adaptor(D::Dict{Symbol,Any})
 
-Write the Kohn-Sham data to specified files using the IR format. Note
-that the Kohn-Sham data are encapsulated in the `D` dict.
+``\tau`` Write the Kohn-Sham data to specified files using the IR format. Note
+that the Kohn-Sham data are encapsulated in the `D` **dict**.
+
+```math
+\int
+```
 
 See also: [`vasp_adaptor`](@ref), [`plo_adaptor`](@ref).
 """
