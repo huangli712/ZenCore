@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/02
+# Last modified: 2021/06/04
 #
 
 #
@@ -212,6 +212,7 @@ function read_delta(imp::Impurity)
         nspin = parse(I64, line_to_array(fin)[3])
         nmesh = parse(I64, line_to_array(fin)[3])
         qdim  = parse(I64, line_to_array(fin)[4])
+        @assert nsite ≥ 1
         @assert qdim ≥ nband
 
         # Skip two lines
@@ -367,6 +368,7 @@ function read_eimpx(imp::Impurity)
         nsite = parse(I64, line_to_array(fin)[3])
         nspin = parse(I64, line_to_array(fin)[3])
         qdim  = parse(I64, line_to_array(fin)[4])
+        @assert nsite ≥ 1
         @assert qdim ≥ nband
 
         # Skip two lines
