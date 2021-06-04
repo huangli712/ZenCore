@@ -212,7 +212,7 @@ function sigma_gather(it::IterInfo, ai::Array{Impurity,1})
         println("  Read self-energy functions for impurity: $t")
 
         # Extract and verify the dimensional parameters
-        _, _b, _m, _s = size(sig_l)
+        _, _b, _m, _ = size(sig_l)
         @assert _b == ai[t].nband
         @assert _m == nmesh
 
@@ -293,19 +293,27 @@ function read_sigma(ai::Array{Impurity,1}, fsig::String = "dmft1/sigma.bare")
 
     # Parse `fsig`, extract the self-energy functions
     open(fsig, "r") do fin
+        # Skip some lines
+        readline(fin)
+        readline(fin)
+        readline(fin)
+
         # Get the dimensional parameters
+        #
+        # axis  = parse(I64, line_to_array(fin)[3])
+        # beta  = parse(F64, line_to_array(fin)[3])
         readline(fin)
         readline(fin)
-        readline(fin)
-        axis  = parse(I64, line_to_array(fin)[3])
-        beta  = parse(F64, line_to_array(fin)[3])
+        #
         nsite = parse(I64, line_to_array(fin)[3])
         nmesh = parse(I64, line_to_array(fin)[3])
         nspin = parse(I64, line_to_array(fin)[3])
+        #
         for t = 1:nsite
             qdim  = parse(I64, line_to_array(fin)[3])
             @assert qdim == ai[t].nband
         end
+        #
         readline(fin)
 
         # Create an array for frequency mesh
