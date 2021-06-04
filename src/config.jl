@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/05/26
+# Last modified: 2021/06/04
 #
 
 #
@@ -101,6 +101,7 @@ See also: [`setup`](@ref).
 function inp_toml(f::String, necessary::Bool)
     if isfile(f)
         dict = TOML.parsefile(f)
+        return dict
     else
         if necessary
             error("Please make sure that the file $f really exists")
