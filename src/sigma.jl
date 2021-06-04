@@ -15,7 +15,7 @@
     sigma_reset(ai::Array{Impurity,1})
 
 Create initial self-energy functions and write them to `sigma.bare`. The
-`sigma.bare` file is key input for the dynamical mean-field theory engine. 
+`sigma.bare` file is key input for the dynamical mean-field theory engine.
 
 See also: [`sigma_dcount`](@ref).
 """
@@ -351,7 +351,7 @@ function read_sigma(ai::Array{Impurity,1}, fsig::String = "dmft1/sigma.bare")
 
             # Store Sigma in SA
             push!(SA, Sigma)
-        end # END OF T LOOP 
+        end # END OF T LOOP
     end # END OF IOSTREAM
     println("  Read self-energy functions from: $fsig")
 
@@ -436,7 +436,7 @@ end
 Write the self-energy functions and the corresponding frequency mesh into
 the `dmft1/sigma.bare` file, which is key input for the dynamical mean-
 field theory engine.
- 
+
 See also: [`write_sigdc`](@ref).
 """
 function write_sigma(fmesh::Array{F64,1}, SA::Array{Array{C64,4},1}, ai::Array{Impurity,1})

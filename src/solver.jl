@@ -548,7 +548,7 @@ function GetSigma(imp::Impurity)
     # Change the directory
     #
     # Since this function is called by sigma_gather(). we have to change
-    # the current directory. 
+    # the current directory.
     cd("impurity.$index")
 
     # Determine the chosen solver
