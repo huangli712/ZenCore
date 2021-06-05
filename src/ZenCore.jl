@@ -54,7 +54,7 @@ this package to parse the configuration file (TOML format).
 *Remarks 2*:
 
 Here we import `libm` explicitly to provide a callable interface for
-the `erf` function. See `util.jl/erf()` for more details.
+the `erf()` function. See `util.jl/erf()` for more details.
 =#
 
 using TOML
@@ -645,8 +645,8 @@ export mixer_gamma
 This function would be executed immediately after the module is loaded
 at runtime for the first time.
 
-Here, we will try to precompile the whole Zen package to reduce latency
-and speed up the later calculations.
+Here, we will try to precompile the whole ZenCore package to reduce the
+runtime latency and speed up the successive calculations.
 """
 function __init__()
     prompt("ZEN", "Loading...")
