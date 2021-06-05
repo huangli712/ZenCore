@@ -174,25 +174,25 @@ function query_case()
     basename( splitext(query_args())[1] )
 end
 
+#=
+*Remarks*:
+
+For `VASP`, the essential input files include:
+* POSCAR
+* POTCAR
+
+As for the `INCAR` and `KPOINTS`, they will be generated automatically.
+=#
+
 """
     query_inps(engine::String)
 
 Check whether the essential input files exist. This function is designed
-for DFT engine only.
+for the DFT engine only.
 
 See also: [`query_inps`](@ref).
 """
 function query_inps(engine::String)
-
-#
-# Remarks:
-#
-# For vasp, the essential input files include:
-#    1. POSCAR
-#    2. POTCAR
-# As for the INCAR and KPOINTS, they will be generated automatically.
-#
-
     @cswitch engine begin
         @case "vasp"
             if !isfile("POSCAR") || !isfile("POTCAR")
