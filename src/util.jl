@@ -10,9 +10,9 @@
 """
     @cswitch(constexpr, body)
 
-Provides a C-like switch statement with the ``falling through'' behavior.
+Provides a C-like switch statement with the *falling through* behavior.
 This implementation was borrowed from the following github repository:
-    https://github.com/Gnimuc/CSyntax.jl
+* https://github.com/Gnimuc/CSyntax.jl
 
 ## Examples
 ```julia
@@ -477,6 +477,7 @@ or `openlibm` directly, instead of implementing it again by ourselves.
 For more details about `libm` and `openlibm`, please visit the following
 websites:
 * https://openlibm.org
+* https://github.com/JuliaMath/openlibm
 * https://sourceware.org/newlib/libm.html
 
 *Remarks 3*:
@@ -486,7 +487,7 @@ This below implementation is taken from the `SpecialFunctions.jl`. See:
 
 *Remarks 4*:
 
-`Base.Math.libm` returns `libopenlibm`.
+`Base.Math.libm` is actually a string. It denotes `libopenlibm`.
 =#
 
 """
