@@ -32,9 +32,11 @@ connects various components of Zen, and drive them to work together. It
 provides an easy-to-use and flexible user interface, including numerous
 applications and tools.
 
-For more details about how to install and use the Zen framework and the
-ZenCore library, please visit the following website:
+For more details about how to obtain, install and use the Zen framework
+and the ZenCore library, please visit the following website:
 * `http://doc.zen`
+
+Any suggestions, comments, and feedbacks are welcome. Enjoy it!
 """
 module ZenCore
 
