@@ -99,7 +99,6 @@ const __AUTHORS__ = [(name = "Li Huang", email = "lihuang.dmft@gmail.com")]
 The Array's element should be a `NamedTuple` object, such as:
 
 > (*name* = "author's name", *email* = "author's email").
-
 =#
 
 """
