@@ -209,7 +209,7 @@ end
 """
     query_stop()
 
-Query whether the case.stop file exists.
+Query whether the `case.stop` file exists.
 
 See also: [`query_case`](@ref).
 """
