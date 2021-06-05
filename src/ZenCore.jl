@@ -657,8 +657,8 @@ function __init__()
     # Go through each name
     cf = 0 # Counter
     for i in eachindex(nl)
-        # Please pay attention to that nl[i] is a Symbol, we need to convert it
-        # into string and function, respectively.
+        # Please pay attention to that nl[i] is a Symbol, we need to
+        # convert it into string and function, respectively.
         str = string(nl[i])
         fun = eval(nl[i])
 
