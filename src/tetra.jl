@@ -4,22 +4,23 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/04/17
+# Last modified: 2021/06/05
 #
 
-#
-# Remarks:
-#
-# This file provides some functions to do the brillouin zone integration.
-# They are very useful for calculating the density of states. So far the
-# following algorithms are supported:
-#     (1) Gaussian broadening method.
-#     (2) Fermi-Dirac broadening method.
-#     (3) Analytical tetrahedron algorithm with Blochl corrections.
-# Note that you have to modify the line 86-88 to choose suitable driver.
-# Perhaps you also need to modify the `gamm` parameter (line 132 or 167)
-# to obtain more reasonable results. Now the default algorithm is (3).
-#
+#=
+*Remarks*:
+
+This file provides some functions to do the brillouin zone integration.
+They are very useful for calculating the density of states. So far the
+following algorithms are supported:
+* Gaussian broadening method.
+* Fermi-Dirac broadening method.
+* Analytical tetrahedron algorithm with Blochl corrections.
+
+Note that you have to modify the `line 86-88` to choose suitable driver.
+Perhaps you also need to modify the `gamm` parameter (`line 132 or 167`)
+to obtain more reasonable results. Now the default algorithm is (3).
+=#
 
 #
 # Customized Structs
