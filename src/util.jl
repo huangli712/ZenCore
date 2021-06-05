@@ -431,7 +431,7 @@ end
 """
     line_to_array(io::IOStream)
 
-Convert a line (reading from an iostream) to a string array.
+Convert a line (reading from an IOStream) to a string array.
 """
 @inline function line_to_array(io::IOStream)
     split(readline(io), " ", keepempty = false)
@@ -449,7 +449,7 @@ end
 """
     line_to_cmplx(io::IOStream)
 
-Convert a line (reading from an iostream) to a cmplx number. It is used
+Convert a line (reading from an IOStream) to a cmplx number. It is used
 to parse the `LOCPROJ` file only.
 
 See also: [`vaspio_projs`](@ref).
@@ -461,13 +461,34 @@ See also: [`vaspio_projs`](@ref).
     return parse(F64, _re) + parse(F64, _im) * im
 end
 
+#=
+*Remarks 1*:
+
+The definition of Gauss error function is as follows:
+
+```math
+erf(x) = \frac{2}{\sqrt{\pi}}\int^{x}_{0} e^{-\eta^2} d\eta.
+```
+
+*Remarks 2*:
+
+We call the `erf()` function defined in the mathematical library `libm`
+or `openlibm` directly, instead of implementing it again by ourselves.
+For more details about `libm` and `openlibm`, please visit the following
+websites:
+* https://openlibm.org
+* https://sourceware.org/newlib/libm.html
+
+*Remarks 3*:
+
+This below implementation is taken from the `SpecialFunctions.jl`. See:
+* https://github.com/JuliaMath/SpecialFunctions.jl
+=#
+
 """
     erf(x::F64)
 
 Calculate the Gauss error function.
-
-This implementation is taken from the SpecialFunctions.jl. See:
-    https://github.com/JuliaMath/SpecialFunctions.jl
 
 See also: [`gauss_weight`](@ref).
 """
