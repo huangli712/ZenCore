@@ -483,8 +483,11 @@ websites:
 
 This below implementation is taken from the `SpecialFunctions.jl`. See:
 * https://github.com/JuliaMath/SpecialFunctions.jl
-=#
 
+*Remarks 4*:
+
+`Base.Math.libm` returns `libopenlibm`.
+=#
 
 """
     erf(x::F64)
