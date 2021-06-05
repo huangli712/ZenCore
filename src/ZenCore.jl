@@ -496,8 +496,8 @@ export irio_charge
 # Summary:
 #
 # Wrapper for dynamical mean-field theory engine. It also provides some
-# essential tools to deal with the hybridization functions and local
-# impurity levels.
+# essential tools to deal with the hybridization functions Δ and local
+# impurity levels εᵢ.
 #
 # Members:
 #
@@ -584,17 +584,18 @@ export GetImpurity
 #
 # Summary:
 #
-# Tools for treating the self-energy functions, hybridization functions,
-# and local impurity levels.
+# Tools for treating the self-energy functions Σ, double counting terms
+# Σ', hybridization functions Δ, and local impurity levels εᵢ.
 #
 # Members:
 #
 # sigma_reset  -> Create initial self-energy functions.
-# sigma_dcount -> Calculate double counting term.
+# sigma_dcount -> Calculate double counting terms.
 # sigma_split  -> Split the hybridization functions and local impurity levels.
 # sigma_gather -> Gather and combine the self-energy functions.
 # cal_dc_fll   -> Fully localized limit scheme for double counting term.
 # cal_dc_amf   -> Around mean-field scheme for double counting term.
+# cal_dc_held  -> K. Held's scheme for double counting term.
 # cal_dc_exact -> Exact double counting scheme.
 # read_sigma   -> Read dmft1/sigma.bare file.
 # read_sigdc   -> Read dmft1/sigma.dc file.
@@ -609,6 +610,7 @@ export sigma_split
 export sigma_gather
 export cal_dc_fll
 export cal_dc_amf
+export cal_dc_held
 export cal_dc_exact
 export read_sigma
 export read_sigdc
