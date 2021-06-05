@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/04
+# Last modified: 2021/06/05
 #
 
 """
@@ -42,18 +42,18 @@ module ZenCore
 # Using standard libraries
 #
 
-#
-# Remarks 1:
-#
-# The TOML.jl package is included in the standard library since v1.6.
-# So please upgrade your julia environment if it is outdated. We need
-# this package to parse the configuration file (TOML format).
-#
-# Remarks 2:
-#
-# Here we import `libm` explicitly to provide a callable interface for
-# the `erf` function. See `util.jl/erf()` for more details.
-#
+#=
+*Remarks 1*:
+
+The TOML.jl package is included in the standard library since v1.6.
+So please upgrade your julia environment if it is outdated. We need
+this package to parse the configuration file (TOML format).
+
+*Remarks 2*:
+
+Here we import `libm` explicitly to provide a callable interface for
+the `erf` function. See `util.jl/erf()` for more details.
+=#
 
 using TOML
 using LinearAlgebra

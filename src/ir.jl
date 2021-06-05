@@ -11,13 +11,12 @@
 # Driver Functions
 #
 
-
 #=
-*Remarks*:
- 
-```math 
- \int [1]
-````
+*Theory*:
+
+```math
+\int
+```
 =#
 
 """
