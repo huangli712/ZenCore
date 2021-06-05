@@ -485,6 +485,7 @@ This below implementation is taken from the `SpecialFunctions.jl`. See:
 * https://github.com/JuliaMath/SpecialFunctions.jl
 =#
 
+
 """
     erf(x::F64)
 
