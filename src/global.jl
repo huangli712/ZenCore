@@ -93,17 +93,19 @@ See also: [`__LIBNAME__`](@ref).
 """
 const __AUTHORS__ = [(name = "Li Huang", email = "lihuang.dmft@gmail.com")]
 
-#
-# Remarks:
-#
-# The Array's element should be a NamedTuple object, such as:
-#     (name = "name", email = "email").
-#
+#=
+*Remarks*:
+
+The Array's element should be a `NamedTuple` object, such as:
+
+> (*name* = "author's name", *email* = "author's email").
+
+=#
 
 """
     authors()
 
-Print authors / contributors of the Zen Framework.
+Print authors / contributors of the ZenCore package.
 
 See also: [`__AUTHORS__`](@ref).
 """
