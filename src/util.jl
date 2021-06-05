@@ -66,10 +66,10 @@ end
 """
     @ps1(str, c)
 
-Wrapper for printstyled function. Here `str` is a string, and `c`
+Wrapper for `printstyled` function. Here `str` is a string, and `c`
 denotes color.
 
-# Examples
+## Examples
 ```julia
 @ps1 "Hello world!" :green
 ```
@@ -83,7 +83,7 @@ end
 """
     @ps2(str1, c1, str2, c2)
 
-Wrapper for printstyled function. Here `str1` and `str2` are strings,
+Wrapper for `printstyled` function. Here `str1` and `str2` are strings,
 and `c1` and `c2` denote colors.
 
 See also: [`@ps1`](@ref).
@@ -100,7 +100,11 @@ end
     require()
 
 Check the version of julia runtime environment. It should be higher
-than v1.6.x.
+than v1.6.x. One of the most important philosophies of the ZenCore
+package is minimizing the dependence on the third-party libraries as
+far as possible. Note that the ZenCore package relys on the `TOML`
+package to parse the *.toml file. Only in v1.6.0 and higher versions,
+julia includes `TOML` in its standard library.
 """
 function require()
     if VERSION < v"1.6-"
@@ -115,7 +119,7 @@ Setup `ARGS` manually. This function is used only in REPL environment.
 We can use this function to update `ARGS`, so that the `query_args()`
 and the other related functions can work correctly.
 
-# Examples
+## Examples
 ```julia-repl
 julia > setup_args("SrVO3.toml")
 1-element Array{String,1}:
@@ -146,7 +150,7 @@ end
 """
     query_args()
 
-Check whether the configuration file (case.toml) is provided.
+Check whether the configuration file (`case.toml`) is provided.
 
 See also: [`setup_args`](@ref).
 """
@@ -162,7 +166,7 @@ end
 """
     query_case()
 
-Return case, in other words, the job's name.
+Return `case`, in other words, the job's name.
 
 See also: [`query_stop`](@ref).
 """
