@@ -4,17 +4,17 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/05/26
+# Last modified: 2021/06/05
 #
 
 """
     @cswitch(constexpr, body)
 
-Provides C-like switch statement with the ``falling through'' behavior. This
-implementation was borrowed from the following github repo.:
+Provides a C-like switch statement with the ``falling through'' behavior.
+This implementation was borrowed from the following github repository:
     https://github.com/Gnimuc/CSyntax.jl
 
-# Examples
+## Examples
 ```julia
 engine = get_d("engine")
 @cswitch engine begin
