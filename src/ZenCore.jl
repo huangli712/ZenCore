@@ -622,15 +622,15 @@ export write_sigdc
 #
 # Summary:
 #
-# Tools for mixing the self-energy functions, hybridization functions,
-# local impurity levels, and charge density.
+# Tools for mixing the self-energy functions Σ, hybridization functions Δ,
+# local impurity levels εᵢ, and correction for charge density Γ.
 #
 # Members:
 #
 # mixer_sigma -> Mix self-energy functions.
 # mixer_delta -> Mix hybridization functions.
 # mixer_eimpx -> Mix local impurity levels.
-# mixer_gamma -> Mix charge density.
+# mixer_gamma -> Mix correction of charge density.
 #
 include("mixer.jl")
 #
