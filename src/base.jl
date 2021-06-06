@@ -233,17 +233,6 @@ if get_d("loptim")
     dft_run(it, lr)
 end
 
-#
-# Remarks 3:
-#
-# The key Kohn-Sham data inclue lattice structures, k-mesh and its weights,
-# tetrahedra data, eigenvalues, raw projectors, and fermi level, etc. At
-# first, the adaptor will read in these data from the output files of DFT
-# engine. And then it will process the raw projectors (such as parsing,
-# labeling, grouping, filtering, and rotatation). Finally, the adaptor will
-# write down the processed data to some specified files using the IR format.
-#
-
 # C04: To bridge the gap between DFT engine and DMFT engine by adaptor
 adaptor_run(it, lr, ai)
 
