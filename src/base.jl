@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/02
+# Last modified: 2021/06/06
 #
 
 #
@@ -68,6 +68,48 @@ function final()
     sorry()
 end
 
+#=
+*Remarks 1*:
+
+We would like to perform two successive DFT runs if `get_d("loptim")`` is
+true. The purpose of the first DFT run is to evaluate the fermi level.
+Then an energy window is determined. We will use this window to generate
+optimal projectors in the second DFT run.
+
+On the other hand, if `get_d("loptim")` is false, only the first DFT run
+is enough.
+=#
+
+#=
+*Remarks 2*:
+
+We want better optimal projectors.
+
+In the previous DFT run, initial fermi level = 0 -> wrong energy
+window -> wrong optimial projectors. But at this point, the fermi
+level is updated, so we have to generate the optimal projectors
+again within this new window by doing addition DFT calculation.
+=#
+
+#=
+*Remarks 3*:
+
+The key Kohn-Sham data inclue lattice structures, k-mesh and its weights,
+tetrahedra data, eigenvalues, raw projectors, and fermi level, etc. At
+first, the adaptor will read in these data from the output files of DFT
+engine. And then it will process the raw projectors (such as parsing,
+labeling, grouping, filtering, and rotatation). Finally, the adaptor will
+write down the processed data to some specified files using the `IR`
+format.
+=#
+
+#=
+*Remarks 4*:
+
+Now everything is ready. We are going to solve the DMFT self-consistent
+equation iterately.
+=#
+
 """
     cycle1()
 
@@ -92,60 +134,19 @@ function cycle1()
     # C01: Initialize the quantum impurity problems
     ai = GetImpurity()
 
-#
-# Remarks 1:
-#
-# We would like to perform two successive DFT runs if get_d("loptim") is
-# true. The purpose of the first DFT run is to evaluate the fermi level.
-# Then an energy window is determined. We will use this window to generate
-# optimal projectors in the second DFT run.
-#
-# On the other hand, if get_d("loptim") is false, only the first DFT run
-# is enough.
-#
-
     # C02: Perform DFT calculation (for the first time)
     dft_run(it, lr)
-
-#
-# Remarks 2:
-#
-# We want better optimal projectors.
-#
-# In the previous DFT run, initial fermi level = 0 -> wrong energy
-# window -> wrong optimial projectors. But at this point, the fermi
-# level is updated, so we have to generate the optimal projectors
-# again within this new window by doing addition DFT calculation.
-#
 
     # C03: Perform DFT calculation (for the second time)
     if get_d("loptim")
         dft_run(it, lr)
     end
 
-#
-# Remarks 3:
-#
-# The key Kohn-Sham data inclue lattice structures, k-mesh and its weights,
-# tetrahedra data, eigenvalues, raw projectors, and fermi level, etc. At
-# first, the adaptor will read in these data from the output files of DFT
-# engine. And then it will process the raw projectors (such as parsing,
-# labeling, grouping, filtering, and rotatation). Finally, the adaptor will
-# write down the processed data to some specified files using the IR format.
-#
-
     # C04: To bridge the gap between DFT engine and DMFT engine by adaptor
     adaptor_run(it, lr, ai)
 
     # C05: Prepare default self-energy functions
     sigma_core(it, lr, ai, "reset")
-
-#
-# Remarks 4:
-#
-# Now everything is ready. We are going to solve the DMFT self-consistent
-# equation iterately.
-#
 
 #
 # DFT + DMFT Iterations (C06-C12)
