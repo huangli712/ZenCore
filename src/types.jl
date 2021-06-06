@@ -174,18 +174,18 @@ designed for the `POSCAR` file used by the `vasp` code.
 
 ## Members
 
-_case -> The name of system.\n
-scale -> Universal scaling factor (lattice constant), which is used to
-         scale all lattice vectors and all atomic coordinates.\n
-lvect -> Three lattice vectors defining the unit cell of the system. Its
-         shape must be (3, 3).\n
-nsort -> Number of sorts of atoms.\n
-natom -> Number of atoms.\n
-sorts -> Sorts of atoms. Its shape must be (nsort, 2).\n
-atoms -> Lists of atoms. Its shape must be (natom).\n
-coord -> Atomic positions are provided in cartesian coordinates or in
-         direct coordinates (respectively fractional coordinates). Its
-         shape must be (natom, 3).
+* _case -> The name of system.
+* scale -> Universal scaling factor (lattice constant), which is used to
+           scale all lattice vectors and all atomic coordinates.
+* lvect -> Three lattice vectors defining the unit cell of the system. Its
+           shape must be (3, 3).
+* nsort -> Number of sorts of atoms.
+* natom -> Number of atoms.
+* sorts -> Sorts of atoms. Its shape must be (nsort, 2).
+* atoms -> Lists of atoms. Its shape must be (natom).
+* coord -> Atomic positions are provided in cartesian coordinates or in
+           direct coordinates (respectively fractional coordinates). Its
+           shape must be (natom, 3).
 
 See also: [`vaspio_lattice`](@ref).
 """
