@@ -229,17 +229,17 @@ Mutable struct. Essential information of quantum impurity problem.
 
 ## Members
 
-index -> Index of the quantum impurity problem.\n
-atoms -> Chemical symbol of impurity atom.\n
-sites -> Index of impurity atom.\n
-shell -> Angular momentum of correlated orbitals.\n
-ising -> Interaction type of correlated orbitals.\n
-occup -> Impurity occupancy.\n
-upara -> Coulomb interaction parameter.\n
-jpara -> Hund's coupling parameter.\n
-lpara -> Spin-orbit coupling parameter.\n
-beta  -> Inverse temperature.\n
-nband -> Number of correlated orbitals (spin is not included).
+* index -> Index of the quantum impurity problem.
+* atoms -> Chemical symbol of impurity atom.
+* sites -> Index of impurity atom.
+* shell -> Angular momentum of correlated orbitals.
+* ising -> Interaction type of correlated orbitals.
+* occup -> Impurity occupancy.
+* upara -> Coulomb interaction parameter.
+* jpara -> Hund's coupling parameter.
+* lpara -> Spin-orbit coupling parameter.
+* beta  -> Inverse temperature.
+* nband -> Number of correlated orbitals (spin is not included).
 
 See also: [`Mapping`](@ref), [`PrGroup`](@ref), [`PrWindow`](@ref).
 """
