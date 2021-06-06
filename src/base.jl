@@ -239,12 +239,6 @@ adaptor_run(it, lr, ai)
 # C05: Prepare default self-energy functions
 sigma_core(it, lr, ai, "reset")
 
-#
-# Remarks 4:
-#
-# Now everything is ready. We are going to solve the DMFT self-consistent
-# equation iterately.
-#
 end
 
 """
