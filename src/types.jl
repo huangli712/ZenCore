@@ -142,8 +142,8 @@ Mutable struct. Record the DFT + DMFT iteration information.
 
 ## Members
 
-* I₁ -> Number of iterations between dmft1 and quantum impurity solver.
-* I₂ -> Number of iterations between dmft2 and DFT engine.
+* I₁ -> Number of iterations between `dmft1` and quantum impurity solver.
+* I₂ -> Number of iterations between `dmft2` and DFT engine.
 * I₃ -> Number of DFT + DMFT iterations.
 * I₄ -> Counter for each iteration.
 * μ₀ -> Fermi level obtained by DFT engine.
