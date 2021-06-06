@@ -434,21 +434,22 @@ function Impurity(index::I64,
     Impurity(index, atoms, sites, shell, ising, occup, upara, jpara, lpara, beta, nband)
 end
 
+#=
+*Remarks*:
+
+Please go to the following webpage for more details about the original
+specifications of projectors in the `vasp` code:
+* https://www.vasp.at/wiki/index.php/LOCPROJ
+
+May need to be fixed for the other DFT codes.
+=#
+
 """
     PrTrait(site::I64, sort::String, desc::String)
 
 Outer constructor for PrTrait struct.
 """
 function PrTrait(site::I64, desc::String)
-
-#
-# Remarks:
-#
-# Please go to the following webpage for more details about the original
-# specifications of projectors in the vasp code:
-#     https://www.vasp.at/wiki/index.php/LOCPROJ
-#
-
     # Angular character of the local functions on the specified sites
     orb_labels = ("s",
                   "py", "pz", "px",
