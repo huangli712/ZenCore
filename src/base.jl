@@ -516,7 +516,7 @@ function save_it(it::IterInfo, lr::Logger)
 
     # Write the header
     if it.I₄ == 0
-        print(lr.cycle, "#   #   #   #   μ₁        ")
+        print(lr.cycle, "#   #   #   #   μ₀          μ₁        ")
         for t = 1:nsite
             print(lr.cycle, "dc$t      ")
         end
@@ -525,13 +525,18 @@ function save_it(it::IterInfo, lr::Logger)
         end
         println(lr.cycle, "et")
         # Write separator
-        println(lr.cycle, repeat('-', 4*4 + 20*(nsite + 1)))
+        println(lr.cycle, repeat('-', 4*4 + 20*(nsite + 2)))
     # Write iteration information
     else
         @printf(lr.cycle, "%-4i", it.I₄)
         @printf(lr.cycle, "%-4i", it.I₃)
         @printf(lr.cycle, "%-4i", it.I₁)
         @printf(lr.cycle, "%-4i", it.I₂)
+        if it.μ₀ < 0.0
+            @printf(lr.cycle, "%-10.5f", it.μ₀)
+        else
+            @printf(lr.cycle, "+%-9.5f", it.μ₀)
+        end
         if it.μ₁ < 0.0
             @printf(lr.cycle, "%-10.5f", it.μ₁)
         else
