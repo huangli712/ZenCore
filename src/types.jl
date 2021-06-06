@@ -264,10 +264,10 @@ Mutable struct. Essential information of a given projector.
 
 ## Members
 
-site -> Site in which the projector is defined.\n
-l    -> Quantum number l.\n
-m    -> Quantum number m.\n
-desc -> Projector's specification.
+* site -> Site in which the projector is defined.
+* l    -> Quantum number l.
+* m    -> Quantum number m.
+* desc -> Projector's specification.
 
 See also: [`PrGroup`](@ref), [`PrWindow`](@ref).
 """
@@ -285,18 +285,18 @@ Mutable struct. Essential information of group of projectors.
 
 ## Members
 
-site   -> Site in which the projectors are defined. In principle, the
-          projectors included in the same group should be defined at
-          the same site (or equivalently atom).\n
-l      -> Quantum number l. In principle, the projectors included in
-          the same group should have the same quantum number l (but
-          with different m).\n
-corr   -> Test if the projectors in this group are correlated.\n
-shell  -> Type of correlated orbitals. It is infered from quantum number l.\n
-Pr     -> Array. It contains the indices of projectors.\n
-Tr     -> Array. It contains the transformation matrix. This parameter
-          could be useful to select certain subset of orbitals or perform
-          a simple global rotation.
+* site   -> Site in which the projectors are defined. In principle, the
+            projectors included in the same group should be defined at
+            the same site (or equivalently atom).
+* l      -> Quantum number l. In principle, the projectors included in
+            the same group should have the same quantum number l (but
+            with different m).
+* corr   -> Test if the projectors in this group are correlated.
+* shell  -> Type of correlated orbitals. It is infered from quantum number l.
+* Pr     -> Array. It contains the indices of projectors.
+* Tr     -> Array. It contains the transformation matrix. This parameter
+            could be useful to select certain subset of orbitals or perform
+            a simple global rotation.
 
 See also: [`PrTrait`](@ref), [`PrWindow`](@ref), [`Mapping`](@ref), [`Impurity`](@ref).
 """
@@ -316,13 +316,13 @@ Mutable struct. Define the band window for group of projectors.
 
 ## Members
 
-bmin -> Minimum band index.\n
-bmax -> Maximum band index.\n
-nbnd -> Maximum number of bands in the current window (= bmax-bmin+1).\n
-kwin -> Momentum-dependent and spin-dependent band window.\n
-bwin -> Tuple. It is the band window or energy window, which is used
-        to filter the Kohn-Sham band structure. The mesh for calculating
-        density of states is also deduced from `bwin`.
+* bmin -> Minimum band index.
+* bmax -> Maximum band index.
+* nbnd -> Maximum number of bands in the current window (≡ `bmax-bmin+1`).
+* kwin -> Momentum-dependent and spin-dependent band window.
+* bwin -> Tuple. It is the band window or energy window, which is used
+          to filter the Kohn-Sham band structure. The mesh for calculating
+          density of states is also deduced from `bwin`.
 
 See also: [`PrTrait`](@ref), [`PrGroup`](@ref), [`Mapping`](@ref), [`Impurity`](@ref).
 """
