@@ -125,8 +125,8 @@ Mutable struct. Store the IOStreams for case.log and case.cycle files.
 
 ## Members
 
-log   -> IOStream for case.log file.\n
-cycle -> IOStream for case.cycle file.
+* log   -> IOStream for case.log file.
+* cycle -> IOStream for case.cycle file.
 
 See also: [`IterInfo`](@ref).
 """
