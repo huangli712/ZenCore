@@ -228,17 +228,6 @@ ai = GetImpurity()
 # C02: Perform DFT calculation (for the first time)
 dft_run(it, lr)
 
-#
-# Remarks 2:
-#
-# We want better optimal projectors.
-#
-# In the previous DFT run, initial fermi level = 0 -> wrong energy
-# window -> wrong optimial projectors. But at this point, the fermi
-# level is updated, so we have to generate the optimal projectors
-# again within this new window by doing addition DFT calculation.
-#
-
 # C03: Perform DFT calculation (for the second time)
 if get_d("loptim")
     dft_run(it, lr)
