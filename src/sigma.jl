@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/04
+# Last modified: 2021/06/06
 #
 
 #
@@ -259,6 +259,9 @@ See also: [`cal_dc_fll`](@ref), [`cal_dc_exact`](@ref).
 """
 function cal_dc_amf(U::F64, J::F64, N::F64)
     sorry()
+end
+
+function cal_dc_held()
 end
 
 """
