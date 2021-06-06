@@ -206,12 +206,12 @@ end
 Mutable struct. Mapping between quantum impurity problems and groups
 of projectors (or band windows).
 
-### Members
+## Members
 
-i_grp -> Mapping from quntum impurity problems to groups of projectors.\n
-i_wnd -> Mapping from quantum impurity problems to windows of dft bands.\n
-g_imp -> Mapping from groups of projectors to quantum impurity problems.\n
-w_imp -> Mapping from windows of dft bands to quantum impurity problems.
+* i_grp -> Mapping from quntum impurity problems to groups of projectors.
+* i_wnd -> Mapping from quantum impurity problems to windows of dft bands.
+* g_imp -> Mapping from groups of projectors to quantum impurity problems.
+* w_imp -> Mapping from windows of dft bands to quantum impurity problems.
 
 See also: [`Impurity`](@ref), [`PrGroup`](@ref), [`PrWindow`](@ref).
 """
