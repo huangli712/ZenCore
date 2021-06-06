@@ -4,24 +4,26 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/02
+# Last modified: 2021/06/06
 #
 
 #
 # Customized Dictionaries
 #
 
-#
-# Remarks:
-#
-# The values in the following dictionaries are actually arrays, which
-# usually contain four elements:
-#     Element[1] -> Actually value.
-#     Element[2] -> If it is 1, this key-value pair is mandatory.
-#                   If it is 0, this key-value pair is optional.
-#     Element[3] -> Numerical type (A julia Symbol).
-#     Element[4] -> Brief explanations.
-#
+#=
+*Remarks*:
+
+The values in the following dictionaries are actually arrays, which
+usually contain four elements:
+* Element[1] -> Actually value.
+* Element[2] -> If it is 1, this key-value pair is mandatory.
+                If it is 0, this key-value pair is optional.
+* Element[3] -> Numerical type (A julia Symbol).
+* Element[4] -> Brief explanations.
+
+The following dictionaries are used as global variables.
+=#
 
 """
     PCASE
