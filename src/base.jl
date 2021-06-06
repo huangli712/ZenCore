@@ -431,7 +431,7 @@ function cycle8(task::String = "sigma")
     ai = GetImpurity()
 
     # C02: Further setup the IterInfo struct
-    it.I₃ = 1
+    it.I₃ = 1 # Please modify them to fit your requirements
     it.I₁ = 10
 
     # C03: Execute the Kohn-Sham adaptor
