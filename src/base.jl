@@ -556,6 +556,13 @@ function save_it(it::IterInfo, lr::Logger)
     flush(lr.cycle)
 end
 
+#=
+*Remarks*:
+
+The working directories include `dft`, `dmft1`, `dmft2`, and `impurity.i`.
+If they exist already, it would be better to remove them at first.
+=#
+
 """
     make_trees()
 
@@ -564,14 +571,6 @@ Prepare the working directories at advance.
 See also: [`rm_trees`](@ref).
 """
 function make_trees()
-
-#
-# Remarks:
-#
-# The working directories include dft, dmft1, dmft2, and impurity.i.
-# If they exist already, it would be better to remove them at first.
-#
-
     # Build an array for folders
     dir_list = ["dft", "dmft1", "dmft2"]
     for i = 1:get_i("nsite")
