@@ -454,6 +454,19 @@ end
 # Service Functions
 #
 
+#=
+*Remarks*:
+
+In order to terminate the `Zen` code, the following two conditions
+should be fulfilled at the same time.
+
+* The argument `force_exit` is true.
+
+* The `case.stop` file exists (from `query_stop()``).
+
+
+=#
+
 """
     monitor(force_exit::Bool = false)
 
@@ -462,18 +475,6 @@ Determine whether we need to terminate the Zen code.
 See also: [`query_stop`](@ref).
 """
 function monitor(force_exit::Bool = false)
-
-#
-# Remarks:
-#
-# In order to terminate the Zen code, the following two conditions
-# should be fulfilled at the same time.
-#
-# 1. The argument `force_exit` is true.
-#
-# 2. The case.stop file exists (from query_stop()).
-#
-
     if force_exit && query_stop()
         exit(-1)
     end
