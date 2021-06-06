@@ -142,15 +142,15 @@ Mutable struct. Record the DFT + DMFT iteration information.
 
 ## Members
 
-I₁ -> Number of iterations between dmft1 and quantum impurity solver.\n
-I₂ -> Number of iterations between dmft2 and DFT engine.\n
-I₃ -> Number of DFT + DMFT iterations.\n
-I₄ -> Counter for each iteration.\n
-μ₀ -> Fermi level obtained by DFT engine.\n
-μ₁ -> Fermi level obtained by DMFT engine (dmft1 or dmft2).\n
-dc -> Double counting terms.\n
-nf -> Number of impurity occupancy.\n
-et -> Total DFT + DMFT energy.
+* I₁ -> Number of iterations between dmft1 and quantum impurity solver.
+* I₂ -> Number of iterations between dmft2 and DFT engine.
+* I₃ -> Number of DFT + DMFT iterations.
+* I₄ -> Counter for each iteration.
+* μ₀ -> Fermi level obtained by DFT engine.
+* μ₁ -> Fermi level obtained by DMFT engine (`dmft1` or `dmft2`).
+* dc -> Double counting terms.
+* nf -> Number of impurity occupancy.
+* et -> Total DFT + DMFT energy.
 
 See also: [`Logger`](@ref).
 """
