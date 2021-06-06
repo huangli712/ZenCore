@@ -464,7 +464,7 @@ should be fulfilled at the same time.
 
 * The `case.stop` file exists (from `query_stop()``).
 
-
+We usually use this functon to stop the whole DFT + DMFT iterations.
 =#
 
 """
