@@ -225,18 +225,6 @@ prompt("ZEN", "Initialization")
 # C01: Initialize the quantum impurity problems
 ai = GetImpurity()
 
-#
-# Remarks 1:
-#
-# We would like to perform two successive DFT runs if get_d("loptim") is
-# true. The purpose of the first DFT run is to evaluate the fermi level.
-# Then an energy window is determined. We will use this window to generate
-# optimal projectors in the second DFT run.
-#
-# On the other hand, if get_d("loptim") is false, only the first DFT run
-# is enough.
-#
-
 # C02: Perform DFT calculation (for the first time)
 dft_run(it, lr)
 
