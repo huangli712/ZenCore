@@ -340,8 +340,8 @@ function irio_windows(f::String, PW::Array{PrWindow,1})
                 end
             end
             println(fout)
-        end
-    end
+        end # END OF P LOOP
+    end # END OF IOSTREAM
 end
 
 """
