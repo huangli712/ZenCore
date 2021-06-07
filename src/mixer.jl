@@ -4,14 +4,14 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/02
+# Last modified: 2021/06/08
 #
 
 """
     mixer_sigma(it::IterInfo, ai::Array{Impurity,1})
 
-Try to mix the self-energy functions and then use the mixed values to
-update the `dmft1/sigma.bare` file.
+Try to mix the self-energy functions Σ and then use the mixed values
+to update the `dmft1/sigma.bare` file.
 
 See also: [`mixer_core`](@ref).
 """
@@ -54,8 +54,8 @@ end
 """
     mixer_delta(it::IterInfo, ai::Array{Impurity,1})
 
-Try to mix the hybridization functions and then use the mixed values to
-update the `dmft1/dmft.hyb_l` file.
+Try to mix the hybridization functions Δ and then use the mixed values
+to update the `dmft1/dmft.hyb_l` file.
 
 See also: [`mixer_core`](@ref).
 """
@@ -98,8 +98,8 @@ end
 """
     mixer_eimpx(it::IterInfo, ai::Array{Impurity,1})
 
-Try to mix the local impurity levels and then use the mixed value to
-update the `dmft1/dmft.eimpx` file.
+Try to mix the local impurity levels εᵢ and then use the mixed value
+to update the `dmft1/dmft.eimpx` file.
 
 See also: [`mixer_core`](@ref).
 """
