@@ -4,20 +4,12 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/02
+# Last modified: 2021/06/07
 #
 
 #
 # Driver Functions
 #
-
-#=
-*Theory*:
-
-```math
-\int
-```
-=#
 
 """
     ir_adaptor(D::Dict{Symbol,Any})
