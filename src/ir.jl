@@ -11,6 +11,13 @@
 # Driver Functions
 #
 
+#=
+*Remarks*:
+
+In the `ir_adaptor()` funtion, some writting steps are optional because
+the tetrahedron information might be absent.
+=#
+
 """
     ir_adaptor(D::Dict{Symbol,Any})
 
@@ -63,13 +70,6 @@ function ir_adaptor(D::Dict{Symbol,Any})
     # I08: Write fermi level
     println("  Store fermi level")
     irio_fermi(pwd(), D[:fermi])
-
-#
-# Remarks:
-#
-# The following steps are optional, because the tetrahedron information
-# might be absent.
-#
 
     # I09: Check the validity of the `D` dict further (optional)
     if get_d("smear") === "tetra"
