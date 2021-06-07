@@ -214,33 +214,33 @@ is achieved at both DFT and DMFT levels.
 See also: [`cycle1`](@ref), [`go`](@ref).
 """
 function cycle2()
-    # C-1: Create IterInfo struct
+    # C-2: Create IterInfo struct
     it = IterInfo()
 
-    # C00: Create Logger struct
+    # C-1: Create Logger struct
     lr = Logger(query_case())
 
+    # C00: Initialize the quantum impurity problems
+    ai = GetImpurity()
+
 #
-# Initialization (C01-C05)
+# Initialization (C01-C04)
 #
-prompt("ZEN", "Initialization")
+    prompt("ZEN", "Initialization")
 
-# C01: Initialize the quantum impurity problems
-ai = GetImpurity()
-
-# C02: Perform DFT calculation (for the first time)
-dft_run(it, lr)
-
-# C03: Perform DFT calculation (for the second time)
-if get_d("loptim")
+    # C01: Perform DFT calculation (for the first time)
     dft_run(it, lr)
-end
 
-# C04: To bridge the gap between DFT engine and DMFT engine by adaptor
-adaptor_run(it, lr, ai)
+    # C02: Perform DFT calculation (for the second time)
+    if get_d("loptim")
+        dft_run(it, lr)
+    end
 
-# C05: Prepare default self-energy functions
-sigma_core(it, lr, ai, "reset")
+    # C03: To bridge the gap between DFT engine and DMFT engine by adaptor
+    adaptor_run(it, lr, ai)
+
+    # C04: Prepare default self-energy functions
+    sigma_core(it, lr, ai, "reset")
 
 end
 
