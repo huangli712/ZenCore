@@ -136,11 +136,11 @@ function cycle1()
     prompt("ZEN", "Initialization")
 
     # C01: Perform DFT calculation (for the first time)
-    dft_run(it, lr)
+    #dft_run(it, lr)
 
     # C02: Perform DFT calculation (for the second time)
     if get_d("loptim")
-        dft_run(it, lr)
+        #dft_run(it, lr)
     end
 
     # C03: To bridge the gap between DFT engine and DMFT engine by adaptor
@@ -519,16 +519,16 @@ function save_it(it::IterInfo, lr::Logger)
 
     # Write the header
     if it.I₄ == 0
-        print(lr.cycle, "#   #   #   #   μ₀          μ₁        ")
+        print(lr.cycle, "#   #   #   #   μ₀        μ₁        ")
         for t = 1:nsite
-            print(lr.cycle, "dc$t      ")
+            print(lr.cycle, "dc$t       ")
         end
         for t = 1:nsite
-            print(lr.cycle, "nf$t      ")
+            print(lr.cycle, "nf$t       ")
         end
         println(lr.cycle, "et")
         # Write separator
-        println(lr.cycle, repeat('-', 4*4 + 20*(nsite + 2)))
+        println(lr.cycle, repeat('-', 46 + 20*nsite))
     # Write iteration information
     else
         @printf(lr.cycle, "%-4i", it.I₄)
