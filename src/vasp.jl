@@ -426,6 +426,20 @@ vasp_files() = vasp_files(pwd())
 # Service Functions (Group B)
 #
 
+#=
+Remarks:
+
+In vasp, the `NBANDS` parameter is determined automatically. According
+to the wiki of vasp, it is equal to `nelect / 2 + latt.natom / 2` for
+paramagnetic case by default. However, it may be insufficient for
+generating projectors. For example, for SrVO``_3``, the default `NBANDS`
+parameter is only 20. It is too small to determine the five V``_{3d}``
+projectors. It would be better to increase it to 30.
+
+Here, we increase `NBANDS` to `1.6 * NBANDS`. The `1.6` is a magic
+number, you can adjust it by yourself.
+=#
+
 """
     vaspio_nband(f::String)
 
@@ -448,20 +462,6 @@ function vaspio_nband(f::String)
 
     # Evaluate number of valence electrons in total
     nelect = sum(@. latt.sorts[:, 2] * zval)
-
-#
-# Remarks:
-#
-# In vasp, the `NBANDS` parameter is determined automatically. According
-# to the wiki of vasp, it is equal to nelect / 2 + latt.natom / 2 for
-# paramagnetic case by default. However, it may be insufficient for
-# generating projectors. For example, for SrVO3, the default `NBANDS`
-# parameter is only 20. It is too small to determine the five V-3d
-# projectors. It would be better to increase it to 30.
-#
-# Here, we increase `NBANDS` to `1.6 * NBANDS`. The `1.6` is a magic
-# number, you can adjust it by yourself.
-#
 
     # Evaluate number of bands
     if get_d("lspins")
