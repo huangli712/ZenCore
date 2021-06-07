@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/04
+# Last modified: 2021/06/07
 #
 
 #
@@ -52,7 +52,7 @@ function dmft_init(it::IterInfo, task::I64)
         end,
     union(fir1, fir2) )
 
-    # Extract key parameters
+    # Extract key parameters, which should be written into the `dmft.in`.
     axis = get_m("axis")
     beta = get_m("beta")
     mc = ( get_m("mc") isa Missing ? 0.001 : get_m("mc") )
