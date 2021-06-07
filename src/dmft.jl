@@ -606,7 +606,8 @@ end
     write_eimpx(Eimpx::Array{C64,4}, ai::Array{Impurity,1})
 
 Split local impurity levels into the `impurity.i/dmft.eimpx` file, which
-is essential for the quantum impurity solver.
+is essential for the quantum impurity solver. The working directory of
+this function must be the root folder.
 
 See also: [`Impurity`](@ref), [`read_eimpx`](@ref), [`write_delta`](@ref).
 """
@@ -658,7 +659,8 @@ end
     write_eimpx(Eimpx::Array{C64,4}, ai::Array{Impurity,1}, flev::String)
 
 Write local impurity levels into the `flev` file. This function is usually
-called by `mixer_eimpx()` to update the `dmft1/dmft.eimpx` file.
+called by `mixer_eimpx()` to update the `dmft1/dmft.eimpx` file. The
+working directory of this function must be the root folder.
 
 See also: [`Impurity`](@ref), [`read_eimpx`](@ref), [`write_delta`](@ref).
 """
