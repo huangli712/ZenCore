@@ -828,13 +828,13 @@ function adaptor_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
     # Well, now we have the Kohn-Sham data. But they can not be used
     # directly. We have to check and process them carefully. Please
     # pay attention to that the DFTData dict will be modified in
-    # the plo_adaptor() function.
+    # the `plo_adaptor()` function.
     #
     # The plo_adaptor() function also has the ability to calculate
     # some selected physical quantities (such as overlap matrix and
     # density of states) to check the correctness of the Kohn-Sham
     # data. This feature will be activated automatically if you are
-    # using the src/tools/test.jl tool to examine the DFT data.
+    # using the `src/tools/test.jl` tool to examine the DFT data.
     #
     projtype = get_d("projtype")
     prompt("Adaptor")
