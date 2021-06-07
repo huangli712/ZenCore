@@ -370,6 +370,12 @@ function plo_window(PG::Array{PrGroup,1}, enk::Array{F64,3})
     return PW
 end
 
+#=
+Remarks:
+
+PG[i].Tr must be a matrix. Its size must be (ndim, p2 - p1 + 1).
+=#
+
 """
     plo_rotate(PG::Array{PrGroup,1}, chipsi::Array{C64,4})
 
@@ -387,12 +393,6 @@ function plo_rotate(PG::Array{PrGroup,1}, chipsi::Array{C64,4})
     # Initialize new array. It stores the rotated projectors.
     # Now it is empty, but we will allocate memory for it later.
     Rchipsi = Array{C64,4}[]
-
-#
-# Remarks:
-#
-# PG[i].Tr must be a matrix. Its size must be (ndim, p2 - p1 + 1).
-#
 
     # Go through each PrGroup and perform the rotation
     for i in eachindex(PG)
