@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/06
+# Last modified: 2021/06/08
 #
 
 #
@@ -16,6 +16,7 @@
 
 Create initial self-energy functions and write them to `sigma.bare`. The
 `sigma.bare` file is key input for the dynamical mean-field theory engine.
+Now this function only supports Matsubara self-energy functions.
 
 See also: [`sigma_dcount`](@ref).
 """
