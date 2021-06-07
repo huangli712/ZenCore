@@ -976,7 +976,7 @@ function vaspio_tetra(f::String)
     nkpt = parse(I64, readline(fin))
     readline(fin)
 
-    # Read in the k-points and their weights
+    # Read in the 𝑘-points and their weights
     #
     # Skip nkpt lines
     for i = 1:nkpt
@@ -1017,6 +1017,28 @@ See also: [`vaspio_kmesh`](@ref), [`irio_tetra`](@ref).
 """
 vaspio_tetra() = vaspio_tetra(pwd())
 
+#=
+*Remarks*:
+
+Here we provide two implementations to read the eigenvalues. The first
+implementation is somewhat tedious, so we don't use it. It seems that
+the second implementation looks quite graceful.
+
+*Implementation 1*:
+
+>   if nspin === 1 # for spin unpolarized case
+>       enk[j, i, 1] = parse(F64, arr[2])
+>       occupy[j, i, 1] = parse(F64, arr[3])
+>   end
+>   
+>   if nspin === 2 # for spin polarized case
+>       enk[j, i, 1] = parse(F64, arr[2])
+>       enk[j, i, 2] = parse(F64, arr[3])
+>       occupy[j, i, 1] = parse(F64, arr[4])
+>       occupy[j, i, 2] = parse(F64, arr[5])
+>   end
+=#
+
 """
     vaspio_eigen(f::String)
 
@@ -1051,37 +1073,10 @@ function vaspio_eigen(f::String)
         readline(fin)
         for j = 1:nband
             arr = line_to_array(fin)
-
-#
-# Remarks:
-#
-# Here we provide two implementations to read the eigenvalues. The first
-# implementation is somewhat tedious, so we don't use it. It seems that
-# the second implementation looks quite graceful.
-#
-
-#
-# Implementation 1
-#
-            #if nspin === 1 # for spin unpolarized case
-            #    enk[j, i, 1] = parse(F64, arr[2])
-            #    occupy[j, i, 1] = parse(F64, arr[3])
-            #end
-            #
-            #if nspin === 2 # for spin polarized case
-            #    enk[j, i, 1] = parse(F64, arr[2])
-            #    enk[j, i, 2] = parse(F64, arr[3])
-            #    occupy[j, i, 1] = parse(F64, arr[4])
-            #    occupy[j, i, 2] = parse(F64, arr[5])
-            #end
-
-#
-# Implementation 2
-#
             for s = 1:nspin
                 enk[j, i, s] = parse(F64, arr[s+1])
                 occupy[j, i, s] = parse(F64, arr[s+1+nspin])
-            end
+            end # END OF S LOOP
         end # END OF J LOOP
     end # END OF I LOOP
 
