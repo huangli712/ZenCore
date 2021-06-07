@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/02
+# Last modified: 2021/06/07
 #
 
 #
@@ -260,7 +260,7 @@ end
 """
     ctqmc_setup(imp::Impurity)
 
-Generate configuration file (`solver.ctqmc.in`) for CT-QMC quantum
+Generate configuration file (`solver.ctqmc.in`) for the CT-QMC quantum
 impurity solvers automatically (according to the information encoded
 in the Impurity struct).
 
@@ -314,7 +314,7 @@ function ctqmc_setup(imp::Impurity)
         # Print the user-supplied parameters
         #
         # The correctness of these auxiliary parameters should be checked
-        # in config.jl.
+        # in `config.jl/chk_dict()`.
         println(fout, "# Auxiliary parameters: By users")
         foreach(x -> println(fout, x), get_s("params"))
 
