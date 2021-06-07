@@ -254,10 +254,10 @@ can modify `vasp_incar()/vasp.jl` by yourself).
 See also: [`cycle1`](@ref), [`cycle2`](@ref).
 """
 function cycle3()
-    # C-1: Create IterInfo struct
+    # C-2: Create IterInfo struct
     it = IterInfo()
 
-    # C00: Create Logger struct
+    # C-1: Create Logger struct
     lr = Logger(query_case())
 
     # C01: Perform DFT calculation (for the first time)
@@ -290,10 +290,10 @@ to see whether the DMFT engine works properly.
 See also: [`cycle1`](@ref), [`cycle2`](@ref).
 """
 function cycle4(task::I64)
-    # C-1: Create IterInfo struct
+    # C-2: Create IterInfo struct
     it = IterInfo()
 
-    # C00: Create Logger struct
+    # C-1: Create Logger struct
     lr = Logger(query_case())
 
     # C01: Execuate the DMFT engine
@@ -322,16 +322,16 @@ work properly.
 See also: [`cycle1`](@ref), [`cycle2`](@ref).
 """
 function cycle5()
-    # C-1: Create IterInfo struct
+    # C-2: Create IterInfo struct
     it = IterInfo()
 
-    # C00: Create Logger struct
+    # C-1: Create Logger struct
     lr = Logger(query_case())
 
-    # C01: Initialize the quantum impurity problems
+    # C00: Initialize the quantum impurity problems
     ai = GetImpurity()
 
-    # C02: Execuate the quantum impurity solvers
+    # C01: Execuate the quantum impurity solvers
     solver_run(it, lr, ai)
 
     # C98: Close Logger.log
