@@ -131,6 +131,11 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
                 sorry()
                 break
 
+            # K. Held scheme
+            @case "held"
+                sorry()
+                break
+            
             # Exact double counting scheme
             @case "exact"
                 sorry()
