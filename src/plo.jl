@@ -206,7 +206,7 @@ Until now, the `PG` array was only created in `vasp.jl/vaspio_projs()`.
 
 In this function, `corr`, `shell`,  and `Tr` which are members of
 `PrGroup` struct will be modified according to users' configuration,
-in other words, the `case.toml` file (`PIMP` dict -> `Mapping` struct).
+in other words, the `case.toml` file.
 =#
 
 """
