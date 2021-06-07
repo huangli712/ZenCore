@@ -591,13 +591,13 @@ function irio_projs(f::String, chipsi::Array{Array{C64,4},1})
                         for d = 1:ndim
                             z = chipsi[p][d, b, k, s]
                             @printf(fout, "%16.12f %16.12f\n", real(z), imag(z))
-                        end
-                    end
-                end
-            end
+                        end # END OF D LOOP
+                    end # END OF B LOOP
+                end # END OF K LOOP
+            end # END OF S LOOP
             println(fout)
-        end
-    end
+        end # END OF P LOOP
+    end # END OF IOSTREAM
 end
 
 """
