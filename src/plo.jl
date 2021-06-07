@@ -371,7 +371,7 @@ function plo_window(PG::Array{PrGroup,1}, enk::Array{F64,3})
 end
 
 #=
-Remarks:
+*Remarks*:
 
 PG[i].Tr must be a matrix. Its size must be (ndim, p2 - p1 + 1).
 =#
@@ -619,6 +619,13 @@ function get_win2(enk::Array{F64,3}, bwin::Tuple{F64,F64})
     return kwin
 end
 
+#=
+*Remarks*:
+
+We assume that the energy / band windows for all of the projectors are
+the same. In other words, `PW` only has an unique PrWindow object.
+=#
+
 """
     try_blk1(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1})
 
@@ -627,14 +634,6 @@ Try to orthogonalize and normalize the projectors as a whole.
 See also: [`PrWindow`](@ref), [`try_blk2`](@ref), [`plo_orthog`](@ref).
 """
 function try_blk1(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1})
-
-#
-# Remarks:
-#
-# We assume that the energy / band windows for all of the projectors are
-# the same. In other words, `PW` only has an unique PrWindow object.
-#
-
     # Extract some key parameters
     nkpt = size(chipsi[1], 3)
     nspin = size(chipsi[1], 4)
