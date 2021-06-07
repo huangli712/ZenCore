@@ -473,8 +473,8 @@ end
 
 Write the self-energy functions and the corresponding frequency mesh into
 the `dmft1/sigma.bare` file, which is key input for the dynamical mean-
-field theory engine. The working directory of this function is the root
-folder.
+field theory engine. The working directory of this function must be the
+root folder.
 
 See also: [`write_sigdc`](@ref).
 """
