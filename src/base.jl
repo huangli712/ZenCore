@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/06
+# Last modified: 2021/06/08
 #
 
 #
@@ -136,11 +136,11 @@ function cycle1()
     prompt("ZEN", "Initialization")
 
     # C01: Perform DFT calculation (for the first time)
-    #dft_run(it, lr)
+    dft_run(it, lr)
 
     # C02: Perform DFT calculation (for the second time)
     if get_d("loptim")
-        #dft_run(it, lr)
+        dft_run(it, lr)
     end
 
     # C03: To bridge the gap between DFT engine and DMFT engine by adaptor
