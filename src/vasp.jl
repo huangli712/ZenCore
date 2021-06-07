@@ -927,7 +927,7 @@ function vaspio_kmesh(f::String)
     # Open the iostream
     fin = open(joinpath(f, "IBZKPT"), "r")
 
-    # Extract number of k-points
+    # Extract number of 𝑘-points
     readline(fin)
     nkpt = parse(I64, readline(fin))
     readline(fin)
@@ -936,7 +936,7 @@ function vaspio_kmesh(f::String)
     kmesh = zeros(F64, nkpt, 3)
     weight = zeros(F64, nkpt)
 
-    # Read in the k-points and their weights
+    # Read in the 𝑘-points and their weights
     for i = 1:nkpt
         arr = parse.(F64, line_to_array(fin))
         kmesh[i, 1:3] = arr[1:3]
@@ -971,7 +971,7 @@ function vaspio_tetra(f::String)
     # Open the iostream
     fin = open(joinpath(f, "IBZKPT"), "r")
 
-    # Extract number of k-points
+    # Extract number of 𝑘-points
     readline(fin)
     nkpt = parse(I64, readline(fin))
     readline(fin)
