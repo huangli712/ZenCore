@@ -535,7 +535,8 @@ end
 
 Extract self-energy functions from the output files of various quantum
 impurity solvers. The data will be combined in the `sigma_gather()`
-function. Then they will be fed back to the DMFT engine.
+function. Then they will be fed back to the DMFT engine. The working
+directory of this function must be the root folder.
 
 See also: [`Impurity`](@ref), [`ctqmc_sigma`](@ref).
 """
@@ -589,9 +590,10 @@ end
     GetNimpx(imp::Impurity)
 
 Extract impurity occupancy from the output files of various quantum
-impurity solvers. Then the field `occup` in Impurity struct will be
-updated, which will then be used to update the double counting term
-for self-energy functions.
+impurity solvers. Then the field `occup` in the Impurity struct will
+be updated, which will then be used to evaluate the double counting
+term for self-energy functions. The working directory of this function
+must be the root folder.
 
 The argument `imp` will be modified in this function.
 
