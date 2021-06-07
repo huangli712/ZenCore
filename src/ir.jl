@@ -401,7 +401,7 @@ function irio_lattice(f::String, latt::Lattice)
         for i = 1:natom
             @printf(fout, "%16.12f %16.12f %16.12f\n", latt.coord[i, 1:3]...)
         end
-    end
+    end # END OF IOSTREAM
 end
 
 """
@@ -437,7 +437,7 @@ function irio_kmesh(f::String, kmesh::Array{F64,2}, weight::Array{F64,1})
             @printf(fout, "%16.12f %16.12f %16.12f", kmesh[k, 1:3]...)
             @printf(fout, "%8.2f\n", weight[k])
         end
-    end
+    end # END OF IOSTREAM
 end
 
 """
@@ -469,7 +469,7 @@ function irio_tetra(f::String, volt::F64, itet::Array{I64,2})
         for t = 1:ntet
             @printf(fout, "%8i %8i %8i %8i %8i\n", itet[t, :]...)
         end
-    end
+    end # END OF IOSTREAM
 end
 
 """
@@ -506,10 +506,10 @@ function irio_eigen(f::String, enk::Array{F64,3}, occupy::Array{F64,3})
             for k = 1:nkpt
                 for b = 1:nband
                     @printf(fout, "%16.12f %16.12f\n", enk[b, k, s], occupy[b, k, s])
-                end
-            end
-        end
-    end
+                end # END OF B LOOP
+            end # END OF K LOOP
+        end # END OF S LOOP
+    end # END OF IOSTREAM
 end
 
 """
@@ -545,11 +545,11 @@ function irio_projs(f::String, chipsi::Array{C64,4})
                     for p = 1:nproj
                         z = chipsi[p, b, k, s]
                         @printf(fout, "%16.12f %16.12f\n", real(z), imag(z))
-                    end
-                end
-            end
-        end
-    end
+                    end # END OF P LOOP
+                end # END OF B LOOP
+            end # END OF K LOOP
+        end # END OF S LOOP
+    end # END OF IOSTREAM
 end
 
 """
