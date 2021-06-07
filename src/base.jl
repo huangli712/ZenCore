@@ -521,10 +521,10 @@ function save_it(it::IterInfo, lr::Logger)
     if it.I₄ == 0
         print(lr.cycle, "#   #   #   #   μ₀        μ₁        ")
         for t = 1:nsite
-            print(lr.cycle, "dc$t       ")
+            print(lr.cycle, "dc$(subscript(t))       ")
         end
         for t = 1:nsite
-            print(lr.cycle, "nf$t       ")
+            print(lr.cycle, "nf$(subscript(t))       ")
         end
         println(lr.cycle, "et")
         # Write separator
