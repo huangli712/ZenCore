@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/04
+# Last modified: 2021/06/06
 #
 
 #
@@ -199,6 +199,16 @@ function plo_fermi(enk::Array{F64,3}, fermi::F64)
     @. enk = enk - fermi
 end
 
+#=
+*Remarks*:
+
+Until now, the `PG` array was only created in `vasp.jl/vaspio_projs()`.
+
+In this function, `corr`, `shell`,  and `Tr` which are members of
+`PrGroup` struct will be modified according to users' configuration,
+in other words, the `case.toml` file (`PIMP` dict -> `Mapping` struct).
+=#
+
 """
     plo_group(MAP::Mapping, PG::Array{PrGroup,1})
 
@@ -208,17 +218,6 @@ the `PrGroup` struct.
 See also: [`PIMP`](@ref), [`Mapping`](@ref), [`PrGroup`](@ref).
 """
 function plo_group(MAP::Mapping, PG::Array{PrGroup,1})
-
-#
-# Remarks:
-#
-# 1. Until now, the PG array was only created in vasp.jl/vaspio_projs().
-#
-# 2. In this function, `corr`, `shell`,  and `Tr` which are members of
-#    PrGroup struct will be modified according to users' configuration,
-#    in other words, the case.toml file (PIMP dict -> Mapping struct).
-#
-
     # Scan the groups of projectors, setup them one by one.
     for g in eachindex(PG)
         # Examine PrGroup, check number of projectors
