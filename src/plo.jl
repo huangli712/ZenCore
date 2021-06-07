@@ -425,6 +425,17 @@ function plo_rotate(PG::Array{PrGroup,1}, chipsi::Array{C64,4})
     return Rchipsi
 end
 
+#=
+*Theory*:
+
+The projector matrix (`chipsi`) is defined as follows:
+```math
+P^{\mathbf{R}}_{m\nu}(\mathbf{k})
+    =
+    \langle \chi^{\mathbf{R}}_{\mathbf{k}m} | \Psi_{\mathbf{k}\nu} \rangle,
+```
+=#
+
 """
     plo_filter(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1}}
 
