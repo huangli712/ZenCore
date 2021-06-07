@@ -170,11 +170,11 @@ function sigma_split(ai::Array{Impurity,1})
     # Print the log
     println("Sigma : Split")
 
-    # Split the hybridization functions
+    # Split the hybridization functions Δ
     fmesh, Delta = read_delta(ai)
     write_delta(fmesh, Delta, ai)
 
-    # Split the local impurity levels
+    # Split the local impurity levels εᵢ
     Eimpx = read_eimpx(ai)
     write_eimpx(Eimpx, ai)
 
@@ -185,8 +185,9 @@ end
 """
     sigma_gather(it::IterInfo, ai::Array{Impurity,1})
 
-Gather the self-energy functions (or similar local functions) from the
-`impurity.i` folder and then combine them into a single `sigma.bare` file.
+Gather the self-energy functions Σ (or similar local functions) from
+the all the `impurity.i` folders and then combine them into a single
+`sigma.bare` file.
 
 See also: [`sigma_split`](@ref).
 """
@@ -207,7 +208,6 @@ function sigma_gather(it::IterInfo, ai::Array{Impurity,1})
 
     # Go through each quantum impurity problems
     for t = 1:nsite
-
         # Extract the frequency mesh and self-energy function
         fmesh, sig_l = GetSigma(ai[t])
         println("  Read self-energy functions for impurity: $t")
@@ -223,7 +223,7 @@ function sigma_gather(it::IterInfo, ai::Array{Impurity,1})
 
     # Now the self-energy functions for all quantum impurity problems and
     # the corresponding frequency mesh are ready. We are going to write
-    # them into the `sigma.bare` file.
+    # them into the `dmft1/sigma.bare` file.
 
     # Write self-energy functions to sigma.bare
     write_sigma(fmesh, SA, ai)
