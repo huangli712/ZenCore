@@ -1026,17 +1026,19 @@ the second implementation looks quite graceful.
 
 *Previous Implementation*:
 
->     if nspin === 1 # for spin unpolarized case
->         enk[j, i, 1] = parse(F64, arr[2])
->         occupy[j, i, 1] = parse(F64, arr[3])
->     end
->
->     if nspin === 2 # for spin polarized case
->         enk[j, i, 1] = parse(F64, arr[2])
->         enk[j, i, 2] = parse(F64, arr[3])
->         occupy[j, i, 1] = parse(F64, arr[4])
->         occupy[j, i, 2] = parse(F64, arr[5])
->     end
+```julia
+if nspin === 1 # for spin unpolarized case
+    enk[j, i, 1] = parse(F64, arr[2])
+    occupy[j, i, 1] = parse(F64, arr[3])
+end
+
+if nspin === 2 # for spin polarized case
+    enk[j, i, 1] = parse(F64, arr[2])
+    enk[j, i, 2] = parse(F64, arr[3])
+    occupy[j, i, 1] = parse(F64, arr[4])
+    occupy[j, i, 2] = parse(F64, arr[5])
+end
+```
 =#
 
 """
