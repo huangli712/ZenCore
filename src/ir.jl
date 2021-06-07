@@ -620,7 +620,7 @@ function irio_fermi(f::String, fermi::F64)
 
         # Write the body
         # N/A
-    end
+    end # END OF IOSTREAM
 end
 
 """
