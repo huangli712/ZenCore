@@ -272,7 +272,15 @@ function cal_dc_amf(U::F64, J::F64, N::F64)
     sorry()
 end
 
+"""
+    cal_dc_held()
+
+Evaluate the double counting term by the K. Held scheme.
+
+See also: [`cal_dc_fll`](@ref), [`cal_dc_exact`](@ref).
+"""
 function cal_dc_held()
+    sorry()
 end
 
 """
