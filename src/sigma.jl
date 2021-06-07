@@ -394,7 +394,8 @@ end
 """
     read_sigdc(ai::Array{Impurity,1}, fsig::String = "dmft1/sigma.dc")
 
-Read the double counting terms from the `dmft1/sigma.dc` file.
+Read the double counting terms from the `dmft1/sigma.dc` file. The
+working directory of this function must be the root folder.
 
 See also: [`read_sigma`](@ref).
 """
