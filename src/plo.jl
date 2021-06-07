@@ -943,11 +943,11 @@ function calc_hamk(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1}, weight:
                 A = view(chipsi[p], :, :, k, s)
                 H[:, :, s] = H[:, :, s] + (A * Diagonal(eigs) * A') * wght
             end
-        end
+        end # END OF S LOOP
 
         # Push H into hamk to save it
         push!(hamk, H)
-    end
+    end # END OF P LOOP
 
     # Return the desired array
     return hamk
@@ -1015,8 +1015,8 @@ function calc_hamk(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1}, enk::Ar
             eigs = enk[ib1:ib2, k, s]
             A = view(M, :, 1:ib3)
             H[:, :, k, s] = H[:, :, k, s] + (A * Diagonal(eigs) * A')
-        end
-    end
+        end # END OF K LOOP
+    end # END OF S LOOP
 
     # Return the desired array
     return H
@@ -1083,7 +1083,7 @@ function calc_dos(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1}, itet::Ar
 
         # Push D into DA to save it
         push!(DA, D)
-    end
+    end # END OF P LOOP
 
     # Return the desired array
     return MA, DA
@@ -1114,7 +1114,7 @@ function view_ovlp(ovlp::Array{F64,3})
             foreach(x -> @printf("%12.7f", x), ovlp[p, :, s])
             println()
         end
-    end
+    end # END OF S LOOP
 end
 
 """
@@ -1142,8 +1142,8 @@ function view_ovlp(PG::Array{PrGroup,1}, ovlp::Array{Array{F64,3},1})
                 foreach(x -> @printf("%12.7f", x), ovlp[p][q, 1:ndim, s])
                 println()
             end
-        end
-    end
+        end # END OF S LOOP
+    end # END OF P LOOP
 end
 
 """
@@ -1167,7 +1167,7 @@ function view_dm(dm::Array{F64,3})
             foreach(x -> @printf("%12.7f", x), dm[p, :, s])
             println()
         end
-    end
+    end # END OF S LOOP
 end
 
 """
@@ -1195,8 +1195,8 @@ function view_dm(PG::Array{PrGroup,1}, dm::Array{Array{F64,3},1})
                 foreach(x -> @printf("%12.7f", x), dm[p][q, 1:ndim, s])
                 println()
             end
-        end
-    end
+        end # END OF S LOOP
+    end # END OF P LOOP
 end
 
 """
@@ -1234,8 +1234,8 @@ function view_hamk(PG::Array{PrGroup,1}, hamk::Array{Array{C64,3},1})
                 foreach(x -> @printf("%12.7f", x), imag(hamk[p][q, 1:ndim, s]))
                 println()
             end
-        end
-    end
+        end # END OF S LOOP
+    end # END OF P LOOP
 end
 
 #=
@@ -1277,9 +1277,9 @@ function view_hamk(hamk::Array{C64,4})
                         @printf(fout, "%16.12f %16.12f\n", real(z), imag(z))
                     end
                 end
-            end
-        end
-    end
+            end # END OF K LOOP
+        end # END OF S LOOP
+    end # END OF IOSTREAM
 end
 
 """
@@ -1315,6 +1315,6 @@ function view_dos(mesh::Array{Array{F64,1},1}, dos::Array{Array{F64,3},1})
                 end
                 println(fout)
             end
-        end
-    end
+        end # END OF IOSTREAM
+    end # END OF P LOOP
 end
