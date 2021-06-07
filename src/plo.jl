@@ -277,6 +277,16 @@ function plo_group(MAP::Mapping, PG::Array{PrGroup,1})
     end
 end
 
+#=
+*Remarks*:
+
+Here, `window` means energy window or band window. When nwin is 1, it
+means that all `PrGroup` share the same window. When nwin is equal to
+length(PG), it means that each `PrGroup` should have its own window.
+
+If nwin is neither `1` nor `length(PG)`, there must be something wrong.
+=#
+
 """
     plo_window(PG::Array{PrGroup,1}, enk::Array{F64,3})
 
@@ -285,17 +295,6 @@ Calibrate the band window to filter the Kohn-Sham eigenvalues.
 See also: [`PrWindow`](@ref), [`get_win1`](@ref), [`get_win2`](@ref).
 """
 function plo_window(PG::Array{PrGroup,1}, enk::Array{F64,3})
-
-#
-# Remarks:
-#
-# Here, `window` means energy window or band window. When nwin is 1, it
-# means that all `PrGroup` share the same window. When nwin is equal to
-# length(PG), it means that each `PrGroup` should have its own window.
-#
-# If nwin is neither 1 nor length(PG), there must be something wrong.
-#
-
     # Preprocess the input. Get how many windows there are.
     window = get_d("window")
     nwin = convert(I64, length(window) / 2)
