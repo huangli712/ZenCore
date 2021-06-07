@@ -390,16 +390,16 @@ it in the REPL mode to see whether the self-energy engine works properly.
 See also: [`cycle1`](@ref), [`cycle2`](@ref).
 """
 function cycle7(task::String = "reset")
-    # C-1: Create IterInfo struct
+    # C-2: Create IterInfo struct
     it = IterInfo()
 
-    # C00: Create Logger struct
+    # C-1: Create Logger struct
     lr = Logger(query_case())
 
-    # C01: Initialize the quantum impurity problems
+    # C00: Initialize the quantum impurity problems
     ai = GetImpurity()
 
-    # C02: Execute the Kohn-Sham adaptor
+    # C01: Execute the Kohn-Sham adaptor
     sigma_core(it, lr, ai, task)
 
     # C98: Close Logger.log
