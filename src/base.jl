@@ -30,7 +30,8 @@ end
 """
     go()
 
-Dispatcher for DFT + DMFT calculations.
+Dispatcher for DFT + DMFT calculations. Note that it can not call the
+`cycle3()`-`cycle8()` functions.
 
 See also: [`ready`](@ref).
 """
@@ -83,10 +84,10 @@ is enough.
 #=
 *Remarks 2*:
 
-We want better optimal projectors.
+We want better *optimal projectors*.
 
-In the previous DFT run, initial fermi level = 0 -> wrong energy
-window -> wrong optimial projectors. But at this point, the fermi
+In the previous DFT run, `initial` fermi level = 0 -> `wrong` energy
+window -> `wrong` optimial projectors. But at this point, the fermi
 level is updated, so we have to generate the optimal projectors
 again within this new window by doing addition DFT calculation.
 =#
@@ -94,7 +95,7 @@ again within this new window by doing addition DFT calculation.
 #=
 *Remarks 3*:
 
-The key Kohn-Sham data inclue lattice structures, k-mesh and its weights,
+The key Kohn-Sham data inclue lattice structures, 𝑘-mesh and its weights,
 tetrahedra data, eigenvalues, raw projectors, and fermi level, etc. At
 first, the adaptor will read in these data from the output files of DFT
 engine. And then it will process the raw projectors (such as parsing,
@@ -120,36 +121,36 @@ only achieved at the DMFT level.
 See also: [`cycle2`](@ref), [`go`](@ref).
 """
 function cycle1()
-    # C-1: Create IterInfo struct
+    # C-2: Create IterInfo struct
     it = IterInfo()
 
-    # C00: Create Logger struct
+    # C-1: Create Logger struct
     lr = Logger(query_case())
 
+    # C00: Initialize the quantum impurity problems
+    ai = GetImpurity()
+
 #
-# Initialization (C01-C05)
+# Initialization (C01-C04)
 #
     prompt("ZEN", "Initialization")
 
-    # C01: Initialize the quantum impurity problems
-    ai = GetImpurity()
-
-    # C02: Perform DFT calculation (for the first time)
+    # C01: Perform DFT calculation (for the first time)
     dft_run(it, lr)
 
-    # C03: Perform DFT calculation (for the second time)
+    # C02: Perform DFT calculation (for the second time)
     if get_d("loptim")
         dft_run(it, lr)
     end
 
-    # C04: To bridge the gap between DFT engine and DMFT engine by adaptor
+    # C03: To bridge the gap between DFT engine and DMFT engine by adaptor
     adaptor_run(it, lr, ai)
 
-    # C05: Prepare default self-energy functions
+    # C04: Prepare default self-energy functions
     sigma_core(it, lr, ai, "reset")
 
 #
-# DFT + DMFT Iterations (C06-C12)
+# DFT + DMFT Iterations (C05-C12)
 #
     prompt("ZEN", "Iterations")
     save_it(it, lr)
@@ -163,23 +164,25 @@ function cycle1()
         # Update IterInfo struct
         incr_it(it)
 
-        # C06: Tackle with the double counting term
+        # C05: Tackle with the double counting term
         sigma_core(it, lr, ai, "dcount")
 
-        # C07: Perform DMFT calculation with `task` = 1
+        # C06: Perform DMFT calculation with `task` = 1
         dmft_run(it, lr, 1)
 
-        # C08: Mix hybridization functions and local impurity levels
+        # C07: Mix hybridization functions
         mixer_core(it, lr, ai, "delta")
+
+        # C08: Mix local impurity levels
         mixer_core(it, lr, ai, "eimpx")
 
-        # C09: Split and distribute the data (hybridization functions)
+        # C09: Split and distribute hybridization functions
         sigma_core(it, lr, ai, "split")
 
         # C10: Solve the quantum impurity problems
         solver_run(it, lr, ai)
 
-        # C11: Gather and combine the data (impurity self-functions)
+        # C11: Gather and combine the impurity self-functions
         sigma_core(it, lr, ai, "gather")
 
         # C12: Mixer for self-energy functions
