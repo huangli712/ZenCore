@@ -271,7 +271,7 @@ function irio_maps(f::String, MAP::Mapping)
         foreach(x -> @printf(fout, "%8i", x), MAP.w_imp)
         println(fout)
         println(fout)
-    end
+    end # END OF IOSTREAM
 end
 
 """
@@ -303,7 +303,7 @@ function irio_groups(f::String, PG::Array{PrGroup,1})
             println(fout, "ndim  -> $(size(PG[p].Tr,1))")
             println(fout)
         end
-    end
+    end # END OF IOSTREAM
 end
 
 """
