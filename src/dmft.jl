@@ -486,7 +486,8 @@ end
 
 Split hybridization functions and the corresponding frequency mesh into
 the `impurity.i/dmft.hyb_l` file, which is essential for the quantum
-impurity solver.
+impurity solver. The working directory of this function must be the
+root folder.
 
 See also: [`Impurity`](@ref), [`read_delta`](@ref), [`write_eimpx`](@ref).
 """
@@ -543,7 +544,8 @@ end
     write_delta(fmesh::Array{F64,1}, Delta::Array{C64,5}, ai::Array{Impurity,1}, fhyb::String)
 
 Write hybridization functions into the `fhyb` file. This function is usually
-called by `mixer_delta()` to update the `dmft1/dmft.hyb_l` file.
+called by `mixer_delta()` to update the `dmft1/dmft.hyb_l` file. The working
+directory of this function must be the root folder.
 
 See also: [`Impurity`](@ref), [`read_delta`](@ref), [`write_eimpx`](@ref).
 """
@@ -595,7 +597,6 @@ function write_delta(fmesh::Array{F64,1}, Delta::Array{C64,5}, ai::Array{Impurit
     # Print message to the screen
     println("  Write hybridization functions into: $fhyb")
 end
-
 
 #
 # Service Functions: For I/O Operations
