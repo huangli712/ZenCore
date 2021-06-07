@@ -356,16 +356,16 @@ it in the REPL mode to see whether the Kohn-Sham adaptor works properly.
 See also: [`cycle1`](@ref), [`cycle2`](@ref).
 """
 function cycle6()
-    # C-1: Create IterInfo struct
+    # C-2: Create IterInfo struct
     it = IterInfo()
 
-    # C00: Create Logger struct
+    # C-1: Create Logger struct
     lr = Logger(query_case())
 
-    # C01: Initialize the quantum impurity problems
+    # C00: Initialize the quantum impurity problems
     ai = GetImpurity()
 
-    # C02: Execute the Kohn-Sham adaptor
+    # C01: Execute the Kohn-Sham adaptor
     adaptor_run(it, lr, ai)
 
     # C98: Close Logger.log
