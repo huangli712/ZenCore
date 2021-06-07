@@ -727,18 +727,25 @@ end
 #=
 *Theory*:
 
-First, we try to calcuate the overlap matrix and its inverse square root:
+First, we try to calcuate the overlap matrix:
 ```math
 \mathcal{O}_{mm'}(\mathbf{k})
     = 
     \langle \chi_{\mathbf{k}m} | \chi_{\mathbf{k}m'} \rangle 
     = 
-    \sum_{\nu \in \mathcal{W}} P_{m\nu}(\mathbf{k}) P^{*}_{\nu m'}(\mathbf{k})
+    \sum_{\nu \in \mathcal{W}} P_{m\nu}(\mathbf{k}) P^{*}_{\nu m'}(\mathbf{k}),
 ```
+and its inverse square root:
 ```math
-\mathcal{S}_{mm'}(\mathbf{k}) 
+\mathcal{S}_{mm'}(\mathbf{k})
     =  
-    \left\{ \mathcal{O}(\mathbf{k})^{-\frac{1}{2}} \right\}_{mm'}
+    \left\{ \mathcal{O}(\mathbf{k})^{-\frac{1}{2}} \right\}_{mm'}.
+```
+Then the renormalized projector reads:
+```math
+\bar{P}_{m\nu}(\mathbf{k}) 
+    =
+    \sum_{m'} \mathcal{S}_{mm'} (\mathbf{k}) P_{m'\nu}(\mathbf{k}).
 ```
 =#
 
