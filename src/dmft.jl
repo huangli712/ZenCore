@@ -268,8 +268,9 @@ end
 """
     read_delta(ai::Array{Impurity,1}, fhyb::String = "dmft1/dmft.hyb_l")
 
-Read the dmft1/dmft.hyb_l file, extract the hybridization functions and
-the corresponding frequency mesh.
+Read the dmft1/dmft.hyb_l file, extract the hybridization functions Δ
+and the corresponding frequency mesh ω. The working directory of this
+function must be the root folder.
 
 See also: [`sigma_split`](@ref), [`read_eimpx`](@ref).
 """
