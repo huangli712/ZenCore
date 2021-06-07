@@ -432,8 +432,13 @@ The projector matrix (`chipsi`) is defined as follows:
 ```math
 P^{\mathbf{R}}_{m\nu}(\mathbf{k})
     =
-    \langle \chi^{\mathbf{R}}_{\mathbf{k}m} | \Psi_{\mathbf{k}\nu} \rangle,
+    \langle \chi^{\mathbf{R}}_{\mathbf{k}m} | \Psi_{\mathbf{k}\nu} \rangle.
 ```
+Here, ``\mathbf{R}`` denotes the correlated atom within the primitive
+unit cell, around which the local orbital ``|\chi^{\mathbf{R}}_{m}\rangle``
+is centered, and ``m = 1, \cdots, M`` is an orbital index within the
+correlated subset. ``|\Psi_{\mathcal{k}\nu}\rangle`` denotes the Bloch
+wave functions, and ``\nu`` is an band index.
 =#
 
 """
