@@ -240,6 +240,16 @@ end
 # Service Functions: For Double Counting Terms
 #
 
+#=
+*Theory*:
+
+```math
+\Sigma^{\text{FLL}}_{\text{dc}}
+    =
+    U\left(N - \frac{1}{2}\right) - \frac{J}{2} (N - 1).
+```
+=#
+
 """
     cal_dc_fll(U::F64, J::F64, N::F64)
 
