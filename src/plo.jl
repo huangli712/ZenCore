@@ -612,7 +612,7 @@ function get_win2(enk::Array{F64,3}, bwin::Tuple{F64,F64})
             # upper boundaries, respectively.
             kwin[k, s, 1] = ib1
             kwin[k, s, 2] = ib2
-        end
+        end # END OF K LOOP
     end # END OF S LOOP
 
     # Return the desired array
@@ -682,8 +682,8 @@ function try_blk1(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1})
             for p in eachindex(PW)
                 chipsi[p][:, 1:ib3, k, s] = M[block[p][1]:block[p][2], 1:ib3]
             end
-        end
-    end
+        end # END OF K LOOP
+    end # END OF S LOOP
 end
 
 """
@@ -719,9 +719,9 @@ function try_blk2(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1})
 
                 # Orthogonalize it (chipsi[p] is update at the same time)
                 try_diag(M)
-            end
-        end
-    end
+            end # END OF K LOOP
+        end # END OF S LOOP
+    end # END OF P LOOP
 end
 
 #=
