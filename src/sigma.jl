@@ -306,7 +306,8 @@ end
 """
     read_sigma(ai::Array{Impurity,1}, fsig::String = "dmft1/sigma.bare")
 
-Read the self-energy functions from the `dmft1/sigma.bare` file.
+Read the self-energy functions from the `dmft1/sigma.bare` file. The
+working directory of this function must be the root folder.
 
 See also: [`read_sigdc`](@ref).
 """
@@ -327,8 +328,7 @@ function read_sigma(ai::Array{Impurity,1}, fsig::String = "dmft1/sigma.bare")
 
         # Get the dimensional parameters
         #
-        # axis  = parse(I64, line_to_array(fin)[3])
-        # beta  = parse(F64, line_to_array(fin)[3])
+        # Skip two lines
         readline(fin)
         readline(fin)
         #
