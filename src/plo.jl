@@ -953,6 +953,13 @@ function calc_hamk(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1}, weight:
     return hamk
 end
 
+#=
+*Remarks*:
+
+We assume that the energy / band windows for all of the projectors are
+the same. In other words, `PW` only has an unique PrWindow object.
+=#
+
 """
     calc_hamk(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1}, enk::Array{F64,3})
 
@@ -961,14 +968,6 @@ Try to build the full hamiltonian. For normalized projectors only.
 See also: [`view_hamk`](@ref), [`PrWindow`](@ref).
 """
 function calc_hamk(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1}, enk::Array{F64,3})
-
-#
-# Remarks:
-#
-# We assume that the energy / band windows for all of the projectors are
-# the same. In other words, `PW` only has an unique PrWindow object.
-#
-
     # Extract some key parameters
     nkpt = size(chipsi[1], 3)
     nspin = size(chipsi[1], 4)
@@ -1239,6 +1238,14 @@ function view_hamk(PG::Array{PrGroup,1}, hamk::Array{Array{C64,3},1})
     end
 end
 
+#=
+*Remarks*:
+
+The data file `hamk.chk` is used to debug. It should not be read by the
+DMFT engine. That is the reason why we name this function as `view_hamk`
+and put it in plo.jl.
+=#
+
 """
     view_hamk(hamk::Array{C64,4})
 
@@ -1247,15 +1254,6 @@ Output the full hamiltonian to `hamk.chk`. For normalized projectors only.
 See also: [`calc_hamk`](@ref).
 """
 function view_hamk(hamk::Array{C64,4})
-
-#
-# Remarks:
-#
-# The data file `hamk.chk` is used to debug. It should not be read by the
-# DMFT engine. That is the reason why we name this function as `view_hamk`
-# and put it in plo.jl.
-#
-
     # Extract some key parameters
     nproj, _, nkpt, nspin = size(hamk)
 
