@@ -670,15 +670,14 @@ function GetSymmetry(Eimpx::Array{C64,3})
 
     # Go through each spin orientation
     for s = 1:nspin
-
         # Get the unique energy levels
         E = unique(eimp[:,s])
 
-        # Scan all the impurity levels, find out its corresponding value in E
+        # Scan all the impurity levels. Try to find out its corresponding
+        # value in `E`.
         for b = 1:nband
             symm[b,s] = findfirst(isequal(eimp[b]), E)
         end
-
     end # END OF S LOOP
 
     # Return the desired array
