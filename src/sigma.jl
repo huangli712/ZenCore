@@ -473,7 +473,8 @@ end
 
 Write the self-energy functions and the corresponding frequency mesh into
 the `dmft1/sigma.bare` file, which is key input for the dynamical mean-
-field theory engine.
+field theory engine. The working directory of this function is the root
+folder.
 
 See also: [`write_sigdc`](@ref).
 """
@@ -532,7 +533,8 @@ end
     write_sigdc(DCA::Array{Array{F64,3},1}, ai::Array{Impurity,1})
 
 Write the double counting terms into the `dmft1/sigma.dc` file, which is
-the key input for the dynamical mean-field theory engine.
+the key input for the dynamical mean-field theory engine. The working
+directory of this function must be the root folder.
 
 See also: [`write_sigma`](@ref).
 """
