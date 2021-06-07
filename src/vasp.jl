@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/02
+# Last modified: 2021/06/06
 #
 
 #
@@ -55,7 +55,7 @@ function vasp_adaptor(D::Dict{Symbol,Any})
     end
 
     # V08: Print the footer for a better visualization
-    println("The Kohn-Sham dataset is extracted the adaptor")
+    println("The Kohn-Sham dataset is extracted by the adaptor")
     println()
 end
 
