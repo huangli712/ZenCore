@@ -799,7 +799,7 @@ function calc_ovlp(chipsi::Array{C64,4}, weight::Array{F64,1})
             A = view(chipsi, :, :, k, s)
             ovlp[:, :, s] = ovlp[:, :, s] + real(A * A') * wght
         end
-    end
+    end # END OF S LOOP
 
     # Return the desired array
     return ovlp
@@ -832,11 +832,11 @@ function calc_ovlp(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1}, weight:
                 A = view(chipsi[p], :, :, k, s)
                 V[:, :, s] = V[:, :, s] + real(A * A') * wght
             end
-        end
+        end # END OF S LOOP
 
         # Push V into ovlp to save it
         push!(ovlp, V)
-    end
+    end # END OF P LOOP
 
     # Return the desired array
     return ovlp
@@ -868,7 +868,7 @@ function calc_dm(chipsi::Array{C64,4}, weight::Array{F64,1}, occupy::Array{F64,3
             A = view(chipsi, :, :, k, s)
             dm[:, :, s] = dm[:, :, s] + real(A * Diagonal(occs) * A') * wght
         end
-    end
+    end # END OF S LOOP
 
     # Return the desired array
     return dm
@@ -905,11 +905,11 @@ function calc_dm(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1}, weight::A
                 A = view(chipsi[p], :, :, k, s)
                 M[:, :, s] = M[:, :, s] + real(A * Diagonal(occs) * A') * wght
             end
-        end
+        end # END OF S LOOP
 
         # Push M into dm to save it
         push!(dm, M)
-    end
+    end # END OF P LOOP
 
     # Return the desired array
     return dm
