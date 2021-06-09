@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/05
+# Last modified: 2021/06/09
 #
 
 """
@@ -373,6 +373,7 @@ export mixer_core
 # vaspio_projs   -> Read projectors.
 # vaspio_fermi   -> Read fermi level.
 # vaspio_charge  -> Read charge density.
+# vaspio_lock    -> Manipulate the vasp.lock file.
 #
 include("vasp.jl")
 #
@@ -393,6 +394,7 @@ export vaspio_eigen
 export vaspio_projs
 export vaspio_fermi
 export vaspio_charge
+export vaspio_lock
 
 #
 # plo.jl
