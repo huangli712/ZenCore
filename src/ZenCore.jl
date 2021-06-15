@@ -509,9 +509,9 @@ export irio_charge
 # dmft_exec   -> Execute the DMFT engine.
 # dmft_save   -> Backup output files for the DMFT engine.
 # read_fermi  -> Read dmft1/dmft.fermi.
-# read_delta  -> Read dmft1/dmft.hyb_l or impurity.i/dmft.hyb_l.
+# read_delta  -> Read dmft1/dmft.delta or impurity.i/dmft.delta.
 # read_eimpx  -> Read dmft1/dmft.eimpx or impurity.i/dmft.eimpx.
-# write_delta -> Write dmft1/dmft.hyb_l or impurity.i/dmft.hyb_l.
+# write_delta -> Write dmft1/dmft.delta or impurity.i/dmft.delta.
 # write_eimpx -> Write dmft1/dmft.eimpx or impurity.i/dmft.eimpx.
 #
 include("dmft.jl")
