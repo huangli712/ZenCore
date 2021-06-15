@@ -1150,9 +1150,9 @@ function vaspio_eigen(f::String)
                     for p = 1:nproj
                         readline(fin)
                     end
-                end
-            end
-        end
+                end # END OF B LOOP
+            end # END OF K LOOP
+        end # END OF S LOOP
 
         # Close the iostream
         close(fin)
