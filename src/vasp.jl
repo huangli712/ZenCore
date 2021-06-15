@@ -142,6 +142,10 @@ function vasp_exec(it::IterInfo)
     # the execution.
     schedule(t)
 
+    if it.sc == 2
+        return
+    end
+
     # Analyze the vasp.out file during the calculation
     #
     # `c` is a time counter
