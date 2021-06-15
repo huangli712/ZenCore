@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/10
+# Last modified: 2021/06/15
 #
 
 #
@@ -76,10 +76,10 @@ function vasp_init(it::IterInfo)
     # How about INCAR
     if it.I₃ == 0
         # Generate INCAR automatically
-        vasp_incar(it.μ₀)
+        vasp_incar(it.μ₀, it.sc)
     else
         # Maybe we need to update INCAR file here
-        vasp_incar(it.μ₁)
+        vasp_incar(it.μ₁, it.sc)
     end
     #
     # Well, perhaps we need to generate the KPOINTS file by ourselves.
@@ -233,14 +233,14 @@ been tested for `magnetically ordered materials`.
 =#
 
 """
-    vasp_incar(fermi::F64)
+    vasp_incar(fermi::F64, sc_mode::I64)
 
 Generate an `INCAR` file. It will be used only when the DFT engine
 is vasp.
 
 See also: [`vasp_kpoints`](@ref).
 """
-function vasp_incar(fermi::F64)
+function vasp_incar(fermi::F64, sc_mode::I64)
     # Open the iostream
     ios = open("INCAR", "w")
 
@@ -363,6 +363,18 @@ function vasp_incar(fermi::F64)
     # For number of bands
     nbands = vaspio_nband(pwd())
     write(ios, "NBANDS   = $nbands \n")
+
+    # Special treatment for sc_mode == 2
+    #
+    # We would like to activate ICHARG = 5 to perform charge fully
+    # self-consistent DFT + DMFT calculations.
+    if sc_mode == 2
+        write(ios, "\n")
+        write(ios, "ICHARG   = 5 \n")
+        write(ios, "NELM     = 1000 \n")
+        write(ios, "NELMIN   = 1000 \n")
+        write(ios, "IMIX     = 0 \n")
+    end
 
     # Close the iostream
     close(ios)
