@@ -367,14 +367,15 @@ function IterInfo()
     @assert nsite ≥ 1
 
     # Initialize key fields
-    I = 0
-    μ = 0.0
+    I  = 0
+    sc = 1
+    μ  = 0.0
     dc = fill(0.0, nsite)
     nf = fill(0.0, nsite)
     et = 0.0
 
     # Call the default constructor
-    IterInfo(I, I, I, I, μ, μ, dc, nf, et)
+    IterInfo(I, I, I, I, sc, μ, μ, μ, dc, nf, et)
 end
 
 """
