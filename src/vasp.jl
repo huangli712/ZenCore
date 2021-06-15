@@ -1121,6 +1121,16 @@ function vaspio_eigen(f::String)
         # Open the iostream
         fin = open(joinpath(f, "LOCPROJ"), "r")
 
+        # Extract number of spins (nspin), number of k-points (nkpt),
+        # number of bands (nband), and number of projectors (nproj).
+        nspin, nkpt, nband, nproj = parse.(I64, line_to_array(fin)[1:4])
+        @assert nspin === 1 || nspin === 2
+
+        @show nspin, nkpt, nband, nproj
+        for i = 1:nproj
+            readline(fin)
+        end
+
         # Close the iostream
         close(fin)
     end
