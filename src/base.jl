@@ -259,6 +259,8 @@ function cycle2()
 
         adaptor_run(it, lr, ai)
 
+        # C05: Tackle with the double counting term
+        sigma_core(it, lr, ai, "dcount")
     end
 
     # C02: Perform DFT calculation (for the second time)
