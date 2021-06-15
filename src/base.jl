@@ -248,6 +248,15 @@ function cycle2()
 
     dft_run(it, lr)
 
+    for iter = 1:get_m("niter")
+        # Print the log
+        prompt("ZEN", "Cycle $iter")
+        prompt(lr.log, "")
+        prompt(lr.log, "< dft_dmft_cycle >")
+    
+        
+    end
+
     # C02: Perform DFT calculation (for the second time)
     #if get_d("loptim")
     #    dft_run(it, lr)
