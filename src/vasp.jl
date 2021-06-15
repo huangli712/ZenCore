@@ -143,6 +143,7 @@ function vasp_exec(it::IterInfo)
     schedule(t)
 
     if it.sc == 2
+        println("return from vasp_exec()")
         return
     end
 
@@ -204,6 +205,11 @@ in `IterInfo` struct is also updated (`IterInfo.μ₀`).
 See also: [`vasp_init`](@ref), [`vasp_exec`](@ref).
 """
 function vasp_save(it::IterInfo)
+    if it.sc == 2
+        println("hehehe")
+        return
+    end
+
     # Store the data files
     #
     # Create list of files
