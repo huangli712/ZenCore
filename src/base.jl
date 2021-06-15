@@ -254,7 +254,7 @@ function cycle2()
         prompt(lr.log, "")
         prompt(lr.log, "< dft_dmft_cycle >")
     
-
+        pending(2)
     end
 
     # C02: Perform DFT calculation (for the second time)
@@ -513,6 +513,8 @@ function pending(second::I64)
 
     while true
         sleep(second)
+
+        println("Pending for DFT engine")
 
         vasp_lock() && break
     end
