@@ -247,6 +247,7 @@ function cycle2()
 
     dft_run(it, lr)
 
+    println("here")
 
     # C02: Perform DFT calculation (for the second time)
     #if get_d("loptim")
