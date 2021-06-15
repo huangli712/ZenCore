@@ -1145,7 +1145,8 @@ function vaspio_eigen(f::String)
                     @assert _k == k
                     @assert _b == b
 
-
+                    enk[b,k,s] = parse(F64, arr[5])
+                    occupy[b,k,s] = parse(F64,arr[6])
                     for p = 1:nproj
                         readline(fin)
                     end
