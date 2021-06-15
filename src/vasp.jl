@@ -1069,20 +1069,26 @@ end
 Reading vasp's `EIGENVAL` file, return energy band information. Here `f`
 means only the directory that contains `EIGENVAL`.
 
+Sometimes the `EIGENVAL` file does not contain any useful data, then we
+turn to the `LOCPROJ` file to obtain the energy band information. 
+
 See also: [`irio_eigen`](@ref).
 """
 function vaspio_eigen(f::String)
-    # Open the iostream
-    fin = open(joinpath(f, "EIGENVAL"), "r")
+    lines = readlines(joinpath(f, "EIGENVAL"))
 
-    # Determine number of spins
-    nspin = parse(I64, line_to_array(fin)[end])
-    @assert nspin === 1 || nspin === 2
+    if lines ≥ 10
+        # Open the iostream
+        fin = open(joinpath(f, "EIGENVAL"), "r")
 
-    # Skip for lines
-    for i = 1:4
-        readline(fin)
-    end
+        # Determine number of spins
+        nspin = parse(I64, line_to_array(fin)[end])
+        @assert nspin === 1 || nspin === 2
+
+        # Skip for lines
+        for i = 1:4
+            readline(fin)
+        end
 
     # Read in some key parameters: nelect, nkpt, nbands
     _, nkpt, nband = parse.(I64, line_to_array(fin))
@@ -1109,6 +1115,8 @@ function vaspio_eigen(f::String)
 
     # return the desired arrays
     return enk, occupy
+else
+end
 end
 
 """

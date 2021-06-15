@@ -514,6 +514,8 @@ end
 function pending(second::I64)
     @assert second > 0
 
+    sleep(second)
+
     while true
         sleep(second)
 
