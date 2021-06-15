@@ -259,29 +259,36 @@ function cycle2()
 
         adaptor_run(it, lr, ai)
 
-        # C05: Tackle with the double counting term
-        sigma_core(it, lr, ai, "dcount")
+        it.I₃ = it.I₃ + 1
 
-        # C06: Perform DMFT calculation with `task` = 1
-        dmft_run(it, lr, 1)
+        for iter1 = 1:2
+            it.I₁ = it.I₁ + 1
+            it.I₄ = it.I₄ + 1
 
-        # C07: Mix the hybridization functions
-        mixer_core(it, lr, ai, "delta")
+            # C05: Tackle with the double counting term
+            sigma_core(it, lr, ai, "dcount")
 
-        # C08: Mix the local impurity levels
-        mixer_core(it, lr, ai, "eimpx")
+            # C06: Perform DMFT calculation with `task` = 1
+            dmft_run(it, lr, 1)
 
-        # C09: Split and distribute the hybridization functions
-        sigma_core(it, lr, ai, "split")
+            # C07: Mix the hybridization functions
+            mixer_core(it, lr, ai, "delta")
 
-        # C10: Solve the quantum impurity problems
-        solver_run(it, lr, ai)
+            # C08: Mix the local impurity levels
+            mixer_core(it, lr, ai, "eimpx")
 
-        # C11: Gather and combine the impurity self-functions
-        sigma_core(it, lr, ai, "gather")
+            # C09: Split and distribute the hybridization functions
+            sigma_core(it, lr, ai, "split")
 
-        # C12: Mix the impurity self-energy functions
-        mixer_core(it, lr, ai, "sigma")
+            # C10: Solve the quantum impurity problems
+            solver_run(it, lr, ai)
+
+            # C11: Gather and combine the impurity self-functions
+            sigma_core(it, lr, ai, "gather")
+
+            # C12: Mix the impurity self-energy functions
+            mixer_core(it, lr, ai, "sigma")
+        end
     end
 
     # C02: Perform DFT calculation (for the second time)
