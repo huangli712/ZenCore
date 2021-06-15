@@ -287,7 +287,12 @@ function cycle2()
 
             # C12: Mix the impurity self-energy functions
             mixer_core(it, lr, ai, "sigma")
+
+            save_it(it, lr)
         end
+        it.I₁ = 0
+
+        
     end
 end
 
