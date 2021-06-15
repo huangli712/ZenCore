@@ -1277,4 +1277,9 @@ See also: [`irio_charge`](@ref).
 """
 vaspio_charge() = vaspio_charge(pwd())
 
-function vaspio_lock() end
+"""
+    vaspio_lock()
+"""
+function vaspio_lock()
+    return isfile("dft/vasp.lock")
+end
