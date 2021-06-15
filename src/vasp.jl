@@ -1126,9 +1126,20 @@ function vaspio_eigen(f::String)
         nspin, nkpt, nband, nproj = parse.(I64, line_to_array(fin)[1:4])
         @assert nspin === 1 || nspin === 2
 
-        @show nspin, nkpt, nband, nproj
+        #@show nspin, nkpt, nband, nproj
         for i = 1:nproj
             readline(fin)
+        end
+
+        # Create arrays
+        enk = zeros(F64, nband, nkpt, nspin)
+        occupy = zeros(F64, nband, nkpt, nspin)
+
+        for s = 1:nspin
+            for k = 1:nkpt
+                for b = 1:nband
+                end
+            end
         end
 
         # Close the iostream
