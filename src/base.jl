@@ -255,7 +255,7 @@ function cycle2()
         prompt(lr.log, "")
         prompt(lr.log, "< dft_dmft_cycle >")
     
-        pending(2)
+        suspend(2)
 
         adaptor_run(it, lr, ai)
 
@@ -292,7 +292,7 @@ function cycle2()
         end
         it.I₁ = 0
 
-        
+
     end
 end
 
@@ -536,9 +536,9 @@ function monitor(force_exit::Bool = false)
 end
 
 """
-    pending(second::I64)
+    suspend(second::I64)
 """
-function pending(second::I64)
+function suspend(second::I64)
     @assert second > 0
 
     sleep(second)

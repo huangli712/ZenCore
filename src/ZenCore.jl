@@ -310,7 +310,7 @@ export str_s
 # cycle7      -> Execute self-energy engine only (for testing purpose).
 # cycle8      -> Execute mixer engine only (for testing purpose).
 # monitor     -> Monitor the DFT + DMFT calculations.
-# pending     -> Wait for the DFT engine.
+# suspend     -> Wait for the DFT engine.
 # incr_it     -> Increase the counters in the IterInfo struct.
 # save_it     -> Record the iteration information.
 # make_trees  -> Make working directories.
@@ -336,7 +336,7 @@ export cycle6
 export cycle7
 export cycle8
 export monitor
-export pending
+export suspend
 export incr_it
 export save_it
 export make_trees
