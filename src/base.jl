@@ -516,7 +516,7 @@ function pending(second::I64)
 
         println("Pending for DFT engine")
 
-        vasp_lock() && break
+        !vaspio_lock() && break
     end
 end
 
