@@ -261,6 +261,9 @@ function cycle2()
 
         # C05: Tackle with the double counting term
         sigma_core(it, lr, ai, "dcount")
+
+        # C06: Perform DMFT calculation with `task` = 1
+        dmft_run(it, lr, 1)
     end
 
     # C02: Perform DFT calculation (for the second time)
