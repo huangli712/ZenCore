@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/08
+# Last modified: 2021/06/15
 #
 
 """
@@ -55,7 +55,7 @@ end
     mixer_delta(it::IterInfo, ai::Array{Impurity,1})
 
 Try to mix the hybridization functions Δ and then use the mixed values
-to update the `dmft1/dmft.hyb_l` file.
+to update the `dmft1/dmft.delta` file.
 
 See also: [`mixer_core`](@ref).
 """
@@ -74,8 +74,8 @@ function mixer_delta(it::IterInfo, ai::Array{Impurity,1})
     @assert prev > 0
 
     # Determine filenames for hybridization functions
-    fcurr = "dmft1/dmft.hyb_l.$cycle.$curr"
-    fprev = "dmft1/dmft.hyb_l.$cycle.$prev"
+    fcurr = "dmft1/dmft.delta.$cycle.$curr"
+    fprev = "dmft1/dmft.delta.$cycle.$prev"
 
     # Check whether these files are available
     @assert isfile(fcurr) && isfile(fprev)
@@ -88,8 +88,8 @@ function mixer_delta(it::IterInfo, ai::Array{Impurity,1})
     # Mix the hybridization functions
     Dnew = Dcurr * get_m("mixer") + Dprev * (1.0 - get_m("mixer"))
 
-    # Write the new hybridization functions into `dmft1/dmft.hyb_l`
-    write_delta(fcurr, Dnew, ai, "dmft1/dmft.hyb_l")
+    # Write the new hybridization functions into `dmft1/dmft.delta`
+    write_delta(fcurr, Dnew, ai, "dmft1/dmft.delta")
 
     # Print blank line for better visualization
     println()
