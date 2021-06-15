@@ -148,7 +148,8 @@ Mutable struct. Record the DFT + DMFT iteration information.
 * I₄ -> Counter for each iteration.
 * sc -> Self-consistent mode.
 * μ₀ -> Fermi level obtained by DFT engine.
-* μ₁ -> Fermi level obtained by DMFT engine (`dmft1` or `dmft2`).
+* μ₁ -> Fermi level obtained by DMFT engine (`dmft1`).
+* μ₂ -> Fermi level obtained by DMFT engine (`dmft2`).
 * dc -> Double counting terms.
 * nf -> Number of impurity occupancy.
 * et -> Total DFT + DMFT energy.
@@ -163,6 +164,7 @@ mutable struct IterInfo
     sc :: I64
     μ₀ :: F64
     μ₁ :: F64
+    μ₂ :: F64
     dc :: Vector{F64}
     nf :: Vector{F64}
     et :: F64
