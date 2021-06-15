@@ -1140,7 +1140,12 @@ function vaspio_eigen(f::String)
                 for b = 1:nband
                     readline(fin)
                     arr = line_to_array(fin)
-                    @show arr
+                    _s, _k, _b = parse.(I64, arr[2:4])
+                    @assert _s == s
+                    @assert _k == k
+                    @assert _b == b
+
+
                     for p = 1:nproj
                         readline(fin)
                     end
