@@ -1077,7 +1077,7 @@ See also: [`irio_eigen`](@ref).
 function vaspio_eigen(f::String)
     lines = readlines(joinpath(f, "EIGENVAL"))
 
-    if lines ≥ 10
+    if length(lines) ≥ 10
         # Open the iostream
         fin = open(joinpath(f, "EIGENVAL"), "r")
 
@@ -1090,33 +1090,34 @@ function vaspio_eigen(f::String)
             readline(fin)
         end
 
-    # Read in some key parameters: nelect, nkpt, nbands
-    _, nkpt, nband = parse.(I64, line_to_array(fin))
+        # Read in some key parameters: nelect, nkpt, nbands
+        _, nkpt, nband = parse.(I64, line_to_array(fin))
 
-    # Create arrays
-    enk = zeros(F64, nband, nkpt, nspin)
-    occupy = zeros(F64, nband, nkpt, nspin)
+        # Create arrays
+        enk = zeros(F64, nband, nkpt, nspin)
+        occupy = zeros(F64, nband, nkpt, nspin)
 
-    # Read in the energy bands and the corresponding occupations
-    for i = 1:nkpt
-        readline(fin)
-        readline(fin)
-        for j = 1:nband
-            arr = line_to_array(fin)
-            for s = 1:nspin
-                enk[j, i, s] = parse(F64, arr[s+1])
-                occupy[j, i, s] = parse(F64, arr[s+1+nspin])
-            end # END OF S LOOP
-        end # END OF J LOOP
-    end # END OF I LOOP
+        # Read in the energy bands and the corresponding occupations
+        for i = 1:nkpt
+            readline(fin)
+            readline(fin)
+            for j = 1:nband
+                arr = line_to_array(fin)
+                for s = 1:nspin
+                    enk[j, i, s] = parse(F64, arr[s+1])
+                    occupy[j, i, s] = parse(F64, arr[s+1+nspin])
+                end # END OF S LOOP
+            end # END OF J LOOP
+        end # END OF I LOOP
 
-    # close the iostream
-    close(fin)
+        # close the iostream
+        close(fin)
 
-    # return the desired arrays
-    return enk, occupy
-else
-end
+        # return the desired arrays
+        return enk, occupy
+    else
+        println("here, should read LOCPROJ")
+    end
 end
 
 """
