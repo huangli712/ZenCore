@@ -1282,22 +1282,28 @@ only the directory that contains `DOSCAR`.
 See also: [`irio_fermi`](@ref).
 """
 function vaspio_fermi(f::String)
-    # Open the iostream
-    fin = open(joinpath(f, "DOSCAR"), "r")
+    lines = readlines(joinpath(f, "DOSCAR"))
 
-    # Skip five empty lines
-    for i = 1:5
-        readline(fin)
+    if lines ≥ 6
+
+        # Open the iostream
+        fin = open(joinpath(f, "DOSCAR"), "r")
+
+        # Skip five empty lines
+        for i = 1:5
+            readline(fin)
+        end
+
+        # Extract the fermi level
+        fermi = parse(F64, line_to_array(fin)[4])
+
+        # Close the iostream
+        close(fin)
+
+        # Return the desired data
+        return fermi
+    else
     end
-
-    # Extract the fermi level
-    fermi = parse(F64, line_to_array(fin)[4])
-
-    # Close the iostream
-    close(fin)
-
-    # Return the desired data
-    return fermi
 end
 
 """
