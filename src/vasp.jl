@@ -1284,7 +1284,7 @@ See also: [`irio_fermi`](@ref).
 function vaspio_fermi(f::String)
     lines = readlines(joinpath(f, "DOSCAR"))
 
-    if lines ≥ 6
+    if length(lines) ≥ 6
 
         # Open the iostream
         fin = open(joinpath(f, "DOSCAR"), "r")
