@@ -1138,12 +1138,21 @@ function vaspio_eigen(f::String)
         for s = 1:nspin
             for k = 1:nkpt
                 for b = 1:nband
+                    readline(fin)
+                    arr = line_to_array(fin)
+                    @show arr
+                    for p = 1:nproj
+                        readline(fin)
+                    end
                 end
             end
         end
 
         # Close the iostream
         close(fin)
+
+        # return the desired arrays
+        return enk, occupy
     end
 end
 
