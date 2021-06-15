@@ -248,13 +248,6 @@ function cycle2()
 
     dft_run(it, lr)
 
-    t = current_task()
-    println("before wait")
-    while true
-        sleep(5)
-        println(istaskdone(t))
-    end
-
     # C02: Perform DFT calculation (for the second time)
     #if get_d("loptim")
     #    dft_run(it, lr)
@@ -262,8 +255,6 @@ function cycle2()
 
     # C03: To bridge the gap between DFT engine and DMFT engine by adaptor
     #adaptor_run(it, lr, ai)
-
-    println("mememe")
 end
 
 """

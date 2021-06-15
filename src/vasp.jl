@@ -144,7 +144,6 @@ function vasp_exec(it::IterInfo)
 
     if it.sc == 2
         println("Escape from vasp_exec()")
-        #wait(t)
         return
     end
 
