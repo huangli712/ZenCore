@@ -233,16 +233,17 @@ function cycle2()
     # C01: Perform DFT calculation (for the first time)
     dft_run(it, lr)
 
+    # C02: Prepare default self-energy functions
+    sigma_core(it, lr, ai, "reset")
+
+
     # C02: Perform DFT calculation (for the second time)
-    if get_d("loptim")
-        dft_run(it, lr)
-    end
+    #if get_d("loptim")
+    #    dft_run(it, lr)
+    #end
 
     # C03: To bridge the gap between DFT engine and DMFT engine by adaptor
-    adaptor_run(it, lr, ai)
-
-    # C04: Prepare default self-energy functions
-    sigma_core(it, lr, ai, "reset")
+    #adaptor_run(it, lr, ai)
 
 end
 
