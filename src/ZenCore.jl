@@ -57,6 +57,7 @@ Here we import `libm` explicitly to provide a callable interface for
 the `erf()` function. See `util.jl/erf()` for more details.
 =#
 
+using Base: func_for_method_checked
 using TOML
 using LinearAlgebra
 using Distributed
