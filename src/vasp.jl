@@ -1303,6 +1303,13 @@ function vaspio_fermi(f::String)
         # Return the desired data
         return fermi
     else
+        # Open the iostream
+        fin = open(joinpath(f, "LOCPROJ"), "r")
+
+        fermi = parse(F64, line_to_array(fin)[5])
+
+        # Close the iostream
+        close(fin)
     end
 end
 
