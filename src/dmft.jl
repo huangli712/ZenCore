@@ -134,24 +134,32 @@ function dmft_save(it::IterInfo, task::I64)
 
     # Create a list of files that need to be backup
     fdmf1 = ["dmft.out"]
-    fdmf2 = ["dmft.eimps", "dmft.eimpx", "dmft.fermi"]
-    fdmf3 = ["dmft.green", "dmft.delta", "dmft.weiss"]
+    fdmf2 = ["dmft.fermi"]
+    fdmf3 = ["dmft.eimps", "dmft.eimpx"]
+    fdmf4 = ["dmft.green", "dmft.delta", "dmft.weiss"]
+    fdmf5 = ["dmft.gamma"]
 
     # Be careful, the final file list depends on the task
     if task == 1
-        file_list = union(fdmf1, fdmf2, fdmf3)
+        file_list = union(fdmf1, fdmf2, fdmf3, fdmf4)
     else
-        file_list = fdmf1
+        file_list = union(fdmf1, fdmf2, fdmf5)
     end
 
     # Store the data files
     for i in eachindex(file_list)
         f = file_list[i]
-        cp(f, "$f.$(it.I₃).$(it.I₁)", force = true)
+        if task == 1
+            cp(f, "$f.$(it.I₃).$(it.I₁)", force = true)
+        else
+            cp(f, "$f.$(it.I₃).$(it.I₂)", force = true)
+        end
     end
 
     # Extract the fermi level, and use it to update the IterInfo struct.
-    it.μ₁ = read_fermi()
+    if task == 1
+        it.μ₁ = read_fermi()
+    end
 end
 
 #
