@@ -255,6 +255,9 @@ function cycle2()
         prompt(lr.log, "< dft_dmft_cycle >")
     
         pending(2)
+
+        adaptor_run(it, lr, ai)
+
     end
 
     # C02: Perform DFT calculation (for the second time)
