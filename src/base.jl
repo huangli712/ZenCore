@@ -217,7 +217,7 @@ See also: [`cycle1`](@ref), [`go`](@ref).
 function cycle2()
     # C-2: Create IterInfo struct
     it = IterInfo()
-    it.sc = 2 # Fully self-consistent mode
+    it.sc = 1 # Still one-shot mode
 
     # C-1: Create Logger struct
     lr = Logger(query_case())
@@ -231,10 +231,21 @@ function cycle2()
     prompt("ZEN", "Initialization")
 
     # C01: Perform DFT calculation (for the first time)
-    dft_run(it, lr)
+    #dft_run(it, lr)
 
     # C02: Prepare default self-energy functions
     sigma_core(it, lr, ai, "reset")
+
+    # C03: Change calculation mode
+    it.sc = 2 # Fully self-consistent mode
+
+#
+# DFT + DMFT Iterations (C05-C12)
+#
+    prompt("ZEN", "Iterations")
+    save_it(it, lr)
+
+    dft_run(it, lr)
 
 
     # C02: Perform DFT calculation (for the second time)
