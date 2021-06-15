@@ -143,7 +143,7 @@ function vasp_exec(it::IterInfo)
     schedule(t)
 
     if it.sc == 2
-        println("Ecscape from vasp_exec()")
+        println("Escape from vasp_exec()")
         #wait(t)
         return
     end
