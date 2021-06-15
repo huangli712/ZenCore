@@ -260,8 +260,7 @@ function cycle2()
         adaptor_run(it, lr, ai)
 
         it.I₃ = it.I₃ + 1
-
-        for iter1 = 1:2
+        for iter1 = 1:4
             it.I₁ = it.I₁ + 1
             it.I₄ = it.I₄ + 1
 
@@ -290,14 +289,6 @@ function cycle2()
             mixer_core(it, lr, ai, "sigma")
         end
     end
-
-    # C02: Perform DFT calculation (for the second time)
-    #if get_d("loptim")
-    #    dft_run(it, lr)
-    #end
-
-    # C03: To bridge the gap between DFT engine and DMFT engine by adaptor
-    #adaptor_run(it, lr, ai)
 end
 
 """
