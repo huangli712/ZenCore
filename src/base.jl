@@ -49,6 +49,7 @@ function go()
         # Fully self-consistent DFT + DMFT calculations
         @case 2
             cycle2()
+            println("haha")
             break
 
         # To be implemented
@@ -247,7 +248,12 @@ function cycle2()
 
     dft_run(it, lr)
 
-    println("here")
+    t = current_task()
+    println("before wait")
+    while true
+        sleep(5)
+        println(istaskdone(t))
+    end
 
     # C02: Perform DFT calculation (for the second time)
     #if get_d("loptim")
@@ -257,6 +263,7 @@ function cycle2()
     # C03: To bridge the gap between DFT engine and DMFT engine by adaptor
     #adaptor_run(it, lr, ai)
 
+    println("mememe")
 end
 
 """
