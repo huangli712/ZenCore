@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/07
+# Last modified: 2021/06/15
 #
 
 #
@@ -25,7 +25,7 @@ function s_qmc1_init(it::IterInfo, imp::Impurity)
     # Generate configuration file for quantum impurity solver
     ctqmc_setup(imp)
 
-    # Extract frequency mesh and hybridization function from `dmft.hyb_l`
+    # Extract frequency mesh and hybridization function from `dmft.delta`
     fmesh, Delta = read_delta(imp)
 
     # Write frequency mesh and hybridization function to `solver.hyb.in`
