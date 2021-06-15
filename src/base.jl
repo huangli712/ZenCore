@@ -292,7 +292,14 @@ function cycle2()
         end
         it.I₁ = 0
 
+        for iter2 = 1:4
+            it.I₂ = it.I₂ + 1
+            it.I₄ = it.I₄ + 1
 
+            dmft_run(it, lr, 2)
+
+        end
+        it.I₂ = 0
     end
 end
 
@@ -550,6 +557,13 @@ function suspend(second::I64)
 
         !vaspio_lock() && break
     end
+end
+
+"""
+    resume()
+"""
+function resume()
+    
 end
 
 """
