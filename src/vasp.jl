@@ -1117,6 +1117,12 @@ function vaspio_eigen(f::String)
         return enk, occupy
     else
         println("here, should read LOCPROJ")
+
+        # Open the iostream
+        fin = open(joinpath(f, "LOCPROJ"), "r")
+
+        # Close the iostream
+        close(fin)
     end
 end
 
