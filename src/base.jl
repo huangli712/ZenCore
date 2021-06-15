@@ -264,6 +264,24 @@ function cycle2()
 
         # C06: Perform DMFT calculation with `task` = 1
         dmft_run(it, lr, 1)
+
+        # C07: Mix the hybridization functions
+        mixer_core(it, lr, ai, "delta")
+
+        # C08: Mix the local impurity levels
+        mixer_core(it, lr, ai, "eimpx")
+
+        # C09: Split and distribute the hybridization functions
+        sigma_core(it, lr, ai, "split")
+
+        # C10: Solve the quantum impurity problems
+        solver_run(it, lr, ai)
+
+        # C11: Gather and combine the impurity self-functions
+        sigma_core(it, lr, ai, "gather")
+
+        # C12: Mix the impurity self-energy functions
+        mixer_core(it, lr, ai, "sigma")
     end
 
     # C02: Perform DFT calculation (for the second time)
