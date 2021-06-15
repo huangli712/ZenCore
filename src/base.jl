@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/08
+# Last modified: 2021/06/15
 #
 
 #
@@ -123,6 +123,7 @@ See also: [`cycle2`](@ref), [`go`](@ref).
 function cycle1()
     # C-2: Create IterInfo struct
     it = IterInfo()
+    it.sc = 1 # One-shot mode
 
     # C-1: Create Logger struct
     lr = Logger(query_case())
@@ -216,6 +217,7 @@ See also: [`cycle1`](@ref), [`go`](@ref).
 function cycle2()
     # C-2: Create IterInfo struct
     it = IterInfo()
+    it.sc = 2 # Fully self-consistent mode
 
     # C-1: Create Logger struct
     lr = Logger(query_case())
