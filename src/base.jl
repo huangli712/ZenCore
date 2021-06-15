@@ -254,7 +254,7 @@ function cycle2()
         prompt(lr.log, "")
         prompt(lr.log, "< dft_dmft_cycle >")
     
-        
+
     end
 
     # C02: Perform DFT calculation (for the second time)
@@ -502,6 +502,19 @@ See also: [`query_stop`](@ref).
 function monitor(force_exit::Bool = false)
     if force_exit && query_stop()
         exit(-1)
+    end
+end
+
+"""
+    pending(second::I64)
+"""
+function pending(second::I64)
+    @assert second > 0
+
+    while true
+        sleep(second)
+
+        vasp_lock() && break
     end
 end
 
