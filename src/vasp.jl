@@ -1310,6 +1310,9 @@ function vaspio_fermi(f::String)
 
         # Close the iostream
         close(fin)
+
+        # Return the desired data
+        return fermi
     end
 end
 
