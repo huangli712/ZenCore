@@ -368,12 +368,17 @@ end
 Outer constructor for IterInfo struct.
 """
 function IterInfo()
-    # Extract the parameter `nsite`
+    # Extract the parameter `nsite` and `niter`
     nsite = get_i("nsite")
+    niter = get_m("niter")
     @assert nsite ≥ 1
+    @assert niter ≥ 1
 
     # Initialize key fields
     I  = 0
+    M₁ = 2
+    M₂ = 2
+    M₃ = niter
     sc = 1
     μ  = 0.0
     dc = fill(0.0, nsite)
@@ -381,7 +386,7 @@ function IterInfo()
     et = 0.0
 
     # Call the default constructor
-    IterInfo(I, I, I, I, sc, μ, μ, μ, dc, nf, et)
+    IterInfo(I, I, I, I, M₁, M₂, M₃, sc, μ, μ, μ, dc, nf, et)
 end
 
 """
