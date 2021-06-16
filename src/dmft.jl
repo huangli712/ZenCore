@@ -539,6 +539,7 @@ function read_gamma()
                 strs = readline(fin)
                 _k = parse(I64, line_to_array(strs)[3])
                 @assert _k == k
+                kmesh[k,1:3] = parse.(F64, line_to_array(strs)[4:6])
 
             end # END OF K LOOP
         end # END OF S LOOP
