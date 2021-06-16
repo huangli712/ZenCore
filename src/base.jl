@@ -298,6 +298,7 @@ function cycle2()
 
             dmft_run(it, lr, 2)
 
+            save_it(it, lr)
         end
         it.I₂ = 0
     end
