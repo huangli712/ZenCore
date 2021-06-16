@@ -248,7 +248,7 @@ function cycle2()
 
     dft_run(it, lr)
 
-    for iter = 1:get_m("niter")
+    for iter = 1:it.M₃
     
         # Print the log
         prompt("ZEN", "Cycle $iter")
@@ -260,7 +260,7 @@ function cycle2()
         adaptor_run(it, lr, ai)
 
         it.I₃ = it.I₃ + 1
-        for iter1 = 1:4
+        for iter1 = 1:it.M₁
             it.I₁ = it.I₁ + 1
             it.I₄ = it.I₄ + 1
 
@@ -292,7 +292,7 @@ function cycle2()
         end
         it.I₁ = 0
 
-        for iter2 = 1:4
+        for iter2 = 1:it.M₂
             it.I₂ = it.I₂ + 1
             it.I₄ = it.I₄ + 1
 
