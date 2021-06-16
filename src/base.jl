@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/15
+# Last modified: 2021/06/16
 #
 
 #
@@ -24,7 +24,7 @@ function ready()
     query_inps(get_d("engine"))
 
     # R2: Prepare the working directories
-    make_trees()
+    build_trees()
 end
 
 """
@@ -650,13 +650,13 @@ If they exist already, it would be better to remove them at first.
 =#
 
 """
-    make_trees()
+    build_trees()
 
 Prepare the working directories at advance.
 
 See also: [`rm_trees`](@ref).
 """
-function make_trees()
+function build_trees()
     # Build an array for folders
     dir_list = ["dft", "dmft1", "dmft2"]
     for i = 1:get_i("nsite")
@@ -678,7 +678,7 @@ end
 
 Remove the working directories finally.
 
-See also: [`make_trees`](@ref).
+See also: [`build_trees`](@ref).
 """
 function rm_trees()
     # Build an array for folders
