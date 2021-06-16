@@ -312,16 +312,18 @@ export str_s
 # monitor     -> Monitor the DFT + DMFT calculations.
 # suspend     -> Suspend the DFT engine.
 # resume      -> Resume the DFT engine.
-# incr_it     -> Increase the counters in the IterInfo struct.
-# save_it     -> Record the iteration information.
-# make_trees  -> Make working directories.
-# rm_trees    -> Remove working directories.
 # dft_run     -> Driver for DFT engine.
 # dmft_run    -> Driver for DMFT engine.
 # solver_run  -> Driver for quantum impurity solvers.
 # adaptor_run -> Driver for Kohn-Sham adaptor.
 # sigma_core  -> Driver for self-energy engine.
 # mixer_core  -> Driver for mixer engine.
+# build_trees -> Make working directories.
+# clear_trees -> Remove working directories.
+# incr_it     -> Increase the counters in the IterInfo struct.
+# zero_it     -> Reset the counters in the IterInfo struct.
+# save_it     -> Record the iteration information.
+# prev_it     -> Return the previous iteration information.
 #
 include("base.jl")
 #
