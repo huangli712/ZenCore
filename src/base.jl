@@ -642,60 +642,6 @@ function save_it(it::IterInfo, lr::Logger)
     flush(lr.cycle)
 end
 
-#=
-*Remarks*:
-
-The working directories include `dft`, `dmft1`, `dmft2`, and `impurity.i`.
-If they exist already, it would be better to remove them at first.
-=#
-
-"""
-    build_trees()
-
-Prepare the working directories at advance.
-
-See also: [`clear_trees`](@ref).
-"""
-function build_trees()
-    # Build an array for folders
-    dir_list = ["dft", "dmft1", "dmft2"]
-    for i = 1:get_i("nsite")
-        push!(dir_list, "impurity.$i")
-    end
-
-    # Go through these folders, create them one by one.
-    for i in eachindex(dir_list)
-        dir = dir_list[i]
-        if isdir(dir)
-            rm(dir, force = true, recursive = true)
-        end
-        mkdir(dir)
-    end
-end
-
-"""
-    clear_trees()
-
-Remove the working directories finally.
-
-See also: [`build_trees`](@ref).
-"""
-function clear_trees()
-    # Build an array for folders
-    dir_list = ["dft", "dmft1", "dmft2"]
-    for i = 1:get_i("nsite")
-        push!(dir_list, "impurity.$i")
-    end
-
-    # Go through these folders, remove them one by one.
-    for i in eachindex(dir_list)
-        dir = dir_list[i]
-        if isdir(dir)
-            rm(dir, force = true, recursive = true)
-        end
-    end
-end
-
 """
     dft_run(it::IterInfo, lr::Logger)
 
@@ -1068,4 +1014,58 @@ function mixer_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::Strin
 
     # Monitor the status
     monitor(true)
+end
+
+#=
+*Remarks*:
+
+The working directories include `dft`, `dmft1`, `dmft2`, and `impurity.i`.
+If they exist already, it would be better to remove them at first.
+=#
+
+"""
+    build_trees()
+
+Prepare the working directories at advance.
+
+See also: [`clear_trees`](@ref).
+"""
+function build_trees()
+    # Build an array for folders
+    dir_list = ["dft", "dmft1", "dmft2"]
+    for i = 1:get_i("nsite")
+        push!(dir_list, "impurity.$i")
+    end
+
+    # Go through these folders, create them one by one.
+    for i in eachindex(dir_list)
+        dir = dir_list[i]
+        if isdir(dir)
+            rm(dir, force = true, recursive = true)
+        end
+        mkdir(dir)
+    end
+end
+
+"""
+    clear_trees()
+
+Remove the working directories finally.
+
+See also: [`build_trees`](@ref).
+"""
+function clear_trees()
+    # Build an array for folders
+    dir_list = ["dft", "dmft1", "dmft2"]
+    for i = 1:get_i("nsite")
+        push!(dir_list, "impurity.$i")
+    end
+
+    # Go through these folders, remove them one by one.
+    for i in eachindex(dir_list)
+        dir = dir_list[i]
+        if isdir(dir)
+            rm(dir, force = true, recursive = true)
+        end
+    end
 end
