@@ -819,5 +819,9 @@ function is usually called by `mixer_gamma()` function. The working
 directory of this function must be the root folder.
 """
 function write_gamma(kmesh::Array{F64,2}, kwin::Array{I64,3}, gamma::Array{C64,4})
-    
+    # Extract the dimensional parameters
+    _, qbnd, nkpt, nspin = size(gamma)
+
+    # Determine filename for correction for density matrix
+    @assert fgamma == "dmft2/dmft.gamma"
 end
