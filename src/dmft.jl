@@ -869,5 +869,6 @@ function write_gamma(kmesh::Array{F64,2}, kwin::Array{I64,3}, gamma::Array{C64,4
         end # END OF S LOOP
     end # END OF IOSTREAM
 
-    
+    # Print message to the screen
+    println("  Write gamma matrix into: $fgamma")
 end
