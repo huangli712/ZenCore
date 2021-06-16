@@ -146,8 +146,8 @@ Mutable struct. Record the DFT + DMFT iteration information.
 * I₂ -> Number of iterations between `dmft2` and DFT engine.
 * I₃ -> Number of DFT + DMFT iterations.
 * I₄ -> Counter for each iteration.
-* M₁ -> Maximum allowed number of iterations (DMFT part).
-* M₂ -> Maximum allowed number of iterations (DFT part).
+* M₁ -> Maximum allowed number of iterations (between `dmft1` and solver).
+* M₂ -> Maximum allowed number of iterations (between `dmft2` and DFT).
 * M₃ -> Maximum allowed number of DFT + DMFT iterations.
 * sc -> Self-consistent mode.
 * μ₀ -> Fermi level obtained by DFT engine.
