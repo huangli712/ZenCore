@@ -613,7 +613,27 @@ function dft_run(lr::Logger)
     prompt("DFT")
     prompt(lr.log, engine)
 
-    
+    kmesh, kwin, gamma = read_gamma()
+
+    # Enter dft directory
+    cd("dft")
+
+    # Activate the chosen DFT engine
+    @cswitch engine begin
+        # For VASP
+        @case "vasp"
+            vasp_init(it)
+            vasp_exec(it)
+            vasp_save(it)
+            break
+
+        @default
+            sorry()
+            break
+    end
+
+    # Enter the parent directory
+    cd("..")
 end
 
 """
