@@ -457,6 +457,11 @@ function vasp_lock()
     return isfile("dft/vasp.lock")
 end
 
+function vasp_lock(action::String)
+    @assert startswith(action, "c") || startswith(action, "C")
+    touch("vasp.lock")
+end
+
 """
     vasp_files(f::String)
 
