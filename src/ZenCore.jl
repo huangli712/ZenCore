@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/16
+# Last modified: 2021/06/17
 #
 
 """
@@ -311,7 +311,6 @@ export str_s
 # cycle8      -> Execute mixer engine only (for testing purpose).
 # monitor     -> Monitor the DFT + DMFT calculations.
 # suspend     -> Suspend the DFT engine.
-# resume      -> Resume the DFT engine.
 # dft_run     -> Driver for DFT engine.
 # dmft_run    -> Driver for DMFT engine.
 # solver_run  -> Driver for quantum impurity solvers.
@@ -340,7 +339,6 @@ export cycle7
 export cycle8
 export monitor
 export suspend
-export resume
 export dft_run
 export dmft_run
 export solver_run
