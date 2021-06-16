@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/15
+# Last modified: 2021/06/16
 #
 
 #
@@ -490,6 +490,15 @@ end
 #
 
 """
+"""
+function read_gamma()
+end
+
+#
+# Service Functions: For I/O Operations
+#
+
+"""
     write_delta(fmesh::Array{F64,1}, Delta::Array{C64,5}, ai::Array{Impurity,1})
 
 Split hybridization functions and the corresponding frequency mesh into
@@ -714,4 +723,11 @@ function write_eimpx(Eimpx::Array{C64,4}, ai::Array{Impurity,1}, flev::String)
 
     # Print message to the screen
     println("  Write local impurity levels into: $flev")
+end
+
+#
+# Service Functions: For I/O Operations
+#
+
+function write_gamma()
 end
