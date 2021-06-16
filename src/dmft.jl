@@ -562,6 +562,10 @@ function read_gamma()
                         gamma[p,q,k,s] = _re + _im*im
                     end
                 end
+
+                # Skip two lines
+                readline(fin)
+                readline(fin)
             end # END OF K LOOP
         end # END OF S LOOP
     end
