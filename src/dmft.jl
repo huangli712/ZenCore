@@ -812,6 +812,11 @@ end
 #
 
 """
+    write_gamma(kmesh::Array{F64,2}, kwin::Array{I64,3}, gamma::Array{C64,4})
+
+Write correction for density matrix to `dmft2/dmft.gamma` file. This
+function is usually called by `mixer_gamma()` function. The working
+directory of this function must be the root folder.
 """
 function write_gamma(kmesh::Array{F64,2}, kwin::Array{I64,3}, gamma::Array{C64,4})
 end
