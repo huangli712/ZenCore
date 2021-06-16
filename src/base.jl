@@ -259,9 +259,9 @@ function cycle2()
 
         adaptor_run(it, lr, ai)
 
-        it.I₃ = it.I₃ + 1
+        it.I₃ = iter
         for iter1 = 1:it.M₁
-            it.I₁ = it.I₁ + 1
+            it.I₁ = iter1
             it.I₄ = it.I₄ + 1
 
             # C05: Tackle with the double counting term
@@ -293,7 +293,7 @@ function cycle2()
         it.I₁ = 0
 
         for iter2 = 1:it.M₂
-            it.I₂ = it.I₂ + 1
+            it.I₂ = iter2
             it.I₄ = it.I₄ + 1
 
             dmft_run(it, lr, 2)
