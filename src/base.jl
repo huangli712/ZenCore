@@ -563,83 +563,6 @@ end
     resume()
 """
 function resume()
-    
-end
-
-"""
-    incr_it(it::IterInfo)
-
-Modify the internal counters in IterInfo struct.
-
-See also: [`IterInfo`](@ref), [`Logger`](@ref).
-"""
-function incr_it(it::IterInfo)
-    # Get calculation mode
-    mode = get_m("mode")
-
-    # For one-shot DFT + DMFT mode
-    if mode == 1
-        it.I₃ = 1
-        it.I₁ = it.I₁ + 1
-        it.I₄ = it.I₄ + 1
-    # For fully charge self-consistent DFT + DMFT mode
-    else
-        sorry()
-    end
-end
-
-"""
-    save_it(it::IterInfo, lr::Logger)
-
-Try to record the iteration information in the `case.cycle` file.
-
-See also: [`IterInfo`](@ref), [`Logger`](@ref).
-"""
-function save_it(it::IterInfo, lr::Logger)
-    # Extract parameter `nsite`
-    nsite = get_i("nsite")
-    @assert nsite == length(it.nf)
-
-    # Write the header
-    if it.I₄ == 0
-        print(lr.cycle, "#   #   #   #   μ₀        μ₁        ")
-        for t = 1:nsite
-            print(lr.cycle, "dc$(subscript(t))       ")
-        end
-        for t = 1:nsite
-            print(lr.cycle, "nf$(subscript(t))       ")
-        end
-        println(lr.cycle, "et")
-        # Write separator
-        println(lr.cycle, repeat('-', 46 + 20*nsite))
-    # Write iteration information
-    else
-        @printf(lr.cycle, "%-4i", it.I₄)
-        @printf(lr.cycle, "%-4i", it.I₃)
-        @printf(lr.cycle, "%-4i", it.I₁)
-        @printf(lr.cycle, "%-4i", it.I₂)
-        if it.μ₀ < 0.0
-            @printf(lr.cycle, "%-10.5f", it.μ₀)
-        else
-            @printf(lr.cycle, "+%-9.5f", it.μ₀)
-        end
-        if it.μ₁ < 0.0
-            @printf(lr.cycle, "%-10.5f", it.μ₁)
-        else
-            @printf(lr.cycle, "+%-9.5f", it.μ₁)
-        end
-        for t = 1:nsite
-            @printf(lr.cycle, "%-10.5f", it.dc[t])
-        end
-        for t = 1:nsite
-            @printf(lr.cycle, "%-10.5f", it.nf[t])
-        end
-        @printf(lr.cycle, "%-10.5f", it.et)
-        println(lr.cycle)
-    end
-
-    # Flush the IOStream
-    flush(lr.cycle)
 end
 
 """
@@ -1068,4 +991,80 @@ function clear_trees()
             rm(dir, force = true, recursive = true)
         end
     end
+end
+
+"""
+    incr_it(it::IterInfo)
+
+Modify the internal counters in IterInfo struct.
+
+See also: [`IterInfo`](@ref), [`Logger`](@ref).
+"""
+function incr_it(it::IterInfo)
+    # Get calculation mode
+    mode = get_m("mode")
+
+    # For one-shot DFT + DMFT mode
+    if mode == 1
+        it.I₃ = 1
+        it.I₁ = it.I₁ + 1
+        it.I₄ = it.I₄ + 1
+    # For fully charge self-consistent DFT + DMFT mode
+    else
+        sorry()
+    end
+end
+
+"""
+    save_it(it::IterInfo, lr::Logger)
+
+Try to record the iteration information in the `case.cycle` file.
+
+See also: [`IterInfo`](@ref), [`Logger`](@ref).
+"""
+function save_it(it::IterInfo, lr::Logger)
+    # Extract parameter `nsite`
+    nsite = get_i("nsite")
+    @assert nsite == length(it.nf)
+
+    # Write the header
+    if it.I₄ == 0
+        print(lr.cycle, "#   #   #   #   μ₀        μ₁        ")
+        for t = 1:nsite
+            print(lr.cycle, "dc$(subscript(t))       ")
+        end
+        for t = 1:nsite
+            print(lr.cycle, "nf$(subscript(t))       ")
+        end
+        println(lr.cycle, "et")
+        # Write separator
+        println(lr.cycle, repeat('-', 46 + 20*nsite))
+    # Write iteration information
+    else
+        @printf(lr.cycle, "%-4i", it.I₄)
+        @printf(lr.cycle, "%-4i", it.I₃)
+        @printf(lr.cycle, "%-4i", it.I₁)
+        @printf(lr.cycle, "%-4i", it.I₂)
+        if it.μ₀ < 0.0
+            @printf(lr.cycle, "%-10.5f", it.μ₀)
+        else
+            @printf(lr.cycle, "+%-9.5f", it.μ₀)
+        end
+        if it.μ₁ < 0.0
+            @printf(lr.cycle, "%-10.5f", it.μ₁)
+        else
+            @printf(lr.cycle, "+%-9.5f", it.μ₁)
+        end
+        for t = 1:nsite
+            @printf(lr.cycle, "%-10.5f", it.dc[t])
+        end
+        for t = 1:nsite
+            @printf(lr.cycle, "%-10.5f", it.nf[t])
+        end
+        @printf(lr.cycle, "%-10.5f", it.et)
+        println(lr.cycle)
+    end
+
+    # Flush the IOStream
+    flush(lr.cycle)
 end
