@@ -420,6 +420,9 @@ function vasp_kpoints(mp_scheme::Bool = true, n::I64 = 9)
     end
 end
 
+function vasp_gamma()
+end
+
 """
     vasp_lock()
 """
