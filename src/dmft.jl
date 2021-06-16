@@ -553,7 +553,15 @@ function read_gamma()
                 kwin[k,s,1] = bs
                 kwin[k,s,2] = be
 
-
+                # Parse Γ matrix
+                for q = 1:cbnd
+                    for p = 1:cbnd
+                        strs = readline(fin)
+                        _re = parse(F64, line_to_array(strs)[3])
+                        _im = parse(F64, line_to_array(strs)[4])
+                        gamma[p,q,k,s] = _re + _im*im
+                    end
+                end
             end # END OF K LOOP
         end # END OF S LOOP
     end
