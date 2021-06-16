@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/15
+# Last modified: 2021/06/16
 #
 
 #
@@ -146,6 +146,9 @@ Mutable struct. Record the DFT + DMFT iteration information.
 * I₂ -> Number of iterations between `dmft2` and DFT engine.
 * I₃ -> Number of DFT + DMFT iterations.
 * I₄ -> Counter for each iteration.
+* M₁ -> Maximum allowed number of iterations (DMFT part).
+* M₂ -> Maximum allowed number of iterations (DFT part).
+* M₃ -> Maximum allowed number of DFT + DMFT iterations.
 * sc -> Self-consistent mode.
 * μ₀ -> Fermi level obtained by DFT engine.
 * μ₁ -> Fermi level obtained by DMFT engine (`dmft1`).
