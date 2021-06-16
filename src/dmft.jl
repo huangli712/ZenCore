@@ -516,7 +516,13 @@ function read_gamma()
         nspin = parse(I64, line_to_array(fin)[3])
         qbnd  = parse(I64, line_to_array(fin)[4])
 
-        
+        # Skip two lines
+        readline(fin)
+        readline(fin)
+
+        # Create arrays
+        kmesh = zeros(F64, nkpt, 3)
+        gamma = zeros(C64, qbnd, qbnd, nkpt, nspin)
     end
 end
 
