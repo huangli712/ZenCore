@@ -322,8 +322,8 @@ export str_s
 # clear_trees -> Remove working directories.
 # incr_it     -> Increase the counters in the IterInfo struct.
 # zero_it     -> Reset the counters in the IterInfo struct.
-# save_it     -> Record the iteration information.
 # prev_it     -> Return the previous iteration information.
+# save_it     -> Record the iteration information.
 #
 include("base.jl")
 #
@@ -341,8 +341,6 @@ export cycle8
 export monitor
 export suspend
 export resume
-export incr_it
-export save_it
 export dft_run
 export dmft_run
 export solver_run
@@ -351,6 +349,10 @@ export sigma_core
 export mixer_core
 export build_trees
 export clear_trees
+export incr_it
+export zero_it
+export prev_it
+export save_it
 
 #
 # vasp.jl
