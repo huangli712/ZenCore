@@ -622,9 +622,6 @@ function dft_run(lr::Logger)
     @cswitch engine begin
         # For VASP
         @case "vasp"
-            vasp_init(it)
-            vasp_exec(it)
-            vasp_save(it)
             break
 
         @default
