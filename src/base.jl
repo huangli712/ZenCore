@@ -553,17 +553,9 @@ function suspend(second::I64)
 
     while true
         sleep(second)
-
         println("Pending for DFT engine")
-
         !vaspio_lock() && break
     end
-end
-
-"""
-    resume()
-"""
-function resume()
 end
 
 """
