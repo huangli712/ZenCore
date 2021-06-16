@@ -343,14 +343,14 @@ export suspend
 export resume
 export incr_it
 export save_it
-export make_trees
-export rm_trees
 export dft_run
 export dmft_run
 export solver_run
 export adaptor_run
 export sigma_core
 export mixer_core
+export build_trees
+export rm_trees
 
 #
 # vasp.jl
