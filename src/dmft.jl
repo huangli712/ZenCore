@@ -811,5 +811,7 @@ end
 # Service Functions: For I/O Operations
 #
 
-function write_gamma()
+"""
+"""
+function write_gamma(kmesh::Array{F64,2}, kwin::Array{I64,3}, gamma::Array{C64,4})
 end
