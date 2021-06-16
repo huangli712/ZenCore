@@ -1015,6 +1015,12 @@ function incr_it(it::IterInfo)
     end
 end
 
+function zero_it()
+end
+
+function prev_it()
+end
+
 """
     save_it(it::IterInfo, lr::Logger)
 
