@@ -523,7 +523,7 @@ function read_gamma()
 
         # Create arrays
         kmesh = zeros(F64, nkpt, 3)
-        kwin = zeros(I64, nkpt, npsin, 2)
+        kwin = zeros(I64, nkpt, nspin, 2)
         gamma = zeros(C64, qbnd, qbnd, nkpt, nspin)
 
         # Read the data
