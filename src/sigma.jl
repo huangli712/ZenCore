@@ -589,4 +589,10 @@ function write_sigdc(DCA::Array{Array{F64,3},1}, ai::Array{Impurity,1})
 
     # Print message to the screen
     println("  Write double counting terms into: dmft1/sigma.dc")
+
+    # Copy sigma.dc to the dmft2 directory
+    cp("dmft1/sigma.dc", "dmft2/sigma.dc")
+
+    # Print message to the screen
+    println("  Write double counting terms into: dmft2/sigma.dc")
 end
