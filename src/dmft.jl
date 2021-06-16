@@ -503,6 +503,7 @@ See also: [`write_gamma`](@ref).
 function read_gamma()
     # Declare the arrays for 𝑘-mesh and correction for density matrix
     kmesh = nothing
+    kwin = nothing
     gamma = nothing
 
     # Make sure the data file is available
@@ -522,6 +523,7 @@ function read_gamma()
 
         # Create arrays
         kmesh = zeros(F64, nkpt, 3)
+        kwin = zeros(I64, nkpt, npsin, 2)
         gamma = zeros(C64, qbnd, qbnd, nkpt, nspin)
 
         # Read the data
@@ -540,6 +542,17 @@ function read_gamma()
                 _k = parse(I64, line_to_array(strs)[3])
                 @assert _k == k
                 kmesh[k,1:3] = parse.(F64, line_to_array(strs)[4:6])
+                #
+                # For band window
+                strs = readline(fin)
+                cbnd = parse(I64, line_to_array(strs)[3])
+                @assert cbnd ≤ qbnd
+                bs = parse(I64, line_to_array(strs)[5])
+                be = parse(I64, line_to_array(strs)[7])
+                @assert bs ≤ be
+                kwin[k,s,1] = bs
+                kwin[k,s,2] = be
+
 
             end # END OF K LOOP
         end # END OF S LOOP
