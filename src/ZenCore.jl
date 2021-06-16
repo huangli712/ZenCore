@@ -350,7 +350,7 @@ export adaptor_run
 export sigma_core
 export mixer_core
 export build_trees
-export rm_trees
+export clear_trees
 
 #
 # vasp.jl
