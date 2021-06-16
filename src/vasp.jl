@@ -429,20 +429,20 @@ function vasp_gamma(kwin::Array{I64,3}, gamma::Array{C64,4})
     @assert nspin == 1 # Current limitation
 
     # Determine filename for correction for density matrix
-    fgamma = "GAMMA.new"
+    fgamma = "GAMMA"
 
     # Write the data
     open(fgamma, "w") do fout
-        @printf(fout, " %i  -1\n", nkpt)
+        @printf(fout, " %10i  -1\n", nkpt)
         for k = 1:nkpt
             bs = kwin[k,1,1]
             be = kwin[k,1,2]
             cbnd = be - bs + 1
-            @printf(fout, " %i  %i  %i\n", k, bs, be)
+            @printf(fout, "%10i%10i%10i\n", k, bs, be)
             for p = 1:cbnd
                 for q = 1:cbnd
                     z = gamma[p,q,k,1]
-                    @printf(fout, " %.14f  %.14f", real(z), imag(z))
+                    @printf(fout, " %.7E  %.7E", real(z), imag(z))
                 end
             end
             println(fout)
