@@ -827,5 +827,13 @@ function write_gamma(kmesh::Array{F64,2}, kwin::Array{I64,3}, gamma::Array{C64,4
 
     # Write the data
     open(fgamma, "w") do fout
-    end
+        # Write dimensional parameters
+        @printf(fout, "# nkpt : %4i\n", nkpt)
+        @printf(fout, "# nspin: %4i\n", nspin)
+        @printf(fout, "# qbnd : %4i\n", qbnd)
+
+        # Write separators
+        println(fout)
+        println(fout)
+    end # END OF IOSTREAM
 end
