@@ -420,7 +420,10 @@ function vasp_kpoints(mp_scheme::Bool = true, n::I64 = 9)
     end
 end
 
-function vasp_gamma()
+"""
+    vasp_gamma(kmesh::Array{F64,2}, kwin::Array{I64,3}, gamma::Array{C64,4})
+"""
+function vasp_gamma(kmesh::Array{F64,2}, kwin::Array{I64,3}, gamma::Array{C64,4})
 end
 
 """
