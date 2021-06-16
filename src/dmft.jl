@@ -550,6 +550,7 @@ function read_gamma()
                 bs = parse(I64, line_to_array(strs)[5])
                 be = parse(I64, line_to_array(strs)[7])
                 @assert bs ≤ be
+                @assert be - bs + 1 == cbnd
                 kwin[k,s,1] = bs
                 kwin[k,s,2] = be
 
@@ -568,7 +569,11 @@ function read_gamma()
                 readline(fin)
             end # END OF K LOOP
         end # END OF S LOOP
-    end
+    end # END OF IOSTREAM
+    println("  Read local impurity levels from: $flev")
+
+    # Return the desired arrays
+    return kmesh, kwin, gamma
 end
 
 #
