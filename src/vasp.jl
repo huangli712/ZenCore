@@ -424,6 +424,17 @@ end
     vasp_gamma(kmesh::Array{F64,2}, kwin::Array{I64,3}, gamma::Array{C64,4})
 """
 function vasp_gamma(kmesh::Array{F64,2}, kwin::Array{I64,3}, gamma::Array{C64,4})
+    # Extract the dimensional parameters
+    _, qbnd, nkpt, nspin = size(gamma)
+    @assert nspin == 1 # Current limitation
+
+    # Determine filename for correction for density matrix
+    fgamma = "GAMMA"
+
+    # Write the data
+    open(fgamma, "w") do fout
+        @printf(fout, "# spin:%4i\n", s)
+    end # END OF IOSTREAM
 end
 
 """
