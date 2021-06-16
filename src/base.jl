@@ -602,7 +602,18 @@ function dft_run(it::IterInfo, lr::Logger)
     monitor(true)
 end
 
-function dft_run()
+"""
+    dft_run()
+"""
+function dft_run(lr::Logger)
+    # Determine the chosen engine
+    engine = get_d("engine")
+
+    # Print the log
+    prompt("DFT")
+    prompt(lr.log, engine)
+
+    
 end
 
 """
