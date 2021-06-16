@@ -523,6 +523,25 @@ function read_gamma()
         # Create arrays
         kmesh = zeros(F64, nkpt, 3)
         gamma = zeros(C64, qbnd, qbnd, nkpt, nspin)
+
+        # Read the data
+        # Go through each spin and 𝑘-point
+        for s = 1:nspin
+            for k = 1:nkpt
+                # Parse indices and dimensional parameter
+                #
+                # For spin
+                strs = readline(fin)
+                _s = parse(I64, line_to_array(strs)[3])
+                @assert _s == s
+                #
+                # For 𝑘-point
+                strs = readline(fin)
+                _k = parse(I64, line_to_array(strs)[3])
+                @assert _k == k
+
+            end # END OF K LOOP
+        end # END OF S LOOP
     end
 end
 
