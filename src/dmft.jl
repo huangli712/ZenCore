@@ -509,8 +509,13 @@ function read_gamma()
     fgamma = "dmft2/dmft.gamma"
     @assert isfile(fgamma)
 
-    # Parse `fgamma`, extract the 𝑘-mesh and the correction for density
+    # Parse `fgamma`, extract 𝑘-mesh and correction for density matrix
     open(fgamma, "r") do fin
+        # Get the dimensional parameters
+        nkpt  = parse(I64, line_to_array(fin)[4])
+        nspin = parse(I64, line_to_array(fin)[3])
+        qbnd  = parse(I64, line_to_array(fin)[4])
+
         
     end
 end
