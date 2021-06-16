@@ -448,6 +448,9 @@ function vasp_gamma(kwin::Array{I64,3}, gamma::Array{C64,4})
             println(fout)
         end # END OF K LOOP
     end # END OF IOSTREAM
+
+    # Print message to the screen
+    println("  Write gamma matrix into: dft/$fgamma")
 end
 
 """
