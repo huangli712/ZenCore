@@ -421,6 +421,13 @@ function vasp_kpoints(mp_scheme::Bool = true, n::I64 = 9)
 end
 
 """
+    vasp_lock()
+"""
+function vasp_lock()
+    return isfile("dft/vasp.lock")
+end
+
+"""
     vasp_files(f::String)
 
 Check the essential output files by vasp. Here `f` means only the
@@ -1343,10 +1350,3 @@ Reading vasp's `CHGCAR` file, return the charge density.
 See also: [`irio_charge`](@ref).
 """
 vaspio_charge() = vaspio_charge(pwd())
-
-"""
-    vaspio_lock()
-"""
-function vaspio_lock()
-    return isfile("dft/vasp.lock")
-end
