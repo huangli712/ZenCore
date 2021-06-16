@@ -161,6 +161,9 @@ mutable struct IterInfo
     I₂ :: I64
     I₃ :: I64
     I₄ :: I64
+    M₁ :: I64
+    M₂ :: I64
+    M₃ :: I64
     sc :: I64
     μ₀ :: F64
     μ₁ :: F64
