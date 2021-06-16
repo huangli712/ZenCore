@@ -429,11 +429,11 @@ function vasp_gamma(kwin::Array{I64,3}, gamma::Array{C64,4})
     @assert nspin == 1 # Current limitation
 
     # Determine filename for correction for density matrix
-    fgamma = "GAMMA"
+    fgamma = "GAMMA.new"
 
     # Write the data
     open(fgamma, "w") do fout
-        @printf(fout, " %i  -1  ! Number of k-points, default number of bands\n", nkpt)
+        @printf(fout, " %i  -1\n", nkpt)
         for k = 1:nkpt
             bs = kwin[k,1,1]
             be = kwin[k,1,2]
@@ -445,7 +445,8 @@ function vasp_gamma(kwin::Array{I64,3}, gamma::Array{C64,4})
                     @printf(fout, " %.14f  %.14f", real(z), imag(z))
                 end
             end
-        end
+            println(fout)
+        end # END OF K LOOP
     end # END OF IOSTREAM
 end
 
