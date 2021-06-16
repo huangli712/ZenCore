@@ -854,8 +854,8 @@ function write_gamma(kmesh::Array{F64,2}, kwin::Array{I64,3}, gamma::Array{C64,4
                 cbnd = be - bs + 1
                 @printf(fout, "# cbnd:%4i  bs:%4i  be:%4i\n", cbnd, bs, be)
 
-                
-            end
-        end
+
+            end # END OF K LOOP
+        end # END OF S LOOP
     end # END OF IOSTREAM
 end
