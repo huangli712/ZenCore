@@ -857,6 +857,8 @@ function write_gamma(kmesh::Array{F64,2}, kwin::Array{I64,3}, gamma::Array{C64,4
                 # Go through the orbital space
                 for q = 1:cbnd
                     for p = 1:cbnd
+                        z = gamma[p,q,k,s]
+                        @printf(fout, "\n")
                     end
                 end
             end # END OF K LOOP
