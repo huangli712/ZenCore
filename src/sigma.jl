@@ -529,7 +529,7 @@ function write_sigma(fmesh::Array{F64,1}, SA::Array{Array{C64,4},1}, ai::Array{I
     println("  Write self-energy functions into: dmft1/sigma.bare")
 
     # Copy sigma.bare to the dmft2 directory
-    cp("dmft1/sigma.bare", "dmft2/sigma.bare")
+    cp("dmft1/sigma.bare", "dmft2/sigma.bare", force = true)
 
     # Print message to the screen
     println("  Write self-energy functions into: dmft2/sigma.bare")
@@ -591,7 +591,7 @@ function write_sigdc(DCA::Array{Array{F64,3},1}, ai::Array{Impurity,1})
     println("  Write double counting terms into: dmft1/sigma.dc")
 
     # Copy sigma.dc to the dmft2 directory
-    cp("dmft1/sigma.dc", "dmft2/sigma.dc")
+    cp("dmft1/sigma.dc", "dmft2/sigma.dc", force = true)
 
     # Print message to the screen
     println("  Write double counting terms into: dmft2/sigma.dc")
