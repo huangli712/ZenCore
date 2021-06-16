@@ -490,8 +490,29 @@ end
 #
 
 """
+    read_gamma()
+
+Read the `dmft2/dmft.gamma` file. It contains the correction for density
+matrix which is from electronic correlation.
+
+This function also return the 𝑘-mesh, which is useful for mixing the Γ
+matrix with the `Kerker` algorithm.
+
+See also: [`write_gamma`](@ref).
 """
 function read_gamma()
+    # Declare the arrays for 𝑘-mesh and correction for density matrix
+    kmesh = nothing
+    gamma = nothing
+
+    # Make sure the data file is available
+    fgamma = "dmft2/dmft.gamma"
+    @assert isfile(fgamma)
+
+    # Parse `fgamma`, extract the 𝑘-mesh and the correction for density
+    open(fgamma, "r") do fin
+        
+    end
 end
 
 #
