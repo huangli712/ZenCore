@@ -781,7 +781,7 @@ function write_eimpx(Eimpx::Array{C64,4}, ai::Array{Impurity,1}, flev::String)
         println(fout)
         println(fout)
 
-        # Go through each quantum impurity problems
+        # Go through each quantum impurity problem
         for t = 1:nsite
             # Go through each spin
             for s = 1:nspin
@@ -823,7 +823,7 @@ function write_gamma(kmesh::Array{F64,2}, kwin::Array{I64,3}, gamma::Array{C64,4
     _, qbnd, nkpt, nspin = size(gamma)
 
     # Determine filename for correction for density matrix
-    fgamma == "dmft2/dmft.gamma"
+    fgamma = "dmft2/dmft.gamma"
 
     # Write the data
     open(fgamma, "w") do fout
@@ -835,5 +835,27 @@ function write_gamma(kmesh::Array{F64,2}, kwin::Array{I64,3}, gamma::Array{C64,4
         # Write separators
         println(fout)
         println(fout)
+
+        # Go through each spin
+        for s = 1:nspin
+            # Go through 𝑘-point
+            for k = 1:nkpt                
+                # Write key parameters
+                #
+                # For spin
+                @printf(fout, "# spin:%4i\n", s)
+                #
+                # For 𝑘-point
+                @printf(fout, "# kpt:%4i  %16.12f%16.12f%16.12f\n", k, kmesh[k,1:3]...)
+                #
+                # For band window
+                bs = kwin[k,s,1]
+                be = kwin[k,s,2]
+                cbnd = be - bs + 1
+                @printf(fout, "# cbnd:%4i  bs:%4i  be:%4i\n", cbnd, bs, be)
+
+                
+            end
+        end
     end # END OF IOSTREAM
 end
