@@ -368,6 +368,7 @@ export save_it
 # vasp_save      -> Backup vasp's output files.
 # vasp_incar     -> Generate essential input file (INCAR).
 # vasp_kpoints   -> Generate essential input file (KPOINTS).
+# vasp_gamma     -> Generate essential input file (GAMMA).
 # vasp_files     -> Check essential output files.
 # vaspio_nband   -> Determine number of bands.
 # vaspio_valence -> Read number of valence electrons for each sort.
@@ -379,7 +380,6 @@ export save_it
 # vaspio_projs   -> Read projectors.
 # vaspio_fermi   -> Read fermi level.
 # vaspio_charge  -> Read charge density.
-# vaspio_gamma   -> Write correction for density matrix.
 # vaspio_lock    -> Manipulate the vasp.lock file.
 #
 include("vasp.jl")
@@ -390,6 +390,7 @@ export vasp_exec
 export vasp_save
 export vasp_incar
 export vasp_kpoints
+export vasp_gamma
 export vasp_files
 export vaspio_nband
 export vaspio_valence
@@ -401,7 +402,6 @@ export vaspio_eigen
 export vaspio_projs
 export vaspio_fermi
 export vaspio_charge
-export vaspio_gamma
 export vaspio_lock
 
 #
