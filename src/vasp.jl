@@ -421,9 +421,9 @@ function vasp_kpoints(mp_scheme::Bool = true, n::I64 = 9)
 end
 
 """
-    vasp_gamma(kmesh::Array{F64,2}, kwin::Array{I64,3}, gamma::Array{C64,4})
+    vasp_gamma(kwin::Array{I64,3}, gamma::Array{C64,4})
 """
-function vasp_gamma(kmesh::Array{F64,2}, kwin::Array{I64,3}, gamma::Array{C64,4})
+function vasp_gamma(kwin::Array{I64,3}, gamma::Array{C64,4})
     # Extract the dimensional parameters
     _, qbnd, nkpt, nspin = size(gamma)
     @assert nspin == 1 # Current limitation
@@ -434,6 +434,18 @@ function vasp_gamma(kmesh::Array{F64,2}, kwin::Array{I64,3}, gamma::Array{C64,4}
     # Write the data
     open(fgamma, "w") do fout
         @printf(fout, " %i  -1  ! Number of k-points, default number of bands\n", nkpt)
+        for k = 1:nkpt
+            bs = kwin[k,1,1]
+            be = kwin[k,1,2]
+            cbnd = be - bs + 1
+            @printf(fout, " %i  %i  %i\n", k, bs, be)
+            for p = 1:cbnd
+                for q = 1:cbnd
+                    z = gamma[p,q,k,1]
+                    @printf(fout, " %.14f  %.14f", real(z), imag(z))
+                end
+            end
+        end
     end # END OF IOSTREAM
 end
 
