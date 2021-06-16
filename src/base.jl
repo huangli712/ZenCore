@@ -654,7 +654,7 @@ If they exist already, it would be better to remove them at first.
 
 Prepare the working directories at advance.
 
-See also: [`rm_trees`](@ref).
+See also: [`clear_trees`](@ref).
 """
 function build_trees()
     # Build an array for folders
@@ -674,13 +674,13 @@ function build_trees()
 end
 
 """
-    rm_trees()
+    clear_trees()
 
 Remove the working directories finally.
 
 See also: [`build_trees`](@ref).
 """
-function rm_trees()
+function clear_trees()
     # Build an array for folders
     dir_list = ["dft", "dmft1", "dmft2"]
     for i = 1:get_i("nsite")
