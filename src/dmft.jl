@@ -858,7 +858,7 @@ function write_gamma(kmesh::Array{F64,2}, kwin::Array{I64,3}, gamma::Array{C64,4
                 for q = 1:cbnd
                     for p = 1:cbnd
                         z = gamma[p,q,k,s]
-                        @printf(fout, "\n")
+                        @printf(fout, "%4i%4i%16.8f%16.8f\n", p, q, real(z), imag(z))
                     end
                 end
             end # END OF K LOOP
