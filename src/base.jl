@@ -602,6 +602,9 @@ function dft_run(it::IterInfo, lr::Logger)
     monitor(true)
 end
 
+function dft_run()
+end
+
 """
     dmft_run(it::IterInfo, lr::Logger, task::I64)
 
