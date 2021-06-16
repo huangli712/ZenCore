@@ -623,6 +623,7 @@ function dft_run(lr::Logger)
         # For VASP
         @case "vasp"
             vasp_gamma(kwin, gamma)
+            vasp_lock("create")
             break
 
         @default
