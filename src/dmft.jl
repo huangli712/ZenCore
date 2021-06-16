@@ -570,7 +570,7 @@ function read_gamma()
             end # END OF K LOOP
         end # END OF S LOOP
     end # END OF IOSTREAM
-    println("  Read local impurity levels from: $flev")
+    println("  Read gamma matrix from: $fgamma")
 
     # Return the desired arrays
     return kmesh, kwin, gamma
