@@ -861,7 +861,13 @@ function write_gamma(kmesh::Array{F64,2}, kwin::Array{I64,3}, gamma::Array{C64,4
                         @printf(fout, "%4i%4i%16.8f%16.8f\n", p, q, real(z), imag(z))
                     end
                 end
+
+                # Write separators
+                println(fout)
+                println(fout)
             end # END OF K LOOP
         end # END OF S LOOP
     end # END OF IOSTREAM
+
+    
 end
