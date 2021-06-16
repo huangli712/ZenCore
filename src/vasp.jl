@@ -433,7 +433,7 @@ function vasp_gamma(kmesh::Array{F64,2}, kwin::Array{I64,3}, gamma::Array{C64,4}
 
     # Write the data
     open(fgamma, "w") do fout
-        @printf(fout, "# spin:%4i\n", s)
+        @printf(fout, " %i  -1  ! Number of k-points, default number of bands\n", nkpt)
     end # END OF IOSTREAM
 end
 
