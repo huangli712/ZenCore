@@ -157,7 +157,7 @@ function cycle1()
     prompt("ZEN", "Iterations")
     save_it(it, lr)
 
-    for iter = 1:get_m("niter")
+    for iter = 1:it.M₃
         # Print the log
         prompt("ZEN", "Cycle $iter")
         prompt(lr.log, "")
