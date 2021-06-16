@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/08
+# Last modified: 2021/06/16
 #
 
 #
@@ -527,6 +527,12 @@ function write_sigma(fmesh::Array{F64,1}, SA::Array{Array{C64,4},1}, ai::Array{I
 
     # Print message to the screen
     println("  Write self-energy functions into: dmft1/sigma.bare")
+
+    # Copy sigma.bare to the dmft2 directory
+    cp("dmft1/sigma.bare", "dmft2/sigma.bare")
+
+    # Print message to the screen
+    println("  Write self-energy functions into: dmft2/sigma.bare")
 end
 
 """
