@@ -823,7 +823,7 @@ function write_gamma(kmesh::Array{F64,2}, kwin::Array{I64,3}, gamma::Array{C64,4
     _, qbnd, nkpt, nspin = size(gamma)
 
     # Determine filename for correction for density matrix
-    @assert fgamma == "dmft2/dmft.gamma"
+    fgamma == "dmft2/dmft.gamma"
 
     # Write the data
     open(fgamma, "w") do fout
