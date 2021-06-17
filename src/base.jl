@@ -250,16 +250,17 @@ function cycle2()
 
     for iter = 1:it.M₃
     
+        suspend(2)
+
         # Print the log
         prompt("ZEN", "Cycle $iter")
         prompt(lr.log, "")
         prompt(lr.log, "< dft_dmft_cycle >")
     
-        suspend(2)
+        incr_it(it, 3, iter)
 
         adaptor_run(it, lr, ai)
 
-        incr_it(it, 3, iter)
         for iter1 = 1:it.M₁
             incr_it(it, 1, iter1)
 
@@ -270,10 +271,10 @@ function cycle2()
             dmft_run(it, lr, 1)
 
             # C07: Mix the hybridization functions
-            #mixer_core(it, lr, ai, "delta")
+            mixer_core(it, lr, ai, "delta")
 
             # C08: Mix the local impurity levels
-            #mixer_core(it, lr, ai, "eimpx")
+            mixer_core(it, lr, ai, "eimpx")
 
             # C09: Split and distribute the hybridization functions
             sigma_core(it, lr, ai, "split")
@@ -285,7 +286,7 @@ function cycle2()
             sigma_core(it, lr, ai, "gather")
 
             # C12: Mix the impurity self-energy functions
-            #mixer_core(it, lr, ai, "sigma")
+            mixer_core(it, lr, ai, "sigma")
 
             show_it(it, lr)
         end
@@ -303,6 +304,7 @@ function cycle2()
             show_it(it, lr)
         end
         zero_it(it)
+
     end
 end
 
