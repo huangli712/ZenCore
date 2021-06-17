@@ -232,7 +232,7 @@ function cycle2()
     prompt("ZEN", "Initialization")
 
     # C01: Perform DFT calculation (for the first time)
-    dft_run(it, lr)
+    #dft_run(it, lr)
 
     # C02: Prepare default self-energy functions
     sigma_core(it, lr, ai, "reset")
