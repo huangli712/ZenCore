@@ -322,7 +322,7 @@ export str_s
 # incr_it     -> Increase the counters in the IterInfo struct.
 # zero_it     -> Reset the counters in the IterInfo struct.
 # prev_it     -> Return the previous iteration information.
-# save_it     -> Record the iteration information.
+# show_it     -> Print the iteration information.
 #
 include("base.jl")
 #
@@ -350,7 +350,7 @@ export clear_trees
 export incr_it
 export zero_it
 export prev_it
-export save_it
+export show_it
 
 #
 # vasp.jl
