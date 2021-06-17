@@ -1026,23 +1026,15 @@ end
 """
     incr_it(it::IterInfo)
 
-Modify the internal counters in IterInfo struct.
+Modify the internal counters in IterInfo struct. This function is used
+in the one-shot DFT + DMFT calculations only.
 
 See also: [`IterInfo`](@ref), [`Logger`](@ref).
 """
 function incr_it(it::IterInfo)
-    # Get calculation mode
-    mode = get_m("mode")
-
-    # For one-shot DFT + DMFT mode
-    if mode == 1
-        it.I₃ = 1
-        it.I₁ = it.I₁ + 1
-        it.I₄ = it.I₄ + 1
-    # For fully charge self-consistent DFT + DMFT mode
-    else
-        sorry()
-    end
+    it.I₃ = 1
+    it.I₁ = it.I₁ + 1
+    it.I₄ = it.I₄ + 1
 end
 
 """
