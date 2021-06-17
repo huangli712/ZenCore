@@ -1087,7 +1087,7 @@ end
 function prev_it(it::IterInfo)
     @assert it.sc == 1
     @assert it.I₁ ≥ 2
-    return it.I₃, it.I₁
+    return it.I₃, it.I₁ - 1
 end
 
 function prev_it(it::IterInfo, c::I64)
