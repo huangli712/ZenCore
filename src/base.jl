@@ -259,10 +259,9 @@ function cycle2()
 
         adaptor_run(it, lr, ai)
 
-        it.I₃ = iter
+        incr_it(it, 3, iter)
         for iter1 = 1:it.M₁
-            it.I₁ = iter1
-            it.I₄ = it.I₄ + 1
+            incr_it(it, 1, iter1)
 
             # C05: Tackle with the double counting term
             sigma_core(it, lr, ai, "dcount")
@@ -293,8 +292,7 @@ function cycle2()
         zero_it(it)
 
         for iter2 = 1:it.M₂
-            it.I₂ = iter2
-            it.I₄ = it.I₄ + 1
+            incr_it(it, 2, iter2)
 
             dmft_run(it, lr, 2)
 
