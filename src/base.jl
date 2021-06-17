@@ -1063,7 +1063,7 @@ end
 
 Reset the counters in the IterInfo struct.
 
-See also: [`IterInfo`](@ref).
+See also: [`IterInfo`](@ref), [`incr_it`](@ref).
 """
 function zero_it(it::IterInfo)
     it.I₁ = 0
