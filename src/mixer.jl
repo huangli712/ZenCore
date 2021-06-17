@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/15
+# Last modified: 2021/06/17
 #
 
 """
@@ -26,8 +26,16 @@ function mixer_sigma(it::IterInfo, ai::Array{Impurity,1})
     curr = it.I₁
 
     # Get previous iteration
-    prev = it.I₁ - 1
-    @assert prev > 0
+    if it.sc == 1
+        _cycle, _prev = prev_it(it)
+        @assert _cycle == cycle
+        @assert _prev == curr - 1
+        @assert _prev ≥ 1 
+    else
+        _cycle, _prev = prev_it(it, 1)
+        @assert _cycle ≥ 1
+        @assert _prev ≥ 1
+    end
 
     # Determine filenames for self-energy functions
     fcurr = "dmft1/sigma.bare.$cycle.$curr"
