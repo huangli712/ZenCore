@@ -376,8 +376,8 @@ function IterInfo()
 
     # Initialize key fields
     I  = 0
-    M₁ = 2
-    M₂ = 2
+    M₁ = 1
+    M₂ = 1
     M₃ = niter
     sc = 1
     μ  = 0.0

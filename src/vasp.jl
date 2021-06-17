@@ -79,6 +79,7 @@ function vasp_init(it::IterInfo)
         vasp_incar(it.μ₀, it.sc)
     else
         # Maybe we need to update INCAR file here
+        @show it.I₃, it.μ₁, it.sc
         vasp_incar(it.μ₁, it.sc)
     end
     #
