@@ -290,7 +290,7 @@ function cycle2()
 
             show_it(it, lr)
         end
-        it.I₁ = 0
+        zero_it(it)
 
         for iter2 = 1:it.M₂
             it.I₂ = iter2
@@ -304,7 +304,7 @@ function cycle2()
 
             show_it(it, lr)
         end
-        it.I₂ = 0
+        zero_it(it)
     end
 end
 
