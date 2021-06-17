@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/15
+# Last modified: 2021/06/17
 #
 
 #
@@ -433,16 +433,16 @@ function vasp_gamma(kwin::Array{I64,3}, gamma::Array{C64,4})
 
     # Write the data
     open(fgamma, "w") do fout
-        @printf(fout, " %10i  -1\n", nkpt)
+        @printf(fout, " %i  -1  ! Number of k-points, default number of bands\n", nkpt)
         for k = 1:nkpt
             bs = kwin[k,1,1]
             be = kwin[k,1,2]
             cbnd = be - bs + 1
-            @printf(fout, "%10i%10i%10i\n", k, bs, be)
+            @printf(fout, " %i  %i  %i\n", k, bs, be)
             for p = 1:cbnd
                 for q = 1:cbnd
                     z = gamma[p,q,k,1]
-                    @printf(fout, " %.7E  %.7E", real(z), imag(z))
+                    @printf(fout, " %.14f  %.14f", real(z), imag(z))
                 end
             end
             println(fout)
