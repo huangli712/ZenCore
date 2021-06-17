@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/05
+# Last modified: 2021/06/17
 #
 
 """
@@ -420,7 +420,8 @@ end
 """
     prompt(io::IOStream, msg::String)
 
-Print a format Zen message to the given IOStream.
+Print a format Zen message to the given IOStream. This function is used
+to log the events during DFT + DMFT iterations.
 """
 function prompt(io::IOStream, msg::String)
     date = Dates.format(now(), "yyyy-mm-dd / HH:MM:SS")
