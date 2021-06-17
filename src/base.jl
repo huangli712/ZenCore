@@ -1076,7 +1076,18 @@ function prev_it(it::IterInfo)
     return it.I₃, it.I₁
 end
 
-function prev_it(it::IterInfo)
+function prev_it(it::IterInfo, c::I64)
+    @assert it.sc == 2
+    @assert c in (1, 2)
+
+    if c == 1
+        list = [(i3,i1) for i1 = 1:it.M₁, i3 = 1:it.M₃]
+        newlist = reshape(list, it.M₁ * it.M₃)
+        ind = findfirst(x -> x == (it.I₃, it.I₁), newlist)
+        @assert ind ≥ 2
+        return newlist[ind - 1]
+    else
+    end
 end
 
 """
