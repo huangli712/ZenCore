@@ -1059,12 +1059,15 @@ function incr_it(it::IterInfo, c::I64, v::I64)
     @assert v ≥ 1
 
     if c == 1
+        @assert v ≤ it.M₁
         it.I₁ = v
         it.I₄ = it.I₄ + 1
     elseif c == 2
+        @assert v ≤ it.M₂
         it.I₂ = v
         it.I₄ = it.I₄ + 1
     elseif c == 3
+        @assert v ≤ it.M₃
         it.I₃ = v
     end
 end
