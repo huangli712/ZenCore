@@ -33,13 +33,13 @@ function mixer_sigma(it::IterInfo, ai::Array{Impurity,1})
         @assert _prev ≥ 1 
     else
         _cycle, _prev = prev_it(it, 1)
-        @assert _cycle ≥ 1
+        @assert cycle ≥ _cycle ≥ 1
         @assert _prev ≥ 1
     end
 
     # Determine filenames for self-energy functions
     fcurr = "dmft1/sigma.bare.$cycle.$curr"
-    fprev = "dmft1/sigma.bare.$cycle.$prev"
+    fprev = "dmft1/sigma.bare.$_cycle.$_prev"
 
     # Check whether these files are available
     @assert isfile(fcurr) && isfile(fprev)
@@ -78,8 +78,16 @@ function mixer_delta(it::IterInfo, ai::Array{Impurity,1})
     curr = it.I₁
 
     # Get previous iteration
-    prev = it.I₁ - 1
-    @assert prev > 0
+    if it.sc == 1
+        _cycle, _prev = prev_it(it)
+        @assert _cycle == cycle
+        @assert _prev == curr - 1
+        @assert _prev ≥ 1 
+    else
+        _cycle, _prev = prev_it(it, 1)
+        @assert cycle ≥ _cycle ≥ 1
+        @assert _prev ≥ 1
+    end
 
     # Determine filenames for hybridization functions
     fcurr = "dmft1/dmft.delta.$cycle.$curr"
