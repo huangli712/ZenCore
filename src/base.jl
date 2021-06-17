@@ -1070,7 +1070,13 @@ function zero_it(it::IterInfo)
     it.I₂ = 0
 end
 
-function prev_it()
+function prev_it(it::IterInfo)
+    @assert it.sc == 1
+    @assert it.I₁ ≥ 2
+    return it.I₃, it.I₁
+end
+
+function prev_it(it::IterInfo)
 end
 
 """
