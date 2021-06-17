@@ -18,12 +18,12 @@ Provides a C-like switch statement with the *falling through* behavior.
 This implementation was borrowed from the following github repository:
 * https://github.com/Gnimuc/CSyntax.jl
 
-## Examples
+### Examples
 ```julia
 engine = get_d("engine")
 @cswitch engine begin
     @case "vasp"
-        vasp_init(it)
+        just_do_it()
         break
 
     @default
@@ -73,7 +73,7 @@ end
 Wrapper for `printstyled` function. Here `str` is a string, and `c`
 denotes color.
 
-## Examples
+### Examples
 ```julia
 @ps1 "Hello world!" :green
 ```
@@ -104,11 +104,11 @@ end
     require()
 
 Check the version of julia runtime environment. It should be higher
-than v1.6.x. One of the most important philosophies of the ZenCore
+than v1.6.x. One of the most important philosophies of the `ZenCore`
 package is minimizing the dependence on the third-party libraries as
-far as possible. Note that the ZenCore package relys on the `TOML`
+far as possible. Note that the `ZenCore` package relys on the `TOML`
 package to parse the *.toml file. Only in v1.6.0 and higher versions,
-julia includes `TOML` in its standard library.
+julia includes the `TOML` package in its standard library.
 """
 function require()
     if VERSION < v"1.6-"
@@ -119,11 +119,11 @@ end
 """
     setup_args(x::Vararg{String})
 
-Setup `ARGS` manually. This function is used only in REPL environment.
+Setup `ARGS` manually. This function is used only in `REPL` environment.
 We can use this function to update `ARGS`, so that the `query_args()`
 and the other related functions can work correctly.
 
-## Examples
+### Examples
 ```julia-repl
 julia > setup_args("SrVO3.toml")
 1-element Array{String,1}:
