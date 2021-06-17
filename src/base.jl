@@ -1041,11 +1041,18 @@ end
     incr_it(it::IterInfo)
 
 Modify the internal counters in IterInfo struct. This function is used
-in the self-consistent DFT + DMFT calculations only.
+in the fully charge self-consistent DFT + DMFT calculations only.
 
 See also: [`IterInfo`](@ref), [`zero_it`](@ref).
 """
-function incr_it(it::IterInfo)
+function incr_it(it::IterInfo, c::I64, v::I64)
+    @assert c in (1, 2, 3)
+    @assert v ≥ 1
+
+    if c == 1
+    elseif c == 2
+    elseif c == 3
+    end
 end
 
 """
