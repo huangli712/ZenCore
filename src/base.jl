@@ -927,7 +927,7 @@ function mixer_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::Strin
 
     # Check iteration number to see whether we have enough data to be mixed
     if it.sc == 1
-        if it.I₁ ≤ 2
+        if it.I₁ ≤ 1
             return
         end
     else
@@ -936,6 +936,7 @@ function mixer_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::Strin
                 return
             end
         else
+            @assert task == "gamma"
             if it.I₃ == 1 && it.I₂ == 1
                 return
             end
@@ -963,7 +964,7 @@ function mixer_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::Strin
             mixer_eimpx(it, ai)
             break
 
-        # Try to mix the charge density
+        # Try to mix the density matrix
         @case "gamma"
             mixer_gamma(it)
             break
