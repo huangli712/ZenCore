@@ -155,7 +155,7 @@ function cycle1()
 # DFT + DMFT Iterations (C05-C12)
 #
     prompt("ZEN", "Iterations")
-    save_it(it, lr)
+    show_it(it, lr)
 
     for iter = 1:it.M₃
         # Print the log
@@ -191,7 +191,7 @@ function cycle1()
         mixer_core(it, lr, ai, "sigma")
 
         # Print the cycle info
-        save_it(it, lr)
+        show_it(it, lr)
     end
 
     # C98: Close Logger.log
@@ -244,7 +244,7 @@ function cycle2()
 # DFT + DMFT Iterations (C05-C12)
 #
     prompt("ZEN", "Iterations")
-    save_it(it, lr)
+    show_it(it, lr)
 
     dft_run(it, lr)
 
@@ -288,7 +288,7 @@ function cycle2()
             # C12: Mix the impurity self-energy functions
             #mixer_core(it, lr, ai, "sigma")
 
-            save_it(it, lr)
+            show_it(it, lr)
         end
         it.I₁ = 0
 
@@ -302,7 +302,7 @@ function cycle2()
 
             suspend(2)
 
-            save_it(it, lr)
+            show_it(it, lr)
         end
         it.I₂ = 0
     end
@@ -1052,13 +1052,13 @@ function prev_it()
 end
 
 """
-    save_it(it::IterInfo, lr::Logger)
+    show_it(it::IterInfo, lr::Logger)
 
 Try to record the iteration information in the `case.cycle` file.
 
 See also: [`IterInfo`](@ref), [`Logger`](@ref).
 """
-function save_it(it::IterInfo, lr::Logger)
+function show_it(it::IterInfo, lr::Logger)
     # Extract parameter `nsite`
     nsite = get_i("nsite")
     @assert nsite == length(it.nf)
