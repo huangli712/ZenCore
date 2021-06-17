@@ -644,7 +644,7 @@ export write_sigdc
 # mixer_sigma -> Mix self-energy functions.
 # mixer_delta -> Mix hybridization functions.
 # mixer_eimpx -> Mix local impurity levels.
-# mixer_gamma -> Mix correction of charge density.
+# mixer_gamma -> Mix correction of density matrix Γ.
 #
 include("mixer.jl")
 #
