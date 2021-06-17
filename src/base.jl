@@ -1043,10 +1043,11 @@ function incr_it(it::IterInfo)
     it.I₃ = 1
     it.I₁ = it.I₁ + 1
     it.I₄ = it.I₄ + 1
+    @assert it.I₁ ≤ it.M₃
 end
 
 """
-    incr_it(it::IterInfo)
+    incr_it(it::IterInfo, c::I64, v::I64)
 
 Modify the internal counters in IterInfo struct. This function is used
 in the fully charge self-consistent DFT + DMFT calculations only.
