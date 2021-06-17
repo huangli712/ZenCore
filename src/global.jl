@@ -7,6 +7,10 @@
 # Last modified: 2021/06/18
 #
 
+#=
+### *Global Constants* : *Numerical Types*
+=#
+
 """
     I32 and I64
 
@@ -57,6 +61,10 @@ See also: [`R32`](@ref), [`R64`](@ref).
 const N32 = Union{I32,F32,C32}
 const N64 = Union{I64,F64,C64}
 
+#=
+### *Global Constants* : *Strings*
+=#
+
 """
     __LIBNAME__
 
@@ -73,7 +81,7 @@ Version of this julia package.
 
 See also: [`__RELEASE__`](@ref).
 """
-const __VERSION__ = v"0.4.4-devel.210617"
+const __VERSION__ = v"0.4.4-devel.210618"
 
 """
     __RELEASE__
@@ -84,6 +92,15 @@ See also: [`__AUTHORS__`](@ref).
 """
 const __RELEASE__ = "2021/06"
 
+#=
+*Remarks*:
+
+The elements of the following array should be a `NamedTuple` object,
+such as:
+
+> (*name* = "author's name", *email* = "author's email").
+=#
+
 """
     __AUTHORS__
 
@@ -93,18 +110,10 @@ See also: [`__LIBNAME__`](@ref).
 """
 const __AUTHORS__ = [(name = "Li Huang", email = "lihuang.dmft@gmail.com")]
 
-#=
-*Remarks*:
-
-The Array's element should be a `NamedTuple` object, such as:
-
-> (*name* = "author's name", *email* = "author's email").
-=#
-
 """
     authors()
 
-Print authors / contributors of the ZenCore package.
+Print authors / contributors of the `ZenCore` package.
 
 See also: [`__AUTHORS__`](@ref).
 """
