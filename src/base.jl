@@ -925,10 +925,20 @@ function mixer_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::Strin
     # Check the given task
     @assert task in ("sigma", "delta", "eimpx", "gamma")
 
-    # Check iteration number
-    if it.I₃ == 1
-        if it.I₁ < 2
+    # Check iteration number to see whether we have enough data to be mixed
+    if it.sc == 1
+        if it.I₁ ≤ 2
             return
+        end
+    else
+        if task in ("sigma", "delta", "eimpx")
+            if it.I₃ == 1 && it.I₁ == 1
+                return
+            end
+        else
+            if it.I₃ == 1 && it.I₂ == 1
+                return
+            end
         end
     end
 
