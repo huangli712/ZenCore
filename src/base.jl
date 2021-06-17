@@ -1029,12 +1029,23 @@ end
 Modify the internal counters in IterInfo struct. This function is used
 in the one-shot DFT + DMFT calculations only.
 
-See also: [`IterInfo`](@ref), [`Logger`](@ref).
+See also: [`IterInfo`](@ref), [`zero_it`](@ref).
 """
 function incr_it(it::IterInfo)
     it.I₃ = 1
     it.I₁ = it.I₁ + 1
     it.I₄ = it.I₄ + 1
+end
+
+"""
+    incr_it(it::IterInfo)
+
+Modify the internal counters in IterInfo struct. This function is used
+in the self-consistent DFT + DMFT calculations only.
+
+See also: [`IterInfo`](@ref), [`zero_it`](@ref).
+"""
+function incr_it(it::IterInfo)
 end
 
 """
