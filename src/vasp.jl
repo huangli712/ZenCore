@@ -444,8 +444,9 @@ function vasp_gamma(kwin::Array{I64,3}, gamma::Array{C64,4})
                     z = gamma[p,q,k,1]
                     @printf(fout, " %.14f  %.14f", real(z), imag(z))
                 end
+                println(fout)
             end
-            println(fout)
+            #println(fout)
         end # END OF K LOOP
     end # END OF IOSTREAM
 
