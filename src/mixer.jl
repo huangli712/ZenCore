@@ -91,7 +91,7 @@ function mixer_delta(it::IterInfo, ai::Array{Impurity,1})
 
     # Determine filenames for hybridization functions
     fcurr = "dmft1/dmft.delta.$cycle.$curr"
-    fprev = "dmft1/dmft.delta.$cycle.$prev"
+    fprev = "dmft1/dmft.delta.$_cycle.$_prev"
 
     # Check whether these files are available
     @assert isfile(fcurr) && isfile(fprev)
