@@ -1056,6 +1056,7 @@ function incr_it(it::IterInfo, c::I64, v::I64)
         it.I₂ = v
         it.I₄ = it.I₄ + 1
     elseif c == 3
+        it.I₃ = v
     end
 end
 
