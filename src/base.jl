@@ -1040,6 +1040,7 @@ in the one-shot DFT + DMFT calculations only.
 See also: [`IterInfo`](@ref), [`zero_it`](@ref).
 """
 function incr_it(it::IterInfo)
+    @assert it.sc == 1
     it.I₃ = 1
     it.I₁ = it.I₁ + 1
     it.I₄ = it.I₄ + 1
@@ -1055,6 +1056,7 @@ in the fully charge self-consistent DFT + DMFT calculations only.
 See also: [`IterInfo`](@ref), [`zero_it`](@ref).
 """
 function incr_it(it::IterInfo, c::I64, v::I64)
+    @assert it.sc == 2
     @assert c in (1, 2, 3)
     @assert v ≥ 1
 
