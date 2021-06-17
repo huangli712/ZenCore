@@ -1045,7 +1045,14 @@ function incr_it(it::IterInfo)
     end
 end
 
-function zero_it()
+"""
+    zero_it(it::IterInfo)
+
+Reset the counters in the IterInfo struct.
+"""
+function zero_it(it::IterInfo)
+    it.I₁ = 0
+    it.I₂ = 0
 end
 
 function prev_it()
