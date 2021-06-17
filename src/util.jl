@@ -192,9 +192,11 @@ As for the `INCAR` and `KPOINTS`, they will be generated automatically.
     query_inps(engine::String)
 
 Check whether the essential input files exist. This function is designed
-for the DFT engine only.
+for the DFT engine only. The input files for the DMFT engine, quantum
+impurity solver, and Kohn-Sham adaptor will be generated automatically.
+The `ZenCore` package will take care of them. Do not worry.
 
-See also: [`query_inps`](@ref).
+See also: [`query_case`](@ref).
 """
 function query_inps(engine::String)
     @cswitch engine begin
@@ -224,8 +226,8 @@ end
 """
     query_home()
 
-Query the home directory of Zen. Actually, the `ZEN_HOME` means the
-directory that the Zen Framework is installed.
+Query the home directory of `Zen`. Actually, the `ZEN_HOME` means the
+directory that the `Zen` Framework is installed.
 
 See also: [`query_core`](@ref).
 """
@@ -241,8 +243,8 @@ end
 """
     query_core()
 
-Query the src/core directory of Zen. Actually, the `ZEN_CORE` denotes
-the directory that contains the ZenCore.jl file. Be careful, ZEN_CORE
+Query the src/core directory of `Zen`. Actually, the `ZEN_CORE` denotes
+the directory that contains the ZenCore.jl file. Be careful, `ZEN_CORE`
 must be included in `LOAD_PATH`.
 
 See also: [`query_home`](@ref).
