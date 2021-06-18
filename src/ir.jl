@@ -57,7 +57,6 @@ function ir_adaptor(D::Dict{Symbol,Any})
     irio_eigen(pwd(), D[:enk], D[:occupy])
 
     # I07: Write normalized projectors
-    println("  Store projector")
     irio_projs(pwd(), D[:Fchipsi])
 
     # I08: Write fermi level
@@ -554,6 +553,9 @@ The projectors are original data. They have not been modified.
 See also: [`vaspio_projs`](@ref).
 """
 function irio_projs(f::String, chipsi::Array{C64,4})
+    # Print the header
+    println("Store projector")
+
     # Extract some key parameters
     nproj, nband, nkpt, nspin = size(chipsi)
 
@@ -581,6 +583,8 @@ function irio_projs(f::String, chipsi::Array{C64,4})
             end # END OF K LOOP
         end # END OF S LOOP
     end # END OF IOSTREAM
+
+    println("  > Write the file projs.ir")
 end
 
 """
