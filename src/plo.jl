@@ -510,6 +510,8 @@ function plo_filter(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1})
 
         # Push F into Fchipsi to save it
         push!(Fchipsi, F)
+
+        println("  > Apply window $p: maximum number of bands -> $(PW[p].nbnd)")
     end # END OF P LOOP
 
     # Return the desired array
