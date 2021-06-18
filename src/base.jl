@@ -49,7 +49,6 @@ function go()
         # Fully self-consistent DFT + DMFT calculations
         @case 2
             cycle2()
-            println("haha")
             break
 
         # To be implemented
