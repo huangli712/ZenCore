@@ -69,7 +69,7 @@ See also: [`vasp_exec`](@ref), [`vasp_save`](@ref).
 function vasp_init(it::IterInfo)
     # Print the header
     println("Engine : VASP")
-    println("Current directory:", pwd())
+    println("Current directory: ", pwd())
     println("Prepare necessary input files for vasp")
 
     # Prepare essential input files
@@ -115,13 +115,16 @@ Execute the vasp program.
 See also: [`vasp_init`](@ref), [`vasp_save`](@ref).
 """
 function vasp_exec(it::IterInfo)
-    # Get the home directory of vasp
-    dft_home = query_dft("vasp")
+    # Print the header
+    println("Detect the runtime environment for vasp")
 
     # Determine mpi prefix (whether the vasp is executed sequentially)
     mpi_prefix = inp_toml("../MPI.toml", "dft", false)
     numproc = parse(I64, line_to_array(mpi_prefix)[3])
-    println("  Para : Using $numproc processors")
+    println("  > Using $numproc processors (MPI)")
+
+    # Get the home directory of vasp
+    dft_home = query_dft("vasp")
 
     # Select suitable vasp program
     if get_d("lspinorb")
@@ -130,7 +133,7 @@ function vasp_exec(it::IterInfo)
         vasp_exe = "$dft_home/vasp_std"
     end
     @assert isfile(vasp_exe)
-    println("  Exec : $vasp_exe")
+    println("  > Executable program: $vasp_exe")
 
     # Assemble command
     if isnothing(mpi_prefix)
