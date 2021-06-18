@@ -74,12 +74,10 @@ function ir_adaptor(D::Dict{Symbol,Any})
 
     # I10: Write tetrahedron data if they are available
     if get_d("smear") === "tetra"
-        println("  Store tetrahedron")
         irio_tetra(pwd(), D[:volt], D[:itet])
     end
 
     # I11: Print the footer for a better visualization
-    println("The Kohn-Sham dataset is translated into IR format by the adaptor")
     println()
 end
 
@@ -472,6 +470,9 @@ means only the directory that we want to use.
 See also: [`vaspio_tetra`](@ref).
 """
 function irio_tetra(f::String, volt::F64, itet::Array{I64,2})
+    # Print the header
+    println("Store tetrahedron")
+
     # Extract some key parameters
     ntet, ndim = size(itet)
 
@@ -493,6 +494,8 @@ function irio_tetra(f::String, volt::F64, itet::Array{I64,2})
             @printf(fout, "%8i %8i %8i %8i %8i\n", itet[t, :]...)
         end
     end # END OF IOSTREAM
+
+    println("  > Write the file tetra.ir")
 end
 
 """
