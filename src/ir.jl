@@ -534,9 +534,6 @@ The projectors are original data. They have not been modified.
 See also: [`vaspio_projs`](@ref).
 """
 function irio_projs(f::String, chipsi::Array{C64,4})
-    # Print the header
-    println("Store projector")
-
     # Extract some key parameters
     nproj, nband, nkpt, nspin = size(chipsi)
 
@@ -565,7 +562,7 @@ function irio_projs(f::String, chipsi::Array{C64,4})
         end # END OF S LOOP
     end # END OF IOSTREAM
 
-    println("  > Write the file projs.ir")
+    println("  > Open and write the file projs.ir")
 end
 
 """
@@ -580,9 +577,6 @@ DMFT engine.
 See also: [`vaspio_projs`](@ref).
 """
 function irio_projs(f::String, chipsi::Array{Array{C64,4},1})
-    # Print the header
-    println("Store projector")
-
     # Output the data
     open(joinpath(f, "projs.ir"), "w") do fout
         # Write the header
@@ -618,7 +612,7 @@ function irio_projs(f::String, chipsi::Array{Array{C64,4},1})
         end # END OF P LOOP
     end # END OF IOSTREAM
 
-    println("  > Write the file projs.ir")
+    println("  > Open and write the file projs.ir")
 end
 
 """
