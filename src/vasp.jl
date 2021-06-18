@@ -69,6 +69,7 @@ See also: [`vasp_exec`](@ref), [`vasp_save`](@ref).
 function vasp_init(it::IterInfo)
     # Print the header
     println("Engine : VASP")
+    println("Current directory:", pwd())
     println("Prepare necessary input files for vasp")
 
     # Prepare essential input files
@@ -76,8 +77,8 @@ function vasp_init(it::IterInfo)
     # Copy POTCAR and POSCAR
     cp("../POTCAR", joinpath(pwd(), "POTCAR"), force = true)
     cp("../POSCAR", joinpath(pwd(), "POSCAR"), force = true)
-    println("  POTCAR is ready")
-    println("  POSCAR is ready")
+    println("  > POTCAR is ready")
+    println("  > POSCAR is ready")
     #
     # How about INCAR
     if it.I₃ == 0
@@ -88,13 +89,13 @@ function vasp_init(it::IterInfo)
         @show it.I₃, it.μ₁, it.sc
         vasp_incar(it.μ₁, it.sc)
     end
-    println("  INCAR is ready")
+    println("  > INCAR is ready")
     #
     # Well, perhaps we need to generate the KPOINTS file by ourselves.
     if get_d("kmesh") === "file"
         vasp_kpoints()
     end
-    println("  KPOINTS is ready")
+    println("  > KPOINTS is ready")
 
     # Check essential input files
     flist = ("INCAR", "POSCAR", "POTCAR")
