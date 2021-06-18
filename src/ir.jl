@@ -313,9 +313,6 @@ directory that we want to use.
 See also: [`PrWindow`](@ref).
 """
 function irio_windows(f::String, PW::Array{PrWindow,1})
-    # Print the header
-    println("Store windows")
-
     # Output the data
     open(joinpath(f, "windows.ir"), "w") do fout
         # Write the header
@@ -344,7 +341,7 @@ function irio_windows(f::String, PW::Array{PrWindow,1})
         end # END OF P LOOP
     end # END OF IOSTREAM
 
-    println("  > Write the file windows.ir")
+    println("  > Open and write the file windows.ir")
 end
 
 """
