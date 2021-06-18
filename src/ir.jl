@@ -119,7 +119,7 @@ See also: [`PrGroup`](@ref), [`PrWindow`](@ref).
 """
 function irio_params(f::String, D::Dict{Symbol,Any})
     # Print the header
-    println("Store params")
+    println("Store essential parameters")
 
     # Extract crystallography information
     _case = D[:latt]._case
@@ -213,7 +213,7 @@ function irio_params(f::String, D::Dict{Symbol,Any})
         println(fout)
     end # END OF IOSTREAM
 
-    println("  > Write the file params.ir")
+    println("  > Open and write the file params.ir")
 end
 
 """
@@ -225,9 +225,6 @@ directory that we want to use.
 See also: [`Mapping`](@ref).
 """
 function irio_maps(f::String, MAP::Mapping)
-    # Print the header
-    println("Store maps")
-
     # Extract key parameters
     nsite = length(MAP.i_grp)
     ngrp = length(MAP.g_imp)
@@ -270,7 +267,7 @@ function irio_maps(f::String, MAP::Mapping)
         println(fout)
     end # END OF IOSTREAM
 
-    println("  > Write the file maps.ir")
+    println("  > Open and write the file maps.ir")
 end
 
 """
@@ -282,9 +279,6 @@ directory that we want to use.
 See also: [`PrGroup`](@ref).
 """
 function irio_groups(f::String, PG::Array{PrGroup,1})
-    # Print the header
-    println("Store groups")
-
     # Output the data
     open(joinpath(f, "groups.ir"), "w") do fout
         # Write the header
@@ -307,7 +301,7 @@ function irio_groups(f::String, PG::Array{PrGroup,1})
         end
     end # END OF IOSTREAM
 
-    println("  > Write the file groups.ir")
+    println("  > Open and write the file groups.ir")
 end
 
 """
