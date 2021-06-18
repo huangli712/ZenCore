@@ -1369,15 +1369,15 @@ function vaspio_projs(f::String)
     println("  > Number of spins: ", nspin)
     println("  > Number of projectors: ", nproj)
     println("  > Number of groups: ", length(PG))
-    println("  > Shape of Array chipsi: ", size(chipsi))
     for i in eachindex(PG)
-        print("  > Group $i: ")
-        print("site -> ", PG[i].site)
-        print("l -> ", PG[i].l)
-        print("corr -> ", PG[i].corr)
-        print("shell -> ", PG[i].shell)
+        print("  > Group $i:")
+        print(" site -> ", PG[i].site)
+        print(" l -> ", PG[i].l)
+        print(" corr -> ", PG[i].corr)
+        print(" shell -> ", PG[i].shell)
         println()
     end
+    println("  > Shape of Array chipsi: ", size(chipsi))
     
     # Return the desired arrays
     # Note: PG should be further setup at plo_group() function.
