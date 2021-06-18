@@ -192,7 +192,7 @@ function vasp_exec(it::IterInfo)
         end
 
         # Print the log to screen
-        @printf("Elapsed %4i seconds, %4i iterations (dE = %12s)\r", 5*c, ni, dE)
+        @printf("  > Elapsed %4i seconds, %4i iterations (dE = %12s)\r", 5*c, ni, dE)
 
         # Break the loop
         istaskdone(t) && break
@@ -207,7 +207,7 @@ function vasp_exec(it::IterInfo)
     # Extract how many iterations are executed
     iters = readlines("vasp.out")
     filter!(x -> contains(x, "DAV:"), iters)
-    println("Converged after $(length(iters)) iterations")
+    println("  > Converged after $(length(iters)) iterations")
 
     # Print the footer
     println()
