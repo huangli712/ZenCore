@@ -32,7 +32,6 @@ function vasp_adaptor(D::Dict{Symbol,Any})
     D[:latt] = vaspio_lattice(pwd())
 
     # V03: Read in kmesh and the corresponding weights
-    println("Parse kmesh and weight")
     D[:kmesh], D[:weight] = vaspio_kmesh(pwd())
 
     # V04: Read in band structure and the corresponding occupancies
@@ -1020,6 +1019,10 @@ only the directory that contains `IBZKPT`.
 See also: [`vaspio_tetra`](@ref), [`irio_kmesh`](@ref).
 """
 function vaspio_kmesh(f::String)
+    # Print the header
+    println("Parse kmesh and weight")
+    println("  > Open and read IBZKPT")
+
     # Open the iostream
     fin = open(joinpath(f, "IBZKPT"), "r")
 
