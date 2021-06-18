@@ -370,15 +370,15 @@ Outer constructor for IterInfo struct.
 function IterInfo()
     # Extract the parameter `nsite` and `niter`
     nsite = get_i("nsite")
-    niter = get_m("niter")
+    _M₃, _M₁, _M₂ = get_m("niter")
     @assert nsite ≥ 1
-    @assert niter ≥ 1
+    @assert _M₃ ≥ 1 && _M₁ ≥ 1 && _M₂ ≥ 1
 
     # Initialize key fields
     I  = 0
-    M₁ = 1
-    M₂ = 1
-    M₃ = niter
+    M₁ = _M₁
+    M₂ = _M₂
+    M₃ = _M₃
     sc = 1
     μ  = 0.0
     dc = fill(0.0, nsite)
