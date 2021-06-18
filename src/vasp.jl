@@ -1393,14 +1393,14 @@ See also: [`irio_projs`](@ref).
 vaspio_projs() = vaspio_projs(pwd())
 
 """
-    vaspio_fermi(f::String)
+    vaspio_fermi(f::String, silent::Bool = true
 
 Reading vasp's `DOSCAR` file, return the fermi level. Here `f` means
 only the directory that contains `DOSCAR`.
 
 See also: [`irio_fermi`](@ref).
 """
-function vaspio_fermi(f::String)
+function vaspio_fermi(f::String, silent::Bool = true)
     # Print the header
     println("Parse fermi level")
 
