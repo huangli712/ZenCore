@@ -287,6 +287,7 @@ function plo_group(MAP::Mapping, PG::Array{PrGroup,1})
                 sorry()
                 break
         end
+        println("  > Build transformation matrix for group $g (site: $(PG[g].site))")
     end
 end
 
