@@ -490,9 +490,6 @@ only the directory that we want to use.
 See also: [`vaspio_eigen`](@ref).
 """
 function irio_eigen(f::String, enk::Array{F64,3}, occupy::Array{F64,3})
-    # Print the header
-    println("Store enk and occupy")
-
     # Extract some key parameters
     nband, nkpt, nspin = size(enk)
 
@@ -523,7 +520,7 @@ function irio_eigen(f::String, enk::Array{F64,3}, occupy::Array{F64,3})
         end # END OF S LOOP
     end # END OF IOSTREAM
 
-    println("  > Write the file eigen.ir")
+    println("  > Open and write the file eigen.ir")
 end
 
 """
