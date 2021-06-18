@@ -929,8 +929,8 @@ See also: [`Lattice`](@ref), [`irio_lattice`](@ref).
 """
 function vaspio_lattice(f::String, silent::Bool = true)
     # Print the header
-    println("Parse lattice")
-    println("  > Open and read POSCAR")
+    !silent && println("Parse lattice")
+    !silent && println("  > Open and read POSCAR")
 
     # Open the iostream
     fin = open(joinpath(f, "POSCAR"), "r")
@@ -991,8 +991,8 @@ function vaspio_lattice(f::String, silent::Bool = true)
     close(fin)
 
     # Print some useful information to check
-    println("  > System: ", latt._case)
-    println("  > Atoms: ", latt.atoms)
+    !silent && println("  > System: ", latt._case)
+    !silent && println("  > Atoms: ", latt.atoms)
 
     # Return the desired struct
     return latt
