@@ -1216,7 +1216,7 @@ function vaspio_eigen(f::String)
         # return the desired arrays
         return enk, occupy
     else
-        println("here, should read LOCPROJ")
+        println("  > Open and read LOCPROJ")
 
         # Open the iostream
         fin = open(joinpath(f, "LOCPROJ"), "r")
@@ -1256,6 +1256,13 @@ function vaspio_eigen(f::String)
 
         # Close the iostream
         close(fin)
+
+        # Print some useful information to check
+        println("  > Number of DFT bands: ", nband)
+        println("  > Number of 𝑘-points: ", nkpt)
+        println("  > Number of spins: ", nspin)
+        println("  > Shape of Array enk: ", size(enk))
+        println("  > Shape of Array occupy: ", size(occupy))
 
         # return the desired arrays
         return enk, occupy
