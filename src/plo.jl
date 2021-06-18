@@ -442,7 +442,7 @@ function plo_rotate(PG::Array{PrGroup,1}, chipsi::Array{C64,4})
         # Push R into Rchipsi to save it
         push!(Rchipsi, R)
 
-        println("  > Rotate group $i: from $(p2 - p1 + 1) to $ndim")
+        println("  > Rotate group $i (site: $(PG[i].site)): from $(p2 - p1 + 1) to $ndim")
     end # END OF I LOOP
 
     # Return the desired array
