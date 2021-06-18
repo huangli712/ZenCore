@@ -418,9 +418,6 @@ Write the kmesh and weight information to kmesh.ir using the IR format. Here
 See also: [`vaspio_kmesh`](@ref).
 """
 function irio_kmesh(f::String, kmesh::Array{F64,2}, weight::Array{F64,1})
-    # Print the header
-    println("Store kmesh and weight")
-
     # Extract some key parameters
     nkpt, ndir = size(kmesh)
 
@@ -447,7 +444,7 @@ function irio_kmesh(f::String, kmesh::Array{F64,2}, weight::Array{F64,1})
         end
     end # END OF IOSTREAM
 
-    println("  > Write the file kmesh.ir")
+    println("  > Open and write the file kmesh.ir")
 end
 
 """
@@ -459,9 +456,6 @@ means only the directory that we want to use.
 See also: [`vaspio_tetra`](@ref).
 """
 function irio_tetra(f::String, volt::F64, itet::Array{I64,2})
-    # Print the header
-    println("Store tetrahedron")
-
     # Extract some key parameters
     ntet, ndim = size(itet)
 
@@ -484,7 +478,7 @@ function irio_tetra(f::String, volt::F64, itet::Array{I64,2})
         end
     end # END OF IOSTREAM
 
-    println("  > Write the file tetra.ir")
+    println("  > Open and write the file tetra.ir")
 end
 
 """
