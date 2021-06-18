@@ -1424,7 +1424,7 @@ function vaspio_fermi(f::String)
         close(fin)
 
         # Print some useful information to check
-        println("  > Fermi level: ", fermi)
+        println("  > Fermi level: $fermi eV")
 
         # Return the desired data
         return fermi
