@@ -29,7 +29,7 @@ function vasp_adaptor(D::Dict{Symbol,Any})
     println("Current directory: ", pwd())
 
     # V02: Read in lattice structure
-    D[:latt] = vaspio_lattice(pwd())
+    D[:latt] = vaspio_lattice(pwd(), false)
 
     # V03: Read in kmesh and the corresponding weights
     D[:kmesh], D[:weight] = vaspio_kmesh(pwd())
