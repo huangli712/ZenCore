@@ -41,7 +41,7 @@ function vasp_adaptor(D::Dict{Symbol,Any})
     D[:PT], D[:PG], D[:chipsi] = vaspio_projs(pwd())
 
     # V06: Read in fermi level
-    D[:fermi] = vaspio_fermi(pwd())
+    D[:fermi] = vaspio_fermi(pwd(), false)
 
     # V07: Read in tetrahedron data if they are available
     if get_d("smear") === "tetra"
