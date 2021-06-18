@@ -47,7 +47,6 @@ function vasp_adaptor(D::Dict{Symbol,Any})
 
     # V07: Read in tetrahedron data if they are available
     if get_d("smear") === "tetra"
-        println("Parse tetrahedron")
         D[:volt], D[:itet] = vaspio_tetra(pwd())
     end
 
@@ -1070,6 +1069,10 @@ means only the directory that contains `IBZKPT`.
 See also: [`vaspio_kmesh`](@ref), [`irio_tetra`](@ref).
 """
 function vaspio_tetra(f::String)
+    # Print the header
+    println("Parse tetrahedron")
+    println("  > Open and read IBZKPT")
+
     # Open the iostream
     fin = open(joinpath(f, "IBZKPT"), "r")
 
@@ -1105,6 +1108,10 @@ function vaspio_tetra(f::String)
 
     # Close the iostream
     close(fin)
+
+    # Print some useful information to check
+    println("  > Number of tetrahedra: ", ntet)
+    println("  > Volume of tetrahedron: ", volt)
 
     # Return the desired arrays
     return volt, itet
