@@ -1111,7 +1111,8 @@ function vaspio_tetra(f::String)
 
     # Print some useful information to check
     println("  > Number of tetrahedra: ", ntet)
-    println("  > Volume of tetrahedron: ", volt)
+    println("  > Volume of one tetrahedron: ", volt)
+    println("  > Shape of Array itet: ", size(itet))
 
     # Return the desired arrays
     return volt, itet
