@@ -250,6 +250,7 @@ function plo_group(MAP::Mapping, PG::Array{PrGroup,1})
             # Setup shell property
             # Later it will be used to generate `Tr`
             PG[g].shell = get_i("shell")[s]
+            println("  > Treat group $g (site: $(PG[g].site)) as $(PG[g].shell)")
         end
 
         # Setup Tr array further
