@@ -54,8 +54,6 @@ function ir_adaptor(D::Dict{Symbol,Any})
     irio_kmesh(pwd(), D[:kmesh], D[:weight])
 
     # I06: Write band structure and the corresponding occupancies
-    println("  Store enk")
-    println("  Store occupy")
     irio_eigen(pwd(), D[:enk], D[:occupy])
 
     # I07: Write normalized projectors
@@ -219,7 +217,7 @@ function irio_params(f::String, D::Dict{Symbol,Any})
         println(fout)
     end # END OF IOSTREAM
 
-    println("  > Write the params.ir")
+    println("  > Write the file params.ir")
 end
 
 """
@@ -276,7 +274,7 @@ function irio_maps(f::String, MAP::Mapping)
         println(fout)
     end # END OF IOSTREAM
 
-    println("  > Write the maps.ir")
+    println("  > Write the file maps.ir")
 end
 
 """
@@ -313,7 +311,7 @@ function irio_groups(f::String, PG::Array{PrGroup,1})
         end
     end # END OF IOSTREAM
 
-    println("  > Write the groups.ir")
+    println("  > Write the file groups.ir")
 end
 
 """
@@ -356,7 +354,7 @@ function irio_windows(f::String, PW::Array{PrWindow,1})
         end # END OF P LOOP
     end # END OF IOSTREAM
 
-    println("  > Write the windows.ir")
+    println("  > Write the file windows.ir")
 end
 
 """
@@ -421,7 +419,7 @@ function irio_lattice(f::String, latt::Lattice)
         end
     end # END OF IOSTREAM
 
-    println("  > lattice.ir")
+    println("  > Write the file lattice.ir")
 end
 
 """
@@ -462,7 +460,7 @@ function irio_kmesh(f::String, kmesh::Array{F64,2}, weight::Array{F64,1})
         end
     end # END OF IOSTREAM
 
-    println("  > Write the kmesh.ir")
+    println("  > Write the file kmesh.ir")
 end
 
 """
@@ -506,6 +504,9 @@ only the directory that we want to use.
 See also: [`vaspio_eigen`](@ref).
 """
 function irio_eigen(f::String, enk::Array{F64,3}, occupy::Array{F64,3})
+    # Print the header
+    println("Store enk and occupy")
+
     # Extract some key parameters
     nband, nkpt, nspin = size(enk)
 
@@ -535,6 +536,8 @@ function irio_eigen(f::String, enk::Array{F64,3}, occupy::Array{F64,3})
             end # END OF K LOOP
         end # END OF S LOOP
     end # END OF IOSTREAM
+
+    println("  > Write the file eigen.ir")
 end
 
 """
