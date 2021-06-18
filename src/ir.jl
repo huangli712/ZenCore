@@ -45,7 +45,6 @@ function ir_adaptor(D::Dict{Symbol,Any})
     #
     irio_groups(pwd(), D[:PG])
     #
-    println("  Store windows")
     irio_windows(pwd(), D[:PW])
 
     # I04: Write lattice structure
@@ -329,6 +328,9 @@ directory that we want to use.
 See also: [`PrWindow`](@ref).
 """
 function irio_windows(f::String, PW::Array{PrWindow,1})
+    # Print the header
+    println("Store windows")
+
     # Output the data
     open(joinpath(f, "windows.ir"), "w") do fout
         # Write the header
@@ -356,6 +358,8 @@ function irio_windows(f::String, PW::Array{PrWindow,1})
             println(fout)
         end # END OF P LOOP
     end # END OF IOSTREAM
+
+    println("  > Write the windows.ir")
 end
 
 """
