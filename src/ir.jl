@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/07
+# Last modified: 2021/06/18
 #
 
 #
@@ -35,6 +35,8 @@ function ir_adaptor(D::Dict{Symbol,Any})
 
     # I02: Print the header
     println("Adaptor : IR")
+    println("Try to write the processed Kohn-Sham dataset with IR format")
+    println("Current directory: ", pwd())
 
     # I03: Write important parameters
     println("  Store params")
