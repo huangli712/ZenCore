@@ -435,13 +435,15 @@ function plo_rotate(PG::Array{PrGroup,1}, chipsi::Array{C64,4})
             for k = 1:nkpt
                 for b = 1:nband
                     R[:, b, k, s] = PG[i].Tr * chipsi[p1:p2, b, k, s]
-                end
-            end
-        end
+                end # END OF B LOOP
+            end # END OF K LOOP
+        end # END OF S LOOP
 
         # Push R into Rchipsi to save it
         push!(Rchipsi, R)
-    end
+
+        println("  > Rotate group $i: from $(p2 - p1 + 1) to $ndim")
+    end # END OF I LOOP
 
     # Return the desired array
     return Rchipsi
