@@ -440,7 +440,7 @@ function plo_rotate(PG::Array{PrGroup,1}, chipsi::Array{C64,4})
         # Push R into Rchipsi to save it
         push!(Rchipsi, R)
 
-        println("  > Rotate group $i (site: $(PG[i].site)): from $(p2 - p1 + 1) to $ndim")
+        println("  > Rotate group $i (site: $(PG[i].site)): number of local orbitals -> $ndim")
     end # END OF I LOOP
 
     # Return the desired array
@@ -550,6 +550,10 @@ function plo_orthog(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1})
         println("  > Try to orthogonalize the projectors group by group")
         #
         try_blk2(PW, chipsi)
+    end
+
+    for p in eachindex(chipsi)
+        println("  > Final shape of chipsi (group $p): $(size(chipsi[p]))")
     end
 end
 
