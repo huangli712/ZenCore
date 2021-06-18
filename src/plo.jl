@@ -315,7 +315,7 @@ function plo_window(PG::Array{PrGroup,1}, enk::Array{F64,3})
     # Preprocess the input. Get how many windows there are.
     window = get_d("window")
     nwin = convert(I64, length(window) / 2)
-    println("  > Number of windows: $nwin")
+    println("  > Number of recognized windows: $nwin")
 
     # Sanity check
     @assert nwin === 1 || nwin === length(PG)
