@@ -406,7 +406,7 @@ function irio_lattice(f::String, latt::Lattice)
         end
     end # END OF IOSTREAM
 
-    println("  > Open and write the file lattice.ir")
+    println("  > Open and write the file lattice.ir (lattice)")
 end
 
 """
@@ -444,7 +444,7 @@ function irio_kmesh(f::String, kmesh::Array{F64,2}, weight::Array{F64,1})
         end
     end # END OF IOSTREAM
 
-    println("  > Open and write the file kmesh.ir")
+    println("  > Open and write the file kmesh.ir (kmesh and weight)")
 end
 
 """
@@ -478,7 +478,7 @@ function irio_tetra(f::String, volt::F64, itet::Array{I64,2})
         end
     end # END OF IOSTREAM
 
-    println("  > Open and write the file tetra.ir")
+    println("  > Open and write the file tetra.ir (itet and volt)")
 end
 
 """
