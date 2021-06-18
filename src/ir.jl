@@ -39,7 +39,6 @@ function ir_adaptor(D::Dict{Symbol,Any})
     println("Current directory: ", pwd())
 
     # I03: Write important parameters
-    println("  Store params")
     irio_params(pwd(), D)
     #
     println("  Store maps")
@@ -131,6 +130,9 @@ means only the directory that we want to use.
 See also: [`PrGroup`](@ref), [`PrWindow`](@ref).
 """
 function irio_params(f::String, D::Dict{Symbol,Any})
+    # Print the header
+    println("  Store params")
+
     # Extract crystallography information
     _case = D[:latt]._case
     scale = D[:latt].scale
