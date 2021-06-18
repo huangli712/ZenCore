@@ -56,7 +56,6 @@ function plo_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     # P06: Setup the band / energy window for projectors
     #
     # D[:PW] will be created
-    println("  Generate window")
     D[:PW] = plo_window(D[:PG], D[:enk])
 
     # P07: Transform the projectors
@@ -310,6 +309,9 @@ Calibrate the band window to filter the Kohn-Sham eigenvalues.
 See also: [`PrWindow`](@ref), [`get_win1`](@ref), [`get_win2`](@ref).
 """
 function plo_window(PG::Array{PrGroup,1}, enk::Array{F64,3})
+    # Print the header
+    println("Generate windows")
+
     # Preprocess the input. Get how many windows there are.
     window = get_d("window")
     nwin = convert(I64, length(window) / 2)
