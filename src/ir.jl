@@ -43,7 +43,6 @@ function ir_adaptor(D::Dict{Symbol,Any})
     #
     irio_maps(pwd(), D[:MAP])
     #
-    println("  Store groups")
     irio_groups(pwd(), D[:PG])
     #
     println("  Store windows")
@@ -293,6 +292,9 @@ directory that we want to use.
 See also: [`PrGroup`](@ref).
 """
 function irio_groups(f::String, PG::Array{PrGroup,1})
+    # Print the header
+    println("Store groups")
+
     # Output the data
     open(joinpath(f, "groups.ir"), "w") do fout
         # Write the header
@@ -314,6 +316,8 @@ function irio_groups(f::String, PG::Array{PrGroup,1})
             println(fout)
         end
     end # END OF IOSTREAM
+
+    println("  > Write the groups.ir")
 end
 
 """
