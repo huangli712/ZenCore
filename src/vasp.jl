@@ -25,14 +25,15 @@ See also: [`plo_adaptor`](@ref), [`ir_adaptor`](@ref).
 function vasp_adaptor(D::Dict{Symbol,Any})
     # V01: Print the header
     println("Adaptor : VASP")
+    println("Current directory: ", pwd())
 
     # V02: Read in lattice structure
-    println("  Parse lattice")
+    println("Parse lattice")
     D[:latt] = vaspio_lattice(pwd())
 
     # V03: Read in kmesh and the corresponding weights
-    println("  Parse kmesh")
-    println("  Parse weight")
+    println("Parse kmesh")
+    println("Parse weight")
     D[:kmesh], D[:weight] = vaspio_kmesh(pwd())
 
     # V04: Read in band structure and the corresponding occupancies

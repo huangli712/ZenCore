@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/06
+# Last modified: 2021/06/18
 #
 
 #
@@ -684,7 +684,7 @@ function try_blk1(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1})
 
             # Sanity check
             @assert max_band >= ib3
-            @show s, k, ib3, max_proj
+            #@show s, k, ib3, max_proj
             @assert ib3 >= max_proj
 
             # Try to combine all of the groups of projectors
