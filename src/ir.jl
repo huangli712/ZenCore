@@ -624,9 +624,6 @@ only the directory that we want to use.
 See also: [`vaspio_fermi`](@ref).
 """
 function irio_fermi(f::String, fermi::F64)
-    # Print the header
-    println("Store fermi level")
-
     # Output the data
     open(joinpath(f, "fermi.ir"), "w") do fout
         # Write the header
@@ -640,7 +637,7 @@ function irio_fermi(f::String, fermi::F64)
         # N/A
     end # END OF IOSTREAM
 
-    println("  > Write the file fermi.ir")
+    println("  > Open and write the file fermi.ir")
 end
 
 """
