@@ -1404,7 +1404,6 @@ function vaspio_fermi(f::String)
     # Print the header
     println("Parse fermi level")
 
-
     lines = readlines(joinpath(f, "DOSCAR"))
 
     if length(lines) ≥ 6
@@ -1423,6 +1422,9 @@ function vaspio_fermi(f::String)
 
         # Close the iostream
         close(fin)
+
+        # Print some useful information to check
+        println("  > Fermi level: ", fermi)
 
         # Return the desired data
         return fermi
