@@ -25,10 +25,10 @@ See also: [`plo_adaptor`](@ref), [`ir_adaptor`](@ref).
 function vasp_adaptor(D::Dict{Symbol,Any})
     # V01: Print the header
     println("Adaptor : VASP")
+    println("Try to extract the Kohn-Sham dataset")
     println("Current directory: ", pwd())
 
     # V02: Read in lattice structure
-    println("Parse lattice")
     D[:latt] = vaspio_lattice(pwd())
 
     # V03: Read in kmesh and the corresponding weights
@@ -54,7 +54,6 @@ function vasp_adaptor(D::Dict{Symbol,Any})
     end
 
     # V08: Print the footer for a better visualization
-    println("The Kohn-Sham dataset is extracted by the adaptor")
     println()
 end
 
@@ -933,6 +932,10 @@ means only the directory that contains `POSCAR`.
 See also: [`Lattice`](@ref), [`irio_lattice`](@ref).
 """
 function vaspio_lattice(f::String)
+    # Print the header
+    println("Parse lattice")
+    println("  > Open and read POSCAR")
+
     # Open the iostream
     fin = open(joinpath(f, "POSCAR"), "r")
 
@@ -990,6 +993,10 @@ function vaspio_lattice(f::String)
 
     # Close the iostream
     close(fin)
+
+    # Print some useful information to check
+    println("  > System: ", latt._case)
+    println("  > Atoms: ", latt.atoms)
 
     # Return the desired struct
     return latt
