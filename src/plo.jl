@@ -206,6 +206,7 @@ See also: [`vaspio_fermi`](@ref), [`irio_fermi`](@ref).
 function plo_fermi(enk::Array{F64,3}, fermi::F64)
     println("Calibrate eigenvalues")
     @. enk = enk - fermi
+    println("  > Reset fermi level to zero")
 end
 
 #=
