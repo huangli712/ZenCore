@@ -157,6 +157,7 @@ function vasp_exec(it::IterInfo)
     # the execution.
     schedule(t)
     println("  > Add the task to the scheduler's queue")
+    println("  > Waiting ...")
 
     if it.sc == 2
         println("Escape from vasp_exec()")
