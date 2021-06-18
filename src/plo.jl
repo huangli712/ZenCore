@@ -61,7 +61,6 @@ function plo_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     # P07: Transform the projectors
     #
     # D[:Rchipsi] will be created
-    println("  Rotate projectors")
     D[:Rchipsi] = plo_rotate(D[:PG], D[:chipsi])
 
     # P08: Filter the projectors
@@ -406,6 +405,9 @@ groups, and then they will be rotated group by group.
 See also: [`PrGroup`](@ref), [`plo_filter`](@ref), [`plo_orthog`](@ref).
 """
 function plo_rotate(PG::Array{PrGroup,1}, chipsi::Array{C64,4})
+    # Print the header
+    println("Rotate projectors")
+
     # Extract some key parameters from raw projector matrix
     nproj, nband, nkpt, nspin = size(chipsi)
     @assert nproj ≥ 1
