@@ -363,7 +363,7 @@ function plo_window(PG::Array{PrGroup,1}, enk::Array{F64,3})
         # Create the `PrWindow` struct, and push it into the PW array.
         push!(PW, PrWindow(kwin, bwin))
 
-        println("  > Create window $p: $bwin", PW[p].bmin, PW[p].bmax)
+        println("  > Create window $p: $bwin <--> ($(PW[p].bmin), $(PW[p].bmax))")
     end
 
     # Well, now CW contains all the windows for correlated groups of
