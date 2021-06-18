@@ -227,6 +227,9 @@ function vasp_save(it::IterInfo)
         return
     end
 
+    # Print the header
+    println("Finalize the computational task")
+       
     # Store the data files
     #
     # Create list of files
@@ -235,12 +238,14 @@ function vasp_save(it::IterInfo)
     # Go through the file list, backup the files one by one.
     for i in eachindex(fl)
         f = fl[i]
-        cp(f, "$f.$(it.I₃).$(it.I₂)", force = true)
+        cp(f, "$f.$(it.I₃)", force = true)
     end
+    println("  > Save the key output files")
 
     # Anyway, the fermi level is extracted from DOSCAR, and its value
     # will be saved at IterInfo.μ₀.
     it.μ₀ = vaspio_fermi(pwd())
+    println("  > Extract the fermi level from DOSCAR: ", it.μ₀)
 end
 
 #
