@@ -133,7 +133,6 @@ function vasp_exec(it::IterInfo)
         vasp_exe = "$dft_home/vasp_std"
     end
     @assert isfile(vasp_exe)
-    println("  > Executable program: $vasp_exe")
 
     # Assemble command
     if isnothing(mpi_prefix)
@@ -141,6 +140,10 @@ function vasp_exec(it::IterInfo)
     else
         vasp_cmd = split("$mpi_prefix $vasp_exe", " ")
     end
+    println("  > Assemble command: $(prod(x -> x * ' ', vasp_cmd))")
+
+    # Print the header
+    println("Execute the vasp")
 
     # Create a task, but do not run it immediately
     t = @task begin
