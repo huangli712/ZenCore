@@ -227,6 +227,7 @@ the `PrGroup` struct.
 See also: [`PIMP`](@ref), [`Mapping`](@ref), [`PrGroup`](@ref).
 """
 function plo_group(MAP::Mapping, PG::Array{PrGroup,1})
+    # Print the header
     println("Complete groups")
 
     # Scan the groups of projectors, setup them one by one.
@@ -244,6 +245,7 @@ function plo_group(MAP::Mapping, PG::Array{PrGroup,1})
         if s != 0
             # Setup corr property
             PG[g].corr = true
+            println("  > Turn group $g (site: $(PG[g].site)) into correlated")
 
             # Setup shell property
             # Later it will be used to generate `Tr`
