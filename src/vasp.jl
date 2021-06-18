@@ -125,6 +125,7 @@ function vasp_exec(it::IterInfo)
 
     # Get the home directory of vasp
     dft_home = query_dft("vasp")
+    println("  > Home directory for vasp: ", dft_home)
 
     # Select suitable vasp program
     if get_d("lspinorb")
@@ -143,7 +144,7 @@ function vasp_exec(it::IterInfo)
     println("  > Assemble command: $(prod(x -> x * ' ', vasp_cmd))")
 
     # Print the header
-    println("Execute the vasp")
+    println("Launch the computational engine vasp")
 
     # Create a task, but do not run it immediately
     t = @task begin
