@@ -28,6 +28,8 @@ See also: [`vasp_adaptor`](@ref), [`ir_adaptor`](@ref).
 function plo_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     # P01: Print the header
     println("Adaptor : PLO")
+    println("Try to process the Kohn-Sham dataset")
+    println("Current directory: ", pwd())
 
     # P02: Check the validity of the original dict
     key_list = [:enk, :fermi, :chipsi, :PG]
@@ -94,7 +96,6 @@ function plo_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     end
 
     # P11: Print the footer for a better visualization
-    println("The Kohn-Sham dataset is preprocessed by the adaptor")
     println()
 end
 
