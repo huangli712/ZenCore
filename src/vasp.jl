@@ -41,7 +41,6 @@ function vasp_adaptor(D::Dict{Symbol,Any})
     D[:PT], D[:PG], D[:chipsi] = vaspio_projs(pwd())
 
     # V06: Read in fermi level
-    println("Parse fermi level")
     D[:fermi] = vaspio_fermi(pwd())
 
     # V07: Read in tetrahedron data if they are available
@@ -1402,10 +1401,15 @@ only the directory that contains `DOSCAR`.
 See also: [`irio_fermi`](@ref).
 """
 function vaspio_fermi(f::String)
+    # Print the header
+    println("Parse fermi level")
+
+
     lines = readlines(joinpath(f, "DOSCAR"))
 
     if length(lines) ≥ 6
-
+        println("  > Open and read DOSCAR")
+    
         # Open the iostream
         fin = open(joinpath(f, "DOSCAR"), "r")
 
@@ -1423,6 +1427,8 @@ function vaspio_fermi(f::String)
         # Return the desired data
         return fermi
     else
+        println("  > Open and read LOCPROJ")
+
         # Open the iostream
         fin = open(joinpath(f, "LOCPROJ"), "r")
 
