@@ -32,13 +32,11 @@ function vasp_adaptor(D::Dict{Symbol,Any})
     D[:latt] = vaspio_lattice(pwd())
 
     # V03: Read in kmesh and the corresponding weights
-    println("Parse kmesh")
-    println("Parse weight")
+    println("Parse kmesh and weight")
     D[:kmesh], D[:weight] = vaspio_kmesh(pwd())
 
     # V04: Read in band structure and the corresponding occupancies
-    println("Parse enk")
-    println("Parse occupy")
+    println("Parse enk and occupy")
     D[:enk], D[:occupy] = vaspio_eigen(pwd())
 
     # V05: Read in raw projectors, traits, and groups
