@@ -208,9 +208,6 @@ function vasp_exec(it::IterInfo)
     iters = readlines("vasp.out")
     filter!(x -> contains(x, "DAV:"), iters)
     println("  > Converged after $(length(iters)) iterations")
-
-    # Print the footer
-    println()
 end
 
 """
@@ -245,7 +242,10 @@ function vasp_save(it::IterInfo)
     # Anyway, the fermi level is extracted from DOSCAR, and its value
     # will be saved at IterInfo.μ₀.
     it.μ₀ = vaspio_fermi(pwd())
-    println("  > Extract the fermi level from DOSCAR: ", it.μ₀)
+    println("  > Extract the fermi level from DOSCAR: $(it.μ₀) eV")
+
+    # Print the footer
+    println()
 end
 
 #
