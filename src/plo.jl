@@ -66,7 +66,6 @@ function plo_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     # P08: Filter the projectors
     #
     # D[:Fchipsi] will be created
-    println("  Filter projectors")
     D[:Fchipsi] = plo_filter(D[:PW], D[:Rchipsi])
 
     # P09: Orthogonalize and normalize the projectors
@@ -473,6 +472,9 @@ Filter the projector matrix according to band window.
 See also: [`PrWindow`](@ref), [`plo_rotate`](@ref), [`plo_orthog`](@ref).
 """
 function plo_filter(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1})
+    # Print the header
+    println("Filter projectors")
+
     # Initialize new array. It stores the filtered projectors.
     # Now it is empty, but we will allocate memory for it later.
     Fchipsi = Array{C64,4}[]
