@@ -1045,6 +1045,10 @@ function vaspio_kmesh(f::String)
     # Close the iostream
     close(fin)
 
+    # Print some useful information to check
+    println("  > Number of 𝑘-points: ", nkpt)
+    println("  > Total sum of weights: ", sum(weight))
+    
     # Return the desired arrays
     return kmesh, weight
 end
