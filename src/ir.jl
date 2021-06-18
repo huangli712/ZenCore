@@ -48,7 +48,6 @@ function ir_adaptor(D::Dict{Symbol,Any})
     irio_windows(pwd(), D[:PW])
 
     # I04: Write lattice structure
-    println("  Store lattice")
     irio_lattice(pwd(), D[:latt])
 
     # I05: Write kmesh and the corresponding weights
@@ -371,6 +370,9 @@ means only the directory that we want to use.
 See also: [`vaspio_lattice`](@ref).
 """
 function irio_lattice(f::String, latt::Lattice)
+    # Print the header
+    println("Store lattice")
+
     # Extract some key parameters
     _case, scale, nsort, natom = latt._case, latt.scale, latt.nsort, latt.natom
 
@@ -420,6 +422,8 @@ function irio_lattice(f::String, latt::Lattice)
             @printf(fout, "%16.12f %16.12f %16.12f\n", latt.coord[i, 1:3]...)
         end
     end # END OF IOSTREAM
+
+    println("  > lattice.ir")
 end
 
 """
