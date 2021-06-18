@@ -62,6 +62,7 @@ See also: [`vasp_exec`](@ref), [`vasp_save`](@ref).
 function vasp_init(it::IterInfo)
     # Print the header
     println("Engine : VASP")
+    println("Try to perform ab initio calculation")
     println("Current directory: ", pwd())
     println("Prepare necessary input files for vasp")
 
