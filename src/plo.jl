@@ -51,7 +51,6 @@ function plo_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     # P05: Setup the PrGroup strcut further
     #
     # D[:PG] will be updated
-    println("  Complete groups")
     plo_group(D[:MAP], D[:PG])
 
     # P06: Setup the band / energy window for projectors
@@ -228,6 +227,8 @@ the `PrGroup` struct.
 See also: [`PIMP`](@ref), [`Mapping`](@ref), [`PrGroup`](@ref).
 """
 function plo_group(MAP::Mapping, PG::Array{PrGroup,1})
+    println("Complete groups")
+
     # Scan the groups of projectors, setup them one by one.
     for g in eachindex(PG)
         # Examine PrGroup, check number of projectors
