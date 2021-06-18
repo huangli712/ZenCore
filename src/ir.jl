@@ -520,7 +520,7 @@ function irio_eigen(f::String, enk::Array{F64,3}, occupy::Array{F64,3})
         end # END OF S LOOP
     end # END OF IOSTREAM
 
-    println("  > Open and write the file eigen.ir")
+    println("  > Open and write the file eigen.ir (enk and occupy)")
 end
 
 """
@@ -562,7 +562,7 @@ function irio_projs(f::String, chipsi::Array{C64,4})
         end # END OF S LOOP
     end # END OF IOSTREAM
 
-    println("  > Open and write the file projs.ir")
+    println("  > Open and write the file projs.ir (chipsi)")
 end
 
 """
@@ -612,7 +612,7 @@ function irio_projs(f::String, chipsi::Array{Array{C64,4},1})
         end # END OF P LOOP
     end # END OF IOSTREAM
 
-    println("  > Open and write the file projs.ir")
+    println("  > Open and write the file projs.ir (chipsi)")
 end
 
 """
@@ -637,7 +637,7 @@ function irio_fermi(f::String, fermi::F64)
         # N/A
     end # END OF IOSTREAM
 
-    println("  > Open and write the file fermi.ir")
+    println("  > Open and write the file fermi.ir (fermi)")
 end
 
 """
