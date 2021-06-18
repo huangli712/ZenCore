@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/06
+# Last modified: 2021/06/18
 #
 
 #
@@ -200,7 +200,7 @@ function chk_dict()
     # Check dmft block
     @assert get_m("mode") in (1, 2)
     @assert get_m("axis") in (1, 2)
-    @assert get_m("niter") > 0
+    @assert all(x -> x ≥ 1, get_m("niter"))
     @assert get_m("nmesh") > 0
     @assert get_m("dcount") in ("fll1", "fll2", "amf", "held", "exact")
     @assert get_m("beta") >= 0.0
