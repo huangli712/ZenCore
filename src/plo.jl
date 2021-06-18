@@ -72,7 +72,6 @@ function plo_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     #
     # D[:Fchipsi] will be updated. It contains the final data
     # for projector matrix.
-    println("  Normalize projectors")
     plo_orthog(D[:PW], D[:Fchipsi])
 
     # P10: Are the projectors correct?
@@ -526,6 +525,9 @@ Orthogonalize and normalize the projectors.
 See also: [`PrWindow`](@ref), [`plo_rotate`](@ref), [`plo_filter`](@ref).
 """
 function plo_orthog(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1})
+    # Print the header
+    println("Normalize projectors")
+
     # Preprocess the input. Get how many windows there are.
     window = get_d("window")
     nwin = convert(I64, length(window) / 2)
@@ -537,10 +539,16 @@ function plo_orthog(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1})
     if nwin === 1
         # All the PrGroups share the same energy / band window, we should
         # orthogonalize and normalize the projectors as a whole.
+        #
+        println("  > Try to orthogonalize the projectors as a whole")
+        #
         try_blk1(PW, chipsi)
     else
         # Each PrGroup has its own energy / band window, we have to
         # orthogonalize and normalize the projectors group by group.
+        #
+        println("  > Try to orthogonalize the projectors group by group")
+        #
         try_blk2(PW, chipsi)
     end
 end
