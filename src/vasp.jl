@@ -38,7 +38,6 @@ function vasp_adaptor(D::Dict{Symbol,Any})
     D[:enk], D[:occupy] = vaspio_eigen(pwd())
 
     # V05: Read in raw projectors, traits, and groups
-    println("Parse projector")
     D[:PT], D[:PG], D[:chipsi] = vaspio_projs(pwd())
 
     # V06: Read in fermi level
@@ -1281,6 +1280,10 @@ only the directory that contains `LOCPROJ`.
 See also: [`irio_projs`](@ref).
 """
 function vaspio_projs(f::String)
+    # Print the header
+    println("Parse projector")
+    println("  > Open and read LOCPROJ")
+
     # Open the iostream
     fin = open(joinpath(f, "LOCPROJ"), "r")
 
