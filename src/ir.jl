@@ -354,7 +354,7 @@ See also: [`vaspio_lattice`](@ref).
 """
 function irio_lattice(f::String, latt::Lattice)
     # Print the header
-    println("Store lattice")
+    println("Store essential Kohn-Sham dataset")
 
     # Extract some key parameters
     _case, scale, nsort, natom = latt._case, latt.scale, latt.nsort, latt.natom
@@ -406,7 +406,7 @@ function irio_lattice(f::String, latt::Lattice)
         end
     end # END OF IOSTREAM
 
-    println("  > Write the file lattice.ir")
+    println("  > Open and write the file lattice.ir")
 end
 
 """
