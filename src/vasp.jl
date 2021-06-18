@@ -1199,6 +1199,11 @@ function vaspio_eigen(f::String)
         # close the iostream
         close(fin)
 
+        # Print some useful information to check
+        println("  > Number of DFT bands: ", nband)
+        println("  > Number of 𝑘-points: ", nkpt)
+        println("  > Number of spins: ", nspin)
+
         # return the desired arrays
         return enk, occupy
     else
