@@ -599,6 +599,9 @@ DMFT engine.
 See also: [`vaspio_projs`](@ref).
 """
 function irio_projs(f::String, chipsi::Array{Array{C64,4},1})
+    # Print the header
+    println("Store projector")
+
     # Output the data
     open(joinpath(f, "projs.ir"), "w") do fout
         # Write the header
@@ -633,6 +636,8 @@ function irio_projs(f::String, chipsi::Array{Array{C64,4},1})
             println(fout)
         end # END OF P LOOP
     end # END OF IOSTREAM
+
+    println("  > Write the file projs.ir")
 end
 
 """
