@@ -1203,7 +1203,8 @@ function vaspio_eigen(f::String)
         println("  > Number of DFT bands: ", nband)
         println("  > Number of 𝑘-points: ", nkpt)
         println("  > Number of spins: ", nspin)
-        println("  > Shape of array enk: ", size(enk))
+        println("  > Shape of Array enk: ", size(enk))
+        println("  > Shape of Array occupy: ", size(occupy))
 
         # return the desired arrays
         return enk, occupy
