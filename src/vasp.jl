@@ -35,7 +35,6 @@ function vasp_adaptor(D::Dict{Symbol,Any})
     D[:kmesh], D[:weight] = vaspio_kmesh(pwd())
 
     # V04: Read in band structure and the corresponding occupancies
-    println("Parse enk and occupy")
     D[:enk], D[:occupy] = vaspio_eigen(pwd())
 
     # V05: Read in raw projectors, traits, and groups
@@ -1156,9 +1155,15 @@ turn to the `LOCPROJ` file to obtain the energy band information.
 See also: [`irio_eigen`](@ref).
 """
 function vaspio_eigen(f::String)
+    # Print the header
+    println("Parse enk and occupy")
+
+    # Check whether the `EIGENVAL` file contains valid data
     lines = readlines(joinpath(f, "EIGENVAL"))
 
     if length(lines) ≥ 10
+        println("  > Open and read EIGENVAL")
+
         # Open the iostream
         fin = open(joinpath(f, "EIGENVAL"), "r")
 
