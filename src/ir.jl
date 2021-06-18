@@ -60,7 +60,6 @@ function ir_adaptor(D::Dict{Symbol,Any})
     irio_projs(pwd(), D[:Fchipsi])
 
     # I08: Write fermi level
-    println("  Store fermi level")
     irio_fermi(pwd(), D[:fermi])
 
     # I09: Check the validity of the `D` dict further (optional)
@@ -649,6 +648,9 @@ only the directory that we want to use.
 See also: [`vaspio_fermi`](@ref).
 """
 function irio_fermi(f::String, fermi::F64)
+    # Print the header
+    println("Store fermi level")
+
     # Output the data
     open(joinpath(f, "fermi.ir"), "w") do fout
         # Write the header
@@ -661,6 +663,8 @@ function irio_fermi(f::String, fermi::F64)
         # Write the body
         # N/A
     end # END OF IOSTREAM
+
+    println("  > Write the file fermi.ir")
 end
 
 """
