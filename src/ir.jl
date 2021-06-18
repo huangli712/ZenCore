@@ -51,8 +51,6 @@ function ir_adaptor(D::Dict{Symbol,Any})
     irio_lattice(pwd(), D[:latt])
 
     # I05: Write kmesh and the corresponding weights
-    println("  Store kmesh")
-    println("  Store weight")
     irio_kmesh(pwd(), D[:kmesh], D[:weight])
 
     # I06: Write band structure and the corresponding occupancies
@@ -435,6 +433,9 @@ Write the kmesh and weight information to kmesh.ir using the IR format. Here
 See also: [`vaspio_kmesh`](@ref).
 """
 function irio_kmesh(f::String, kmesh::Array{F64,2}, weight::Array{F64,1})
+    # Print the header
+    println("Store kmesh and weight")
+
     # Extract some key parameters
     nkpt, ndir = size(kmesh)
 
@@ -460,6 +461,8 @@ function irio_kmesh(f::String, kmesh::Array{F64,2}, weight::Array{F64,1})
             @printf(fout, "%8.2f\n", weight[k])
         end
     end # END OF IOSTREAM
+
+    println("  > Write the kmesh.ir")
 end
 
 """
