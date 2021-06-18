@@ -7,9 +7,9 @@
 # Last modified: 2021/06/18
 #
 
-#
-# Driver Functions
-#
+#=
+### *Driver Functions*
+=#
 
 """
     plo_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
@@ -46,7 +46,6 @@ function plo_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     # P04: Adjust the band structure
     #
     # D[:enk] will be updated
-    println("  Calibrate eigenvalues")
     plo_fermi(D[:enk], D[:fermi])
 
     # P05: Setup the PrGroup strcut further
@@ -98,9 +97,9 @@ function plo_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     println()
 end
 
-#
-# Service Functions (Group A)
-#
+#=
+### *Service Functions* : *Group A*
+=#
 
 """
     plo_map(PG::Array{PrGroup,1}, ai::Array{Impurity,1})
@@ -205,6 +204,7 @@ Calibrate the band structure to enforce the fermi level to be zero.
 See also: [`vaspio_fermi`](@ref), [`irio_fermi`](@ref).
 """
 function plo_fermi(enk::Array{F64,3}, fermi::F64)
+    println("Calibrate eigenvalues")
     @. enk = enk - fermi
 end
 
