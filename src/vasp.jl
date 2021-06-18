@@ -150,11 +150,13 @@ function vasp_exec(it::IterInfo)
     t = @task begin
         run(pipeline(`$vasp_cmd`, stdout = "vasp.out"))
     end
+    println("  > Create a task")
 
     # Launch it, the terminal output is redirected to vasp.out.
     # Note that the task runs asynchronously. It will not block
     # the execution.
     schedule(t)
+    println("  > Add the task to the scheduler's queue")
 
     if it.sc == 2
         println("Escape from vasp_exec()")
