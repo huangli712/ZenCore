@@ -41,7 +41,6 @@ function ir_adaptor(D::Dict{Symbol,Any})
     # I03: Write important parameters
     irio_params(pwd(), D)
     #
-    println("  Store maps")
     irio_maps(pwd(), D[:MAP])
     #
     println("  Store groups")
@@ -131,7 +130,7 @@ See also: [`PrGroup`](@ref), [`PrWindow`](@ref).
 """
 function irio_params(f::String, D::Dict{Symbol,Any})
     # Print the header
-    println("  Store params")
+    println("Store params")
 
     # Extract crystallography information
     _case = D[:latt]._case
@@ -224,6 +223,8 @@ function irio_params(f::String, D::Dict{Symbol,Any})
         println(fout, "nmesh -> $nmesh")
         println(fout)
     end # END OF IOSTREAM
+
+    println("  > Write the params.ir")
 end
 
 """
@@ -235,6 +236,9 @@ directory that we want to use.
 See also: [`Mapping`](@ref).
 """
 function irio_maps(f::String, MAP::Mapping)
+    # Print the header
+    println("Store maps")
+
     # Extract key parameters
     nsite = length(MAP.i_grp)
     ngrp = length(MAP.g_imp)
@@ -276,6 +280,8 @@ function irio_maps(f::String, MAP::Mapping)
         println(fout)
         println(fout)
     end # END OF IOSTREAM
+
+    println("  > Write the maps.ir")
 end
 
 """
