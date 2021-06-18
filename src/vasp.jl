@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/17
+# Last modified: 2021/06/18
 #
 
 #
@@ -67,11 +67,17 @@ Check the runtime environment of vasp, prepare necessary input files.
 See also: [`vasp_exec`](@ref), [`vasp_save`](@ref).
 """
 function vasp_init(it::IterInfo)
+    # Print the header
+    println("Engine : VASP")
+    println("Prepare necessary input files for vasp")
+
     # Prepare essential input files
     #
     # Copy POTCAR and POSCAR
     cp("../POTCAR", joinpath(pwd(), "POTCAR"), force = true)
     cp("../POSCAR", joinpath(pwd(), "POSCAR"), force = true)
+    println("  POTCAR is ready")
+    println("  POSCAR is ready")
     #
     # How about INCAR
     if it.I₃ == 0
@@ -82,11 +88,13 @@ function vasp_init(it::IterInfo)
         @show it.I₃, it.μ₁, it.sc
         vasp_incar(it.μ₁, it.sc)
     end
+    println("  INCAR is ready")
     #
     # Well, perhaps we need to generate the KPOINTS file by ourselves.
     if get_d("kmesh") === "file"
         vasp_kpoints()
     end
+    println("  KPOINTS is ready")
 
     # Check essential input files
     flist = ("INCAR", "POSCAR", "POTCAR")
@@ -106,9 +114,6 @@ Execute the vasp program.
 See also: [`vasp_init`](@ref), [`vasp_save`](@ref).
 """
 function vasp_exec(it::IterInfo)
-    # Print the header
-    println("Engine : VASP")
-
     # Get the home directory of vasp
     dft_home = query_dft("vasp")
 
