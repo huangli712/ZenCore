@@ -1368,6 +1368,7 @@ function vaspio_projs(f::String)
     println("  > Number of 𝑘-points: ", nkpt)
     println("  > Number of spins: ", nspin)
     println("  > Number of projectors: ", nproj)
+    println("  > Number of groups: ", length(PG))
     println("  > Shape of Array chipsi: ", size(chipsi))
     
     # Return the desired arrays
