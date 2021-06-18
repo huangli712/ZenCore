@@ -1393,7 +1393,7 @@ See also: [`irio_projs`](@ref).
 vaspio_projs() = vaspio_projs(pwd())
 
 """
-    vaspio_fermi(f::String, silent::Bool = true
+    vaspio_fermi(f::String, silent::Bool = true)
 
 Reading vasp's `DOSCAR` file, return the fermi level. Here `f` means
 only the directory that contains `DOSCAR`.
@@ -1402,12 +1402,12 @@ See also: [`irio_fermi`](@ref).
 """
 function vaspio_fermi(f::String, silent::Bool = true)
     # Print the header
-    println("Parse fermi level")
+    !silent && println("Parse fermi level")
 
     lines = readlines(joinpath(f, "DOSCAR"))
 
     if length(lines) ≥ 6
-        println("  > Open and read DOSCAR")
+        !silent && println("  > Open and read DOSCAR")
     
         # Open the iostream
         fin = open(joinpath(f, "DOSCAR"), "r")
@@ -1429,7 +1429,7 @@ function vaspio_fermi(f::String, silent::Bool = true)
         # Return the desired data
         return fermi
     else
-        println("  > Open and read LOCPROJ")
+        !silent && println("  > Open and read LOCPROJ")
 
         # Open the iostream
         fin = open(joinpath(f, "LOCPROJ"), "r")
@@ -1439,6 +1439,9 @@ function vaspio_fermi(f::String, silent::Bool = true)
         # Close the iostream
         close(fin)
 
+        # Print some useful information to check
+        !silent && println("  > Fermi level: $fermi eV")
+    
         # Return the desired data
         return fermi
     end
