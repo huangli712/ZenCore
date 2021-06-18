@@ -920,14 +920,14 @@ See also: [`tools/analyze.jl`](@ref).
 vaspio_procar() = vaspio_procar(pwd())
 
 """
-    vaspio_lattice(f::String)
+    vaspio_lattice(f::String, silent::Bool = true)
 
 Reading vasp's `POSCAR` file, return crystallography information. Here `f`
 means only the directory that contains `POSCAR`.
 
 See also: [`Lattice`](@ref), [`irio_lattice`](@ref).
 """
-function vaspio_lattice(f::String)
+function vaspio_lattice(f::String, silent::Bool = true)
     # Print the header
     println("Parse lattice")
     println("  > Open and read POSCAR")
