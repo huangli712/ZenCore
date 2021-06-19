@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/16
+# Last modified: 2021/06/19
 #
 
 #
@@ -23,6 +23,7 @@ See also: [`sigma_dcount`](@ref).
 function sigma_reset(ai::Array{Impurity,1})
     # Print the log
     println("Sigma : Reset")
+    println("Try to create default self-energy functions")
 
     # Extract some necessary parameters
     axis = get_m("axis")
