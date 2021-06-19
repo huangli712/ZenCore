@@ -215,6 +215,8 @@ See also: [`sigma_split`](@ref).
 function sigma_gather(it::IterInfo, ai::Array{Impurity,1})
     # Print the log
     println("Sigma : Gather")
+    println("Try to combine self-energy functions for various impurities")
+    println("Current directory: ", pwd())
 
     # Extract some necessary parameters
     nmesh = get_m("nmesh")
@@ -230,16 +232,17 @@ function sigma_gather(it::IterInfo, ai::Array{Impurity,1})
     # Go through each quantum impurity problems
     for t = 1:nsite
         # Extract the frequency mesh and self-energy function
-        fmesh, sig_l = GetSigma(ai[t])
-        println("  Read self-energy functions for impurity: $t")
+        fmesh, sigma = GetSigma(ai[t])
+        println("  > Read self-energy functions for impurity: $t")
+        println("  > Shape of Array fmesh: ", size(fmesh))
 
         # Extract and verify the dimensional parameters
-        _, _b, _m, _ = size(sig_l)
+        _, _b, _m, _ = size(sigma)
         @assert _b == ai[t].nband
         @assert _m == nmesh
 
-        # Store sig_l in SA
-        push!(SA, sig_l)
+        # Store sigma in SA
+        push!(SA, sigma)
     end # END OF T LOOP
 
     # Now the self-energy functions for all quantum impurity problems and
