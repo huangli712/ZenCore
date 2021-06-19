@@ -97,6 +97,7 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
     @assert nsite == length(ai)
 
     # Create double counting terms for self-energy functions
+    println("Create double counting terms")
     #
     # Initialize an array for dc
     DCA = Array{F64,3}[]
@@ -149,6 +150,7 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
                 sorry()
                 break
         end
+        println("  > Using the $(get_m("dcount")) scheme: Vdc = $sigdc")
 
         # Special treatment for the first iteration
         if it.I₃ <= 1 && it.I₁ <= 1
@@ -162,7 +164,6 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
         # Push DC into DCA to save it
         push!(DCA, DC)
     end # END OF I LOOP
-    println("  Create double counting terms: $(get_m("dcount"))")
 
     # Write double counting terms
     write_sigdc(DCA, ai)
