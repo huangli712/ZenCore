@@ -193,6 +193,9 @@ function dmft_save(it::IterInfo, task::I64)
     # Check the task
     @assert task in (1, 2)
 
+    # Print the header
+    println("Finalize the computational task")
+
     # Create a list of files that need to be backup
     fdmf1 = ["dmft.out"]
     fdmf2 = ["dmft.fermi"]
@@ -216,11 +219,12 @@ function dmft_save(it::IterInfo, task::I64)
             cp(f, "$f.$(it.I₃).$(it.I₂)", force = true)
         end
     end
+    println("  > Save the key output files")
 
     # Extract the fermi level, and use it to update the IterInfo struct.
-    if task == 1
-        it.μ₁ = read_fermi()
-    end
+    fermi = read_fermi()
+    task == 1 ? it.μ₁ = fermi : it.μ₂ = fermi
+    println("  > Extract the fermi level from dmft.fermi: $fermi eV")
 
     # Print the footer for a better visualization
     println()
