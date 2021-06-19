@@ -230,11 +230,13 @@ function sigma_gather(it::IterInfo, ai::Array{Impurity,1})
     fmesh = nothing
 
     # Go through each quantum impurity problems
+    println("Gather self-energy functions")
     for t = 1:nsite
         # Extract the frequency mesh and self-energy function
         fmesh, sigma = GetSigma(ai[t])
         println("  > Read self-energy functions for impurity: $t")
         println("  > Shape of Array fmesh: ", size(fmesh))
+        println("  > Shape of Array sigma: ", size(sigma))
 
         # Extract and verify the dimensional parameters
         _, _b, _m, _ = size(sigma)
@@ -250,6 +252,7 @@ function sigma_gather(it::IterInfo, ai::Array{Impurity,1})
     # them into the `dmft1/sigma.bare` file.
 
     # Write self-energy functions to sigma.bare
+    println("Write self-energy functions")
     write_sigma(fmesh, SA, ai)
 
     # Backup the self-energy functions
