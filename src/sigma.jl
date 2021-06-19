@@ -166,6 +166,7 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
     end # END OF I LOOP
 
     # Write double counting terms
+    println("Write double counting terms")
     write_sigdc(DCA, ai)
 
     # Print blank line for better visualization
