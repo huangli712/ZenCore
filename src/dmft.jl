@@ -158,15 +158,13 @@ function dmft_exec(it::IterInfo, task::I64)
         # Figure out the number of iterations (`ni`) and deltaE (`dE`)
         if length(iters) > 0
             arr = line_to_array(iters[end])
-            ni = parse(I64, arr[2])
-            dE = arr[4]
+            job = arr[5]
         else # The first iteration has not been finished
-            ni = 0
-            dE = "unknown"
+            job = "unknown"
         end
 
         # Print the log to screen
-        @printf("  > Elapsed %4i seconds, %4i iterations (dE = %12s)\r", 5*c, ni, dE)
+        @printf("  > Elapsed %4i seconds, currently task: %s is doing\r", 5*c, job)
 
         # Break the loop
         istaskdone(t) && break
@@ -175,7 +173,7 @@ function dmft_exec(it::IterInfo, task::I64)
     # Keep the last output
     println()
 
-    # Wait for the vasp task to finish
+    # Wait for the dmft task to finish
     wait(t)
 
     # Print the footer for a better visualization
