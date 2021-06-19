@@ -157,6 +157,7 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
         if it.I₃ <= 1 && it.I₁ <= 1
             sigdc = 0.0
             fill!(DC, sigdc)
+            println("  > Reset Vdc to: ", sigdc)
         end
 
         # Use `sigdc` to update the IterInfo struct
