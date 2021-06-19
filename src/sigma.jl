@@ -88,6 +88,8 @@ See also: [`sigma_reset`](@ref).
 function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
     # Print the log
     println("Sigma : Dcount")
+    println("Try to build double counting terms for self-energy functions")
+    println("Current directory: ", pwd())
 
     # Extract some necessary parameters
     nsite = get_i("nsite")
