@@ -98,6 +98,9 @@ function dmft_exec(it::IterInfo, task::I64)
     # Check the task
     @assert task in (1, 2)
 
+    # Print the header
+    println("Detect the runtime environment for dmft$task (dyson)")
+
     # Get the home directory of DMFT engine
     dmft_home = query_dmft()
 
