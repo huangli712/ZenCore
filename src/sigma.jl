@@ -63,7 +63,7 @@ function sigma_reset(ai::Array{Impurity,1})
 
         # Push S into SA to save it
         push!(SA, S)
-        println("  > Shape of Array S for site $i: $(size(S))")
+        println("  > Shape of Array S for site $i: ", size(S))
     end # END OF I LOOP
 
     # Write self-energy functions and the corresponding frequency mesh
@@ -151,6 +151,7 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
                 break
         end
         println("  > Using the $(get_m("dcount")) scheme: Vdc = $sigdc")
+        println("  > Shape of Array DC: ", size(DC))
 
         # Special treatment for the first iteration
         if it.I₃ <= 1 && it.I₁ <= 1
@@ -598,11 +599,11 @@ function write_sigdc(DCA::Array{Array{F64,3},1}, ai::Array{Impurity,1})
     end # END OF IOSTREAM
 
     # Print message to the screen
-    println("  Write double counting terms into: dmft1/sigma.dc")
+    println("  > Write double counting terms into: dmft1/sigma.dc")
 
     # Copy sigma.dc to the dmft2 directory
     cp("dmft1/sigma.dc", "dmft2/sigma.dc", force = true)
 
     # Print message to the screen
-    println("  Write double counting terms into: dmft2/sigma.dc")
+    println("  > Write double counting terms into: dmft2/sigma.dc")
 end
