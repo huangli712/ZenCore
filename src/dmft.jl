@@ -138,7 +138,7 @@ function dmft_exec(it::IterInfo, task::I64)
     println("  > Add the task to the scheduler's queue")
     println("  > Waiting ...")
 
-    # Analyze the vasp.out file during the calculation
+    # Analyze the dmft.out file during the calculation
     #
     # `c` is a time counter
     c = 0
@@ -151,9 +151,9 @@ function dmft_exec(it::IterInfo, task::I64)
         # Increase the counter
         c = c + 1
 
-        # Parse vasp.out file
-        iters = readlines("vasp.out")
-        filter!(x -> contains(x, "DAV:"), iters)
+        # Parse dmft.out file
+        iters = readlines("dmft.out")
+        filter!(x -> contains(x, "Task"), iters)
 
         # Figure out the number of iterations (`ni`) and deltaE (`dE`)
         if length(iters) > 0
