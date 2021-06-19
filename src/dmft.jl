@@ -27,7 +27,7 @@ function dmft_init(it::IterInfo, task::I64)
     println("Engine : DMFT$(subscript(task))")
     println("Try to solve the dynamical mean-field self-consistent equation")
     println("Current directory: ", pwd())
-    println("Prepare necessary input files for dmft$task (dyson)")
+    println("Prepare necessary input files for dmft")
 
     # Well, determine which files are necessary. They are defined in
     # `fsig`, `fir1`, `fir2`, and `fdmft`.
@@ -99,20 +99,20 @@ function dmft_exec(it::IterInfo, task::I64)
     @assert task in (1, 2)
 
     # Print the header
-    println("Detect the runtime environment for dmft$task (dyson)")
-
-    # Get the home directory of DMFT engine
-    dmft_home = query_dmft()
+    println("Detect the runtime environment for dmft")
 
     # Determine mpi prefix (whether the dmft is executed sequentially)
     mpi_prefix = inp_toml("../MPI.toml", "dmft", false)
     numproc = parse(I64, line_to_array(mpi_prefix)[3])
-    println("  Para : Using $numproc processors")
+    println("  > Using $numproc processors (MPI)")
+
+    # Get the home directory of DMFT engine
+    dmft_home = query_dmft()
+    println("  > Home directory for dmft: ", dmft_home)
 
     # Select suitable dmft program
     dmft_exe = "$dmft_home/dmft"
     @assert isfile(dmft_exe)
-    println("  Exec : $dmft_exe")
 
     # Assemble command
     if isnothing(mpi_prefix)
@@ -120,6 +120,10 @@ function dmft_exec(it::IterInfo, task::I64)
     else
         dmft_cmd = split("$mpi_prefix $dmft_exe", " ")
     end
+    println("  > Assemble command: $(prod(x -> x * ' ', dmft_cmd))")
+
+    # Print the header
+    println("Launch the computational engine dmft")
 
     # Launch it, the terminal output is redirected to dmft.out
     run(pipeline(`$dmft_cmd`, stdout = "dmft.out"))
