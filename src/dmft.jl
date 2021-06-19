@@ -138,6 +138,8 @@ function dmft_exec(it::IterInfo, task::I64)
     println("  > Add the task to the scheduler's queue")
     println("  > Waiting ...")
 
+    wait(t)
+
     # Print the footer for a better visualization
     println()
 end
