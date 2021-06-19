@@ -125,9 +125,13 @@ function dmft_exec(it::IterInfo, task::I64)
     # Print the header
     println("Launch the computational engine dmft")
 
-    # Launch it, the terminal output is redirected to dmft.out
-    run(pipeline(`$dmft_cmd`, stdout = "dmft.out"))
+    # Create a task, but do not run it immediately
+    t = @task begin
+        run(pipeline(`$dmft_cmd`, stdout = "dmft.out"))
+    end
+    println("  > Create a task")
 
+    # Launch it, the terminal output is redirected to dmft.out
     # Print the footer for a better visualization
     println()
 end
