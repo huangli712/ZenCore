@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/16
+# Last modified: 2021/06/19
 #
 
 #
@@ -341,7 +341,8 @@ function read_delta(ai::Array{Impurity,1}, fhyb::String = "dmft1/dmft.delta")
             end # END OF S LOOP
         end # END OF T LOOP
     end # END OF IOSTREAM
-    println("  Read hybridization functions from: $fhyb")
+    println("  > Read hybridization functions from: $fhyb")
+    println("  > Shape of Array fmesh: ", size(fmesh))
 
     # Return the desired arrays
     return fmesh, Delta

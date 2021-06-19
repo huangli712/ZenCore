@@ -186,13 +186,16 @@ See also: [`sigma_gather`](@ref).
 function sigma_split(ai::Array{Impurity,1})
     # Print the log
     println("Sigma : Split")
+    println("Try to split the hybridization functions and local impurity levels")
     println("Current directory: ", pwd())
 
     # Split the hybridization functions Δ
+    println("Treat hybridization functions")
     fmesh, Delta = read_delta(ai)
     write_delta(fmesh, Delta, ai)
 
     # Split the local impurity levels εᵢ
+    println("Treat local impurity levels")
     Eimpx = read_eimpx(ai)
     write_eimpx(Eimpx, ai)
 
