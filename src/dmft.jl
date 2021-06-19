@@ -138,6 +138,44 @@ function dmft_exec(it::IterInfo, task::I64)
     println("  > Add the task to the scheduler's queue")
     println("  > Waiting ...")
 
+    # Analyze the vasp.out file during the calculation
+    #
+    # `c` is a time counter
+    c = 0
+    #
+    # Enter infinite loop
+    while true
+        # Sleep five seconds
+        sleep(5)
+
+        # Increase the counter
+        c = c + 1
+
+        # Parse vasp.out file
+        iters = readlines("vasp.out")
+        filter!(x -> contains(x, "DAV:"), iters)
+
+        # Figure out the number of iterations (`ni`) and deltaE (`dE`)
+        if length(iters) > 0
+            arr = line_to_array(iters[end])
+            ni = parse(I64, arr[2])
+            dE = arr[4]
+        else # The first iteration has not been finished
+            ni = 0
+            dE = "unknown"
+        end
+
+        # Print the log to screen
+        @printf("  > Elapsed %4i seconds, %4i iterations (dE = %12s)\r", 5*c, ni, dE)
+
+        # Break the loop
+        istaskdone(t) && break
+    end
+    #
+    # Keep the last output
+    println()
+
+    # Wait for the vasp task to finish
     wait(t)
 
     # Print the footer for a better visualization
