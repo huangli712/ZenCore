@@ -756,7 +756,8 @@ function write_eimpx(Eimpx::Array{C64,4}, ai::Array{Impurity,1})
         end # END OF IOSTREAM
 
         # Print message to the screen
-        println("  Split local impurity levels into: $flev")
+        println("  > Split local impurity levels for site $t into: $flev")
+        println("  > Shape of Array Eimpx: ", size(Eimpx[:,:,:,t]))
     end # END OF T LOOP
 end
 
