@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/18
+# Last modified: 2021/06/19
 #
 
 #=
@@ -246,7 +246,7 @@ function plo_group(MAP::Mapping, PG::Array{PrGroup,1})
             # Setup shell property
             # Later it will be used to generate `Tr`
             PG[g].shell = get_i("shell")[s]
-            println("  > Treat group $g (site: $(PG[g].site)) as $(PG[g].shell)")
+            println("  > Treat group $g (site: $(PG[g].site)) as $(PG[g].shell) orbitals")
         end
 
         # Setup Tr array further
@@ -553,7 +553,7 @@ function plo_orthog(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1})
     end
 
     for p in eachindex(chipsi)
-        println("  > Final shape of chipsi (group $p): $(size(chipsi[p]))")
+        println("  > Final shape of Array chipsi (group $p): $(size(chipsi[p]))")
     end
 end
 
