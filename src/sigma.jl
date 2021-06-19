@@ -24,6 +24,7 @@ function sigma_reset(ai::Array{Impurity,1})
     # Print the log
     println("Sigma : Reset")
     println("Try to create default self-energy functions")
+    println("Current directory: ", pwd())
 
     # Extract some necessary parameters
     axis = get_m("axis")
@@ -34,13 +35,15 @@ function sigma_reset(ai::Array{Impurity,1})
     @assert nsite == length(ai)
 
     # Create frequency mesh
+    println("Create frequency mesh")
     fmesh = zeros(F64, nmesh)
     if axis === 1 # Imaginary axis
         for i = 1:nmesh
             fmesh[i] = (2 * i - 1) * pi / beta
         end
-        println("  Create Matsubara frequency mesh")
+        println("  > Create Matsubara frequency mesh: $nmesh points")
     else # Real axis
+        println("  > Create real frequency mesh")
         sorry()
     end
 
