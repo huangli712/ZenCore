@@ -152,14 +152,14 @@ function dmft_exec(it::IterInfo, task::I64)
         c = c + 1
 
         # Parse dmft.out file
-        iters = readlines("dmft.out")
-        filter!(x -> contains(x, "Task"), iters)
+        lines = readlines("dmft.out")
+        filter!(x -> contains(x, "Task"), lines)
 
-        # Figure out the number of iterations (`ni`) and deltaE (`dE`)
-        if length(iters) > 0
-            arr = line_to_array(iters[end])
+        # Figure out the task that is doing
+        if length(lines) > 0
+            arr = line_to_array(lines[end])
             job = arr[5]
-        else # The first iteration has not been finished
+        else # Nothing
             job = "unknown"
         end
 
