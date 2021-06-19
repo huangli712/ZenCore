@@ -164,7 +164,7 @@ function dmft_exec(it::IterInfo, task::I64)
         end
 
         # Print the log to screen
-        @printf("  > Elapsed %4i seconds, currently task: %s is doing\r", 5*c, job)
+        @printf("  > Elapsed %4i seconds, current task: %s\r", 5*c, job)
 
         # Break the loop
         istaskdone(t) && break
@@ -176,8 +176,10 @@ function dmft_exec(it::IterInfo, task::I64)
     # Wait for the dmft task to finish
     wait(t)
 
-    # Print the footer for a better visualization
-    println()
+    # Extract how many iterations are executed
+    iters = readlines("vasp.out")
+    filter!(x -> contains(x, "DAV:"), iters)
+    println("  > Converged after $(length(iters)) iterations")
 end
 
 """
@@ -219,6 +221,9 @@ function dmft_save(it::IterInfo, task::I64)
     if task == 1
         it.μ₁ = read_fermi()
     end
+
+    # Print the footer for a better visualization
+    println()
 end
 
 #
