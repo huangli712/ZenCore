@@ -185,6 +185,7 @@ See also: [`sigma_gather`](@ref).
 function sigma_split(ai::Array{Impurity,1})
     # Print the log
     println("Sigma : Split")
+    println("Current directory: ", pwd())
 
     # Split the hybridization functions Δ
     fmesh, Delta = read_delta(ai)

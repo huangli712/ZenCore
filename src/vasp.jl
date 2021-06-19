@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/18
+# Last modified: 2021/06/19
 #
 
 #
@@ -1432,7 +1432,7 @@ function vaspio_fermi(f::String, silent::Bool = true)
         close(fin)
 
         # Print some useful information to check
-        println("  > Fermi level: $fermi eV")
+        !silent && println("  > Fermi level: $fermi eV")
 
         # Return the desired data
         return fermi
