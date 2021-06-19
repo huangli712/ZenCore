@@ -177,9 +177,9 @@ function dmft_exec(it::IterInfo, task::I64)
     wait(t)
 
     # Extract how many iterations are executed
-    iters = readlines("vasp.out")
-    filter!(x -> contains(x, "DAV:"), iters)
-    println("  > Converged after $(length(iters)) iterations")
+    lines = readlines("dmft.out")
+    filter!(x -> contains(x, "Task"), lines)
+    println("  > Finished after $(length(lines)) tasks")
 end
 
 """
