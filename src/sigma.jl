@@ -67,6 +67,7 @@ function sigma_reset(ai::Array{Impurity,1})
     end # END OF I LOOP
 
     # Write self-energy functions and the corresponding frequency mesh
+    println("Write self-energy functions")
     write_sigma(fmesh, SA, ai)
 
     # Print blank line for better visualization
