@@ -55,7 +55,6 @@ function dmft_init(it::IterInfo, task::I64)
             file_src = joinpath("../dft", x)
             file_dst = x
             cp(file_src, file_dst, force = true)
-            println("  > $x is ready")
         end,
     union(fir1, fir2) )
 
@@ -84,6 +83,7 @@ function dmft_init(it::IterInfo, task::I64)
         if !isfile(filename)
             error("Please make sure the file $filename is available")
         end
+        println("  > $filename is ready")
     end
 end
 
