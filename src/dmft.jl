@@ -343,6 +343,7 @@ function read_delta(ai::Array{Impurity,1}, fhyb::String = "dmft1/dmft.delta")
     end # END OF IOSTREAM
     println("  > Read hybridization functions from: $fhyb")
     println("  > Shape of Array fmesh: ", size(fmesh))
+    println("  > Shape of Array Delta: ", size(Delta))
 
     # Return the desired arrays
     return fmesh, Delta
@@ -636,7 +637,7 @@ function write_delta(fmesh::Array{F64,1}, Delta::Array{C64,5}, ai::Array{Impurit
         end # END OF IOSTREAM
 
         # Print message to the screen
-        println("  Split hybridization functions into: $fhyb")
+        println("  > Split hybridization functions for site $t into: $fhyb")
     end # END OF T LOOP
 end
 
