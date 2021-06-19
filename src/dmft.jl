@@ -638,6 +638,8 @@ function write_delta(fmesh::Array{F64,1}, Delta::Array{C64,5}, ai::Array{Impurit
 
         # Print message to the screen
         println("  > Split hybridization functions for site $t into: $fhyb")
+        println("  > Shape of Array fmesh: ", size(fmesh))
+        println("  > Shape of Array Delta: ", size(Delta[:,:,:,:,t]))
     end # END OF T LOOP
 end
 
