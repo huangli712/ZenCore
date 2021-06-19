@@ -131,7 +131,13 @@ function dmft_exec(it::IterInfo, task::I64)
     end
     println("  > Create a task")
 
-    # Launch it, the terminal output is redirected to dmft.out
+    # Launch it, the terminal output is redirected to dmft.out.
+    # Note that the task runs asynchronously. It will not block
+    # the execution.
+    schedule(t)
+    println("  > Add the task to the scheduler's queue")
+    println("  > Waiting ...")
+
     # Print the footer for a better visualization
     println()
 end
