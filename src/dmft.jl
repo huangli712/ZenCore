@@ -23,6 +23,12 @@ function dmft_init(it::IterInfo, task::I64)
     # Check the task
     @assert task in (1, 2)
 
+    # Print the header
+    println("Engine : DMFT$(subscript(task))")
+    println("Try to solve the dynamical mean-field self-consistent equation")
+    println("Current directory: ", pwd())
+    println("Prepare necessary input files for dmft$task (dyson)")
+
     # Well, determine which files are necessary. They are defined in
     # `fsig`, `fir1`, `fir2`, and `fdmft`.
     #
@@ -49,6 +55,7 @@ function dmft_init(it::IterInfo, task::I64)
             file_src = joinpath("../dft", x)
             file_dst = x
             cp(file_src, file_dst, force = true)
+            println("  > $x is ready")
         end,
     union(fir1, fir2) )
 
@@ -90,9 +97,6 @@ See also: [`dmft_init`](@ref), [`dmft_save`](@ref).
 function dmft_exec(it::IterInfo, task::I64)
     # Check the task
     @assert task in (1, 2)
-
-    # Print the header
-    println("Engine : DMFT$(subscript(task))")
 
     # Get the home directory of DMFT engine
     dmft_home = query_dmft()
