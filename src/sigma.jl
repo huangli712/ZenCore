@@ -48,6 +48,7 @@ function sigma_reset(ai::Array{Impurity,1})
     end
 
     # Create default self-energy functions
+    println("Create self-energy functions")
     #
     # Initialize an array for self-energy functions
     SA = Array{C64,4}[]
@@ -62,8 +63,8 @@ function sigma_reset(ai::Array{Impurity,1})
 
         # Push S into SA to save it
         push!(SA, S)
+        println("  > Shape of Array S for site $i: $(size(S))")
     end # END OF I LOOP
-    println("  Create local self-energy functions")
 
     # Write self-energy functions and the corresponding frequency mesh
     write_sigma(fmesh, SA, ai)
