@@ -143,7 +143,7 @@ function s_qmc1_exec(it::IterInfo)
     # Extract how many monte carlo sampling blocks are executed
     lines = readlines("solver.out")
     filter!(x -> contains(x, "iter:"), lines)
-    println("  > Finished after $(length(lines)) blocks")
+    println("  > Finished after $(length(lines)) Monte Carlo sampling blocks")
 end
 
 """
