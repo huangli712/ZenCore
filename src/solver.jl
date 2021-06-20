@@ -62,13 +62,13 @@ function s_qmc1_exec(it::IterInfo)
     # Print the header
     println("Detect the runtime environment for solver")
 
-    # Get the home directory of quantum impurity solver
-    solver_home = query_solver("ct_hyb1")
-
     # Determine mpi prefix (whether the solver is executed sequentially)
     mpi_prefix = inp_toml("../MPI.toml", "solver", false)
     numproc = parse(I64, line_to_array(mpi_prefix)[3])
-    println("  Para : Using $numproc processors")
+    rintln("  > Using $numproc processors (MPI)")
+
+    # Get the home directory of quantum impurity solver
+    solver_home = query_solver("ct_hyb1")
 
     # Select suitable solver program
     solver_exe = "$solver_home/ctqmc"
