@@ -86,8 +86,11 @@ function s_qmc1_exec(it::IterInfo)
     # Print the header
     println("Launch the computational engine (quantum impurity solver)")
 
-    # Launch it, the terminal output is redirected to solver.out
-    run(pipeline(`$solver_cmd`, stdout = "solver.out"))
+    # Create a task, but do not run it immediately
+    t = @task begin
+        run(pipeline(`$solver_cmd`, stdout = "solver.out"))
+    end
+    println("  > Create a task")
 
     # Print the footer for a better visualization
     println()
