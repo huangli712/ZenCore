@@ -123,7 +123,7 @@ function dmft_exec(it::IterInfo, task::I64)
     println("  > Assemble command: $(prod(x -> x * ' ', dmft_cmd))")
 
     # Print the header
-    println("Launch the computational engine dmft")
+    println("Launch the computational engine (dmft)")
 
     # Create a task, but do not run it immediately
     t = @task begin
