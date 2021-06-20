@@ -156,6 +156,9 @@ This quantum impurity solver is from the `iQIST` software package.
 See also: [`s_qmc1_init`](@ref), [`s_qmc1_exec`](@ref).
 """
 function s_qmc1_save(it::IterInfo, imp::Impurity)
+    # Print the header
+    println("Finalize the computational task")
+
     # Determine which files are important
     #
     # Major output
