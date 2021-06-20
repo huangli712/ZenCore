@@ -184,12 +184,16 @@ function s_qmc1_save(it::IterInfo, imp::Impurity)
             cp(file_src, file_dst, force = true)
         end,
     union(fout, fgrn, fhyb, fsgm, faux) )
+    println("  > Save the key output files")
 
     # Update the `occup` field in `imp` (Impurity struct)
     ctqmc_nimpx(imp)
 
     # Update the `it` (IterInfo) struct
     it.nf[imp.index] = imp.occup
+
+    # Print the footer for a better visualization
+    println()
 end
 
 #
