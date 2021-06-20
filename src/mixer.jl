@@ -38,6 +38,9 @@ function mixer_sigma(it::IterInfo, ai::Array{Impurity,1})
         @assert cycle ≥ _cycle ≥ 1
         @assert _prev ≥ 1
     end
+    println("Determine previous and current objects")
+    @printf("  > Curr: (I₃, I₁) -> (%4i,%4i)\n", cycle, curr)
+    @printf("  > Prev: (I₃, I₁) -> (%4i,%4i)\n", _cycle, _prev)
 
     # Determine filenames for self-energy functions
     fcurr = "dmft1/sigma.bare.$cycle.$curr"
@@ -47,6 +50,7 @@ function mixer_sigma(it::IterInfo, ai::Array{Impurity,1})
     @assert isfile(fcurr) && isfile(fprev)
 
     # Read in the self-energy functions (previous and current)
+    println("Read self-energy functions")
     fcurr, Scurr = read_sigma(ai, fcurr)
     fprev, Sprev = read_sigma(ai, fprev)
     @assert size(Scurr) == size(Sprev) && size(fcurr) == size(fprev)
@@ -55,6 +59,7 @@ function mixer_sigma(it::IterInfo, ai::Array{Impurity,1})
     Snew = Scurr * get_m("mixer") + Sprev * (1.0 - get_m("mixer"))
 
     # Write the new self-energy functions into `dmft1/sigma.bare`
+    println("Write self-energy functions")
     write_sigma(fcurr, Snew, ai)
 
     # Print blank line for better visualization
