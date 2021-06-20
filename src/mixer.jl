@@ -77,6 +77,8 @@ See also: [`mixer_core`](@ref).
 function mixer_delta(it::IterInfo, ai::Array{Impurity,1})
     # Print the log
     println("Mixer : Delta")
+    println("Try to mix hybridization functions")
+    println("Current directory: ", pwd())
 
     # Get current dmft loop
     cycle = it.I₃
