@@ -140,9 +140,10 @@ function s_qmc1_exec(it::IterInfo)
     # Wait for the dmft task to finish
     wait(t)
 
-
-    # Print the footer for a better visualization
-    println()
+    # Extract how many iterations are executed
+    lines = readlines("solver.out")
+    filter!(x -> contains(x, "Task"), lines)
+    println("  > Finished after $(length(lines)) tasks")
 end
 
 """
