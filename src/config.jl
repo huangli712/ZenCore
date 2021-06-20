@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/18
+# Last modified: 2021/06/20
 #
 
 #
@@ -274,7 +274,7 @@ See also: [`get_c`](@ref), [`str_c`](@ref).
 function cat_c()
     # See comments in cat_d()
     println("  case     -> ", str_c("case"))
-    println()
+    # println()
 end
 
 #=
@@ -311,7 +311,7 @@ function cat_d()
     println("  lproj    -> ", str_d("lproj"))
     println("  sproj    -> ", str_d("sproj"))
     println("  window   -> ", str_d("window"))
-    println()
+    # println()
 end
 
 """
@@ -338,7 +338,7 @@ function cat_m()
     println("  lcharge  -> ", str_m("lcharge"))
     println("  lenergy  -> ", str_m("lenergy"))
     println("  lforce   -> ", str_m("lforce"))
-    println()
+    # println()
 end
 
 """
@@ -359,7 +359,7 @@ function cat_i()
     println("  upara    -> ", str_i("upara"))
     println("  jpara    -> ", str_i("jpara"))
     println("  lpara    -> ", str_i("lpara"))
-    println()
+    # println()
 end
 
 """
