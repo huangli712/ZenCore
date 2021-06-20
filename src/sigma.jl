@@ -407,7 +407,7 @@ function read_sigma(ai::Array{Impurity,1}, fsig::String = "dmft1/sigma.bare")
             push!(SA, Sigma)
         end # END OF T LOOP
     end # END OF IOSTREAM
-    println("  Read self-energy functions from: $fsig")
+    println("  > Read self-energy functions from: $fsig")
 
     # Return the desired arrays
     return fmesh, SA
@@ -480,7 +480,7 @@ function read_sigdc(ai::Array{Impurity,1}, fsig::String = "dmft1/sigma.dc")
             push!(DCA, DC)
         end # END OF T LOOP
     end # END OF IOSTREAM
-    println("  Read double counting terms from: $fsig")
+    println("  > Read double counting terms from: $fsig")
 
     # Return the desire array
     return DCA
