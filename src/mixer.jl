@@ -97,6 +97,9 @@ function mixer_delta(it::IterInfo, ai::Array{Impurity,1})
         @assert cycle ≥ _cycle ≥ 1
         @assert _prev ≥ 1
     end
+    println("Determine previous and current objects")
+    @printf("  > Curr: (I₃, I₁) -> (%4i,%4i)\n", cycle, curr)
+    @printf("  > Prev: (I₃, I₁) -> (%4i,%4i)\n", _cycle, _prev)
 
     # Determine filenames for hybridization functions
     fcurr = "dmft1/dmft.delta.$cycle.$curr"
@@ -106,6 +109,7 @@ function mixer_delta(it::IterInfo, ai::Array{Impurity,1})
     @assert isfile(fcurr) && isfile(fprev)
 
     # Read in the hybridization functions (previous and current)
+    println("Read hybridization functions")
     fcurr, Dcurr = read_delta(ai, fcurr)
     fprev, Dprev = read_delta(ai, fprev)
     @assert size(Dcurr) == size(Dprev) && size(fcurr) == size(fprev)
@@ -114,6 +118,7 @@ function mixer_delta(it::IterInfo, ai::Array{Impurity,1})
     Dnew = Dcurr * get_m("mixer") + Dprev * (1.0 - get_m("mixer"))
 
     # Write the new hybridization functions into `dmft1/dmft.delta`
+    println("Write hybridization functions")
     write_delta(fcurr, Dnew, ai, "dmft1/dmft.delta")
 
     # Print blank line for better visualization
