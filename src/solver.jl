@@ -188,6 +188,7 @@ function s_qmc1_save(it::IterInfo, imp::Impurity)
 
     # Update the `occup` field in `imp` (Impurity struct)
     ctqmc_nimpx(imp)
+    println("  > Extract the impurity occupancy from solver.nmat.dat: $(imp.occup)")
 
     # Update the `it` (IterInfo) struct
     it.nf[imp.index] = imp.occup
