@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/15
+# Last modified: 2021/06/20
 #
 
 #
@@ -22,6 +22,9 @@ This quantum impurity solver is from the `iQIST` software package.
 See also: [`s_qmc1_exec`](@ref), [`s_qmc1_save`](@ref).
 """
 function s_qmc1_init(it::IterInfo, imp::Impurity)
+    # Print the header
+    println("Engine : CT-HYB₁")
+
     # Generate configuration file for quantum impurity solver
     ctqmc_setup(imp)
 
@@ -48,9 +51,6 @@ This quantum impurity solver is from the `iQIST` software package.
 See also: [`s_qmc1_init`](@ref), [`s_qmc1_save`](@ref).
 """
 function s_qmc1_exec(it::IterInfo)
-    # Print the header
-    println("Engine : CT-HYB₁")
-
     # Get the home directory of quantum impurity solver
     solver_home = query_solver("ct_hyb1")
 
