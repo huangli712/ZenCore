@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/17
+# Last modified: 2021/06/21
 #
 
 """
@@ -18,6 +18,8 @@ See also: [`mixer_core`](@ref).
 function mixer_sigma(it::IterInfo, ai::Array{Impurity,1})
     # Print the log
     println("Mixer : Sigma")
+    println("Try to mix self-energy functions")
+    println("Current directory: ", pwd())
 
     # Get current dmft loop
     cycle = it.I₃
