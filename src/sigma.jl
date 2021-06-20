@@ -151,7 +151,7 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
                 break
         end
         println("  > Using the $(get_m("dcount")) scheme: Vdc = $sigdc")
-        println("  > Shape of Array DC: ", size(DC))
+        println("  > Shape of Array DC for site $i: ", size(DC))
 
         # Special treatment for the first iteration
         if it.I₃ <= 1 && it.I₁ <= 1
