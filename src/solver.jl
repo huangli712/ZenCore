@@ -114,7 +114,7 @@ function s_qmc1_exec(it::IterInfo)
 
         # Parse solver.out file
         lines = readlines("solver.out")
-        filter!(x -> contains(x, "Task"), lines)
+        filter!(x -> contains(x, "iter:"), lines)
 
         # Figure out the task that is doing
         if length(lines) > 0
