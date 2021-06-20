@@ -69,11 +69,11 @@ function s_qmc1_exec(it::IterInfo)
 
     # Get the home directory of quantum impurity solver
     solver_home = query_solver("ct_hyb1")
+    println("  > Home directory for solver: ", solver_home)
 
     # Select suitable solver program
     solver_exe = "$solver_home/ctqmc"
     @assert isfile(solver_exe)
-    println("  Exec : $solver_exe")
 
     # Assemble command
     if isnothing(mpi_prefix)
@@ -81,6 +81,7 @@ function s_qmc1_exec(it::IterInfo)
     else
         solver_cmd = split("$mpi_prefix $solver_exe", " ")
     end
+    println("  > Assemble command: $(prod(x -> x * ' ', solver_cmd))")
 
     # Launch it, the terminal output is redirected to solver.out
     run(pipeline(`$solver_cmd`, stdout = "solver.out"))
