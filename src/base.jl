@@ -1127,22 +1127,22 @@ function show_it(it::IterInfo, lr::Logger)
 
     # Write the header
     if it.I₄ == 0
-        print(lr.cycle, "#   #   #   #   μ₀        μ₁        ")
+        print(lr.cycle, "#    #    #    #    μ0          μ1          μ2          ")
         for t = 1:nsite
-            print(lr.cycle, "dc$(subscript(t))       ")
+            print(lr.cycle, "Vdc$t        ")
         end
         for t = 1:nsite
-            print(lr.cycle, "nf$(subscript(t))       ")
+            print(lr.cycle, "Nim$t        ")
         end
-        println(lr.cycle, "et")
+        println(lr.cycle, "Etot")
         # Write separator
-        println(lr.cycle, repeat('-', 46 + 20*nsite))
+        println(lr.cycle, repeat('-', 4*5 + 4*12 + 24*nsite))
     # Write iteration information
     else
-        @printf(lr.cycle, "%-4i", it.I₄)
-        @printf(lr.cycle, "%-4i", it.I₃)
-        @printf(lr.cycle, "%-4i", it.I₁)
-        @printf(lr.cycle, "%-4i", it.I₂)
+        @printf(lr.cycle, "%-5i", it.I₄)
+        @printf(lr.cycle, "%-5i", it.I₃)
+        @printf(lr.cycle, "%-5i", it.I₁)
+        @printf(lr.cycle, "%-5i", it.I₂)
         if it.μ₀ < 0.0
             @printf(lr.cycle, "%-10.5f", it.μ₀)
         else
