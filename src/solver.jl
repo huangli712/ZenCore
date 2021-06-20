@@ -140,10 +140,10 @@ function s_qmc1_exec(it::IterInfo)
     # Wait for the dmft task to finish
     wait(t)
 
-    # Extract how many iterations are executed
+    # Extract how many monte carlo sampling blocks are executed
     lines = readlines("solver.out")
-    filter!(x -> contains(x, "Task"), lines)
-    println("  > Finished after $(length(lines)) tasks")
+    filter!(x -> contains(x, "iter:"), lines)
+    println("  > Finished after $(length(lines)) blocks")
 end
 
 """

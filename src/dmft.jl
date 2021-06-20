@@ -178,8 +178,8 @@ function dmft_exec(it::IterInfo, task::I64)
 
     # Extract how many iterations are executed
     lines = readlines("dmft.out")
-    filter!(x -> contains(x, "iter:"), lines)
-    println("  > Finished after $(length(lines)) blocks")
+    filter!(x -> contains(x, "Task"), lines)
+    println("  > Finished after $(length(lines)) tasks")
 end
 
 """
