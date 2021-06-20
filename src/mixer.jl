@@ -136,6 +136,8 @@ See also: [`mixer_core`](@ref).
 function mixer_eimpx(it::IterInfo, ai::Array{Impurity,1})
     # Print the log
     println("Mixer : Eimpx")
+    println("Try to mix local impurity levels")
+    println("Current directory: ", pwd())
 
     # Get current dmft loop
     cycle = it.I₃
@@ -154,6 +156,9 @@ function mixer_eimpx(it::IterInfo, ai::Array{Impurity,1})
         @assert cycle ≥ _cycle ≥ 1
         @assert _prev ≥ 1
     end
+    println("Determine previous and current objects")
+    @printf("  > Curr: (I₃, I₁) -> (%4i,%4i)\n", cycle, curr)
+    @printf("  > Prev: (I₃, I₁) -> (%4i,%4i)\n", _cycle, _prev)
 
     # Determine filenames for local impurity levels
     fcurr = "dmft1/dmft.eimpx.$cycle.$curr"
