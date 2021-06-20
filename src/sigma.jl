@@ -553,12 +553,20 @@ function write_sigma(fmesh::Array{F64,1}, SA::Array{Array{C64,4},1}, ai::Array{I
 
     # Print message to the screen
     println("  > Write self-energy functions into: dmft1/sigma.bare")
+    println("  > Shape of Array fmesh: ", size(fmesh))
+    for t in eachindex(SA)
+        println("  > Shape of Array Sigma: $t -> ", size(SA[t]))
+    end
 
     # Copy sigma.bare to the dmft2 directory
     cp("dmft1/sigma.bare", "dmft2/sigma.bare", force = true)
 
     # Print message to the screen
     println("  > Write self-energy functions into: dmft2/sigma.bare")
+    println("  > Shape of Array fmesh: ", size(fmesh))
+    for t in eachindex(SA)
+        println("  > Shape of Array Sigma: $t -> ", size(SA[t]))
+    end
 end
 
 """
