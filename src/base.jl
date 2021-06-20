@@ -1153,6 +1153,11 @@ function show_it(it::IterInfo, lr::Logger)
         else
             @printf(lr.cycle, "+%-11.7f", it.μ₁)
         end
+        if it.μ₂ < 0.0
+            @printf(lr.cycle, "%-12.7f", it.μ₂)
+        else
+            @printf(lr.cycle, "+%-11.7f", it.μ₂)
+        end
         for t = 1:nsite
             @printf(lr.cycle, "%-10.5f", it.dc[t])
         end
