@@ -1043,7 +1043,7 @@ function vaspio_kmesh(f::String)
     close(fin)
 
     # Print some useful information to check
-    println("  > Number of 𝑘-points: ", nkpt)
+    println("  > Number of k-points: ", nkpt)
     println("  > Total sum of weights: ", sum(weight))
     
     # Return the desired arrays
@@ -1208,7 +1208,7 @@ function vaspio_eigen(f::String)
 
         # Print some useful information to check
         println("  > Number of DFT bands: ", nband)
-        println("  > Number of 𝑘-points: ", nkpt)
+        println("  > Number of k-points: ", nkpt)
         println("  > Number of spins: ", nspin)
         println("  > Shape of Array enk: ", size(enk))
         println("  > Shape of Array occupy: ", size(occupy))
@@ -1259,7 +1259,7 @@ function vaspio_eigen(f::String)
 
         # Print some useful information to check
         println("  > Number of DFT bands: ", nband)
-        println("  > Number of 𝑘-points: ", nkpt)
+        println("  > Number of k-points: ", nkpt)
         println("  > Number of spins: ", nspin)
         println("  > Shape of Array enk: ", size(enk))
         println("  > Shape of Array occupy: ", size(occupy))
@@ -1372,7 +1372,7 @@ function vaspio_projs(f::String)
 
     # Print some useful information to check
     println("  > Number of DFT bands: ", nband)
-    println("  > Number of 𝑘-points: ", nkpt)
+    println("  > Number of k-points: ", nkpt)
     println("  > Number of spins: ", nspin)
     println("  > Number of projectors: ", nproj)
     println("  > Number of groups: ", length(PG))
