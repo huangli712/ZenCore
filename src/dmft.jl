@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/19
+# Last modified: 2021/06/21
 #
 
 #
@@ -768,7 +768,9 @@ function write_delta(fmesh::Array{F64,1}, Delta::Array{C64,5}, ai::Array{Impurit
     end # END OF IOSTREAM
 
     # Print message to the screen
-    println("  Write hybridization functions into: $fhyb")
+    println("  > Write hybridization functions into: $fhyb")
+    println("  > Shape of Array fmesh: ", size(fmesh))
+    println("  > Shape of Array Delta: ", size(Delta))
 end
 
 #
