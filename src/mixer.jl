@@ -168,6 +168,7 @@ function mixer_eimpx(it::IterInfo, ai::Array{Impurity,1})
     @assert isfile(fcurr) && isfile(fprev)
 
     # Read in the local impurity levels (previous and current)
+    println("Read local impurity levels")
     Ecurr = read_eimpx(ai, fcurr)
     Eprev = read_eimpx(ai, fprev)
     @assert size(Ecurr) == size(Eprev)
