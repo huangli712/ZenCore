@@ -1159,12 +1159,12 @@ function show_it(it::IterInfo, lr::Logger)
             @printf(lr.cycle, "+%-11.7f", it.μ₂)
         end
         for t = 1:nsite
-            @printf(lr.cycle, "%-10.5f", it.dc[t])
+            @printf(lr.cycle, "%-12.7f", it.dc[t])
         end
         for t = 1:nsite
-            @printf(lr.cycle, "%-10.5f", it.nf[t])
+            @printf(lr.cycle, "%-12.7f", it.nf[t])
         end
-        @printf(lr.cycle, "%-10.5f", it.et)
+        @printf(lr.cycle, "%-12.7f", it.et)
         println(lr.cycle)
     end
 
