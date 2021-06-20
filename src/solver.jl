@@ -92,6 +92,13 @@ function s_qmc1_exec(it::IterInfo)
     end
     println("  > Create a task")
 
+    # Launch it, the terminal output is redirected to solver.out.
+    # Note that the task runs asynchronously. It will not block
+    # the execution.
+    schedule(t)
+    println("  > Add the task to the scheduler's queue")
+    println("  > Waiting ...")
+
     # Print the footer for a better visualization
     println()
 end
