@@ -881,7 +881,8 @@ function write_eimpx(Eimpx::Array{C64,4}, ai::Array{Impurity,1}, flev::String)
     end # END OF IOSTREAM
 
     # Print message to the screen
-    println("  Write local impurity levels into: $flev")
+    println("  > Write local impurity levels into: $flev")
+    println("  > Shape of Array Eimpx: ", size(Eimpx))
 end
 
 #
