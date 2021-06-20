@@ -24,6 +24,8 @@ See also: [`s_qmc1_exec`](@ref), [`s_qmc1_save`](@ref).
 function s_qmc1_init(it::IterInfo, imp::Impurity)
     # Print the header
     println("Engine : CT-HYB₁")
+    println("Try to solve the quantum impurity problem: ", imp.index)
+    println("Current directory: ", pwd())
 
     # Generate configuration file for quantum impurity solver
     ctqmc_setup(imp)
