@@ -26,21 +26,27 @@ function s_qmc1_init(it::IterInfo, imp::Impurity)
     println("Engine : CT-HYB₁")
     println("Try to solve the quantum impurity problem: ", imp.index)
     println("Current directory: ", pwd())
+    println("Prepare necessary input files for solver")
 
     # Generate configuration file for quantum impurity solver
     ctqmc_setup(imp)
+    println("  > solver.ctqmc.in is ready")
 
     # Extract frequency mesh and hybridization function from `dmft.delta`
     fmesh, Delta = read_delta(imp)
+    println("  > Open and read hybridization functions from dmft.delta")
 
     # Write frequency mesh and hybridization function to `solver.hyb.in`
     ctqmc_delta(fmesh, Delta)
+    println("  > solver.hyb.in is ready")
 
     # Extract local impurity levels from `dmft.eimpx`
     Eimpx = read_eimpx(imp)
+    println("  > Open and read local impurity levels from dmft.eimpx")
 
     # Write local impurity levels to `solver.eimp.in`
     ctqmc_eimpx(Eimpx)
+    println("  > solver.eimp.in is ready")
 end
 
 """
