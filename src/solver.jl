@@ -65,7 +65,7 @@ function s_qmc1_exec(it::IterInfo)
     # Determine mpi prefix (whether the solver is executed sequentially)
     mpi_prefix = inp_toml("../MPI.toml", "solver", false)
     numproc = parse(I64, line_to_array(mpi_prefix)[3])
-    rintln("  > Using $numproc processors (MPI)")
+    println("  > Using $numproc processors (MPI)")
 
     # Get the home directory of quantum impurity solver
     solver_home = query_solver("ct_hyb1")
@@ -98,6 +98,41 @@ function s_qmc1_exec(it::IterInfo)
     schedule(t)
     println("  > Add the task to the scheduler's queue")
     println("  > Waiting ...")
+
+    # Analyze the solver.out file during the calculation
+    #
+    # `c` is a time counter
+    c = 0
+    #
+    # Enter infinite loop
+    while true
+        # Sleep five seconds
+        sleep(5)
+
+        # Increase the counter
+        c = c + 1
+
+        # Parse solver.out file
+        lines = readlines("solver.out")
+        filter!(x -> contains(x, "Task"), lines)
+
+        # Figure out the task that is doing
+        if length(lines) > 0
+            arr = line_to_array(lines[end])
+            job = arr[5]
+        else # Nothing
+            job = "unknown"
+        end
+
+        # Print the log to screen
+        @printf("  > Elapsed %4i seconds, current task: %s\r", 5*c, job)
+
+        # Break the loop
+        istaskdone(t) && break
+    end
+    #
+    # Keep the last output
+    println()
 
     # Print the footer for a better visualization
     println()
