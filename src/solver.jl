@@ -137,6 +137,10 @@ function s_qmc1_exec(it::IterInfo)
     # Keep the last output
     println()
 
+    # Wait for the dmft task to finish
+    wait(t)
+
+
     # Print the footer for a better visualization
     println()
 end
