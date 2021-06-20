@@ -119,13 +119,16 @@ function s_qmc1_exec(it::IterInfo)
         # Figure out the task that is doing
         if length(lines) > 0
             arr = line_to_array(lines[end])
-            job = arr[5]
+            c_sweep = parse(I64, arr[5])
+            t_sweep = parse(I64, arr[7])
+            R = c_sweep / t_sweep
         else # Nothing
-            job = "unknown"
+            c_sweep = 0
+            R = 0.0
         end
 
         # Print the log to screen
-        @printf("  > Elapsed %4i seconds, current task: %s\r", 5*c, job)
+        @printf("  > Elapsed %4i seconds, current sweeps: %i (%4.2f)\r", 5*c, c_sweep, R)
 
         # Break the loop
         istaskdone(t) && break
