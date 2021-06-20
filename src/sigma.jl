@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/19
+# Last modified: 2021/06/21
 #
 
 #
@@ -408,6 +408,10 @@ function read_sigma(ai::Array{Impurity,1}, fsig::String = "dmft1/sigma.bare")
         end # END OF T LOOP
     end # END OF IOSTREAM
     println("  > Read self-energy functions from: $fsig")
+    println("  > Shape of Array fmesh: ", size(fmesh))
+    for t in eachindex(SA)
+        println("  > Shape of Array Sigma: $t -> ", size(SA[t]))
+    end
 
     # Return the desired arrays
     return fmesh, SA
