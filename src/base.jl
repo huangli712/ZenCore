@@ -515,7 +515,7 @@ function cycle8(task::String = "sigma")
 end
 
 #=
-### *Service Functions*: *Layer 1*
+### *Service Functions* : *Layer 1*
 =#
 
 #=
@@ -578,7 +578,7 @@ function suspend(second::I64)
 end
 
 #=
-### *Service Functions*: *Layer 2*
+### *Service Functions* : *Layer 2*
 =#
 
 """
@@ -1021,7 +1021,7 @@ function mixer_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::Strin
 end
 
 #=
-### *Service Functions*: *Layer 3*
+### *Service Functions* : *Layer 3*
 =#
 
 #=

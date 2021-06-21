@@ -233,7 +233,7 @@ function dmft_save(it::IterInfo, task::I64)
 end
 
 #=
-### *Service Functions*: *For I/O Operations* (*Fermi/Read*)
+### *Service Functions* : *For I/O Operations* (*Fermi/Read*)
 =#
 
 """
@@ -263,7 +263,7 @@ function read_fermi()
 end
 
 #=
-### *Service Functions*: *For I/O Operations* (*Δ/Read*)
+### *Service Functions* : *For I/O Operations* (*Δ/Read*)
 =#
 
 """
@@ -437,7 +437,7 @@ function read_delta(ai::Array{Impurity,1}, fhyb::String = "dmft1/dmft.delta")
 end
 
 #=
-### *Service Functions*: *For I/O Operations* (*ε/Read*)
+### *Service Functions* : *For I/O Operations* (*ε/Read*)
 =#
 
 """
@@ -585,7 +585,7 @@ function read_eimpx(ai::Array{Impurity,1}, flev::String = "dmft1/dmft.eimpx")
 end
 
 #=
-### *Service Functions*: *For I/O Operations* (*Γ/Read*)
+### *Service Functions* : *For I/O Operations* (*Γ/Read*)
 =#
 
 """
@@ -683,7 +683,7 @@ function read_gamma(fgamma::String = "dmft2/dmft.gamma")
 end
 
 #=
-### *Service Functions*: *For I/O Operations* (*Δ/Write*)
+### *Service Functions* : *For I/O Operations* (*Δ/Write*)
 =#
 
 """
@@ -812,7 +812,7 @@ function write_delta(fmesh::Array{F64,1}, Delta::Array{C64,5}, ai::Array{Impurit
 end
 
 #=
-### *Service Functions*: *For I/O Operations* (*ε/Write*)
+### *Service Functions* : *For I/O Operations* (*ε/Write*)
 =#
 
 """
@@ -928,7 +928,7 @@ function write_eimpx(Eimpx::Array{C64,4}, ai::Array{Impurity,1}, flev::String)
 end
 
 #=
-### *Service Functions*: *For I/O Operations* (*Γ/Write*)
+### *Service Functions* : *For I/O Operations* (*Γ/Write*)
 =#
 
 """
