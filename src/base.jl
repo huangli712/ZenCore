@@ -553,13 +553,23 @@ useful for charge fully self-consistent DFT + DMFT calculations.
 See also: [`dft_run`](@ref).
 """
 function suspend(second::I64)
-    @assert second > 0
+    # Check second
+    second ≤ 0 && second = 5
 
+    # Sleep at first
     sleep(second)
 
+    # Enter an infinite loop until some conditions are fulfilled.
     while true
+        # Sleep
         sleep(second)
+        #
+        # Print some hints
         println("Pending for DFT engine")
+        #
+        # Check the stop condifion. 
+        # Here, we check the vasp.lock file. If it is absent, then we
+        # break this loop
         !vasp_lock() && break
     end
 end
