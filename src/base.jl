@@ -140,9 +140,7 @@ function cycle1()
     dft_run(it, lr)
 
     # C02: Perform DFT calculation (for the second time)
-    if get_d("loptim")
-        dft_run(it, lr)
-    end
+    get_d("loptim") && dft_run(it, lr)
 
     # C03: To bridge the gap between DFT engine and DMFT engine by adaptor
     adaptor_run(it, lr, ai)
