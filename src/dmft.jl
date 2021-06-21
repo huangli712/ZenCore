@@ -818,9 +818,11 @@ end
 """
     write_eimpx(Eimpx::Array{C64,4}, ai::Array{Impurity,1})
 
-Split local impurity levels into the `impurity.i/dmft.eimpx` file, which
-is essential for the quantum impurity solver. The working directory of
-this function must be the root folder.
+Split local impurity levels ε into the `impurity.i/dmft.eimpx` file,
+which is important for the chosen quantum impurity solver. The working
+directory of this function must be the root folder.
+
+This function is usually called by the `sigma_split()` function.
 
 See also: [`Impurity`](@ref), [`read_eimpx`](@ref), [`write_delta`](@ref).
 """
