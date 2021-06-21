@@ -95,7 +95,7 @@ const __RELEASE__ = "2021/06"
 #=
 *Remarks*:
 
-The elements of the following array should be a `NamedTuple` object,
+The elements of the Array `__AUTHORS__` should be a `NamedTuple` object,
 such as:
 
 > (*name* = "author's name", *email* = "author's email").
