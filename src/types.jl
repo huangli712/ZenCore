@@ -376,7 +376,7 @@ function IterInfo()
 
     # Initialize key fields
     #
-    # Note that sc = 1 means one-shot DFT + DMFT calculations, 
+    # Note that sc = 1 means one-shot DFT + DMFT calculations,
     # while sc = 2 means fully self-consistent DFT + DMFT calculations.
     I  = 0
     M₁ = _M₁

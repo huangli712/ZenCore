@@ -220,7 +220,7 @@ function vasp_save(it::IterInfo)
 
     # Print the header
     println("Finalize the computational task")
-       
+
     # Store the data files
     #
     # Create list of files
@@ -1057,7 +1057,7 @@ function vaspio_kmesh(f::String)
     # Print some useful information to check
     println("  > Number of k-points: ", nkpt)
     println("  > Total sum of weights: ", sum(weight))
-    
+
     # Return the desired arrays
     return kmesh, weight
 end
@@ -1169,7 +1169,7 @@ Reading vasp's `EIGENVAL` file, return energy band information. Here `f`
 means only the directory that contains `EIGENVAL`.
 
 Sometimes the `EIGENVAL` file does not contain any useful data, then we
-turn to the `LOCPROJ` file to obtain the energy band information. 
+turn to the `LOCPROJ` file to obtain the energy band information.
 
 See also: [`irio_eigen`](@ref).
 """
@@ -1398,7 +1398,7 @@ function vaspio_projs(f::String)
         println()
     end
     println("  > Shape of Array chipsi: ", size(chipsi))
-    
+
     # Return the desired arrays
     # Note: PG should be further setup at plo_group() function.
     return PT, PG, chipsi
@@ -1432,7 +1432,7 @@ function vaspio_fermi(f::String, silent::Bool = true)
 
     if length(lines) ≥ 6
         !silent && println("  > Open and read DOSCAR")
-    
+
         # Open the iostream
         fin = open(joinpath(f, "DOSCAR"), "r")
 
@@ -1465,7 +1465,7 @@ function vaspio_fermi(f::String, silent::Bool = true)
 
         # Print some useful information to check
         !silent && println("  > Fermi level: $fermi eV")
-    
+
         # Return the desired data
         return fermi
     end

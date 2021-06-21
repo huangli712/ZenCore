@@ -32,7 +32,7 @@ function mixer_sigma(it::IterInfo, ai::Array{Impurity,1})
         _cycle, _prev = prev_it(it)
         @assert _cycle == cycle
         @assert _prev == curr - 1
-        @assert _prev ≥ 1 
+        @assert _prev ≥ 1
     else
         _cycle, _prev = prev_it(it, 1)
         @assert cycle ≥ _cycle ≥ 1
@@ -91,7 +91,7 @@ function mixer_delta(it::IterInfo, ai::Array{Impurity,1})
         _cycle, _prev = prev_it(it)
         @assert _cycle == cycle
         @assert _prev == curr - 1
-        @assert _prev ≥ 1 
+        @assert _prev ≥ 1
     else
         _cycle, _prev = prev_it(it, 1)
         @assert cycle ≥ _cycle ≥ 1
@@ -150,7 +150,7 @@ function mixer_eimpx(it::IterInfo, ai::Array{Impurity,1})
         _cycle, _prev = prev_it(it)
         @assert _cycle == cycle
         @assert _prev == curr - 1
-        @assert _prev ≥ 1 
+        @assert _prev ≥ 1
     else
         _cycle, _prev = prev_it(it, 1)
         @assert cycle ≥ _cycle ≥ 1

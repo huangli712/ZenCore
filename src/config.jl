@@ -21,7 +21,7 @@ See also: [`inp_toml`](@ref), [`rev_dict`](@ref), [`chk_dict`](@ref).
 function setup()
     # Print the header
     prompt("ZEN", "Setup")
-    
+
     # S1: Parse the case.toml file to extract configuration parameters
     println("Parse the configuration file (case.toml)")
     cfg = inp_toml(query_args(), true)

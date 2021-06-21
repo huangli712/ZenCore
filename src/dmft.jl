@@ -521,7 +521,7 @@ end
 
 Read the `dmft1/dmft.eimpx` file, extract the local impurity levels εᵢ.
 The working directory of this function must be the root folder. Usually,
-this function is called by the `mixer_eimpx()` function and the 
+this function is called by the `mixer_eimpx()` function and the
 `sigma_split()` function.
 
 See also: [`sigma_split`](@ref), [`read_delta`](@ref).
@@ -963,7 +963,7 @@ function write_gamma(kmesh::Array{F64,2}, kwin::Array{I64,3}, gamma::Array{C64,4
         # Go through each spin
         for s = 1:nspin
             # Go through 𝑘-point
-            for k = 1:nkpt                
+            for k = 1:nkpt
                 # Write key parameters
                 #
                 # For spin

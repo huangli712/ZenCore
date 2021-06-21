@@ -246,14 +246,14 @@ function cycle2()
     dft_run(it, lr)
 
     for iter = 1:it.M₃
-    
+
         suspend(2)
 
         # Print the log
         prompt("ZEN", "Cycle $iter")
         prompt(lr.log, "")
         prompt(lr.log, "< dft_dmft_cycle >")
-    
+
         incr_it(it, 3, iter)
 
         adaptor_run(it, lr, ai)
@@ -557,7 +557,9 @@ See also: [`dft_run`](@ref).
 """
 function suspend(second::I64)
     # Check second
-    second ≤ 0 && second = 5
+    if second ≤ 0
+        second = 5
+    end
 
     # Sleep at first
     sleep(second)
@@ -570,7 +572,7 @@ function suspend(second::I64)
         # Print some hints
         println("Pending for DFT engine")
         #
-        # Check the stop condifion. 
+        # Check the stop condifion.
         # Here, we check the vasp.lock file. If it is absent, then we
         # break this loop
         !vasp_lock() && break
