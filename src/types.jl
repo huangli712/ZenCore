@@ -375,6 +375,9 @@ function IterInfo()
     @assert _M₃ ≥ 1 && _M₁ ≥ 1 && _M₂ ≥ 1
 
     # Initialize key fields
+    #
+    # Note that sc = 1 means one-shot DFT + DMFT calculations, 
+    # while sc = 2 means fully self-consistent DFT + DMFT calculations.
     I  = 0
     M₁ = _M₁
     M₂ = _M₂
