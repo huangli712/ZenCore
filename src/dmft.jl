@@ -584,9 +584,9 @@ function read_eimpx(ai::Array{Impurity,1}, flev::String = "dmft1/dmft.eimpx")
     return Eimpx
 end
 
-#
-# Service Functions: For I/O Operations
-#
+#=
+### *Service Functions*: *For I/O Operations* (*Γ/Read*)
+=#
 
 """
     read_gamma()
