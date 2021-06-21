@@ -499,9 +499,9 @@ function ctqmc_eimpx(Eimpx::Array{C64,3})
     end # END OF IOSTREAM
 end
 
-#
-# Service Functions: For I/O Operations
-#
+#=
+### *Service Functions* : *Files I/O Operations*
+=#
 
 """
     ctqmc_sigma(imp::Impurity)
@@ -602,9 +602,9 @@ function ctqmc_nimpx(imp::Impurity)
     imp.occup = occup
 end
 
-#
-# Service Functions: For I/O Operations
-#
+#=
+### *Service Functions* : *Files I/O Operations*
+=#
 
 """
     GetSigma(imp::Impurity)
@@ -632,14 +632,14 @@ function GetSigma(imp::Impurity)
     # Activate the corresponding `solver_sigma()` functions for various
     # quantum impurity solvers
     fmesh = nothing
-    sig_l = nothing
+    sigma = nothing
     @cswitch engine begin
         @case "ct_hyb1"
-            fmesh, sig_l = ctqmc_sigma(imp)
+            fmesh, sigma = ctqmc_sigma(imp)
             break
 
         @case "ct_hyb2"
-            fmesh, sig_l = ctqmc_sigma(imp)
+            fmesh, sigma = ctqmc_sigma(imp)
             break
 
         @case "hub1"
@@ -716,9 +716,9 @@ function GetNimpx(imp::Impurity)
     cd("..")
 end
 
-#
-# Service Functions: For Impurity Problems
-#
+#=
+### *Service Functions* : *Quantum Impurity Problems*
+=#
 
 """
     GetSymmetry(Eimpx::Array{C64,3})
