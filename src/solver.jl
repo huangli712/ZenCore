@@ -33,7 +33,7 @@ function s_qmc1_init(it::IterInfo, imp::Impurity)
     println("  > solver.ctqmc.in is ready")
 
     # Extract frequency mesh and hybridization function from `dmft.delta`
-    println("  > Open and read hybridization functions from dmft.delta")
+    #println("  > Open and read hybridization functions from dmft.delta")
     fmesh, Delta = read_delta(imp)
 
     # Write frequency mesh and hybridization function to `solver.hyb.in`
@@ -41,7 +41,7 @@ function s_qmc1_init(it::IterInfo, imp::Impurity)
     println("  > solver.hyb.in is ready")
 
     # Extract local impurity levels from `dmft.eimpx`
-    println("  > Open and read local impurity levels from dmft.eimpx")
+    #println("  > Open and read local impurity levels from dmft.eimpx")
     Eimpx = read_eimpx(imp)
 
     # Write local impurity levels to `solver.eimp.in`
