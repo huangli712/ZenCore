@@ -626,7 +626,15 @@ function dft_run(it::IterInfo, lr::Logger)
 end
 
 """
-    dft_run()
+    dft_run(lr::Logger)
+
+Read in the correction for density matrix, and then feed it back to the
+DFT engine to continue the DFT + DMFT calculations.
+
+Now this function only supports the vasp code. We have to improve it
+to support more DFT engines.
+
+See also: [`suspend`](@ref).
 """
 function dft_run(lr::Logger)
     # Determine the chosen engine
