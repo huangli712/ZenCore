@@ -4,12 +4,12 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/17
+# Last modified: 2021/06/21
 #
 
-#
-# Driver Functions
-#
+#=
+### *Driver Functions* : *Layer 1*
+=#
 
 """
     ready()
@@ -70,18 +70,22 @@ function final()
 end
 
 #=
+### *Driver Functions* : *Layer 2*
+=#
+
+#=
+*Some Explanations for the DFT + DMFT Algorithm*
+
 *Remarks 1*:
 
-We would like to perform two successive DFT runs if `get_d("loptim")`` is
+We would like to perform two successive DFT runs if `get_d("loptim")` is
 true. The purpose of the first DFT run is to evaluate the fermi level.
 Then an energy window is determined. We will use this window to generate
 optimal projectors in the second DFT run.
 
 On the other hand, if `get_d("loptim")` is false, only the first DFT run
 is enough.
-=#
 
-#=
 *Remarks 2*:
 
 We want better *optimal projectors*.
@@ -90,9 +94,7 @@ In the previous DFT run, `initial` fermi level = 0 -> `wrong` energy
 window -> `wrong` optimial projectors. But at this point, the fermi
 level is updated, so we have to generate the optimal projectors
 again within this new window by doing addition DFT calculation.
-=#
 
-#=
 *Remarks 3*:
 
 The key Kohn-Sham data inclue lattice structures, 𝑘-mesh and its weights,
@@ -102,12 +104,10 @@ engine. And then it will process the raw projectors (such as parsing,
 labeling, grouping, filtering, and rotatation). Finally, the adaptor will
 write down the processed data to some specified files using the `IR`
 format.
-=#
 
-#=
 *Remarks 4*:
 
-Now everything is ready. We are going to solve the DMFT self-consistent
+Once everything is ready, we are going to solve the DMFT self-consistent
 equation iterately.
 =#
 
