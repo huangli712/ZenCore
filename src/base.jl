@@ -1021,6 +1021,10 @@ function mixer_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::Strin
 end
 
 #=
+### *Service Functions*: *Layer 3*
+=#
+
+#=
 *Remarks*:
 
 The working directories include `dft`, `dmft1`, `dmft2`, and `impurity.i`.
@@ -1074,11 +1078,15 @@ function clear_trees()
     end
 end
 
+#=
+*Service Functions*: *Layer 4* (*For IterInfo Struct*)
+=#
+
 """
     incr_it(it::IterInfo)
 
-Modify the internal counters in IterInfo struct. This function is used
-in the one-shot DFT + DMFT calculations only.
+Modify the internal counters in `IterInfo` struct. This function is
+used in the one-shot DFT + DMFT calculations only.
 
 See also: [`IterInfo`](@ref), [`zero_it`](@ref).
 """
@@ -1093,8 +1101,8 @@ end
 """
     incr_it(it::IterInfo, c::I64, v::I64)
 
-Modify the internal counters in IterInfo struct. This function is used
-in the fully charge self-consistent DFT + DMFT calculations only.
+Modify the internal counters in `IterInfo` struct. This function is
+used in the fully charge self-consistent DFT + DMFT calculations only.
 
 See also: [`IterInfo`](@ref), [`zero_it`](@ref).
 """
