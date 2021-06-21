@@ -477,11 +477,18 @@ end
 
 """
     vasp_lock()
+
+Return whether the `vasp.lock` file is available.
 """
 function vasp_lock()
     return isfile("dft/vasp.lock")
 end
 
+"""
+    vasp_lock(action::String)
+
+Create the `vasp.lock` file.
+"""
 function vasp_lock(action::String)
     @assert startswith(action, "c") || startswith(action, "C")
     touch("vasp.lock")
