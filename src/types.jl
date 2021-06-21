@@ -123,7 +123,7 @@ const PSOLVER= Dict{String,Array{Any,1}}(
 
 Mutable struct. Store the IOStreams for case.log and case.cycle files.
 
-## Members
+### Members
 
 * log   -> IOStream for case.log file.
 * cycle -> IOStream for case.cycle file.
@@ -140,7 +140,7 @@ end
 
 Mutable struct. Record the DFT + DMFT iteration information.
 
-## Members
+### Members
 
 * I₁ -> Number of iterations between `dmft1` and quantum impurity solver.
 * I₂ -> Number of iterations between `dmft2` and DFT engine.
@@ -182,7 +182,7 @@ end
 Mutable struct. Contain the crystallography information. This struct is
 designed for the `POSCAR` file used by the `vasp` code.
 
-## Members
+### Members
 
 * _case -> The name of system.
 * scale -> Universal scaling factor (lattice constant), which is used to
@@ -216,7 +216,7 @@ end
 Mutable struct. Mapping between quantum impurity problems and groups
 of projectors (or band windows).
 
-## Members
+### Members
 
 * i_grp -> Mapping from quntum impurity problems to groups of projectors.
 * i_wnd -> Mapping from quantum impurity problems to windows of dft bands.
@@ -237,7 +237,7 @@ end
 
 Mutable struct. Essential information of quantum impurity problem.
 
-## Members
+### Members
 
 * index -> Index of the quantum impurity problem.
 * atoms -> Chemical symbol of impurity atom.
@@ -272,11 +272,11 @@ end
 
 Mutable struct. Essential information of a given projector.
 
-## Members
+### Members
 
 * site -> Site in which the projector is defined.
-* l    -> Quantum number l.
-* m    -> Quantum number m.
+* l    -> Quantum number 𝑙.
+* m    -> Quantum number 𝑚.
 * desc -> Projector's specification.
 
 See also: [`PrGroup`](@ref), [`PrWindow`](@ref).
@@ -293,16 +293,16 @@ end
 
 Mutable struct. Essential information of group of projectors.
 
-## Members
+### Members
 
 * site   -> Site in which the projectors are defined. In principle, the
             projectors included in the same group should be defined at
             the same site (or equivalently atom).
-* l      -> Quantum number l. In principle, the projectors included in
-            the same group should have the same quantum number l (but
-            with different m).
+* l      -> Quantum number 𝑙. In principle, the projectors included in
+            the same group should have the same quantum number 𝑙 (but
+            with different 𝑚).
 * corr   -> Test if the projectors in this group are correlated.
-* shell  -> Type of correlated orbitals. It is infered from quantum number l.
+* shell  -> Type of correlated orbitals. It is infered from quantum number 𝑙.
 * Pr     -> Array. It contains the indices of projectors.
 * Tr     -> Array. It contains the transformation matrix. This parameter
             could be useful to select certain subset of orbitals or perform
