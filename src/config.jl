@@ -150,8 +150,8 @@ end
 #=
 *Remarks*:
 
-This function is far away from completeness. We should add more
-constraints here, both physically and numerically.
+This `chk_dict()` function is far away from completeness. We should
+add more constraints here, both physically and numerically.
 =#
 
 """
