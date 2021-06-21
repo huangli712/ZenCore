@@ -32,9 +32,9 @@ function setup()
     exhibit()
 end
 
-#
-# Service Functions (Group A)
-#
+#=
+### *Service Functions* : *Layer 1*
+=#
 
 """
     inp_toml(f::String, key::String, necessary::Bool)
@@ -240,9 +240,9 @@ function exhibit()
     cat_s()
 end
 
-#
-# Service Functions (Group B)
-#
+#=
+### *Service Functions* : *Layer 2*
+=#
 
 """
     _v(key::String, val::Array{Any,1})
