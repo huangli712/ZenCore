@@ -519,8 +519,10 @@ end
 """
     read_eimpx(ai::Array{Impurity,1}, flev::String = "dmft1/dmft.eimpx")
 
-Read the `dmft1/dmft.eimpx` file, extract the local impurity levels εᵢ. The
-working directory of this function must be the root folder.
+Read the `dmft1/dmft.eimpx` file, extract the local impurity levels εᵢ.
+The working directory of this function must be the root folder. Usually,
+this function is called by the `mixer_eimpx()` function and the 
+`sigma_split()` function.
 
 See also: [`sigma_split`](@ref), [`read_delta`](@ref).
 """
