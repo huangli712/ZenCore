@@ -153,6 +153,7 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
                 break
         end
         #
+        # Print some useful information
         println("  > Using the $(get_m("dcount")) scheme: Vdc = $sigdc")
         println("  > Shape of Array DC for site $i: ", size(DC))
 
@@ -276,9 +277,9 @@ function sigma_gather(it::IterInfo, ai::Array{Impurity,1})
     println()
 end
 
-#
-# Service Functions: For Double Counting Terms
-#
+#=
+### *Service Functions* : *For Double Counting Terms*
+=#
 
 #=
 *Theory*:
