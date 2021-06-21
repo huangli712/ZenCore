@@ -647,7 +647,7 @@ function write_sigdc(DCA::Array{Array{F64,3},1}, ai::Array{Impurity,1})
     # Print some useful information
     println("  > Write double counting terms into: dmft1/sigma.dc")
     for t in eachindex(DCA)
-        println("  > Shape of Array DCA: $t -> ", size(DCA[t]))
+        println("  > Shape of Array DC: $t -> ", size(DCA[t]))
     end
 
     # Copy sigma.dc to the dmft2 directory
@@ -656,6 +656,6 @@ function write_sigdc(DCA::Array{Array{F64,3},1}, ai::Array{Impurity,1})
     # Print some useful information
     println("  > Write double counting terms into: dmft2/sigma.dc")
     for t in eachindex(DCA)
-        println("  > Shape of Array DCA: $t -> ", size(DCA[t]))
+        println("  > Shape of Array DC: $t -> ", size(DCA[t]))
     end
 end
