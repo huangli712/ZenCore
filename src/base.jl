@@ -325,9 +325,7 @@ function cycle3()
     dft_run(it, lr)
 
     # C02: Perform DFT calculation (for the second time)
-    if get_d("loptim")
-        dft_run(it, lr)
-    end
+    get_d("loptim") && dft_run(it, lr)
 
     # C98: Close Logger.log
     if isopen(lr.log)
@@ -495,7 +493,9 @@ function cycle8(task::String = "sigma")
     ai = GetImpurity()
 
     # C01: Further setup the IterInfo struct
-    it.I₃ = 1 # Please modify them to fit your requirements
+    #
+    # Please modify the I₃ and I₁ parameters to fit your requirements
+    it.I₃ = 1
     it.I₁ = 10
 
     # C02: Execute the Kohn-Sham adaptor
