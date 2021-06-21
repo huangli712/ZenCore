@@ -1140,6 +1140,9 @@ end
 """
     prev_it(it::IterInfo)
 
+Return the iteration information for previous DFT + DMFT step. This
+function is suitable for one-shot calculation mode.
+
 See also: [`mixer_core`](@ref), [`incr_it`](@ref).
 """
 function prev_it(it::IterInfo)
@@ -1150,6 +1153,9 @@ end
 
 """
     prev_it(it::IterInfo, c::I64)
+
+Return the iteration information for previous DFT + DMFT step. This
+function is suitable for fully self-consistent calculation mode.
 
 See also: [`mixer_core`](@ref), [`incr_it`](@ref).
 """
