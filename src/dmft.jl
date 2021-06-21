@@ -216,9 +216,9 @@ function dmft_save(it::IterInfo, task::I64)
     for i in eachindex(file_list)
         f = file_list[i]
         if task == 1
-            cp(f, "$f.$(it.I₃).$(it.I₁)", force = true)
+            isfile(f) && cp(f, "$f.$(it.I₃).$(it.I₁)", force = true)
         else
-            cp(f, "$f.$(it.I₃).$(it.I₂)", force = true)
+            isfile(f) && cp(f, "$f.$(it.I₃).$(it.I₂)", force = true)
         end
     end
     println("  > Save the key output files")
