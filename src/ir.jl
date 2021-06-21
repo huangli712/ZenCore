@@ -303,6 +303,7 @@ function irio_groups(f::String, PG::Array{PrGroup,1})
         end
     end # END OF IOSTREAM
 
+    # Print some useful information
     println("  > Open and write the file groups.ir")
 end
 
@@ -343,6 +344,7 @@ function irio_windows(f::String, PW::Array{PrWindow,1})
         end # END OF P LOOP
     end # END OF IOSTREAM
 
+    # Print some useful information
     println("  > Open and write the file windows.ir")
 end
 
