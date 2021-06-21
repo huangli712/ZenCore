@@ -513,9 +513,9 @@ function read_sigdc(ai::Array{Impurity,1}, fsig::String = "dmft1/sigma.dc")
     return DCA
 end
 
-#
-# Service Functions: For I/O Operations
-#
+#=
+### *Service Functions* : *Files I/O Operations*
+=#
 
 """
     write_sigma(fmesh::Array{F64,1}, SA::Array{Array{C64,4},1}, ai::Array{Impurity,1})
@@ -574,7 +574,7 @@ function write_sigma(fmesh::Array{F64,1}, SA::Array{Array{C64,4},1}, ai::Array{I
         end # END OF I LOOP
     end # END OF IOSTREAM
 
-    # Print message to the screen
+    # Print some useful information
     println("  > Write self-energy functions into: dmft1/sigma.bare")
     println("  > Shape of Array fmesh: ", size(fmesh))
     for t in eachindex(SA)
@@ -584,7 +584,7 @@ function write_sigma(fmesh::Array{F64,1}, SA::Array{Array{C64,4},1}, ai::Array{I
     # Copy sigma.bare to the dmft2 directory
     cp("dmft1/sigma.bare", "dmft2/sigma.bare", force = true)
 
-    # Print message to the screen
+    # Print some useful information
     println("  > Write self-energy functions into: dmft2/sigma.bare")
     println("  > Shape of Array fmesh: ", size(fmesh))
     for t in eachindex(SA)
@@ -644,7 +644,7 @@ function write_sigdc(DCA::Array{Array{F64,3},1}, ai::Array{Impurity,1})
         end # END OF I LOOP
     end # END OF IOSTREAM
 
-    # Print message to the screen
+    # Print some useful information
     println("  > Write double counting terms into: dmft1/sigma.dc")
     for t in eachindex(DCA)
         println("  > Shape of Array DCA: $t -> ", size(DCA[t]))
@@ -653,7 +653,7 @@ function write_sigdc(DCA::Array{Array{F64,3},1}, ai::Array{Impurity,1})
     # Copy sigma.dc to the dmft2 directory
     cp("dmft1/sigma.dc", "dmft2/sigma.dc", force = true)
 
-    # Print message to the screen
+    # Print some useful information
     println("  > Write double counting terms into: dmft2/sigma.dc")
     for t in eachindex(DCA)
         println("  > Shape of Array DCA: $t -> ", size(DCA[t]))
