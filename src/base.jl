@@ -669,6 +669,9 @@ function dft_run(lr::Logger)
 
     # Enter the parent directory
     cd("..")
+
+    # Monitor the status
+    monitor(true)
 end
 
 """
