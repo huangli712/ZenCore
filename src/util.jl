@@ -538,6 +538,10 @@ function erf(x::F64)
     ccall(("erf", libm), F64, (F64,), x)
 end
 
+#=
+### *Utility Functions*
+=#
+
 """
     subscript(num::I64)
 
