@@ -647,6 +647,7 @@ function irio_fermi(f::String, fermi::F64)
         # N/A
     end # END OF IOSTREAM
 
+    # Print some useful information
     println("  > Open and write the file fermi.ir (fermi)")
 end
 
