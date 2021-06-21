@@ -343,7 +343,7 @@ encoded in the `Impurity` struct).
 See also: [`Impurity`](@ref), [`ctqmc_atomx`](@ref).
 """
 function ctqmc_setup(imp::Impurity)
-    # File name of configuration file
+    # Filename of configuration file
     fctqmc = "solver.ctqmc.in"
 
     # Extract parameters from `Impurity` struct
@@ -406,9 +406,9 @@ function ctqmc_atomx(imp::Impurity)
     sorry()
 end
 
-#
-# Service Functions: For I/O Operations
-#
+#=
+### *Service Functions* : *Files I/O Operations*
+=#
 
 """
     ctqmc_delta(fmesh::Array{F64,1}, Delta::Array{C64,4})
