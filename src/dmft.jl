@@ -576,6 +576,7 @@ function read_eimpx(ai::Array{Impurity,1}, flev::String = "dmft1/dmft.eimpx")
         end # END OF T LOOP
     end # END OF IOSTREAM
 
+    # Print some useful information
     println("  > Read local impurity levels from: $flev")
     println("  > Shape of Array Eimpx: ", size(Eimpx))
 
