@@ -673,7 +673,10 @@ function read_gamma(fgamma::String = "dmft2/dmft.gamma")
     end # END OF IOSTREAM
 
     # Print some useful information
-    println("  Read gamma matrix from: $fgamma")
+    println("  > Read gamma matrix from: $fgamma")
+    println("  > Shape of Array kmesh: ", size(kmesh))
+    println("  > Shape of Array kwin: ", size(kwin))
+    println("  > Shape of Array gamma: ", size(gamma))
 
     # Return the desired arrays
     return kmesh, kwin, gamma
