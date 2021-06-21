@@ -4,12 +4,12 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/19
+# Last modified: 2021/06/21
 #
 
-#
-# Driver Functions
-#
+#=
+### *Driver Functions*
+=#
 
 """
     vasp_adaptor(D::Dict{Symbol,Any})
@@ -242,9 +242,9 @@ function vasp_save(it::IterInfo)
     println()
 end
 
-#
-# Service Functions (Group A)
-#
+#=
+### *Service Functions* : *Group A*
+=#
 
 #=
 *Remarks*:
@@ -438,6 +438,11 @@ end
 
 """
     vasp_gamma(kwin::Array{I64,3}, gamma::Array{C64,4})
+
+Generate a valid `GAMMA` file for vasp. The vasp will need this file
+when `ICHARG = 5`.
+
+See also: [`write_gamma`](@ref), [`read_gamma`](@ref).
 """
 function vasp_gamma(kwin::Array{I64,3}, gamma::Array{C64,4})
     # Extract the dimensional parameters
