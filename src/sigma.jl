@@ -345,6 +345,8 @@ end
 Read the self-energy functions from the `dmft1/sigma.bare` file. The
 working directory of this function must be the root folder.
 
+This function is usually called by `mixer_sigma()` function.
+
 See also: [`read_sigdc`](@ref).
 """
 function read_sigma(ai::Array{Impurity,1}, fsig::String = "dmft1/sigma.bare")
@@ -421,6 +423,8 @@ function read_sigma(ai::Array{Impurity,1}, fsig::String = "dmft1/sigma.bare")
             push!(SA, Sigma)
         end # END OF T LOOP
     end # END OF IOSTREAM
+
+    # Print some useful information
     println("  > Read self-energy functions from: $fsig")
     println("  > Shape of Array fmesh: ", size(fmesh))
     for t in eachindex(SA)
