@@ -694,6 +694,8 @@ into the `impurity.i/dmft.delta` file, which is important for the chosen
 quantum impurity solver. The working directory of this function must be
 the root folder.
 
+This function is usually called by the `sigma_split()` function.
+
 See also: [`Impurity`](@ref), [`read_delta`](@ref), [`write_eimpx`](@ref).
 """
 function write_delta(fmesh::Array{F64,1}, Delta::Array{C64,5}, ai::Array{Impurity,1})
