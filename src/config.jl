@@ -357,15 +357,15 @@ See also: [`get_i`](@ref), [`str_i`](@ref).
 """
 function cat_i()
     # See comments in cat_d()
-    println("  nsite    -> ", str_i("nsite"))
-    println("  atoms    -> ", str_i("atoms"))
-    println("  equiv    -> ", str_i("equiv"))
-    println("  shell    -> ", str_i("shell"))
-    println("  ising    -> ", str_i("ising"))
-    println("  occup    -> ", str_i("occup"))
-    println("  upara    -> ", str_i("upara"))
-    println("  jpara    -> ", str_i("jpara"))
-    println("  lpara    -> ", str_i("lpara"))
+    println("    nsite    -> ", str_i("nsite"))
+    println("    atoms    -> ", str_i("atoms"))
+    println("    equiv    -> ", str_i("equiv"))
+    println("    shell    -> ", str_i("shell"))
+    println("    ising    -> ", str_i("ising"))
+    println("    occup    -> ", str_i("occup"))
+    println("    upara    -> ", str_i("upara"))
+    println("    jpara    -> ", str_i("jpara"))
+    println("    lpara    -> ", str_i("lpara"))
 end
 
 """
