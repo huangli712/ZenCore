@@ -502,7 +502,12 @@ function read_sigdc(ai::Array{Impurity,1}, fsig::String = "dmft1/sigma.dc")
             push!(DCA, DC)
         end # END OF T LOOP
     end # END OF IOSTREAM
+
+    # Print some useful information
     println("  > Read double counting terms from: $fsig")
+    for t in eachindex(DCA)
+        println("  > Shape of Array DC: $t -> ", size(DCA[t]))
+    end
 
     # Return the desire array
     return DCA
