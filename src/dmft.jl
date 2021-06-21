@@ -927,9 +927,9 @@ function write_eimpx(Eimpx::Array{C64,4}, ai::Array{Impurity,1}, flev::String)
     println("  > Shape of Array Eimpx: ", size(Eimpx))
 end
 
-#
-# Service Functions: For I/O Operations
-#
+#=
+### *Service Functions*: *For I/O Operations* (*Γ/Write*)
+=#
 
 """
     write_gamma(kmesh::Array{F64,2}, kwin::Array{I64,3}, gamma::Array{C64,4})
