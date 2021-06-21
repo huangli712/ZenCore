@@ -689,10 +689,10 @@ end
 """
     write_delta(fmesh::Array{F64,1}, Delta::Array{C64,5}, ai::Array{Impurity,1})
 
-Split hybridization functions and the corresponding frequency mesh into
-the `impurity.i/dmft.delta` file, which is essential for the quantum
-impurity solver. The working directory of this function must be the
-root folder.
+Split hybridization functions Δ and the corresponding frequency mesh ω
+into the `impurity.i/dmft.delta` file, which is important for the chosen
+quantum impurity solver. The working directory of this function must be
+the root folder.
 
 See also: [`Impurity`](@ref), [`read_delta`](@ref), [`write_eimpx`](@ref).
 """
