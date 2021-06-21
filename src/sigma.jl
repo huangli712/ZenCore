@@ -335,9 +335,9 @@ function cal_dc_exact(U::F64, J::F64, N::F64)
     sorry()
 end
 
-#
-# Service Functions: For I/O Operations
-#
+#=
+### *Service Functions* : *Files I/O Operations*
+=#
 
 """
     read_sigma(ai::Array{Impurity,1}, fsig::String = "dmft1/sigma.bare")
