@@ -518,9 +518,9 @@ See also: [`adaptor_init`](@ref).
 """
 vasp_files() = vasp_files(pwd())
 
-#
-# Service Functions (Group B)
-#
+#=
+### *Service Functions* : *Group B*
+=#
 
 #=
 Remarks:
@@ -1247,6 +1247,7 @@ function vaspio_eigen(f::String)
         enk = zeros(F64, nband, nkpt, nspin)
         occupy = zeros(F64, nband, nkpt, nspin)
 
+        # Read in the energy bands and the corresponding occupations
         for s = 1:nspin
             for k = 1:nkpt
                 for b = 1:nband
@@ -1417,6 +1418,9 @@ vaspio_projs() = vaspio_projs(pwd())
 
 Reading vasp's `DOSCAR` file, return the fermi level. Here `f` means
 only the directory that contains `DOSCAR`.
+
+Sometimes the `DOSCAR` file does not contain the necessary data. Thus
+we have to turn to the `LOCPROJ` file.
 
 See also: [`irio_fermi`](@ref).
 """
