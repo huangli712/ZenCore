@@ -224,7 +224,7 @@ the all the `impurity.i` folders and then combine them into a single
 See also: [`sigma_split`](@ref).
 """
 function sigma_gather(it::IterInfo, ai::Array{Impurity,1})
-    # Print the log
+    # Print the header
     println("Sigma : Gather")
     println("Try to combine self-energy functions for various impurities")
     println("Current directory: ", pwd())
@@ -245,6 +245,8 @@ function sigma_gather(it::IterInfo, ai::Array{Impurity,1})
     for t = 1:nsite
         # Extract the frequency mesh and self-energy function
         fmesh, sigma = GetSigma(ai[t])
+
+        # Print some useful information
         println("  > Read self-energy functions for impurity: $t")
         println("  > Shape of Array fmesh: ", size(fmesh))
         println("  > Shape of Array sigma: ", size(sigma))
