@@ -886,6 +886,7 @@ function write_eimpx(Eimpx::Array{C64,4}, ai::Array{Impurity,1}, flev::String)
     _, qdim, nspin, nsite = size(Eimpx)
 
     # Determine filename for local impurity levels
+    # So far, `flev` is locked.
     @assert flev == "dmft1/dmft.eimpx"
 
     # Write the data
