@@ -410,14 +410,15 @@ function irio_lattice(f::String, latt::Lattice)
         end
     end # END OF IOSTREAM
 
+    # Print some useful information
     println("  > Open and write the file lattice.ir (lattice)")
 end
 
 """
     irio_kmesh(f::String, kmesh::Array{F64,2}, weight::Array{F64,1})
 
-Write the kmesh and weight information to kmesh.ir using the IR format. Here
-`f` means only the directory that we want to use.
+Write the kmesh and weight information to kmesh.ir using the IR format.
+Here `f` means only the directory that we want to use.
 
 See also: [`vaspio_kmesh`](@ref).
 """
@@ -448,6 +449,7 @@ function irio_kmesh(f::String, kmesh::Array{F64,2}, weight::Array{F64,1})
         end
     end # END OF IOSTREAM
 
+    # Print some useful information
     println("  > Open and write the file kmesh.ir (kmesh and weight)")
 end
 
