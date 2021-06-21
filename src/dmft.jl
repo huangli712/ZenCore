@@ -682,9 +682,9 @@ function read_gamma(fgamma::String = "dmft2/dmft.gamma")
     return kmesh, kwin, gamma
 end
 
-#
-# Service Functions: For I/O Operations
-#
+#=
+### *Service Functions*: *For I/O Operations* (*Δ/Write*)
+=#
 
 """
     write_delta(fmesh::Array{F64,1}, Delta::Array{C64,5}, ai::Array{Impurity,1})
