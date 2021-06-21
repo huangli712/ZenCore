@@ -263,9 +263,9 @@ See also: [`chk_dict`](@ref).
     end
 end
 
-#
-# Service Functions (Group C: CAT Functions)
-#
+#=
+### *Service Functions* : *Layer 3*, *CAT Functions*
+=#
 
 """
     cat_c()
@@ -379,9 +379,9 @@ function cat_s()
     println()
 end
 
-#
-# Service Functions (Group D: GET Functions)
-#
+#=
+### *Service Functions* : *Layer 3*, *GET Functions*
+=#
 
 """
     get_c(key::String)
@@ -458,9 +458,9 @@ See also: [`cat_s`](@ref), [`str_s`](@ref).
     end
 end
 
-#
-# Service Functions (Group E: STR Functions)
-#
+#=
+### *Service Functions* : *Layer 3*, *STR Functions*
+=#
 
 """
     str_c(key::String)
