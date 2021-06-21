@@ -764,6 +764,7 @@ function write_delta(fmesh::Array{F64,1}, Delta::Array{C64,5}, ai::Array{Impurit
     _, qdim, nmesh, nspin, nsite = size(Delta)
 
     # Determine filename for hybridization functions
+    # So far, `fhyb` is locked.
     @assert fhyb == "dmft1/dmft.delta"
 
     # Write the data
@@ -804,15 +805,15 @@ function write_delta(fmesh::Array{F64,1}, Delta::Array{C64,5}, ai::Array{Impurit
         end # END OF T LOOP
     end # END OF IOSTREAM
 
-    # Print message to the screen
+    # Print some useful information
     println("  > Write hybridization functions into: $fhyb")
     println("  > Shape of Array fmesh: ", size(fmesh))
     println("  > Shape of Array Delta: ", size(Delta))
 end
 
-#
-# Service Functions: For I/O Operations
-#
+#=
+### *Service Functions*: *For I/O Operations* (*ε/Write*)
+=#
 
 """
     write_eimpx(Eimpx::Array{C64,4}, ai::Array{Impurity,1})
