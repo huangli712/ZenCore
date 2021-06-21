@@ -4,12 +4,12 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/18
+# Last modified: 2021/06/21
 #
 
-#
-# Driver Functions
-#
+#=
+### *Driver Functions*
+=#
 
 #=
 *Remarks*:
@@ -21,8 +21,8 @@ the tetrahedron information might be absent.
 """
     ir_adaptor(D::Dict{Symbol,Any})
 
-Write the Kohn-Sham data to specified files using the IR format. Note
-that the Kohn-Sham data are encapsulated in the `D` dict.
+Write the Kohn-Sham dataset to specified files using the IR format. Note
+that the Kohn-Sham dataset are encapsulated in the `D` dict.
 
 See also: [`vasp_adaptor`](@ref), [`plo_adaptor`](@ref).
 """
