@@ -644,6 +644,7 @@ function dft_run(lr::Logger)
     prompt("DFT")
     prompt(lr.log, engine)
 
+    # Read in the correction for density matrix
     _, kwin, gamma = read_gamma()
 
     # Enter dft directory
@@ -653,8 +654,12 @@ function dft_run(lr::Logger)
     @cswitch engine begin
         # For VASP
         @case "vasp"
+            # Write the GAMMA file for vasp
             vasp_gamma(kwin, gamma)
+            #
+            # Create vasp.lock file to wake up the vasp
             vasp_lock("create")
+            #
             break
 
         @default
