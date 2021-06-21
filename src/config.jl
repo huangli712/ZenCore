@@ -19,6 +19,9 @@ Read parameters from configuration file, and then setup the related dicts.
 See also: [`inp_toml`](@ref), [`rev_dict`](@ref), [`chk_dict`](@ref).
 """
 function setup()
+    # Print the header
+    prompt("ZEN", "Configuration")
+    
     # S1: Parse the case.toml file to extract configuration parameters
     cfg = inp_toml(query_args(), true)
 
@@ -30,6 +33,9 @@ function setup()
 
     # S4: Print the configuration parameters
     exhibit()
+
+    # Print the footer
+    println()
 end
 
 #=
@@ -216,9 +222,6 @@ Display the configuration parameters for reference.
 See also: [`setup`](@ref).
 """
 function exhibit()
-    # E0: Print the header
-    prompt("ZEN", "Configuration")
-
     # E1: Show dict PCASE
     println("Parameters : General")
     cat_c()
@@ -277,7 +280,6 @@ See also: [`get_c`](@ref), [`str_c`](@ref).
 function cat_c()
     # See comments in cat_d()
     println("  case     -> ", str_c("case"))
-    # println()
 end
 
 #=
@@ -314,7 +316,6 @@ function cat_d()
     println("  lproj    -> ", str_d("lproj"))
     println("  sproj    -> ", str_d("sproj"))
     println("  window   -> ", str_d("window"))
-    # println()
 end
 
 """
@@ -341,7 +342,6 @@ function cat_m()
     println("  lcharge  -> ", str_m("lcharge"))
     println("  lenergy  -> ", str_m("lenergy"))
     println("  lforce   -> ", str_m("lforce"))
-    # println()
 end
 
 """
@@ -362,7 +362,6 @@ function cat_i()
     println("  upara    -> ", str_i("upara"))
     println("  jpara    -> ", str_i("jpara"))
     println("  lpara    -> ", str_i("lpara"))
-    # println()
 end
 
 """
@@ -376,7 +375,6 @@ function cat_s()
     # See comments in cat_d()
     println("  engine   -> ", str_s("engine"))
     println("  params   -> ", str_s("params"))
-    println()
 end
 
 #=
