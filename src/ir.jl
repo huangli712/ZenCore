@@ -213,13 +213,14 @@ function irio_params(f::String, D::Dict{Symbol,Any})
         println(fout)
     end # END OF IOSTREAM
 
+    # Print some useful information
     println("  > Open and write the file params.ir")
 end
 
 """
     irio_maps(f::String, MAP::Mapping)
 
-Write the information contained in Mapping. Here `f` means only the
+Write the information contained in `Mapping`. Here `f` means only the
 directory that we want to use.
 
 See also: [`Mapping`](@ref).
@@ -267,13 +268,14 @@ function irio_maps(f::String, MAP::Mapping)
         println(fout)
     end # END OF IOSTREAM
 
+    # Print some useful information
     println("  > Open and write the file maps.ir")
 end
 
 """
     irio_groups(f::String, PG::Array{PrGroup,1})
 
-Write the information contained in PrGroup. Here `f` means only the
+Write the information contained in `PrGroup`. Here `f` means only the
 directory that we want to use.
 
 See also: [`PrGroup`](@ref).
@@ -307,7 +309,7 @@ end
 """
     irio_windows(f::String, PW::Array{PrWindow,1})
 
-Write the information contained in PrWindow. Here `f` means only the
+Write the information contained in `PrWindow`. Here `f` means only the
 directory that we want to use.
 
 See also: [`PrWindow`](@ref).
