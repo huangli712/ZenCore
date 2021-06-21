@@ -16,7 +16,7 @@ to update the `dmft1/sigma.bare` file.
 See also: [`mixer_core`](@ref).
 """
 function mixer_sigma(it::IterInfo, ai::Array{Impurity,1})
-    # Print the log
+    # Print the header
     println("Mixer : Sigma")
     println("Try to mix self-energy functions")
     println("Current directory: ", pwd())
@@ -55,7 +55,7 @@ function mixer_sigma(it::IterInfo, ai::Array{Impurity,1})
     fprev, Sprev = read_sigma(ai, fprev)
     @assert size(Scurr) == size(Sprev) && size(fcurr) == size(fprev)
 
-    # Mix the self-energy functions
+    # Mix the self-energy functions using linear mixing algorithm
     Snew = Scurr * get_m("mixer") + Sprev * (1.0 - get_m("mixer"))
 
     # Write the new self-energy functions into `dmft1/sigma.bare`
@@ -75,7 +75,7 @@ to update the `dmft1/dmft.delta` file.
 See also: [`mixer_core`](@ref).
 """
 function mixer_delta(it::IterInfo, ai::Array{Impurity,1})
-    # Print the log
+    # Print the header
     println("Mixer : Delta")
     println("Try to mix hybridization functions")
     println("Current directory: ", pwd())
@@ -114,7 +114,7 @@ function mixer_delta(it::IterInfo, ai::Array{Impurity,1})
     fprev, Dprev = read_delta(ai, fprev)
     @assert size(Dcurr) == size(Dprev) && size(fcurr) == size(fprev)
 
-    # Mix the hybridization functions
+    # Mix the hybridization functions using linear mixing algorithm
     Dnew = Dcurr * get_m("mixer") + Dprev * (1.0 - get_m("mixer"))
 
     # Write the new hybridization functions into `dmft1/dmft.delta`
@@ -134,7 +134,7 @@ to update the `dmft1/dmft.eimpx` file.
 See also: [`mixer_core`](@ref).
 """
 function mixer_eimpx(it::IterInfo, ai::Array{Impurity,1})
-    # Print the log
+    # Print the header
     println("Mixer : Eimpx")
     println("Try to mix local impurity levels")
     println("Current directory: ", pwd())
@@ -173,7 +173,7 @@ function mixer_eimpx(it::IterInfo, ai::Array{Impurity,1})
     Eprev = read_eimpx(ai, fprev)
     @assert size(Ecurr) == size(Eprev)
 
-    # Mix the local impurity levels
+    # Mix the local impurity levels using linear mixing algorithm
     Enew = Ecurr * get_m("mixer") + Eprev * (1.0 - get_m("mixer"))
 
     # Write the new local impurity levels into `dmft1/dmft.eimpx`
