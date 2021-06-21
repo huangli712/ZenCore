@@ -994,6 +994,8 @@ function write_gamma(kmesh::Array{F64,2}, kwin::Array{I64,3}, gamma::Array{C64,4
     end # END OF IOSTREAM
 
     # Print message to the screen
-    println("  Write correction for density matrix into: $fgamma")
-    
+    println("  > Write correction for density matrix into: $fgamma")
+    println("  > Shape of Array kmesh: ", size(kmesh))
+    println("  > Shape of Array kwin: ", size(kwin))
+    println("  > Shape of Array gamma: ", size(gamma))
 end
