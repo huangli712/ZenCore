@@ -23,15 +23,19 @@ function setup()
     prompt("ZEN", "Configuration")
     
     # S1: Parse the case.toml file to extract configuration parameters
+    println("Parse the configuration file (case.toml)")
     cfg = inp_toml(query_args(), true)
 
     # S2: Revise the configuration dictionaries
+    println("Encapsulate the parameters into dictionaries")
     rev_dict(cfg)
 
     # S3: Validate the configuration parameters
+    println("Validate the dictionaries")
     chk_dict()
 
     # S4: Print the configuration parameters
+    println("Show the dictionaries")
     exhibit()
 
     # Print the footer
@@ -223,23 +227,23 @@ See also: [`setup`](@ref).
 """
 function exhibit()
     # E1: Show dict PCASE
-    println("Parameters : General")
+    println("  > Parameters : General")
     cat_c()
 
     # E2: Show dict PDFT
-    println("Parameters : Density Functional Theory")
+    println("  > Parameters : Density Functional Theory")
     cat_d()
 
     # E3: Show dict PDMFT
-    println("Parameters : Dynamical Meal-Field Theory")
+    println("  > Parameters : Dynamical Meal-Field Theory")
     cat_m()
 
     # E4: Show dict PIMP
-    println("Parameters : Quantum Impurity Atoms")
+    println("  > Parameters : Quantum Impurity Atoms")
     cat_i()
 
     # E5: Show dict PSOLVER
-    println("Parameters : Quantum Impurity Solvers")
+    println("  > Parameters : Quantum Impurity Solvers")
     cat_s()
 end
 
