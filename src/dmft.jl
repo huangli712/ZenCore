@@ -946,6 +946,7 @@ function write_gamma(kmesh::Array{F64,2}, kwin::Array{I64,3}, gamma::Array{C64,4
     _, qbnd, nkpt, nspin = size(gamma)
 
     # Determine filename for correction for density matrix
+    # So far, `fgamma` is locked.
     fgamma = "dmft2/dmft.gamma"
 
     # Write the data
@@ -993,5 +994,6 @@ function write_gamma(kmesh::Array{F64,2}, kwin::Array{I64,3}, gamma::Array{C64,4
     end # END OF IOSTREAM
 
     # Print message to the screen
-    println("  Write gamma matrix into: $fgamma")
+    println("  Write correction for density matrix into: $fgamma")
+    
 end
