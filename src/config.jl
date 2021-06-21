@@ -188,7 +188,7 @@ function chk_dict()
     @assert 0.0 ≤ get_m("mixer") ≤ 1.0
     #
     # Check impurity block
-    @assert get_i("nsite") >= 1 && get_i("nsite") <= 99
+    @assert 1 ≤ get_i("nsite") ≤ 99
     @assert all(x -> x in ("s", "p", "d", "f", "d_t2g", "d_eg"), get_i("shell"))
     @assert all(x -> x in ("ising", "full"), get_i("ising"))
     #
