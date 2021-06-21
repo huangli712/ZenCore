@@ -197,9 +197,9 @@ function s_qmc1_save(it::IterInfo, imp::Impurity)
     println()
 end
 
-#
-# CT-HYB₂ Quantum Impurity Solver
-#
+#=
+### *CT-HYB₂ Quantum Impurity Solver*
+=#
 
 """
     s_qmc2_init(it::IterInfo)
@@ -245,9 +245,9 @@ function s_qmc2_save(it::IterInfo)
     sorry()
 end
 
-#
-# HUB-I Quantum Impurity Solver
-#
+#=
+### *HUB-I Quantum Impurity Solver*
+=#
 
 """
     s_hub1_init(it::IterInfo)
@@ -287,9 +287,9 @@ function s_hub1_save(it::IterInfo)
     sorry()
 end
 
-#
-# NORG Quantum Impurity Solver
-#
+#=
+### *NORG Quantum Impurity Solver*
+=#
 
 """
     s_norg_init(it::IterInfo)
