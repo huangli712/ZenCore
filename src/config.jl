@@ -283,7 +283,7 @@ See also: [`get_c`](@ref), [`str_c`](@ref).
 """
 function cat_c()
     # See comments in cat_d()
-    println("  case     -> ", str_c("case"))
+    println("    case     -> ", str_c("case"))
 end
 
 #=
@@ -308,18 +308,18 @@ Print the configuration parameters to stdout: for PDFT dict.
 See also: [`get_d`](@ref), [`str_d`](@ref).
 """
 function cat_d()
-    println("  engine   -> ", str_d("engine"))
-    println("  projtype -> ", str_d("projtype"))
-    println("  smear    -> ", str_d("smear"))
-    println("  kmesh    -> ", str_d("kmesh"))
-    println("  magmom   -> ", str_d("magmom"))
-    println("  lsymm    -> ", str_d("lsymm"))
-    println("  lspins   -> ", str_d("lspins"))
-    println("  lspinorb -> ", str_d("lspinorb"))
-    println("  loptim   -> ", str_d("loptim"))
-    println("  lproj    -> ", str_d("lproj"))
-    println("  sproj    -> ", str_d("sproj"))
-    println("  window   -> ", str_d("window"))
+    println("    engine   -> ", str_d("engine"))
+    println("    projtype -> ", str_d("projtype"))
+    println("    smear    -> ", str_d("smear"))
+    println("    kmesh    -> ", str_d("kmesh"))
+    println("    magmom   -> ", str_d("magmom"))
+    println("    lsymm    -> ", str_d("lsymm"))
+    println("    lspins   -> ", str_d("lspins"))
+    println("    lspinorb -> ", str_d("lspinorb"))
+    println("    loptim   -> ", str_d("loptim"))
+    println("    lproj    -> ", str_d("lproj"))
+    println("    sproj    -> ", str_d("sproj"))
+    println("    window   -> ", str_d("window"))
 end
 
 """
