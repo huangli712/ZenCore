@@ -279,7 +279,7 @@ end
 """
     query_dft(engine::String)
 
-Query the home directory of the DFT engine.
+Query the home directory of the chosen DFT engine.
 
 See also: [`query_dmft`](@ref), [`query_solver`](@ref).
 """
@@ -365,6 +365,10 @@ function query_solver(engine::String)
         solver_dir
     end
 end
+
+#=
+### *Colorful Outputs*
+=#
 
 """
     welcome()
@@ -453,6 +457,10 @@ function prompt(io::IOStream, msg::String)
     flush(io)
 end
 
+#=
+### *I/O Operations*
+=#
+
 """
     line_to_array(io::IOStream)
 
@@ -485,6 +493,10 @@ See also: [`vaspio_projs`](@ref).
     _im = str[30:end]
     return parse(F64, _re) + parse(F64, _im) * im
 end
+
+#=
+### *Mathematical Functions*
+=#
 
 #=
 *Remarks 1*:
