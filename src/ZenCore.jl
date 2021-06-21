@@ -65,7 +65,7 @@ using Printf
 using Base.Math: libm
 
 #=
-### *Includes And Exports*
+### *Includes And Exports* : *global.jl*
 =#
 
 #
@@ -100,6 +100,10 @@ export __VERSION__
 export __RELEASE__
 export __AUTHORS__
 export authors
+
+#=
+### *Includes And Exports* : *util.jl*
+=#
 
 #
 # util.jl
@@ -162,6 +166,10 @@ export line_to_cmplx
 export erf
 export subscript
 
+#=
+### *Includes And Exports* : *tetra.jl*
+=#
+
 #
 # tetra.jl
 #
@@ -193,6 +201,10 @@ export tetra_p_ek12
 export tetra_p_ek23
 export tetra_p_ek34
 export tetra_p_ek4
+
+#=
+### *Includes And Exports* : *types.jl*
+=#
 
 #
 # types.jl
@@ -233,6 +245,10 @@ export Impurity
 export PrTrait
 export PrGroup
 export PrWindow
+
+#=
+### *Includes And Exports* : *config.jl*
+=#
 
 #
 # config.jl
