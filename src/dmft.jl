@@ -508,6 +508,10 @@ function read_eimpx(imp::Impurity)
         end # END OF S LOOP
     end # END OF IOSTREAM
 
+    # Print some useful information
+    println("  > Read local impurity levels from: impurity.$index/dmft.eimpx")
+    println("  > Shape of Array Eimpx: ", size(Eimpx))
+
     # Return the desired array
     return Eimpx
 end
