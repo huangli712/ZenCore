@@ -597,9 +597,9 @@ function plo_monitor(D::Dict{Symbol,Any})
     end
 end
 
-#
-# Service Functions (Group B)
-#
+#=
+### *Service Functions* : *Group B*
+=#
 
 """
     get_win1(enk::Array{F64,3}, bwin::Tuple{I64,I64})
@@ -838,9 +838,9 @@ function try_diag(M::AbstractArray{C64,2})
     copy!(M, S * M)
 end
 
-#
-# Service Functions (Group C)
-#
+#=
+### *Service Functions* : *Group C*
+=#
 
 """
     calc_ovlp(chipsi::Array{C64,4}, weight::Array{F64,1})
@@ -1154,9 +1154,9 @@ function calc_dos(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1}, itet::Ar
     return MA, DA
 end
 
-#
-# Service Functions (Group D)
-#
+#=
+### *Service Functions* : *Group D*
+=#
 
 """
     view_ovlp(ovlp::Array{F64,3})
