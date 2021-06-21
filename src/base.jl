@@ -751,6 +751,11 @@ function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
         # Enter impurity.i directory
         cd("impurity.$i")
 
+        #
+        # If there are symmetries among the impurity problems, something
+        # must be done here.
+        #
+
         # Activate the chosen quantum impurity solver
         @cswitch engine begin
             @case "ct_hyb1"
