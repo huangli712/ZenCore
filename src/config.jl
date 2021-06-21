@@ -4,12 +4,12 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/20
+# Last modified: 2021/06/21
 #
 
-#
-# Driver Functions
-#
+#=
+### *Driver Functions*
+=#
 
 """
     setup()
@@ -27,38 +27,6 @@ function setup()
 
     # S3: Validate the configuration parameters
     chk_dict()
-end
-
-"""
-    exhibit()
-
-Display the configuration parameters for reference.
-
-See also: [`setup`](@ref).
-"""
-function exhibit()
-    # E0: Print the header
-    prompt("ZEN", "Configuration")
-
-    # E1: Show dict PCASE
-    println("Parameters : General")
-    cat_c()
-
-    # E2: Show dict PDFT
-    println("Parameters : Density Functional Theory")
-    cat_d()
-
-    # E3: Show dict PDMFT
-    println("Parameters : Dynamical Meal-Field Theory")
-    cat_m()
-
-    # E4: Show dict PIMP
-    println("Parameters : Quantum Impurity Atoms")
-    cat_i()
-
-    # E5: Show dict PSOLVER
-    println("Parameters : Quantum Impurity Solvers")
-    cat_s()
 end
 
 #
@@ -235,6 +203,38 @@ function chk_dict()
     end
     #
     # Please add more assertion statements here
+end
+
+"""
+    exhibit()
+
+Display the configuration parameters for reference.
+
+See also: [`setup`](@ref).
+"""
+function exhibit()
+    # E0: Print the header
+    prompt("ZEN", "Configuration")
+
+    # E1: Show dict PCASE
+    println("Parameters : General")
+    cat_c()
+
+    # E2: Show dict PDFT
+    println("Parameters : Density Functional Theory")
+    cat_d()
+
+    # E3: Show dict PDMFT
+    println("Parameters : Dynamical Meal-Field Theory")
+    cat_m()
+
+    # E4: Show dict PIMP
+    println("Parameters : Quantum Impurity Atoms")
+    cat_i()
+
+    # E5: Show dict PSOLVER
+    println("Parameters : Quantum Impurity Solvers")
+    cat_s()
 end
 
 #
