@@ -361,7 +361,8 @@ end
 
 Read the `dmft1/dmft.delta` file, extract the hybridization functions Δ
 and the corresponding frequency mesh ω. The working directory of this
-function must be the root folder.
+function must be the root folder. Usually, this function is called by
+the `mixer_delta()` function and the `sigma_split()` function.
 
 See also: [`sigma_split`](@ref), [`read_eimpx`](@ref).
 """
@@ -409,6 +410,7 @@ function read_delta(ai::Array{Impurity,1}, fhyb::String = "dmft1/dmft.delta")
                 for m = 1:nmesh
                     # Parse frequency mesh
                     fmesh[m] = parse(F64, line_to_array(fin)[3])
+
                     # Parse hybridization functions
                     for q = 1:ai[t].nband
                         for p = 1:ai[t].nband
@@ -424,6 +426,8 @@ function read_delta(ai::Array{Impurity,1}, fhyb::String = "dmft1/dmft.delta")
             end # END OF S LOOP
         end # END OF T LOOP
     end # END OF IOSTREAM
+
+    # Print some useful information
     println("  > Read hybridization functions from: $fhyb")
     println("  > Shape of Array fmesh: ", size(fmesh))
     println("  > Shape of Array Delta: ", size(Delta))
