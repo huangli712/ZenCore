@@ -190,7 +190,7 @@ end
 See also: [`mixer_core`](@ref).
 """
 function mixer_gamma(it::IterInfo)
-    # Print the log
+    # Print the header
     println("Mixer : Gamma")
 
     # Print blank line for better visualization
