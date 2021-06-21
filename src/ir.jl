@@ -484,6 +484,7 @@ function irio_tetra(f::String, volt::F64, itet::Array{I64,2})
         end
     end # END OF IOSTREAM
 
+    # Print some useful information
     println("  > Open and write the file tetra.ir (itet and volt)")
 end
 
@@ -526,6 +527,7 @@ function irio_eigen(f::String, enk::Array{F64,3}, occupy::Array{F64,3})
         end # END OF S LOOP
     end # END OF IOSTREAM
 
+    # Print some useful information
     println("  > Open and write the file eigen.ir (enk and occupy)")
 end
 
