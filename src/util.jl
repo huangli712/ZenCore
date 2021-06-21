@@ -227,6 +227,20 @@ function query_stop()
     isfile(query_case() * ".stop")
 end
 
+#=
+*Remarks*:
+
+In the `ZenCore` package, the following environment variables matter:
+
+* ZEN_HOME
+* ZEN_CORE
+* ZEN_DMFT
+* ZEN_SOLVER
+* VASP_HOME
+
+Please setup them in your `.bashrc` (Lniux) or `.profile` (macOS) files.
+=#
+
 """
     query_home()
 
