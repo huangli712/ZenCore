@@ -533,9 +533,9 @@ function PrWindow(kwin::Array{I64,3}, bwin::Tuple{R64,R64})
     PrWindow(bmin, bmax, nbnd, kwin, bwin)
 end
 
-#
-# Customized Base.show() Functions
-#
+#=
+### *Customized Base.show() Functions*
+=#
 
 """
     Base.show(io::IO, it::IterInfo)
