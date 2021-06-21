@@ -261,10 +261,10 @@ export PrWindow
 # Members:
 #
 # setup    -> Setup parameters.
-# exhibit  -> Display parameters for reference.
 # inp_toml -> Parse case.toml, return raw configuration information.
 # rev_dict -> Update dicts for configuration parameters.
 # chk_dict -> Check dicts for configuration parameters.
+# exhibit  -> Display parameters for reference.
 # _v       -> Verify dict's values.
 # cat_c    -> Print dict (PCASE dict).
 # cat_d    -> Print dict (PDFT dict).
@@ -285,10 +285,10 @@ export PrWindow
 include("config.jl")
 #
 export setup
-export exhibit
 export inp_toml
 export rev_dict
 export chk_dict
+export exhibit
 export _v
 export cat_c
 export cat_d
@@ -305,6 +305,10 @@ export str_d
 export str_m
 export str_i
 export str_s
+
+#=
+### *Includes And Exports* : *base.jl*
+=#
 
 #
 # base.jl
@@ -372,6 +376,10 @@ export zero_it
 export prev_it
 export show_it
 
+#=
+### *Includes And Exports* : *vasp.jl*
+=#
+
 #
 # vasp.jl
 #
@@ -423,6 +431,10 @@ export vaspio_eigen
 export vaspio_projs
 export vaspio_fermi
 export vaspio_charge
+
+#=
+### *Includes And Exports* : *plo.jl*
+=#
 
 #
 # plo.jl
@@ -481,6 +493,10 @@ export view_dm
 export view_hamk
 export view_dos
 
+#=
+### *Includes And Exports* : *ir.jl*
+=#
+
 #
 # ir.jl
 #
@@ -520,6 +536,10 @@ export irio_projs
 export irio_fermi
 export irio_charge
 
+#=
+### *Includes And Exports* : *dmft.jl*
+=#
+
 #
 # dmft.jl
 #
@@ -554,6 +574,10 @@ export read_gamma
 export write_delta
 export write_eimpx
 export write_gamma
+
+#=
+### *Includes And Exports* : *solver.jl*
+=#
 
 #
 # solver.jl
@@ -613,6 +637,10 @@ export GetNimpx
 export GetSymmetry
 export GetImpurity
 
+#=
+### *Includes And Exports* : *sigma.jl*
+=#
+
 #
 # sigma.jl
 #
@@ -650,6 +678,10 @@ export read_sigma
 export read_sigdc
 export write_sigma
 export write_sigdc
+
+#=
+### *Includes And Exports* : *mixer.jl*
+=#
 
 #
 # mixer.jl
