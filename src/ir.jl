@@ -570,6 +570,7 @@ function irio_projs(f::String, chipsi::Array{C64,4})
         end # END OF S LOOP
     end # END OF IOSTREAM
 
+    # Print some useful information
     println("  > Open and write the file projs.ir (chipsi)")
 end
 
@@ -620,6 +621,7 @@ function irio_projs(f::String, chipsi::Array{Array{C64,4},1})
         end # END OF P LOOP
     end # END OF IOSTREAM
 
+    # Print some useful information
     println("  > Open and write the file projs.ir (chipsi)")
 end
 
