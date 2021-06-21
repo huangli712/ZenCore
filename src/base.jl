@@ -928,7 +928,7 @@ function sigma_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::Strin
             sigma_reset(ai)
             break
 
-        # Calculate the double counting term and store it
+        # Calculate the double counting terms and store them
         @case "dcount"
             sigma_dcount(it, ai)
             break
