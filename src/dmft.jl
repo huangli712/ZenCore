@@ -742,7 +742,7 @@ function write_delta(fmesh::Array{F64,1}, Delta::Array{C64,5}, ai::Array{Impurit
             end # END OF S LOOP
         end # END OF IOSTREAM
 
-        # Print message to the screen
+        # Print some useful information
         println("  > Split hybridization functions for site $t into: $fhyb")
         println("  > Shape of Array fmesh: ", size(fmesh))
         println("  > Shape of Array Delta: ", size(Delta[:,:,:,:,t]))
@@ -830,7 +830,7 @@ function write_eimpx(Eimpx::Array{C64,4}, ai::Array{Impurity,1})
     # Extract the dimensional parameters
     _, qdim, nspin, nsite = size(Eimpx)
 
-    # Go through each quantum impurity problems
+    # Go through each quantum impurity problem
     for t = 1:nsite
         # Determine filename for local impurity levels
         flev = "impurity.$t/dmft.eimpx"
@@ -865,7 +865,7 @@ function write_eimpx(Eimpx::Array{C64,4}, ai::Array{Impurity,1})
             end # END OF S LOOP
         end # END OF IOSTREAM
 
-        # Print message to the screen
+        # Print some useful information
         println("  > Split local impurity levels for site $t into: $flev")
         println("  > Shape of Array Eimpx: ", size(Eimpx[:,:,:,t]))
     end # END OF T LOOP
@@ -920,7 +920,7 @@ function write_eimpx(Eimpx::Array{C64,4}, ai::Array{Impurity,1}, flev::String)
         end # END OF T LOOP
     end # END OF IOSTREAM
 
-    # Print message to the screen
+    # Print some useful information
     println("  > Write local impurity levels into: $flev")
     println("  > Shape of Array Eimpx: ", size(Eimpx))
 end
