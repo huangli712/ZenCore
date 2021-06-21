@@ -105,14 +105,14 @@ function ir_save(it::IterInfo)
     end
 end
 
-#
-# Service Functions
-#
+#=
+### *Service Functions*
+=#
 
 """
     irio_params(f::String, D::Dict{Symbol,Any})
 
-Write the key parameters extracted from the Kohn-Sham data. Here `f`
+Write the key parameters extracted from the Kohn-Sham dataset. Here `f`
 means only the directory that we want to use.
 
 See also: [`PrGroup`](@ref), [`PrWindow`](@ref).
