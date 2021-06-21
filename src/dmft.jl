@@ -193,6 +193,7 @@ See also: [`dmft_init`](@ref), [`dmft_exec`](@ref).
 function dmft_save(it::IterInfo, task::I64)
     # Check the task
     @assert task in (1, 2)
+    task == 2 && @assert it.sc == 2
 
     # Print the header
     println("Finalize the computational task")
@@ -231,26 +232,30 @@ function dmft_save(it::IterInfo, task::I64)
     println()
 end
 
-#
-# Service Functions: For I/O Operations
-#
+#=
+### *Service Functions*: *For I/O Operations* (*Fermi/Read*)
+=#
 
 """
     read_fermi()
 
-Parse the dmft1/dmft.fermi file to extract the chemical potential.
+Parse the `dmft1/dmft.fermi` file to extract the chemical potential.
 
 See also: [`dmft_save`](@ref).
 """
 function read_fermi()
+    # Filename for chemical potential
     fname = "dmft.fermi"
-    fermi = 0.0
 
+    # Sometimes, if the `dmft.fermi` file is absent, it returns zero.
     if isfile(fname)
         str = readline("dmft.fermi")
         fermi = parse(F64, line_to_array(str)[3])
+    else
+        fermi = 0.0
     end
 
+    # Return the desired value
     return fermi
 end
 
