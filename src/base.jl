@@ -514,9 +514,9 @@ function cycle8(task::String = "sigma")
     end
 end
 
-#
-# Service Functions
-#
+#=
+### *Service Functions*: *Layer 1*
+=#
 
 #=
 *Remarks*:
@@ -534,7 +534,7 @@ We usually use this functon to stop the whole DFT + DMFT iterations.
 """
     monitor(force_exit::Bool = false)
 
-Determine whether we need to terminate the Zen code.
+Determine whether we need to terminate the `Zen` code.
 
 See also: [`query_stop`](@ref).
 """
@@ -546,6 +546,10 @@ end
 
 """
     suspend(second::I64)
+
+Suspend the current process to wait the DFT engine.
+
+See also: [`dft_run`](@ref).
 """
 function suspend(second::I64)
     @assert second > 0
