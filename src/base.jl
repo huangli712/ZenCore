@@ -550,6 +550,9 @@ end
 Suspend the current process to wait the DFT engine. This function is
 useful for charge fully self-consistent DFT + DMFT calculations.
 
+Now this function only supports the vasp code. We have to improve it
+to support more DFT engines.
+
 See also: [`dft_run`](@ref).
 """
 function suspend(second::I64)
