@@ -436,9 +436,9 @@ function read_delta(ai::Array{Impurity,1}, fhyb::String = "dmft1/dmft.delta")
     return fmesh, Delta
 end
 
-#
-# Service Functions: For I/O Operations
-#
+#=
+### *Service Functions*: *For I/O Operations* (*ε/Read*)
+=#
 
 """
     read_eimpx(imp::Impurity)
