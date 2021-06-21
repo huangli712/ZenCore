@@ -31,11 +31,11 @@ function setup()
     rev_dict(cfg)
 
     # S3: Validate the configuration parameters
-    println("Validate the dictionaries")
+    println("Validate the dictionaries (configuration parameters)")
     chk_dict()
 
     # S4: Print the configuration parameters
-    println("Show the dictionaries")
+    println("Show the dictionaries (configuration parameters)")
     exhibit()
 
     # Print the footer
