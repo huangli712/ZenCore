@@ -4,12 +4,12 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/18
+# Last modified: 2021/06/21
 #
 
-#
-# Customized Dictionaries
-#
+#=
+### *Customized Dictionaries*
+=#
 
 #=
 *Remarks*:
@@ -111,12 +111,12 @@ See also: [`PCASE`](@ref), [`PDFT`](@ref), [`PDMFT`](@ref), [`PIMP`](@ref).
 """
 const PSOLVER= Dict{String,Array{Any,1}}(
           "engine"   => [missing, 1, :String, "Name of quantum impurity solver"],
-          "params"   => [missing, 1, :Array , "Additional parameter sets of quantum impurity solver"],
+          "params"   => [missing, 1, :Array , "Extra parameter sets of quantum impurity solver"],
       )
 
-#
-# Customized Structs
-#
+#=
+### *Customized Structs*
+=#
 
 """
     Logger
