@@ -874,9 +874,10 @@ end
 """
     write_eimpx(Eimpx::Array{C64,4}, ai::Array{Impurity,1}, flev::String)
 
-Write local impurity levels into the `flev` file. This function is usually
-called by `mixer_eimpx()` to update the `dmft1/dmft.eimpx` file. The
-working directory of this function must be the root folder.
+Write local impurity levels ε into the `flev` file. This function is
+usually called by `mixer_eimpx()` function to update the local impurity
+levels stored in `dmft1/dmft.eimpx` file. The working directory of this
+function must be the root folder.
 
 See also: [`Impurity`](@ref), [`read_eimpx`](@ref), [`write_delta`](@ref).
 """
