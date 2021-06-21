@@ -289,7 +289,7 @@ function plo_group(MAP::Mapping, PG::Array{PrGroup,1})
                 break
         end
         println("  > Build transformation matrix for group $g (site: $(PG[g].site))")
-    end
+    end # END OF G LOOP
 end
 
 #=
@@ -364,8 +364,9 @@ function plo_window(PG::Array{PrGroup,1}, enk::Array{F64,3})
         # Create the `PrWindow` struct, and push it into the PW array.
         push!(PW, PrWindow(kwin, bwin))
 
+        # Print some useful information
         println("  > Create window $p: $bwin <--> ($(PW[p].bmin), $(PW[p].bmax))")
-    end
+    end # END OF P LOOP
 
     # Well, now CW contains all the windows for correlated groups of
     # projectors. In Zen, we assume that all of the correlated groups of
@@ -394,7 +395,7 @@ end
 #=
 *Remarks*:
 
-PG[i].Tr must be a matrix. Its size must be (ndim, p2 - p1 + 1).
+`PG[i].Tr` must be a matrix. Its size must be `(ndim, p2 - p1 + 1)`.
 =#
 
 """
@@ -444,6 +445,7 @@ function plo_rotate(PG::Array{PrGroup,1}, chipsi::Array{C64,4})
         # Push R into Rchipsi to save it
         push!(Rchipsi, R)
 
+        # Print some useful information
         println("  > Rotate group $i (site: $(PG[i].site)): number of local orbitals -> $ndim")
     end # END OF I LOOP
 
