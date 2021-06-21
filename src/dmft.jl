@@ -603,13 +603,13 @@ The working directory of this function must be the root folder.
 See also: [`write_gamma`](@ref).
 """
 function read_gamma(fgamma::String = "dmft2/dmft.gamma")
+    # Make sure the data file is available
+    @assert isfile(fgamma)
+
     # Declare the arrays for 𝑘-mesh and correction for density matrix
     kmesh = nothing
     kwin = nothing
     gamma = nothing
-
-    # Make sure the data file is available
-    @assert isfile(fgamma)
 
     # Parse `fgamma`, extract 𝑘-mesh and correction for density matrix
     open(fgamma, "r") do fin
@@ -631,7 +631,7 @@ function read_gamma(fgamma::String = "dmft2/dmft.gamma")
         # Go through each spin and 𝑘-point
         for s = 1:nspin
             for k = 1:nkpt
-                # Parse indices and dimensional parameter
+                # Parse indices and dimensional parameters
                 #
                 # For spin
                 strs = readline(fin)
@@ -671,6 +671,8 @@ function read_gamma(fgamma::String = "dmft2/dmft.gamma")
             end # END OF K LOOP
         end # END OF S LOOP
     end # END OF IOSTREAM
+
+    # Print some useful information
     println("  Read gamma matrix from: $fgamma")
 
     # Return the desired arrays
