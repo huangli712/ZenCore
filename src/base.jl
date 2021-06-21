@@ -547,7 +547,8 @@ end
 """
     suspend(second::I64)
 
-Suspend the current process to wait the DFT engine.
+Suspend the current process to wait the DFT engine. This function is
+useful for charge fully self-consistent DFT + DMFT calculations.
 
 See also: [`dft_run`](@ref).
 """
