@@ -27,6 +27,9 @@ function setup()
 
     # S3: Validate the configuration parameters
     chk_dict()
+
+    # S4: Print the configuration parameters
+    exhibit()
 end
 
 #
