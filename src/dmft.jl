@@ -932,13 +932,16 @@ end
 =#
 
 """
-    write_gamma(kmesh::Array{F64,2}, kwin::Array{I64,3}, gamma::Array{C64,4})
+    write_gamma(kmesh::Array{F64,2}, kwin::Array{I64,3}, gamma::Array{C64,4}, fgamma::String)
 
-Write correction for density matrix to `dmft2/dmft.gamma` file. This
-function is usually called by `mixer_gamma()` function. The working
+Write correction for density matrix Γ into `fgamma` file. This function
+is usually called by `mixer_gamma()` function to update the correction
+for density matrix stored in the `dmft2/dmft.gamma` file. The working
 directory of this function must be the root folder.
+
+See also: [`read_gamma`](@ref), [`write_delta`](@ref), [`write_eimpx`](@ref).
 """
-function write_gamma(kmesh::Array{F64,2}, kwin::Array{I64,3}, gamma::Array{C64,4})
+function write_gamma(kmesh::Array{F64,2}, kwin::Array{I64,3}, gamma::Array{C64,4}, fgamma::String)
     # Extract the dimensional parameters
     _, qbnd, nkpt, nspin = size(gamma)
 
