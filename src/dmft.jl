@@ -752,9 +752,10 @@ end
 """
     write_delta(fmesh::Array{F64,1}, Delta::Array{C64,5}, ai::Array{Impurity,1}, fhyb::String)
 
-Write hybridization functions into the `fhyb` file. This function is usually
-called by `mixer_delta()` to update the `dmft1/dmft.delta` file. The working
-directory of this function must be the root folder.
+Write hybridization functions Δ into the `fhyb` file. This function is
+usually called by `mixer_delta()` function to update the hybridization
+files stored in `dmft1/dmft.delta` file. The working directory of this
+function must be the root folder.
 
 See also: [`Impurity`](@ref), [`read_delta`](@ref), [`write_eimpx`](@ref).
 """
