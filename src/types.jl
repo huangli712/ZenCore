@@ -322,9 +322,9 @@ end
 """
     PrWindow
 
-Mutable struct. Define the band window for group of projectors.
+Mutable struct. Define the band window for a given group of projectors.
 
-## Members
+### Members
 
 * bmin -> Minimum band index.
 * bmax -> Maximum band index.
@@ -344,9 +344,9 @@ mutable struct PrWindow
     bwin  :: Tuple{R64,R64}
 end
 
-#
-# Customized Constructors
-#
+#=
+### *Customized Constructors*
+=#
 
 """
     Logger(case::String = "case")
