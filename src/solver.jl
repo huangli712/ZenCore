@@ -659,7 +659,7 @@ function GetSigma(imp::Impurity)
     cd("..")
 
     # Return the desired array
-    return (fmesh, sig_l)
+    return (fmesh, sigma)
 end
 
 """
