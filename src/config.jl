@@ -184,8 +184,8 @@ function chk_dict()
     @assert all(x -> x ≥ 1, get_m("niter"))
     @assert get_m("nmesh") > 0
     @assert get_m("dcount") in ("fll1", "fll2", "amf", "held", "exact")
-    @assert get_m("beta") >= 0.0
-    @assert get_m("mixer") >= 0.0 && get_m("mixer") <= 1.0
+    @assert get_m("beta") ≥ 0.0
+    @assert 0.0 ≤ get_m("mixer") ≤ 1.0
     #
     # Check impurity block
     @assert get_i("nsite") >= 1 && get_i("nsite") <= 99
