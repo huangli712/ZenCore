@@ -96,6 +96,7 @@ See also: [`dmft_init`](@ref), [`dmft_save`](@ref).
 function dmft_exec(it::IterInfo, task::I64)
     # Check the task
     @assert task in (1, 2)
+    task == 2 && @assert it.sc == 2
 
     # Print the header
     println("Detect the runtime environment for dmft")
