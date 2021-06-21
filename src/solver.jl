@@ -329,16 +329,16 @@ function s_norg_save(it::IterInfo)
     sorry()
 end
 
-#
-# Service Functions: For I/O Operations
-#
+#=
+### *Service Functions* : *Files I/O Operations*
+=#
 
 """
     ctqmc_setup(imp::Impurity)
 
-Generate configuration file (`solver.ctqmc.in`) for the CT-QMC quantum
-impurity solvers automatically (according to the information encoded
-in the Impurity struct).
+Generate default configuration file (`solver.ctqmc.in`) for the CT-QMC
+quantum impurity solvers automatically (according to the information
+encoded in the `Impurity` struct).
 
 See also: [`Impurity`](@ref), [`ctqmc_atomx`](@ref).
 """
