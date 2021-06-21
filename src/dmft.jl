@@ -239,7 +239,10 @@ end
 """
     read_fermi()
 
-Parse the `dmft1/dmft.fermi` file to extract the chemical potential.
+Parse the `dmft?/dmft.fermi` file to extract the chemical potential.
+Note that if `lfermi` in `dmft.in` is false, the chemical potential
+will not be calculated by the DMFT engine. In other words, this
+file (`dmft1/dmft.fermi` or `dmft2/dmft.fermi`) could be absent.
 
 See also: [`dmft_save`](@ref).
 """
