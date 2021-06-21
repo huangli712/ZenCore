@@ -347,6 +347,11 @@ function read_delta(imp::Impurity)
         end # END OF S LOOP
     end # END OF IOSTREAM
 
+    # Print some useful information
+    println("  > Read hybridization functions from: impurity.$index/dmft.delta")
+    println("  > Shape of Array fmesh: ", size(fmesh))
+    println("  > Shape of Array Delta: ", size(Delta))
+
     # Return the desired arrays
     return fmesh, Delta
 end
