@@ -22,6 +22,7 @@ See also: [`dmft_exec`](@ref), [`dmft_save`](@ref).
 function dmft_init(it::IterInfo, task::I64)
     # Check the task
     @assert task in (1, 2)
+    task == 2 && @assert it.sc == 2
 
     # Print the header
     println("Engine : DMFT$(subscript(task))")
@@ -38,13 +39,11 @@ function dmft_init(it::IterInfo, task::I64)
     # Parameter sets within the IR format
     fir1 = ["params.ir", "maps.ir", "groups.ir", "windows.ir"]
     #
-    # Kohn-Sham data within the IR format
+    # Kohn-Sham dataset within the IR format
     fir2 = ["lattice.ir", "kmesh.ir", "eigen.ir", "projs.ir"]
     #
     # Tetrahedron data are available
-    if get_d("smear") === "tetra"
-        push!(fir2, "tetra.ir")
-    end
+    get_d("smear") == "tetra" && push!(fir2, "tetra.ir")
     #
     # Main control file for the DMFT engine
     fdmft = ("dmft.in")
