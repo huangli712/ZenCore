@@ -1128,7 +1128,7 @@ end
 """
     zero_it(it::IterInfo)
 
-Reset the counters in the IterInfo struct.
+Reset the counters in the `IterInfo` struct.
 
 See also: [`IterInfo`](@ref), [`incr_it`](@ref).
 """
@@ -1137,12 +1137,22 @@ function zero_it(it::IterInfo)
     it.I₂ = 0
 end
 
+"""
+    prev_it(it::IterInfo)
+
+See also: [`mixer_core`](@ref), [`incr_it`](@ref).
+"""
 function prev_it(it::IterInfo)
     @assert it.sc == 1
     @assert it.I₁ ≥ 2
     return it.I₃, it.I₁ - 1
 end
 
+"""
+    prev_it(it::IterInfo, c::I64)
+
+See also: [`mixer_core`](@ref), [`incr_it`](@ref).
+"""
 function prev_it(it::IterInfo, c::I64)
     @assert it.sc == 2
     @assert c in (1, 2)
