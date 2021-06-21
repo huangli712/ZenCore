@@ -4,12 +4,12 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/20
+# Last modified: 2021/06/21
 #
 
-#
-# CT-HYB₁ Quantum Impurity Solver
-#
+#=
+### *CT-HYB₁ Quantum Impurity Solver*
+=#
 
 """
     s_qmc1_init(it::IterInfo, imp::Impurity)
@@ -33,16 +33,16 @@ function s_qmc1_init(it::IterInfo, imp::Impurity)
     println("  > solver.ctqmc.in is ready")
 
     # Extract frequency mesh and hybridization function from `dmft.delta`
-    fmesh, Delta = read_delta(imp)
     println("  > Open and read hybridization functions from dmft.delta")
+    fmesh, Delta = read_delta(imp)
 
     # Write frequency mesh and hybridization function to `solver.hyb.in`
     ctqmc_delta(fmesh, Delta)
     println("  > solver.hyb.in is ready")
 
     # Extract local impurity levels from `dmft.eimpx`
-    Eimpx = read_eimpx(imp)
     println("  > Open and read local impurity levels from dmft.eimpx")
+    Eimpx = read_eimpx(imp)
 
     # Write local impurity levels to `solver.eimp.in`
     ctqmc_eimpx(Eimpx)
