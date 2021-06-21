@@ -20,7 +20,7 @@ See also: [`inp_toml`](@ref), [`rev_dict`](@ref), [`chk_dict`](@ref).
 """
 function setup()
     # Print the header
-    prompt("ZEN", "Configuration")
+    prompt("ZEN", "Setup")
     
     # S1: Parse the case.toml file to extract configuration parameters
     println("Parse the configuration file (case.toml)")
@@ -49,8 +49,8 @@ end
 """
     inp_toml(f::String, key::String, necessary::Bool)
 
-Parse the configuration file (toml format). It reads only parts of the
-configuration file, which depends on the value of `key`.
+Parse the configuration file (in toml format). It reads only parts of
+the configuration file, which depends on the value of `key`.
 
 See also: [`setup`](@ref).
 """
@@ -75,7 +75,7 @@ end
 """
     inp_toml(f::String, necessary::Bool)
 
-Parse the configuration file (toml format). It reads the whole file.
+Parse the configuration file (in toml format). It reads the whole file.
 
 See also: [`setup`](@ref).
 """
