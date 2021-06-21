@@ -377,8 +377,8 @@ See also: [`get_s`](@ref), [`str_s`](@ref).
 """
 function cat_s()
     # See comments in cat_d()
-    println("  engine   -> ", str_s("engine"))
-    println("  params   -> ", str_s("params"))
+    println("    engine   -> ", str_s("engine"))
+    println("    params   -> ", str_s("params"))
 end
 
 #=
