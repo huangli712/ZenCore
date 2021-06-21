@@ -415,8 +415,8 @@ Outer constructor for Mapping struct.
 """
 function Mapping(nsite::I64, ngrp::I64, nwnd::I64)
     # Sanity check
-    @assert ngrp >= nsite
-    @assert nwnd == ngrp
+    @assert ngrp ≥ nsite
+    @assert nwnd ≤ ngrp
 
     # Initialize the arrays
     i_grp = zeros(I64, nsite)
