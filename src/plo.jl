@@ -516,6 +516,7 @@ function plo_filter(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1})
         # Push F into Fchipsi to save it
         push!(Fchipsi, F)
 
+        # Print some useful information
         println("  > Apply window $p: maximum number of bands -> $(PW[p].nbnd)")
     end # END OF P LOOP
 
@@ -558,6 +559,7 @@ function plo_orthog(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1})
         try_blk2(PW, chipsi)
     end
 
+    # Print some useful information
     for p in eachindex(chipsi)
         println("  > Final shape of Array chipsi (group $p): $(size(chipsi[p]))")
     end
