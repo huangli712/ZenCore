@@ -7,9 +7,9 @@
 # Last modified: 2021/06/21
 #
 
-#
-# Driver Functions
-#
+#=
+### *Driver Functions*
+=#
 
 """
     sigma_reset(ai::Array{Impurity,1})
@@ -21,7 +21,7 @@ Now this function only supports Matsubara self-energy functions.
 See also: [`sigma_dcount`](@ref).
 """
 function sigma_reset(ai::Array{Impurity,1})
-    # Print the log
+    # Print the header
     println("Sigma : Reset")
     println("Try to create default self-energy functions")
     println("Current directory: ", pwd())
@@ -41,10 +41,11 @@ function sigma_reset(ai::Array{Impurity,1})
         for i = 1:nmesh
             fmesh[i] = (2 * i - 1) * pi / beta
         end
+        #
         println("  > Create Matsubara frequency mesh: $nmesh points")
     else # Real axis
-        println("  > Create real frequency mesh")
         sorry()
+        println("  > Create real frequency mesh")
     end
 
     # Create default self-energy functions
@@ -63,6 +64,7 @@ function sigma_reset(ai::Array{Impurity,1})
 
         # Push S into SA to save it
         push!(SA, S)
+        #
         println("  > Shape of Array S for site $i: ", size(S))
     end # END OF I LOOP
 
@@ -86,7 +88,7 @@ The field `it.dc` will be updated in this function as well.
 See also: [`sigma_reset`](@ref).
 """
 function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
-    # Print the log
+    # Print the header
     println("Sigma : Dcount")
     println("Try to build double counting terms for self-energy functions")
     println("Current directory: ", pwd())
@@ -150,6 +152,7 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
                 sorry()
                 break
         end
+        #
         println("  > Using the $(get_m("dcount")) scheme: Vdc = $sigdc")
         println("  > Shape of Array DC for site $i: ", size(DC))
 
@@ -184,19 +187,27 @@ distribute them into the `impurity.i` folder.
 See also: [`sigma_gather`](@ref).
 """
 function sigma_split(ai::Array{Impurity,1})
-    # Print the log
+    # Print the header
     println("Sigma : Split")
     println("Try to split the hybridization functions and local impurity levels")
     println("Current directory: ", pwd())
 
     # Split the hybridization functions Δ
     println("Treat hybridization functions")
+    #
+    # Read it from dmft1/dmft.delta
     fmesh, Delta = read_delta(ai)
+    #
+    # Write it into impurity.i/dmft.delta
     write_delta(fmesh, Delta, ai)
 
     # Split the local impurity levels εᵢ
     println("Treat local impurity levels")
+    #
+    # Read it from dmft1/dmft.eimpx
     Eimpx = read_eimpx(ai)
+    #
+    # Write it into impurity.i/dmft.eimpx
     write_eimpx(Eimpx, ai)
 
     # Print blank line for better visualization
