@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/21
+# Last modified: 2021/06/22
 #
 
 #=
@@ -341,11 +341,11 @@ function cat_m()
     println("    mc       -> ", str_m("mc"))
     println("    cc       -> ", str_m("cc"))
     println("    ec       -> ", str_m("ec"))
-    println("    fc       -> ", str_m("fc"))
+    println("    sc       -> ", str_m("sc"))
     println("    lfermi   -> ", str_m("lfermi"))
     println("    lcharge  -> ", str_m("lcharge"))
     println("    lenergy  -> ", str_m("lenergy"))
-    println("    lforce   -> ", str_m("lforce"))
+    println("    lsigma   -> ", str_m("lsigma"))
 end
 
 """
