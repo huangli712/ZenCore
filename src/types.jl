@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/21
+# Last modified: 2021/06/22
 #
 
 #=
@@ -76,11 +76,11 @@ const PDMFT = Dict{String,Array{Any,1}}(
           "mc"       => [missing, 0, :F64   , "Convergence criterion of chemical potential"],
           "cc"       => [missing, 0, :F64   , "Convergence criterion of charge"],
           "ec"       => [missing, 0, :F64   , "Convergence criterion of total energy"],
-          "fc"       => [missing, 0, :F64   , "Convergence criterion of force"],
+          "sc"       => [missing, 0, :F64   , "Convergence criterion of self-energy function"],
           "lfermi"   => [missing, 0, :Bool  , "Test whether chemical potential is updated"],
           "lcharge"  => [missing, 0, :Bool  , "Test whether charge is converged"],
           "lenergy"  => [missing, 0, :Bool  , "Test whether total energy is converged"],
-          "lforce"   => [missing, 0, :Bool  , "Test whether force is converged"],
+          "lsigma"   => [missing, 0, :Bool  , "Test whether self-energy function is converged"],
       )
 
 """
