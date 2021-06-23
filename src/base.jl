@@ -1199,7 +1199,7 @@ function show_it(it::IterInfo, lr::Logger)
         for t = 1:nsite
             print(lr.cycle, "Vdc$t        ")
         end
-        print(lr.cycle, "Nlo1       Nlo2       ")
+        print(lr.cycle, "Nlo1        Nlo2        ")
         for t = 1:nsite
             print(lr.cycle, "Nio$t        ")
         end
