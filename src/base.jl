@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/21
+# Last modified: 2021/06/23
 #
 
 #=
@@ -1198,12 +1198,13 @@ function show_it(it::IterInfo, lr::Logger)
         for t = 1:nsite
             print(lr.cycle, "Vdc$t        ")
         end
+        print(lr.cycle, "Nlo1       Nlo2       ")
         for t = 1:nsite
-            print(lr.cycle, "Nim$t        ")
+            print(lr.cycle, "Nio$t        ")
         end
         println(lr.cycle, "Etot")
         # Write separator
-        println(lr.cycle, repeat('-', 4*5 + 4*12 + 24*nsite))
+        println(lr.cycle, repeat('-', 4*5 + 6*12 + 24*nsite))
     # Write iteration information
     else
         @printf(lr.cycle, "%-5i", it.I₄)
@@ -1228,6 +1229,8 @@ function show_it(it::IterInfo, lr::Logger)
         for t = 1:nsite
             @printf(lr.cycle, "%-12.7f", it.dc[t])
         end
+        @printf(lr.cycle, "%-12.7f", it.n₁)
+        @printf(lr.cycle, "%-12.7f", it.n₂)
         for t = 1:nsite
             @printf(lr.cycle, "%-12.7f", it.nf[t])
         end
