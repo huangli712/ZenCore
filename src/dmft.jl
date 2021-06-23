@@ -223,10 +223,13 @@ function dmft_save(it::IterInfo, task::I64)
     end
     println("  > Save the key output files")
 
-    # Extract the fermi level, and use it to update the IterInfo struct.
-    fermi = read_fermi()
+    # Extract the fermi level (and the lattice occupancy), and use them
+    # to update the IterInfo struct.
+    fermi, occup = read_fermi()
     task == 1 ? it.μ₁ = fermi : it.μ₂ = fermi
+    task == 1 ? it.n₁ = occup : it.n₂ = occup
     println("  > Extract the fermi level from dmft.fermi: $fermi eV")
+    println("  > Extract the lattice occupancy from dmft.fermi: $occup")
 
     # Print the footer for a better visualization
     println()
