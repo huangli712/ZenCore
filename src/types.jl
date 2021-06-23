@@ -156,7 +156,7 @@ Mutable struct. Record the DFT + DMFT iteration information.
 * dc -> Double counting terms.
 * n₁ -> Number of lattice occupancy obtained by DMFT engine (`dmft1`).
 * n₂ -> Number of lattice occupancy obtained by DMFT engine (`dmft2`).
-* nf -> Number of impurity occupancy.
+* nf -> Number of impurity occupancy obtained by impurity solver.
 * et -> Total DFT + DMFT energy.
 
 See also: [`Logger`](@ref).
@@ -389,11 +389,13 @@ function IterInfo()
     sc = 1
     μ  = 0.0
     dc = fill(0.0, nsite)
+    n₁ = 0.0
+    n₂ = 0.0
     nf = fill(0.0, nsite)
     et = 0.0
 
     # Call the default constructor
-    IterInfo(I, I, I, I, M₁, M₂, M₃, sc, μ, μ, μ, dc, nf, et)
+    IterInfo(I, I, I, I, M₁, M₂, M₃, sc, μ, μ, μ, dc, n₁, n₂, nf, et)
 end
 
 """
@@ -578,6 +580,8 @@ function Base.show(io::IO, it::IterInfo)
     println(io, "μ₁ : ", it.μ₁)
     println(io, "μ₂ : ", it.μ₂)
     println(io, "dc : ", it.dc)
+    println(io, "n₁ : ", it.n₁)
+    println(io, "n₂ : ", it.n₂)
     println(io, "nf : ", it.nf)
     println(io, "et : ", it.et)
 end
