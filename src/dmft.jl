@@ -257,9 +257,12 @@ function read_fermi()
 
     # Sometimes, if the `dmft.fermi` file is absent, it returns zero.
     if isfile(fname)
-        str = readline("dmft.fermi")
-        fermi = parse(F64, line_to_array(str)[3])
-        occup = parse(F64, line_to_array(str)[5])
+        # There are two lines in the `dmft.fermi` file. The first line
+        # is about the fermi level, while the second one is about the
+        # lattice occupancy.
+        str = readlines("dmft.fermi")
+        fermi = parse(F64, line_to_array(str[1])[3])
+        occup = parse(F64, line_to_array(str[2])[3])
     else
         fermi = 0.0
         occup = 0.0
