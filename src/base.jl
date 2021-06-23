@@ -1194,6 +1194,7 @@ function show_it(it::IterInfo, lr::Logger)
 
     # Write the header
     if it.I₄ == 0
+        # Write labels
         print(lr.cycle, "#    #    #    #    μ0          μ1          μ2          ")
         for t = 1:nsite
             print(lr.cycle, "Vdc$t        ")
