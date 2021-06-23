@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/22
+# Last modified: 2021/06/23
 #
 
 #=
@@ -154,6 +154,8 @@ Mutable struct. Record the DFT + DMFT iteration information.
 * μ₁ -> Fermi level obtained by DMFT engine (`dmft1`).
 * μ₂ -> Fermi level obtained by DMFT engine (`dmft2`).
 * dc -> Double counting terms.
+* n₁ -> Number of lattice occupancy obtained by DMFT engine (`dmft1`).
+* n₂ -> Number of lattice occupancy obtained by DMFT engine (`dmft2`).
 * nf -> Number of impurity occupancy.
 * et -> Total DFT + DMFT energy.
 
@@ -172,6 +174,8 @@ mutable struct IterInfo
     μ₁ :: F64
     μ₂ :: F64
     dc :: Vector{F64}
+    n₁ :: F64
+    n₂ :: F64
     nf :: Vector{F64}
     et :: F64
 end
