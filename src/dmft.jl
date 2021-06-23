@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/21
+# Last modified: 2021/06/23
 #
 
 #=
@@ -244,22 +244,26 @@ Note that if `lfermi` in `dmft.in` is false, the chemical potential
 will not be calculated by the DMFT engine. In other words, this
 file (`dmft1/dmft.fermi` or `dmft2/dmft.fermi`) could be absent.
 
+The lattice occupancy will be extracted and returned at the same time.
+
 See also: [`dmft_save`](@ref).
 """
 function read_fermi()
-    # Filename for chemical potential
+    # Filename for chemical potential and lattice occupancy
     fname = "dmft.fermi"
 
     # Sometimes, if the `dmft.fermi` file is absent, it returns zero.
     if isfile(fname)
         str = readline("dmft.fermi")
         fermi = parse(F64, line_to_array(str)[3])
+        occup = parse(F64, line_to_array(str)[5])
     else
         fermi = 0.0
+        occup = 0.0
     end
 
-    # Return the desired value
-    return fermi
+    # Return the desired values
+    return fermi, occup
 end
 
 #=
