@@ -203,14 +203,14 @@ function mixer_gamma(it::IterInfo)
 end
 
 """
-    α(it::IterInfo)
+    amix(it::IterInfo)
 
 Return the mixing factor for mixer component. It should depend on the
 current iteration number.
 
 See also: [`IterInfo`](@ref).
 """
-function α(it::IterInfo)
+function amix(it::IterInfo)
     factor = 1.0
     if it.sc == 1
         factor = exp(-(it.I₁ - 1) * get_m("mixer"))
