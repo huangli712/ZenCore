@@ -62,6 +62,9 @@ function mixer_sigma(it::IterInfo, ai::Array{Impurity,1})
     println("Write self-energy functions")
     write_sigma(fcurr, Snew, ai)
 
+    println("Evaluate the convergence criterion for self-energy functions")
+    distance(Scurr, Sprev)
+
     # Print blank line for better visualization
     println()
 end
