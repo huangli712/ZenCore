@@ -499,7 +499,7 @@ function cycle8(task::String = "sigma")
     #
     # Please modify the I₃ and I₁ parameters to fit your requirements
     it.I₃ = 1
-    it.I₁ = 10
+    it.I₁ = 14
 
     # C02: Execute the Kohn-Sham adaptor
     mixer_core(it, lr, ai, task)
