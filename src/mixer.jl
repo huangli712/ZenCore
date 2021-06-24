@@ -56,8 +56,11 @@ function mixer_sigma(it::IterInfo, ai::Array{Impurity,1})
     @assert size(Scurr) == size(Sprev) && size(fcurr) == size(fprev)
 
     # Mix the self-energy functions using linear mixing algorithm
-    Snew = Scurr * get_m("mixer") + Sprev * (1.0 - get_m("mixer"))
-
+    println("Mix self-energy functions for two successive iterations")
+    α = amix(it)
+    Snew = Scurr * α + Sprev * (1.0 - α)
+    println("  > Mixing parameter α = $α")
+    
     # Write the new self-energy functions into `dmft1/sigma.bare`
     println("Write self-energy functions")
     write_sigma(fcurr, Snew, ai)
