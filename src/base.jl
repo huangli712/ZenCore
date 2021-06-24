@@ -1206,9 +1206,10 @@ function show_it(it::IterInfo, lr::Logger)
         for t = 1:nsite
             print(lr.cycle, "Nio$t        ")
         end
-        println(lr.cycle, "Etot")
+        println(lr.cycle, "Etot        ")
+        println(lr,cycle, "C(C)    C(E)    C(S)")
         # Write separator
-        println(lr.cycle, repeat('-', 4*5 + 6*12 + 24*nsite))
+        println(lr.cycle, repeat('-', 3*8+ 4*5 + 6*12 + 24*nsite))
     # Write iteration information
     else
         @printf(lr.cycle, "%-5i", it.I₄)
@@ -1259,6 +1260,5 @@ function conv_it(it::IterInfo)
     else
         conv = it.cc && it.ce && it.cs
     end
-
     conv
 end
