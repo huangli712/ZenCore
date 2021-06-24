@@ -155,6 +155,9 @@ Mutable struct. Record the DFT + DMFT iteration information.
 * n₂ -> Number of lattice occupancy obtained by DMFT engine (`dmft2`).
 * nf -> Number of impurity occupancy obtained by impurity solver.
 * et -> Total DFT + DMFT energy.
+* cc -> Convergence flag for charge density.
+* ec -> Convergence flag for total energy.
+* sc -> Convergence flag for self-energy functions.
 
 See also: [`Logger`](@ref).
 """
@@ -175,6 +178,9 @@ mutable struct IterInfo
     n₂ :: F64
     nf :: Vector{F64}
     et :: F64
+    cc :: Bool
+    ec :: Bool
+    sc :: Bool
 end
 
 """
