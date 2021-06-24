@@ -56,7 +56,10 @@ function mixer_sigma(it::IterInfo, ai::Array{Impurity,1})
     @assert size(Scurr) == size(Sprev) && size(fcurr) == size(fprev)
 
     # Mix the self-energy functions using linear mixing algorithm
-    Snew = Scurr * get_m("mixer") + Sprev * (1.0 - get_m("mixer"))
+    println("Mix self-energy functions for two successive iterations")
+    α = amix(it)
+    Snew = Scurr * α + Sprev * (1.0 - α)
+    println("  > Mixing parameter α = $α")
 
     # Write the new self-energy functions into `dmft1/sigma.bare`
     println("Write self-energy functions")
@@ -115,7 +118,10 @@ function mixer_delta(it::IterInfo, ai::Array{Impurity,1})
     @assert size(Dcurr) == size(Dprev) && size(fcurr) == size(fprev)
 
     # Mix the hybridization functions using linear mixing algorithm
-    Dnew = Dcurr * get_m("mixer") + Dprev * (1.0 - get_m("mixer"))
+    println("Mix hybridization functions for two successive iterations")
+    α = amix(it)
+    Dnew = Dcurr * α + Dprev * (1.0 - α)
+    println("  > Mixing parameter α = $α")
 
     # Write the new hybridization functions into `dmft1/dmft.delta`
     println("Write hybridization functions")
@@ -174,7 +180,10 @@ function mixer_eimpx(it::IterInfo, ai::Array{Impurity,1})
     @assert size(Ecurr) == size(Eprev)
 
     # Mix the local impurity levels using linear mixing algorithm
-    Enew = Ecurr * get_m("mixer") + Eprev * (1.0 - get_m("mixer"))
+    println("Mix local impurity levels for two successive iterations")
+    α = amix(it)
+    Enew = Ecurr * α + Eprev * (1.0 - α)
+    println("  > Mixing parameter α = $α")
 
     # Write the new local impurity levels into `dmft1/dmft.eimpx`
     println("Write local impurity levels")
