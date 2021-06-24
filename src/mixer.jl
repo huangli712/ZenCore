@@ -202,6 +202,9 @@ function mixer_gamma(it::IterInfo)
     println()
 end
 
+function mixing_factor(it::IterInfo)
+end
+
 """
     distance(SA::Vector{Array{T,4}}, SB::Vector{Array{T,4}})
 
