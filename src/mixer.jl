@@ -202,18 +202,21 @@ end
 
 """
     distance(SA::Vector{Array{T,4}}, SB::Vector{Array{T,4}})
+
+Calculate the difference between two multi-dimensional arrays.
 """
 function distance(SA::Vector{Array{T,4}}, SB::Vector{Array{T,4}}) where {T}
     @assert length(SA) == length(SB)
     foreach((A, B) -> ( @assert size(A) == size(B) ), SA, SB)
 
     SC = SA - SB
+    @show length(SC)
 
     diff = zero(T)
     for i in eachindex(SC)
-        diff = diff + sum( abs.(SC[i]) ) / length(SC[i])
+        diff = diff + sum(SC[i]) / length(SC[i])
     end
     diff = diff / length(SC)
 
-    return diff
+    return abs(diff)
 end
