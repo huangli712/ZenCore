@@ -1207,7 +1207,7 @@ function show_it(it::IterInfo, lr::Logger)
             print(lr.cycle, "Nio$t        ")
         end
         println(lr.cycle, "Etot        ")
-        println(lr,cycle, "C(C)    C(E)    C(S)")
+        println(lr.cycle, "C(C)    C(E)    C(S)")
         # Write separator
         println(lr.cycle, repeat('-', 3*8+ 4*5 + 6*12 + 24*nsite))
     # Write iteration information
