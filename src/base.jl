@@ -189,6 +189,9 @@ function cycle1()
 
         # Print the cycle info
         show_it(it, lr)
+
+        # If the convergence has been achieved, then break the cycle.
+        conv_it(it) && break
     end
 
     # C98: Close Logger.log
