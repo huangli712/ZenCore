@@ -196,3 +196,25 @@ function mixer_gamma(it::IterInfo)
     # Print blank line for better visualization
     println()
 end
+
+"""
+    distance(SA::Vector{Array{T,4}}, SB::Vector{Array{T,4}})
+
+Calculate the difference between two multi-dimensional arrays.
+"""
+function distance(SA::Vector{Array{T,4}}, SB::Vector{Array{T,4}}) where {T}
+    # Check the dimensional parameters to make sure SA is similar to SB
+    @assert length(SA) == length(SB)
+    foreach((A, B) -> ( @assert size(A) == size(B) ), SA, SB)
+
+    # Evaluate the difference
+    SC = SA - SB
+    diff = zero(T)
+    for i in eachindex(SC)
+        diff = diff + sum(SC[i]) / length(SC[i])
+    end
+    diff = diff / length(SC)
+
+    # Return the desired value
+    return abs(diff)
+end
