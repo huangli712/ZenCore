@@ -597,6 +597,9 @@ function Base.show(io::IO, it::IterInfo)
     println(io, "n₂ : ", it.n₂)
     println(io, "nf : ", it.nf)
     println(io, "et : ", it.et)
+    println(io, "cc : ", it.cc)
+    println(io, "ce : ", it.ce)
+    println(io, "cs : ", it.cs)
 end
 
 """
