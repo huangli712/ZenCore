@@ -63,7 +63,8 @@ function mixer_sigma(it::IterInfo, ai::Array{Impurity,1})
     write_sigma(fcurr, Snew, ai)
 
     println("Evaluate the convergence criterion for self-energy functions")
-    distance(Scurr, Sprev)
+    dist = distance(Scurr, Sprev)
+    it.cs = ( dist < get_m("sc") )
 
     # Print blank line for better visualization
     println()
