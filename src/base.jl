@@ -1242,3 +1242,20 @@ function show_it(it::IterInfo, lr::Logger)
     # Flush the IOStream
     flush(lr.cycle)
 end
+
+"""
+    conv_it(it::IterInfo)
+
+Check whether the convergence flags are achieved.
+
+See also: [`IterInfo`](@ref).
+"""
+function conv_it(it::IterInfo)
+    if it.sc == 1
+        conv = it.cs
+    else
+        conv = it.cc && it.ce && it.cs
+    end
+
+    conv
+end
