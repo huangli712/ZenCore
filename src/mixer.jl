@@ -203,6 +203,13 @@ function mixer_gamma(it::IterInfo)
 end
 
 function mixing_factor(it::IterInfo)
+    factor = 1.0
+    if it.sc == 1
+        factor = exp(-(it.I₁ - 1) * get_m("mixer"))
+    else
+        factor = exp(-(it.I₃ - 1) * get_m("mixer"))
+    end
+    return factor
 end
 
 """
