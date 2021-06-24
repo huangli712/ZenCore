@@ -156,8 +156,8 @@ Mutable struct. Record the DFT + DMFT iteration information.
 * nf -> Number of impurity occupancy obtained by impurity solver.
 * et -> Total DFT + DMFT energy.
 * cc -> Convergence flag for charge density.
-* ec -> Convergence flag for total energy.
-* sc -> Convergence flag for self-energy functions.
+* ce -> Convergence flag for total energy.
+* cs -> Convergence flag for self-energy functions.
 
 See also: [`Logger`](@ref).
 """
@@ -179,8 +179,8 @@ mutable struct IterInfo
     nf :: Vector{F64}
     et :: F64
     cc :: Bool
-    ec :: Bool
-    sc :: Bool
+    ce :: Bool
+    cs :: Bool
 end
 
 """
@@ -396,9 +396,19 @@ function IterInfo()
     n₂ = 0.0
     nf = fill(0.0, nsite)
     et = 0.0
+    cc = false
+    ce = false
+    cs = false
 
     # Call the default constructor
-    IterInfo(I, I, I, I, M₁, M₂, M₃, sc, μ, μ, μ, dc, n₁, n₂, nf, et)
+    IterInfo(I, I, I, I, 
+             M₁, M₂, M₃,
+             sc, 
+             μ, μ, μ, 
+             dc, 
+             n₁, n₂, nf, 
+             et, 
+             cc, ce, cs)
 end
 
 """
