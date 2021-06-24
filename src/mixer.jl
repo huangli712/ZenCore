@@ -196,3 +196,21 @@ function mixer_gamma(it::IterInfo)
     # Print blank line for better visualization
     println()
 end
+
+"""
+    distance(SA::Vector{Array{T,4}}, SB::Vector{Array{T,4}})
+"""
+function distance(SA::Vector{Array{T,4}}, SB::Vector{Array{T,4}}) where {T}
+    @assert length(SA) == length(SB)
+    foreach((A, B) -> ( @assert size(A) == size(B) ), SA, SB)
+
+    SC = SA - SB
+
+    diff = zero(T)
+    for i in eachindex(SC)
+        diff = diff + sum( abs.(SC[i]) ) / length(SC[i])
+    end
+    diff = diff / length(SC)
+
+    return diff
+end

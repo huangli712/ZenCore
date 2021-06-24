@@ -699,7 +699,7 @@ export write_sigdc
 # mixer_delta -> Mix hybridization functions.
 # mixer_eimpx -> Mix local impurity levels.
 # mixer_gamma -> Mix correction of density matrix Γ.
-# distance    -> Calculate the difference between two arrays.
+# distance    -> Calculate the difference /distance between two arrays.
 #
 include("mixer.jl")
 #
