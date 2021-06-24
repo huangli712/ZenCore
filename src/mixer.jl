@@ -65,6 +65,12 @@ function mixer_sigma(it::IterInfo, ai::Array{Impurity,1})
     println("Write self-energy functions")
     write_sigma(fcurr, Snew, ai)
 
+    # Check the convergence condition
+    println("Evaluate the convergence condition for self-energy functions")
+    dist = distance(Scurr, Sprev)
+    it.cs = ( dist < get_m("sc") )
+    println("  > Averaged ΔΣ = $dist ( convergence is $(it.cs) )" )
+
     # Print blank line for better visualization
     println()
 end
