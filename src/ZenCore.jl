@@ -708,8 +708,8 @@ export mixer_sigma
 export mixer_delta
 export mixer_eimpx
 export mixer_gamma
-#export amix
-#export distance
+export amix
+export distance
 
 #=
 ### *PreCompile*

@@ -231,18 +231,18 @@ function amix(it::IterInfo)
 end
 
 """
-    distance(SA::Vector{Array{T,4}}, SB::Vector{Array{T,4}})
+    distance(SA::Vector{Array{C64,4}}, SB::Vector{Array{C64,4}})
 
 Calculate the difference between two multi-dimensional arrays.
 """
-function distance(SA::Vector{Array{T,4}}, SB::Vector{Array{T,4}}) where {T}
+function distance(SA::Vector{Array{C64,4}}, SB::Vector{Array{C64,4}})
     # Check the dimensional parameters to make sure SA is similar to SB
     @assert length(SA) == length(SB)
     foreach((A, B) -> ( @assert size(A) == size(B) ), SA, SB)
 
     # Evaluate the difference
     SC = SA - SB
-    diff = zero(T)
+    diff = zero(C64)
     for i in eachindex(SC)
         diff = diff + sum(SC[i]) / length(SC[i])
     end
