@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/24
+# Last modified: 2021/06/23
 #
 
 #=
@@ -55,7 +55,7 @@ const PDFT  = Dict{String,Array{Any,1}}(
           "loptim"   => [missing, 1, :Bool  , "The generated projectors are optimized or not"],
           "lproj"    => [missing, 1, :Bool  , "The projectors are generated or not"],
           "sproj"    => [missing, 1, :Array , "Specifications for generating projectors"],
-          "window"   => [missing, 1, :Array , "Band / energy window for normalizing projectors"],
+          "window"   => [missing, 1, :Array , "Band / energy window for orthogonalizing projectors"],
       )
 
 """
@@ -78,6 +78,9 @@ const PDMFT = Dict{String,Array{Any,1}}(
           "ec"       => [missing, 0, :F64   , "Convergence criterion of total energy"],
           "sc"       => [missing, 0, :F64   , "Convergence criterion of self-energy function"],
           "lfermi"   => [missing, 0, :Bool  , "Test whether chemical potential is updated"],
+          "lcharge"  => [missing, 0, :Bool  , "Test whether charge is converged"],
+          "lenergy"  => [missing, 0, :Bool  , "Test whether total energy is converged"],
+          "lsigma"   => [missing, 0, :Bool  , "Test whether self-energy function is converged"],
       )
 
 """
@@ -155,9 +158,6 @@ Mutable struct. Record the DFT + DMFT iteration information.
 * n₂ -> Number of lattice occupancy obtained by DMFT engine (`dmft2`).
 * nf -> Number of impurity occupancy obtained by impurity solver.
 * et -> Total DFT + DMFT energy.
-* cc -> Convergence flag for charge density.
-* ce -> Convergence flag for total energy.
-* cs -> Convergence flag for self-energy functions.
 
 See also: [`Logger`](@ref).
 """
@@ -178,9 +178,6 @@ mutable struct IterInfo
     n₂ :: F64
     nf :: Vector{F64}
     et :: F64
-    cc :: Bool
-    ce :: Bool
-    cs :: Bool
 end
 
 """
@@ -396,19 +393,9 @@ function IterInfo()
     n₂ = 0.0
     nf = fill(0.0, nsite)
     et = 0.0
-    cc = false
-    ce = false
-    cs = false
 
     # Call the default constructor
-    IterInfo(I, I, I, I, 
-             M₁, M₂, M₃,
-             sc, 
-             μ, μ, μ, 
-             dc, 
-             n₁, n₂, nf, 
-             et, 
-             cc, ce, cs)
+    IterInfo(I, I, I, I, M₁, M₂, M₃, sc, μ, μ, μ, dc, n₁, n₂, nf, et)
 end
 
 """
@@ -597,9 +584,6 @@ function Base.show(io::IO, it::IterInfo)
     println(io, "n₂ : ", it.n₂)
     println(io, "nf : ", it.nf)
     println(io, "et : ", it.et)
-    println(io, "cc : ", it.cc)
-    println(io, "ce : ", it.ce)
-    println(io, "cs : ", it.cs)
 end
 
 """

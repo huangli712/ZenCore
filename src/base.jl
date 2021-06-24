@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/24
+# Last modified: 2021/06/23
 #
 
 #=
@@ -189,9 +189,6 @@ function cycle1()
 
         # Print the cycle info
         show_it(it, lr)
-
-        # If the convergence has been achieved, then break the cycle.
-        conv_it(it) && break
     end
 
     # C98: Close Logger.log
@@ -1206,17 +1203,15 @@ function show_it(it::IterInfo, lr::Logger)
         for t = 1:nsite
             print(lr.cycle, "Nio$t        ")
         end
-        print(lr.cycle, "Etot        ")
-        println(lr.cycle, "C(C)    C(E)    C(S)")
+        println(lr.cycle, "Etot")
         # Write separator
-        println(lr.cycle, repeat('-', 3*8+ 4*5 + 6*12 + 24*nsite))
+        println(lr.cycle, repeat('-', 4*5 + 6*12 + 24*nsite))
     # Write iteration information
     else
         @printf(lr.cycle, "%-5i", it.I₄)
         @printf(lr.cycle, "%-5i", it.I₃)
         @printf(lr.cycle, "%-5i", it.I₁)
         @printf(lr.cycle, "%-5i", it.I₂)
-        #
         if it.μ₀ < 0.0
             @printf(lr.cycle, "%-12.7f", it.μ₀)
         else
@@ -1232,42 +1227,18 @@ function show_it(it::IterInfo, lr::Logger)
         else
             @printf(lr.cycle, "+%-11.7f", it.μ₂)
         end
-        #
         for t = 1:nsite
             @printf(lr.cycle, "%-12.7f", it.dc[t])
         end
-        #
         @printf(lr.cycle, "%-12.7f", it.n₁)
         @printf(lr.cycle, "%-12.7f", it.n₂)
         for t = 1:nsite
             @printf(lr.cycle, "%-12.7f", it.nf[t])
         end
-        #
         @printf(lr.cycle, "%-12.7f", it.et)
-        #
-        @printf(lr.cycle, "%-8s", it.cc ? "true" : "false")
-        @printf(lr.cycle, "%-8s", it.ce ? "true" : "false")
-        @printf(lr.cycle, "%-8s", it.cs ? "true" : "false")
-        #
         println(lr.cycle)
     end
 
     # Flush the IOStream
     flush(lr.cycle)
-end
-
-"""
-    conv_it(it::IterInfo)
-
-Check whether the convergence flags are achieved.
-
-See also: [`IterInfo`](@ref).
-"""
-function conv_it(it::IterInfo)
-    if it.sc == 1
-        conv = it.cs
-    else
-        conv = it.cc && it.ce && it.cs
-    end
-    conv
 end

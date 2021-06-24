@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/24
+# Last modified: 2021/06/22
 #
 
 #=
@@ -343,6 +343,9 @@ function cat_m()
     println("    ec       -> ", str_m("ec"))
     println("    sc       -> ", str_m("sc"))
     println("    lfermi   -> ", str_m("lfermi"))
+    println("    lcharge  -> ", str_m("lcharge"))
+    println("    lenergy  -> ", str_m("lenergy"))
+    println("    lsigma   -> ", str_m("lsigma"))
 end
 
 """
