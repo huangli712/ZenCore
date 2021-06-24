@@ -1206,7 +1206,7 @@ function show_it(it::IterInfo, lr::Logger)
         for t = 1:nsite
             print(lr.cycle, "Nio$t        ")
         end
-        println(lr.cycle, "Etot        ")
+        print(lr.cycle, "Etot        ")
         println(lr.cycle, "C(C)    C(E)    C(S)")
         # Write separator
         println(lr.cycle, repeat('-', 3*8+ 4*5 + 6*12 + 24*nsite))
@@ -1245,9 +1245,9 @@ function show_it(it::IterInfo, lr::Logger)
         #
         @printf(lr.cycle, "%-12.7f", it.et)
         #
-        @printf(lr.cycle, "%8s", it.cc ? "true" : "false")
-        @printf(lr.cycle, "%8s", it.ce ? "true" : "false")
-        @printf(lr.cycle, "%8s", it.cs ? "true" : "false")
+        @printf(lr.cycle, "%-8s", it.cc ? "true" : "false")
+        @printf(lr.cycle, "%-8s", it.ce ? "true" : "false")
+        @printf(lr.cycle, "%-8s", it.cs ? "true" : "false")
         #
         println(lr.cycle)
     end
