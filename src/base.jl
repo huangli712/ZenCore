@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/24
+# Last modified: 2021/06/25
 #
 
 #=
@@ -394,7 +394,7 @@ function cycle5()
     ai = GetImpurity()
 
     # C01: Execuate the quantum impurity solvers
-    solver_run(it, lr, ai)
+    @time_call solver_run(it, lr, ai)
 
     # C98: Close Logger.log
     if isopen(lr.log)

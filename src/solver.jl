@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/21
+# Last modified: 2021/06/25
 #
 
 #=
@@ -192,9 +192,6 @@ function s_qmc1_save(it::IterInfo, imp::Impurity)
 
     # Update the `it` (IterInfo) struct
     it.nf[imp.index] = imp.occup
-
-    # Print the footer for a better visualization
-    println()
 end
 
 #=
