@@ -566,6 +566,6 @@ macro time_call(ex)
         local t0 = time_ns()
         $(esc(ex))
         δt = (time_ns() - t0) / 1e9
-        println("Elapsed time: $(δt) s\n")
+        println("Report: Total elapsed time $(δt) s\n")
     end
 end
