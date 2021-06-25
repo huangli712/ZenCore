@@ -47,9 +47,6 @@ function vasp_adaptor(D::Dict{Symbol,Any})
     if get_d("smear") === "tetra"
         D[:volt], D[:itet] = vaspio_tetra(pwd())
     end
-
-    # V08: Print the footer for a better visualization
-    println()
 end
 
 """
