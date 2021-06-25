@@ -74,9 +74,6 @@ function ir_adaptor(D::Dict{Symbol,Any})
     if get_d("smear") === "tetra"
         irio_tetra(pwd(), D[:volt], D[:itet])
     end
-
-    # I11: Print the footer for a better visualization
-    println()
 end
 
 """
