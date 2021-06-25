@@ -646,7 +646,7 @@ function dft_run(lr::Logger)
     engine = get_d("engine")
 
     # Print the log
-    prompt("DFT")
+    prompt("DFT $(cntr_it(it))")
     prompt(lr.log, engine)
 
     # Read in the correction for density matrix
@@ -695,7 +695,7 @@ function dmft_run(it::IterInfo, lr::Logger, task::I64)
     @assert task === 1 || task === 2
 
     # Print the log
-    prompt("DMFT")
+    prompt("DMFT $(cntr_it(it))")
     prompt(lr.log, "dmft$task")
 
     # Enter dmft1 or dmft2 directory
@@ -750,7 +750,7 @@ function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
         imp = ai[i]
 
         # Print the log
-        prompt("Solvers")
+        prompt("Solvers $(cntr_it(it))")
         prompt(lr.log, engine)
 
         # Enter impurity.i directory
@@ -835,7 +835,7 @@ function adaptor_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
     # Kohn-Sham data will be stored in the DFTData dict.
     #
     engine = get_d("engine")
-    prompt("Adaptor")
+    prompt("Adaptor $(cntr_it(it))")
     prompt(lr.log, "adaptor::$engine")
     @cswitch engine begin
         # For VASP
@@ -864,7 +864,7 @@ function adaptor_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
     # using the `src/tools/test.jl` tool to examine the DFT data.
     #
     projtype = get_d("projtype")
-    prompt("Adaptor")
+    prompt("Adaptor $(cntr_it(it))")
     prompt(lr.log, "adaptor::$projtype")
     @cswitch projtype begin
         # For projected local orbital scheme
@@ -889,7 +889,7 @@ function adaptor_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
     # to some specified files with the IR format. Then these files will
     # be saved immediately.
     #
-    prompt("Adaptor")
+    prompt("Adaptor $(cntr_it(it))")
     prompt(lr.log, "adaptor::ir")
     @time_call ir_adaptor(DFTData)
     ir_save(it)
@@ -923,7 +923,7 @@ function sigma_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::Strin
     @assert task in ("reset", "dcount", "split", "gather")
 
     # Print the log
-    prompt("Sigma")
+    prompt("Sigma $(cntr_it(it))")
     prompt(lr.log, "sigma::$task")
 
     # Launch suitable subroutine
@@ -991,7 +991,7 @@ function mixer_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::Strin
     end
 
     # Print the log
-    prompt("Mixer")
+    prompt("Mixer $(cntr_it(it))")
     prompt(lr.log, "mixer::$task")
 
     # Launch suitable subroutine
