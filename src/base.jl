@@ -972,6 +972,10 @@ function mixer_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::Strin
     # Check the given task
     @assert task in ("sigma", "delta", "eimpx", "gamma")
 
+    # Print the log
+    prompt("Mixer $(cntr_it(it))")
+    prompt(lr.log, "mixer::$task")
+
     # Check iteration number to see whether we have enough data to be mixed
     if it.sc == 1
         if it.I₁ ≤ 1
@@ -989,10 +993,6 @@ function mixer_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::Strin
             end
         end
     end
-
-    # Print the log
-    prompt("Mixer $(cntr_it(it))")
-    prompt(lr.log, "mixer::$task")
 
     # Launch suitable subroutine
     @cswitch task begin
