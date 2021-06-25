@@ -560,7 +560,12 @@ end
 Evaluate a function call (`f`), and then print the elapsed time (number
 of seconds) it took to execute.
 """
-function time_call(f)
-    t = @elapsed f
-    println("Elapsed time: $t s\n")
+macro time_call(ex)
+    quote
+        while false; end
+        local t0 = time_ns()
+        $(esc(ex))
+        δt = (time_ns() - t0) / 1e9
+        println("Elapsed time: $(δt) s\n")
+    end
 end

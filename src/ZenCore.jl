@@ -166,7 +166,7 @@ export line_to_array
 export line_to_cmplx
 export erf
 export subscript
-export time_call
+export @time_call
 
 #=
 ### *Includes And Exports* : *tetra.jl*
