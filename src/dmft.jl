@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/23
+# Last modified: 2021/06/25
 #
 
 #=
@@ -230,9 +230,6 @@ function dmft_save(it::IterInfo, task::I64)
     task == 1 ? it.n₁ = occup : it.n₂ = occup
     println("  > Extract the fermi level from dmft.fermi: $fermi eV")
     println("  > Extract the lattice occupancy from dmft.fermi: $occup")
-
-    # Print the footer for a better visualization
-    println()
 end
 
 #=
