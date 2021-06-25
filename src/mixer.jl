@@ -232,7 +232,9 @@ function distance(SA::Vector{Array{C64,4}}, SB::Vector{Array{C64,4}})
     SC = SA - SB
     diff = zero(C64)
     for i in eachindex(SC)
-        diff = diff + sum(SC[i]) / length(SC[i])
+        # Actually, the non-diagonal elements are zero!
+        num_zeros_elements = count(x -> x == zero(C64), SC[i])
+        diff = diff + sum(SC[i]) / (length(SC[i]) - num_zeros_elements)
     end
     diff = diff / length(SC)
 
