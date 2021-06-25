@@ -137,16 +137,16 @@ function cycle1()
     prompt("ZEN", "Initialization")
 
     # C01: Perform DFT calculation (for the first time)
-    dft_run(it, lr)
+    @time_call dft_run(it, lr)
 
     # C02: Perform DFT calculation (for the second time)
-    get_d("loptim") && dft_run(it, lr)
+    get_d("loptim") && @time_call dft_run(it, lr)
 
     # C03: To bridge the gap between DFT engine and DMFT engine by adaptor
-    adaptor_run(it, lr, ai)
+    @time_call adaptor_run(it, lr, ai)
 
     # C04: Prepare default self-energy functions
-    sigma_core(it, lr, ai, "reset")
+    @time_call sigma_core(it, lr, ai, "reset")
 
 #
 # DFT + DMFT Iterations (C05-C12)
@@ -164,28 +164,28 @@ function cycle1()
         incr_it(it)
 
         # C05: Tackle with the double counting term
-        sigma_core(it, lr, ai, "dcount")
+        @time_call sigma_core(it, lr, ai, "dcount")
 
         # C06: Perform DMFT calculation with `task` = 1
-        dmft_run(it, lr, 1)
+        @time_call dmft_run(it, lr, 1)
 
         # C07: Mix the hybridization functions
-        mixer_core(it, lr, ai, "delta")
+        @time_call mixer_core(it, lr, ai, "delta")
 
         # C08: Mix the local impurity levels
-        mixer_core(it, lr, ai, "eimpx")
+        @time_call mixer_core(it, lr, ai, "eimpx")
 
         # C09: Split and distribute the hybridization functions
-        sigma_core(it, lr, ai, "split")
+        @time_call sigma_core(it, lr, ai, "split")
 
         # C10: Solve the quantum impurity problems
-        solver_run(it, lr, ai)
+        @time_call solver_run(it, lr, ai)
 
         # C11: Gather and combine the impurity self-functions
-        sigma_core(it, lr, ai, "gather")
+        @time_call sigma_core(it, lr, ai, "gather")
 
         # C12: Mix the impurity self-energy functions
-        mixer_core(it, lr, ai, "sigma")
+        @time_call mixer_core(it, lr, ai, "sigma")
 
         # Print the cycle info
         show_it(it, lr)
