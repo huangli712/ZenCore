@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/24
+# Last modified: 2021/06/25
 #
 
 """
@@ -139,6 +139,7 @@ export authors
 # line_to_cmplx -> Convert a line to a cmplx number.
 # erf           -> Gauss error function.
 # subscript     -> Convert a number to subscript.
+# time_call     -> Evaluate a function call and return the elapsed time.
 #
 include("util.jl")
 #
@@ -165,6 +166,7 @@ export line_to_array
 export line_to_cmplx
 export erf
 export subscript
+export time_call
 
 #=
 ### *Includes And Exports* : *tetra.jl*
