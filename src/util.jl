@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/21
+# Last modified: 2021/06/25
 #
 
 #=
@@ -549,6 +549,7 @@ Convert a number (it must be in [0,9]) to subscript.
 """
 function subscript(num::I64)
     @assert num >=0 && num <= 9
-    SUB = ["\u2080" "\u2081" "\u2082" "\u2083" "\u2084" "\u2085" "\u2086" "\u2087" "\u2088" "\u2089"]
+    SUB = ["\u2080" "\u2081" "\u2082" "\u2083" "\u2084"
+           "\u2085" "\u2086" "\u2087" "\u2088" "\u2089"]
     return SUB[num + 1]
 end
