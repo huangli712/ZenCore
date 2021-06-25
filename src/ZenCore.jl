@@ -348,6 +348,7 @@ export str_s
 # incr_it     -> Increase the counters in the IterInfo struct.
 # zero_it     -> Reset the counters in the IterInfo struct.
 # prev_it     -> Return the previous iteration information.
+# cntr_it     -> Return the counters in the IterInfo struct.
 # show_it     -> Print the iteration information.
 # conv_it     -> Check whether the convergence flags are achieved.
 #
@@ -377,6 +378,7 @@ export clear_trees
 export incr_it
 export zero_it
 export prev_it
+export cntr_it
 export show_it
 export conv_it
 
