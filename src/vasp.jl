@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/21
+# Last modified: 2021/06/25
 #
 
 #=
@@ -237,9 +237,6 @@ function vasp_save(it::IterInfo)
     # will be saved at IterInfo.μ₀.
     it.μ₀ = vaspio_fermi(pwd())
     println("  > Extract the fermi level from DOSCAR: $(it.μ₀) eV")
-
-    # Print the footer
-    println()
 end
 
 #=
