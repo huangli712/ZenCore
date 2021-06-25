@@ -603,7 +603,7 @@ function dft_run(it::IterInfo, lr::Logger)
     engine = get_d("engine")
 
     # Print the log
-    prompt("DFT")
+    prompt("DFT $(cntr_it(it))")
     prompt(lr.log, engine)
 
     # Enter dft directory
@@ -1181,6 +1181,17 @@ function prev_it(it::IterInfo, c::I64)
         @assert ind ≥ 2
         return newlist[ind - 1]
     end
+end
+
+"""
+    cntr_it(it::IterInfo)
+
+Return the counters in the IterInfo struct as a format string.
+
+See also: [`IterInfo`](@ref)
+"""
+function cntr_it(it::IterInfo)
+    "(Cycle -> $(it.sc) : $(it.I₄) : $(it.I₃) : $(it.I₁) : $(it.I₂))"
 end
 
 """
