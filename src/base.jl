@@ -325,10 +325,10 @@ function cycle3()
     lr = Logger(query_case())
 
     # C01: Perform DFT calculation (for the first time)
-    dft_run(it, lr)
+    @time_call dft_run(it, lr)
 
     # C02: Perform DFT calculation (for the second time)
-    get_d("loptim") && dft_run(it, lr)
+    get_d("loptim") && @time_call dft_run(it, lr)
 
     # C98: Close Logger.log
     if isopen(lr.log)
@@ -359,7 +359,7 @@ function cycle4(task::I64)
     lr = Logger(query_case())
 
     # C01: Execuate the DMFT engine
-    dmft_run(it, lr, task)
+    @time_call dmft_run(it, lr, task)
 
     # C98: Close Logger.log
     if isopen(lr.log)
@@ -428,7 +428,7 @@ function cycle6()
     ai = GetImpurity()
 
     # C01: Execute the Kohn-Sham adaptor
-    adaptor_run(it, lr, ai)
+    @time_call adaptor_run(it, lr, ai)
 
     # C98: Close Logger.log
     if isopen(lr.log)
@@ -462,7 +462,7 @@ function cycle7(task::String = "reset")
     ai = GetImpurity()
 
     # C01: Execute the Kohn-Sham adaptor
-    sigma_core(it, lr, ai, task)
+    @time_call sigma_core(it, lr, ai, task)
 
     # C98: Close Logger.log
     if isopen(lr.log)
@@ -502,7 +502,7 @@ function cycle8(task::String = "sigma")
     it.I₁ = 10
 
     # C02: Execute the Kohn-Sham adaptor
-    mixer_core(it, lr, ai, task)
+    @time_call mixer_core(it, lr, ai, task)
 
     # C98: Close Logger.log
     if isopen(lr.log)
