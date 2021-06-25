@@ -401,13 +401,13 @@ function IterInfo()
     cs = false
 
     # Call the default constructor
-    IterInfo(I, I, I, I, 
+    IterInfo(I, I, I, I,
              M₁, M₂, M₃,
-             sc, 
-             μ, μ, μ, 
-             dc, 
-             n₁, n₂, nf, 
-             et, 
+             sc,
+             μ, μ, μ,
+             dc,
+             n₁, n₂, nf,
+             et,
              cc, ce, cs)
 end
 
