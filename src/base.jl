@@ -143,7 +143,7 @@ function cycle1()
     get_d("loptim") && @time_call dft_run(it, lr)
 
     # C03: To bridge the gap between DFT engine and DMFT engine by adaptor
-    @time_call adaptor_run(it, lr, ai)
+    adaptor_run(it, lr, ai)
 
     # C04: Prepare default self-energy functions
     @time_call sigma_core(it, lr, ai, "reset")
@@ -428,7 +428,7 @@ function cycle6()
     ai = GetImpurity()
 
     # C01: Execute the Kohn-Sham adaptor
-    @time_call adaptor_run(it, lr, ai)
+    adaptor_run(it, lr, ai)
 
     # C98: Close Logger.log
     if isopen(lr.log)
@@ -841,7 +841,7 @@ function adaptor_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
         # For VASP
         @case "vasp"
             vasp_files()
-            vasp_adaptor(DFTData)
+            @time_call vasp_adaptor(DFTData)
             break
 
         @default
@@ -869,7 +869,7 @@ function adaptor_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
     @cswitch projtype begin
         # For projected local orbital scheme
         @case "plo"
-            plo_adaptor(DFTData, ai)
+            @time_call plo_adaptor(DFTData, ai)
             break
 
         # For maximally localized wannier function scheme
@@ -891,7 +891,7 @@ function adaptor_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
     #
     prompt("Adaptor")
     prompt(lr.log, "adaptor::ir")
-    ir_adaptor(DFTData)
+    @time_call ir_adaptor(DFTData)
     ir_save(it)
 
     #
