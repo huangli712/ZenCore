@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/21
+# Last modified: 2021/06/25
 #
 
 #=
@@ -87,9 +87,6 @@ function plo_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     if cmp(basename(splitext(PROGRAM_FILE)[1]), "test") === 0
         plo_monitor(D)
     end
-
-    # P11: Print the footer for a better visualization
-    println()
 end
 
 #=
