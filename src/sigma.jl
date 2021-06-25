@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/21
+# Last modified: 2021/06/25
 #
 
 #=
@@ -71,9 +71,6 @@ function sigma_reset(ai::Array{Impurity,1})
     # Write self-energy functions and the corresponding frequency mesh
     println("Write self-energy functions")
     write_sigma(fmesh, SA, ai)
-
-    # Print blank line for better visualization
-    println()
 end
 
 """
@@ -174,9 +171,6 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
     # Write double counting terms
     println("Write double counting terms")
     write_sigdc(DCA, ai)
-
-    # Print blank line for better visualization
-    println()
 end
 
 """
@@ -210,9 +204,6 @@ function sigma_split(ai::Array{Impurity,1})
     #
     # Write it into impurity.i/dmft.eimpx
     write_eimpx(Eimpx, ai)
-
-    # Print blank line for better visualization
-    println()
 end
 
 """
@@ -272,9 +263,6 @@ function sigma_gather(it::IterInfo, ai::Array{Impurity,1})
     # Backup the self-energy functions
     fsig = "dmft1/sigma.bare"
     cp(fsig, "$fsig.$(it.I₃).$(it.I₁)", force = true)
-
-    # Print blank line for better visualization
-    println()
 end
 
 #=
