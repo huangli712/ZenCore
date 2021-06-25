@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/24
+# Last modified: 2021/06/25
 #
 
 """
@@ -70,9 +70,6 @@ function mixer_sigma(it::IterInfo, ai::Array{Impurity,1})
     dist = distance(Scurr, Sprev)
     it.cs = ( dist < get_m("sc") )
     println("  > Averaged ΔΣ = $dist ( convergence is $(it.cs) )" )
-
-    # Print blank line for better visualization
-    println()
 end
 
 """
@@ -132,9 +129,6 @@ function mixer_delta(it::IterInfo, ai::Array{Impurity,1})
     # Write the new hybridization functions into `dmft1/dmft.delta`
     println("Write hybridization functions")
     write_delta(fcurr, Dnew, ai, "dmft1/dmft.delta")
-
-    # Print blank line for better visualization
-    println()
 end
 
 """
@@ -194,9 +188,6 @@ function mixer_eimpx(it::IterInfo, ai::Array{Impurity,1})
     # Write the new local impurity levels into `dmft1/dmft.eimpx`
     println("Write local impurity levels")
     write_eimpx(Enew, ai, "dmft1/dmft.eimpx")
-
-    # Print blank line for better visualization
-    println()
 end
 
 """
@@ -207,9 +198,6 @@ See also: [`mixer_core`](@ref).
 function mixer_gamma(it::IterInfo)
     # Print the header
     println("Mixer : Gamma")
-
-    # Print blank line for better visualization
-    println()
 end
 
 """
