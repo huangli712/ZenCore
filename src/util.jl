@@ -553,3 +553,14 @@ function subscript(num::I64)
            "\u2085" "\u2086" "\u2087" "\u2088" "\u2089"]
     return SUB[num + 1]
 end
+
+"""
+    time_call(f)
+
+Evaluate a function call (`f`), and then print the elapsed time (number
+of seconds) it took to execute.
+"""
+function time_call(f)
+    t = @elapsed f
+    println("Elapsed time: $t s\n")
+end
