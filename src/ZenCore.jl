@@ -117,6 +117,7 @@ export authors
 # Members:
 #
 # @cswitch      -> C-style switch.
+# @time_call    -> Evaluate a function call and print the elapsed time.
 # @ps1          -> Wrapper for printstyled function.
 # @ps2          -> Another wrapper for printstyled function.
 # require       -> Check julia envirnoment.
@@ -139,11 +140,11 @@ export authors
 # line_to_cmplx -> Convert a line to a cmplx number.
 # erf           -> Gauss error function.
 # subscript     -> Convert a number to subscript.
-# time_call     -> Evaluate a function call and return the elapsed time.
 #
 include("util.jl")
 #
 export @cswitch
+export @time_call
 export @ps1
 export @ps2
 export require
@@ -166,7 +167,6 @@ export line_to_array
 export line_to_cmplx
 export erf
 export subscript
-export @time_call
 
 #=
 ### *Includes And Exports* : *tetra.jl*
