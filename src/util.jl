@@ -456,12 +456,14 @@ function prompt(msg::String)
 end
 
 """
-    prompt(msg::String)
+    prompt(msg1::String, msg2::String)
 
 Print a format Zen message to the screen.
 """
-function prompt(msg::String)
-    @ps2 "Task -> " :blue msg :light_red
+function prompt(msg1::String, msg2::String)
+    print(blue("Task -> "))
+    print(light_red(msg1))
+    print(light_green(msg2))
     println()
 end
 
