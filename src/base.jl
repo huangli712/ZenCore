@@ -1191,7 +1191,7 @@ Return the counters in the IterInfo struct as a format string.
 See also: [`IterInfo`](@ref)
 """
 function cntr_it(it::IterInfo)
-    "(Cycle -> $(it.sc) : $(it.I₄) : $(it.I₃) : $(it.I₁) : $(it.I₂))"
+    " [Cycle -> $(it.sc) : $(it.I₄) : $(it.I₃) : $(it.I₁) : $(it.I₂)] "
 end
 
 """

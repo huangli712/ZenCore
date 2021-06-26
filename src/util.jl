@@ -464,7 +464,7 @@ Print a format Zen message to the screen.
 function prompt(msg1::String, msg2::String)
     print(blue("Task -> "))
     print(light_red(msg1))
-    print(light_green(msg2))
+    print(magenta(msg2))
     println()
 end
 
