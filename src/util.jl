@@ -101,7 +101,7 @@ denotes color.
 See also: [`@ps2`](@ref).
 """
 macro ps1(str, c)
-    return :( printstyled($str, color = $c) )
+    return :( print(eval($c)($str)) )
 end
 
 """
