@@ -114,8 +114,8 @@ See also: [`@ps1`](@ref).
 """
 macro ps2(str1, c1, str2, c2)
     ex = quote
-        printstyled($str1, color = $c1)
-        printstyled($str2, color = $c2)
+        print(eval($c1)($str1))
+        print(eval($c2)($str2))
     end
     return :( $(esc(ex)) )
 end
