@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/25
+# Last modified: 2021/06/26
 #
 
 #=
@@ -446,12 +446,12 @@ function sorry()
 end
 
 """
-    prompt(from::String, msg::String)
+    prompt(msg::String)
 
 Print a format Zen message to the screen.
 """
-function prompt(from::String, msg::String)
-    @ps2 "$from > " :green msg :magenta
+function prompt(msg::String)
+    @ps2 "ZEN > " :green msg :magenta
     println()
 end
 
