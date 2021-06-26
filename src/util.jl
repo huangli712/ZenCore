@@ -419,7 +419,7 @@ function overview()
     str2 = "(myid = $(myid()))"
 
     # Write the information
-    prompt("ZEN", "Overview")
+    prompt("Overview")
     println("Time : ", Dates.format(now(), "yyyy-mm-dd / HH:MM:SS"))
     println("Para : Using ", nprocs(), str1, str2)
     println("Dirs : ", pwd())
