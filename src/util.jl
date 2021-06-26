@@ -580,6 +580,11 @@ end
 ### *Color Tools*
 =#
 
+"""
+    COLORS
+
+A global dict, which is used to specify the system colors.
+"""
 const COLORS = Dict{String,I64}(
     "black"          => 0,
     "red"            => 1,
@@ -600,6 +605,11 @@ const COLORS = Dict{String,I64}(
     "light_white"    => 67
 )
 
+"""
+    MODES
+
+A global dict, which is used to specify the mode for output characters.
+"""
 const MODES = Dict{String,I64}(
     "default"        => 0,
     "bold"           => 1,
@@ -611,15 +621,29 @@ const MODES = Dict{String,I64}(
 
 const C_OFFSET = 30
 const B_OFFSET = 40
-  
+
+"""
+    colorize(c::String, s::String; bg::String = "default", m::String="default")
+
+Return some escape sequences, which will be displayed as colorized texts
+in the terminal.
+"""
 function colorize(c::String, s::String; bg::String = "default", m::String="default")
     "\033[$(MODES[m]);$(C_OFFSET + COLORS[c]);$(B_OFFSET + COLORS[bg])m$(s)\033[0m"
 end
-  
+
+"""
+    colorize(c::String, s::String; bg::String = "default", m::String="default")
+
+Return some escape sequences, which will be displayed as colorized texts
+in the terminal.
+"""
 function colorize(c::Symbol, s::String; bg::String = "default", m::String="default")
     colorize(string(c), s; bg=bg, m=m)
 end
 
+# Generate and export dynamically the color functions, such as
+# `red(str)`, `cyan(str)`, etc.
 for k in keys(COLORS)
     f = Symbol(k)
     k == "default" && continue
