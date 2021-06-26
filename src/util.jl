@@ -451,7 +451,8 @@ end
 Print a format Zen message to the screen.
 """
 function prompt(msg::String)
-    @ps2 "ZEN > " :green msg :magenta
+    print(green("ZEN > "))
+    print(magenta(msg))
     println()
 end
 
