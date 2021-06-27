@@ -580,6 +580,17 @@ end
 ### *Color Tools*
 =#
 
+#=
+*Remarks*:
+
+Actually, the following codes are inspried by this repository:
+
+* https://github.com/Aerlinger/AnsiColor.jl
+
+The purpose of these codes is to provide some convenient tools to output
+colorful texts.
+=#
+
 """
     COLORS
 
