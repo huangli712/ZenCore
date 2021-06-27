@@ -619,9 +619,6 @@ const MODES = Dict{String,I64}(
     "hide"           => 8
 )
 
-const C_OFFSET = 30
-const B_OFFSET = 40
-
 """
     colorize(c::String, s::String; bg::String = "default", m::String="default")
 
@@ -629,6 +626,8 @@ Return some escape sequences, which will be displayed as colorized texts
 in the terminal.
 """
 function colorize(c::String, s::String; bg::String = "default", m::String="default")
+    C_OFFSET = 30
+    B_OFFSET = 40
     "\033[$(MODES[m]);$(C_OFFSET + COLORS[c]);$(B_OFFSET + COLORS[bg])m$(s)\033[0m"
 end
 
