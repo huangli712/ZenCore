@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/26
+# Last modified: 2021/06/27
 #
 
 #=
@@ -646,23 +646,31 @@ end
 
 The following codes will generate and export dynamically some color
 functions, including:
+
 * black(str::String)
-* red"            => 1,
-* green"          => 2,
-* yellow"         => 3,
-* blue"           => 4,
-    "magenta"        => 5,
-    "cyan"           => 6,
-    "white"          => 7,
-    "default"        => 9,
-    "light_black"    => 60,
-    "light_red"      => 61,
-    "light_green"    => 62,
-    "light_yellow"   => 63,
-    "light_blue"     => 64,
-    "light_magenta"  => 65,
-    "light_cyan"     => 66,
-    "light_white"    => 67
+* red(str::String)
+* green(str::String)
+* yellow(str::String)
+* blue(str::String)
+* magenta(str::String)
+* cyan(str::String)
+* white(str::String)
+* light_black(str::String)
+* light_red(str::String)
+* light_green(str::String)
+* light_yellow(str::String)
+* light_blue(str::String)
+* light_magenta(str::String)
+* light_cyan(str::String)
+* light_white(str::String)
+
+These functions provide some shortcuts to create texts decorated by
+special escape sequences. These texts will be show as colorized texts
+in the terminal.
+
+```julia
+julia> println(red("hello world!")) 
+```
 =#
 
 for k in keys(COLORS)
