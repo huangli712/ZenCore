@@ -641,8 +641,30 @@ function colorize(c::Symbol, s::String; bg::String = "default", m::String="defau
     colorize(string(c), s; bg=bg, m=m)
 end
 
-# Generate and export dynamically the color functions, such as
-# `red(str)`, `cyan(str)`, etc.
+#=
+*Remarks*:
+
+The following codes will generate and export dynamically some color
+functions, including:
+* black(str::String)
+* red"            => 1,
+* green"          => 2,
+* yellow"         => 3,
+* blue"           => 4,
+    "magenta"        => 5,
+    "cyan"           => 6,
+    "white"          => 7,
+    "default"        => 9,
+    "light_black"    => 60,
+    "light_red"      => 61,
+    "light_green"    => 62,
+    "light_yellow"   => 63,
+    "light_blue"     => 64,
+    "light_magenta"  => 65,
+    "light_cyan"     => 66,
+    "light_white"    => 67
+=#
+
 for k in keys(COLORS)
     f = Symbol(k)
     k == "default" && continue
