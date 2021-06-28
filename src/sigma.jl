@@ -333,8 +333,12 @@ function cal_dc_fll(U::F64, J::F64, Nup::F64, Ndn::F64)
     return DCup, DCdn
 end
 
+#=
+*Around Mean-Field Scheme*:
+=#
+
 """
-    cal_dc_amf(U::F64, J::F64, N::F64)
+    cal_dc_amf(U::F64, J::F64, Nup::F64)
 
 Evaluate the double counting term by the around mean-field scheme.
 
@@ -366,14 +370,14 @@ Here ``M`` is the number of correlated orbitals.
 =#
 
 """
-    cal_dc_held(U::F64, J::F64, N::F64, nband::I64)
+    cal_dc_held(U::F64, J::F64, N::F64, M::I64)
 
 Evaluate the double counting term by the K. Held scheme.
 
 See also: [`cal_dc_fll`](@ref), [`cal_dc_exact`](@ref).
 """
-function cal_dc_held(U::F64, J::F64, N::F64, nband::I64)
-    Uav = ( U + (nband - 1.0)*(2.0*U - 5.0*J) ) / (2.0 * nband - 1.0)
+function cal_dc_held(U::F64, J::F64, N::F64, M::I64)
+    Uav = ( U + (M - 1.0)*(2.0*U - 5.0*J) ) / (2.0 * M - 1.0)
     Uav * (N - 0.5)
 end
 
