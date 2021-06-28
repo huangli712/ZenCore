@@ -270,12 +270,34 @@ end
 =#
 
 #=
-*Theory*:
+*Fully Localized Limit Scheme*:
 
+For spin-unpolarized case,
 ```math
 \Sigma^{\text{FLL}}_{\text{dc}}
     =
-    U\left(N - \frac{1}{2}\right) - \frac{J}{2} (N - 1).
+    U\left(N - \frac{1}{2}\right) 
+    -
+    J \left(\frac{N}{2} - \frac{1}{2}\right).
+```
+
+For spin-polarized case,
+```math
+\Sigma^{\text{FLL}}_{\text{dc},\uparrow}
+    =
+    U\left(N_{\uparrow} + N_{\downarrow} - \frac{1}{2}\right) 
+    - 
+    J \left(N_{\uparrow} - \frac{1}{2}\right),
+```
+
+and
+
+```math
+\Sigma^{\text{FLL}}_{\text{dc},\downarrow}
+    =
+    U\left(N_{\uparrow} + N_{\downarrow} - \frac{1}{2}\right) 
+    - 
+    J \left(N_{\downarrow} - \frac{1}{2}\right).
 ```
 =#
 
