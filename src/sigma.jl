@@ -364,7 +364,7 @@ In the following codes, we implement a slightly different version:
 \Sigma^{\text{AMF}}_{\text{dc},\uparrow}
     =
     U\left(N_{\uparrow} + N_{\downarrow} - \frac{N_{\uparrow}}{M}\right)
-    +
+    -
     J\left(N_{\uparrow} - \frac{N_{\uparrow}}{M}\right).
 \end{equation}
 ```
@@ -376,7 +376,7 @@ and
 \Sigma^{\text{AMF}}_{\text{dc},\downarrow}
     =
     U\left(N_{\uparrow} + N_{\downarrow} - \frac{N_{\downarrow}}{M}\right)
-    +
+    -
     J\left(N_{\downarrow} - \frac{N_{\downarrow}}{M}\right).
 \end{equation}
 ```
@@ -393,6 +393,9 @@ Evaluate the double counting term by the around mean-field scheme.
 See also: [`cal_dc_fll`](@ref), [`cal_dc_exact`](@ref).
 """
 function cal_dc_amf(U::F64, J::F64, Nup::F64, Ndn::F64, M::I64)
+    DCup = U * ( Nup + Ndn - Nup / M ) - J * ( Nup - Nup / M )
+    DCdn = U * ( Nup + Ndn - Ndn / M ) - J * ( Ndn - Ndn / M )
+    return DCup, DCdn
 end
 
 #=
