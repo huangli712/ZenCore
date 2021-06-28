@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/25
+# Last modified: 2021/06/28
 #
 
 #=
@@ -84,9 +84,11 @@ function plo_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     # density of states. Of course, it is time-comsuming to do
     # these things. So it is a good idea to turn off this feature
     # if everything is on the way.
-    if cmp(basename(splitext(PROGRAM_FILE)[1]), "test") === 0
-        plo_monitor(D)
-    end
+    #
+    #if cmp(basename(splitext(PROGRAM_FILE)[1]), "test") === 0
+    #    plo_monitor(D)
+    #end
+    isinteractive() && plo_monitor(D)
 end
 
 #=
