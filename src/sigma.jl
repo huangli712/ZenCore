@@ -338,15 +338,19 @@ function cal_dc_amf(U::F64, J::F64, N::F64)
     sorry()
 end
 
+#=
+=#
+
 """
-    cal_dc_held()
+    cal_dc_held(U::F64, J::F64, N::F64, nband::I64)
 
 Evaluate the double counting term by the K. Held scheme.
 
 See also: [`cal_dc_fll`](@ref), [`cal_dc_exact`](@ref).
 """
-function cal_dc_held()
-    sorry()
+function cal_dc_held(U::F64, J::F64, N::F64, nband::I64)
+    Uav = ( U + (nband - 1.0)*(2.0*U - 5.0*J) ) / (2.0 * nband - 1.0)
+    Uav * (N - 0.5)
 end
 
 """
