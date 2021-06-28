@@ -335,17 +335,64 @@ end
 
 #=
 *Around Mean-Field Scheme*:
+
+It is designed for spin-polarized case. The original formula are:
+
+```math
+\begin{equation}
+\Sigma^{\text{AMF}}_{\text{dc},\uparrow}
+    =
+    UN_{\downarrow} + (U - J) N_{\uparrow} \frac{2l}{2l+1}.
+\end{equation}
+```
+
+and
+
+```math
+\begin{equation}
+\Sigma^{\text{AMF}}_{\text{dc},\downarrow}
+    =
+    UN_{\uparrow} + (U - J) N_{\downarrow} \frac{2l}{2l+1}.
+\end{equation}
+```
+
+In the following codes, we implement a slightly different version:
+
+
+```math
+\begin{equation}
+\Sigma^{\text{AMF}}_{\text{dc},\uparrow}
+    =
+    U\left(N_{\uparrow} + N_{\downarrow} - \frac{N_{\uparrow}}{M}\right)
+    +
+    J\left(N_{\uparrow} - \frac{N_{\uparrow}}{M}\right).
+\end{equation}
+```
+
+and
+
+```math
+\begin{equation}
+\Sigma^{\text{AMF}}_{\text{dc},\downarrow}
+    =
+    U\left(N_{\uparrow} + N_{\downarrow} - \frac{N_{\downarrow}}{M}\right)
+    +
+    J\left(N_{\downarrow} - \frac{N_{\downarrow}}{M}\right).
+\end{equation}
+```
+
+In these equations, ``l`` means the quantum number of angular momentum,
+while ``M`` is the number of correlated orbitals.
 =#
 
 """
-    cal_dc_amf(U::F64, J::F64, Nup::F64)
+    cal_dc_amf(U::F64, J::F64, Nup::F64, Ndn::F64, M::I64)
 
 Evaluate the double counting term by the around mean-field scheme.
 
 See also: [`cal_dc_fll`](@ref), [`cal_dc_exact`](@ref).
 """
-function cal_dc_amf(U::F64, J::F64, N::F64)
-    sorry()
+function cal_dc_amf(U::F64, J::F64, Nup::F64, Ndn::F64, M::I64)
 end
 
 #=
