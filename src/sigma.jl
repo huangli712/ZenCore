@@ -274,30 +274,36 @@ end
 
 For spin-unpolarized case,
 ```math
+\begin{equation}
 \Sigma^{\text{FLL}}_{\text{dc}}
     =
     U\left(N - \frac{1}{2}\right) 
     -
     J \left(\frac{N}{2} - \frac{1}{2}\right).
+\end{equation}
 ```
 
 For spin-polarized case,
 ```math
+\begin{equation}
 \Sigma^{\text{FLL}}_{\text{dc},\uparrow}
     =
     U\left(N_{\uparrow} + N_{\downarrow} - \frac{1}{2}\right) 
     - 
     J \left(N_{\uparrow} - \frac{1}{2}\right),
+\end{equation}
 ```
 
 and
 
 ```math
+\begin{equation}
 \Sigma^{\text{FLL}}_{\text{dc},\downarrow}
     =
     U\left(N_{\uparrow} + N_{\downarrow} - \frac{1}{2}\right) 
     - 
     J \left(N_{\downarrow} - \frac{1}{2}\right).
+\end{equation}
 ```
 =#
 
@@ -339,6 +345,24 @@ function cal_dc_amf(U::F64, J::F64, N::F64)
 end
 
 #=
+*K. Held's Double Counting Scheme*:
+
+```math
+\begin{equation}
+\Sigma_{\text{dc}} = \bar{U} \left(N - \frac{1}{2}\right),
+\end{equation}
+```
+
+where the averaged interaction ``U_{\text{av}}`` reads
+
+```math
+\begin{equation}
+U_{\text{av}} = \frac{U + (M - 1)(2U - 5J)}{2M - 1}.
+\end{equation}
+```
+
+Here ``M`` is the number of correlated orbitals.
+
 =#
 
 """
