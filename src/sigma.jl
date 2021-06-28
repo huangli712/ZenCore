@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/25
+# Last modified: 2021/06/28
 #
 
 #=
@@ -283,11 +283,26 @@ end
     cal_dc_fll(U::F64, J::F64, N::F64)
 
 Evaluate the double counting term by the fully localized limit scheme.
+This function is for the spin-unpolarized case.
 
 See also: [`cal_dc_amf`](@ref), [`cal_dc_exact`](@ref).
 """
 function cal_dc_fll(U::F64, J::F64, N::F64)
     U * ( N - 0.5 ) - J / 2.0 * ( N - 1.0 )
+end
+
+"""
+    cal_dc_fll(U::F64, J::F64, Nup::F64, Ndn::F64)
+
+Evaluate the double counting term by the fully localized limit scheme.
+This function is for the spin-polarized case.
+
+See also: [`cal_dc_amf`](@ref), [`cal_dc_exact`](@ref).
+"""
+function cal_dc_fll(U::F64, J::F64, Nup::F64, Ndn::F64)
+    DCup = U * ( Nup + Ndn - 0.5 ) - J * ( Nup - 0.5 )
+    DCdn = U * ( Nup + Ndn - 0.5 ) - J * ( Ndn - 0.5 )
+    return DCup, DCdn
 end
 
 """
