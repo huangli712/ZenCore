@@ -336,7 +336,7 @@ end
 #=
 *Around Mean-Field Scheme*:
 
-It is designed for spin-polarized case. The original formula are:
+The original formula are:
 
 ```math
 \begin{equation}
@@ -386,9 +386,22 @@ while ``M`` is the number of correlated orbitals.
 =#
 
 """
+    cal_dc_amf(U::F64, J::F64, N::F64, M::I64)
+
+Evaluate the double counting term by the around mean-field scheme.
+This function is for the spin-unpolarized case.
+
+See also: [`cal_dc_fll`](@ref), [`cal_dc_exact`](@ref).
+"""
+function cal_dc_amf(U::F64, J::F64, N::F64, M::I64)
+    U * ( N - N / (2.0* M) ) - J * ( N / 2.0 - N / (2.0 * M) )
+end
+
+"""
     cal_dc_amf(U::F64, J::F64, Nup::F64, Ndn::F64, M::I64)
 
 Evaluate the double counting term by the around mean-field scheme.
+This function is for the spin-polarized case.
 
 See also: [`cal_dc_fll`](@ref), [`cal_dc_exact`](@ref).
 """
