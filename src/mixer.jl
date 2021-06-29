@@ -201,6 +201,14 @@ See also: [`mixer_core`](@ref).
 function mixer_gamma(it::IterInfo)
     # Print the header
     println("Mixer : Gamma")
+    println("Try to mix correction for density matrix")
+    println("Current directory: ", pwd())
+
+    # Get current dmft loop
+    cycle = it.I₃
+
+    # Get current iteration
+    curr = it.I₂
 end
 
 """
