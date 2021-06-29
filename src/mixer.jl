@@ -56,7 +56,7 @@ function mixer_sigma(it::IterInfo, ai::Array{Impurity,1})
     @assert size(Scurr) == size(Sprev) && size(fcurr) == size(fprev)
 
     # Mix the self-energy functions using linear mixing algorithm
-    println("Mix self-energy functions for two successive iterations")
+    println("Mix self-energy functions from two successive iterations")
     α = amix(it)
     Snew = Scurr * α + Sprev * (1.0 - α)
     println("  > Mixing parameter α = $α")
@@ -121,7 +121,7 @@ function mixer_delta(it::IterInfo, ai::Array{Impurity,1})
     @assert size(Dcurr) == size(Dprev) && size(fcurr) == size(fprev)
 
     # Mix the hybridization functions using linear mixing algorithm
-    println("Mix hybridization functions for two successive iterations")
+    println("Mix hybridization functions from two successive iterations")
     α = amix(it)
     Dnew = Dcurr * α + Dprev * (1.0 - α)
     println("  > Mixing parameter α = $α")
@@ -180,7 +180,7 @@ function mixer_eimpx(it::IterInfo, ai::Array{Impurity,1})
     @assert size(Ecurr) == size(Eprev)
 
     # Mix the local impurity levels using linear mixing algorithm
-    println("Mix local impurity levels for two successive iterations")
+    println("Mix local impurity levels from two successive iterations")
     α = amix(it)
     Enew = Ecurr * α + Eprev * (1.0 - α)
     println("  > Mixing parameter α = $α")
@@ -234,10 +234,9 @@ function mixer_gamma(it::IterInfo)
     @assert size(kwin_curr) == size(kwin_prev)
     @assert size(gamma_curr) == size(gammma_prev)
 
-    # Mix the local impurity levels using linear mixing algorithm
-    println("Mix local impurity levels for two successive iterations")
-    #α = amix(it)
-    #Enew = Ecurr * α + Eprev * (1.0 - α)
+    # Mix the correction for density matrix using Kerker algorithm
+    println("Mix correction for density matrix from two successive iterations")
+    
     #println("  > Mixing parameter α = $α")
 
     # Write the new correction for density matrix into `dmft2/dmft.gamma`
