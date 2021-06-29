@@ -236,12 +236,25 @@ function mixer_gamma(it::IterInfo)
 
     # Mix the correction for density matrix using Kerker algorithm
     println("Mix correction for density matrix from two successive iterations")
-    
-    #println("  > Mixing parameter α = $α")
+    #
+    # Extract and setup key parameters
+    _, _, nkpt, nspin = size(gamma_curr)
+    α = 0.1
+    γ = 1.0
+    #
+    # Apply the Kerker algorithm
+    for s = 1:nspin
+        for k = 1:nkpt
+            G₂ = sum(kmesh_curr[k,:] .^ 2)
+            amix = α * G₂ / (G₂ + γ^2)
+            gamma_curr[:,:,k,s] = amix * gamma_curr[:,:,k,s] + (1.0 - amix) * gamma_prev[:,:,k,s]
+            @printf("  > Mixing parameter α = %12.7f for 𝑘-point %4i and spin %4i", amix, k, s)
+        end # END OF K LOOP
+    end # END OF S LOOP
 
     # Write the new correction for density matrix into `dmft2/dmft.gamma`
     println("Write correction for density matrix")
-    #write_eimpx(Enew, ai, "dmft1/dmft.eimpx")
+    write_gamma(kmesh_curr, kwin_curr, gamma_curr, "dmft2/dmft.gamma")
 end
 
 """
