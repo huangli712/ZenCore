@@ -209,6 +209,16 @@ function mixer_gamma(it::IterInfo)
 
     # Get current iteration
     curr = it.I₂
+
+    # Get previous iteration
+    @assert it.sc == 2
+    _cycle, _prev = prev_it(it, 2)
+    @assert cycle ≥ _cycle ≥ 1
+    @assert _prev ≥ 1
+    println("Determine previous and current objects")
+    @printf("  > Curr: (I₃, I₂) -> (%4i,%4i)\n", cycle, curr)
+    @printf("  > Prev: (I₃, I₂) -> (%4i,%4i)\n", _cycle, _prev)
+
 end
 
 """
