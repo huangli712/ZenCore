@@ -193,6 +193,9 @@ end
 """
     mixer_gamma(it::IterInfo)
 
+Try to mix the correction for density matrix Γ and then use the mixed value
+to update the `dmft2/dmft.gamma` file.
+
 See also: [`mixer_core`](@ref).
 """
 function mixer_gamma(it::IterInfo)
