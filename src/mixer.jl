@@ -219,6 +219,12 @@ function mixer_gamma(it::IterInfo)
     @printf("  > Curr: (I₃, I₂) -> (%4i,%4i)\n", cycle, curr)
     @printf("  > Prev: (I₃, I₂) -> (%4i,%4i)\n", _cycle, _prev)
 
+    # Determine filenames for correction of density matrix
+    fcurr = "dmft2/dmft.gamma.$cycle.$curr"
+    fprev = "dmft2/dmft.gamma.$_cycle.$_prev"
+
+    # Check whether these files are available
+    @assert isfile(fcurr) && isfile(fprev)
 end
 
 """
