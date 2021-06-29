@@ -219,12 +219,30 @@ function mixer_gamma(it::IterInfo)
     @printf("  > Curr: (I₃, I₂) -> (%4i,%4i)\n", cycle, curr)
     @printf("  > Prev: (I₃, I₂) -> (%4i,%4i)\n", _cycle, _prev)
 
-    # Determine filenames for correction of density matrix
+    # Determine filenames for correction for density matrix
     fcurr = "dmft2/dmft.gamma.$cycle.$curr"
     fprev = "dmft2/dmft.gamma.$_cycle.$_prev"
 
     # Check whether these files are available
     @assert isfile(fcurr) && isfile(fprev)
+
+    # Read in the correction for density matrix (previous and current)
+    println("Read correction for density matrix")
+    kmesh_curr, kwin_curr, gamma_curr = read_gamma(fcurr)
+    kmesh_prev, kwin_prev, gamma_prev = read_gamma(fprev)
+    @assert size(kmesh_curr) == size(kmesh_prev)
+    @assert size(kwin_curr) == size(kwin_prev)
+    @assert size(gamma_curr) == size(gammma_prev)
+
+    # Mix the local impurity levels using linear mixing algorithm
+    println("Mix local impurity levels for two successive iterations")
+    #α = amix(it)
+    #Enew = Ecurr * α + Eprev * (1.0 - α)
+    #println("  > Mixing parameter α = $α")
+
+    # Write the new correction for density matrix into `dmft2/dmft.gamma`
+    println("Write correction for density matrix")
+    #write_eimpx(Enew, ai, "dmft1/dmft.eimpx")
 end
 
 """
