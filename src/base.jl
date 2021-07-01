@@ -66,7 +66,7 @@ Finalize the DFT + DMFT calculations.
 See also: [`go`](@ref).
 """
 function final()
-    prompt("It is time to sleep. See you later.")
+    
 end
 
 #=

@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/27
+# Last modified: 2021/07/01
 #
 
 #=
@@ -433,7 +433,7 @@ end
 Print the goodbye messages to the screen.
 """
 function goodbye()
-    println("See you later")
+    prompt("It is time to sleep. See you later.")
 end
 
 """
