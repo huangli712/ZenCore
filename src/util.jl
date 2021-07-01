@@ -433,7 +433,9 @@ end
 Print the goodbye messages to the screen.
 """
 function goodbye()
-    prompt("It is time to sleep. See you later.")
+    println(green("╔═╗┌─┐┌┐┌"), magenta("╔═╗┌─┐┬─┐┌─┐")
+    println(green("╔═╝├┤ │││"), magenta("║  │ │├┬┘├┤ ") 
+    println(green("╚═╝└─┘┘└┘"), magenta("╚═╝└─┘┴└─└─┘")
 end
 
 """
