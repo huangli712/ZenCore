@@ -433,9 +433,9 @@ end
 Print the goodbye messages to the screen.
 """
 function goodbye()
-    println(green("╔═╗┌─┐┌┐┌"), magenta("╔═╗┌─┐┬─┐┌─┐"))
+    println(  red("╔═╗┌─┐┌┐┌"), magenta("╔═╗┌─┐┬─┐┌─┐"))
     println(green("╔═╝├┤ │││"), magenta("║  │ │├┬┘├┤ "))
-    println(green("╚═╝└─┘┘└┘"), magenta("╚═╝└─┘┴└─└─┘"))
+    println( blue("╚═╝└─┘┘└┘"), magenta("╚═╝└─┘┴└─└─┘"))
 end
 
 """
