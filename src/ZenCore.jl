@@ -54,7 +54,7 @@ this package to parse the configuration file (TOML format).
 *About libm* :
 
 Here we import `libm` explicitly to provide a callable interface for
-the `erf()` function. See `util.jl/erf()` for more details. This 
+the `erf()` function. See `util.jl/erf()` for more details. This
 function is needed in the calculation of density of states.
 =#
 

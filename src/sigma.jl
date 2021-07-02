@@ -277,7 +277,7 @@ For spin-unpolarized case,
 \begin{equation}
 \Sigma^{\text{FLL}}_{\text{dc}}
     =
-    U\left(N - \frac{1}{2}\right) 
+    U\left(N - \frac{1}{2}\right)
     -
     J \left(\frac{N}{2} - \frac{1}{2}\right).
 \end{equation}
@@ -288,8 +288,8 @@ For spin-polarized case,
 \begin{equation}
 \Sigma^{\text{FLL}}_{\text{dc},\uparrow}
     =
-    U\left(N_{\uparrow} + N_{\downarrow} - \frac{1}{2}\right) 
-    - 
+    U\left(N_{\uparrow} + N_{\downarrow} - \frac{1}{2}\right)
+    -
     J \left(N_{\uparrow} - \frac{1}{2}\right),
 \end{equation}
 ```
@@ -300,8 +300,8 @@ and
 \begin{equation}
 \Sigma^{\text{FLL}}_{\text{dc},\downarrow}
     =
-    U\left(N_{\uparrow} + N_{\downarrow} - \frac{1}{2}\right) 
-    - 
+    U\left(N_{\uparrow} + N_{\downarrow} - \frac{1}{2}\right)
+    -
     J \left(N_{\downarrow} - \frac{1}{2}\right).
 \end{equation}
 ```

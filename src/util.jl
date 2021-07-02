@@ -682,7 +682,7 @@ special escape sequences. These texts will be show as colorized texts
 in the terminal.
 
 ```julia
-julia> println(red("hello world!")) 
+julia> println(red("hello world!"))
 ```
 =#
 

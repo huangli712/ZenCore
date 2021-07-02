@@ -85,7 +85,7 @@ function plo_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     # density of states. Of course, it is time-comsuming to do
     # these things. So it is a good idea to turn off this feature
     # if everything is on the way.
-    isinteractive() && 
+    isinteractive() &&
     isfile(query_case()*".test") &&
     plo_monitor(D)
 end
