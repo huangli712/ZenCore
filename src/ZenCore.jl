@@ -107,41 +107,43 @@ export authors
 ### *Includes And Exports* : *util.jl*
 =#
 
-#
-# util.jl
-#
-# Summary:
-#
-# To provide some useful utility macros and functions. They can be used
-# to colorize the output strings, query the environments, and parse the
-# input strings, etc.
-#
-# Members:
-#
-# @cswitch      -> C-style switch.
-# @time_call    -> Evaluate a function call and print the elapsed time.
-# @ps1          -> Wrapper for printstyled function.
-# @ps2          -> Another wrapper for printstyled function.
-# require       -> Check julia envirnoment.
-# setup_args    -> Setup ARGS manually.
-# query_args    -> Query program's arguments.
-# query_case    -> Query case (job's name).
-# query_inps    -> Query input files.
-# query_stop    -> Query case.stop file.
-# query_home    -> Query home directory of Zen framework.
-# query_core    -> Query home directory of ZenCore (where is ZenCore.jl).
-# query_dft     -> Query home directory of DFT engine.
-# query_dmft    -> Query home directory of DMFT engine.
-# query_solver  -> Query home directory of quantum impurity solvers.
-# welcome       -> Print welcome message.
-# overview      -> Print runtime information of ZenCore.
-# goodbye       -> Say goodbye.
-# sorry         -> Say sorry.
-# prompt        -> Print some messages or logs to the output devices.
-# line_to_array -> Convert a line to a string array.
-# line_to_cmplx -> Convert a line to a cmplx number.
-# erf           -> Gauss error function.
-# subscript     -> Convert a number to subscript.
+#=
+*Summary* :
+
+To provide some useful utility macros and functions. They can be used
+to colorize the output strings, query the environments, and parse the
+input strings, etc.
+
+*Members* :
+
+```text
+@cswitch      -> C-style switch.
+@time_call    -> Evaluate a function call and print the elapsed time.
+@ps1          -> Wrapper for printstyled function.
+@ps2          -> Another wrapper for printstyled function.
+require       -> Check julia envirnoment.
+setup_args    -> Setup ARGS manually.
+query_args    -> Query program's arguments.
+query_case    -> Query case (job's name).
+query_inps    -> Query input files.
+query_stop    -> Query case.stop file.
+query_home    -> Query home directory of Zen framework.
+query_core    -> Query home directory of ZenCore (where is ZenCore.jl).
+query_dft     -> Query home directory of DFT engine.
+query_dmft    -> Query home directory of DMFT engine.
+query_solver  -> Query home directory of quantum impurity solvers.
+welcome       -> Print welcome message.
+overview      -> Print runtime information of ZenCore.
+goodbye       -> Say goodbye.
+sorry         -> Say sorry.
+prompt        -> Print some messages or logs to the output devices.
+line_to_array -> Convert a line to a string array.
+line_to_cmplx -> Convert a line to a cmplx number.
+erf           -> Gauss error function.
+subscript     -> Convert a number to subscript.
+```
+=#
+
 #
 include("util.jl")
 #
