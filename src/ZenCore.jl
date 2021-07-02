@@ -322,45 +322,47 @@ export str_s
 ### *Includes And Exports* : *base.jl*
 =#
 
-#
-# base.jl
-#
-# Summary:
-#
-# To provide the core functions to control the DFT engine, DMFT engine,
-# quantum impurity solvers, Kohn-Sham adaptor, self-energy engine, and
-# mixer engine. The DFT + DMFT iteration (one-shot mode or charge fully
-# self-consistent mode) is also implemented in this file.
-#
-# Members:
-#
-# ready       -> Prepare runtime environment for DFT + DMFT calculations.
-# go          -> Dispatcher for DFT + DMFT calculations.
-# final       -> Finalize the DFT + DMFT calculations.
-# cycle1      -> Perform DFT + DMFT calculations (one-shot mode).
-# cycle2      -> Perform DFT + DMFT calculations (fully self-consistent mode).
-# cycle3      -> Execute DFT engine only (for testing purpose).
-# cycle4      -> Execute DMFT engine only (for testing purpose).
-# cycle5      -> Execute quantum impurity solvers only (for testing purpose).
-# cycle6      -> Execute Kohn-Sham adaptor only (for testing purpose).
-# cycle7      -> Execute self-energy engine only (for testing purpose).
-# cycle8      -> Execute mixer engine only (for testing purpose).
-# monitor     -> Monitor the DFT + DMFT calculations.
-# suspend     -> Suspend the DFT engine.
-# dft_run     -> Driver for DFT engine.
-# dmft_run    -> Driver for DMFT engine.
-# solver_run  -> Driver for quantum impurity solvers.
-# adaptor_run -> Driver for Kohn-Sham adaptor.
-# sigma_core  -> Driver for self-energy engine.
-# mixer_core  -> Driver for mixer engine.
-# build_trees -> Make working directories.
-# clear_trees -> Remove working directories.
-# incr_it     -> Increase the counters in the IterInfo struct.
-# zero_it     -> Reset the counters in the IterInfo struct.
-# prev_it     -> Return the previous iteration information.
-# cntr_it     -> Return the counters in the IterInfo struct.
-# show_it     -> Print the iteration information.
-# conv_it     -> Check whether the convergence flags are achieved.
+#=
+*Summary* :
+
+To provide the core functions to control the DFT engine, DMFT engine,
+quantum impurity solvers, Kohn-Sham adaptor, self-energy engine, and
+mixer engine. The DFT + DMFT iteration (one-shot mode or charge fully
+self-consistent mode) is also implemented in this file.
+
+*Members* :
+
+```text
+ready       -> Prepare runtime environment for DFT + DMFT calculations.
+go          -> Dispatcher for DFT + DMFT calculations.
+final       -> Finalize the DFT + DMFT calculations.
+cycle1      -> Perform DFT + DMFT calculations (one-shot mode).
+cycle2      -> Perform DFT + DMFT calculations (fully self-consistent mode).
+cycle3      -> Execute DFT engine only (for testing purpose).
+cycle4      -> Execute DMFT engine only (for testing purpose).
+cycle5      -> Execute quantum impurity solvers only (for testing purpose).
+cycle6      -> Execute Kohn-Sham adaptor only (for testing purpose).
+cycle7      -> Execute self-energy engine only (for testing purpose).
+cycle8      -> Execute mixer engine only (for testing purpose).
+monitor     -> Monitor the DFT + DMFT calculations.
+suspend     -> Suspend the DFT engine.
+dft_run     -> Driver for DFT engine.
+dmft_run    -> Driver for DMFT engine.
+solver_run  -> Driver for quantum impurity solvers.
+adaptor_run -> Driver for Kohn-Sham adaptor.
+sigma_core  -> Driver for self-energy engine.
+mixer_core  -> Driver for mixer engine.
+build_trees -> Make working directories.
+clear_trees -> Remove working directories.
+incr_it     -> Increase the counters in the IterInfo struct.
+zero_it     -> Reset the counters in the IterInfo struct.
+prev_it     -> Return the previous iteration information.
+cntr_it     -> Return the counters in the IterInfo struct.
+show_it     -> Print the iteration information.
+conv_it     -> Check whether the convergence flags are achieved.
+```
+=#
+
 #
 include("base.jl")
 #
