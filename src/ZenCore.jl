@@ -605,38 +605,40 @@ export write_gamma
 ### *Includes And Exports* : *solver.jl*
 =#
 
-#
-# solver.jl
-#
-# Summary:
-#
-# Wrapper for various quantum impurity solvers. Now only the CT-HYB₁,
-# CT-HYB₂, HIA, and NORG quantum impurity solvers are supported.
-#
-# Members:
-#
-# s_qmc1_init -> Prepare input files for the CT-HYB₁ impurity solver.
-# s_qmc1_exec -> Execute the CT-HYB₁ impurity solver.
-# s_qmc1_save -> Backup output files for the CT-HYB₁ impurity solver.
-# s_qmc2_init -> Prepare input files for the CT-HYB₂ impurity solver.
-# s_qmc2_exec -> Execute the CT-HYB₂ impurity solver.
-# s_qmc2_save -> Backup output files for the CT-HYB₂ impurity solver.
-# s_hub1_init -> Prepare input files for the HIA impurity solver.
-# s_hub1_exec -> Execute the HIA impurity solver.
-# s_hub1_save -> Backup output files for the HIA impurity solver.
-# s_norg_init -> Prepare input files for the NORG impurity solver.
-# s_norg_exec -> Execute the NORG impurity solver.
-# s_norg_save -> Backup output files for the NORG impurity solver.
-# ctqmc_setup -> Prepare configuration parameters for CT-QMC impurity solver.
-# ctqmc_atomx -> Prepare configuration parameters for atomic problem solver.
-# ctqmc_delta -> Prepare hybridization function for CT-QMC impurity solver.
-# ctqmc_eimpx -> Prepare local impurity levels for CT-QMC impurity solver.
-# ctqmc_sigma -> Return self-energy function by CT-QMC impurity solver.
-# ctqmc_nimpx -> Return impurity occupancy by CT-QMC impurity solver.
-# GetSigma    -> Parse the self-energy functions.
-# GetNimpx    -> Parse the impurity occupancy.
-# GetSymmetry -> Analyze orbital degeneracy via local impurity levels.
-# GetImpurity -> Build Impurity struct according to configuration file.
+#=
+*Summary* :
+
+Wrapper for various quantum impurity solvers. Now only the CT-HYB₁,
+CT-HYB₂, HIA, and NORG quantum impurity solvers are supported.
+
+*Members* :
+
+```text
+s_qmc1_init -> Prepare input files for the CT-HYB₁ impurity solver.
+s_qmc1_exec -> Execute the CT-HYB₁ impurity solver.
+s_qmc1_save -> Backup output files for the CT-HYB₁ impurity solver.
+s_qmc2_init -> Prepare input files for the CT-HYB₂ impurity solver.
+s_qmc2_exec -> Execute the CT-HYB₂ impurity solver.
+s_qmc2_save -> Backup output files for the CT-HYB₂ impurity solver.
+s_hub1_init -> Prepare input files for the HIA impurity solver.
+s_hub1_exec -> Execute the HIA impurity solver.
+s_hub1_save -> Backup output files for the HIA impurity solver.
+s_norg_init -> Prepare input files for the NORG impurity solver.
+s_norg_exec -> Execute the NORG impurity solver.
+s_norg_save -> Backup output files for the NORG impurity solver.
+ctqmc_setup -> Prepare configuration parameters for CT-QMC impurity solver.
+ctqmc_atomx -> Prepare configuration parameters for atomic problem solver.
+ctqmc_delta -> Prepare hybridization function for CT-QMC impurity solver.
+ctqmc_eimpx -> Prepare local impurity levels for CT-QMC impurity solver.
+ctqmc_sigma -> Return self-energy function by CT-QMC impurity solver.
+ctqmc_nimpx -> Return impurity occupancy by CT-QMC impurity solver.
+GetSigma    -> Parse the self-energy functions.
+GetNimpx    -> Parse the impurity occupancy.
+GetSymmetry -> Analyze orbital degeneracy via local impurity levels.
+GetImpurity -> Build Impurity struct according to configuration file.
+```
+=#
+
 #
 include("solver.jl")
 #
