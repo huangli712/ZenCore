@@ -689,22 +689,24 @@ export write_sigdc
 ### *Includes And Exports* : *mixer.jl*
 =#
 
-#
-# mixer.jl
-#
-# Summary:
-#
-# Tools for mixing the self-energy functions Σ, hybridization functions Δ,
-# local impurity levels εᵢ, and correction for charge density Γ.
-#
-# Members:
-#
-# mixer_sigma -> Mix self-energy functions.
-# mixer_delta -> Mix hybridization functions.
-# mixer_eimpx -> Mix local impurity levels.
-# mixer_gamma -> Mix correction of density matrix Γ.
-# amix        -> Return the mixing parameter.
-# distance    -> Calculate the difference /distance between two arrays.
+#=
+*Summary* :
+
+Tools for mixing the self-energy functions Σ, hybridization functions Δ,
+local impurity levels εᵢ, and correction for charge density Γ.
+
+*Members* :
+
+```text
+mixer_sigma -> Mix self-energy functions.
+mixer_delta -> Mix hybridization functions.
+mixer_eimpx -> Mix local impurity levels.
+mixer_gamma -> Mix correction of density matrix Γ.
+amix        -> Return the mixing parameter.
+distance    -> Calculate the difference /distance between two arrays.
+```
+=#
+
 #
 include("mixer.jl")
 #
@@ -725,8 +727,8 @@ export distance
 This function would be executed immediately after the module is loaded
 at runtime for the first time.
 
-Here, we will try to precompile the whole ZenCore package to reduce the
-runtime latency and speed up the successive calculations.
+Here, we will try to precompile the whole `ZenCore` package to reduce
+the runtime latency and speed up the successive calculations.
 """
 function __init__()
     prompt("Loading...")
