@@ -10,7 +10,7 @@
 """
     Zen and ZenCore
 
-Zen is a modern DFT + DMFT computation framework. It can be used to
+`Zen` is a modern DFT + DMFT computation framework. It can be used to
 study the correlated electronic structures of a wide range of strongly
 correlated materials. Now this framework is under heavy development.
 **PLEASE USE IT AT YOUR OWN RISK**.
@@ -27,10 +27,10 @@ Zen supports the following quantum impurity solvers:
 * `HIA`
 * `NORG`
 
-ZenCore implements the core library of the Zen computation framework. It
-connects various components of Zen, and drive them to work together. It
-provides an easy-to-use and flexible user interface, including numerous
-applications and tools.
+`ZenCore` implements the core library of the Zen DFT + DMFT computation
+framework. It connects various components of Zen, and drive them to work
+together. It provides an easy-to-use, flexible, efficient, and robust
+user interface, including numerous applications and tools.
 
 For more details about how to obtain, install and use the Zen framework
 and the ZenCore library, please visit the following website:
