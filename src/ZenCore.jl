@@ -30,7 +30,7 @@ Zen supports the following quantum impurity solvers:
 `ZenCore` implements the core library of the Zen DFT + DMFT computation
 framework. It connects various components of Zen, and drive them to work
 together. It provides an easy-to-use, flexible, efficient, and robust
-user interface, including numerous applications and tools.
+user interface, including various applications and tools.
 
 For more details about how to obtain, install and use the Zen framework
 and the ZenCore library, please visit the following website:
@@ -47,15 +47,16 @@ module ZenCore
 #=
 *About TOML.jl* :
 
-The TOML.jl package is included in the standard library since v1.6.
-So please upgrade your julia environment if it is outdated. We need
-this package to parse the configuration file (TOML format).
+The TOML.jl package is included in the standard library of julia since
+v1.6. So please upgrade your julia environment if it is outdated. We
+need this package to parse the configuration file (which is written in
+the TOML format).
 
 *About libm* :
 
 Here we import `libm` explicitly to provide a callable interface for
-the `erf()` function. See `util.jl/erf()` for more details. This
-function is needed in the calculation of density of states.
+the `erf()` function. Please see `util.jl/erf()` for more details. We
+usually need this to calculate the electronic density of states.
 =#
 
 using TOML
@@ -72,7 +73,7 @@ using Base.Math: libm
 #=
 *Summary* :
 
-Define type aliases and some string constants for the ZenCore package.
+Define some type aliases and string constants for the ZenCore package.
 
 *Members* :
 
@@ -200,6 +201,7 @@ tetra_p_ek4  -> Blochl tetrahedron integration algorithm, case 5.
 
 #
 include("tetra.jl")
+#
 export TetraWeight
 export bzint
 export gauss_weight
@@ -265,7 +267,7 @@ export PrWindow
 *Summary* :
 
 To extract, parse, verify, and print the configuration parameters.
-They are stored in external files (*.toml) or dictionaries.
+They are stored in external files (case.toml) or dictionaries.
 
 *Members* :
 
@@ -329,7 +331,8 @@ export str_s
 To provide the core functions to control the DFT engine, DMFT engine,
 quantum impurity solvers, Kohn-Sham adaptor, self-energy engine, and
 mixer engine. The DFT + DMFT iteration (one-shot mode or charge fully
-self-consistent mode) is also implemented in this file.
+self-consistent mode) is also implemented in this file. This file also
+includes some functions to watch and manipulate the IterInfo struct.
 
 *Members* :
 
@@ -569,8 +572,9 @@ export irio_charge
 *Summary* :
 
 Wrapper for dynamical mean-field theory engine. It also provides some
-essential tools to deal with the hybridization functions ``\Delta`` and
-local impurity levels ``\varepsilon_i``.
+essential tools to deal with (read and write) the fermi level ``\mu``,
+hybridization functions ``\Delta``, local impurity levels ``\epsilon_i``,
+and correlation-induced correction for density matrix ``\Gamma``.
 
 *Members* :
 
@@ -674,8 +678,9 @@ export GetImpurity
 *Summary* :
 
 Tools for treating the self-energy functions ``\Sigma``, double counting
-terms ``\Sigma_{\text{dc}}``, hybridization functions ``\Delta``, and
-local impurity levels ``\varepsilon_i``.
+terms ``\Sigma_{\text{dc}}``. Note that the function `sigma_split()` is
+designed for the hybridization functions ``\Delta`` and local impurity
+levels ``\epsilon_i``, instead of the self-energy functions.
 
 *Members* :
 
@@ -719,8 +724,10 @@ export write_sigdc
 *Summary* :
 
 Tools for mixing the self-energy functions ``\Sigma``, hybridization
-functions ``\Delta``, local impurity levels ``\varepsilon_i``, and
-correction for density matrix ``\Gamma``.
+functions ``\Delta``, and local impurity levels ``\epsilon_i``. They
+adopted the linear mixing algorithm. We also implement the so-called
+Kerker algorithm to mix the correlation-induced correction for density
+matrix ``\Gamma``.
 
 *Members* :
 
@@ -752,10 +759,9 @@ export distance
     __init__()
 
 This function would be executed immediately after the module is loaded
-at runtime for the first time.
-
-Here, we will try to precompile the whole `ZenCore` package to reduce
-the runtime latency and speed up the successive calculations.
+at runtime for the first time. Here, we would like to precompile the
+whole `ZenCore` package to reduce the runtime latency and speed up the
+successive calculations.
 """
 function __init__()
     prompt("Loading...")
