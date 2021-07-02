@@ -45,16 +45,17 @@ module ZenCore
 =#
 
 #=
-*TOML.jl*:
+*About TOML.jl* :
 
 The TOML.jl package is included in the standard library since v1.6.
 So please upgrade your julia environment if it is outdated. We need
 this package to parse the configuration file (TOML format).
 
-*libm*:
+*About libm* :
 
 Here we import `libm` explicitly to provide a callable interface for
-the `erf()` function. See `util.jl/erf()` for more details.
+the `erf()` function. See `util.jl/erf()` for more details. This 
+function is needed in the calculation of density of states.
 =#
 
 using TOML
