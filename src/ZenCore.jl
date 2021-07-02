@@ -669,28 +669,30 @@ export GetImpurity
 ### *Includes And Exports* : *sigma.jl*
 =#
 
-#
-# sigma.jl
-#
-# Summary:
-#
-# Tools for treating the self-energy functions Σ, double counting terms
-# Σ', hybridization functions Δ, and local impurity levels εᵢ.
-#
-# Members:
-#
-# sigma_reset  -> Create initial self-energy functions.
-# sigma_dcount -> Calculate double counting terms.
-# sigma_split  -> Split the hybridization functions and local impurity levels.
-# sigma_gather -> Gather and combine the self-energy functions.
-# cal_dc_fll   -> Fully localized limit scheme for double counting term.
-# cal_dc_amf   -> Around mean-field scheme for double counting term.
-# cal_dc_held  -> K. Held's scheme for double counting term.
-# cal_dc_exact -> Exact double counting scheme.
-# read_sigma   -> Read dmft1/sigma.bare file.
-# read_sigdc   -> Read dmft1/sigma.dc file.
-# write_sigma  -> Write dmft1/sigma.bare file.
-# write_sigdc  -> Write dmft1/sigma.dc file.
+#=
+*Summary* :
+
+Tools for treating the self-energy functions Σ, double counting terms
+Σ', hybridization functions Δ, and local impurity levels εᵢ.
+
+*Members* :
+
+```text
+sigma_reset  -> Create initial self-energy functions.
+sigma_dcount -> Calculate double counting terms.
+sigma_split  -> Split the hybridization functions and local impurity levels.
+sigma_gather -> Gather and combine the self-energy functions.
+cal_dc_fll   -> Fully localized limit scheme for double counting term.
+cal_dc_amf   -> Around mean-field scheme for double counting term.
+cal_dc_held  -> K. Held's scheme for double counting term.
+cal_dc_exact -> Exact double counting scheme.
+read_sigma   -> Read dmft1/sigma.bare file.
+read_sigdc   -> Read dmft1/sigma.dc file.
+write_sigma  -> Write dmft1/sigma.bare file.
+write_sigdc  -> Write dmft1/sigma.dc file.
+```
+=#
+
 #
 include("sigma.jl")
 #
