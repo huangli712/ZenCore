@@ -176,25 +176,27 @@ export subscript
 ### *Includes And Exports* : *tetra.jl*
 =#
 
-#
-# tetra.jl
-#
-# Summary:
-#
-# Implementation of the analytical tetrahedron method.
-#
-# Members:
-#
-# TetraWeight  -> Struct for integration weights.
-# bzint        -> Compute tetrahedron integrated weights.
-# gauss_weight -> Compute integrated weights using Gaussian broadening.
-# fermi_weight -> Compute integrated weights using Fermi-Dirac broadening.
-# tetra_weight -> Compute integrated weights for a given tetrahedron.
-# tetra_p_ek1  -> Blochl tetrahedron integration algorithm, case 1.
-# tetra_p_ek12 -> Blochl tetrahedron integration algorithm, case 2.
-# tetra_p_ek23 -> Blochl tetrahedron integration algorithm, case 3.
-# tetra_p_ek34 -> Blochl tetrahedron integration algorithm, case 4.
-# tetra_p_ek4  -> Blochl tetrahedron integration algorithm, case 5.
+#=
+*Summary* :
+
+Implementation of the analytical tetrahedron method.
+
+*Members* :
+
+```text
+TetraWeight  -> Struct for integration weights.
+bzint        -> Compute tetrahedron integrated weights.
+gauss_weight -> Compute integrated weights using Gaussian broadening.
+fermi_weight -> Compute integrated weights using Fermi-Dirac broadening.
+tetra_weight -> Compute integrated weights for a given tetrahedron.
+tetra_p_ek1  -> Blochl tetrahedron integration algorithm, case 1.
+tetra_p_ek12 -> Blochl tetrahedron integration algorithm, case 2.
+tetra_p_ek23 -> Blochl tetrahedron integration algorithm, case 3.
+tetra_p_ek34 -> Blochl tetrahedron integration algorithm, case 4.
+tetra_p_ek4  -> Blochl tetrahedron integration algorithm, case 5.
+```
+=#
+
 #
 include("tetra.jl")
 export TetraWeight
