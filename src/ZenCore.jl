@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/26
+# Last modified: 2021/07/02
 #
 
 """
@@ -45,13 +45,13 @@ module ZenCore
 =#
 
 #=
-*Remarks 1*:
+*TOML.jl*:
 
 The TOML.jl package is included in the standard library since v1.6.
 So please upgrade your julia environment if it is outdated. We need
 this package to parse the configuration file (TOML format).
 
-*Remarks 2*:
+*libm*:
 
 Here we import `libm` explicitly to provide a callable interface for
 the `erf()` function. See `util.jl/erf()` for more details.
@@ -68,25 +68,27 @@ using Base.Math: libm
 ### *Includes And Exports* : *global.jl*
 =#
 
-#
-# global.jl
-#
-# Summary:
-#
-# Define type aliases and some string constants for the ZenCore package.
-#
-# Members:
-#
-# I32, I64    -> Numerical types (Integer).
-# F32, F64    -> Numerical types (Float).
-# C32, C64    -> Numerical types (Complex).
-# R32, R64    -> Numerical types (Union of Integer and Float).
-# N32, N64    -> Numerical types (Union of Integer, Float, and Complex).
-# __LIBNAME__ -> Name of this package.
-# __VERSION__ -> Version of this package.
-# __RELEASE__ -> Released date of this package.
-# __AUTHORS__ -> Authors of this package.
-# authors     -> Print the authors of ZenCore to screen.
+#=
+*Summary* :
+
+Define type aliases and some string constants for the ZenCore package.
+
+*Members* :
+
+```text
+I32, I64    -> Numerical types (Integer).
+F32, F64    -> Numerical types (Float).
+C32, C64    -> Numerical types (Complex).
+R32, R64    -> Numerical types (Union of Integer and Float).
+N32, N64    -> Numerical types (Union of Integer, Float, and Complex).
+__LIBNAME__ -> Name of this package.
+__VERSION__ -> Version of this package.
+__RELEASE__ -> Released date of this package.
+__AUTHORS__ -> Authors of this package.
+authors     -> Print the authors of ZenCore to screen.
+```
+=#
+
 #
 include("global.jl")
 #
