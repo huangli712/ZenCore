@@ -398,35 +398,37 @@ export conv_it
 ### *Includes And Exports* : *vasp.jl*
 =#
 
-#
-# vasp.jl
-#
-# Summary:
-#
-# Tools for the vasp software package (adaptor). It provide a lot of
-# functions to deal with the vasp-related files.
-#
-# Members:
-#
-# vasp_adaptor   -> Adaptor support.
-# vasp_init      -> Prepare vasp's input files.
-# vasp_exec      -> Execute vasp program.
-# vasp_save      -> Backup vasp's output files.
-# vasp_incar     -> Generate essential input file (INCAR).
-# vasp_kpoints   -> Generate essential input file (KPOINTS).
-# vasp_gamma     -> Generate essential input file (GAMMA).
-# vasp_lock      -> Manipulate the vasp.lock file.
-# vasp_files     -> Check essential output files.
-# vaspio_nband   -> Determine number of bands.
-# vaspio_valence -> Read number of valence electrons for each sort.
-# vaspio_procar  -> Read PROCAR file.
-# vaspio_lattice -> Read lattice information.
-# vaspio_kmesh   -> Read kmesh.
-# vaspio_tetra   -> Read tetrahedra.
-# vaspio_eigen   -> Read eigenvalues.
-# vaspio_projs   -> Read projectors.
-# vaspio_fermi   -> Read fermi level.
-# vaspio_charge  -> Read charge density.
+#=
+*Summary* :
+
+Tools for the vasp software package (adaptor). It provide a lot of
+functions to deal with the vasp-related files.
+
+*Members :
+
+```text
+vasp_adaptor   -> Adaptor support.
+vasp_init      -> Prepare vasp's input files.
+vasp_exec      -> Execute vasp program.
+vasp_save      -> Backup vasp's output files.
+vasp_incar     -> Generate essential input file (INCAR).
+vasp_kpoints   -> Generate essential input file (KPOINTS).
+vasp_gamma     -> Generate essential input file (GAMMA).
+vasp_lock      -> Manipulate the vasp.lock file.
+vasp_files     -> Check essential output files.
+vaspio_nband   -> Determine number of bands.
+vaspio_valence -> Read number of valence electrons for each sort.
+vaspio_procar  -> Read PROCAR file.
+vaspio_lattice -> Read lattice information.
+vaspio_kmesh   -> Read kmesh.
+vaspio_tetra   -> Read tetrahedra.
+vaspio_eigen   -> Read eigenvalues.
+vaspio_projs   -> Read projectors.
+vaspio_fermi   -> Read fermi level.
+vaspio_charge  -> Read charge density.
+```
+=#
+
 #
 include("vasp.jl")
 #
