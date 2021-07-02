@@ -519,28 +519,30 @@ export view_dos
 ### *Includes And Exports* : *ir.jl*
 =#
 
-#
-# ir.jl
-#
-# Summary:
-#
-# Tools for the intermediate representation format (adaptor).
-#
-# Members:
-#
-# ir_adaptor   -> Adaptor support.
-# ir_save      -> Save the output files by the adaptor.
-# irio_params  -> Write key parameters extracted from Kohn-Sham data.
-# irio_maps    -> Write Mapping.
-# irio_groups  -> Write PrGroup.
-# irio_windows -> Write PrWindow.
-# irio_lattice -> Write lattice information.
-# irio_kmesh   -> Write kmesh.
-# irio_tetra   -> Write tetrahedra.
-# irio_eigen   -> Write eigenvalues.
-# irio_projs   -> Write projectors.
-# irio_fermi   -> Write fermi level.
-# irio_charge  -> Write charge density.
+#=
+*Summary* :
+
+Tools for the intermediate representation format (adaptor).
+
+*Members* :
+
+```text
+ir_adaptor   -> Adaptor support.
+ir_save      -> Save the output files by the adaptor.
+irio_params  -> Write key parameters extracted from Kohn-Sham data.
+irio_maps    -> Write Mapping.
+irio_groups  -> Write PrGroup.
+irio_windows -> Write PrWindow.
+irio_lattice -> Write lattice information.
+irio_kmesh   -> Write kmesh.
+irio_tetra   -> Write tetrahedra.
+irio_eigen   -> Write eigenvalues.
+irio_projs   -> Write projectors.
+irio_fermi   -> Write fermi level.
+irio_charge  -> Write charge density.
+```
+=#
+
 #
 include("ir.jl")
 #
