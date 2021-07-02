@@ -456,37 +456,39 @@ export vaspio_charge
 ### *Includes And Exports* : *plo.jl*
 =#
 
-#
-# plo.jl
-#
-# Summary:
-#
-# Tools for the projection on localized orbitals scheme (adaptor).
-#
-# Members:
-#
-# plo_adaptor -> Adaptor support.
-# plo_map     -> Create connection between projectors and impurity problems.
-# plo_fermi   -> Calibrate Kohn-Sham eigenvalues with respect to fermi level.
-# plo_group   -> Setup groups of projectors.
-# plo_window  -> Setup band windows of projectors.
-# plo_rotate  -> Rotate the projectors.
-# plo_filter  -> Extract the projectors within a given energy window.
-# plo_orthog  -> Orthogonalize / normalize the projectors.
-# plo_monitor -> Generate some physical quantities using the projectors.
-# get_win1    -> Evaluate band window.
-# get_win2    -> Evaluate energy window.
-# try_blk1    -> Orthogonalize / normalize the projectors group by group.
-# try_blk2    -> Orthogonalize / normalize the projectors with each other.
-# try_diag    -> Orthogonalizes a projector defined by a rectangular matrix.
-# calc_ovlp   -> Calculate overlap matrix.
-# calc_dm     -> Calculate density matrix.
-# calc_hamk   -> Calculate local hamiltonian or full hamiltonian.
-# calc_dos    -> Calculate density of states.
-# view_ovlp   -> Show overlap matrix for debug.
-# view_dm     -> Show density matrix for debug.
-# view_hamk   -> Show local hamiltonian for debug.
-# view_dos    -> Show density of states for debug.
+#=
+*Summary* :
+
+Tools for the projection on localized orbitals scheme (adaptor).
+
+*Members*:
+
+```text
+plo_adaptor -> Adaptor support.
+plo_map     -> Create connection between projectors and impurity problems.
+plo_fermi   -> Calibrate Kohn-Sham eigenvalues with respect to fermi level.
+plo_group   -> Setup groups of projectors.
+plo_window  -> Setup band windows of projectors.
+plo_rotate  -> Rotate the projectors.
+plo_filter  -> Extract the projectors within a given energy window.
+plo_orthog  -> Orthogonalize / normalize the projectors.
+plo_monitor -> Generate some physical quantities using the projectors.
+get_win1    -> Evaluate band window.
+get_win2    -> Evaluate energy window.
+try_blk1    -> Orthogonalize / normalize the projectors group by group.
+try_blk2    -> Orthogonalize / normalize the projectors with each other.
+try_diag    -> Orthogonalizes a projector defined by a rectangular matrix.
+calc_ovlp   -> Calculate overlap matrix.
+calc_dm     -> Calculate density matrix.
+calc_hamk   -> Calculate local hamiltonian or full hamiltonian.
+calc_dos    -> Calculate density of states.
+view_ovlp   -> Show overlap matrix for debug.
+view_dm     -> Show density matrix for debug.
+view_hamk   -> Show local hamiltonian for debug.
+view_dos    -> Show density of states for debug.
+```
+=#
+
 #
 include("plo.jl")
 #
