@@ -569,8 +569,8 @@ export irio_charge
 *Summary* :
 
 Wrapper for dynamical mean-field theory engine. It also provides some
-essential tools to deal with the hybridization functions Δ and local
-impurity levels εᵢ.
+essential tools to deal with the hybridization functions ``\Delta`` and
+local impurity levels ``\varepsilon_i``.
 
 *Members* :
 
@@ -673,8 +673,9 @@ export GetImpurity
 #=
 *Summary* :
 
-Tools for treating the self-energy functions Σ, double counting terms
-Σ', hybridization functions Δ, and local impurity levels εᵢ.
+Tools for treating the self-energy functions ``\Sigma``, double counting
+terms ``\Sigma_{\text{dc}}``, hybridization functions ``\Delta``, and
+local impurity levels ``\varepsilon_i``.
 
 *Members* :
 
@@ -717,8 +718,9 @@ export write_sigdc
 #=
 *Summary* :
 
-Tools for mixing the self-energy functions Σ, hybridization functions Δ,
-local impurity levels εᵢ, and correction for charge density Γ.
+Tools for mixing the self-energy functions ``\Sigma``, hybridization
+functions ``\Delta``, local impurity levels ``\varepsilon_i``, and
+correction for density matrix ``\Gamma``.
 
 *Members* :
 
