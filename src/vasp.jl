@@ -64,7 +64,7 @@ See also: [`vasp_exec`](@ref), [`vasp_save`](@ref).
 function vasp_init(it::IterInfo)
     # Print the header
     println("Engine : VASP")
-    println("Try to perform ab initio calculation")
+    println("Try to perform ab initio electronic structure calculation")
     println("Current directory: ", pwd())
     println("Prepare necessary input files for vasp")
 
@@ -82,15 +82,12 @@ function vasp_init(it::IterInfo)
         vaspc_incar(it.μ₀, it.sc)
     else
         # Maybe we need to update INCAR file here
-        @show it.I₃, it.μ₁, it.sc
         vaspc_incar(it.μ₁, it.sc)
     end
     println("  > INCAR is ready")
     #
     # Well, perhaps we need to generate the KPOINTS file by ourselves.
-    if get_d("kmesh") === "file"
-        vaspc_kpoints()
-    end
+    get_d("kmesh") == "file" && vaspc_kpoints()
     println("  > KPOINTS is ready")
 
     # Check essential input files
