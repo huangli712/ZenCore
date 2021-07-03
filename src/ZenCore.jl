@@ -415,10 +415,10 @@ vasp_adaptor   -> Adaptor support.
 vasp_init      -> Prepare vasp's input files.
 vasp_exec      -> Execute vasp program.
 vasp_save      -> Backup vasp's output files.
-vasp_incar     -> Generate essential input file (INCAR).
-vasp_kpoints   -> Generate essential input file (KPOINTS).
-vasp_gamma     -> Generate essential input file (GAMMA).
-vasp_lock      -> Manipulate the vasp.lock file.
+vaspc_incar    -> Generate essential input file (INCAR).
+vaspc_kpoints  -> Generate essential input file (KPOINTS).
+vaspc_gamma    -> Generate essential input file (GAMMA).
+vaspc_lock     -> Manipulate the vasp.lock file.
 vaspio_files   -> Check essential output files.
 vaspio_nband   -> Determine number of bands.
 vaspio_valence -> Read number of valence electrons for each sort.
@@ -440,10 +440,10 @@ export vasp_adaptor
 export vasp_init
 export vasp_exec
 export vasp_save
-export vasp_incar
-export vasp_kpoints
-export vasp_gamma
-export vasp_lock
+export vaspc_incar
+export vaspc_kpoints
+export vaspc_gamma
+export vaspc_lock
 export vaspio_files
 export vaspio_nband
 export vaspio_valence
