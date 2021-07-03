@@ -104,7 +104,11 @@ end
 """
     vasp_exec(it::IterInfo)
 
-Execute the vasp program.
+Execute the vasp program, monitor the convergence progress, and output
+the relevant information.
+
+Especially, if it.sc == 2 (self-consistent mode), this function will
+launch the vasp code, and then return immediately. 
 
 See also: [`vasp_init`](@ref), [`vasp_save`](@ref).
 """
