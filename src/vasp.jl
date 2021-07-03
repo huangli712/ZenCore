@@ -431,14 +431,14 @@ function vaspc_kpoints(mp_scheme::Bool = true, n::I64 = 9)
 end
 
 """
-    vasp_gamma(kwin::Array{I64,3}, gamma::Array{C64,4})
+    vaspc_gamma(kwin::Array{I64,3}, gamma::Array{C64,4})
 
 Generate a valid `GAMMA` file for vasp. The vasp will need this file
 when `ICHARG = 5`.
 
 See also: [`write_gamma`](@ref), [`read_gamma`](@ref).
 """
-function vasp_gamma(kwin::Array{I64,3}, gamma::Array{C64,4})
+function vaspc_gamma(kwin::Array{I64,3}, gamma::Array{C64,4})
     # Extract the dimensional parameters
     _, qbnd, nkpt, nspin = size(gamma)
     @assert nspin == 1 # Current limitation
