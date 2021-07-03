@@ -578,7 +578,7 @@ function suspend(second::I64)
         # Check the stop condifion.
         # Here, we check the vasp.lock file. If it is absent, then we
         # break this loop
-        !vasp_lock() && break
+        !vaspq_lock() && break
     end
 end
 
@@ -663,7 +663,7 @@ function dft_run(lr::Logger)
             vaspc_gamma(kwin, gamma)
             #
             # Create vasp.lock file to wake up the vasp
-            vasp_lock("create")
+            vaspc_lock("create")
             #
             break
 
