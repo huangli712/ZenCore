@@ -84,7 +84,7 @@ function vasp_init(it::IterInfo)
     #
     # Well, perhaps we need to generate the KPOINTS file by ourselves.
     if get_d("kmesh") === "file"
-        vasp_kpoints()
+        vaspc_kpoints()
     end
     println("  > KPOINTS is ready")
 
@@ -258,7 +258,7 @@ been tested for `magnetically ordered materials`.
 Generate an `INCAR` file. It will be used only when the DFT engine
 is vasp.
 
-See also: [`vasp_kpoints`](@ref).
+See also: [`vaspc_kpoints`](@ref).
 """
 function vaspc_incar(fermi::F64, sc_mode::I64)
     # Open the iostream
@@ -315,7 +315,7 @@ function vaspc_incar(fermi::F64, sc_mode::I64)
             write(ios, "KSPACING = 0.4 \n")
             break
 
-        # If kmesh == "file", then vasp_kpoints() will be used to
+        # If kmesh == "file", then vaspc_kpoints() will be used to
         # generate the KPOINTS file.
         @case "file"
             break
@@ -401,13 +401,13 @@ function vaspc_incar(fermi::F64, sc_mode::I64)
 end
 
 """
-    vasp_kpoints(mp_scheme::Bool = true, n::I64 = 9)
+    vaspc_kpoints(mp_scheme::Bool = true, n::I64 = 9)
 
 Generate a valid `KPOINTS` file for vasp.
 
 See also: [`vaspc_incar`](@ref).
 """
-function vasp_kpoints(mp_scheme::Bool = true, n::I64 = 9)
+function vaspc_kpoints(mp_scheme::Bool = true, n::I64 = 9)
     # If the `KPOINTS` file is available, we do nothing or else we will
     # try to create a new one.
     if !isfile("KPOINTS")
