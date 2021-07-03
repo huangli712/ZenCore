@@ -660,7 +660,7 @@ function dft_run(lr::Logger)
         # For VASP
         @case "vasp"
             # Write the GAMMA file for vasp
-            vasp_gamma(kwin, gamma)
+            vaspc_gamma(kwin, gamma)
             #
             # Create vasp.lock file to wake up the vasp
             vasp_lock("create")
