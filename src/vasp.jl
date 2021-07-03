@@ -74,11 +74,11 @@ function vasp_init(it::IterInfo)
     # How about INCAR
     if it.I₃ == 0
         # Generate INCAR automatically
-        vasp_incar(it.μ₀, it.sc)
+        vaspc_incar(it.μ₀, it.sc)
     else
         # Maybe we need to update INCAR file here
         @show it.I₃, it.μ₁, it.sc
-        vasp_incar(it.μ₁, it.sc)
+        vaspc_incar(it.μ₁, it.sc)
     end
     println("  > INCAR is ready")
     #
@@ -253,14 +253,14 @@ been tested for `magnetically ordered materials`.
 =#
 
 """
-    vasp_incar(fermi::F64, sc_mode::I64)
+    vaspc_incar(fermi::F64, sc_mode::I64)
 
 Generate an `INCAR` file. It will be used only when the DFT engine
 is vasp.
 
 See also: [`vasp_kpoints`](@ref).
 """
-function vasp_incar(fermi::F64, sc_mode::I64)
+function vaspc_incar(fermi::F64, sc_mode::I64)
     # Open the iostream
     ios = open("INCAR", "w")
 
@@ -405,7 +405,7 @@ end
 
 Generate a valid `KPOINTS` file for vasp.
 
-See also: [`vasp_incar`](@ref).
+See also: [`vaspc_incar`](@ref).
 """
 function vasp_kpoints(mp_scheme::Bool = true, n::I64 = 9)
     # If the `KPOINTS` file is available, we do nothing or else we will
@@ -537,7 +537,7 @@ Reading vasp's `POSCAR` and `POTCAR` files, evaluating number of bands. It
 will be used to create the `INCAR` file. Here `f` means only the directory
 that contains `POSCAR` and `POTCAR`.
 
-See also: [`vasp_incar`](@ref), [`vaspio_valence`](@ref), [`vaspio_lattice`](@ref).
+See also: [`vaspc_incar`](@ref), [`vaspio_valence`](@ref), [`vaspio_lattice`](@ref).
 """
 function vaspio_nband(f::String)
     # Extract crystallography information from `POSCAR`
@@ -570,7 +570,7 @@ end
 Reading vasp's `POSCAR` and `POTCAR` files, evaluating number of bands. It
 will be used to create the `INCAR` file.
 
-See also: [`vasp_incar`](@ref), [`vaspio_valence`](@ref), [`vaspio_lattice`](@ref).
+See also: [`vaspc_incar`](@ref), [`vaspio_valence`](@ref), [`vaspio_lattice`](@ref).
 """
 vaspio_nband() = vaspio_nband(pwd())
 
@@ -583,7 +583,7 @@ directory that contains `POTCAR`.
 The information about `ZVAL` will be used to determine `NBANDS` in the
 `INCAR` file.
 
-See also: [`vasp_incar`](@ref), [`vaspio_nband`](@ref).
+See also: [`vaspc_incar`](@ref), [`vaspio_nband`](@ref).
 """
 function vaspio_valence(f::String)
     # Open the iostream
@@ -613,7 +613,7 @@ Reading vasp's `POTCAR` file, return `ZVAL`.
 The information about `ZVAL` will be used to determine `NBANDS` in the
 `INCAR` file.
 
-See also: [`vasp_incar`](@ref), [`vaspio_nband`](@ref).
+See also: [`vaspc_incar`](@ref), [`vaspio_nband`](@ref).
 """
 vaspio_valence() = vaspio_valence(pwd())
 
