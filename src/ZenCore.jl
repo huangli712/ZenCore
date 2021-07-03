@@ -444,6 +444,7 @@ export vaspc_incar
 export vaspc_kpoints
 export vaspc_gamma
 export vaspc_lock
+export vaspq_lock
 export vaspio_files
 export vaspio_nband
 export vaspio_valence
