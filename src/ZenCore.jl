@@ -418,7 +418,8 @@ vasp_save      -> Backup vasp's output files.
 vaspc_incar    -> Generate essential input file (INCAR).
 vaspc_kpoints  -> Generate essential input file (KPOINTS).
 vaspc_gamma    -> Generate essential input file (GAMMA).
-vaspc_lock     -> Manipulate the vasp.lock file.
+vaspc_lock     -> Create the vasp.lock file.
+vaspq_lock     -> Query the vasp.lock file.
 vaspio_files   -> Check essential output files.
 vaspio_nband   -> Determine number of bands.
 vaspio_valence -> Read number of valence electrons for each sort.
