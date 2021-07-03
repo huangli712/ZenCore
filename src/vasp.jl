@@ -479,6 +479,10 @@ function vaspc_lock(action::String)
     touch("vasp.lock")
 end
 
+#=
+### *Service Functions* : *Group B*
+=#
+
 """
     vaspq_lock()
 
@@ -513,7 +517,7 @@ See also: [`adaptor_init`](@ref).
 vaspq_files() = vaspq_files(pwd())
 
 #=
-### *Service Functions* : *Group B*
+### *Service Functions* : *Group C*
 =#
 
 #=
