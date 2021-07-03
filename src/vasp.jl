@@ -470,11 +470,11 @@ function vaspc_gamma(kwin::Array{I64,3}, gamma::Array{C64,4})
 end
 
 """
-    vasp_lock(action::String)
+    vaspc_lock(action::String)
 
 Create the `vasp.lock` file.
 """
-function vasp_lock(action::String)
+function vaspc_lock(action::String)
     @assert startswith(action, "c") || startswith(action, "C")
     touch("vasp.lock")
 end
