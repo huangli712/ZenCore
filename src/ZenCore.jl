@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/02
+# Last modified: 2021/07/03
 #
 
 """
@@ -419,7 +419,7 @@ vasp_incar     -> Generate essential input file (INCAR).
 vasp_kpoints   -> Generate essential input file (KPOINTS).
 vasp_gamma     -> Generate essential input file (GAMMA).
 vasp_lock      -> Manipulate the vasp.lock file.
-vasp_files     -> Check essential output files.
+vaspio_files   -> Check essential output files.
 vaspio_nband   -> Determine number of bands.
 vaspio_valence -> Read number of valence electrons for each sort.
 vaspio_procar  -> Read PROCAR file.
@@ -444,7 +444,7 @@ export vasp_incar
 export vasp_kpoints
 export vasp_gamma
 export vasp_lock
-export vasp_files
+export vaspio_files
 export vaspio_nband
 export vaspio_valence
 export vaspio_procar

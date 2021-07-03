@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/25
+# Last modified: 2021/07/03
 #
 
 #=
@@ -489,14 +489,14 @@ function vasp_lock(action::String)
 end
 
 """
-    vasp_files(f::String)
+    vaspio_files(f::String)
 
 Check the essential output files by vasp. Here `f` means only the
 directory that contains the desired files.
 
 See also: [`adaptor_init`](@ref).
 """
-function vasp_files(f::String)
+function vaspio_files(f::String)
     fl = ["POSCAR", "IBZKPT", "EIGENVAL", "LOCPROJ", "DOSCAR", "CHGCAR"]
     for i in eachindex(fl)
         @assert isfile( joinpath(f, fl[i]) )
@@ -504,13 +504,13 @@ function vasp_files(f::String)
 end
 
 """
-    vasp_files()
+    vaspio_files()
 
 Check the essential output files by vasp in the current directory.
 
 See also: [`adaptor_init`](@ref).
 """
-vasp_files() = vasp_files(pwd())
+vaspio_files() = vaspio_files(pwd())
 
 #=
 ### *Service Functions* : *Group B*

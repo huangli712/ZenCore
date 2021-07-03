@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/01
+# Last modified: 2021/07/03
 #
 
 #=
@@ -840,7 +840,7 @@ function adaptor_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
     @cswitch engine begin
         # For VASP
         @case "vasp"
-            vasp_files()
+            vaspio_files()
             @time_call vasp_adaptor(DFTData)
             break
 
