@@ -489,14 +489,14 @@ function vaspq_lock()
 end
 
 """
-    vaspio_files(f::String)
+    vaspq_files(f::String)
 
 Check the essential output files by vasp. Here `f` means only the
 directory that contains the desired files.
 
 See also: [`adaptor_init`](@ref).
 """
-function vaspio_files(f::String)
+function vaspq_files(f::String)
     fl = ["POSCAR", "IBZKPT", "EIGENVAL", "LOCPROJ", "DOSCAR", "CHGCAR"]
     for i in eachindex(fl)
         @assert isfile( joinpath(f, fl[i]) )
@@ -504,13 +504,13 @@ function vaspio_files(f::String)
 end
 
 """
-    vaspio_files()
+    vaspq_files()
 
 Check the essential output files by vasp in the current directory.
 
 See also: [`adaptor_init`](@ref).
 """
-vaspio_files() = vaspio_files(pwd())
+vaspq_files() = vaspq_files(pwd())
 
 #=
 ### *Service Functions* : *Group B*
