@@ -91,7 +91,8 @@ function vasp_init(it::IterInfo)
     println("  > KPOINTS is ready")
 
     # Check essential input files
-    flist = ("INCAR", "POSCAR", "POTCAR")
+    flist = ["INCAR", "POSCAR", "POTCAR"]
+    get_d("kmesh") == "file" && push!(flist, "KPOINTS")
     for i in eachindex(flist)
         filename = flist[i]
         if !isfile(filename)
