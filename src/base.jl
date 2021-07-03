@@ -840,7 +840,7 @@ function adaptor_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
     @cswitch engine begin
         # For VASP
         @case "vasp"
-            vaspio_files()
+            vaspq_files()
             @time_call vasp_adaptor(DFTData)
             break
 
