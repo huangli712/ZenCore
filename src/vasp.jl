@@ -14,11 +14,16 @@
 """
     vasp_adaptor(D::Dict{Symbol,Any})
 
-Adaptor support for vasp code. It will read the output files of vasp
-code and then fulfill the `DFTData` dict (i.e `D`).
+Adaptor support for vasp code. It will parse the output files of vasp
+code, extract the Kohn-Sham dataset,  and then fulfill the `DFTData`
+dict (i.e `D`).
 
-The following vasp's files are needed: `POSCAR`, `IBZKPT`, `EIGENVAL`,
-`LOCPROJ`, and `DOSCAR`.
+The following vasp's output files are needed: 
+* `POSCAR`
+* `IBZKPT`
+* `EIGENVAL`
+* `LOCPROJ`
+* `DOSCAR`
 
 See also: [`plo_adaptor`](@ref), [`ir_adaptor`](@ref).
 """
