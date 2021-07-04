@@ -490,7 +490,10 @@ end
 """
     vaspc_lock(action::String)
 
-Create the `vasp.lock` file.
+Create the `vasp.lock` file. This file is relevant for `ICHARG = 5`. The
+vasp program runs only when vasp.lock is present in the current directory.
+
+See also: [`vaspq_lock`](@ref).
 """
 function vaspc_lock(action::String)
     @assert startswith(action, "c") || startswith(action, "C")
