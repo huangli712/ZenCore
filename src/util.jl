@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/01
+# Last modified: 2021/07/04
 #
 
 #=
@@ -660,22 +660,29 @@ end
 The following codes will generate and export dynamically some color
 functions, including:
 
-* black(str::String)
-* red(str::String)
-* green(str::String)
-* yellow(str::String)
-* blue(str::String)
-* magenta(str::String)
-* cyan(str::String)
-* white(str::String)
-* light_black(str::String)
-* light_red(str::String)
-* light_green(str::String)
-* light_yellow(str::String)
-* light_blue(str::String)
-* light_magenta(str::String)
-* light_cyan(str::String)
-* light_white(str::String)
+```julia
+# For standard colors
+black(str::String)
+red(str::String)
+green(str::String)
+yellow(str::String)
+blue(str::String)
+magenta(str::String)
+cyan(str::String)
+white(str::String)
+```
+
+```julia
+# For light colors
+light_black(str::String)
+light_red(str::String)
+light_green(str::String)
+light_yellow(str::String)
+light_blue(str::String)
+light_magenta(str::String)
+light_cyan(str::String)
+light_white(str::String)
+```
 
 These functions provide some shortcuts to create texts decorated by
 special escape sequences. These texts will be show as colorized texts
