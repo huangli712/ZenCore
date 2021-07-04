@@ -1180,6 +1180,7 @@ function vaspio_eigen(f::String)
     # Check whether the `EIGENVAL` file contains valid data
     lines = readlines(joinpath(f, "EIGENVAL"))
 
+    # Read EIGENVAL
     if length(lines) ≥ 10
         println("  > Open and read EIGENVAL")
 
@@ -1227,6 +1228,8 @@ function vaspio_eigen(f::String)
 
         # return the desired arrays
         return enk, occupy
+    
+    # Read LOCPROJ
     else
         println("  > Open and read LOCPROJ")
 
