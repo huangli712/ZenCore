@@ -259,8 +259,8 @@ end
 
 The parameter `NBANDS` is quite important. Sometimes its default value
 is too small. The adaptor will fail to generate reasonable projectors.
-At this case, you will see an error thrown by the try_diag() function.
-The solution is simple, i.e., increasing `NBANDS` a bit.
+At this case, you will see an error thrown by the `try_diag()` function.
+The solution is quite simple, i.e., increasing `NBANDS` a bit.
 
 The current algorithm is suitable for paramagnetic systems. It has not
 been tested for `magnetically ordered materials`.
@@ -429,15 +429,15 @@ function vaspc_kpoints(mp_scheme::Bool = true, n::I64 = 9)
         ios = open("KPOINTS", "w")
 
         # Write the body
-        write(ios, "Automatic K-mesh Generation\n")
+        write(ios, "Automatic K-mesh Generation \n")
         write(ios, "0 \n")
         if mp_scheme
-            write(ios, "Monkhorst-Pack\n")
+            write(ios, "Monkhorst-Pack \n")
         else
-            write(ios, "Gamma\n")
+            write(ios, "Gamma \n")
         end
-        write(ios, " $n  $n  $n\n")
-        write(ios, " 0  0  0\n")
+        write(ios, " $n  $n  $n \n")
+        write(ios, " 0  0  0 \n")
 
         # Close the iostream
         close(ios)
