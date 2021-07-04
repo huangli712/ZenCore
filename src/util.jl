@@ -90,7 +90,7 @@ end
 """
     @ps1(str, c)
 
-Wrapper for `printstyled` function. Here `str` is a string, and `c`
+Wrapper for colorful output function. Here `str` is a string, and `c`
 denotes color.
 
 ### Examples
@@ -107,8 +107,13 @@ end
 """
     @ps2(str1, c1, str2, c2)
 
-Wrapper for `printstyled` function. Here `str1` and `str2` are strings,
+Wrapper for colorful output function. Here `str1` and `str2` are strings,
 and `c1` and `c2` denote colors.
+
+### Examples
+```julia
+@ps2 "Hello " :red "world!" :green
+```
 
 See also: [`@ps1`](@ref).
 """
