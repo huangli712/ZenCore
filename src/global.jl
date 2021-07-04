@@ -93,7 +93,7 @@ See also: [`__AUTHORS__`](@ref).
 const __RELEASE__ = "2021/07"
 
 #=
-*Remarks*:
+*Remarks* :
 
 The elements of the Array `__AUTHORS__` should be a `NamedTuple` object,
 such as:

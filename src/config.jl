@@ -148,7 +148,7 @@ function rev_dict(cfg::Dict{String,Any})
 end
 
 #=
-*Remarks*:
+*Remarks* :
 
 This `chk_dict()` function is far away from completeness. We should
 add more constraints here, both physically and numerically.
@@ -287,7 +287,7 @@ function cat_c()
 end
 
 #=
-*Remarks*:
+*Remarks* :
 
 The `get_d("sproj")` is actually an `Array{String,1}`. It would be quite
 low efficiency if we print it directly. So we have to convert it into a

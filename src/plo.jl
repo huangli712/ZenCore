@@ -207,7 +207,7 @@ function plo_fermi(enk::Array{F64,3}, fermi::F64)
 end
 
 #=
-*Remarks*:
+*Remarks* :
 
 Until now, the `PG` array was only created in `vasp.jl/vaspio_projs()`.
 
@@ -291,7 +291,7 @@ function plo_group(MAP::Mapping, PG::Array{PrGroup,1})
 end
 
 #=
-*Remarks*:
+*Remarks* :
 
 Here, `window` means energy window or band window. When nwin is 1, it
 means that all `PrGroup` share the same window. When nwin is equal to
@@ -391,7 +391,7 @@ function plo_window(PG::Array{PrGroup,1}, enk::Array{F64,3})
 end
 
 #=
-*Remarks*:
+*Remarks* :
 
 `PG[i].Tr` must be a matrix. Its size must be `(ndim, p2 - p1 + 1)`.
 =#
@@ -682,7 +682,7 @@ function get_win2(enk::Array{F64,3}, bwin::Tuple{F64,F64})
 end
 
 #=
-*Remarks*:
+*Remarks* :
 
 We assume that the energy / band windows for all of the projectors are
 the same. In other words, `PW` only has an unique PrWindow object.
@@ -1016,7 +1016,7 @@ function calc_hamk(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1}, weight:
 end
 
 #=
-*Remarks*:
+*Remarks* :
 
 We assume that the energy / band windows for all of the projectors are
 the same. In other words, `PW` only has an unique PrWindow object.
@@ -1301,7 +1301,7 @@ function view_hamk(PG::Array{PrGroup,1}, hamk::Array{Array{C64,3},1})
 end
 
 #=
-*Remarks*:
+*Remarks* :
 
 The data file `hamk.chk` is used to debug. It should not be read by the
 DMFT engine. That is the reason why we name this function as `view_hamk`

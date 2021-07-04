@@ -203,7 +203,7 @@ function query_case()
 end
 
 #=
-*Remarks*:
+*Remarks* :
 
 For `VASP`, the essential input files include:
 * POSCAR
@@ -248,7 +248,7 @@ function query_stop()
 end
 
 #=
-*Remarks*:
+*Remarks* :
 
 In the `ZenCore` package, the following environment variables matter:
 
@@ -338,7 +338,7 @@ function query_dmft()
 end
 
 #=
-*Remarks*:
+*Remarks* :
 
 The `atomic` code is considered as a preprocessor of `ct_hyb2`, it is
 not a valid quantum impurity solver.
@@ -524,7 +524,7 @@ end
 =#
 
 #=
-*Remarks 1*:
+*Remarks 1* :
 
 The definition of Gauss error function is as follows:
 
@@ -532,7 +532,7 @@ The definition of Gauss error function is as follows:
 erf(x) = \frac{2}{\sqrt{\pi}}\int^{x}_{0} e^{-\eta^2} d\eta.
 ```
 
-*Remarks 2*:
+*Remarks 2* :
 
 We call the `erf()` function defined in the mathematical library `libm`
 or `openlibm` directly, instead of implementing it again by ourselves.
@@ -542,12 +542,12 @@ websites:
 * https://github.com/JuliaMath/openlibm
 * https://sourceware.org/newlib/libm.html
 
-*Remarks 3*:
+*Remarks 3* :
 
 This below implementation is taken from the `SpecialFunctions.jl`. See:
 * https://github.com/JuliaMath/SpecialFunctions.jl
 
-*Remarks 4*:
+*Remarks 4* :
 
 `Base.Math.libm` is actually a string. It denotes `libopenlibm`.
 =#
@@ -583,7 +583,7 @@ end
 =#
 
 #=
-*Remarks*:
+*Remarks* :
 
 Actually, the following codes are inspried by this repository:
 
@@ -655,7 +655,7 @@ function colorize(c::Symbol, s::String; bg::String = "default", m::String="defau
 end
 
 #=
-*Remarks*:
+*Remarks* :
 
 The following codes will generate and export dynamically some color
 functions, including:

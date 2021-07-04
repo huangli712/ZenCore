@@ -12,7 +12,7 @@
 =#
 
 #=
-*Remarks*:
+*Remarks* :
 
 In the `ir_adaptor()` funtion, some writting steps are optional because
 the tetrahedron information might be absent.

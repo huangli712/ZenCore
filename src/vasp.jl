@@ -255,7 +255,7 @@ end
 =#
 
 #=
-*Remarks*:
+*Remarks* :
 
 The parameter `NBANDS` is quite important. Sometimes its default value
 is too small. The adaptor will fail to generate reasonable projectors.

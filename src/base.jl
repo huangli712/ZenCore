@@ -76,7 +76,7 @@ end
 #=
 *Some Explanations for the DFT + DMFT Algorithm*
 
-*Remarks 1*:
+*Remarks 1* :
 
 We would like to perform two successive DFT runs if `get_d("loptim")` is
 true. The purpose of the first DFT run is to evaluate the fermi level.
@@ -86,7 +86,7 @@ optimal projectors in the second DFT run.
 On the other hand, if `get_d("loptim")` is false, only the first DFT run
 is enough.
 
-*Remarks 2*:
+*Remarks 2* :
 
 We want better *optimal projectors*.
 
@@ -95,7 +95,7 @@ window -> `wrong` optimial projectors. But at this point, the fermi
 level is updated, so we have to generate the optimal projectors
 again within this new window by doing addition DFT calculation.
 
-*Remarks 3*:
+*Remarks 3* :
 
 The key Kohn-Sham data inclue lattice structures, 𝑘-mesh and its weights,
 tetrahedra data, eigenvalues, raw projectors, and fermi level, etc. At
@@ -105,7 +105,7 @@ labeling, grouping, filtering, and rotatation). Finally, the adaptor will
 write down the processed data to some specified files using the `IR`
 format.
 
-*Remarks 4*:
+*Remarks 4* :
 
 Once everything is ready, we are going to solve the DMFT self-consistent
 equation iterately.
@@ -522,7 +522,7 @@ end
 =#
 
 #=
-*Remarks*:
+*Remarks* :
 
 In order to terminate the `Zen` code, the following two conditions
 should be fulfilled at the same time.
@@ -1030,7 +1030,7 @@ end
 =#
 
 #=
-*Remarks*:
+*Remarks* :
 
 The working directories include `dft`, `dmft1`, `dmft2`, and `impurity.i`.
 If they exist already, it would be better to remove them at first.

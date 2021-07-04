@@ -12,7 +12,7 @@
 =#
 
 #=
-*Remarks*:
+*Remarks* :
 
 The values in the following dictionaries are actually arrays, which
 usually contain four elements:
@@ -473,7 +473,7 @@ function Impurity(index::I64,
 end
 
 #=
-*Remarks*:
+*Remarks* :
 
 Please go to the following webpage for more details about the original
 specifications of projectors in the `vasp` code:
