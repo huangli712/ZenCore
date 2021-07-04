@@ -544,7 +544,7 @@ vaspq_files() = vaspq_files(pwd())
 =#
 
 #=
-Remarks:
+*Remarks* :
 
 In vasp, the `NBANDS` parameter is determined automatically. According
 to the wiki of vasp, it is equal to `nelect / 2 + latt.natom / 2` for
@@ -554,7 +554,8 @@ parameter is only 20. It is too small to determine the five V``_{3d}``
 projectors. It would be better to increase it to 30.
 
 Here, we increase `NBANDS` to `1.6 * NBANDS`. The `1.6` is a magic
-number, you can adjust it by yourself.
+number, you can adjust it by yourself. For magnetic ordered systems,
+perhaps we nedd a larger factor.
 =#
 
 """
