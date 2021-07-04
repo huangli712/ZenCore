@@ -462,12 +462,17 @@ function vaspc_gamma(kwin::Array{I64,3}, gamma::Array{C64,4})
 
     # Write the data
     open(fgamma, "w") do fout
-        @printf(fout, " %i  -1  ! Number of k-points, default number of bands\n", nkpt)
+        @printf(fout, " %i  -1  ! Number of k-points, default number of bands \n", nkpt)
+        # Go through each 𝑘-point
         for k = 1:nkpt
+            # Determine the band window
             bs = kwin[k,1,1]
             be = kwin[k,1,2]
             cbnd = be - bs + 1
+            @assert cbnd ≤ qbnd
             @printf(fout, " %i  %i  %i\n", k, bs, be)
+
+            # Go through each band
             for p = 1:cbnd
                 for q = 1:cbnd
                     z = gamma[p,q,k,1]
@@ -475,12 +480,11 @@ function vaspc_gamma(kwin::Array{I64,3}, gamma::Array{C64,4})
                 end
                 println(fout)
             end
-            #println(fout)
         end # END OF K LOOP
     end # END OF IOSTREAM
 
     # Print message to the screen
-    println("  Write gamma matrix into: dft/$fgamma")
+    println("  > Write gamma matrix into: dft/$fgamma")
 end
 
 """
