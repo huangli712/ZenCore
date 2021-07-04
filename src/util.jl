@@ -591,12 +591,19 @@ end
 #=
 *Remarks* :
 
-Actually, the following codes are inspried by this repository:
+The purpose of the following codes is to provide some convenient tools
+to output colorful and stylized texts in the terminal. Actually, these
+codes are inspried by this repository:
 
 * https://github.com/Aerlinger/AnsiColor.jl
 
-The purpose of these codes is to provide some convenient tools to output
-colorful and stylized texts in the terminal.
+For more information about the ANSI color escape sequences, please check
+the following websites further:
+
+* https://stackoverflow.com/questions/4842424/
+* https://en.wikipedia.org/wiki/ANSI_escape_code
+
+Note that the macros `@ps1` and `@ps2` rely on these codes.
 =#
 
 """
