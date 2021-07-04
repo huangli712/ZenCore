@@ -1162,30 +1162,6 @@ See also: [`vaspio_kmesh`](@ref), [`irio_tetra`](@ref).
 """
 vaspio_tetra() = vaspio_tetra(pwd())
 
-#=
-*Remarks*:
-
-Here we provide two implementations to read the eigenvalues. The first
-implementation is somewhat tedious, so we don't use it. It seems that
-the second implementation looks quite graceful.
-
-*Previous Implementation*:
-
-```julia
-if nspin === 1 # for spin unpolarized case
-    enk[j, i, 1] = parse(F64, arr[2])
-    occupy[j, i, 1] = parse(F64, arr[3])
-end
-
-if nspin === 2 # for spin polarized case
-    enk[j, i, 1] = parse(F64, arr[2])
-    enk[j, i, 2] = parse(F64, arr[3])
-    occupy[j, i, 1] = parse(F64, arr[4])
-    occupy[j, i, 2] = parse(F64, arr[5])
-end
-```
-=#
-
 """
     vaspio_eigen(f::String)
 
