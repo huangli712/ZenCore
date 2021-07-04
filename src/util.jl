@@ -596,7 +596,7 @@ Actually, the following codes are inspried by this repository:
 * https://github.com/Aerlinger/AnsiColor.jl
 
 The purpose of these codes is to provide some convenient tools to output
-colorful texts.
+colorful and stylized texts in the terminal.
 =#
 
 """
@@ -694,6 +694,7 @@ These functions provide some shortcuts to create texts decorated by
 special escape sequences. These texts will be show as colorized texts
 in the terminal.
 
+### Examples
 ```julia
 julia> println(red("hello world!"))
 ```
