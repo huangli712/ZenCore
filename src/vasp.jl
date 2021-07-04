@@ -916,9 +916,9 @@ function vaspio_procar(f::String)
                         sorry()
                         break
                 end # @cswitch
-            end # Loop for bands
-        end # Loop for k-points
-    end # Loop for spins
+            end # END OF B LOOP
+        end # END OF K LOOP
+    end # END OF S LOOP
 
     # Close the iostream
     close(fin)
@@ -931,8 +931,8 @@ function vaspio_procar(f::String)
                     oab[o, a, b, s] = sum(worb[o, a, b, :, s]) / float(nkpt)
                 end
             end
-        end
-    end
+        end # END OF B LOOP
+    end # END OF S LOOP
 
     # Return the desired arrays
     return oab, enk, occ
