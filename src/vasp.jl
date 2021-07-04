@@ -508,6 +508,8 @@ end
     vaspq_lock()
 
 Return whether the `vasp.lock` file is available.
+
+See also: [`vaspc_lock`](@ref).
 """
 function vaspq_lock()
     return isfile("dft/vasp.lock")
