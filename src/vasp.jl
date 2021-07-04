@@ -105,10 +105,15 @@ end
     vasp_exec(it::IterInfo)
 
 Execute the vasp program, monitor the convergence progress, and output
-the relevant information.
+the relevant information. Especially, if it.sc == 2 (self-consistent
+mode), this function will launch the vasp code, then return immediately.
 
-Especially, if it.sc == 2 (self-consistent mode), this function will
-launch the vasp code, and then return immediately. 
+In order to execute this function correctly, you have to setup the
+following environment variables:
+
+* VASP_HOME
+
+and make sure the file `MPI.toml` is available.
 
 See also: [`vasp_init`](@ref), [`vasp_save`](@ref).
 """
