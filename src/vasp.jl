@@ -162,6 +162,7 @@ function vasp_exec(it::IterInfo)
     println("  > Add the task to the scheduler's queue")
     println("  > Waiting ...")
 
+    # Special treatment for self-consistent mode
     if it.sc == 2
         println("Escape from vasp_exec()")
         return
@@ -216,12 +217,13 @@ end
 """
     vasp_save(it::IterInfo)
 
-Backup the output files of vasp if necessary. Furthermore, the fermi level
-in `IterInfo` struct is also updated (`IterInfo.μ₀`).
+Backup the output files of vasp if necessary. Furthermore, the DFT fermi
+level in `IterInfo` struct is also updated (`IterInfo.μ₀`).
 
 See also: [`vasp_init`](@ref), [`vasp_exec`](@ref).
 """
 function vasp_save(it::IterInfo)
+    # Special treatment for self-consistent mode
     if it.sc == 2
         println("Escape from vasp_save()")
         return
@@ -233,7 +235,7 @@ function vasp_save(it::IterInfo)
     # Store the data files
     #
     # Create list of files
-    fl = ["INCAR", "vasp.out", "vasprun.xml"]
+    fl = ["INCAR", "vasp.out"]
     #
     # Go through the file list, backup the files one by one.
     for i in eachindex(fl)
@@ -242,8 +244,8 @@ function vasp_save(it::IterInfo)
     end
     println("  > Save the key output files")
 
-    # Anyway, the fermi level is extracted from DOSCAR, and its value
-    # will be saved at IterInfo.μ₀.
+    # Anyway, the DFT fermi level is extracted from DOSCAR, and its
+    # value will be saved at IterInfo.μ₀.
     it.μ₀ = vaspio_fermi(pwd())
     println("  > Extract the fermi level from DOSCAR: $(it.μ₀) eV")
 end
