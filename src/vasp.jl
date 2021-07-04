@@ -1438,9 +1438,12 @@ function vaspio_fermi(f::String, silent::Bool = true)
     # Print the header
     !silent && println("Parse fermi level")
 
+    # Try to figure out whether the DOSCAR file is valid
     lines = readlines(joinpath(f, "DOSCAR"))
 
+    # Read DOSCAR
     if length(lines) ≥ 6
+        # Print the header
         !silent && println("  > Open and read DOSCAR")
 
         # Open the iostream
@@ -1462,12 +1465,16 @@ function vaspio_fermi(f::String, silent::Bool = true)
 
         # Return the desired data
         return fermi
+    
+    # Read LOCPROJ
     else
+        # Print the header
         !silent && println("  > Open and read LOCPROJ")
 
         # Open the iostream
         fin = open(joinpath(f, "LOCPROJ"), "r")
 
+        # Extract the fermi level
         fermi = parse(F64, line_to_array(fin)[5])
 
         # Close the iostream
