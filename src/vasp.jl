@@ -1079,6 +1079,8 @@ function vaspio_kmesh(f::String)
     # Print some useful information to check
     println("  > Number of k-points: ", nkpt)
     println("  > Total sum of weights: ", sum(weight))
+    println("  > Shape of Array kmesh: ", size(kmesh))
+    println("  > Shape of Array weight: ", size(weight))
 
     # Return the desired arrays
     return kmesh, weight
