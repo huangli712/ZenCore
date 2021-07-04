@@ -214,7 +214,8 @@ For `VASP`, the essential input files include:
 * POSCAR
 * POTCAR
 
-As for the `INCAR` and `KPOINTS`, they will be generated automatically.
+As for the `INCAR` and `KPOINTS` files, they should be generated
+automatically. Do not worry about them.
 =#
 
 """
@@ -261,7 +262,7 @@ In the `ZenCore` package, the following environment variables matter:
 * ZEN_CORE
 * ZEN_DMFT
 * ZEN_SOLVER
-* VASP_HOME
+* VASP_HOME (If you are using vasp as your DFT engine)
 
 Please setup them in your `.bashrc` (Lniux) or `.profile` (macOS) files.
 =#
@@ -455,7 +456,7 @@ end
 """
     prompt(msg::String)
 
-Print a format Zen message to the screen.
+Print a stylized Zen message to the screen.
 """
 function prompt(msg::String)
     print(green("ZEN > "))
@@ -466,7 +467,7 @@ end
 """
     prompt(msg1::String, msg2::String)
 
-Print a format Zen message to the screen.
+Print a stylized Zen message to the screen.
 """
 function prompt(msg1::String, msg2::String)
     print(blue("Task -> "))
@@ -478,8 +479,8 @@ end
 """
     prompt(io::IOStream, msg::String)
 
-Print a format Zen message to the given IOStream. This function is used
-to log the events during DFT + DMFT iterations.
+Print a stylized Zen message to the given IOStream. This function is used
+to log the key events during DFT + DMFT iterations.
 """
 function prompt(io::IOStream, msg::String)
     date = Dates.format(now(), "yyyy-mm-dd / HH:MM:SS")
