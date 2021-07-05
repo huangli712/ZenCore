@@ -744,6 +744,7 @@ function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
     equiv = abs.(get_i("equiv"))
     unique!(equiv)
 
+    # Figure out which quantum impurity problem should be solved
     to_be_solved = fill(false, get_i("nsite"))
     for i in eachindex(equiv)
         ind = findfirst(x -> x.equiv == equiv[i], ai)
@@ -803,6 +804,24 @@ function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
             cd("..")
 
         else
+            # Well, the current quantum impurity problem is not solved.
+            # We have to find out its sister which has been solved before.
+            found = -1
+            for j = 1:i
+                # Impurity 𝑖 and Impurity 𝑗 are related by some kinds of
+                # symmetry. Impurity 𝑗 has been solved before. So we can
+                # apply its solution to Impurity 𝑖.
+                if abs(ai[i].equiv) == abs(ai[j].equiv) && to_be_solved[j]
+                    found = j
+                end
+            end
+
+            if found > 0
+                SetImpurity(ai[j], ai[i])
+            else
+                error("Fail to find out solution for quantum impurity problem")
+            end
+
         end
     end
 
