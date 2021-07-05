@@ -47,7 +47,7 @@ function sigma_reset(ai::Array{Impurity,1})
         println("  > Create Matsubara frequency mesh: $nmesh points")
     else # Real axis
         sorry()
-        println("  > Create real frequency mesh")
+        println("  > Create real frequency mesh: $nmesh points")
     end
 
     # Create default self-energy functions
@@ -130,12 +130,12 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
 
         # Choose suitable double counting scheme
         @cswitch get_m("dcount") begin
-            # Fully localized limit scheme with fixed occupation number
+            # Fully localized limit scheme (nominal occupation number)
             @case "fll1"
                 sigup, sigdn = cal_dc_fll(U, J, N / 2.0, N / 2.0)
                 break
 
-            # Fully localized limit scheme with dynamic occupation number
+            # Fully localized limit scheme (dynamic occupation number)
             @case "fll2"
                 sigup, sigdn = cal_dc_fll(U, J, nup, ndown)
                 break
@@ -172,9 +172,8 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
 
         # Special treatment for the first iteration
         if it.I₃ <= 1 && it.I₁ <= 1
-            sigdc = 0.0
-            fill!(DC, sigdc)
-            println("  > Reset Vdc to: ", sigdc)
+            fill!(DC, 0.0)
+            println("  > Reset Vdc to: ", 0.0)
         end
 
         # Use `sigup` to update the IterInfo struct
@@ -234,7 +233,7 @@ See also: [`sigma_split`](@ref).
 function sigma_gather(it::IterInfo, ai::Array{Impurity,1})
     # Print the header
     println("Sigma : Gather")
-    println("Try to combine self-energy functions for various impurities")
+    println("Try to combine self-energy functions from quantum impurities")
     println("Current directory: ", pwd())
 
     # Extract some necessary parameters
@@ -453,7 +452,7 @@ Here ``M`` is the number of correlated orbitals.
 
 Evaluate the double counting term by the K. Held scheme.
 
-See also: [`cal_dc_fll`](@ref), [`cal_dc_exact`](@ref).
+See also: [`cal_dc_fll`](@ref), [`cal_dc_amf`](@ref), [`cal_dc_exact`](@ref).
 """
 function cal_dc_held(U::F64, J::F64, N::F64, M::I64)
     Uav = ( U + ( M - 1.0 ) * ( 2.0 * U - 5.0 * J ) ) / ( 2.0 * M - 1.0 )
