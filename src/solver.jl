@@ -591,13 +591,16 @@ function ctqmc_nimpx(imp::Impurity)
     end
 
     # Parse the data file to extract total impurity occupancy
-    lines = readlines(fnmat)
-    filter!(x -> contains(x, "sum"), lines)
-    @assert length(lines) == 1
-    arr = line_to_array(lines[end])
-    occup = parse(F64, arr[2])
+    readuntil(fnmat, "sup")
+    nup = parse(F64, line_to_array(fnmat)[1])
+    readuntil(fmat, "sdn")
+    ndown = parse(F64, line_to_array(fnmat)[1])
+    readuntil(fmat, "sum")
+    occup = parse(F64, line_to_array(fnmat)[1])
 
     # Update the Impurity struct
+    imp.nup = nup
+    imp.ndown = ndown
     imp.occup = occup
 end
 
