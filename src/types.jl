@@ -251,7 +251,7 @@ Mutable struct. Essential information of quantum impurity problem.
 * sites -> Index of impurity atom.
 * shell -> Angular momentum of correlated orbitals.
 * ising -> Interaction type of correlated orbitals.
-* occup -> Impurity occupancy.
+* occup -> Impurity occupancy 𝑛.
 * nup   -> Impurity occupancy 𝑛↑ (spin up).
 * ndown -> Impurity occupancy 𝑛↓ (spin down).
 * upara -> Coulomb interaction parameter.
@@ -472,8 +472,14 @@ function Impurity(index::I64,
     # Determine number of orbitals of the quantum impurity problem
     nband = shell_to_dim[shell]
 
+    # Determine impurity occupancy
+    nup = occup / 2.0
+    ndown = occup / 2.0
+
     # Call the default constructor
-    Impurity(index, atoms, sites, shell, ising, occup, upara, jpara, lpara, beta, nband)
+    Impurity(index, atoms, sites, shell, ising,
+             occup, nup, ndown,
+             upara, jpara, lpara, beta, nband)
 end
 
 #=
