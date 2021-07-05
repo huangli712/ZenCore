@@ -132,36 +132,23 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
         @cswitch get_m("dcount") begin
             # Fully localized limit scheme with fixed occupation number
             @case "fll1"
-                if nspin == 1
-                    sigdc = cal_dc_fll(U, J, N)
-                else
-                    sigup, sigdn = cal_dc_fll(U, J, N / 2.0, N / 2.0)
-                end
+                sigup, sigdn = cal_dc_fll(U, J, N / 2.0, N / 2.0)
                 break
 
             # Fully localized limit scheme with dynamic occupation number
             @case "fll2"
-                if nspin == 1
-                    sigdc = cal_dc_fll(U, J, occup)
-                else
-                    sigup, sigdn = cal_dc_fll(U, J, nup, ndown)
-                end
+                sigup, sigdn = cal_dc_fll(U, J, nup, ndown)
                 break
 
             # Around mean-field scheme
             @case "amf"
-                if nspin == 1
-                    sigdc = cal_dc_amf(U, J, occup, nband)
-                else
-                    sigup, sigdn = cal_dc_amf(U, J, nup, ndown, nband)
-                end
+                sigup, sigdn = cal_dc_amf(U, J, nup, ndown, nband)
                 break
 
             # K. Held scheme
             @case "held"
-                sigdc = cal_dc_held(U, J, occup, nband)
-                sigup = sigdc
-                sigdn = sigdc
+                sigup = cal_dc_held(U, J, occup, nband)
+                sigdn = sigup
                 break
 
             # Exact double counting scheme
