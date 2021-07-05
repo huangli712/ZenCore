@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/05
+# Last modified: 2021/07/06
 #
 
 #=
@@ -249,6 +249,7 @@ Mutable struct. Essential information of quantum impurity problem.
 * index -> Index of the quantum impurity problem.
 * atoms -> Chemical symbol of impurity atom.
 * sites -> Index of impurity atom.
+* equiv -> Equivalence of quantum impurity problem.
 * shell -> Angular momentum of correlated orbitals.
 * ising -> Interaction type of correlated orbitals.
 * occup -> Impurity occupancy 𝑛.
@@ -266,6 +267,7 @@ mutable struct Impurity
     index :: I64
     atoms :: String
     sites :: I64
+    equiv :: I64
     shell :: String
     ising :: String
     occup :: F64
