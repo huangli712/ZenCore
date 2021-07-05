@@ -118,7 +118,7 @@ function plo_map(PG::Array{PrGroup,1}, ai::Array{Impurity,1})
     nwnd = ngrp
 
     # Additional check for nsite
-    @assert nsite === length(ai)
+    @assert nsite == length(ai)
 
     # The lshell creates a mapping from shell (string) to l (integer).
     # It is used to parse Impurity.shell to extract the `l` parameter.
@@ -155,7 +155,7 @@ function plo_map(PG::Array{PrGroup,1}, ai::Array{Impurity,1})
     for i = 1:nsite
         SL = site_l[i]
         for g = 1:ngrp
-            if (PG[g].site, PG[g].l) === (SL[1], SL[2])
+            if (PG[g].site, PG[g].l) == (SL[1], SL[2])
                 Map.i_grp[i] = g
                 Map.g_imp[g] = i
             end
@@ -203,7 +203,7 @@ See also: [`vaspio_fermi`](@ref), [`irio_fermi`](@ref).
 function plo_fermi(enk::Array{F64,3}, fermi::F64)
     println("Calibrate eigenvalues")
     @. enk = enk - fermi
-    println("  > Reset fermi level to zero")
+    println("  > Reset DFT fermi level to zero")
 end
 
 #=
@@ -317,7 +317,7 @@ function plo_window(PG::Array{PrGroup,1}, enk::Array{F64,3})
     println("  > Number of recognized windows: $nwin")
 
     # Sanity check
-    @assert nwin === 1 || nwin === length(PG)
+    @assert nwin == 1 || nwin == length(PG)
 
     # Initialize an array of PrWindow struct
     PW = PrWindow[]
@@ -329,7 +329,7 @@ function plo_window(PG::Array{PrGroup,1}, enk::Array{F64,3})
     # Scan the groups of projectors, setup PrWindow for them.
     for p in eachindex(PG)
         # Determine bwin. Don't forget it is a Tuple. bwin = (emin, emax).
-        if nwin === 1
+        if nwin == 1
             # All `PrGroup` shares the same window
             bwin = (window[1], window[2])
         else
@@ -348,7 +348,7 @@ function plo_window(PG::Array{PrGroup,1}, enk::Array{F64,3})
         # window must be defined by band indices (they are integers) or
         # energies (two float numbers).
         @assert bwin[2] > bwin[1]
-        @assert typeof(bwin[1]) === typeof(bwin[2])
+        @assert typeof(bwin[1]) == typeof(bwin[2])
         @assert bwin[1] isa Integer || bwin[1] isa AbstractFloat
 
         # The `bwin` is only the global window. But we actually need a
@@ -452,7 +452,7 @@ function plo_rotate(PG::Array{PrGroup,1}, chipsi::Array{C64,4})
 end
 
 #=
-*Theory*:
+*Theory* :
 
 The projector matrix (`chipsi`) is defined as follows:
 ```math
@@ -498,13 +498,13 @@ function plo_filter(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1})
                 # `ib1` and `ib2` are the boundaries.
                 ib1 = PW[p].kwin[k, s, 1]
                 ib2 = PW[p].kwin[k, s, 2]
-                @assert ib1 <= ib2
+                @assert ib1 ≤ ib2
 
                 # `ib3` are total number of bands for given `s` and `k`
                 ib3 = ib2 - ib1 + 1
 
                 # Sanity check
-                @assert ib3 <= PW[p].nbnd
+                @assert ib3 ≤ PW[p].nbnd
 
                 # We just copy data from chipsi[p] to F
                 F[:, 1:ib3, k, s] = chipsi[p][:, ib1:ib2, k, s]
@@ -538,10 +538,10 @@ function plo_orthog(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1})
     nwin = convert(I64, length(window) / 2)
 
     # Sanity check
-    @assert nwin === 1 || nwin === length(PW)
+    @assert nwin == 1 || nwin == length(PW)
 
     # Choose suitable service functions
-    if nwin === 1
+    if nwin == 1
         # All the PrGroups share the same energy / band window, we should
         # orthogonalize and normalize the projectors as a whole.
         #
