@@ -252,6 +252,8 @@ Mutable struct. Essential information of quantum impurity problem.
 * shell -> Angular momentum of correlated orbitals.
 * ising -> Interaction type of correlated orbitals.
 * occup -> Impurity occupancy.
+* nup   -> Impurity occupancy ``n_{\uparrow}`` (spin up).
+* ndown -> Impurity occupancy ``n_{\downarrow}`` (spin down).
 * upara -> Coulomb interaction parameter.
 * jpara -> Hund's coupling parameter.
 * lpara -> Spin-orbit coupling parameter.
@@ -267,6 +269,8 @@ mutable struct Impurity
     shell :: String
     ising :: String
     occup :: F64
+    nup   :: F64
+    ndown :: F64
     upara :: F64
     jpara :: F64
     lpara :: F64
