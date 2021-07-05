@@ -668,7 +668,7 @@ function get_win2(enk::Array{F64,3}, bwin::Tuple{F64,F64})
             end
 
             # Check the boundaries
-            @assert ib1 <= ib2
+            @assert ib1 < ib2
 
             # Save the boundaries. The ib1 and ib2 mean the lower and
             # upper boundaries, respectively.
