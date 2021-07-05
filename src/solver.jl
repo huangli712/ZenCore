@@ -815,6 +815,9 @@ function GetImpurity()
     return AI
 end
 
+function SetImpurity(imp₁::Impurity, imp₂::Impurity)
+end
+
 """
     CatImpurity(imp::Impurity)
 
