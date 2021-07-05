@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/29
+# Last modified: 2021/07/05
 #
 
 """
@@ -190,11 +190,31 @@ function mixer_eimpx(it::IterInfo, ai::Array{Impurity,1})
     write_eimpx(Enew, ai, "dmft1/dmft.eimpx")
 end
 
+#=
+*Kerker mixing algorithm* :
+
+```math
+\begin{equation}
+\Gamma_{\text{mix}}(\mathbf{G})
+    =
+    \Gamma_{\text{in}}(\mathbf{G})
+    +
+    \alpha \frac{\mathbf{G}^2}{\mathbf{G}^2 + \gamma^2}
+    [\Gamma_{\text{out}}(\mathbf{G}) - \Gamma_{\text{in}}(\mathbf{G})],
+\end{equation}
+```
+
+where ``\mathbf{G}`` is the ``k`` vector, and ``\alpha`` and ``\gamma``
+are two predefined parameters. In the present implementation, we set
+``\alpha = 0.1`` and ``\gamma = 1.0``. Usually they work quite well.
+=#
+
 """
     mixer_gamma(it::IterInfo)
 
 Try to mix the correction for density matrix Γ and then use the mixed value
-to update the `dmft2/dmft.gamma` file.
+to update the `dmft2/dmft.gamma` file. Here we use the Kerker algorithm,
+instead of the linear mixing algorithm.
 
 See also: [`mixer_core`](@ref).
 """
