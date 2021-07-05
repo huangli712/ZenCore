@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/29
+# Last modified: 2021/07/06
 #
 
 #=
@@ -26,7 +26,7 @@ function dmft_init(it::IterInfo, task::I64)
 
     # Print the header
     println("Engine : DMFT$(subscript(task))")
-    println("Try to solve the dynamical mean-field self-consistent equation")
+    println("Try to solve the dynamical mean-field equation")
     println("Current directory: ", pwd())
     println("Prepare necessary input files for dmft")
 
@@ -63,7 +63,7 @@ function dmft_init(it::IterInfo, task::I64)
     beta = get_m("beta")
     mc = ( get_m("mc") isa Missing ? 0.001 : get_m("mc") )
     lfermi = ( get_m("lfermi") isa Missing ? true : get_m("lfermi") )
-    ltetra = ( get_d("smear") === "tetra" )
+    ltetra = ( get_d("smear") == "tetra" )
 
     # Generate essential input files, such as dmft.in, dynamically.
     # If the `dmft.in` file exists already, it will be overwritten.
