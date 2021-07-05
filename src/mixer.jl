@@ -259,7 +259,7 @@ function mixer_gamma(it::IterInfo)
     #
     # Extract and setup key parameters
     _, _, nkpt, nspin = size(gamma_curr)
-    α = 0.1
+    α = 0.1 # Mixing parameters
     γ = 1.0
     #
     # Apply the Kerker algorithm
@@ -281,7 +281,7 @@ end
     amix(it::IterInfo)
 
 Return the mixing factor for mixer component. It should depend on the
-current iteration number.
+current iteration number, instead of a constant.
 
 See also: [`IterInfo`](@ref).
 """
@@ -298,7 +298,9 @@ end
 """
     distance(SA::Vector{Array{C64,4}}, SB::Vector{Array{C64,4}})
 
-Calculate the difference between two multi-dimensional arrays.
+Calculate the difference between two multi-dimensional arrays. Usually
+We apply this function to calculate the difference between two
+self-energy functions.
 """
 function distance(SA::Vector{Array{C64,4}}, SB::Vector{Array{C64,4}})
     # Check the dimensional parameters to make sure SA is similar to SB
