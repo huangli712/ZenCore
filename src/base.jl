@@ -740,61 +740,70 @@ solvers, this function must be adapted.
 See also: [`adaptor_run`](@ref), [`dft_run`](@ref), [`dmft_run`](@ref).
 """
 function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
+    # Determine the unique quantum impurity problems
+    equiv = abs.(get_i("equiv"))
+    unique!(equiv)
+
+    to_be_solved = fill(false, get_i("nsite"))
+    for i in eachindex(equiv)
+        ind = findfirst(x -> x.equiv == equiv[i], ai)
+        ind isa Nothing && continue
+        to_be_solved[ind] = true
+    end
+
     # Loop over each impurity site
     for i = 1:get_i("nsite")
-
-        # Determine the chosen solver
-        engine = get_s("engine")
-
         # Extract the Impurity strcut
         imp = ai[i]
 
-        # Print the log
-        prompt("Solvers", cntr_it(it))
-        prompt(lr.log, engine)
+        if to_be_solved[i]
 
-        # Enter impurity.i directory
-        cd("impurity.$i")
+            # Determine the chosen solver
+            engine = get_s("engine")
 
-        #
-        # If there are symmetries among the impurity problems, something
-        # must be done here.
-        #
+            # Print the log
+            prompt("Solvers", cntr_it(it))
+            prompt(lr.log, engine)
 
-        # Activate the chosen quantum impurity solver
-        @cswitch engine begin
-            @case "ct_hyb1"
-                s_qmc1_init(it, imp)
-                s_qmc1_exec(it)
-                s_qmc1_save(it, imp)
-                break
+            # Enter impurity.i directory
+            cd("impurity.$i")
 
-            @case "ct_hyb2"
-                s_qmc2_init(it)
-                s_qmc2_exec(it)
-                s_qmc2_save(it)
-                break
+            # Activate the chosen quantum impurity solver
+            @cswitch engine begin
+                @case "ct_hyb1"
+                    s_qmc1_init(it, imp)
+                    s_qmc1_exec(it)
+                    s_qmc1_save(it, imp)
+                    break
 
-            @case "hub1"
-                s_hub1_init(it)
-                s_hub1_exec(it)
-                s_hub1_save(it)
-                break
+                @case "ct_hyb2"
+                    s_qmc2_init(it)
+                    s_qmc2_exec(it)
+                    s_qmc2_save(it)
+                    break
 
-            @case "norg"
-                s_norg_init(it)
-                s_norg_exec(it)
-                s_norg_save(it)
-                break
+                @case "hub1"
+                    s_hub1_init(it)
+                    s_hub1_exec(it)
+                    s_hub1_save(it)
+                    break
 
-            @default
-                sorry()
-                break
+                @case "norg"
+                    s_norg_init(it)
+                    s_norg_exec(it)
+                    s_norg_save(it)
+                    break
+
+                @default
+                    sorry()
+                    break
+            end
+
+            # Enter the parent directory
+            cd("..")
+
+        else
         end
-
-        # Enter the parent directory
-        cd("..")
-
     end
 
     # Monitor the status
