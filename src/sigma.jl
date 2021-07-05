@@ -144,7 +144,8 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
 
             # K. Held scheme
             @case "held"
-                sorry()
+                sigdc = cal_dc_held(U, J, occup, nband)
+                fill!(DC, sigdc)
                 break
 
             # Exact double counting scheme
