@@ -458,8 +458,8 @@ end
 
 Outer constructor for Impurity struct.
 """
-function Impurity(index::I64,
-                  atoms::String, sites::I64, shell::String, ising::String,
+function Impurity(index::I64, atoms::String, sites::I64,
+                  equiv::I64, shell::String, ising::String,
                   occup::F64, upara::F64, jpara::F64, lpara::F64, beta::F64)
     # Define the mapping between `shell` and number of orbitals
     shell_to_dim = Dict{String,I64}(
@@ -479,7 +479,8 @@ function Impurity(index::I64,
     ndown = occup / 2.0
 
     # Call the default constructor
-    Impurity(index, atoms, sites, shell, ising,
+    Impurity(index, atoms, sites, 
+             equiv, shell, ising,
              occup, nup, ndown,
              upara, jpara, lpara, beta, nband)
 end
