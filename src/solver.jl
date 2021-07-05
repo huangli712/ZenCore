@@ -792,6 +792,7 @@ function GetImpurity()
         index = i
         atoms = String(line_to_array(str)[1])
         sites = parse(I64, line_to_array(str)[3])
+        equiv = get_i("equiv")[i]
         shell = get_i("shell")[i]
         ising = get_i("ising")[i]
         occup = get_i("occup")[i]
@@ -801,7 +802,9 @@ function GetImpurity()
         beta  = get_m("beta")
 
         # Call the constructor
-        Im = Impurity(index, atoms, sites, shell, ising, occup, upara, jpara, lpara, beta)
+        Im = Impurity(index, atoms, sites,
+                      equiv, shell, ising,
+                      occup, upara, jpara, lpara, beta)
 
         # Save Im in AI
         push!(AI, Im)
