@@ -109,12 +109,18 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
         U = ai[i].upara
         J = ai[i].jpara
 
+        # Determine impurity occupancy
+        #
         # Get nominal occupation number
         N = get_i("occup")[i]
-
+        #
         # Get realistic occupation number
         GetNimpx(ai[i])
         occup = ai[i].occup
+        #
+        # How about spin-resolved impurity occupancy
+        nup = ai[i].nup
+        ndown = ai[i].ndown
 
         # Get number of orbitals
         nband = ai[i].nband
@@ -127,25 +133,21 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
             # Fully localized limit scheme with fixed occupation number
             @case "fll1"
                 sigdc = cal_dc_fll(U, J, N)
-                fill!(DC, sigdc)
                 break
 
             # Fully localized limit scheme with dynamic occupation number
             @case "fll2"
                 sigdc = cal_dc_fll(U, J, occup)
-                fill!(DC, sigdc)
                 break
 
             # Around mean-field scheme
             @case "amf"
                 sigdc = cal_dc_amf(U, J, occup, nband)
-                fill!(DC, sigdc)
                 break
 
             # K. Held scheme
             @case "held"
                 sigdc = cal_dc_held(U, J, occup, nband)
-                fill!(DC, sigdc)
                 break
 
             # Exact double counting scheme
@@ -153,6 +155,7 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
                 sorry()
                 break
         end
+        fill!(DC, sigdc)
         #
         # Print some useful information
         println("  > Using the $(get_m("dcount")) scheme: Vdc = $sigdc")
