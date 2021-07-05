@@ -598,12 +598,12 @@ end
 """
     read_gamma(fgamma::String = "dmft2/dmft.gamma")
 
-Read the `dmft2/dmft.gamma` file. It contains the correction for density
-matrix which is from electronic correlation. The data will be fed back
-to the DFT engine finally.
+Read the `dmft2/dmft.gamma` file. It contains the correlation-induced
+correction for density matrix. The correction will be fed back to the
+DFT engine, and then the DFT engine will generate new Kohn-Sham dataset.
 
 This function also return the 𝑘-mesh, which is useful for mixing the Γ
-matrix with the `Kerker` algorithm.
+matrix with the `Kerker` mixing algorithm.
 
 The working directory of this function must be the root folder.
 
