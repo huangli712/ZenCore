@@ -163,7 +163,7 @@ function irio_params(f::String, D::Dict{Symbol,Any})
     qbnd = maximum( [ D[:PW][w].nbnd for w = 1:nwnd ] )
 
     # D[:PW] and D[:PG] should have the same size
-    @assert ngrp === nwnd
+    @assert ngrp == nwnd
 
     # Extract `nsite` and `nmesh`
     nmesh = get_m("nmesh")
