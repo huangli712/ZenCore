@@ -729,8 +729,8 @@ function try_blk1(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1})
             ib3 = ib2 - ib1 + 1
 
             # Sanity check
-            @assert max_band >= ib3
-            @assert ib3 >= max_proj
+            @assert max_band ≥ ib3
+            @assert ib3 ≥ max_proj
 
             # Try to combine all of the groups of projectors
             for p in eachindex(PW)
@@ -760,7 +760,7 @@ function try_blk2(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1})
     for p in eachindex(PW)
         # Extract some key parameters
         ndim, nbnd, nkpt, nspin = size(chipsi[p])
-        @assert nbnd === PW[p].nbnd
+        @assert nbnd == PW[p].nbnd
 
         # Loop over spins and k-points
         for s = 1:nspin
@@ -773,8 +773,8 @@ function try_blk2(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1})
                 ib3 = ib2 - ib1 + 1
 
                 # Sanity check
-                @assert ib3 <= PW[p].nbnd
-                @assert ib3 >= ndim
+                @assert ib3 ≤ PW[p].nbnd
+                @assert ib3 ≥ ndim
 
                 # Make a view for the desired subarray
                 M = view(chipsi[p], 1:ndim, 1:ib3, k, s)
@@ -787,7 +787,7 @@ function try_blk2(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1})
 end
 
 #=
-*Theory*:
+*Theory* :
 
 First, we try to calcuate the overlap matrix:
 ```math
