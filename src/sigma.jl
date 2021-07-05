@@ -159,19 +159,15 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
         #
         # Setup the DC arrays
         if nspin == 1
-            fill!(DC, sigdc)
+            fill!(DC, sigup)
         else
             fill!(DC[:,:,1], sigup)
             fill!(DC[:,:,2], sigdn)
         end
         #
         # Print some useful information
-        if nspin == 1
-            println("  > Using the $(get_m("dcount")) scheme: Vdc = $sigdc")
-        else
-            println("  > Using the $(get_m("dcount")) scheme: Vdc = $sigup (spin up)")
-            println("  > Using the $(get_m("dcount")) scheme: Vdc = $sigdn (spin down)")
-        end
+        println("  > Using the $(get_m("dcount")) scheme: Vdc = $sigup (spin up)")
+        println("  > Using the $(get_m("dcount")) scheme: Vdc = $sigdn (spin down)")
         println("  > Shape of Array DC: $i -> ", size(DC))
 
         # Special treatment for the first iteration
@@ -181,8 +177,8 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
             println("  > Reset Vdc to: ", sigdc)
         end
 
-        # Use `sigdc` to update the IterInfo struct
-        it.dc[i] = DC[1,1,1]
+        # Use `sigup` to update the IterInfo struct
+        it.dc[i] = sigup
 
         # Push DC into DCA to save it
         push!(DCA, DC)
