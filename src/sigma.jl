@@ -169,10 +169,22 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
                 sorry()
                 break
         end
-        fill!(DC, sigdc)
+        #
+        # Setup the DC arrays
+        if nspin == 1
+            fill!(DC, sigdc)
+        else
+            fill!(DC[:,:,1], sigup)
+            fill!(DC[:,:,2], sigdn)
+        end
         #
         # Print some useful information
-        println("  > Using the $(get_m("dcount")) scheme: Vdc = $sigdc")
+        if nspin == 1
+            println("  > Using the $(get_m("dcount")) scheme: Vdc = $sigdc")
+        else
+            println("  > Using the $(get_m("dcount")) scheme: Vdc = $sigup (spin up)")
+            println("  > Using the $(get_m("dcount")) scheme: Vdc = $sigdn (spin down)")
+        end
         println("  > Shape of Array DC: $i -> ", size(DC))
 
         # Special treatment for the first iteration
@@ -415,7 +427,7 @@ This function is for the spin-unpolarized case.
 See also: [`cal_dc_fll`](@ref), [`cal_dc_exact`](@ref).
 """
 function cal_dc_amf(U::F64, J::F64, N::F64, M::I64)
-    U * ( N - N / (2.0* M) ) - J * ( N / 2.0 - N / (2.0 * M) )
+    U * ( N - N / ( 2.0 * M ) ) - J * ( N / 2.0 - N / ( 2.0 * M ) )
 end
 
 """
