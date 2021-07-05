@@ -18,7 +18,7 @@ Create initial self-energy functions and write them to `sigma.bare`. The
 `sigma.bare` file is key input for the dynamical mean-field theory engine.
 The word `bare` means that the double counting term has not been removed
 from the self-energy functions. Now this function only supports Matsubara
-self-energy functions ``\Sigma(i\omega_n)``.
+self-energy functions Σ(𝑖ωₙ).
 
 See also: [`sigma_dcount`](@ref).
 """
