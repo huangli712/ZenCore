@@ -25,6 +25,7 @@ function s_qmc1_init(it::IterInfo, imp::Impurity)
     # Print the header
     println("Engine : CT-HYB₁")
     println("Try to solve the quantum impurity problem: ", imp.index)
+    CatImpurity(imp)
     println("Current directory: ", pwd())
     println("Prepare necessary input files for solver")
 
@@ -802,4 +803,12 @@ function GetImpurity()
 
     # Return the desired array
     return AI
+end
+
+"""
+    CatImpurity(imp::Impurity)
+
+Display the Impurity struct that need to be solved.
+"""
+function CatImpurity(imp::Impurity)
 end
