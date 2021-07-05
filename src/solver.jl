@@ -811,4 +811,17 @@ end
 Display the Impurity struct that need to be solved.
 """
 function CatImpurity(imp::Impurity)
+    println("  [ Impurity $(imp.index) ] ")
+    println("    atoms : ", imp.atoms)
+    println("    sites : ", imp.sites)
+    println("    shell : ", imp.shell)
+    println("    ising : ", imp.ising)
+    println("    occup : ", imp.occup)
+    println("    nup   : ", imp.nup)
+    println("    ndown : ", imp.ndown)
+    println("    upara : ", imp.upara)
+    println("    jpara : ", imp.jpara)
+    println("    lpara : ", imp.lpara)
+    println("    beta  : ", imp.beta)
+    println("    nband : ", imp.nband)
 end
