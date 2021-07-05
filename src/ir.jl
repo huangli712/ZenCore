@@ -630,7 +630,7 @@ end
 """
     irio_fermi(f::String, fermi::F64)
 
-Write the fermi level to fermi.ir using the IR format. Here `f` means
+Write the fermi level to `fermi.ir` using the IR format. Here `f` means
 only the directory that we want to use.
 
 See also: [`vaspio_fermi`](@ref).
@@ -656,8 +656,8 @@ end
 """
     irio_charge(f::String)
 
-Write the charge density to charge.ir using the IR format. Here `f` means
-only the directory that we want to use.
+Write the charge density to `charge.ir` using the IR format. Here `f`
+means only the directory that we want to use.
 
 See also: [`vaspio_charge`](@ref).
 """
