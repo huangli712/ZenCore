@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/24
+# Last modified: 2021/07/05
 #
 
 #=
@@ -68,7 +68,7 @@ See also: [`PCASE`](@ref), [`PDFT`](@ref), [`PIMP`](@ref), [`PSOLVER`](@ref).
 const PDMFT = Dict{String,Array{Any,1}}(
           "mode"     => [missing, 1, :I64   , "Scheme of dynamical mean-field theory calculations"],
           "axis"     => [missing, 1, :I64   , "Imaginary-time axis or real-frequency axis"],
-          "niter"    => [missing, 1, :Array , "Maximum number of all iterations"],
+          "niter"    => [missing, 1, :Array , "Maximum number of all kinds of iterations"],
           "nmesh"    => [missing, 1, :I64   , "Number of frequency points"],
           "dcount"   => [missing, 1, :String, "Scheme of double counting term"],
           "beta"     => [missing, 1, :F64   , "Inverse system temperature"],
@@ -77,7 +77,7 @@ const PDMFT = Dict{String,Array{Any,1}}(
           "cc"       => [missing, 0, :F64   , "Convergence criterion of charge"],
           "ec"       => [missing, 0, :F64   , "Convergence criterion of total energy"],
           "sc"       => [missing, 0, :F64   , "Convergence criterion of self-energy function"],
-          "lfermi"   => [missing, 0, :Bool  , "Test whether chemical potential is updated"],
+          "lfermi"   => [missing, 0, :Bool  , "Whether chemical potential should be updated"],
       )
 
 """
@@ -142,7 +142,7 @@ Mutable struct. Record the DFT + DMFT iteration information.
 * I₁ -> Number of iterations between `dmft1` and quantum impurity solver.
 * I₂ -> Number of iterations between `dmft2` and DFT engine.
 * I₃ -> Number of DFT + DMFT iterations.
-* I₄ -> Counter for each iteration.
+* I₄ -> Counter for all internal iteration.
 * M₁ -> Maximum allowed number of iterations (between `dmft1` and solver).
 * M₂ -> Maximum allowed number of iterations (between `dmft2` and DFT).
 * M₃ -> Maximum allowed number of DFT + DMFT iterations.
@@ -226,9 +226,9 @@ of projectors (or band windows).
 ### Members
 
 * i_grp -> Mapping from quntum impurity problems to groups of projectors.
-* i_wnd -> Mapping from quantum impurity problems to windows of dft bands.
+* i_wnd -> Mapping from quantum impurity problems to DFT band windows.
 * g_imp -> Mapping from groups of projectors to quantum impurity problems.
-* w_imp -> Mapping from windows of dft bands to quantum impurity problems.
+* w_imp -> Mapping from DFT band windows to quantum impurity problems.
 
 See also: [`Impurity`](@ref), [`PrGroup`](@ref), [`PrWindow`](@ref).
 """
@@ -335,7 +335,7 @@ Mutable struct. Define the band window for a given group of projectors.
 
 * bmin -> Minimum band index.
 * bmax -> Maximum band index.
-* nbnd -> Maximum number of bands in the current window (≡ `bmax-bmin+1`).
+* nbnd -> Maximum number of bands in the current window (≡ `bmax - bmin + 1`).
 * kwin -> Momentum-dependent and spin-dependent band window.
 * bwin -> Tuple. It is the band window or energy window, which is used
           to filter the Kohn-Sham band structure. The mesh for calculating
@@ -435,7 +435,7 @@ Outer constructor for Mapping struct.
 function Mapping(nsite::I64, ngrp::I64, nwnd::I64)
     # Sanity check
     @assert ngrp ≥ nsite
-    @assert nwnd ≤ ngrp
+    @assert nwnd == ngrp
 
     # Initialize the arrays
     i_grp = zeros(I64, nsite)
