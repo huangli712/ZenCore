@@ -26,6 +26,7 @@ function s_qmc1_init(it::IterInfo, imp::Impurity)
     println("Engine : CT-HYB₁")
     println("Try to solve the quantum impurity problem: ", imp.index)
     CatImpurity(imp)
+    ctqmc_nimpx(imp)
     println("Current directory: ", pwd())
     println("Prepare necessary input files for solver")
 
@@ -591,15 +592,21 @@ function ctqmc_nimpx(imp::Impurity)
         return
     end
 
+    # Open the solver.nmat.dat file for reading
+    fin = open(fnmat, "r")
+
     # Parse the data file to extract total impurity occupancy
-    readuntil(fnmat, "sup")
-    nup   = parse(F64, line_to_array(fnmat)[1])
+    readuntil(fin, "sup")
+    nup   = parse(F64, line_to_array(fin)[1])
     #
-    readuntil(fnmat, "sdn")
-    ndown = parse(F64, line_to_array(fnmat)[1])
+    readuntil(fin, "sdn")
+    ndown = parse(F64, line_to_array(fin)[1])
     #
-    readuntil(fnmat, "sum")
-    occup = parse(F64, line_to_array(fnmat)[1])
+    readuntil(fin, "sum")
+    occup = parse(F64, line_to_array(fin)[1])
+
+    # Close the solver.nmat.dat file
+    close(fin)
 
     # Update the Impurity struct
     imp.nup = nup
