@@ -882,7 +882,7 @@ function calc_ovlp(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1}, weight:
     for p in eachindex(PW)
         # Extract some key parameters
         ndim, nbnd, nkpt, nspin = size(chipsi[p])
-        @assert nbnd === PW[p].nbnd
+        @assert nbnd == PW[p].nbnd
 
         # Create a temporary array
         V = zeros(F64, ndim, ndim, nspin)
@@ -917,7 +917,7 @@ function calc_dm(chipsi::Array{C64,4}, weight::Array{F64,1}, occupy::Array{F64,3
     @assert nband ≥ nproj
 
     # Evaluate spin factor
-    sf = (nspin === 1 ? 2 : 1)
+    sf = (nspin == 1 ? 2 : 1)
 
     # Create density matrix array
     dm = zeros(F64, nproj, nproj, nspin)
@@ -951,10 +951,10 @@ function calc_dm(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1}, weight::A
     for p in eachindex(PW)
         # Extract some key parameters
         ndim, nbnd, nkpt, nspin = size(chipsi[p])
-        @assert nbnd === PW[p].nbnd
+        @assert nbnd == PW[p].nbnd
 
         # Evaluate spin factor
-        sf = (nspin === 1 ? 2 : 1)
+        sf = (nspin == 1 ? 2 : 1)
 
         # Create a temporary array
         M = zeros(F64, ndim, ndim, nspin)
@@ -992,7 +992,7 @@ function calc_hamk(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1}, weight:
     for p in eachindex(PW)
         # Extract some key parameters
         ndim, nbnd, nkpt, nspin = size(chipsi[p])
-        @assert nbnd === PW[p].nbnd
+        @assert nbnd == PW[p].nbnd
 
         # Create a temporary array
         H = zeros(C64, ndim, ndim, nspin)
@@ -1066,7 +1066,7 @@ function calc_hamk(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1}, enk::Ar
             ib3 = ib2 - ib1 + 1
 
             # Sanity check
-            @assert max_band >= ib3
+            @assert max_band ≥ ib3
 
             # Try to combine all of the groups of projectors
             for p in eachindex(PW)
@@ -1103,7 +1103,7 @@ function calc_dos(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1}, itet::Ar
     for p in eachindex(PW)
         # Extract some key parameters
         ndim, nbnd, nkpt, nspin = size(chipsi[p])
-        @assert nbnd === PW[p].nbnd
+        @assert nbnd == PW[p].nbnd
 
         # Create the mesh. It depends on PrWindow.bwin.
         #
