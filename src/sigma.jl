@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/28
+# Last modified: 2021/07/05
 #
 
 #=
@@ -16,14 +16,16 @@
 
 Create initial self-energy functions and write them to `sigma.bare`. The
 `sigma.bare` file is key input for the dynamical mean-field theory engine.
-Now this function only supports Matsubara self-energy functions.
+The word `bare` means that the double counting term has not been removed
+from the self-energy functions. Now this function only supports Matsubara
+self-energy functions ``\Sigma(i\omega_n)``.
 
 See also: [`sigma_dcount`](@ref).
 """
 function sigma_reset(ai::Array{Impurity,1})
     # Print the header
     println("Sigma : Reset")
-    println("Try to create default self-energy functions")
+    println("Try to create bare self-energy functions")
     println("Current directory: ", pwd())
 
     # Extract some necessary parameters
@@ -77,8 +79,8 @@ end
     sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
 
 Calculate double counting terms for local self-energy functions and
-write them to `sigma.dc`, which is key input for the dynamical mean-
-field theory engine.
+write them to `sigma.dc`, which is an essential input for the dynamical
+mean-field theory engine.
 
 The field `it.dc` will be updated in this function as well.
 
@@ -136,7 +138,8 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
 
             # Around mean-field scheme
             @case "amf"
-                sorry()
+                sigdc = cal_dc_amf(U, J, occup, nband)
+                fill!(DC, sigdc)
                 break
 
             # K. Held scheme
