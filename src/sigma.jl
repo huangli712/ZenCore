@@ -150,12 +150,18 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
 
             # Around mean-field scheme
             @case "amf"
-                sigdc = cal_dc_amf(U, J, occup, nband)
+                if nspin == 1
+                    sigdc = cal_dc_amf(U, J, occup, nband)
+                else
+                    sigup, sigdn = cal_dc_amf(U, J, nup, ndown, nband)
+                end
                 break
 
             # K. Held scheme
             @case "held"
                 sigdc = cal_dc_held(U, J, occup, nband)
+                sigup = sigdc
+                sigdn = sigdc
                 break
 
             # Exact double counting scheme
@@ -455,8 +461,8 @@ Evaluate the double counting term by the K. Held scheme.
 See also: [`cal_dc_fll`](@ref), [`cal_dc_exact`](@ref).
 """
 function cal_dc_held(U::F64, J::F64, N::F64, M::I64)
-    Uav = ( U + (M - 1.0)*(2.0*U - 5.0*J) ) / (2.0 * M - 1.0)
-    Uav * (N - 0.5)
+    Uav = ( U + ( M - 1.0 ) * ( 2.0 * U - 5.0 * J ) ) / ( 2.0 * M - 1.0 )
+    Uav * ( N - 0.5 )
 end
 
 """
