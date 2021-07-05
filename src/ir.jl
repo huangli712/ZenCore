@@ -222,8 +222,8 @@ end
 """
     irio_maps(f::String, MAP::Mapping)
 
-Write the information contained in `Mapping`. Here `f` means only the
-directory that we want to use.
+Write the information contained in `Mapping` struct. Here `f` means only
+the directory that we want to use.
 
 See also: [`Mapping`](@ref).
 """
@@ -277,8 +277,8 @@ end
 """
     irio_groups(f::String, PG::Array{PrGroup,1})
 
-Write the information contained in `PrGroup`. Here `f` means only the
-directory that we want to use.
+Write the information contained in `PrGroup` struct. Here `f` means only
+the directory that we want to use.
 
 See also: [`PrGroup`](@ref).
 """
@@ -312,8 +312,8 @@ end
 """
     irio_windows(f::String, PW::Array{PrWindow,1})
 
-Write the information contained in `PrWindow`. Here `f` means only the
-directory that we want to use.
+Write the information contained in `PrWindow` struct. Here `f` means only
+the directory that we want to use.
 
 See also: [`PrWindow`](@ref).
 """
@@ -353,8 +353,8 @@ end
 """
     irio_lattice(f::String, latt::Lattice)
 
-Write the lattice information to lattice.ir using the IR format. Here `f`
-means only the directory that we want to use.
+Write the lattice information to `lattice.ir` using the IR format. Here
+`f` means only the directory that we want to use.
 
 See also: [`vaspio_lattice`](@ref).
 """
@@ -419,7 +419,7 @@ end
 """
     irio_kmesh(f::String, kmesh::Array{F64,2}, weight::Array{F64,1})
 
-Write the kmesh and weight information to kmesh.ir using the IR format.
+Write the kmesh and weight information to `kmesh.ir` using the IR format.
 Here `f` means only the directory that we want to use.
 
 See also: [`vaspio_kmesh`](@ref).
@@ -458,8 +458,8 @@ end
 """
     irio_tetra(f::String, volt::F64, itet::Array{I64,2})
 
-Write the tetrahedra information to tetra.ir using the IR format. Here `f`
-means only the directory that we want to use.
+Write the tetrahedra information to `tetra.ir` using the IR format. Here
+`f` means only the directory that we want to use.
 
 See also: [`vaspio_tetra`](@ref).
 """
@@ -493,7 +493,7 @@ end
 """
     irio_eigen(f::String, enk::Array{F64,3}, occupy::Array{F64,3})
 
-Write the eigenvalues to eigen.ir using the IR format. Here `f` means
+Write the eigenvalues to `eigen.ir` using the IR format. Here `f` means
 only the directory that we want to use.
 
 See also: [`vaspio_eigen`](@ref).
@@ -536,7 +536,7 @@ end
 """
     irio_projs(f::String, chipsi::Array{C64,4})
 
-Write the projectors to projs.ir using the IR format. Here `f` means
+Write the projectors to `projs.ir` using the IR format. Here `f` means
 only the directory that we want to use.
 
 The projectors are original data. They have not been modified.
@@ -579,7 +579,7 @@ end
 """
     irio_projs(f::String, chipsi::Array{Array{C64,4},1})
 
-Write the projectors to projs.ir using the IR format. Here `f` means
+Write the projectors to `projs.ir` using the IR format. Here `f` means
 only the directory that we want to use.
 
 The projectors have been processed to fulfill the requirement of the
