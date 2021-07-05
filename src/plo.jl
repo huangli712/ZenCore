@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/30
+# Last modified: 2021/07/05
 #
 
 #=
@@ -18,11 +18,11 @@ Adaptor support. It will preprocess the raw projector matrix. The dict
 `D` contains all of the necessary Kohn-Sham data, which will be modified
 in this function.
 
-If it is in the REPL mode and the file `case.test` is available, this
-function will try to calculate some physical quantities, such as the
-density matrix, overlap matrix, local hamiltonian, and partial density
-of states, which will be written to external files or terminal for
-further reference.
+If it is in the REPL mode and the file `case.test` is present in the
+current directory, this function will try to calculate some physical
+observables, such as the density matrix, overlap matrix, partial density
+of states, and local hamiltonian, which will be written to external
+files or terminal for further reference.
 
 See also: [`vasp_adaptor`](@ref), [`ir_adaptor`](@ref).
 """
