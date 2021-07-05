@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/06/29
+# Last modified: 2021/07/05
 #
 
 #=
@@ -32,18 +32,20 @@ function s_qmc1_init(it::IterInfo, imp::Impurity)
     ctqmc_setup(imp)
     println("  > solver.ctqmc.in is ready")
 
+    # Prepare hybridization functions
+    #
     # Extract frequency mesh and hybridization function from `dmft.delta`
-    #println("  > Open and read hybridization functions from dmft.delta")
     fmesh, Delta = read_delta(imp)
-
+    #
     # Write frequency mesh and hybridization function to `solver.hyb.in`
     ctqmc_delta(fmesh, Delta)
     println("  > solver.hyb.in is ready")
 
+    # Prepare local impurity levels
+    #
     # Extract local impurity levels from `dmft.eimpx`
-    #println("  > Open and read local impurity levels from dmft.eimpx")
     Eimpx = read_eimpx(imp)
-
+    #
     # Write local impurity levels to `solver.eimp.in`
     ctqmc_eimpx(Eimpx)
     println("  > solver.eimp.in is ready")
