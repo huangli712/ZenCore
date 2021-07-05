@@ -132,12 +132,20 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
         @cswitch get_m("dcount") begin
             # Fully localized limit scheme with fixed occupation number
             @case "fll1"
-                sigdc = cal_dc_fll(U, J, N)
+                if nspin == 1
+                    sigdc = cal_dc_fll(U, J, N)
+                else
+                    sigup, sigdn = cal_dc_fll(U, J, N / 2.0, N / 2.0)
+                end
                 break
 
             # Fully localized limit scheme with dynamic occupation number
             @case "fll2"
-                sigdc = cal_dc_fll(U, J, occup)
+                if nspin == 1
+                    sigdc = cal_dc_fll(U, J, occup)
+                else
+                    sigup, sigdn = cal_dc_fll(U, J, nup, ndown)
+                end
                 break
 
             # Around mean-field scheme
