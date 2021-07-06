@@ -744,7 +744,7 @@ function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
     @assert length(ai) == get_i("nsite")
 
     # Analyze the symmetry of quantum impurity problems
-    println(red("Analyze the quantum impurity problems..."))
+    println(blue("Analyze the quantum impurity problems..."))
     #
     # Print number of impurities
     println("  > Number of quantum impurity problems: ", length(ai))
@@ -764,7 +764,6 @@ function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
     end
     println("  > Quantum impurity problems (keep): ", findall(to_be_solved))
     println("  > Quantum impurity problems (skip): ", findall(.!to_be_solved))
-    println(green("Now we are ready to solve them..."))
     println()
 
     # Loop over each impurity site
@@ -775,6 +774,9 @@ function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
 
         # The present quantum impurity problem need to be solved
         if to_be_solved[i]
+            # Print the header
+            println(green("Now we are ready to solve it..."))
+
             # Determine the chosen solver
             engine = get_s("engine")
 
@@ -820,6 +822,9 @@ function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
             cd("..")
 
         else
+            # Print the header
+            println(red("Now we are ready to solve it..."))
+
             # Well, the current quantum impurity problem is not solved.
             # We have to find out its sister which has been solved before.
             found = -1
