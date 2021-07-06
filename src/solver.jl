@@ -328,6 +328,18 @@ function s_norg_save(it::IterInfo)
     sorry()
 end
 
+"""
+    s_norg_save(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
+
+Backup output files of the NORG quantum impurity solver. We just copy
+selected output files from impurity.1 to impurity.2.
+
+See also: [`s_norg_init`](@ref), [`s_norg_exec`](@ref).
+"""
+function s_norg_save(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
+    sorry()
+end
+
 #=
 ### *Service Functions* : *Files I/O Operations*
 =#
