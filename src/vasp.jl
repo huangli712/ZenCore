@@ -18,7 +18,7 @@ Adaptor support for vasp code. It will parse the output files of vasp
 code, extract the Kohn-Sham dataset,  and then fulfill the `DFTData`
 dict (i.e `D`).
 
-The following vasp's output files are needed: 
+The following vasp's output files are needed:
 * `POSCAR`
 * `IBZKPT`
 * `EIGENVAL`
@@ -1228,7 +1228,7 @@ function vaspio_eigen(f::String)
 
         # return the desired arrays
         return enk, occupy
-    
+
     # Read LOCPROJ
     else
         println("  > Open and read LOCPROJ")
@@ -1465,7 +1465,7 @@ function vaspio_fermi(f::String, silent::Bool = true)
 
         # Return the desired data
         return fermi
-    
+
     # Read LOCPROJ
     else
         # Print the header

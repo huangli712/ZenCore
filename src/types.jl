@@ -479,7 +479,7 @@ function Impurity(index::I64, atoms::String, sites::I64,
     ndown = occup / 2.0
 
     # Call the default constructor
-    Impurity(index, atoms, sites, 
+    Impurity(index, atoms, sites,
              equiv, shell, ising,
              occup, nup, ndown,
              upara, jpara, lpara, beta, nband)
