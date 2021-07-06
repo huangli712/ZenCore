@@ -286,6 +286,18 @@ function s_hub1_save(it::IterInfo)
     sorry()
 end
 
+"""
+    s_hub1_save(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
+
+Backup output files of the HIA quantum impurity solver. We just copy
+selected output files from impurity.1 to impurity.2.
+
+See also: [`s_hub1_init`](@ref), [`s_hub1_exec`](@ref).
+"""
+function s_hub1_save(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
+    sorry()
+end
+
 #=
 ### *NORG Quantum Impurity Solver*
 =#
