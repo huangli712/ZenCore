@@ -196,6 +196,56 @@ function s_qmc1_save(it::IterInfo, imp::Impurity)
     it.nf[imp.index] = imp.occup
 end
 
+"""
+    s_qmc1_save(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
+
+Backup output files of the CT-HYB₁ quantum impurity solver. We just copy
+selected output files from impurity.1 to impurity.2. Be careful, now we
+already in directory `impurity.2`.
+
+This quantum impurity solver is from the `iQIST` software package.
+
+See also: [`s_qmc1_init`](@ref), [`s_qmc1_exec`](@ref).
+"""
+function s_qmc1_save(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
+    # Print the header
+    println("Finalize the computational task")
+
+    # Determine which files are important
+    #
+    # Major output
+    fout = ["solver.out"]
+    #
+    # Green's functions
+    fgrn = ["solver.grn.dat", "solver.green.dat"]
+    #
+    # Hybridization functions
+    fhyb = ["solver.hyb.dat", "solver.hybri.dat"]
+    #
+    # Self-energy functions
+    fsgm = ["solver.sgm.dat"]
+    #
+    # Auxiliary output files
+    faux = ["solver.nmat.dat", "solver.paux.dat", "solver.prob.dat", "solver.hist.dat"]
+
+    # Next, we have to backup the above files.
+    foreach( x ->
+        begin
+            file_src = x
+            file_dst = "$x.$(it.I₃).$(it.I₁)"
+            cp(file_src, file_dst, force = true)
+        end,
+    union(fout, fgrn, fhyb, fsgm, faux) )
+    println("  > Save the key output files")
+
+    # Update the `occup` field in `imp` (Impurity struct)
+    ctqmc_nimpx(imp)
+    println("  > Extract the impurity occupancy from solver.nmat.dat: $(imp.occup)")
+
+    # Update the `it` (IterInfo) struct
+    it.nf[imp.index] = imp.occup
+end
+
 #=
 ### *CT-HYB₂ Quantum Impurity Solver*
 =#
@@ -248,7 +298,8 @@ end
     s_qmc2_save(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
 
 Backup output files of the CT-HYB₂ quantum impurity solver. We just copy
-selected output files from impurity.1 to impurity.2.
+selected output files from impurity.1 to impurity.2. Be careful, now we
+already in directory `impurity.2`.
 
 This quantum impurity solver is from the `iQIST` software package.
 
@@ -304,7 +355,8 @@ end
     s_hub1_save(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
 
 Backup output files of the HIA quantum impurity solver. We just copy
-selected output files from impurity.1 to impurity.2.
+selected output files from impurity.1 to impurity.2. Be careful, now we
+already in directory `impurity.2`.
 
 See also: [`s_hub1_init`](@ref), [`s_hub1_exec`](@ref).
 """
@@ -358,7 +410,8 @@ end
     s_norg_save(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
 
 Backup output files of the NORG quantum impurity solver. We just copy
-selected output files from impurity.1 to impurity.2.
+selected output files from impurity.1 to impurity.2. Be careful, now we
+already in directory `impurity.2`.
 
 See also: [`s_norg_init`](@ref), [`s_norg_exec`](@ref).
 """
