@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/03
+# Last modified: 2021/07/06
 #
 
 #=
@@ -1392,20 +1392,20 @@ function vaspio_projs(f::String)
     println("  > Number of spins: ", nspin)
     println("  > Number of projectors: ", nproj)
     for i in eachindex(PT)
-        println("   [ PrTrait $i ]")
-        println("     site -> ", PT[i].site)
-        println("     l -> ", PT[i].l)
-        println("     m -> ", PT[i].m)
-        println("     desc -> ", PT[i].desc)
+        println("    [ PrTrait $i ]")
+        println("      site -> ", PT[i].site)
+        println("      l -> ", PT[i].l)
+        println("      m -> ", PT[i].m)
+        println("      desc -> ", PT[i].desc)
     end
     println("  > Number of groups: ", length(PG))
     for i in eachindex(PG)
-        println("   [ PrGroup $i ]")
-        println("     site -> ", PG[i].site)
-        println("     l -> ", PG[i].l)
-        println("     corr -> ", PG[i].corr)
-        println("     shell -> ", PG[i].shell)
-        println("     Pr -> ", PG[i].Pr)
+        println("    [ PrGroup $i ]")
+        println("      site -> ", PG[i].site)
+        println("      l -> ", PG[i].l)
+        println("      corr -> ", PG[i].corr)
+        println("      shell -> ", PG[i].shell)
+        println("      Pr -> ", PG[i].Pr)
     end
     println("  > Shape of Array chipsi: ", size(chipsi))
 
