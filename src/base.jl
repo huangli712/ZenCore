@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/06
+# Last modified: 2021/07/07
 #
 
 #=
@@ -768,6 +768,7 @@ function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
     end
     println("  > Quantum impurity problems (keep): ", findall(to_be_solved))
     println("  > Quantum impurity problems (skip): ", findall(.!to_be_solved))
+    println(green("Now we are ready to solve them..."))
     println()
 
     # Loop over each impurity site
@@ -779,7 +780,7 @@ function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
         # The present quantum impurity problem need to be solved
         if to_be_solved[i]
             # Print the header
-            println(green("Now we are ready to solve it..."))
+            println(green("It is interesting. Let us play with it."))
 
             # Determine the chosen solver
             engine = get_s("engine")
