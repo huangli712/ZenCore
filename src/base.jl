@@ -823,7 +823,7 @@ function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
 
         else
             # Print the header
-            println(red("Now we are ready to solve it..."))
+            println(red("Mmm, it is not my job..."))
 
             # Well, the current quantum impurity problem is not solved.
             # We have to find out its sister which has been solved before.
