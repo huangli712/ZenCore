@@ -814,15 +814,6 @@ function GetImpurity()
 end
 
 """
-    SetImpurity(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
-
-Try to copy solution for imp₂ from imp₁ via symmetry operation.
-"""
-function SetImpurity(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
-    sorry()
-end
-
-"""
     CatImpurity(imp::Impurity)
 
 Display the Impurity struct that need to be solved.
