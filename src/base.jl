@@ -756,6 +756,7 @@ function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
     for i = 1:get_i("nsite")
         # Extract the Impurity strcut
         imp = ai[i]
+        CatImpurity(imp)
 
         # The present quantum impurity problem need to be solved
         if to_be_solved[i]
