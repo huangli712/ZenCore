@@ -484,6 +484,9 @@ end
 Perform calculations using mixer engine only. The users can execute
 it in the REPL mode to see whether the mixer engine works properly.
 
+In order to run this function correctly, sometimes users should modify
+the predefined parameters in step `C01`.
+
 See also: [`cycle1`](@ref), [`cycle2`](@ref).
 """
 function cycle8(task::String = "sigma")
