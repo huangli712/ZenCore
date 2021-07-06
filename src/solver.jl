@@ -209,7 +209,7 @@ See also: [`s_qmc1_init`](@ref), [`s_qmc1_exec`](@ref).
 """
 function s_qmc1_save(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
     # Print the header
-    println("Finalize the computational task")
+    println("Transfer results from impurity $(imp₁.index) to $(imp₂.index)")
 
     # Determine which files are important
     #
@@ -239,7 +239,7 @@ function s_qmc1_save(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
             cp(file_src, file_dst, force = true)
         end,
     union(fout, fgrn, fhyb, fsgm, faux) )
-    println("  > Save the key output files")
+    println("  > Copy the key output files")
 
     # Update the `occup` field in `imp` (Impurity struct)
     ctqmc_nimpx(imp₂)
