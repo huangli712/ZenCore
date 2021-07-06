@@ -533,7 +533,7 @@ should be fulfilled at the same time.
 
 * The argument `force_exit` is true.
 
-* The `case.stop` file exists (from `query_stop()``).
+* The `case.stop` file exists (from `query_stop()` function).
 
 We usually use this functon to stop the whole DFT + DMFT iterations.
 =#
