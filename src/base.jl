@@ -839,7 +839,7 @@ function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
 
             # Copy solution from Impurity 𝑗 for the current impurity 𝑖
             if found > 0
-                SetImpurity(ai[j], imp)
+                SetImpurity(it, ai[j], imp)
             else
                 error("Fail to find out solution for quantum impurity problem")
             end

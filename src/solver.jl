@@ -814,11 +814,11 @@ function GetImpurity()
 end
 
 """
-    SetImpurity(imp₁::Impurity, imp₂::Impurity)
+    SetImpurity(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
 
-Try to generate solution for imp₂ from imp₁ via symmetry operation.
+Try to copy solution for imp₂ from imp₁ via symmetry operation.
 """
-function SetImpurity(imp₁::Impurity, imp₂::Impurity)
+function SetImpurity(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
     sorry()
 end
 
