@@ -740,9 +740,19 @@ solvers, this function must be adapted.
 See also: [`adaptor_run`](@ref), [`dft_run`](@ref), [`dmft_run`](@ref).
 """
 function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
-    # Determine the unique quantum impurity problems
+    # Sanity check
+    @assert length(ai) == get_i("nsite")
+
+    # Analyze the symmetry of quantum impurity problems
+    #
+    # Print number of impurities
+    println("Number of quantum impurity problems: ", length(ai))
+    #
+    # Determine the equivalence of quantum impurity problems
     equiv = abs.(get_i("equiv"))
+    println("Equivalence of quantum impurity problems (abs): ", equiv)
     unique!(equiv)
+    println("Equivalence of quantum impurity problems (uniq): ", equiv)
 
     # Figure out which quantum impurity problem should be solved
     to_be_solved = fill(false, get_i("nsite"))
