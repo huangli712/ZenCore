@@ -831,15 +831,15 @@ function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
             for j = 1:i
                 # Impurity 𝑖 and Impurity 𝑗 are related by some kinds of
                 # symmetry. Impurity 𝑗 has been solved before. So we can
-                # apply its solution to Impurity 𝑖.
-                if abs(ai[i].equiv) == abs(ai[j].equiv) && to_be_solved[j]
+                # copy its solution to Impurity 𝑖.
+                if abs(imp.equiv) == abs(ai[j].equiv) && to_be_solved[j]
                     found = j
                 end
             end
 
-            # Generate solution for the present quantum impurity problem
+            # Copy solution from Impurity 𝑗 for the current impurity 𝑖
             if found > 0
-                SetImpurity(ai[j], ai[i])
+                SetImpurity(ai[j], imp)
             else
                 error("Fail to find out solution for quantum impurity problem")
             end
