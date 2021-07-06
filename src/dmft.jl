@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/06
+# Last modified: 2021/07/07
 #
 
 #=
@@ -54,7 +54,7 @@ function dmft_init(it::IterInfo, task::I64)
             file_src = joinpath("../dft", x)
             file_dst = x
             cp(file_src, file_dst, force = true)
-            println("  > $x is ready")
+            println("  > File $x is ready")
         end,
     union(fir1, fir2) )
 
@@ -75,7 +75,7 @@ function dmft_init(it::IterInfo, task::I64)
         println(fout, "lfermi = $lfermi")
         println(fout, "ltetra = $ltetra")
     end
-    println("  > dmft.in is ready")
+    println("  > File dmft.in is ready")
 
     # Check essential input files
     flist = (fdmft, fsig..., fir1..., fir2...)

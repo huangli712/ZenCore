@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/06
+# Last modified: 2021/07/07
 #
 
 #=
@@ -30,7 +30,7 @@ function s_qmc1_init(it::IterInfo, imp::Impurity)
 
     # Generate configuration file for quantum impurity solver
     ctqmc_setup(imp)
-    println("  > solver.ctqmc.in is ready")
+    println("  > File solver.ctqmc.in is ready")
 
     # Prepare hybridization functions
     #
@@ -39,7 +39,7 @@ function s_qmc1_init(it::IterInfo, imp::Impurity)
     #
     # Write frequency mesh and hybridization function to `solver.hyb.in`
     ctqmc_delta(fmesh, Delta)
-    println("  > solver.hyb.in is ready")
+    println("  > File solver.hyb.in is ready")
 
     # Prepare local impurity levels
     #
@@ -48,7 +48,7 @@ function s_qmc1_init(it::IterInfo, imp::Impurity)
     #
     # Write local impurity levels to `solver.eimp.in`
     ctqmc_eimpx(Eimpx)
-    println("  > solver.eimp.in is ready")
+    println("  > File solver.eimp.in is ready")
 end
 
 """

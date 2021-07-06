@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/06
+# Last modified: 2021/07/07
 #
 
 #=
@@ -73,8 +73,8 @@ function vasp_init(it::IterInfo)
     # Copy POTCAR and POSCAR
     cp("../POTCAR", joinpath(pwd(), "POTCAR"), force = true)
     cp("../POSCAR", joinpath(pwd(), "POSCAR"), force = true)
-    println("  > POTCAR is ready")
-    println("  > POSCAR is ready")
+    println("  > File POTCAR is ready")
+    println("  > File POSCAR is ready")
     #
     # How about INCAR
     if it.I₃ == 0
@@ -84,11 +84,11 @@ function vasp_init(it::IterInfo)
         # Maybe we need to update INCAR file here
         vaspc_incar(it.μ₁, it.sc)
     end
-    println("  > INCAR is ready")
+    println("  > File INCAR is ready")
     #
     # Well, perhaps we need to generate the KPOINTS file by ourselves.
     get_d("kmesh") == "file" && vaspc_kpoints()
-    println("  > KPOINTS is ready")
+    println("  > File KPOINTS is ready")
 
     # Check essential input files
     flist = ["INCAR", "POSCAR", "POTCAR"]
