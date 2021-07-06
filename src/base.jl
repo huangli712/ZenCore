@@ -744,15 +744,16 @@ function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
     @assert length(ai) == get_i("nsite")
 
     # Analyze the symmetry of quantum impurity problems
+    println(red("Analyze the quantum impurity problems..."))
     #
     # Print number of impurities
-    println("Number of quantum impurity problems: ", length(ai))
+    println("  > Number of quantum impurity problems: ", length(ai))
     #
     # Determine the equivalence of quantum impurity problems
     equiv = abs.(get_i("equiv"))
-    println("Equivalence of quantum impurity problems (abs): ", equiv)
+    println("  > Equivalence of quantum impurity problems (abs): ", equiv)
     unique!(equiv)
-    println("Equivalence of quantum impurity problems (uniq): ", equiv)
+    println("  > Equivalence of quantum impurity problems (uniq): ", equiv)
     #
     # Figure out which quantum impurity problem should be solved
     to_be_solved = fill(false, length(ai))
@@ -761,8 +762,9 @@ function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
         ind isa Nothing && continue
         to_be_solved[ind] = true
     end
-    println("Quantum impurity problems (to be solved): ", findall(to_be_solved))
-    println("Quantum impurity problems (to be skipped): ", findall(.!to_be_solved))
+    println("  > Quantum impurity problems (keep): ", findall(to_be_solved))
+    println("  > Quantum impurity problems (skip): ", findall(.!to_be_solved))
+    println(green("Now we are ready to solve them..."))
     println()
 
     # Loop over each impurity site
