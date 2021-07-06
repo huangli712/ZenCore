@@ -852,26 +852,18 @@ function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
             # Activate the chosen quantum impurity solver
             @cswitch engine begin
                 @case "ct_hyb1"
-                    s_qmc1_init(it, imp)
-                    s_qmc1_exec(it)
                     s_qmc1_save(it, imp)
                     break
 
                 @case "ct_hyb2"
-                    s_qmc2_init(it)
-                    s_qmc2_exec(it)
                     s_qmc2_save(it)
                     break
 
                 @case "hub1"
-                    s_hub1_init(it)
-                    s_hub1_exec(it)
                     s_hub1_save(it)
                     break
 
                 @case "norg"
-                    s_norg_init(it)
-                    s_norg_exec(it)
                     s_norg_save(it)
                     break
 
