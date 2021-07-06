@@ -836,10 +836,6 @@ function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
                     found = j
                 end
             end
-
-            # Next, we would like to copy solution from Impurity 𝑗 for
-            # the current impurity 𝑖.
-
             # Sanity check
             @assert found > 0
 
@@ -849,22 +845,23 @@ function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
             # Enter impurity.i directory
             cd("impurity.$i")
 
-            # Activate the chosen quantum impurity solver
+            # Next, we would like to copy solution from Impurity 𝑗 for
+            # the current impurity 𝑖.
             @cswitch engine begin
                 @case "ct_hyb1"
-                    s_qmc1_save(it, imp)
+                    s_qmc1_save(it, ai[j], imp)
                     break
 
                 @case "ct_hyb2"
-                    s_qmc2_save(it)
+                    s_qmc2_save(it, ai[j], imp)
                     break
 
                 @case "hub1"
-                    s_hub1_save(it)
+                    s_hub1_save(it, ai[j], imp)
                     break
 
                 @case "norg"
-                    s_norg_save(it)
+                    s_norg_save(it, ai[j], imp)
                     break
 
                 @default
