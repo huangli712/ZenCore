@@ -815,7 +815,13 @@ function GetImpurity()
     return AI
 end
 
+"""
+    SetImpurity(imp₁::Impurity, imp₂::Impurity)
+
+Try to generate solution for imp₂ from imp₁ via symmetry operation.
+"""
 function SetImpurity(imp₁::Impurity, imp₂::Impurity)
+    sorry()
 end
 
 """
