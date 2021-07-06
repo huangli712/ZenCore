@@ -31,7 +31,8 @@ end
     go()
 
 Dispatcher for DFT + DMFT calculations. Note that it can not call the
-`cycle3()`-`cycle8()` functions.
+`cycle3()`-`cycle8()` functions. These functions are designed only for
+testing purpose.
 
 See also: [`ready`](@ref).
 """
@@ -211,7 +212,7 @@ end
     cycle2()
 
 Perform fully self-consistent DFT + DMFT calculations. The self-consistency
-is achieved at both DFT and DMFT levels.
+is achieved at both DFT and DMFT levels. This function doesn't work so far.
 
 See also: [`cycle1`](@ref), [`go`](@ref).
 """
