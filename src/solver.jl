@@ -25,8 +25,6 @@ function s_qmc1_init(it::IterInfo, imp::Impurity)
     # Print the header
     println("Engine : CT-HYB₁")
     println("Try to solve the quantum impurity problem: ", imp.index)
-    CatImpurity(imp)
-    ctqmc_nimpx(imp)
     println("Current directory: ", pwd())
     println("Prepare necessary input files for solver")
 
