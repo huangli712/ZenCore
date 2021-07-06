@@ -838,6 +838,7 @@ function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
             end
             # Sanity check
             @assert found > 0
+            println(green("Maybe we can learn somthing from impurity: $found"))
 
             # Determine the chosen solver
             engine = get_s("engine")
@@ -845,8 +846,8 @@ function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
             # Enter impurity.i directory
             cd("impurity.$i")
 
-            # Next, we would like to copy solution from Impurity 𝑗 for
-            # the current impurity 𝑖.
+            # Next, we would like to copy solution from Impurity `found`
+            # to the current impurity 𝑖.
             @cswitch engine begin
                 @case "ct_hyb1"
                     s_qmc1_save(it, ai[j], imp)
