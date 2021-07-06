@@ -757,8 +757,8 @@ function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
         # Extract the Impurity strcut
         imp = ai[i]
 
+        # The present quantum impurity problem need to be solved
         if to_be_solved[i]
-
             # Determine the chosen solver
             engine = get_s("engine")
 
@@ -816,6 +816,7 @@ function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
                 end
             end
 
+            # Generate solution for the present quantum impurity problem
             if found > 0
                 SetImpurity(ai[j], ai[i])
             else
