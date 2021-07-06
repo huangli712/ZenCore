@@ -772,7 +772,7 @@ function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
 
     # Loop over each impurity site
     for i = 1:get_i("nsite")
-        # Extract the Impurity strcut
+        # Extract and show the Impurity strcut
         imp = ai[i]
         CatImpurity(imp)
 
@@ -842,7 +842,7 @@ function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
             end
             # Sanity check
             @assert found > 0
-            println(green("Maybe we can learn somthing from impurity: $found"))
+            println(green("Maybe we can learn sth. from Impurity $found"))
 
             # Determine the chosen solver
             engine = get_s("engine")
@@ -851,7 +851,7 @@ function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
             cd("impurity.$i")
 
             # Next, we would like to copy solution from Impurity `found`
-            # to the current impurity 𝑖.
+            # to the current Impurity 𝑖.
             @cswitch engine begin
                 @case "ct_hyb1"
                     s_qmc1_save(it, ai[j], imp)
