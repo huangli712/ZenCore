@@ -4,7 +4,7 @@
 
 ## Version
 
-v0.5.1-devel.210706
+v0.5.2-devel.210707
 
 ## License
 
