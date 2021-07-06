@@ -228,22 +228,25 @@ function s_qmc1_save(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
     # Auxiliary output files
     faux = ["solver.nmat.dat", "solver.paux.dat", "solver.prob.dat", "solver.hist.dat"]
 
+    # Determine the index for imp₁
+    index = imp₁.index
+
     # Next, we have to backup the above files.
     foreach( x ->
         begin
-            file_src = x
-            file_dst = "$x.$(it.I₃).$(it.I₁)"
+            file_src = "../impurity.$index/$x"
+            file_dst = "$x"
             cp(file_src, file_dst, force = true)
         end,
     union(fout, fgrn, fhyb, fsgm, faux) )
     println("  > Save the key output files")
 
     # Update the `occup` field in `imp` (Impurity struct)
-    ctqmc_nimpx(imp)
-    println("  > Extract the impurity occupancy from solver.nmat.dat: $(imp.occup)")
+    ctqmc_nimpx(imp₂)
+    println("  > Extract the impurity occupancy from solver.nmat.dat: $(imp₂.occup)")
 
     # Update the `it` (IterInfo) struct
-    it.nf[imp.index] = imp.occup
+    it.nf[imp₂.index] = imp₂.occup
 end
 
 #=
