@@ -753,14 +753,15 @@ function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
     println("Equivalence of quantum impurity problems (abs): ", equiv)
     unique!(equiv)
     println("Equivalence of quantum impurity problems (uniq): ", equiv)
-
+    #
     # Figure out which quantum impurity problem should be solved
-    to_be_solved = fill(false, get_i("nsite"))
+    to_be_solved = fill(false, length(ai))
     for i in eachindex(equiv)
         ind = findfirst(x -> x.equiv == equiv[i], ai)
         ind isa Nothing && continue
         to_be_solved[ind] = true
     end
+    println("The quantum impurity problems that need to be solved: ", to_be_solved)
 
     # Loop over each impurity site
     for i = 1:get_i("nsite")
