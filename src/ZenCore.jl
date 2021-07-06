@@ -643,7 +643,6 @@ GetSigma    -> Parse the self-energy functions.
 GetNimpx    -> Parse the impurity occupancy.
 GetSymmetry -> Analyze orbital degeneracy via local impurity levels.
 GetImpurity -> Build Impurity struct according to configuration file.
-SetImpurity -> Solve quantum impurity problem by symmetry.
 CatImpurity -> Display Impurity struct that need to be solved.
 ```
 =#
@@ -673,7 +672,6 @@ export GetSigma
 export GetNimpx
 export GetSymmetry
 export GetImpurity
-export SetImpurity
 export CatImpurity
 
 #=
