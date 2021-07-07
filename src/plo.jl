@@ -386,14 +386,24 @@ function plo_window(PG::Array{PrGroup,1}, enk::Array{F64,3})
     unique!(CW)
     @assert length(CW) == 1
 
-    # Chech PW for correlated groups again
+    # Chech PrWindow for correlated groups again
+    #
+    # Get the first window for correlated group
     c1 = findfirst(x -> x.corr, PG)
-    cn = c1
+    PW₁ = PW[c1]
+    #
+    # Then search next window for correlated group
+    c2 = c1
     while true
-        cn = findnext(x -> x.corr, PG, cn + 1)
-        isa(cn, Nothing) && break
-        @show cn
+        c2 = findnext(x -> x.corr, PG, c2 + 1)
+        # Find nothing, break the cycle
+        isa(c2, Nothing) && break
+        # Find new window, then we have to compare it with PW₁ and
+        # make sure they are the same window.
+        PW₂ = PW[c2]
+        @assert PW₁ == PW₂
     end
+    println("  > Verify windows for correlated groups")
 
     # Return the desired array
     return PW

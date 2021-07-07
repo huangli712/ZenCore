@@ -565,6 +565,14 @@ function PrWindow(kwin::Array{I64,3}, bwin::Tuple{R64,R64})
     PrWindow(bmin, bmax, nbnd, kwin, bwin)
 end
 
+function ==(PW₁::PrWindow, PW₂::PrWindow)
+    PW₁.bmin == PW₂.bmin &&
+    PW₁.bmax == PW₂.bmax &&
+    PW₁.nbnd == PW₂.nbnd &&
+    PW₁.kwin == PW₂.kwin &&
+    PW₁.bwin == PW₂.bwin
+end
+
 #=
 ### *Customized Base.show() Functions*
 =#
