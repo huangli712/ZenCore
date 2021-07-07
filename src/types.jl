@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/06
+# Last modified: 2021/07/07
 #
 
 #=
@@ -568,6 +568,8 @@ end
 #=
 ### *Customized Binary Operations*
 =#
+
+import Base.==
 
 """
     ==(PW₁::PrWindow, PW₂::PrWindow)
