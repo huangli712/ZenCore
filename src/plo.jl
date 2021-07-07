@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/05
+# Last modified: 2021/07/07
 #
 
 #=
@@ -385,6 +385,15 @@ function plo_window(PG::Array{PrGroup,1}, enk::Array{F64,3})
     # 1. This is the underlying idea for the following codes.
     unique!(CW)
     @assert length(CW) == 1
+
+    # Chech PW for correlated groups again
+    c1 = findfirst(x -> x.corr, PG)
+    cn = c1
+    while true
+        cn = findnext(x -> x.corr, PG, cn + 1)
+        isa(cn, Nothing) && break
+        @show cn
+    end
 
     # Return the desired array
     return PW
