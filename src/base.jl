@@ -763,7 +763,7 @@ function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
     to_be_solved = fill(false, length(ai))
     for i in eachindex(equiv)
         ind = findfirst(x -> x.equiv == equiv[i], ai)
-        ind isa Nothing && continue
+        isa(ind, Nothing) && continue
         to_be_solved[ind] = true
     end
     println("  > Quantum impurity problems (keep): ", findall(to_be_solved))
