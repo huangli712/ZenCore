@@ -914,7 +914,7 @@ Display the Impurity struct that need to be solved.
 """
 function CatImpurity(imp::Impurity)
     println()
-    println("[ Impurity $(imp.index) ] ")
+    println(blue("[ Impurity $(imp.index) ]"))
     println("  atoms : ", imp.atoms)
     println("  sites : ", imp.sites)
     println("  equiv : ", imp.equiv)
