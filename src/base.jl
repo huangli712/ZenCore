@@ -730,12 +730,15 @@ function dmft_run(it::IterInfo, lr::Logger, task::I64)
 end
 
 """
-    solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
+    solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, force::Bool = false)
 
 Simple driver for quantum impurity solvers. It performs three tasks: (1)
 Examine the runtime environment for quantum impurity solver. (2) Launch
 the quantum impurity solver. (3) Backup output files by quantum impurity
 solver for next iterations.
+
+If `force = true`, then we will try to solve all of the quantum impurity
+problems explicitly, irrespective of their symmetries.
 
 Now only the `ct_hyb1`, `ct_hyb2`, `hub1`, and `norg` quantum impurity
 solvers are supported. If you want to support the other quantum impurity
@@ -743,7 +746,7 @@ solvers, this function must be adapted.
 
 See also: [`adaptor_run`](@ref), [`dft_run`](@ref), [`dmft_run`](@ref).
 """
-function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
+function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, force::Bool = false)
     # Sanity check
     @assert length(ai) == get_i("nsite")
 
@@ -777,7 +780,7 @@ function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
         CatImpurity(imp)
 
         # The present quantum impurity problem need to be solved
-        if to_be_solved[i]
+        if to_be_solved[i] || force
             # Print the header
             println(green("It is interesting. Let us play with it."))
 
