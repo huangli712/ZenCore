@@ -38,6 +38,12 @@ function plo_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         @assert haskey(D, k)
     end
 
+    # How about the original projectors? We will try to calculate some
+    # physical observables to check the quality of the projectors.
+    isinteractive() &&
+    isfile(query_case()*".test") &&
+    plo_monitor(D)
+
     # P01: Create connections/mappings between projectors (or band
     # windows) and quantum impurity problems
     #
