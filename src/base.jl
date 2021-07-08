@@ -317,7 +317,10 @@ function cycle2()
             # C15: Perform DMFT calculation with `task` = 2
             dmft_run(it, lr, 2) # Generate correction for density matrix
 
-            # C16: Reactivate the DFT engine
+            # C10: Mix the correction for density matrix
+            @time_call mixer_core(it, lr, ai, "gamma")
+
+            # C17: Reactivate the DFT engine
             dft_run(lr)
 
             # Print the cycle info
@@ -329,6 +332,8 @@ function cycle2()
 
         # Reset the counter in IterInfo: I₁, I₂
         zero_it(it)
+
+        # C18:
 
     end
 end
