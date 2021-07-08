@@ -272,47 +272,62 @@ function cycle2()
 
         # Inner: DMFT LOOP
         for iter1 = 1:it.M₁
+            # Update IterInfo struct, fix it.I₁
             incr_it(it, 1, iter1)
 
-            # C05: Tackle with the double counting term
-            sigma_core(it, lr, ai, "dcount")
+            # C07: Tackle with the double counting term
+            @time_call sigma_core(it, lr, ai, "dcount")
 
-            # C06: Perform DMFT calculation with `task` = 1
-            dmft_run(it, lr, 1)
+            # C08: Perform DMFT calculation with `task` = 1
+            @time_call dmft_run(it, lr, 1)
 
-            # C07: Mix the hybridization functions
-            mixer_core(it, lr, ai, "delta")
+            # C09: Mix the hybridization functions
+            @time_call mixer_core(it, lr, ai, "delta")
 
-            # C08: Mix the local impurity levels
-            mixer_core(it, lr, ai, "eimpx")
+            # C10: Mix the local impurity levels
+            @time_call mixer_core(it, lr, ai, "eimpx")
 
-            # C09: Split and distribute the hybridization functions
-            sigma_core(it, lr, ai, "split")
+            # C11: Split and distribute the hybridization functions
+            @time_call sigma_core(it, lr, ai, "split")
 
-            # C10: Solve the quantum impurity problems
-            solver_run(it, lr, ai)
+            # C12: Solve the quantum impurity problems
+            @time_call solver_run(it, lr, ai)
 
-            # C11: Gather and combine the impurity self-functions
-            sigma_core(it, lr, ai, "gather")
+            # C13: Gather and combine the impurity self-functions
+            @time_call sigma_core(it, lr, ai, "gather")
 
-            # C12: Mix the impurity self-energy functions
-            mixer_core(it, lr, ai, "sigma")
+            # C14: Mix the impurity self-energy functions
+            @time_call mixer_core(it, lr, ai, "sigma")
 
+            # Print the cycle info
             show_it(it, lr)
+
+            # If the convergence has been achieved, then break the cycle.
+            conv_it(it) && break
         end
+
+        # Reset the counter in IterInfo: I₁, I₂
         zero_it(it)
 
+        # Inner: DFT LOOP
         for iter2 = 1:it.M₂
+            # Update IterInfo struct, fix it.I₂
             incr_it(it, 2, iter2)
 
-            dmft_run(it, lr, 2)
+            # C15: Perform DMFT calculation with `task` = 2
+            dmft_run(it, lr, 2) # Generate correction for density matrix
 
+            # C16: Reactivate the DFT engine
             dft_run(lr)
 
-            suspend(2)
-
+            # Print the cycle info
             show_it(it, lr)
+
+            # If the convergence has been achieved, then break the cycle.
+            conv_it(it) && break
         end
+
+        # Reset the counter in IterInfo: I₁, I₂
         zero_it(it)
 
     end
