@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/07
+# Last modified: 2021/07/09
 #
 
 #=
@@ -27,55 +27,55 @@ files or terminal for further reference.
 See also: [`vasp_adaptor`](@ref), [`ir_adaptor`](@ref).
 """
 function plo_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
-    # P01: Print the header
+    # Print the header
     println("Adaptor : PLO")
     println("Try to process the Kohn-Sham dataset")
     println("Current directory: ", pwd())
 
-    # P02: Check the validity of the original dict
+    # Check the validity of the original dict
     key_list = [:enk, :fermi, :chipsi, :PG]
     for k in key_list
         @assert haskey(D, k)
     end
 
-    # P03: Create connections/mappings between projectors (or band
+    # P01: Create connections/mappings between projectors (or band
     # windows) and quantum impurity problems
     #
     # D[:MAP] will be created
     D[:MAP] = plo_map(D[:PG], ai)
 
-    # P04: Adjust the band structure
+    # P02: Adjust the band structure
     #
     # D[:enk] will be updated
     plo_fermi(D[:enk], D[:fermi])
 
-    # P05: Setup the PrGroup strcut further
+    # P03: Setup the PrGroup strcut further
     #
     # D[:PG] will be updated
     plo_group(D[:MAP], D[:PG])
 
-    # P06: Setup the band / energy window for projectors
+    # P04: Setup the band / energy window for projectors
     #
     # D[:PW] will be created
     D[:PW] = plo_window(D[:PG], D[:enk])
 
-    # P07: Transform the projectors
+    # P05: Transform the projectors
     #
     # D[:Rchipsi] will be created
     D[:Rchipsi] = plo_rotate(D[:PG], D[:chipsi])
 
-    # P08: Filter the projectors
+    # P06: Filter the projectors
     #
     # D[:Fchipsi] will be created
     D[:Fchipsi] = plo_filter(D[:PW], D[:Rchipsi])
 
-    # P09: Orthogonalize and normalize the projectors
+    # P07: Orthogonalize and normalize the projectors
     #
     # D[:Fchipsi] will be updated. It contains the final data
     # for projector matrix.
     plo_orthog(D[:PW], D[:Fchipsi])
 
-    # P10: Are the projectors correct?
+    # Are the projectors correct?
     #
     # We will try to calculate some physical quantitites, which
     # will be written to external files or terminal for reference.
