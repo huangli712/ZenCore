@@ -620,6 +620,9 @@ function plo_monitor(D::Dict{Symbol,Any})
             view_dos(mesh, dos)
         end
     else
+        # Calculate and output overlap matrix
+        ovlp = calc_ovlp(D[:chipsi], D[:weight])
+        view_ovlp(ovlp)
     end
 end
 
