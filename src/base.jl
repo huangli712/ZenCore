@@ -238,11 +238,11 @@ function cycle2()
     # C02: Perform DFT calculation (for the second time)
     get_d("loptim") && @time_call dft_run(it, lr)
 
-    # C02: Prepare default self-energy functions
-    @time_call sigma_core(it, lr, ai, "reset")
+    # C03: To bridge the gap between DFT engine and DMFT engine by adaptor
+    adaptor_run(it, lr, ai)
 
-    # C03: Change calculation mode
-    it.sc = 2 # Fully self-consistent mode
+    # C04: Prepare default self-energy functions
+    @time_call sigma_core(it, lr, ai, "reset")
 
 #
 # DFT + DMFT Iterations (C05-C12)
@@ -250,10 +250,13 @@ function cycle2()
     prompt("Iterations")
     show_it(it, lr)
 
-    dft_run(it, lr)
+    # C05: Start the self-consistent engine
+    it.sc = 2; dft_run(it, lr)
 
+    # Outer: DFT + DMFT LOOP
     for iter = 1:it.M₃
 
+        # Wait additional two seconds
         suspend(2)
 
         # Print the log
@@ -261,10 +264,13 @@ function cycle2()
         prompt(lr.log, "")
         prompt(lr.log, "< dft_dmft_cycle >")
 
+        # Update IterInfo struct, fix it.I₃
         incr_it(it, 3, iter)
 
+        # C06: Apply the adaptor to extract new Kohn-Sham dataset
         adaptor_run(it, lr, ai)
 
+        # Inner: DMFT LOOP
         for iter1 = 1:it.M₁
             incr_it(it, 1, iter1)
 
