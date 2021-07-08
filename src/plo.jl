@@ -597,26 +597,29 @@ Kohn-Sham band structures. It is used for debug only.
 See also: [`plo_adaptor`](@ref).
 """
 function plo_monitor(D::Dict{Symbol,Any})
-    # Calculate and output overlap matrix
-    ovlp = calc_ovlp(D[:PW], D[:Fchipsi], D[:weight])
-    view_ovlp(D[:PG], ovlp)
+    if haskey(D, :MAP)
+        # Calculate and output overlap matrix
+        ovlp = calc_ovlp(D[:PW], D[:Fchipsi], D[:weight])
+        view_ovlp(D[:PG], ovlp)
 
-    # Calculate and output density matrix
-    dm = calc_dm(D[:PW], D[:Fchipsi], D[:weight], D[:occupy])
-    view_dm(D[:PG], dm)
+        # Calculate and output density matrix
+        dm = calc_dm(D[:PW], D[:Fchipsi], D[:weight], D[:occupy])
+        view_dm(D[:PG], dm)
 
-    # Calculate and output local hamiltonian
-    hamk = calc_hamk(D[:PW], D[:Fchipsi], D[:weight], D[:enk])
-    view_hamk(D[:PG], hamk)
+        # Calculate and output local hamiltonian
+        hamk = calc_hamk(D[:PW], D[:Fchipsi], D[:weight], D[:enk])
+        view_hamk(D[:PG], hamk)
 
-    # Calculate and output full hamiltonian
-    hamk = calc_hamk(D[:PW], D[:Fchipsi], D[:enk])
-    view_hamk(hamk)
+        # Calculate and output full hamiltonian
+        hamk = calc_hamk(D[:PW], D[:Fchipsi], D[:enk])
+        view_hamk(hamk)
 
-    # Calculate and output density of states
-    if get_d("smear") === "tetra"
-        mesh, dos = calc_dos(D[:PW], D[:Fchipsi], D[:itet], D[:enk])
-        view_dos(mesh, dos)
+        # Calculate and output density of states
+        if get_d("smear") == "tetra"
+            mesh, dos = calc_dos(D[:PW], D[:Fchipsi], D[:itet], D[:enk])
+            view_dos(mesh, dos)
+        end
+    else
     end
 end
 
