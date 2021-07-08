@@ -623,6 +623,10 @@ function plo_monitor(D::Dict{Symbol,Any})
         # Calculate and output overlap matrix
         ovlp = calc_ovlp(D[:chipsi], D[:weight])
         view_ovlp(ovlp)
+
+        # Calculate and output density matrix
+        dm = calc_dm(D[:chipsi], D[:weight], D[:occupy])
+        view_dm(dm)
     end
 end
 
