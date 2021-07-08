@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/07
+# Last modified: 2021/07/08
 #
 
 #=
@@ -233,10 +233,13 @@ function cycle2()
     prompt("Initialization")
 
     # C01: Perform DFT calculation (for the first time)
-    #dft_run(it, lr)
+    @time_call dft_run(it, lr)
+
+    # C02: Perform DFT calculation (for the second time)
+    get_d("loptim") && @time_call dft_run(it, lr)
 
     # C02: Prepare default self-energy functions
-    sigma_core(it, lr, ai, "reset")
+    @time_call sigma_core(it, lr, ai, "reset")
 
     # C03: Change calculation mode
     it.sc = 2 # Fully self-consistent mode
