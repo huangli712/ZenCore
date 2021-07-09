@@ -210,7 +210,7 @@ end
 #=
 *Remarks* :
 
-For `VASP`, the essential input files include:
+For `vasp`, the essential input files include:
 * POSCAR
 * POTCAR
 
