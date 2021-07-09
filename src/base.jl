@@ -626,7 +626,7 @@ Simple driver for DFT engine. It performs three tasks: (1) Examine
 the runtime environment for the DFT engine. (2) Launch the DFT engine.
 (3) Backup the output files by DFT engine for next iterations.
 
-Now only the VASP engine is supported. If you want to support the other
+Now only the vasp engine is supported. If you want to support the other
 DFT engine, this function must be adapted.
 
 See also: [`adaptor_run`](@ref), [`dmft_run`](@ref), [`solver_run`](@ref).
@@ -644,7 +644,7 @@ function dft_run(it::IterInfo, lr::Logger)
 
     # Activate the chosen DFT engine
     @cswitch engine begin
-        # For VASP
+        # For vasp
         @case "vasp"
             vasp_init(it)
             vasp_exec(it)
@@ -690,7 +690,7 @@ function dft_run(lr::Logger)
 
     # Activate the chosen DFT engine
     @cswitch engine begin
-        # For VASP
+        # For vasp
         @case "vasp"
             # Write the GAMMA file for vasp
             vaspc_gamma(kwin, gamma)
@@ -924,7 +924,7 @@ the adaptor, to check whether the essential files exist. (2) Parse the
 Kohn-Sham data output by the DFT engine, try to preprocess them, and
 then transform them into IR format. (3) Backup the files by adaptor.
 
-For the first task, only the VASP adaptor is supported. While for the
+For the first task, only the vasp adaptor is supported. While for the
 second task, only the PLO adaptor is supported. If you want to support
 more adaptors, please adapt this function.
 
@@ -953,7 +953,7 @@ function adaptor_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
     prompt("Adaptor", cntr_it(it))
     prompt(lr.log, "adaptor::$engine")
     @cswitch engine begin
-        # For VASP
+        # For vasp
         @case "vasp"
             vaspq_files()
             @time_call vasp_adaptor(DFTData)
