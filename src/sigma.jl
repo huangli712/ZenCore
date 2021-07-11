@@ -98,17 +98,21 @@ function sigma_reset(ai::Array{Impurity,1}, with_init_dc::Bool = true)
 end
 
 """
-    sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
+    sigma_dcount(it::IterInfo, ai::Array{Impurity,1}, reset_dc::Bool = false)
 
 Calculate double counting terms for local self-energy functions and
 write them to `sigma.dc`, which is an essential input for the dynamical
 mean-field theory engine.
 
+If `reset_dc = true`, it will reset the double counting terms to zero.
+This is particularly useful for the first DFT + DMFT iteration. However,
+if `reset_dc = false`, it will retain the double counting terms.
+
 The field `it.dc` will be updated in this function as well.
 
 See also: [`sigma_reset`](@ref).
 """
-function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
+function sigma_dcount(it::IterInfo, ai::Array{Impurity,1}, reset_dc::Bool = false)
     # Print the header
     println("Sigma : Dcount")
     println("Try to build double counting terms for self-energy functions")
@@ -193,7 +197,7 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1})
         println("  > Shape of Array DC: $i -> ", size(DC))
 
         # Special treatment for the first iteration
-        if it.I₃ <= 1 && it.I₁ <= 1
+        if reset_dc && ( it.I₃ <= 1 && it.I₁ <= 1 )
             fill!(DC, 0.0)
             println("  > Reset Vdc to: ", 0.0)
         end

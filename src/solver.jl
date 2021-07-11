@@ -775,7 +775,7 @@ be updated, which will then be used to evaluate the double counting
 term for self-energy functions. The working directory of this function
 must be the root folder.
 
-The argument `imp` will be modified in this function.
+The argument `imp` may be modified in this function.
 
 See also: [`Impurity`](@ref), [`ctqmc_nimpx`](@ref).
 """
