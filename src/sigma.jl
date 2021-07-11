@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/05
+# Last modified: 2021/07/11
 #
 
 #=
@@ -12,13 +12,17 @@
 =#
 
 """
-    sigma_reset(ai::Array{Impurity,1})
+    sigma_reset(ai::Array{Impurity,1}, with_init_dc::Bool = true)
 
 Create initial self-energy functions and write them to `sigma.bare`. The
 `sigma.bare` file is key input for the dynamical mean-field theory engine.
 The word `bare` means that the double counting term has not been removed
 from the self-energy functions. Now this function only supports Matsubara
 self-energy functions Σ(𝑖ωₙ).
+
+If `with_init_dc = true`, then the real parts of self-energy functions
+are initialized by the double counting terms within the fully localized
+limited scheme.
 
 See also: [`sigma_dcount`](@ref).
 """
