@@ -22,11 +22,12 @@ self-energy functions Σ(𝑖ωₙ).
 
 If `with_init_dc = true`, then the real parts of self-energy functions
 are initialized by the double counting terms within the fully localized
-limited scheme.
+limited scheme. If `with_init_dc = false`, then the self-energy functions
+are set to be complex zero.
 
 See also: [`sigma_dcount`](@ref).
 """
-function sigma_reset(ai::Array{Impurity,1})
+function sigma_reset(ai::Array{Impurity,1}, with_init_dc::Bool = true)
     # Print the header
     println("Sigma : Reset")
     println("Try to create bare self-energy functions")
@@ -67,6 +68,23 @@ function sigma_reset(ai::Array{Impurity,1})
 
         # Create a temporary array for self-energy function
         S = zeros(C64, nband, nband, nmesh, nspin)
+
+        # Setup initial values for the self-energy functions if needed
+        if with_init_dc
+            # Try to calculate the double counting terms within the fully
+            # localized limited scheme at first.
+            @assert ai[i].occup == get_i("occup")[i]
+            sigdc = cal_dc_fll(ai[i].upara, ai[i].jpara, ai[i].occup)
+
+            # Go through spins, meshes, and bands, setup elements of S.
+            for s = 1:nspin
+                for m = 1:nmesh
+                    for b = 1:nband
+                        S[b,b,m,s] = sigdc + 0.0im
+                    end # END OF B LOOP
+                end # END OF M LOOP
+            end # END OF S LOOP
+        end
 
         # Push S into SA to save it
         push!(SA, S)
