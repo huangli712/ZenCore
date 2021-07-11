@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Stable
 #
-# Last modified: 2021/07/09
+# Last modified: 2021/07/11
 #
 
 #=
@@ -81,7 +81,7 @@ Version of this julia package.
 
 See also: [`__RELEASE__`](@ref).
 """
-const __VERSION__ = v"0.5.4-devel.210709"
+const __VERSION__ = v"0.5.5-devel.210711"
 
 """
     __RELEASE__
