@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/05
+# Last modified: 2021/07/11
 #
 
 """
@@ -39,7 +39,7 @@ function mixer_sigma(it::IterInfo, ai::Array{Impurity,1})
         @assert _prev ≥ 1
     end
     println("Determine previous and current objects")
-    @printf("  > Curr: (I₃, I₁) -> (%4i,%4i)\n", cycle, curr)
+    println("  > Curr: (I₃, I₁) -> ($cycle, $curr)")
     @printf("  > Prev: (I₃, I₁) -> (%4i,%4i)\n", _cycle, _prev)
 
     # Determine filenames for self-energy functions
