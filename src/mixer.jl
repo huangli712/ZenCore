@@ -236,8 +236,8 @@ function mixer_gamma(it::IterInfo)
     @assert cycle ≥ _cycle ≥ 1
     @assert _prev ≥ 1
     println("Determine previous and current objects")
-    @printf("  > Curr: (I₃, I₂) -> (%4i,%4i)\n", cycle, curr)
-    @printf("  > Prev: (I₃, I₂) -> (%4i,%4i)\n", _cycle, _prev)
+    println("  > Curr: (I₃, I₂) -> ($cycle, $curr)")
+    println("  > Prev: (I₃, I₂) -> ($_cycle, $_prev)")
 
     # Determine filenames for correction for density matrix
     fcurr = "dmft2/dmft.gamma.$cycle.$curr"
