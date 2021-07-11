@@ -40,7 +40,7 @@ function mixer_sigma(it::IterInfo, ai::Array{Impurity,1})
     end
     println("Determine previous and current objects")
     println("  > Curr: (I₃, I₁) -> ($cycle, $curr)")
-    @printf("  > Prev: (I₃, I₁) -> (%4i,%4i)\n", _cycle, _prev)
+    println("  > Prev: (I₃, I₁) -> ($_cycle, $_prev)")
 
     # Determine filenames for self-energy functions
     fcurr = "dmft1/sigma.bare.$cycle.$curr"
