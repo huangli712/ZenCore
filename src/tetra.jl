@@ -232,7 +232,6 @@ function tetra_weight(z::F64, e::Array{F64,1})
         TW = tetra_p_ek4()
     #
     end
-    @show z, e
 
     # Add up Blochl corrections for density of states weights
     # Apply equation (22)
