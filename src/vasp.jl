@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/07
+# Last modified: 2021/07/14
 #
 
 #=
@@ -164,7 +164,7 @@ function vasp_exec(it::IterInfo)
 
     # Special treatment for self-consistent mode
     if it.sc == 2
-        println("Escape from vasp_exec()")
+        println("Entering DFT + DMFT Cycling")
         return
     end
 
@@ -225,7 +225,7 @@ See also: [`vasp_init`](@ref), [`vasp_exec`](@ref).
 function vasp_save(it::IterInfo)
     # Special treatment for self-consistent mode
     if it.sc == 2
-        println("Escape from vasp_save()")
+        println()
         return
     end
 
