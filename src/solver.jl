@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/07
+# Last modified: 2021/07/14
 #
 
 #=
@@ -841,7 +841,7 @@ function GetSymmetry(Eimpx::Array{C64,3})
     eimp = zeros(F64, nband, nspin)
     for s = 1:nspin
         for b = 1:nband
-            eimp[b,s] = round(real(Eimpx[b,b,s]), digits = 3)
+            eimp[b,s] = round(real(Eimpx[b,b,s]), digits = 2)
         end
     end # END OF S LOOP
 
