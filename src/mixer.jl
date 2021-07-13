@@ -252,7 +252,10 @@ function mixer_gamma(it::IterInfo)
     kmesh_prev, kwin_prev, gamma_prev = read_gamma(fprev)
     @assert size(kmesh_curr) == size(kmesh_prev)
     @assert size(kwin_curr) == size(kwin_prev)
-    @assert size(gamma_curr) == size(gamma_prev)
+    if size(gamma_curr) != size(gamma_prev)
+        println("  > Size of density matrix does not match each other")
+        return
+    end
 
     # Mix the correction for density matrix using Kerker algorithm
     println("Mix correction for density matrix from two successive iterations")
@@ -268,7 +271,7 @@ function mixer_gamma(it::IterInfo)
             G₂ = sum(kmesh_curr[k,:] .^ 2)
             amix = α * G₂ / (G₂ + γ^2)
             gamma_curr[:,:,k,s] = amix * gamma_curr[:,:,k,s] + (1.0 - amix) * gamma_prev[:,:,k,s]
-            @printf("  > Mixing parameter α = %12.7f (for 𝑘-point %4i and spin %4i)", amix, k, s)
+            @printf("  > Mixing parameter α = %12.7f (for 𝑘-point %4i and spin %4i)\n", amix, k, s)
         end # END OF K LOOP
     end # END OF S LOOP
 
