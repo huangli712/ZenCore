@@ -321,7 +321,7 @@ function cycle2()
             @time_call mixer_core(it, lr, ai, "gamma")
 
             # C17: Reactivate the DFT engine
-            dft_run(lr)
+            dft_run(it, lr, true)
 
             # Print the cycle info
             show_it(it, lr)
@@ -664,7 +664,7 @@ function dft_run(it::IterInfo, lr::Logger)
 end
 
 """
-    dft_run(lr::Logger)
+    dft_run(it::IterInfo, lr::Logger, sc::Bool)
 
 Read in the correction for density matrix, and then feed it back to the
 DFT engine to continue the DFT + DMFT calculations.
@@ -674,7 +674,7 @@ to support more DFT engines.
 
 See also: [`suspend`](@ref).
 """
-function dft_run(lr::Logger)
+function dft_run(it::IterInfo, lr::Logger, sc::Bool)
     # Determine the chosen engine
     engine = get_d("engine")
 
