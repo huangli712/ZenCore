@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/11
+# Last modified: 2021/07/13
 #
 
 """
@@ -252,7 +252,7 @@ function mixer_gamma(it::IterInfo)
     kmesh_prev, kwin_prev, gamma_prev = read_gamma(fprev)
     @assert size(kmesh_curr) == size(kmesh_prev)
     @assert size(kwin_curr) == size(kwin_prev)
-    @assert size(gamma_curr) == size(gammma_prev)
+    @assert size(gamma_curr) == size(gamma_prev)
 
     # Mix the correction for density matrix using Kerker algorithm
     println("Mix correction for density matrix from two successive iterations")
