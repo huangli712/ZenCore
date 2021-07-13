@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/13
+# Last modified: 2021/07/14
 #
 
 """
@@ -271,7 +271,7 @@ function mixer_gamma(it::IterInfo)
             G₂ = sum(kmesh_curr[k,:] .^ 2)
             amix = α * G₂ / (G₂ + γ^2)
             gamma_curr[:,:,k,s] = amix * gamma_curr[:,:,k,s] + (1.0 - amix) * gamma_prev[:,:,k,s]
-            @printf("  > Mixing parameter α = %12.7f (for 𝑘-point %4i and spin %4i)\n", amix, k, s)
+            @printf("  > Mixing parameter α = %10.7f (for 𝑘-point %4i and spin %1i)\n", amix, k, s)
         end # END OF K LOOP
     end # END OF S LOOP
 
