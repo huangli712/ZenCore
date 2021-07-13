@@ -620,18 +620,22 @@ end
 =#
 
 """
-    dft_run(it::IterInfo, lr::Logger)
+    dft_run(it::IterInfo, lr::Logger, sc::Bool = false)
 
 Simple driver for DFT engine. It performs three tasks: (1) Examine
 the runtime environment for the DFT engine. (2) Launch the DFT engine.
 (3) Backup the output files by DFT engine for next iterations.
+
+If `sc = true`, this function will read in the correction for density
+matrix, and then feed it back to the DFT engine to continue the DFT
++ DMFT calculations.
 
 Now only the vasp engine is supported. If you want to support the other
 DFT engine, this function must be adapted.
 
 See also: [`adaptor_run`](@ref), [`dmft_run`](@ref), [`solver_run`](@ref).
 """
-function dft_run(it::IterInfo, lr::Logger)
+function dft_run(it::IterInfo, lr::Logger, sc::Bool = false)
     # Determine the chosen engine
     engine = get_d("engine")
 
@@ -643,66 +647,38 @@ function dft_run(it::IterInfo, lr::Logger)
     cd("dft")
 
     # Activate the chosen DFT engine
-    @cswitch engine begin
-        # For vasp
-        @case "vasp"
-            vasp_init(it)
-            vasp_exec(it)
-            vasp_save(it)
-            break
+    if !sc
+        @cswitch engine begin
+            # For vasp
+            @case "vasp"
+                vasp_init(it)
+                vasp_exec(it)
+                vasp_save(it)
+                break
 
-        @default
-            sorry()
-            break
-    end
-
-    # Enter the parent directory
-    cd("..")
-
-    # Monitor the status
-    monitor(true)
-end
-
-"""
-    dft_run(it::IterInfo, lr::Logger, sc::Bool)
-
-Read in the correction for density matrix, and then feed it back to the
-DFT engine to continue the DFT + DMFT calculations.
-
-Now this function only supports the vasp code. We have to improve it
-to support more DFT engines.
-
-See also: [`suspend`](@ref).
-"""
-function dft_run(it::IterInfo, lr::Logger, sc::Bool)
-    # Determine the chosen engine
-    engine = get_d("engine")
-
-    # Print the log
-    prompt("DFT", cntr_it(it))
-    prompt(lr.log, engine)
-
-    # Read in the correction for density matrix
-    _, kwin, gamma = read_gamma()
-
-    # Enter dft directory
-    cd("dft")
-
-    # Activate the chosen DFT engine
-    @cswitch engine begin
-        # For vasp
-        @case "vasp"
-            # Write the GAMMA file for vasp
-            vaspc_gamma(kwin, gamma)
-            #
-            # Create vasp.lock file to wake up the vasp
-            vaspc_lock("create")
-            #
-            break
-
-        @default
-            sorry()
-            break
+            @default
+                sorry()
+                break
+        end
+    else
+        @cswitch engine begin
+            # For vasp
+            @case "vasp"
+                # Read in the correction for density matrix
+                _, kwin, gamma = read_gamma("../dmft2/dmft.gamma")
+                #
+                # Write the GAMMA file for vasp
+                vaspc_gamma(kwin, gamma)
+                #
+                # Create vasp.lock file to wake up the vasp
+                vaspc_lock("create")
+                #
+                break
+    
+            @default
+                sorry()
+                break
+        end
     end
 
     # Enter the parent directory
