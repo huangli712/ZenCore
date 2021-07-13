@@ -315,7 +315,7 @@ function cycle2()
             incr_it(it, 2, iter2)
 
             # C15: Perform DMFT calculation with `task` = 2
-            dmft_run(it, lr, 2) # Generate correction for density matrix
+            @time_call dmft_run(it, lr, 2) # Generate correction for density matrix
 
             # C10: Mix the correction for density matrix
             @time_call mixer_core(it, lr, ai, "gamma")
