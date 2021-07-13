@@ -321,7 +321,7 @@ function cycle2()
             @time_call mixer_core(it, lr, ai, "gamma")
 
             # C17: Reactivate the DFT engine
-            dft_run(it, lr, true)
+            @time_call dft_run(it, lr, true)
 
             # Wait additional two seconds
             suspend(2)
