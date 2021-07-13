@@ -323,6 +323,9 @@ function cycle2()
             # C17: Reactivate the DFT engine
             dft_run(it, lr, true)
 
+            # Wait additional two seconds
+            suspend(2)
+
             # Print the cycle info
             show_it(it, lr)
 
