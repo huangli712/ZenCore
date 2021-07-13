@@ -164,7 +164,7 @@ function vasp_exec(it::IterInfo)
 
     # Special treatment for self-consistent mode
     if it.sc == 2
-        println("Entering DFT + DMFT Cycling")
+        println("Start DFT + DMFT Cycling")
         return
     end
 
