@@ -604,18 +604,21 @@ function suspend(second::I64)
     sleep(second)
 
     # Enter an infinite loop until some conditions are fulfilled.
+    engine = get_d("engine")
+    print("Pending for DFT engine ($engine)")
     while true
         # Sleep
         sleep(second)
         #
         # Print some hints
-        println("Pending for DFT engine")
+        print(".")
         #
         # Check the stop condifion.
         # Here, we check the vasp.lock file. If it is absent, then we
         # break this loop
         !vaspq_lock() && break
     end
+    println("\n")
 end
 
 #=
