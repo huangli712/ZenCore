@@ -437,10 +437,15 @@ function IterInfo()
     n₁ = 0.0
     n₂ = 0.0
     nf = fill(0.0, nsite)
-    et = 0.0
+    et = Vector{Energy}(undef, M₃)
     cc = false
     ce = false
     cs = false
+
+    # Further initialize et
+    for i in eachindex(et)
+        et[i] = Energy()
+    end
 
     # Call the default constructor
     IterInfo(I, I, I, I,
