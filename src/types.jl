@@ -132,10 +132,24 @@ mutable struct Logger
     cycle :: IOStream
 end
 
+"""
+    Energy
+
+Mutable struct. Store the decomposition of total DFT + DMFT energy.
+
+### Members
+
+* dft    -> DFT band energy.
+* dmft   -> Correction to the DFT band energy.
+* corr   -> Energy contributed by the electronic correlation.
+* dcount -> Energy contributed by the double counting term.
+
+See also: [`IterInfo`](@ref).
+"""
 mutable struct Energy
     dft    :: F64
     dmft   :: F64
-    solver :: F64
+    corr   :: F64
     dcount :: F64
 end
 
