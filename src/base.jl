@@ -1136,6 +1136,31 @@ Be careful, the field `et` in the `IterInfo` object will be updated.
 See also: [`Energy`](@ref), [`IterInfo`](@ref).
 """
 function energy_core(task::String = "dft")
+    @cswitch task begin
+        # Try to mix the self-energy functions
+        @case "sigma"
+            mixer_sigma(it, ai)
+            break
+
+        # Try to mix the hybridization functions
+        @case "delta"
+            mixer_delta(it, ai)
+            break
+
+        # Try to mix the local impurity levels
+        @case "eimpx"
+            mixer_eimpx(it, ai)
+            break
+
+        # Try to mix the density matrix
+        @case "gamma"
+            mixer_gamma(it)
+            break
+
+        @default
+            sorry()
+            break
+    end
 end
 
 #=
