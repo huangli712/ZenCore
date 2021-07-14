@@ -59,6 +59,7 @@ the `erf()` function. Please see `util.jl/erf()` for more details. We
 usually need this to calculate the electronic density of states.
 =#
 
+using Base: Symbol
 using TOML
 using LinearAlgebra
 using Distributed
@@ -153,6 +154,7 @@ export @cswitch
 export @time_call
 export @ps1
 export @ps2
+export @pcs
 export require
 export setup_args
 export query_args

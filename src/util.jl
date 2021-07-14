@@ -125,6 +125,21 @@ macro ps2(str1, c1, str2, c2)
     return :( $(esc(ex)) )
 end
 
+macro pcs(x...)
+    ex = quote
+        args = $x
+        @assert iseven(length(args))
+        for i = 1:2:length(args)
+            str = args[i]
+            color = args[i+1]
+            @assert str isa AbstractString
+            @assert color isa Symbol
+            print(eval(color)(str))
+        end
+    end
+    return :( $(esc(ex)) )
+end
+
 #=
 ### *Query Runtime Environment*
 =#
