@@ -958,7 +958,8 @@ function adaptor_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
     # some selected physical quantities (such as overlap matrix and
     # density of states) to check the correctness of the Kohn-Sham
     # data. This feature will be activated automatically if you are
-    # using the `src/tools/test.jl` tool to examine the DFT data.
+    # in the REPL mode and there is a `case.test` file in the present
+    # directory (i.e, the `dft` folder).
     #
     projtype = get_d("projtype")
     prompt("Adaptor", cntr_it(it))
