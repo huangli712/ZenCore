@@ -59,12 +59,12 @@ the `erf()` function. Please see `util.jl/erf()` for more details. We
 usually need this to calculate the electronic density of states.
 =#
 
-using Base: Symbol
 using TOML
 using LinearAlgebra
 using Distributed
 using Dates
 using Printf
+using Base: Symbol
 using Base.Math: libm
 
 #=
