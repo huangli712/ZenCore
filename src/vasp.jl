@@ -576,7 +576,7 @@ function vaspio_nband(f::String)
 
     # Sanity check
     nsort, _ = size(latt.sorts)
-    @assert nsort === length(zval)
+    @assert nsort == length(zval)
 
     # Evaluate number of valence electrons in total
     nelect = sum(@. latt.sorts[:, 2] * zval)
@@ -677,7 +677,7 @@ function vaspio_procar(f::String)
     readuntil(fin, "ion ")
     arr = line_to_array(fin)
     norbs = length(arr) - 1
-    @assert norbs === 9 || norbs === 16
+    @assert norbs == 9 || norbs == 16
     seekstart(fin) # Rewind the stream
     #
     # (3) Determine key parameters: nspin.
@@ -741,7 +741,7 @@ function vaspio_procar(f::String)
     #
     # (5) Additional check. `soc` must be compatible with `nspin`.
     if soc
-        @assert nspin === 1
+        @assert nspin == 1
     end
     #
     # (6) Debug
@@ -755,14 +755,14 @@ function vaspio_procar(f::String)
     fstr = ""
     #
     # (2) Single atom vs. multiple atoms
-    if natom === 1
+    if natom == 1
         fstr = fstr * "1"
     else
         fstr = fstr * "2"
     end
     #
     # (3) d system vs. f system
-    if norbs === 9
+    if norbs == 9
         fstr = fstr * "d"
     else
         fstr = fstr * "f"
@@ -804,7 +804,7 @@ function vaspio_procar(f::String)
 
             # Check k-index
             arr = line_to_array(fin)
-            @assert k === parse(I64, arr[2])
+            @assert k == parse(I64, arr[2])
             println("Finishing spin $s k-point $k")
 
             # Go through each band for the given k-point and spin
@@ -814,7 +814,7 @@ function vaspio_procar(f::String)
 
                 # Check band index
                 arr = line_to_array(fin)
-                @assert b === parse(I64, arr[2])
+                @assert b == parse(I64, arr[2])
 
                 # Parse eigenvalues and occupations
                 enk[b, k, s] = parse(F64, arr[5])
@@ -828,8 +828,8 @@ function vaspio_procar(f::String)
                 # Go through each atom and orbital
                 for a = 1:natom
                     arr = line_to_array(fin)
-                    @assert parse(I64, arr[1]) === a
-                    @assert norbs === length(arr) - 2
+                    @assert parse(I64, arr[1]) == a
+                    @assert norbs == length(arr) - 2
                     worb[:, a, b, k, s] = parse.(F64, arr[2:end-1])
                 end
 
@@ -1013,7 +1013,7 @@ function vaspio_lattice(f::String, silent::Bool = true)
         end
     end
     # Sanity check
-    @assert k === natom
+    @assert k == natom
 
     # Get the coordinates of atoms
     readline(fin)
@@ -1189,7 +1189,7 @@ function vaspio_eigen(f::String)
 
         # Determine number of spins
         nspin = parse(I64, line_to_array(fin)[end])
-        @assert nspin === 1 || nspin === 2
+        @assert nspin == 1 || nspin == 2
 
         # Skip for lines
         for i = 1:4
@@ -1239,7 +1239,7 @@ function vaspio_eigen(f::String)
         # Extract number of spins (nspin), number of k-points (nkpt),
         # number of bands (nband), and number of projectors (nproj).
         nspin, nkpt, nband, nproj = parse.(I64, line_to_array(fin)[1:4])
-        @assert nspin === 1 || nspin === 2
+        @assert nspin == 1 || nspin == 2
 
         #@show nspin, nkpt, nband, nproj
         for i = 1:nproj
@@ -1313,7 +1313,7 @@ function vaspio_projs(f::String)
     # Extract number of spins (nspin), number of k-points (nkpt),
     # number of bands (nband), and number of projectors (nproj).
     nspin, nkpt, nband, nproj = parse.(I64, line_to_array(fin)[1:4])
-    @assert nspin === 1 || nspin === 2
+    @assert nspin == 1 || nspin == 2
 
     # Extract raw information about projectors
     sites = zeros(I64, nproj)
@@ -1358,11 +1358,11 @@ function vaspio_projs(f::String)
     # save them at PrGroup.Pr array.
     for i in eachindex(PG)
         site, l = PG[i].site, PG[i].l
-        PG[i].Pr = findall(x -> (x.site, x.l) === (site, l), PT)
+        PG[i].Pr = findall(x -> (x.site, x.l) == (site, l), PT)
     end
     #
     # Finally, check correctness
-    @assert nproj === sum(x -> length(x.Pr), PG)
+    @assert nproj == sum(x -> length(x.Pr), PG)
 
     # Create arrays
     chipsi = zeros(C64, nproj, nband, nkpt, nspin)
