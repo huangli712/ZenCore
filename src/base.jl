@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/14
+# Last modified: 2021/07/15
 #
 
 #=
@@ -253,11 +253,11 @@ function cycle2()
     # C05: Start the self-consistent engine
     it.sc = 2; dft_run(it, lr)
 
+    # Wait the DFT engine to finish its job and sleep
+    suspend(2)
+
     # Outer: DFT + DMFT LOOP
     for iter = 1:it.M₃
-
-        # Wait the DFT engine to finish its job and sleep
-        suspend(2)
 
         # Print the log
         prompt("Cycle $iter")
