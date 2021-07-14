@@ -357,6 +357,7 @@ solver_run  -> Driver for quantum impurity solvers.
 adaptor_run -> Driver for Kohn-Sham adaptor.
 sigma_core  -> Driver for self-energy engine.
 mixer_core  -> Driver for mixer engine.
+energy_core -> Driver for calculating DFT + DMFT energy.
 build_trees -> Make working directories.
 clear_trees -> Remove working directories.
 incr_it     -> Increase the counters in the IterInfo struct.
@@ -390,6 +391,7 @@ export solver_run
 export adaptor_run
 export sigma_core
 export mixer_core
+export energy_core
 export build_trees
 export clear_trees
 export incr_it
