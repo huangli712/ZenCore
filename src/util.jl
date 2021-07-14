@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/04
+# Last modified: 2021/07/14
 #
 
 #=
@@ -88,27 +88,34 @@ macro time_call(ex)
 end
 
 """
-    @ps2(str1, c1, str2, c2)
+    @pcs(x...)
 
-Wrapper for colorful output function. Here `str1` and `str2` are strings,
-and `c1` and `c2` denote colors.
+Try to print colorful strings. Here `x` is a combination of strings and
+colors. Its format likes `string1 color1 string2 color2 ...`. For the
+supported colors, please check dict `COLORS`.
 
 ### Examples
 ```julia
-@ps2 "Hello " :red "world!" :green
+@pcs "Hello world!" blue
+@pcs "Hello " red "world!" green
 ```
 
-See also: [`@ps1`](@ref).
+See also: [`COLORS`](@ref).
 """
 macro pcs(x...)
     ex = quote
         args = $x
         @assert iseven(length(args))
         for i = 1:2:length(args)
-            str = args[i]
-            color = args[i+1]
+            # Construct and check string
+            str   = args[i]
             @assert str isa AbstractString
+            #
+            # Construct and check color
+            color = args[i+1]
             @assert color isa Symbol
+
+            # Generate expression
             print(eval(color)(str))
         end
     end
