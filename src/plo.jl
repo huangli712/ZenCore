@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/09
+# Last modified: 2021/07/14
 #
 
 #=
@@ -450,7 +450,7 @@ function plo_rotate(PG::Array{PrGroup,1}, chipsi::Array{C64,4})
 
         # Determine the number of projectors after rotation
         ndim = size(PG[i].Tr)[1]
-        @assert size(PG[i].Tr)[2] === (p2 - p1 + 1)
+        @assert size(PG[i].Tr)[2] == (p2 - p1 + 1)
 
         # Create a temporary array R
         R = zeros(C64, ndim, nband, nkpt, nspin)
@@ -1395,7 +1395,7 @@ function view_dos(mesh::Array{Array{F64,1},1}, dos::Array{Array{F64,3},1})
     for p in eachindex(dos)
         # Extract some key parameters
         ndim, nspin, npnts = size(dos[p])
-        @assert npnts === length(mesh[p])
+        @assert npnts == length(mesh[p])
 
         # Output the data
         open("dos.chk.$p", "w") do fout

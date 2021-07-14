@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/13
+# Last modified: 2021/07/14
 #
 
 #=
@@ -707,7 +707,7 @@ See also: [`adaptor_run`](@ref), [`dft_run`](@ref), [`solver_run`](@ref).
 """
 function dmft_run(it::IterInfo, lr::Logger, task::I64)
     # Examine the argument `task`
-    @assert task === 1 || task === 2
+    @assert task == 1 || task == 2
 
     # Print the log
     prompt("DMFT", cntr_it(it))
