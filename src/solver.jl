@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/14
+# Last modified: 2021/07/15
 #
 
 #=
@@ -150,7 +150,7 @@ function s_qmc1_exec(it::IterInfo)
 
     # Extract perturbation expansion order information
     println("Statistics about diagrammatic quantum Monte Carlo algorithm")
-    println("  > Order / Count / Percent")
+    println("  > Order / Count / Percent / Error bar")
     lines = readlines("solver.hist.dat")
     filter!(!endswith("0.000000"), lines)
     filter!(!startswith("#"), lines)
