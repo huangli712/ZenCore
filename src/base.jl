@@ -256,7 +256,7 @@ function cycle2()
     # Outer: DFT + DMFT LOOP
     for iter = 1:it.M₃
 
-        # Wait additional two seconds
+        # Wait the DFT engine to finish its job and sleep
         suspend(2)
 
         # Print the log
@@ -323,7 +323,7 @@ function cycle2()
             # C17: Reactivate the DFT engine
             @time_call dft_run(it, lr, true)
 
-            # Wait additional two seconds
+            # Wait the DFT engine to finish its job and sleep
             suspend(2)
 
             # Print the cycle info
@@ -600,12 +600,12 @@ function suspend(second::I64)
         second = 5
     end
 
-    # Sleep at first
+    # Sleep some seconds at first
     sleep(second)
 
     # Enter an infinite loop until some conditions are fulfilled.
     engine = get_d("engine")
-    print("Pending for DFT engine ($engine)")
+    print("Waiting for $engine. Ticking")
     while true
         # Sleep
         sleep(second)
