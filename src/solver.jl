@@ -76,6 +76,7 @@ function s_qmc1_exec(it::IterInfo)
     # Select suitable solver program
     solver_exe = "$solver_home/ctqmc"
     @assert isfile(solver_exe)
+    println("  > Executable program is available: ", basename(solver_exe))
 
     # Assemble command
     if isnothing(mpi_prefix)
@@ -146,6 +147,14 @@ function s_qmc1_exec(it::IterInfo)
     lines = readlines("solver.out")
     filter!(x -> contains(x, "iter:"), lines)
     println("  > Finished after $(length(lines)) Monte Carlo sampling blocks")
+
+    # Extract perturbation expansion order information
+    println("Statistics about diagrammatic quantum Monte Carlo algorithm")
+    println("  > Order / Count / Percent")
+    lines = readlines("solver.hist.dat")
+    filter!(!endswith("0.000000"), lines)
+    filter!(!startswith("#"), lines)
+    foreach(x -> println(x), lines)
 end
 
 """
