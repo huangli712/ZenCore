@@ -172,7 +172,7 @@ function plo_map(PG::Array{PrGroup,1}, ai::Array{Impurity,1})
     #
     # For a given quantum impurity problem, we can always find out the
     # corresponding group of projectors.
-    @assert all(x -> (0 < x <= ngrp), Map.i_grp)
+    @assert all(x -> (0 < x ≤ ngrp), Map.i_grp)
     #
     println("  > Create quantum impurity problems -> groups (i_grp)")
 
@@ -180,7 +180,7 @@ function plo_map(PG::Array{PrGroup,1}, ai::Array{Impurity,1})
     #
     # For a given group of projectors, if we fail to find out the
     # corresponding quantum impurity problem, it must be non-correlated.
-    @assert all(x -> (0 <= x <= nsite), Map.g_imp)
+    @assert all(x -> (0 ≤ x ≤ nsite), Map.g_imp)
     #
     println("  > Create groups -> quantum impurity problems (g_imp)")
 
@@ -454,7 +454,7 @@ function plo_rotate(PG::Array{PrGroup,1}, chipsi::Array{C64,4})
 
         # Create a temporary array R
         R = zeros(C64, ndim, nband, nkpt, nspin)
-        @assert nband >= ndim
+        @assert nband ≥ ndim
 
         # Rotate chipsi by Tr, the results are stored at R.
         for s = 1:nspin

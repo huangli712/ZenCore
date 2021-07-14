@@ -197,7 +197,7 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1}, reset_dc::Bool = fals
         println("  > Shape of Array DC: $i -> ", size(DC))
 
         # Special treatment for the first iteration
-        if reset_dc && ( it.I₃ <= 1 && it.I₁ <= 1 )
+        if reset_dc && ( it.I₃ ≤ 1 && it.I₁ ≤ 1 )
             fill!(DC, 0.0)
             println("  > Reset Vdc to: ", 0.0)
         end

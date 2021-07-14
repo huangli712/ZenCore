@@ -170,7 +170,7 @@ function irio_params(f::String, D::Dict{Symbol,Any})
     nsite = get_i("nsite")
 
     # To make sure the validaty of nsite
-    @assert nsite <= ngrp
+    @assert nsite ≤ ngrp
 
     # Output the data
     open(joinpath(f, "params.ir"), "w") do fout
