@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/06
+# Last modified: 2021/07/14
 #
 
 """
@@ -122,8 +122,7 @@ input strings, etc.
 ```text
 @cswitch      -> C-style switch.
 @time_call    -> Evaluate a function call and print the elapsed time.
-@ps1          -> Wrapper for printstyled function.
-@ps2          -> Another wrapper for printstyled function.
+@pcs          -> Print colorful strings.
 require       -> Check julia envirnoment.
 setup_args    -> Setup ARGS manually.
 query_args    -> Query program's arguments.
@@ -152,8 +151,6 @@ include("util.jl")
 #
 export @cswitch
 export @time_call
-export @ps1
-export @ps2
 export @pcs
 export require
 export setup_args
