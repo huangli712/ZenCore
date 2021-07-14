@@ -231,6 +231,7 @@ PDMFT    -> Dict for DMFT engine.
 PIMP     -> Dict for quantum impurity problems.
 PSOLVER  -> Dict for quantum impurity solvers.
 Logger   -> Struct for logger.
+Energy   -> Struct for total DFT + DMFT energy.
 IterInfo -> Struct for DFT + DMFT iteration information.
 Lattice  -> Struct for crystallography information.
 Mapping  -> Struct for mapping between impurity problems and projectors.
@@ -250,6 +251,7 @@ export PDMFT
 export PIMP
 export PSOLVER
 export Logger
+export Energy
 export IterInfo
 export Lattice
 export Mapping
