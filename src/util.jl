@@ -91,8 +91,8 @@ end
     @pcs(x...)
 
 Try to print colorful strings. Here `x` is a combination of strings and
-colors. Its format likes `string1 color1 string2 color2 ...`. For the
-supported colors, please check the dict `COLORS`.
+colors. Its format likes `string1 color1 string2 color2 (repeat)`. For
+the supported colors, please check the dict `COLORS`.
 
 ### Examples
 ```julia
@@ -227,8 +227,9 @@ automatically. Do not worry about them.
 
 Check whether the essential input files exist. This function is designed
 for the DFT engine only. The input files for the DMFT engine, quantum
-impurity solver, and Kohn-Sham adaptor will be generated automatically.
-The `ZenCore` package will take care of them. Do not worry.
+impurity solver, and Kohn-Sham adaptor will be generated automatically
+by default. The `ZenCore` package will take care of them. Do not worry
+about that.
 
 See also: [`query_case`](@ref).
 """
@@ -357,7 +358,7 @@ not a valid quantum impurity solver.
 """
     query_solver(engine::String)
 
-Query the home directory of the quantum impurity solver.
+Query the home directories of various quantum impurity solvers.
 
 See also: [`query_dft`](@ref), [`query_dmft`](@ref).
 """
