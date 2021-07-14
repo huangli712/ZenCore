@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/07
+# Last modified: 2021/07/14
 #
 
 #=
@@ -114,6 +114,7 @@ function dmft_exec(it::IterInfo, task::I64)
     # Select suitable dmft program
     dmft_exe = "$dmft_home/dmft"
     @assert isfile(dmft_exe)
+    println("  > Executable program is available: ", basename(dmft_exe))
 
     # Assemble command
     if isnothing(mpi_prefix)
