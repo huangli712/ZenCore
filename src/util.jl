@@ -95,9 +95,9 @@ colors. Its format likes `string1 color1 string2 color2 (repeat)`. For
 the supported colors, please check the dict `COLORS`.
 
 ### Examples
-```julia
-@pcs "Hello world!" blue
-@pcs "Hello " red "world!" green
+```julia-repl
+julia> @pcs "Hello world!" blue
+julia> @pcs "Hello " red "world!" green
 ```
 
 See also: [`COLORS`](@ref), [`welcome`](@ref).
@@ -158,7 +158,7 @@ and the other related functions can work correctly.
 
 ### Examples
 ```julia-repl
-julia > setup_args("SrVO3.toml")
+julia> setup_args("SrVO3.toml")
 1-element Array{String,1}:
  "SrVO3.toml"
 ```
@@ -426,7 +426,7 @@ Print out the overview of Zen to the screen.
 """
 function overview()
     # Build strings
-    str1 = nprocs() === 1 ? " processor " : " processors "
+    str1 = nprocs() == 1 ? " processor " : " processors "
     str2 = "(myid = $(myid()))"
 
     # Write the information
@@ -584,7 +584,7 @@ end
 Convert a number (it must be in [0,9]) to subscript.
 """
 function subscript(num::I64)
-    @assert num >=0 && num <= 9
+    @assert 0 ≤ num ≤ 9
     SUB = ["\u2080" "\u2081" "\u2082" "\u2083" "\u2084" "\u2085" "\u2086" "\u2087" "\u2088" "\u2089"]
     return SUB[num + 1]
 end
@@ -608,7 +608,7 @@ the following websites further:
 * https://stackoverflow.com/questions/4842424/
 * https://en.wikipedia.org/wiki/ANSI_escape_code
 
-Note that the macro `@pcs` relies on these codes.
+Note that the macro `@pcs` and functions `prompt()` rely on these codes.
 =#
 
 """
@@ -690,6 +690,8 @@ cyan(str::String)
 white(str::String)
 ```
 
+and their light color versions
+
 ```julia
 # For light colors
 light_black(str::String)
@@ -707,7 +709,7 @@ special escape sequences. These texts will be show as colorized texts
 in the terminal.
 
 ### Examples
-```julia
+```julia-repl
 julia> println(red("hello world!"))
 ```
 =#
