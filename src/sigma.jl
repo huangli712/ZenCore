@@ -91,7 +91,7 @@ function sigma_reset(ai::Array{Impurity,1}, with_init_dc::Bool = true)
         # Push S into SA to save it
         push!(SA, S)
         #
-        println("  > Shape of Array S: $i -> ", size(S))
+        println("  > Shape of Array Σ: $i -> ", size(S))
     end # END OF I LOOP
 
     # Write self-energy functions and the corresponding frequency mesh
@@ -194,14 +194,14 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1}, reset_dc::Bool = fals
         end
         #
         # Print some useful information
-        println("  > Using the $(get_m("dcount")) scheme: Vdc = $sigup (spin up)")
-        println("  > Using the $(get_m("dcount")) scheme: Vdc = $sigdn (spin down)")
-        println("  > Shape of Array DC: $i -> ", size(DC))
+        println("  > Using the $(get_m("dcount")) scheme: Σdc = $sigup (spin up)")
+        println("  > Using the $(get_m("dcount")) scheme: Σdc = $sigdn (spin down)")
+        println("  > Shape of Array Σdc: $i -> ", size(DC))
 
         # Special treatment for the first iteration
         if reset_dc && ( it.I₃ ≤ 1 && it.I₁ ≤ 1 )
             fill!(DC, 0.0)
-            println("  > Reset Vdc to: ", 0.0)
+            println("  > Reset Σdc to: ", 0.0)
         end
 
         # Use `sigup` to update the IterInfo struct
