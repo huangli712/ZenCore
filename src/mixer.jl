@@ -253,7 +253,8 @@ function mixer_gamma(it::IterInfo)
     @assert size(kmesh_curr) == size(kmesh_prev)
     @assert size(kwin_curr) == size(kwin_prev)
     if size(gamma_curr) != size(gamma_prev)
-        println("  > Size of density matrix does not match each other")
+        print("  > Size of density matrix does not match each other")
+        println(red(" (Very dangerous)"))
         return
     end
 
