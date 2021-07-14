@@ -652,7 +652,7 @@ function get_win1(enk::Array{F64,3}, bwin::Tuple{I64,I64})
 
     # Extract some key parameters
     nband, nkpt, nspin = size(enk)
-    @assert nband >= bmin && nband >= bmax
+    @assert nband ≥ bmin && nband ≥ bmax
 
     # Create array `kwin`, which is used to record the band window
     # for each k-point and each spin.
