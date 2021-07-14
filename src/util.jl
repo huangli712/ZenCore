@@ -92,7 +92,7 @@ end
 
 Try to print colorful strings. Here `x` is a combination of strings and
 colors. Its format likes `string1 color1 string2 color2 ...`. For the
-supported colors, please check dict `COLORS`.
+supported colors, please check the dict `COLORS`.
 
 ### Examples
 ```julia
@@ -100,14 +100,21 @@ supported colors, please check dict `COLORS`.
 @pcs "Hello " red "world!" green
 ```
 
-See also: [`COLORS`](@ref).
+See also: [`COLORS`](@ref), [`welcome`](@ref).
 """
 macro pcs(x...)
     ex = quote
+        # The `args` is actually a Tuple. 
         args = $x
+
+        # We have to make sure the strings and colors are paired.
         @assert iseven(length(args))
+
         for i = 1:2:length(args)
             # Construct and check string
+            # Sometimes args[i] contains interpolated variables, its
+            # type is `Expr`. At this time, we have to evaluate this
+            # `Expr` at first to convert it to a format `String`.
             str   = eval(args[i])
             @assert str isa AbstractString
             #
