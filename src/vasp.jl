@@ -165,7 +165,7 @@ function vasp_exec(it::IterInfo)
 
     # Special treatment for self-consistent mode
     if it.sc == 2
-        println("Start DFT + DMFT Cycling")
+        println("Let's Rock & Roll")
         return
     end
 
