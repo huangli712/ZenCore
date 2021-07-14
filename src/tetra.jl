@@ -58,7 +58,7 @@ See also: [`gauss_weight`](@ref), [`fermi_weight`](@ref), [`tetra_weight`](@ref)
 function bzint(z::F64, itet::Array{I64,2}, enk::Array{F64,3})
     # Extract some key parameters
     ntet, ndim = size(itet)
-    @assert ndim === 5
+    @assert ndim == 5
 
     # Extract some key parameters
     nband, nkpt, nspin = size(enk)
@@ -287,7 +287,7 @@ See also: [`tetra_weight`](@ref).
 """
 function tetra_p_ek12(z::F64, e::Array{F64,1})
     # Sainty check
-    @assert length(e) === 4
+    @assert length(e) == 4
 
     # Setup common variables
     # zei: ze_{i} = e - e_{i}
@@ -341,7 +341,7 @@ See also: [`tetra_weight`](@ref).
 """
 function tetra_p_ek23(z::F64, e::Array{F64,1})
     # Sainty check
-    @assert length(e) === 4
+    @assert length(e) == 4
 
     # Setup common variables
     # zei: ze_{i} = e - e_{i}
@@ -409,7 +409,7 @@ See also: [`tetra_weight`](@ref).
 """
 function tetra_p_ek34(z::F64, e::Array{F64,1})
     # Sainty check
-    @assert length(e) === 4
+    @assert length(e) == 4
 
     # Setup common variables
     # zei: ze_{i} = e - e_{i}
