@@ -51,8 +51,8 @@ function sigma_reset(ai::Array{Impurity,1}, with_init_dc::Bool = true)
         #
         println("  > Create Matsubara frequency mesh: $nmesh points")
     else # Real axis
-        sorry()
         println("  > Create real frequency mesh: $nmesh points")
+        sorry()
     end
 
     # Create default self-energy functions
@@ -84,6 +84,8 @@ function sigma_reset(ai::Array{Impurity,1}, with_init_dc::Bool = true)
                     end # END OF B LOOP
                 end # END OF M LOOP
             end # END OF S LOOP
+            #
+            println("  > Initial value: $i -> ", sigdc)
         end
 
         # Push S into SA to save it
