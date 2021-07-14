@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/12
+# Last modified: 2021/07/14
 #
 
 #=
@@ -18,8 +18,8 @@ following algorithms are supported:
 * Analytical tetrahedron algorithm with Blochl corrections.
 
 Note that you have to modify the `line 87-89` to choose suitable driver.
-Perhaps you also need to modify the `gamm` parameter (`line 133 or 168`)
-to obtain more reasonable results. Now the default algorithm is (3).
+Perhaps you also need to modify the `γ` parameter (`line 133 or 168`)
+to obtain more reasonable results. Now the default algorithm is (`3`).
 =#
 
 #=
@@ -130,13 +130,13 @@ function gauss_weight(z::F64, e::Array{F64,1})
     TW = TetraWeight(cw, dw, tw)
 
     # Parameter for gaussian broadening
-    gamm = 0.25
+    γ = 0.25
 
     # Further setup the integration weights
     for i = 1:4
-        dummy = ( z - e[i] ) / gamm
+        dummy = ( z - e[i] ) / γ
         TW.tw[i] = 0.125 * ( 1.0 - erf(-dummy) )
-        TW.dw[i] = 0.25 * exp(-dummy^2.0) / ( sqrt(pi) * gamm )
+        TW.dw[i] = 0.25 * exp(-dummy^2.0) / ( sqrt(pi) * γ )
     end
 
     # Return the TetraWeight struct
@@ -165,11 +165,11 @@ function fermi_weight(z::F64, e::Array{F64,1})
     TW = TetraWeight(cw, dw, tw)
 
     # Parameter for gaussian broadening
-    gamm = 0.25
+    γ = 0.25
 
     # Further setup the integration weights
     for i = 1:4
-        dummy = ( z - e[i] ) / gamm
+        dummy = ( z - e[i] ) / γ
         TW.tw[i] = 1.0 / (1.0 +  exp(-dummy) )
         TW.dw[i] = 0.5 / (1.0 + cosh( dummy) )
     end
