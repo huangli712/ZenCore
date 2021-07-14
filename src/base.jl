@@ -1388,7 +1388,7 @@ function show_it(it::IterInfo, lr::Logger)
             @printf(lr.cycle, "%-12.7f", it.nf[t])
         end
         #
-        @printf(lr.cycle, "%-12.7f", it.et)
+        @printf(lr.cycle, "%-12.7f", it.et[it.I₃].total)
         #
         @printf(lr.cycle, "%-8s", it.cc ? "true" : "false")
         @printf(lr.cycle, "%-8s", it.ce ? "true" : "false")
