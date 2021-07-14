@@ -108,7 +108,7 @@ macro pcs(x...)
         @assert iseven(length(args))
         for i = 1:2:length(args)
             # Construct and check string
-            str   = args[i]
+            str   = eval(args[i])
             @assert str isa AbstractString
             #
             # Construct and check color
