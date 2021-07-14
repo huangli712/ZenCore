@@ -399,15 +399,15 @@ end
 Print out the welcome messages to the screen.
 """
 function welcome()
-    @ps1 "                                        |\n" :green
-    @ps2 "ZZZZZZZZZZZZ EEEEEEEEEEEE NNNNNNNNNNNN  | "  :green "A Modern DFT + DMFT Computation Framework\n" :magenta
-    @ps1 "          Z               N          N  |\n" :green
-    @ps1 "         Z                N          N  |\n" :green
-    @ps2 "   ZZZZZZ    EEEEEEEEEEEE N          N  | "  :green "Package: $__LIBNAME__\n" :magenta
-    @ps2 "  Z                       N          N  | "  :green "Version: $__VERSION__\n" :magenta
-    @ps2 " Z                        N          N  | "  :green "Release: $__RELEASE__\n" :magenta
-    @ps2 "ZZZZZZZZZZZZ EEEEEEEEEEEE N          N  | "  :green "Powered by the julia programming language\n" :magenta
-    @ps1 "                                        |\n" :green
+    @pcs "                                        |\n" green
+    @pcs "ZZZZZZZZZZZZ EEEEEEEEEEEE NNNNNNNNNNNN  | "  green "A Modern DFT + DMFT Computation Framework\n" magenta
+    @pcs "          Z               N          N  |\n" green
+    @pcs "         Z                N          N  |\n" green
+    @pcs "   ZZZZZZ    EEEEEEEEEEEE N          N  | "  green "Package: $__LIBNAME__\n" magenta
+    @pcs "  Z                       N          N  | "  green "Version: $__VERSION__\n" magenta
+    @pcs " Z                        N          N  | "  green "Release: $__RELEASE__\n" magenta
+    @pcs "ZZZZZZZZZZZZ EEEEEEEEEEEE N          N  | "  green "Powered by the julia programming language\n" magenta
+    @pcs "                                        |\n" green
     println()
 end
 
@@ -600,7 +600,7 @@ the following websites further:
 * https://stackoverflow.com/questions/4842424/
 * https://en.wikipedia.org/wiki/ANSI_escape_code
 
-Note that the macros `@ps1` and `@ps2` rely on these codes.
+Note that the macro `@pcs` relies on these codes.
 =#
 
 """
