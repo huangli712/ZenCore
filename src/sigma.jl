@@ -283,8 +283,8 @@ function sigma_gather(it::IterInfo, ai::Array{Impurity,1})
 
         # Print some useful information
         println("  > Read self-energy functions for impurity: $t")
-        println("  > Shape of Array fmesh: ", size(fmesh))
-        println("  > Shape of Array sigma: ", size(sigma))
+        println("  > Shape of Array ω: ", size(fmesh))
+        println("  > Shape of Array Σ: ", size(sigma))
 
         # Extract and verify the dimensional parameters
         _, _b, _m, _ = size(sigma)
