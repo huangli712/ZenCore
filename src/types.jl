@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/14
+# Last modified: 2021/07/15
 #
 
 #=
@@ -143,6 +143,7 @@ Mutable struct. Store the decomposition of total DFT + DMFT energy.
 * dmft   -> Correction to the DFT band energy.
 * corr   -> Energy contributed by the electronic correlation.
 * dcount -> Energy contributed by the double counting term.
+* total  -> Total DFT + DMFT energy.
 
 See also: [`IterInfo`](@ref).
 """
@@ -151,6 +152,7 @@ mutable struct Energy
     dmft   :: F64
     corr   :: F64
     dcount :: F64
+    total  :: F64
 end
 
 """
@@ -406,9 +408,10 @@ function Energy()
     dmft   = 0.0
     corr   = 0.0
     dcount = 0.0
+    total  = 0.0
 
     # Call the default constructor
-    Energy(dft, dmft, corr, dcount)
+    Energy(dft, dmft, corr, dcount, total)
 end
 
 """
@@ -660,6 +663,7 @@ function Base.show(io::IO, ene::Energy)
     println(io, "dmft   : ", ene.dmft)
     println(io, "corr   : ", ene.corr)
     println(io, "dcount : ", ene.dcount)
+    println(io, "total  : ", ene.total)
 end
 
 """
