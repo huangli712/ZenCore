@@ -643,8 +643,23 @@ function Base.show(io::IO, logger::Logger)
     @assert isopen(logger.log) && isopen(logger.cycle)
 
     println(io, "Logger struct")
-    println(io, "log   : ", logger.log  )
+    println(io, "log   : ", logger.log)
     println(io, "cycle : ", logger.cycle)
+end
+
+"""
+    Base.show(io::IO, ene::Energy)
+
+Base.show() function for Energy struct.
+
+See also: [`Energy`](@ref).
+"""
+function Base.show(io::IO, ene::Energy)
+    println(io, "Energy struct")
+    println(io, "dft    : ", ene.dft)
+    println(io, "dmft   : ", ene.dmft)
+    println(io, "corr   : ", ene.corr)
+    println(io, "dcount : ", ene.dcount)
 end
 
 """
