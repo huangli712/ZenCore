@@ -88,23 +88,6 @@ macro time_call(ex)
 end
 
 """
-    @ps1(str, c)
-
-Wrapper for colorful output function. Here `str` is a string, and `c`
-denotes color.
-
-### Examples
-```julia
-@ps1 "Hello world!" :green
-```
-
-See also: [`@ps2`](@ref).
-"""
-macro ps1(str, c)
-    return :( print(eval($c)($str)) )
-end
-
-"""
     @ps2(str1, c1, str2, c2)
 
 Wrapper for colorful output function. Here `str1` and `str2` are strings,
@@ -117,14 +100,6 @@ and `c1` and `c2` denote colors.
 
 See also: [`@ps1`](@ref).
 """
-macro ps2(str1, c1, str2, c2)
-    ex = quote
-        print(eval($c1)($str1))
-        print(eval($c2)($str2))
-    end
-    return :( $(esc(ex)) )
-end
-
 macro pcs(x...)
     ex = quote
         args = $x
