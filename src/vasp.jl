@@ -260,8 +260,8 @@ is too small. The adaptor will fail to generate reasonable projectors.
 At this case, you will see an error thrown by the `try_diag()` function.
 The solution is quite simple, i.e., increasing `NBANDS` a bit.
 
-The current algorithm is suitable for paramagnetic systems. It has not
-been tested for `magnetically ordered materials`.
+The current algorithm is suitable for paramagnetic systems. But it has
+not been tested for `magnetically ordered materials`.
 =#
 
 """
@@ -313,6 +313,9 @@ function vaspc_incar(fermi::F64, sc_mode::I64)
     end
 
     # For kmesh density
+    #
+    # If kmesh == "file", then vaspc_kpoints() will be used to generate
+    # the KPOINTS file.
     kmesh = get_d("kmesh")
     @cswitch kmesh begin
         @case "accurate"
@@ -327,8 +330,6 @@ function vaspc_incar(fermi::F64, sc_mode::I64)
             write(ios, "KSPACING = 0.4 \n")
             break
 
-        # If kmesh == "file", then vaspc_kpoints() will be used to
-        # generate the KPOINTS file.
         @case "file"
             break
 
@@ -488,8 +489,9 @@ end
 """
     vaspc_lock(action::String)
 
-Create the `vasp.lock` file. This file is relevant for `ICHARG = 5`. The
-vasp program runs only when vasp.lock is present in the current directory.
+Create the `vasp.lock` file. This file is relevant for `ICHARG = 5`.
+The vasp program runs only when the `vasp.lock` file is present in the
+current directory. Its working directory is just `dft`.
 
 See also: [`vaspq_lock`](@ref).
 """
@@ -505,7 +507,8 @@ end
 """
     vaspq_lock()
 
-Return whether the `vasp.lock` file is available.
+Return whether the `vasp.lock` file is available. Its working directory
+is just `root`.
 
 See also: [`vaspc_lock`](@ref).
 """
