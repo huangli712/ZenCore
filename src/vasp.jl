@@ -137,6 +137,7 @@ function vasp_exec(it::IterInfo)
         vasp_exe = "$dft_home/vasp_std"
     end
     @assert isfile(vasp_exe)
+    println("  > Executable program is available: ", basename(vasp_exe))
 
     # Assemble command
     if isnothing(mpi_prefix)
