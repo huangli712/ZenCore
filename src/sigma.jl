@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/11
+# Last modified: 2021/07/14
 #
 
 #=
@@ -44,7 +44,7 @@ function sigma_reset(ai::Array{Impurity,1}, with_init_dc::Bool = true)
     # Create frequency mesh
     println("Create frequency mesh")
     fmesh = zeros(F64, nmesh)
-    if axis === 1 # Imaginary axis
+    if axis == 1 # Imaginary axis
         for i = 1:nmesh
             fmesh[i] = (2 * i - 1) * pi / beta
         end

@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/07
+# Last modified: 2021/07/14
 #
 
 #=
@@ -511,7 +511,7 @@ function PrTrait(site::I64, desc::String)
     @assert desc in orb_labels
 
     # Determine quantum numbers l and m according to desc
-    lm = findfirst(x -> x === desc, orb_labels) - 1
+    lm = findfirst(x -> x == desc, orb_labels) - 1
     l = convert(I64, floor(sqrt(lm)))
     m = lm - l * l
 
