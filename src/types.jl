@@ -132,6 +132,13 @@ mutable struct Logger
     cycle :: IOStream
 end
 
+mutable struct Energy
+    dft    :: F64
+    dmft   :: F64
+    solver :: F64
+    dcount :: F64
+end
+
 """
     IterInfo
 
