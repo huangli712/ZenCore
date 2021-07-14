@@ -102,7 +102,7 @@ See also: [`R32`](@ref), [`R64`](@ref).
 const N64 = Union{I64,F64,C64}
 
 #=
-### *Global Constants* : *Strings*
+### *Global Constants* : *Literal Strings*
 =#
 
 """
