@@ -174,7 +174,7 @@ Mutable struct. Record the DFT + DMFT iteration information.
 * dc -> Double counting terms.
 * n₁ -> Number of lattice occupancy obtained by DMFT engine (`dmft1`).
 * n₂ -> Number of lattice occupancy obtained by DMFT engine (`dmft2`).
-* nf -> Number of impurity occupancy obtained by impurity solver.
+* nf -> Number of impurity occupancy obtained by quantum impurity solver.
 * et -> Total DFT + DMFT energy.
 * cc -> Convergence flag for charge density.
 * ce -> Convergence flag for total energy.
@@ -198,7 +198,7 @@ mutable struct IterInfo
     n₁ :: F64
     n₂ :: F64
     nf :: Vector{F64}
-    et :: F64
+    et :: Vector{Energy}
     cc :: Bool
     ce :: Bool
     cs :: Bool
