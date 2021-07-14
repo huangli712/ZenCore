@@ -1122,6 +1122,21 @@ function mixer_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::Strin
     monitor(true)
 end
 
+"""
+    energy_core(task::String = "dft")
+
+Simple driver for calculating the total DFT + DMFT energy. Now this
+function supports four tasks, namely `dft`, `dmft`, `corr`, `dcount`.
+They are related the four terms in the formula of the total DFT + DMFT
+energy.
+
+Be careful, the field `et` in the `IterInfo` object will be updated.
+
+See also: [`Energy`](@ref), [`IterInfo`](@ref).
+"""
+function energy_core(task::String = "dft")
+end
+
 #=
 ### *Service Functions* : *Layer 3*
 =#
