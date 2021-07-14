@@ -397,6 +397,21 @@ function Logger(case::String = "case")
 end
 
 """
+    Energy()
+
+Outer constructor for Energy struct.
+"""
+function Energy()
+    dft    = 0.0
+    dmft   = 0.0
+    corr   = 0.0
+    dcount = 0.0
+
+    # Call the default constructor
+    Energy(dft, dmft, corr, dcount)
+end
+
+"""
     IterInfo()
 
 Outer constructor for IterInfo struct.
