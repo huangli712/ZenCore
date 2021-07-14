@@ -1137,24 +1137,20 @@ See also: [`Energy`](@ref), [`IterInfo`](@ref).
 """
 function energy_core(task::String = "dft")
     @cswitch task begin
-        # Try to mix the self-energy functions
-        @case "sigma"
-            mixer_sigma(it, ai)
+        @case "dft"
+            sorry()
             break
 
-        # Try to mix the hybridization functions
-        @case "delta"
-            mixer_delta(it, ai)
+        @case "dmft"
+            sorry()
             break
 
-        # Try to mix the local impurity levels
-        @case "eimpx"
-            mixer_eimpx(it, ai)
+        @case "corr"
+            sorry()
             break
 
-        # Try to mix the density matrix
-        @case "gamma"
-            mixer_gamma(it)
+        @case "dcount"
+            sorry()
             break
 
         @default
