@@ -165,7 +165,7 @@ function vasp_exec(it::IterInfo)
 
     # Special treatment for self-consistent mode
     if it.sc == 2
-        println("Let's Rock & Roll")
+        println("Let's Rock & Roll\n")
         return
     end
 
@@ -225,10 +225,7 @@ See also: [`vasp_init`](@ref), [`vasp_exec`](@ref).
 """
 function vasp_save(it::IterInfo)
     # Special treatment for self-consistent mode
-    if it.sc == 2
-        println()
-        return
-    end
+    it.sc == 2 && return
 
     # Print the header
     println("Finalize the computational task")
