@@ -275,8 +275,8 @@ function mixer_gamma(it::IterInfo)
             #
             # Create a view for the diagonal elements only
             ind = diagind(gamma_curr[:,:,k,s])
-            Γcurr = view(gamma_curr[:,:,k,r], ind)
-            Γprev = view(gamma_prev[:,:,k,r], ind)
+            Γcurr = view(gamma_curr[:,:,k,s], ind)
+            Γprev = view(gamma_prev[:,:,k,s], ind)
             #
             # Mix the diagonal elements only
             @. Γcurr = amix * Γcurr + (1.0 - amix) * Γprev
