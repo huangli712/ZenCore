@@ -270,7 +270,8 @@ function cycle2()
         # C06: Apply the adaptor to extract new Kohn-Sham dataset
         adaptor_run(it, lr, ai)
 
-        # Inner: DMFT LOOP
+        # Inner: DMFT₁ LOOP
+        # Try to solve the quantum impurity problems
         for iter1 = 1:it.M₁
             # Update IterInfo struct, fix it.I₁
             incr_it(it, 1, iter1)
@@ -309,16 +310,30 @@ function cycle2()
         # Reset the counter in IterInfo: I₁, I₂
         zero_it(it)
 
-        # Inner: DFT LOOP
-        for iter2 = 1:it.M₂
+        # Inner: DMFT₂ LOOP
+        # Try to generate update for density matrix
+        begin
+
             # Update IterInfo struct, fix it.I₂
-            incr_it(it, 2, iter2)
+            incr_it(it, 2, 1)
 
             # C15: Perform DMFT calculation with `task` = 2
             @time_call dmft_run(it, lr, 2) # Generate correction for density matrix
 
-            # C10: Mix the correction for density matrix
+            # C16: Mix the correction for density matrix
             @time_call mixer_core(it, lr, ai, "gamma")
+
+            # Print the cycle info
+            show_it(it, lr)
+
+        end
+
+        # Reset the counter in IterInfo: I₁, I₂
+        zero_it(it)
+
+        # Inner: DFT LOOP
+        # Try DFT engine with a fixed charge density update
+        for iter2 = 1:it.M₂
 
             # C17: Reactivate the DFT engine
             @time_call dft_run(it, lr, true)
@@ -326,15 +341,7 @@ function cycle2()
             # Wait the DFT engine to finish its job and sleep
             suspend(2)
 
-            # Print the cycle info
-            show_it(it, lr)
-
-            # If the convergence has been achieved, then break the cycle.
-            conv_it(it) && break
         end
-
-        # Reset the counter in IterInfo: I₁, I₂
-        zero_it(it)
 
         # C18:
 
