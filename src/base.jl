@@ -1322,8 +1322,9 @@ function prev_it(it::IterInfo, c::I64)
         @assert ind ≥ 2
         return newlist[ind - 1]
     else
-        list = [(i3,i2) for i2 = 1:it.M₂, i3 = 1:it.M₃]
-        newlist = reshape(list, it.M₂ * it.M₃)
+        trueM₂ = ( get_d("engine") == "vasp" ? 1 : it.M₂ )
+        list = [(i3,i2) for i2 = 1:trueM₂, i3 = 1:it.M₃]
+        newlist = reshape(list, trueM₂ * it.M₃)
         ind = findfirst(x -> x == (it.I₃, it.I₂), newlist)
         @assert ind ≥ 2
         return newlist[ind - 1]
