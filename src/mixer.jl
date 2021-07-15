@@ -272,7 +272,7 @@ function mixer_gamma(it::IterInfo)
             # Evaluate the mixing factor
             G₂ = sum(kmesh_curr[k,:] .^ 2)
             amix = α * G₂ / (G₂ + γ^2)
-            @printf("  > Mixing parameter α = %10.7f (for 𝑘-point %4i and spin %1i)\n", amix, k, s)
+            @printf("  > Mixing parameter α = %10.7f (for 𝑘 %4i and σ %1i)\n", amix, k, s)
             #
             # Create a view for the diagonal elements only
             ind = diagind(gamma_curr[:,:,k,s])
@@ -280,13 +280,7 @@ function mixer_gamma(it::IterInfo)
             Γprev = view(view(gamma_prev,:,:,k,s), ind)
             #
             # Mix the diagonal elements only
-            println("prev:", Γprev)
-            println("curr:", Γcurr)
-            println(gamma_curr[:,:,k,s])
             @. Γcurr = amix * Γcurr + (1.0 - amix) * Γprev
-            println("prev:", Γprev)
-            println("curr:", Γcurr)
-            println(gamma_curr[:,:,k,s])
         end # END OF K LOOP
     end # END OF S LOOP
 
