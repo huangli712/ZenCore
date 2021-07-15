@@ -1322,6 +1322,7 @@ function prev_it(it::IterInfo, c::I64)
         @assert ind ≥ 2
         return newlist[ind - 1]
     else
+        # Special treatment for vasp code
         trueM₂ = ( get_d("engine") == "vasp" ? 1 : it.M₂ )
         list = [(i3,i2) for i2 = 1:trueM₂, i3 = 1:it.M₃]
         newlist = reshape(list, trueM₂ * it.M₃)
