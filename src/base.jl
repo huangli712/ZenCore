@@ -547,10 +547,7 @@ function cycle8(task::String = "sigma")
     # C01: Further setup the IterInfo struct
     #
     # Please modify the I₃ and I₁ parameters to fit your requirements
-    it.I₃ = 2
-    it.I₁ = 0
-    it.I₂ = 1
-    it.sc = 2
+    it.I₃ = 2; it.I₁ = 0; it.I₂ = 1; it.sc = 2 # Test mixer_gamma()
 
     # C02: Execute the Kohn-Sham adaptor
     @time_call mixer_core(it, lr, ai, task)
