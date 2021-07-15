@@ -270,7 +270,7 @@ function cycle2()
         # Inner: Adaptor BLOCK
         # Try to extract Kohn-Sham dataset
         begin
-        
+
             # C06: Apply the adaptor to extract new Kohn-Sham dataset
             adaptor_run(it, lr, ai)
 
@@ -693,7 +693,7 @@ function dft_run(it::IterInfo, lr::Logger, sc::Bool = false)
                 vaspc_lock("create")
                 #
                 break
-    
+
             @default
                 sorry()
                 break

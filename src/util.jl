@@ -104,7 +104,7 @@ See also: [`COLORS`](@ref), [`welcome`](@ref).
 """
 macro pcs(x...)
     ex = quote
-        # The `args` is actually a Tuple. 
+        # The `args` is actually a Tuple
         args = $x
 
         # We have to make sure the strings and colors are paired.
