@@ -153,6 +153,8 @@ function cycle1()
 # DFT + DMFT Iterations (C05-C12)
 #
     prompt("Iterations")
+
+    # Print the cycle info
     show_it(it, lr)
 
     for iter = 1:it.M₃
@@ -248,6 +250,8 @@ function cycle2()
 # DFT + DMFT Iterations (C05-C12)
 #
     prompt("Iterations")
+
+    # Print the cycle info
     show_it(it, lr)
 
     # C05: Start the self-consistent engine
@@ -309,10 +313,8 @@ function cycle2()
             # Print the cycle info
             show_it(it, lr)
 
-            # If the convergence has been achieved, then break the cycle.
-            conv_it(it) && break
-        end
-
+        end # END OF ITER1 LOOP
+        #
         # Reset the counter in IterInfo: I₁, I₂
         zero_it(it)
 
@@ -333,7 +335,7 @@ function cycle2()
             show_it(it, lr)
 
         end
-
+        #
         # Reset the counter in IterInfo: I₁, I₂
         zero_it(it)
 
@@ -347,10 +349,23 @@ function cycle2()
             # Wait the DFT engine to finish its job and sleep
             suspend(2)
 
-        end
+        end # END OF ITER2 LOOP
 
-        # C18:
+        # C18: Check the convergence
+        # TODO
 
+    end # END OF ITER LOOP
+
+    # C98: Close Logger.log
+    if isopen(lr.log)
+        flush(lr.log)
+        close(lr.log)
+    end
+
+    # C99: Close Logger.cycle
+    if isopen(lr.cycle)
+        flush(lr.cycle)
+        close(lr.cycle)
     end
 end
 
