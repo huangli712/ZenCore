@@ -267,10 +267,16 @@ function cycle2()
         # Update IterInfo struct, fix it.I₃
         incr_it(it, 3, iter)
 
-        # C06: Apply the adaptor to extract new Kohn-Sham dataset
-        adaptor_run(it, lr, ai)
+        # Inner: Adaptor BLOCK
+        # Try to extract Kohn-Sham dataset
+        begin
+        
+            # C06: Apply the adaptor to extract new Kohn-Sham dataset
+            adaptor_run(it, lr, ai)
 
-        # Inner: DMFT₁ LOOP
+        end
+
+        # Inner: DMFT₁ BLOCK
         # Try to solve the quantum impurity problems
         for iter1 = 1:it.M₁
             # Update IterInfo struct, fix it.I₁
@@ -310,7 +316,7 @@ function cycle2()
         # Reset the counter in IterInfo: I₁, I₂
         zero_it(it)
 
-        # Inner: DMFT₂ LOOP
+        # Inner: DMFT₂ BLOCK
         # Try to generate update for density matrix
         begin
 
@@ -331,7 +337,7 @@ function cycle2()
         # Reset the counter in IterInfo: I₁, I₂
         zero_it(it)
 
-        # Inner: DFT LOOP
+        # Inner: DFT BLOCK
         # Try DFT engine with a fixed charge density update
         for iter2 = 1:it.M₂
 
