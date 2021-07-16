@@ -1162,7 +1162,7 @@ Be careful, the field `et` in the `IterInfo` object will be updated.
 
 See also: [`Energy`](@ref), [`IterInfo`](@ref).
 """
-function energy_core(task::String = "dft")
+function energy_core(it::IterInfo, task::String = "dft")
     @cswitch task begin
         @case "dft"
             sorry()
