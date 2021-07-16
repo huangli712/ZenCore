@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/14
+# Last modified: 2021/07/16
 #
 
 #=
@@ -406,7 +406,7 @@ function vaspc_incar(fermi::F64, sc_mode::I64)
         write(ios, "ICHARG   = 5 \n")
         write(ios, "NELM     = 1000 \n")
         write(ios, "NELMIN   = 1000 \n")
-        write(ios, "IMIX     = 0 \n")
+        write(ios, "NELMDL   = -8 \n")
     end
 
     # Close the iostream
