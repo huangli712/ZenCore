@@ -112,6 +112,15 @@ const PSOLVER= Dict{String,Array{Any,1}}(
 )
 
 #=
+### *Abstract Types*
+=#
+
+abstract type ZenAny end
+abstract type AbstractEngine <: ZenAny end
+abstract type AbstractProjector <: ZenAny end
+abstract type AbstractSolver <: ZenAny end
+
+#=
 ### *Customized Structs*
 =#
 
