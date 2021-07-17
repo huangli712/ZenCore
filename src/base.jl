@@ -698,12 +698,15 @@ function dft_run(it::IterInfo, lr::Logger, sc::Bool = false)
             # For vasp
             @case "vasp"
                 # Read in the correction for density matrix
+                println("Read correction for density matrix")
                 _, kwin, gamma = read_gamma("../dmft2/dmft.gamma")
                 #
                 # Write the GAMMA file for vasp
+                println("Write correction for density matrix")
                 vaspc_gamma(kwin, gamma)
                 #
                 # Create vasp.lock file to wake up the vasp
+                println("Reactivate the vasp engine")
                 vaspc_lock("create")
                 #
                 break
