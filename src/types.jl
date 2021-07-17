@@ -154,7 +154,7 @@ mutable struct Energy
 end
 
 function Base.getproperty(et::Energy, sym::Symbol)
-    if sym == ::total
+    if sym == :total
         return et.dft + et.dmft + et.corr + et.dcount
     else
         return getfield(et, sym)
