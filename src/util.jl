@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/14
+# Last modified: 2021/07/17
 #
 
 #=
@@ -407,15 +407,15 @@ end
 Print out the welcome messages to the screen.
 """
 function welcome()
-    @pcs "                                        |\n" green
-    @pcs "ZZZZZZZZZZZZ EEEEEEEEEEEE NNNNNNNNNNNN  | "  green "A Modern DFT + DMFT Computation Framework\n" magenta
-    @pcs "          Z               N          N  |\n" green
-    @pcs "         Z                N          N  |\n" green
-    @pcs "   ZZZZZZ    EEEEEEEEEEEE N          N  | "  green "Package: $__LIBNAME__\n" magenta
-    @pcs "  Z                       N          N  | "  green "Version: $__VERSION__\n" magenta
-    @pcs " Z                        N          N  | "  green "Release: $__RELEASE__\n" magenta
-    @pcs "ZZZZZZZZZZZZ EEEEEEEEEEEE N          N  | "  green "Powered by the julia programming language\n" magenta
-    @pcs "                                        |\n" green
+    @pcs "                                       |\n" green
+    @pcs "ZZZZZZZZZZZZ EEEEEEEEEEEE NNNNNNNNNNNN | "  green "A Modern DFT + DMFT Computation Framework\n" magenta
+    @pcs "          Z               N          N |\n" green
+    @pcs "         Z                N          N |\n" green
+    @pcs "   ZZZZZZ    EEEEEEEEEEEE N          N | "  green "Package: $__LIBNAME__\n" magenta
+    @pcs "  Z                       N          N | "  green "Version: $__VERSION__\n" magenta
+    @pcs " Z                        N          N | "  green "Release: $__RELEASE__\n" magenta
+    @pcs "ZZZZZZZZZZZZ EEEEEEEEEEEE N          N | "  green "Powered by the julia programming language\n" magenta
+    @pcs "                                       |\n" green
     println()
 end
 

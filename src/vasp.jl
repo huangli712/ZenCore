@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/16
+# Last modified: 2021/07/17
 #
 
 #=
@@ -197,7 +197,7 @@ function vasp_exec(it::IterInfo)
         end
 
         # Print the log to screen
-        @printf("  > Elapsed %4i seconds, %4i iterations (dE = %12s)\r", 5*c, ni, dE)
+        @printf("  > Elapsed %4i seconds, %3i iterations (dE = %12s)\r", 5*c, ni, dE)
 
         # Break the loop
         istaskdone(t) && break
