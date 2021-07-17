@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/17
+# Last modified: 2021/07/18
 #
 
 #=
@@ -528,12 +528,12 @@ end
     vaspq_lock()
 
 Return whether the `vasp.lock` file is available. Its working directory
-is just `root`.
+might be `root` or `dft`.
 
 See also: [`vaspc_lock`](@ref).
 """
 function vaspq_lock()
-    return isfile("dft/vasp.lock")
+    return isfile("dft/vasp.lock") || isfile("vasp.lock")
 end
 
 """
