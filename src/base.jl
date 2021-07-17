@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/16
+# Last modified: 2021/07/17
 #
 
 #=
@@ -700,7 +700,7 @@ function dft_run(it::IterInfo, lr::Logger, sc::Bool = false)
         @cswitch engine begin
             # For vasp
             @case "vasp"
-
+                vasp_back()
                 break
 
             @default
