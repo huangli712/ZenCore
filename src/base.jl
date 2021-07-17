@@ -335,9 +335,6 @@ function cycle2()
             show_it(it, lr)
 
         end
-        #
-        # Reset the counter in IterInfo: I₁, I₂
-        zero_it(it)
 
         # Inner: DFT BLOCK
         # Try DFT engine with a fixed charge density update
@@ -350,6 +347,9 @@ function cycle2()
             suspend(2)
 
         end # END OF ITER2 LOOP
+        #
+        # Reset the counter in IterInfo: I₁, I₂
+        zero_it(it)
 
         # C18: Check the convergence
         # TODO
