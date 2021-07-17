@@ -666,16 +666,27 @@ See also: [`vaspc_incar`](@ref), [`vaspio_nband`](@ref).
 """
 vaspio_valence() = vaspio_valence(pwd())
 
+"""
+    vaspio_energy(f::String)
 
+Reading vasp's `OSZICAR` file, return DFT total energy, which will be
+used to determine the DFT + DMFT energy.
+"""
 function vaspio_energy(f::String)
     # Open the iostream
-    fin = open(joinpath(f, "POTCAR"), "r")
+    fin = open(joinpath(f, "OSZICAR"), "r")
+
+    # Read the OSZICAR
+    strs = readlines(fin)
+
+    # Extract ZVAL, convert it into float, than save it.
+    etot = parse(F64, line_to_array(strs[end])[3])
 
     # Close the iostream
     close(fin)
 
-    # Return the desired arrays
-    return zval
+    # Return the desired value
+    return etot
 end
 
 """
