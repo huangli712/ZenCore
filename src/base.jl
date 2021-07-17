@@ -351,9 +351,6 @@ function cycle2()
             # C17: Reactivate the DFT engine
             @time_call dft_run(it, lr, true)
 
-            # Wait the DFT engine to finish its job and sleep
-            suspend(2)
-
             # Print the cycle info
             show_it("dft", iter2, it.M₂)
 
@@ -708,13 +705,22 @@ function dft_run(it::IterInfo, lr::Logger, sc::Bool = false)
         @cswitch engine begin
             # For vasp
             @case "vasp"
+                # Reactivate the DFT engine
                 vasp_back()
+                #
+                # Wait the DFT engine to finish its job and sleep
+                suspend(2)
+                #
+                # Get the DFT energy
+                edft = vaspio_energy()
                 break
 
             @default
                 sorry()
                 break
         end
+        # Save DFT energy for the current DFT + DMFT iteration
+        it.et[it.I₃].dft = edft
     end
 
     # Enter the parent directory
