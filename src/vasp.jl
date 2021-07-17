@@ -691,6 +691,14 @@ function vaspio_energy(f::String)
 end
 
 """
+    vaspio_energy()
+
+Reading vasp's `OSZICAR` file, return DFT total energy, which will be
+used to determine the DFT + DMFT energy.
+"""
+vaspio_energy() = vaspio_energy(pwd())
+
+"""
     vaspio_procar(f::String)
 
 Reading vasp's `PROCAR` file, extract orbital weight information. Here `f`
