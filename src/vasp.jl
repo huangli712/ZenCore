@@ -248,6 +248,12 @@ function vasp_save(it::IterInfo)
     println("  > Extract the fermi level from DOSCAR: $(it.μ₀) eV")
 end
 
+"""
+    vasp_back()
+
+Reactivate the vasp engine to continue the charge self-consistent
+DFT + DMFT calculation.
+"""
 function vasp_back()
     # Read in the correction for density matrix
     println("Read correction for density matrix")
@@ -258,7 +264,7 @@ function vasp_back()
     vaspc_gamma(kwin, gamma)
 
     # Create vasp.lock file to wake up the vasp
-    println("Reactivate the vasp engine")
+    println("Reactivate the vasp engine (vasp.lock)")
     vaspc_lock("create")
 end
 
