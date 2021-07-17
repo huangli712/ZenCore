@@ -346,7 +346,7 @@ function cycle2()
         for iter2 = 1:it.M₂
 
             # Update IterInfo struct, fix it.I₂
-            incr_it(it, 2, iter2 + 1)
+            incr_it(it, 2, iter2)
 
             # C17: Reactivate the DFT engine
             @time_call dft_run(it, lr, true)
