@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/14
+# Last modified: 2021/07/17
 #
 
 """
@@ -418,6 +418,7 @@ vasp_adaptor   -> Adaptor support.
 vasp_init      -> Prepare vasp's input files.
 vasp_exec      -> Execute vasp program.
 vasp_save      -> Backup vasp's output files.
+vasp_back      -> Reactivate the vasp program to continue calculation.
 vaspc_incar    -> Generate essential input file (INCAR).
 vaspc_kpoints  -> Generate essential input file (KPOINTS).
 vaspc_gamma    -> Generate essential input file (GAMMA).
@@ -444,6 +445,7 @@ export vasp_adaptor
 export vasp_init
 export vasp_exec
 export vasp_save
+export vasp_back
 export vaspc_incar
 export vaspc_kpoints
 export vaspc_gamma
