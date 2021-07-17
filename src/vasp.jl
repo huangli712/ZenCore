@@ -670,7 +670,8 @@ vaspio_valence() = vaspio_valence(pwd())
     vaspio_energy(f::String)
 
 Reading vasp's `OSZICAR` file, return DFT total energy, which will be
-used to determine the DFT + DMFT energy.
+used to determine the DFT + DMFT energy. Here `f` means only the
+directory that contains `OSZICAR`.
 """
 function vaspio_energy(f::String)
     # Open the iostream
