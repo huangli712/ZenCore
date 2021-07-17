@@ -258,7 +258,7 @@ function cycle2()
     it.sc = 2; dft_run(it, lr)
 
     # Wait the DFT engine to finish its job and sleep
-    suspend(2)
+    suspend(4) # Apply a larger time interval
 
     # Outer: DFT + DMFT LOOP
     for iter = 1:it.M₃
@@ -339,6 +339,9 @@ function cycle2()
         # Inner: DFT BLOCK
         # Try DFT engine with a fixed charge density update
         for iter2 = 1:it.M₂
+
+            # Update IterInfo struct, fix it.I₂
+            incr_it(it, 2, iter2 + 1)
 
             # C17: Reactivate the DFT engine
             @time_call dft_run(it, lr, true)
