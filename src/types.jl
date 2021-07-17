@@ -143,7 +143,6 @@ Mutable struct. Store the decomposition of total DFT + DMFT energy.
 * dmft   -> Correction to the DFT band energy.
 * corr   -> Energy contributed by the electronic correlation.
 * dcount -> Energy contributed by the double counting term.
-* total  -> Total DFT + DMFT energy.
 
 See also: [`IterInfo`](@ref).
 """
@@ -152,7 +151,14 @@ mutable struct Energy
     dmft   :: F64
     corr   :: F64
     dcount :: F64
-    total  :: F64
+end
+
+function Base.getproperty(et::Energy, sym::Symbol)
+    if sym == ::total
+        return et.dft + et.dmft + et.corr + et.dcount
+    else
+        return getfield(et, sym)
+    end
 end
 
 """
@@ -408,10 +414,9 @@ function Energy()
     dmft   = 0.0
     corr   = 0.0
     dcount = 0.0
-    total  = 0.0
 
     # Call the default constructor
-    Energy(dft, dmft, corr, dcount, total)
+    Energy(dft, dmft, corr, dcount)
 end
 
 """
