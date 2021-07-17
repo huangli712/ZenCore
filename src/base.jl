@@ -312,6 +312,7 @@ function cycle2()
 
             # Print the cycle info
             show_it(it, lr)
+            show_it("dmft1", iter1, it.M₁)
 
         end # END OF ITER1 LOOP
         #
@@ -333,6 +334,7 @@ function cycle2()
 
             # Print the cycle info
             show_it(it, lr)
+            show_it("dmft2", 1, 1)
 
         end
         #
@@ -351,6 +353,9 @@ function cycle2()
 
             # Wait the DFT engine to finish its job and sleep
             suspend(2)
+
+            # Print the cycle info
+            show_it("dft", iter2, it.M₂)
 
         end # END OF ITER2 LOOP
         #
