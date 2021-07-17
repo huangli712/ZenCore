@@ -121,7 +121,7 @@ mutable struct CTHYBSolver <: AbstractSolver
     name :: AbstractString
     home :: AbstractString
     exec :: AbstractString
-    p    :: Process
+    #p    :: Process
 end
 
 #=
