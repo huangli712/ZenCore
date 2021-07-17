@@ -112,19 +112,6 @@ const PSOLVER= Dict{String,Array{Any,1}}(
 )
 
 #=
-### *Abstract Types*
-=#
-
-abstract type ZenAny end
-abstract type AbstractSolver <: ZenAny end
-mutable struct CTHYBSolver <: AbstractSolver
-    name :: AbstractString
-    home :: AbstractString
-    exec :: AbstractString
-    #p    :: Process
-end
-
-#=
 ### *Customized Structs*
 =#
 
