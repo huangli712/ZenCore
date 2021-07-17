@@ -335,6 +335,9 @@ function cycle2()
             show_it(it, lr)
 
         end
+        #
+        # Reset the counter in IterInfo: I₁, I₂
+        zero_it(it)
 
         # Inner: DFT BLOCK
         # Try DFT engine with a fixed charge density update
@@ -1423,6 +1426,17 @@ function show_it(it::IterInfo, lr::Logger)
 
     # Flush the IOStream
     flush(lr.cycle)
+end
+
+"""
+"""
+function show_it(mode::String, iter::I64, max_iter::I64)
+    @assert mode in ("dmft1", "dmft2", "dft")
+    @assert iter ≥ 1
+    @assert max_iter ≥ iter
+    print("Mode : $(red(mode)). ")
+    print("Requested Iteration : $max_iter. ")
+    print("Finished Iteration: $iter \n")
 end
 
 """
