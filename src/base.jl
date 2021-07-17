@@ -124,7 +124,6 @@ See also: [`cycle2`](@ref), [`go`](@ref).
 function cycle1()
     # C-2: Create IterInfo struct
     it = IterInfo()
-    it.sc = 1 # One-shot mode
 
     # C-1: Create Logger struct
     lr = Logger(query_case())
@@ -136,6 +135,7 @@ function cycle1()
 # Initialization (C01-C04)
 #
     prompt("Initialization")
+    it.sc = 0 # In preparation mode
 
     # C01: Perform DFT calculation (for the first time)
     @time_call dft_run(it, lr)
@@ -153,6 +153,7 @@ function cycle1()
 # DFT + DMFT Iterations (C05-C12)
 #
     prompt("Iterations")
+    it.sc = 1 # In one-shot DFT + DMFT mode
 
     # Print the cycle info
     show_it(it, lr)
@@ -221,7 +222,6 @@ See also: [`cycle1`](@ref), [`go`](@ref).
 function cycle2()
     # C-2: Create IterInfo struct
     it = IterInfo()
-    it.sc = 1 # Still one-shot mode
 
     # C-1: Create Logger struct
     lr = Logger(query_case())
@@ -233,6 +233,7 @@ function cycle2()
 # Initialization (C01-C04)
 #
     prompt("Initialization")
+    it.sc = 0 # In preparation mode
 
     # C01: Perform DFT calculation (for the first time)
     @time_call dft_run(it, lr)
@@ -250,12 +251,13 @@ function cycle2()
 # DFT + DMFT Iterations (C05-C12)
 #
     prompt("Iterations")
+    it.sc = 2 # In self-consistent DFT + DMFT mode
 
     # Print the cycle info
     show_it(it, lr)
 
     # C05: Start the self-consistent engine
-    it.sc = 2; dft_run(it, lr)
+    dft_run(it, lr)
 
     # Wait the DFT engine to finish its job and sleep
     suspend(4) # Apply a larger time interval
@@ -349,7 +351,7 @@ function cycle2()
             incr_it(it, 2, iter2)
 
             # C17: Reactivate the DFT engine
-            @time_call dft_run(it, lr, true)
+            dft_run(it, lr, true)
 
             # Print the cycle info
             show_it("dft", iter2, it.M₂)
@@ -706,7 +708,7 @@ function dft_run(it::IterInfo, lr::Logger, sc::Bool = false)
             # For vasp
             @case "vasp"
                 # Reactivate the DFT engine
-                vasp_back()
+                @time_call vasp_back()
                 #
                 # Wait the DFT engine to finish its job and sleep
                 suspend(2)
