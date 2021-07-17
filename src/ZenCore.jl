@@ -427,6 +427,7 @@ vaspq_lock     -> Check the vasp.lock file.
 vaspq_files    -> Check essential output files.
 vaspio_nband   -> Determine number of bands.
 vaspio_valence -> Read number of valence electrons for each sort.
+vaspio_energy  -> Read DFT total energy.
 vaspio_procar  -> Read PROCAR file.
 vaspio_lattice -> Read lattice information.
 vaspio_kmesh   -> Read kmesh.
@@ -454,6 +455,7 @@ export vaspq_lock
 export vaspq_files
 export vaspio_nband
 export vaspio_valence
+export vaspio_energy
 export vaspio_procar
 export vaspio_lattice
 export vaspio_kmesh

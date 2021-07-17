@@ -666,6 +666,18 @@ See also: [`vaspc_incar`](@ref), [`vaspio_nband`](@ref).
 """
 vaspio_valence() = vaspio_valence(pwd())
 
+
+function vaspio_energy(f::String)
+    # Open the iostream
+    fin = open(joinpath(f, "POTCAR"), "r")
+
+    # Close the iostream
+    close(fin)
+
+    # Return the desired arrays
+    return zval
+end
+
 """
     vaspio_procar(f::String)
 
