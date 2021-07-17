@@ -1444,7 +1444,7 @@ function show_it(mode::String, iter::I64, max_iter::I64)
     @assert max_iter ≥ iter
     print("Mode : [ $mode ]. ")
     print("Requested Iteration : [ $max_iter ]. ")
-    print("Finished Iteration: [ $iter ] \n")
+    println("Finished Iteration: [ $iter ] \n")
 end
 
 """
