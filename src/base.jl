@@ -1429,14 +1429,17 @@ function show_it(it::IterInfo, lr::Logger)
 end
 
 """
+    show_it(mode::String, iter::I64, max_iter::I64)
+
+Try to record the iteration information in the terminal.
 """
 function show_it(mode::String, iter::I64, max_iter::I64)
     @assert mode in ("dmft1", "dmft2", "dft")
     @assert iter ≥ 1
     @assert max_iter ≥ iter
-    print("Mode : $(red(mode)). ")
-    print("Requested Iteration : $max_iter. ")
-    print("Finished Iteration: $iter \n")
+    print("Mode : [ $mode ]. ")
+    print("Requested Iteration : [ $max_iter ]. ")
+    print("Finished Iteration: [ $iter ] \n")
 end
 
 """
