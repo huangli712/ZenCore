@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/17
+# Last modified: 2021/07/18
 #
 
 #=
@@ -335,7 +335,6 @@ function cycle2()
             @time_call mixer_core(it, lr, ai, "gamma")
 
             # Print the cycle info
-            show_it(it, lr)
             show_it("dmft2", 1, 1)
 
         end
@@ -354,6 +353,7 @@ function cycle2()
             dft_run(it, lr, true)
 
             # Print the cycle info
+            show_it(it, lr)
             show_it("dft", iter2, it.M₂)
 
         end # END OF ITER2 LOOP
