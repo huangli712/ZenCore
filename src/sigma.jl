@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/14
+# Last modified: 2021/07/18
 #
 
 #=
@@ -157,7 +157,8 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1}, reset_dc::Bool = fals
         DC = zeros(F64, nband, nband, nspin)
 
         # Choose suitable double counting scheme
-        @cswitch get_m("dcount") begin
+        scheme = get_m("dcount")
+        @cswitch scheme begin
             # Fully localized limit scheme (nominal occupation number)
             @case "fll1"
                 sigup, sigdn = cal_dc_fll(U, J, N / 2.0, N / 2.0)
@@ -194,8 +195,8 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1}, reset_dc::Bool = fals
         end
         #
         # Print some useful information
-        println("  > Using the $(get_m("dcount")) scheme: Σdc = $sigup (spin up)")
-        println("  > Using the $(get_m("dcount")) scheme: Σdc = $sigdn (spin down)")
+        println("  > Using the $scheme scheme: Σdc = $sigup (spin up)")
+        println("  > Using the $scheme scheme: Σdc = $sigdn (spin down)")
         println("  > Shape of Array Σdc: $i -> ", size(DC))
 
         # Special treatment for the first iteration
