@@ -349,6 +349,14 @@ and
     J \left(N_{\downarrow} - \frac{1}{2}\right).
 \end{equation}
 ```
+
+The energy due to double counting reads
+
+```math
+\begin{equation}
+E_{\text{dc}} = \frac{U}{2}N(N-1) - \frac{J}{4}N(N-2).
+\end{equation}
+```
 =#
 
 """
