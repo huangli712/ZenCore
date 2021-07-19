@@ -439,6 +439,18 @@ and
 
 In these equations, ``l`` means the quantum number of angular momentum,
 while ``M`` is the number of correlated orbitals.
+
+In addition, the energy due to double counting reads
+
+```math
+\begin{equation}
+E_{\text{dc}}
+    =
+    \frac{UN^2}{2}\left(1 - \frac{1}{2M}\right)
+    -
+    \frac{JN^2}{2}\left(\frac{1}{2} - \frac{1}{2M}\right).
+\end{equation}
+```
 =#
 
 """
@@ -450,7 +462,10 @@ This function is for the spin-unpolarized case.
 See also: [`cal_dc_fll`](@ref), [`cal_dc_exact`](@ref).
 """
 function cal_dc_amf(U::F64, J::F64, N::F64, M::I64)
-    U * ( N - N / ( 2.0 * M ) ) - J * ( N / 2.0 - N / ( 2.0 * M ) )
+    Vdc = U * ( N - N / ( 2.0 * M ) ) - J * ( N / 2.0 - N / ( 2.0 * M ) )
+    Edc = U * N^2 / 2.0 * ( 1.0 - 1.0 / ( 2.0 * M ) ) 
+          - J * N^2 / 2.0 * ( 1.0 / 2.0 - 1.0 / ( 2.0 * M ) )
+    return Vdc, Edc
 end
 
 """
