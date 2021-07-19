@@ -175,7 +175,8 @@ Mutable struct. Record the DFT + DMFT iteration information.
 * n₁ -> Number of lattice occupancy obtained by DMFT engine (`dmft1`).
 * n₂ -> Number of lattice occupancy obtained by DMFT engine (`dmft2`).
 * nf -> Number of impurity occupancy obtained by quantum impurity solver.
-* et -> Total DFT + DMFT energy.
+* et -> Total DFT + DMFT energy (for current iteration).
+* ep -> Total DFT + DMFT energy (for previous iteration).
 * cc -> Convergence flag for charge density.
 * ce -> Convergence flag for total energy.
 * cs -> Convergence flag for self-energy functions.
@@ -198,7 +199,8 @@ mutable struct IterInfo
     n₁ :: F64
     n₂ :: F64
     nf :: Vector{F64}
-    et :: Vector{Energy}
+    et :: Energy
+    ep :: Energy
     cc :: Bool
     ce :: Bool
     cs :: Bool
@@ -425,27 +427,24 @@ function IterInfo()
 
     # Initialize key fields
     #
-    # Note that sc = 1 means one-shot DFT + DMFT calculations,
-    # while sc = 2 means fully self-consistent DFT + DMFT calculations.
+    # sc = 0 means in preparation mode,
+    # sc = 1 means one-shot DFT + DMFT calculations,
+    # sc = 2 means fully self-consistent DFT + DMFT calculations.
     I  = 0
     M₁ = _M₁
     M₂ = _M₂
     M₃ = _M₃
-    sc = 1
+    sc = 0
     μ  = 0.0
     dc = fill(0.0, nsite)
     n₁ = 0.0
     n₂ = 0.0
     nf = fill(0.0, nsite)
-    et = Vector{Energy}(undef, M₃)
+    et = Energy()
+    ep = Energy()
     cc = false
     ce = false
     cs = false
-
-    # Further initialize et
-    for i in eachindex(et)
-        et[i] = Energy()
-    end
 
     # Call the default constructor
     IterInfo(I, I, I, I,
@@ -454,7 +453,7 @@ function IterInfo()
              μ, μ, μ,
              dc,
              n₁, n₂, nf,
-             et,
+             et, ep,
              cc, ce, cs)
 end
 
@@ -650,7 +649,8 @@ end
 """
     Base.show(io::IO, ene::Energy)
 
-Base.show() function for Energy struct.
+Base.show() function for Energy struct. Note that `total` is not a real
+field of the `Energy` struct.
 
 See also: [`Energy`](@ref).
 """
@@ -688,6 +688,7 @@ function Base.show(io::IO, it::IterInfo)
     println(io, "n₂ : ", it.n₂)
     println(io, "nf : ", it.nf)
     println(io, "et : ", it.et)
+    println(io, "ep : ", it.ep)
     println(io, "cc : ", it.cc)
     println(io, "ce : ", it.ce)
     println(io, "cs : ", it.cs)
