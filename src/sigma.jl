@@ -504,6 +504,13 @@ U_{\text{av}} = \frac{U + (M - 1)(2U - 5J)}{2M - 1}.
 
 Here ``M`` is the number of correlated orbitals.
 
+The energy due to double counting reads
+
+```math
+\begin{equation}
+E_{\text{dc}} = \frac{U}{2} N (N - 1).
+\end{equation}
+```
 =#
 
 """
