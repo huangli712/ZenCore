@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/17
+# Last modified: 2021/07/19
 #
 
 #=
@@ -135,7 +135,7 @@ end
 """
     Energy
 
-Mutable struct. Store the decomposition of total DFT + DMFT energy.
+Mutable struct. Store decomposition of the total DFT + DMFT energy.
 
 ### Members
 
@@ -151,14 +151,6 @@ mutable struct Energy
     dmft   :: F64
     corr   :: F64
     dcount :: F64
-end
-
-function Base.getproperty(et::Energy, sym::Symbol)
-    if sym == :total
-        return et.dft + et.dmft + et.corr + et.dcount
-    else
-        return getfield(et, sym)
-    end
 end
 
 """
@@ -806,4 +798,25 @@ function Base.show(io::IO, PW::PrWindow)
     println(io, "nbnd : ", PW.nbnd)
     println(io, "kwin : ", PW.kwin)
     println(io, "bwin : ", PW.bwin)
+end
+
+#=
+### *Customized Base.getproperty() Functions*
+=#
+
+"""
+    Base.getproperty(et::Energy, sym::Symbol)
+
+Implement the calculation of total DFT + DMFT energy. The `Energy` struct
+does not contains the `total` field. This function will implement it by
+overriding the Base.getproperty() function.
+
+See also: [`Energy`](@ref).
+"""
+function Base.getproperty(et::Energy, sym::Symbol)
+    if sym == :total
+        return et.dft + et.dmft + et.corr + et.dcount
+    else
+        return getfield(et, sym)
+    end
 end
