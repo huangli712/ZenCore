@@ -4,7 +4,7 @@
 
 ## Version
 
-v0.6.1-devel.210718
+v0.6.2-devel.210719
 
 ## License
 
