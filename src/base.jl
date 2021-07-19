@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/18
+# Last modified: 2021/07/19
 #
 
 #=
@@ -1428,7 +1428,7 @@ function show_it(it::IterInfo, lr::Logger)
             @printf(lr.cycle, "%-12.7f", it.nf[t])
         end
         #
-        @printf(lr.cycle, "%-12.7f", it.et[it.I₃].total)
+        @printf(lr.cycle, "%-12.7f", it.et.total)
         #
         @printf(lr.cycle, "%-8s", it.cc ? "true" : "false")
         @printf(lr.cycle, "%-8s", it.ce ? "true" : "false")
