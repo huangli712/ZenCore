@@ -722,7 +722,7 @@ function dft_run(it::IterInfo, lr::Logger, sc::Bool = false)
                 break
         end
         # Save DFT energy for the current DFT + DMFT iteration
-        it.et[it.I₃].dft = edft
+        it.et.dft = edft
     end
 
     # Enter the parent directory
