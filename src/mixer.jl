@@ -338,3 +338,13 @@ function distance(SA::Vector{Array{C64,4}}, SB::Vector{Array{C64,4}})
     # Return the desired value
     return abs(diff)
 end
+
+"""
+    distance(GA::Array{C64,4}, GB::Array{C64,4})
+
+Calculate the difference between two multi-dimensional arrays. Usually
+We apply this function to calculate the difference between two
+self-energy functions.
+"""
+function distance(GA::Array{C64,4}, GB::Array{C64,4})
+end
