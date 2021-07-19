@@ -130,6 +130,7 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1}, reset_dc::Bool = fals
     #
     # Initialize an array for dc
     DCA = Array{F64,3}[]
+    Edc = Array{F64}[]
     #
     # Go through the quantum impurity problems and calculate dc
     for i = 1:nsite
@@ -197,12 +198,15 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1}, reset_dc::Bool = fals
         # Print some useful information
         println("  > Using the $scheme scheme: Σdc = $sigup (spin up)")
         println("  > Using the $scheme scheme: Σdc = $sigdn (spin down)")
+        println("  > Using the $scheme scheme: Edc = $edc")
         println("  > Shape of Array Σdc: $i -> ", size(DC))
 
         # Special treatment for the first iteration
         if reset_dc && ( it.I₃ ≤ 1 && it.I₁ ≤ 1 )
             fill!(DC, 0.0)
+            edc = 0.0
             println("  > Reset Σdc to: ", 0.0)
+            println("  > Reset Edc to: ", 0.0)
         end
 
         # Use `sigup` to update the IterInfo struct
@@ -210,7 +214,11 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1}, reset_dc::Bool = fals
 
         # Push DC into DCA to save it
         push!(DCA, DC)
+        push!(Edc, edc)
     end # END OF I LOOP
+
+    # Update the energy due to double counting
+    it.et.dcount = sum(Edc)
 
     # Write double counting terms
     println("Write double counting terms")
