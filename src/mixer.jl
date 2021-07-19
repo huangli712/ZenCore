@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/15
+# Last modified: 2021/07/19
 #
 
 """
@@ -69,7 +69,7 @@ function mixer_sigma(it::IterInfo, ai::Array{Impurity,1})
     println("Evaluate the convergence condition for self-energy functions")
     dist = distance(Scurr, Sprev)
     it.cs = ( dist < get_m("sc") )
-    println("  > Averaged ΔΣ = $dist ( convergence is $(it.cs) )" )
+    println("  > Averaged ΔΣ = $dist ( convergence is $(it.cs) )")
 end
 
 """
@@ -287,6 +287,12 @@ function mixer_gamma(it::IterInfo)
     # Write the new correction for density matrix into `dmft2/dmft.gamma`
     println("Write correction for density matrix")
     write_gamma(kmesh_curr, kwin_curr, gamma_curr, "dmft2/dmft.gamma")
+
+    # Check the convergence condition
+    println("Evaluate the convergence condition for density matrix")
+    dist = distance(gamma_curr, gamma_prev)
+    it.cc = ( dist < get_m("cc") )
+    println("  > Averaged ΔΓ = $dist ( convergence is $(it.cc) )")
 end
 
 """
