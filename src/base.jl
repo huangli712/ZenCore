@@ -1194,7 +1194,7 @@ function energy_core(it::IterInfo)
             #
             # Calculate and show the difference
             dist = abs(it.et.total - it.ep.total)
-            it.ce = ( dist < get_m("ce") )
+            it.ce = ( dist < get_m("ec") )
             println("  > Calculated ΔE = $dist ( convergence is $(it.ce) )")
         end
         #
