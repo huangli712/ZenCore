@@ -1156,38 +1156,48 @@ function mixer_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::Strin
 end
 
 """
-    energy_core(task::String = "dft")
+    energy_core(it::IterInfo)
 
-Simple driver for calculating the total DFT + DMFT energy. Now this
-function supports four tasks, namely `dft`, `dmft`, `corr`, `dcount`.
-They are related the four terms in the formula of the total DFT + DMFT
-energy.
-
-Be careful, the field `et` in the `IterInfo` object will be updated.
+Simple driver for treating the total DFT + DMFT energy. It will print
+the decomposition of total energy, and try to calculate the energy
+difference between two successive DFT + DMFT iterations.
 
 See also: [`Energy`](@ref), [`IterInfo`](@ref).
 """
-function energy_core(it::IterInfo, task::String = "dft")
-    @cswitch task begin
-        @case "dft"
-            sorry()
-            break
+function energy_core(it::IterInfo)
+    if it.sc == 2
+        println("DFT + DMFT Energy At Iteration $(it.I₃)")
+        if it.I₃ == 1
+            println("  > dft    : $(it.et.dft) eV")
+            println("  > dmft   : $(it.et.dmft) eV")
+            println("  > corr   : $(it.et.corr) eV")
+            println("  > dcount : $(it.et.dcount) eV")
+            println("  > total  : $(it.et.total) eV")
+        else
+            # Calculate error bar
+            err_dft = abs((it.et.dft - it.ep.dft) / it.et.dft) * 100
+            err_dmft = abs((it.et.dmft - it.ep.dmft) / it.et.dmft) * 100
+            err_corr = abs((it.et.corr - it.ep.corr) / it.et.corr) * 100
+            err_dcount = abs((it.et.dcount - it.ep.dcount) / it.et.dcount) * 100
+            err_total = abs((it.et.total - it.ep.total) / it.et.total) * 100
+            #
+            # Print energy and error bar
+            println("  > dft    : $(it.et.dft) eV (err: $err_dft %)")
+            println("  > dmft   : $(it.et.dmft) eV (err: $err_dmft %)")
+            println("  > corr   : $(it.et.corr) eV (err: $err_corr %)")
+            println("  > dcount : $(it.et.dcount) eV (err: $err_dcount %)")
+            println("  > total  : $(it.et.total) eV (err: $err_total %)")
+            #
+            # Calculate and show the difference
+            dist = abs(it.et.total - it.ep.total)
+            it.ce = ( dist < get_m("ce") )
+            println("  > Calculated ΔE = $dist ( convergence is $(it.ce) )")
+        end
+        #
+        println()
 
-        @case "dmft"
-            sorry()
-            break
-
-        @case "corr"
-            sorry()
-            break
-
-        @case "dcount"
-            sorry()
-            break
-
-        @default
-            sorry()
-            break
+        # Update it.ep with it.et
+        it.ep = deepcopy(it.et)
     end
 end
 
