@@ -317,9 +317,6 @@ function cycle2()
             show_it("dmft1", iter1, it.M₁)
 
         end # END OF ITER1 LOOP
-        #
-        # Reset the counter in IterInfo: I₁, I₂
-        zero_it(it)
 
         # Inner: DMFT₂ BLOCK
         # Try to generate update for density matrix
@@ -338,9 +335,6 @@ function cycle2()
             show_it("dmft2", 1, 1)
 
         end
-        #
-        # Reset the counter in IterInfo: I₁, I₂
-        zero_it(it)
 
         # Inner: DFT BLOCK
         # Try DFT engine with a fixed charge density update
