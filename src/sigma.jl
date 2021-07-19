@@ -522,7 +522,9 @@ See also: [`cal_dc_fll`](@ref), [`cal_dc_amf`](@ref), [`cal_dc_exact`](@ref).
 """
 function cal_dc_held(U::F64, J::F64, N::F64, M::I64)
     Uav = ( U + ( M - 1.0 ) * ( 2.0 * U - 5.0 * J ) ) / ( 2.0 * M - 1.0 )
-    Uav * ( N - 0.5 )
+    Vdc = Uav * ( N - 0.5 )
+    Edc = Uav / 2.0 * N * ( N - 1.0 )
+    return Vdc, Edc
 end
 
 """
