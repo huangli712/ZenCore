@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/18
+# Last modified: 2021/07/19
 #
 
 #=
@@ -74,7 +74,7 @@ function sigma_reset(ai::Array{Impurity,1}, with_init_dc::Bool = true)
             # Try to calculate the double counting terms within the fully
             # localized limited scheme at first.
             @assert ai[i].occup == get_i("occup")[i]
-            sigdc = cal_dc_fll(ai[i].upara, ai[i].jpara, ai[i].occup)
+            sigdc, _ = cal_dc_fll(ai[i].upara, ai[i].jpara, ai[i].occup)
 
             # Go through spins, meshes, and bands, setup elements of S.
             for s = 1:nspin
@@ -360,7 +360,9 @@ This function is for the spin-unpolarized case.
 See also: [`cal_dc_amf`](@ref), [`cal_dc_exact`](@ref).
 """
 function cal_dc_fll(U::F64, J::F64, N::F64)
-    U * ( N - 0.5 ) - J / 2.0 * ( N - 1.0 )
+    Vdc = U * ( N - 0.5 ) - J / 2.0 * ( N - 1.0 )
+    Edc = U / 2.0 * N * ( N - 1.0 ) - J / 4.0 * N * ( N - 2.0 )
+    return Vdc, Edc
 end
 
 """
@@ -372,9 +374,11 @@ This function is for the spin-polarized case.
 See also: [`cal_dc_amf`](@ref), [`cal_dc_exact`](@ref).
 """
 function cal_dc_fll(U::F64, J::F64, Nup::F64, Ndn::F64)
-    DCup = U * ( Nup + Ndn - 0.5 ) - J * ( Nup - 0.5 )
-    DCdn = U * ( Nup + Ndn - 0.5 ) - J * ( Ndn - 0.5 )
-    return DCup, DCdn
+    N = Nup + Ndn
+    Vup = U * ( Nup + Ndn - 0.5 ) - J * ( Nup - 0.5 )
+    Vdn = U * ( Nup + Ndn - 0.5 ) - J * ( Ndn - 0.5 )
+    Edc = U / 2.0 * N * ( N - 1.0 ) - J / 4.0 * N * ( N - 2.0 )
+    return Vup, Vdn, Edc
 end
 
 #=
