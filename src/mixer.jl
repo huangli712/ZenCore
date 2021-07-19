@@ -319,6 +319,8 @@ end
 Calculate the difference between two multi-dimensional arrays. Usually
 We apply this function to calculate the difference between two
 self-energy functions.
+
+See also: [`mixer_sigma`](@ref).
 """
 function distance(SA::Vector{Array{C64,4}}, SB::Vector{Array{C64,4}})
     # Check the dimensional parameters to make sure SA is similar to SB
@@ -344,7 +346,18 @@ end
 
 Calculate the difference between two multi-dimensional arrays. Usually
 We apply this function to calculate the difference between two
-self-energy functions.
+corrections for density matrix.
+
+See also: [`mixer_gamma`](@ref).
 """
 function distance(GA::Array{C64,4}, GB::Array{C64,4})
+    # Check the dimensional parameters to make sure GA is similar to GB
+    @assert size(GA) == size(GB)
+
+    # Evaluate the difference
+    GC = GA - GB
+    diff = sum(GC) / length(GC)
+
+    # Return the desired value
+    return abs(diff)
 end
