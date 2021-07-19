@@ -477,9 +477,12 @@ This function is for the spin-polarized case.
 See also: [`cal_dc_fll`](@ref), [`cal_dc_exact`](@ref).
 """
 function cal_dc_amf(U::F64, J::F64, Nup::F64, Ndn::F64, M::I64)
-    DCup = U * ( Nup + Ndn - Nup / M ) - J * ( Nup - Nup / M )
-    DCdn = U * ( Nup + Ndn - Ndn / M ) - J * ( Ndn - Ndn / M )
-    return DCup, DCdn
+    N = Nup + Ndn
+    Vup = U * ( Nup + Ndn - Nup / M ) - J * ( Nup - Nup / M )
+    Vdn = U * ( Nup + Ndn - Ndn / M ) - J * ( Ndn - Ndn / M )
+    Edc = U * N^2 / 2.0 * ( 1.0 - 1.0 / ( 2.0 * M ) ) 
+          - J * N^2 / 2.0 * ( 1.0 / 2.0 - 1.0 / ( 2.0 * M ) )
+    return Vup, Vdn, Edc
 end
 
 #=
