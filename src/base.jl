@@ -285,6 +285,7 @@ function cycle2()
         # Inner: DMFT₁ BLOCK
         # Try to solve the quantum impurity problems
         for iter1 = 1:it.M₁
+
             # Update IterInfo struct, fix it.I₁
             incr_it(it, 1, iter1)
 
@@ -355,9 +356,11 @@ function cycle2()
         # Reset the counter in IterInfo: I₁, I₂
         zero_it(it)
 
-        # C18: Check the convergence
-        # TODO
+        # C18: Check the convergence for total energy
+        energy_core(it)
 
+        # If the convergence has been achieved, then break the cycle.
+        conv_it(it) && break
     end # END OF ITER LOOP
 
     # C98: Close Logger.log
@@ -1165,6 +1168,7 @@ difference between two successive DFT + DMFT iterations.
 See also: [`Energy`](@ref), [`IterInfo`](@ref).
 """
 function energy_core(it::IterInfo)
+    # Only for the self-consistent DFT + DMFT mode
     if it.sc == 2
         println("DFT + DMFT Energy At Iteration $(it.I₃)")
         if it.I₃ == 1
