@@ -663,13 +663,16 @@ Kill the DFT engine abnormally.
 See also: [`dft_run`](@ref).
 """
 function suicide()
+    # Print the header
     engine = get_d("engine")
+    println("Maximum number of DFT + DMFT iterations have been reached.")
     println("Try to kill the $engine app. Please waiting...")
 
+    # Stop it!
     @cswitch engine begin
         # For vasp
         @case "vasp"
-        
+            vaspc_stopcar()
             break
 
         @default
