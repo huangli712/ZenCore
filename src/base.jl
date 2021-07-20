@@ -1170,8 +1170,8 @@ See also: [`Energy`](@ref), [`IterInfo`](@ref).
 function energy_core(it::IterInfo)
     # Only for the self-consistent DFT + DMFT mode
     if it.sc == 2
-        println("DFT + DMFT Energy At Iteration $(it.I₃)")
-        println(repeat("==", 36))
+        println("DFT + DMFT Energy At Iteration [$(it.I₃)]")
+        println(repeat("=", 36))
         if it.I₃ == 1
             println("  > dft    : $(it.et.dft) eV")
             println("  > dmft   : $(it.et.dmft) eV")
