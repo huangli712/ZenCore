@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/18
+# Last modified: 2021/07/20
 #
 
 #=
@@ -246,6 +246,11 @@ function vasp_save(it::IterInfo)
     # value will be saved at IterInfo.μ₀.
     it.μ₀ = vaspio_fermi(pwd())
     println("  > Extract the fermi level from DOSCAR: $(it.μ₀) eV")
+
+    # We also try to read the DFT band energy from OSZICAR, and its
+    # value will be saved at IterInfo.et.
+    it.et.dft = vaspio_energy(pwd())
+    println("  > Extract the DFT band energy from OSZICAR: $(it.et.dft) eV")
 end
 
 """
