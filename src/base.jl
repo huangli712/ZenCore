@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/19
+# Last modified: 2021/07/20
 #
 
 #=
@@ -1171,6 +1171,7 @@ function energy_core(it::IterInfo)
     # Only for the self-consistent DFT + DMFT mode
     if it.sc == 2
         println("DFT + DMFT Energy At Iteration $(it.I₃)")
+        println(repeat("==", 36))
         if it.I₃ == 1
             println("  > dft    : $(it.et.dft) eV")
             println("  > dmft   : $(it.et.dmft) eV")
@@ -1198,7 +1199,7 @@ function energy_core(it::IterInfo)
             println("  > Calculated ΔE = $dist ( convergence is $(it.ce) )")
         end
         #
-        println()
+        println(repeat("==", 36), "\n")
 
         # Update it.ep with it.et
         it.ep = deepcopy(it.et)
