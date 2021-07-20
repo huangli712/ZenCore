@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/19
+# Last modified: 2021/07/21
 #
 
 """
@@ -351,6 +351,7 @@ cycle7      -> Execute self-energy engine only (for testing purpose).
 cycle8      -> Execute mixer engine only (for testing purpose).
 monitor     -> Monitor the DFT + DMFT calculations.
 suspend     -> Suspend the DFT engine.
+suicide     -> Kill the DFT engine.
 dft_run     -> Driver for DFT engine.
 dmft_run    -> Driver for DMFT engine.
 solver_run  -> Driver for quantum impurity solvers.
@@ -385,6 +386,7 @@ export cycle7
 export cycle8
 export monitor
 export suspend
+export suicide
 export dft_run
 export dmft_run
 export solver_run
