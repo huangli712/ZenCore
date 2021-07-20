@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/20
+# Last modified: 2021/07/21
 #
 
 #=
@@ -1173,11 +1173,11 @@ function energy_core(it::IterInfo)
         println("The DFT + DMFT Energy At Cycle [$(it.I₃)]")
         println(repeat("==", 36))
         if it.I₃ == 1
-            println("  > dft    : $(it.et.dft) eV")
-            println("  > dmft   : $(it.et.dmft) eV")
-            println("  > corr   : $(it.et.corr) eV")
-            println("  > dcount : $(it.et.dcount) eV")
-            println("  > total  : $(it.et.total) eV")
+            println("  > E[dft]    : $(it.et.dft) eV")
+            println("  > E[dmft]   : $(it.et.dmft) eV")
+            println("  > E[corr]   : $(it.et.corr) eV")
+            println("  > E[dcount] : $(it.et.dcount) eV")
+            println("  > E[total]  : $(it.et.total) eV")
         else
             # Calculate error bar
             err_dft = abs((it.et.dft - it.ep.dft) / it.et.dft) * 100
@@ -1187,11 +1187,11 @@ function energy_core(it::IterInfo)
             err_total = abs((it.et.total - it.ep.total) / it.et.total) * 100
             #
             # Print energy and error bar
-            println("  > dft    : $(it.et.dft) eV (err: $err_dft %)")
-            println("  > dmft   : $(it.et.dmft) eV (err: $err_dmft %)")
-            println("  > corr   : $(it.et.corr) eV (err: $err_corr %)")
-            println("  > dcount : $(it.et.dcount) eV (err: $err_dcount %)")
-            println("  > total  : $(it.et.total) eV (err: $err_total %)")
+            println("  > E[dft]    : $(it.et.dft) eV (err: $err_dft %)")
+            println("  > E[dmft]   : $(it.et.dmft) eV (err: $err_dmft %)")
+            println("  > E[corr]   : $(it.et.corr) eV (err: $err_corr %)")
+            println("  > E[dcount] : $(it.et.dcount) eV (err: $err_dcount %)")
+            println("  > E[total]  : $(it.et.total) eV (err: $err_total %)")
             #
             # Calculate and show the difference
             dist = abs(it.et.total - it.ep.total)
