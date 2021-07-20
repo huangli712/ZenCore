@@ -424,7 +424,8 @@ vasp_back      -> Reactivate the vasp program to continue calculation.
 vaspc_incar    -> Generate essential input file (INCAR).
 vaspc_kpoints  -> Generate essential input file (KPOINTS).
 vaspc_gamma    -> Generate essential input file (GAMMA).
-vaspc_lock     -> Create/Delete the vasp.lock file.
+vaspc_stopcar  -> Create the STOPCAR file to stop vasp.
+vaspc_lock     -> Create the vasp.lock file.
 vaspq_lock     -> Check the vasp.lock file.
 vaspq_files    -> Check essential output files.
 vaspio_nband   -> Determine number of bands.
@@ -452,6 +453,7 @@ export vasp_back
 export vaspc_incar
 export vaspc_kpoints
 export vaspc_gamma
+export vaspc_stopcar
 export vaspc_lock
 export vaspq_lock
 export vaspq_files
