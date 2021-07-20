@@ -243,31 +243,35 @@ end
 Parse the `dmft?/dmft.fermi` file to extract the chemical potential.
 Note that if `lfermi` in `dmft.in` is false, the chemical potential
 will not be calculated by the DMFT engine. In other words, this
-file (`dmft1/dmft.fermi` or `dmft2/dmft.fermi`) could be absent.
+file (`dmft1/dmft.fermi` or `dmft2/dmft.fermi`) could be invalid.
 
-The lattice occupancy will be extracted and returned at the same time.
+The lattice occupancy and correction to the DFT band energy will be
+extracted and returned at the same time.
 
 See also: [`dmft_save`](@ref).
 """
 function read_fermi()
-    # Filename for chemical potential and lattice occupancy
+    # Filename for chemical potential, etc.
     fname = "dmft.fermi"
 
     # Sometimes, if the `dmft.fermi` file is absent, it returns zero.
     if isfile(fname)
-        # There are two lines in the `dmft.fermi` file. The first line
+        # There are three lines in the `dmft.fermi` file. The first line
         # is about the fermi level, while the second one is about the
-        # lattice occupancy.
+        # lattice occupancy. The last one is for the correction to the
+        # DFT band energy.
         str = readlines("dmft.fermi")
         fermi = parse(F64, line_to_array(str[1])[3])
         occup = parse(F64, line_to_array(str[2])[3])
+        ecorr = parse(F64, line_to_array(str[3])[3])
     else
         fermi = 0.0
         occup = 0.0
+        ecorr = 0.0
     end
 
     # Return the desired values
-    return fermi, occup
+    return fermi, occup, ecorr
 end
 
 #=
