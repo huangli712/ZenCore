@@ -655,6 +655,29 @@ function suspend(second::I64)
     println("\n")
 end
 
+"""
+    suicide()
+
+Kill the DFT engine abnormally.
+
+See also: [`dft_run`](@ref).
+"""
+function suicide()
+    engine = get_d("engine")
+    println("Try to kill the $engine app. Please waiting...")
+
+    @cswitch engine begin
+        # For vasp
+        @case "vasp"
+        
+            break
+
+        @default
+            sorry()
+            break
+    end
+end
+
 #=
 ### *Service Functions* : *Layer 2*
 =#
