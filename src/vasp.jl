@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/20
+# Last modified: 2021/07/21
 #
 
 #=
@@ -509,6 +509,21 @@ function vaspc_gamma(kwin::Array{I64,3}, gamma::Array{C64,4})
 
     # Print message to the screen
     println("  > Write gamma matrix into: dft/$fgamma")
+end
+
+"""
+    vaspc_stopcar()
+
+Create the `STOPCAR` file in the dft directory to stop the vasp engine.
+Vasp will stop at the next electronic step, i.e. `WAVECAR` and `CHGCAR`
+might contain non converged results.
+"""
+function vaspc_stopcar()
+    fstop = "dft/STOPCAR"
+    open(fstop, "w") do fout
+        println(fout, "LABORT = .TRUE.")
+    end
+    println("  > Create STOPCAR for vasp: dft/$fstop")
 end
 
 """
