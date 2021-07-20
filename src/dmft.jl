@@ -241,12 +241,13 @@ end
     read_fermi()
 
 Parse the `dmft?/dmft.fermi` file to extract the chemical potential.
-Note that if `lfermi` in `dmft.in` is false, the chemical potential
-will not be calculated by the DMFT engine. In other words, this
-file (`dmft1/dmft.fermi` or `dmft2/dmft.fermi`) could be invalid.
-
 The lattice occupancy and correction to the DFT band energy will be
 extracted and returned at the same time.
+
+Note that if `lfermi` in `dmft.in` is false, the chemical potential
+and lattice occupancy will not be calculated by the DMFT engine. On
+the other hand, if the DMFT engine works on non-self-consistent mode,
+the correction to DFT band energy will be zero.
 
 See also: [`dmft_save`](@ref).
 """
