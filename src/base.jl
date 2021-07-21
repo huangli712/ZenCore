@@ -1205,21 +1205,21 @@ function energy_core(it::IterInfo)
             println("  > E[DFT]   : $(it.et.dft) eV")
             println("  > E[DMFT]  : $(it.et.dmft) eV")
             println("  > E[CORR]  : $(it.et.corr) eV")
-            println("  > E[DC]    : $(it.et.dcount) eV")
+            println("  > E[DC]    : $(it.et.dc) eV")
             println("  > E[TOTAL] : $(it.et.total) eV")
         else
             # Calculate error bar
             err_dft = abs((it.et.dft - it.ep.dft) / it.et.dft) * 100
             err_dmft = abs((it.et.dmft - it.ep.dmft) / it.et.dmft) * 100
             err_corr = abs((it.et.corr - it.ep.corr) / it.et.corr) * 100
-            err_dcount = abs((it.et.dcount - it.ep.dcount) / it.et.dcount) * 100
+            err_dc = abs((it.et.dc - it.ep.dc) / it.et.dc) * 100
             err_total = abs((it.et.total - it.ep.total) / it.et.total) * 100
             #
             # Print energy and error bar
             println("  > E[DFT]   : $(it.et.dft) eV (err: $err_dft %)")
             println("  > E[DMFT]  : $(it.et.dmft) eV (err: $err_dmft %)")
             println("  > E[CORR]  : $(it.et.corr) eV (err: $err_corr %)")
-            println("  > E[DC]    : $(it.et.dcount) eV (err: $err_dcount %)")
+            println("  > E[DC]    : $(it.et.dc) eV (err: $err_dc %)")
             println("  > E[TOTAL] : $(it.et.total) eV (err: $err_total %)")
             #
             # Calculate and show the difference
