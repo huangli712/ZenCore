@@ -250,7 +250,7 @@ extracted and returned at the same time.
 Note that if `lfermi` in `dmft.in` is false, the chemical potential
 and lattice occupancy will not be calculated by the DMFT engine. On
 the other hand, if the DMFT engine works on non-self-consistent mode,
-the correction to DFT band energy will be zero.
+the correction to DFT band energy will be zero as well.
 
 See also: [`dmft_save`](@ref).
 """
@@ -262,20 +262,20 @@ function read_fermi()
     if isfile(fname)
         # There are three lines in the `dmft.fermi` file. The first line
         # is about the fermi level, while the second one is about the
-        # lattice occupancy. The last one is for the correction to the
-        # DFT band energy.
+        # lattice occupancy. The last one is for the DMFT correction to
+        # the DFT band energy.
         str = readlines("dmft.fermi")
         fermi = parse(F64, line_to_array(str[1])[3])
         occup = parse(F64, line_to_array(str[2])[3])
-        edmft = parse(F64, line_to_array(str[3])[3])
+        ecorr = parse(F64, line_to_array(str[3])[3])
     else
         fermi = 0.0
         occup = 0.0
-        edmft = 0.0
+        ecorr = 0.0
     end
 
     # Return the desired values
-    return fermi, occup, edmft
+    return fermi, occup, ecorr
 end
 
 #=
