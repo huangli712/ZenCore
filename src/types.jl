@@ -140,8 +140,8 @@ Mutable struct. Store decomposition of the total DFT + DMFT energy.
 ### Members
 
 * dft    -> DFT band energy.
-* dmft   -> Correction to the DFT band energy.
-* corr   -> Energy contributed by the electronic correlation.
+* dmft   -> DMFT interaction energy Tr(ΣG).
+* corr   -> DMFT Correction to the DFT band energy.
 * dcount -> Energy contributed by the double counting term.
 
 See also: [`IterInfo`](@ref).
@@ -809,8 +809,8 @@ end
     Base.getproperty(et::Energy, sym::Symbol)
 
 Implement the calculation of total DFT + DMFT energy. The `Energy` struct
-does not contains the `total` field. This function will implement it by
-overriding the Base.getproperty() function.
+does not really contains the `total` field. This function will implement
+it by overriding the Base.getproperty() function.
 
 See also: [`Energy`](@ref).
 """
