@@ -964,7 +964,7 @@ function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, force::Bool
         # Well, now we would like to extract the DMFT energy.
         edmft = GetEnergy(imp)
         it.et.dmft = it.et.dmft + edmft
-        println("  > DMFT interaction energy: $i -> ", edmft)
+        println("  > DMFT interaction energy: $i -> $edmft eV")
     end # END OF I LOOP
 
     # Monitor the status
