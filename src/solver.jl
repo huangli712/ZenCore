@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/15
+# Last modified: 2021/07/21
 #
 
 #=
@@ -713,6 +713,32 @@ function ctqmc_nimpx(imp::Impurity)
     imp.nup = nup
     imp.ndown = ndown
     imp.occup = occup
+end
+
+"""
+    ctqmc_energy()
+
+Parse the `solver.paux.dat` file to extract the interaction energy.
+
+See also: [`GetEnergy`](@ref).
+"""
+function ctqmc_energy()
+    # File name for DMFT energy
+    fene = "solver.paux.dat"
+
+    # To make sure the data file is present
+    if !isfile(fene)
+        return 0.0
+    end
+
+    # Parse the data file to extract potential energy
+    lines = readlines(fene)
+    filter!(x -> contains(x, "epot:"), lines)
+    @assert length(lines) == 1
+    epot = parse(F64, line_to_array(lines[1])[2])
+
+    # Return the desired value
+    return epot
 end
 
 #=
