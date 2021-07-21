@@ -519,11 +519,15 @@ Vasp will stop at the next electronic step, i.e. `WAVECAR` and `CHGCAR`
 might contain non converged results.
 """
 function vaspc_stopcar()
+    # Create STOPCAR
     fstop = "dft/STOPCAR"
     open(fstop, "w") do fout
         println(fout, "LABORT = .TRUE.")
     end
-    println("  > Create STOPCAR for vasp: dft/$fstop")
+    println("  > Create STOPCAR for vasp: $fstop")
+
+    # May be vasp.lock is necessary.
+    vaspc_lock("create")
 end
 
 """
