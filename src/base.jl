@@ -191,6 +191,9 @@ function cycle1()
         # C12: Mix the impurity self-energy functions
         @time_call mixer_core(it, lr, ai, "sigma")
 
+        # C18: Check the convergence for total energy
+        energy_core(it)
+
         # Print the cycle info
         show_it(it, lr)
 
@@ -659,28 +662,30 @@ function suspend(second::I64)
 end
 
 """
-    suicide()
+    suicide(it::IterInfo)
 
 Kill the DFT engine abnormally.
 
 See also: [`dft_run`](@ref).
 """
-function suicide()
+function suicide(it::IterInfo)
     # Print the header
     engine = get_d("engine")
     println("Maximum number of DFT + DMFT iterations have been reached.")
-    println("Try to kill the $engine app. Please waiting...")
+ 
+    # Stop it! Only for self-consistent DFT + DMFT iterations.
+    if it.sc == 2
+        println("Try to kill the $engine app. Please waiting...")
+        @cswitch engine begin
+            # For vasp
+            @case "vasp"
+                vaspc_stopcar()
+                break
 
-    # Stop it!
-    @cswitch engine begin
-        # For vasp
-        @case "vasp"
-            vaspc_stopcar()
-            break
-
-        @default
-            sorry()
-            break
+            @default
+                sorry()
+                break
+        end
     end
 end
 
