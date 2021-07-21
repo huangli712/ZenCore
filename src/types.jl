@@ -139,18 +139,18 @@ Mutable struct. Store decomposition of the total DFT + DMFT energy.
 
 ### Members
 
-* dft    -> DFT band energy.
-* dmft   -> DMFT interaction energy Tr(ΣG).
-* corr   -> DMFT Correction to the DFT band energy.
-* dcount -> Energy contributed by the double counting term.
+* dft  -> DFT band energy.
+* dmft -> DMFT interaction energy Tr(ΣG).
+* corr -> DMFT Correction to the DFT band energy.
+* dc   -> Energy contributed by the double counting term.
 
 See also: [`IterInfo`](@ref).
 """
 mutable struct Energy
-    dft    :: F64
-    dmft   :: F64
-    corr   :: F64
-    dcount :: F64
+    dft  :: F64
+    dmft :: F64
+    corr :: F64
+    dc   :: F64
 end
 
 """
@@ -404,13 +404,13 @@ end
 Outer constructor for Energy struct.
 """
 function Energy()
-    dft    = 0.0
-    dmft   = 0.0
-    corr   = 0.0
-    dcount = 0.0
+    dft  = 0.0
+    dmft = 0.0
+    corr = 0.0
+    dc   = 0.0
 
     # Call the default constructor
-    Energy(dft, dmft, corr, dcount)
+    Energy(dft, dmft, corr, dc)
 end
 
 """
@@ -656,11 +656,11 @@ See also: [`Energy`](@ref).
 """
 function Base.show(io::IO, ene::Energy)
     println(io, "Energy struct")
-    println(io, "dft    : ", ene.dft)
-    println(io, "dmft   : ", ene.dmft)
-    println(io, "corr   : ", ene.corr)
-    println(io, "dcount : ", ene.dcount)
-    println(io, "total  : ", ene.total)
+    println(io, "dft   : ", ene.dft)
+    println(io, "dmft  : ", ene.dmft)
+    println(io, "corr  : ", ene.corr)
+    println(io, "dc    : ", ene.dc)
+    println(io, "total : ", ene.total)
 end
 
 """
@@ -816,7 +816,7 @@ See also: [`Energy`](@ref).
 """
 function Base.getproperty(et::Energy, sym::Symbol)
     if sym == :total
-        return et.dft + et.dmft + et.corr - et.dcount
+        return et.dft + et.dmft + et.corr - et.dc
     else
         return getfield(et, sym)
     end
