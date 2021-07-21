@@ -846,6 +846,10 @@ function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, force::Bool
     end
     println("  > Quantum impurity problems (keep): ", findall(to_be_solved))
     println("  > Quantum impurity problems (skip): ", findall(.!to_be_solved))
+    #
+    # Reset DMFT energy
+    it.et.dmft = 0.0
+    #
     println(green("Now we are ready to solve them..."))
 
     # Loop over each impurity site
@@ -956,6 +960,11 @@ function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, force::Bool
             cd("..")
 
         end
+
+        # Well, now we would like to extract the DMFT energy.
+        edmft = GetEnergy(imp)
+        it.et.dmft = it.et.dmft + edmft
+        println("  > DMFT interaction energy: $i -> ", edmft)
     end # END OF I LOOP
 
     # Monitor the status
