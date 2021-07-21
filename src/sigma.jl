@@ -218,7 +218,7 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1}, reset_dc::Bool = fals
     end # END OF I LOOP
 
     # Update the energy due to double counting
-    it.et.dcount = sum(Edc)
+    it.et.dc = sum(Edc)
 
     # Write double counting terms
     println("Write double counting terms")
