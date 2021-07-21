@@ -226,14 +226,14 @@ function dmft_save(it::IterInfo, task::I64)
 
     # Extract the fermi level (and the lattice occupancy), and use them
     # to update the IterInfo struct.
-    fermi, occup, ecorr = read_fermi()
+    fermi, occup, edmft = read_fermi()
     task == 1 ? it.μ₁ = fermi : it.μ₂ = fermi
     task == 1 ? it.n₁ = occup : it.n₂ = occup
-    # We update it.et only when ecorr is finite.
-    abs(ecorr) > 0.0 && it.et.dmft = ecorr
+    # We update it.et only when edmft is finite.
+    abs(edmft) > 0.0 && it.et.dmft = edmft
     println("  > Extract the fermi level from dmft.fermi: $fermi eV")
     println("  > Extract the lattice occupancy from dmft.fermi: $occup")
-    println("  > Extract the DMFT correction to DFT band energy: $ecorr eV")
+    println("  > Extract the DMFT correction to DFT band energy: $edmft eV")
 end
 
 #=

@@ -839,6 +839,41 @@ modified. The working directory of this function must be the root folder.
 See also: [`Impurity`](@ref), [`ctqmc_energy`](@ref).
 """
 function GetEnergy(imp::Impurity)
+    # Get the index for current quantum impurity problem
+    index = imp.index
+
+    # Change the directory
+    cd("impurity.$index")
+
+    # Determine the chosen solver
+    engine = get_s("engine")
+
+    # Activate the corresponding solver_energy() functions for various
+    # quantum impurity solvers
+    @cswitch engine begin
+        @case "ct_hyb1"
+            ctqmc_nimpx(imp)
+            break
+
+        @case "ct_hyb2"
+            ctqmc_nimpx(imp)
+            break
+
+        @case "hub1"
+            sorry()
+            break
+
+        @case "norg"
+            sorry()
+            break
+
+        @default
+            sorry()
+            break
+    end
+
+    # Enter the parent directory
+    cd("..")
 end
 
 #=
