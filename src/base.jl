@@ -1215,7 +1215,11 @@ difference between two successive DFT + DMFT iterations.
 See also: [`Energy`](@ref), [`IterInfo`](@ref).
 """
 function energy_core(it::IterInfo)
-    println("The DFT + DMFT Energy At Cycle [$(it.I₃) / $(it.M₃)]")
+    if it.sc == 1
+        println("The DFT + DMFT Energy At Cycle [$(it.I₁) / $(it.M₃)]")
+    else
+        println("The DFT + DMFT Energy At Cycle [$(it.I₃) / $(it.M₃)]")
+    end
     println(repeat("==", 36))
     #
     if it.I₃ == 1
