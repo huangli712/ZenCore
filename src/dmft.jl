@@ -230,7 +230,9 @@ function dmft_save(it::IterInfo, task::I64)
     task == 1 ? it.μ₁ = fermi : it.μ₂ = fermi
     task == 1 ? it.n₁ = occup : it.n₂ = occup
     # We update it.et only when ecorr is finite.
-    abs(ecorr) > 0.0 && it.et.corr = ecorr
+    if abs(ecorr) > 0.0
+        it.et.corr = ecorr
+    end
     println("  > Extract the fermi level from dmft.fermi: $fermi eV")
     println("  > Extract the lattice occupancy from dmft.fermi: $occup")
     println("  > Extract the DMFT correction to DFT band energy: $ecorr eV")
