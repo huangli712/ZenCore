@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/19
+# Last modified: 2021/07/21
 #
 
 #=
@@ -816,7 +816,7 @@ See also: [`Energy`](@ref).
 """
 function Base.getproperty(et::Energy, sym::Symbol)
     if sym == :total
-        return et.dft + et.dmft + et.corr + et.dcount
+        return et.dft + et.dmft + et.corr - et.dcount
     else
         return getfield(et, sym)
     end
