@@ -201,6 +201,9 @@ function cycle1()
         conv_it(it) && break
     end
 
+    # C97: Kill the DFT engine if it is still alive
+    suicide(it)
+
     # C98: Close Logger.log
     if isopen(lr.log)
         flush(lr.log)
@@ -367,7 +370,7 @@ function cycle2()
     end # END OF ITER LOOP
 
     # C97: Kill the DFT engine if it is still alive
-    suicide()
+    suicide(it)
 
     # C98: Close Logger.log
     if isopen(lr.log)
