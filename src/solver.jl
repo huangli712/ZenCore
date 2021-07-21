@@ -829,6 +829,18 @@ function GetNimpx(imp::Impurity)
     cd("..")
 end
 
+"""
+    GetEnergy(imp::Impurity)
+
+Extract interaction energy (i.e potential energy) from the output files
+of various quantum impurity solvers. The input Impurity struct won't be
+modified. The working directory of this function must be the root folder.
+
+See also: [`Impurity`](@ref), [`ctqmc_energy`](@ref).
+"""
+function GetEnergy(imp::Impurity)
+end
+
 #=
 ### *Service Functions* : *Quantum Impurity Problems*
 =#
