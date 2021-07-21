@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/14
+# Last modified: 2021/07/21
 #
 
 #=
@@ -229,7 +229,8 @@ function dmft_save(it::IterInfo, task::I64)
     fermi, occup, ecorr = read_fermi()
     task == 1 ? it.μ₁ = fermi : it.μ₂ = fermi
     task == 1 ? it.n₁ = occup : it.n₂ = occup
-    it.et.dmft = ecorr
+    # We update it.et only when ecorr is finite.
+    abs(ecorr) > 0.0 && it.et.dmft = ecorr
     println("  > Extract the fermi level from dmft.fermi: $fermi eV")
     println("  > Extract the lattice occupancy from dmft.fermi: $occup")
     println("  > Extract the DMFT correction to DFT band energy: $ecorr eV")
