@@ -267,15 +267,15 @@ function read_fermi()
         str = readlines("dmft.fermi")
         fermi = parse(F64, line_to_array(str[1])[3])
         occup = parse(F64, line_to_array(str[2])[3])
-        ecorr = parse(F64, line_to_array(str[3])[3])
+        edmft = parse(F64, line_to_array(str[3])[3])
     else
         fermi = 0.0
         occup = 0.0
-        ecorr = 0.0
+        edmft = 0.0
     end
 
     # Return the desired values
-    return fermi, occup, ecorr
+    return fermi, occup, edmft
 end
 
 #=
