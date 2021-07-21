@@ -1206,42 +1206,40 @@ difference between two successive DFT + DMFT iterations.
 See also: [`Energy`](@ref), [`IterInfo`](@ref).
 """
 function energy_core(it::IterInfo)
-    # Only for the self-consistent DFT + DMFT mode
-    if it.sc == 2
-        println("The DFT + DMFT Energy At Cycle [$(it.I₃)]")
-        println(repeat("==", 36))
-        if it.I₃ == 1
-            println("  > E[DFT]   : $(it.et.dft) eV")
-            println("  > E[DMFT]  : $(it.et.dmft) eV")
-            println("  > E[CORR]  : $(it.et.corr) eV")
-            println("  > E[DC]    : $(it.et.dc) eV")
-            println("  > E[TOTAL] : $(it.et.total) eV")
-        else
-            # Calculate error bar
-            err_dft = abs((it.et.dft - it.ep.dft) / it.et.dft) * 100
-            err_dmft = abs((it.et.dmft - it.ep.dmft) / it.et.dmft) * 100
-            err_corr = abs((it.et.corr - it.ep.corr) / it.et.corr) * 100
-            err_dc = abs((it.et.dc - it.ep.dc) / it.et.dc) * 100
-            err_total = abs((it.et.total - it.ep.total) / it.et.total) * 100
-            #
-            # Print energy and error bar
-            println("  > E[DFT]   : $(it.et.dft) eV (err: $err_dft %)")
-            println("  > E[DMFT]  : $(it.et.dmft) eV (err: $err_dmft %)")
-            println("  > E[CORR]  : $(it.et.corr) eV (err: $err_corr %)")
-            println("  > E[DC]    : $(it.et.dc) eV (err: $err_dc %)")
-            println("  > E[TOTAL] : $(it.et.total) eV (err: $err_total %)")
-            #
-            # Calculate and show the difference
-            dist = abs(it.et.total - it.ep.total)
-            it.ce = ( dist < get_m("ec") )
-            println("  > Calculated ΔE(TOTAL) = $dist ( convergence is $(it.ce) )")
-        end
+    println("The DFT + DMFT Energy At Cycle [$(it.I₃) / $(it.M₃)]")
+    println(repeat("==", 36))
+    #
+    if it.I₃ == 1
+        println("  > E[DFT]   : $(it.et.dft) eV")
+        println("  > E[DMFT]  : $(it.et.dmft) eV")
+        println("  > E[CORR]  : $(it.et.corr) eV")
+        println("  > E[DC]    : $(it.et.dc) eV")
+        println("  > E[TOTAL] : $(it.et.total) eV")
+    else
+        # Calculate error bar
+        err_dft = abs((it.et.dft - it.ep.dft) / it.et.dft) * 100
+        err_dmft = abs((it.et.dmft - it.ep.dmft) / it.et.dmft) * 100
+        err_corr = abs((it.et.corr - it.ep.corr) / it.et.corr) * 100
+        err_dc = abs((it.et.dc - it.ep.dc) / it.et.dc) * 100
+        err_total = abs((it.et.total - it.ep.total) / it.et.total) * 100
         #
-        println(repeat("==", 36), "\n")
-
-        # Update it.ep with it.et
-        it.ep = deepcopy(it.et)
+        # Print energy and error bar
+        println("  > E[DFT]   : $(it.et.dft) eV (err: $err_dft %)")
+        println("  > E[DMFT]  : $(it.et.dmft) eV (err: $err_dmft %)")
+        println("  > E[CORR]  : $(it.et.corr) eV (err: $err_corr %)")
+        println("  > E[DC]    : $(it.et.dc) eV (err: $err_dc %)")
+        println("  > E[TOTAL] : $(it.et.total) eV (err: $err_total %)")
+        #
+        # Calculate and show the difference
+        dist = abs(it.et.total - it.ep.total)
+        it.ce = ( dist < get_m("ec") )
+        println("  > Calculated ΔE(TOTAL) = $dist ( convergence is $(it.ce) )")
     end
+    #
+    println(repeat("==", 36), "\n")
+
+    # Update it.ep with it.et
+    it.ep = deepcopy(it.et)
 end
 
 #=
