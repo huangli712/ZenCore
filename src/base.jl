@@ -669,13 +669,11 @@ Kill the DFT engine abnormally.
 See also: [`dft_run`](@ref).
 """
 function suicide(it::IterInfo)
-    # Print the header
-    engine = get_d("engine")
-    println("Maximum number of DFT + DMFT iterations have been reached.")
- 
     # Stop it! Only for self-consistent DFT + DMFT iterations.
     if it.sc == 2
         println("Try to kill the $engine app. Please waiting...")
+        #
+        engine = get_d("engine")
         @cswitch engine begin
             # For vasp
             @case "vasp"
@@ -687,6 +685,9 @@ function suicide(it::IterInfo)
                 break
         end
     end
+
+    # Print the footer
+    println("Maximum number of DFT + DMFT iterations have been reached.\n")
 end
 
 #=
