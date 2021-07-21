@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/21
+# Last modified: 2021/07/22
 #
 
 #=
@@ -67,7 +67,7 @@ Finalize the DFT + DMFT calculations.
 See also: [`go`](@ref).
 """
 function final()
-    prompt("It is time to sleep. See you later.")
+    prompt("Thank you for using $(__LIBNAME__). See you later.")
 end
 
 #=
@@ -690,7 +690,11 @@ function suicide(it::IterInfo)
     end
 
     # Print the footer
-    println("Maximum number of DFT + DMFT iterations have been reached.\n")
+    if ( it.sc == 1 && it.I₁ < it.M₃ ) || ( it.sc == 2 && it.I₃ < it.M₃ )
+        println("Good news. The self-consistent iteration is converged.\n")
+    else
+        println("Sorry, maximum number of iterations is reached.\n")
+    end
 end
 
 #=
