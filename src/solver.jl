@@ -852,11 +852,11 @@ function GetEnergy(imp::Impurity)
     # quantum impurity solvers
     @cswitch engine begin
         @case "ct_hyb1"
-            ctqmc_nimpx(imp)
+            epot = ctqmc_energy()
             break
 
         @case "ct_hyb2"
-            ctqmc_nimpx(imp)
+            epot = ctqmc_energy()
             break
 
         @case "hub1"
@@ -874,6 +874,9 @@ function GetEnergy(imp::Impurity)
 
     # Enter the parent directory
     cd("..")
+
+    # Return the desired value
+    return epot
 end
 
 #=
