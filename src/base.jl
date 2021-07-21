@@ -1202,11 +1202,11 @@ function energy_core(it::IterInfo)
         println("The DFT + DMFT Energy At Cycle [$(it.I₃)]")
         println(repeat("==", 36))
         if it.I₃ == 1
-            println("  > E[dft]    : $(it.et.dft) eV")
-            println("  > E[dmft]   : $(it.et.dmft) eV")
-            println("  > E[corr]   : $(it.et.corr) eV")
-            println("  > E[dcount] : $(it.et.dcount) eV")
-            println("  > E[total]  : $(it.et.total) eV")
+            println("  > E[DFT]   : $(it.et.dft) eV")
+            println("  > E[DMFT]  : $(it.et.dmft) eV")
+            println("  > E[CORR]  : $(it.et.corr) eV")
+            println("  > E[DC]    : $(it.et.dcount) eV")
+            println("  > E[TOTAL] : $(it.et.total) eV")
         else
             # Calculate error bar
             err_dft = abs((it.et.dft - it.ep.dft) / it.et.dft) * 100
@@ -1216,16 +1216,16 @@ function energy_core(it::IterInfo)
             err_total = abs((it.et.total - it.ep.total) / it.et.total) * 100
             #
             # Print energy and error bar
-            println("  > E[dft]    : $(it.et.dft) eV (err: $err_dft %)")
-            println("  > E[dmft]   : $(it.et.dmft) eV (err: $err_dmft %)")
-            println("  > E[corr]   : $(it.et.corr) eV (err: $err_corr %)")
-            println("  > E[dcount] : $(it.et.dcount) eV (err: $err_dcount %)")
-            println("  > E[total]  : $(it.et.total) eV (err: $err_total %)")
+            println("  > E[DFT]   : $(it.et.dft) eV (err: $err_dft %)")
+            println("  > E[DMFT]  : $(it.et.dmft) eV (err: $err_dmft %)")
+            println("  > E[CORR]  : $(it.et.corr) eV (err: $err_corr %)")
+            println("  > E[DC]    : $(it.et.dcount) eV (err: $err_dcount %)")
+            println("  > E[TOTAL] : $(it.et.total) eV (err: $err_total %)")
             #
             # Calculate and show the difference
             dist = abs(it.et.total - it.ep.total)
             it.ce = ( dist < get_m("ec") )
-            println("  > Calculated ΔE = $dist ( convergence is $(it.ce) )")
+            println("  > Calculated ΔE(TOTAL) = $dist ( convergence is $(it.ce) )")
         end
         #
         println(repeat("==", 36), "\n")
