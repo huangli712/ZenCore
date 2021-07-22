@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/21
+# Last modified: 2021/07/22
 #
 
 """
@@ -774,15 +774,15 @@ export distance
 ### *PreCompile*
 =#
 
-"""
-    __init__()
+export __precompile__
 
-This function would be executed immediately after the module is loaded
-at runtime for the first time. Here, we would like to precompile the
-whole `ZenCore` package to reduce the runtime latency and speed up the
-successive calculations.
 """
-function __init__()
+    __precompile__()
+
+Here, we would like to precompile the whole `ZenCore` package to reduce
+the runtime latency and speed up the successive calculations.
+"""
+function __precompile__()
     prompt("Loading...")
 
     # Get an array of the names exported by the `ZenCore` module
@@ -822,6 +822,16 @@ function __init__()
     prompt("Well, ZenCore is compiled and loaded ($cf functions).")
     prompt("We are ready to go!")
     println()
+end
+
+"""
+    __init__()
+
+This function would be executed immediately after the module is loaded
+at runtime for the first time.
+"""
+function __init__()
+    __precompile__()
 end
 
 end # END OF MODULE
