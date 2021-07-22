@@ -830,8 +830,8 @@ end
 This function would be executed immediately after the module is loaded
 at runtime for the first time.
 """
-function __init__()
-    __precompile__()
-end
+##
+##__init__() = __precompile__()
+##
 
 end # END OF MODULE
