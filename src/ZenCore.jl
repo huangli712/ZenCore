@@ -774,15 +774,15 @@ export distance
 ### *PreCompile*
 =#
 
-export __precompile__
+export _precompile
 
 """
-    __precompile__()
+    _precompile()
 
 Here, we would like to precompile the whole `ZenCore` package to reduce
 the runtime latency and speed up the successive calculations.
 """
-function __precompile__()
+function _precompile()
     prompt("Loading...")
 
     # Get an array of the names exported by the `ZenCore` module
@@ -831,7 +831,7 @@ This function would be executed immediately after the module is loaded
 at runtime for the first time.
 """
 ##
-##__init__() = __precompile__()
+##__init__() = _precompile()
 ##
 
 end # END OF MODULE
