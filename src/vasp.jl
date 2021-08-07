@@ -735,7 +735,9 @@ the most relevant, and then apply the obtained information to customize
 their case.toml configuration file (specifically, the `window` parameter
 in the `dft` block).
 
-See also: [`tools/analyze.jl`](@ref).
+!!! note
+
+    This function is only called by tools/analyze.jl or used in REPL.
 """
 function vaspio_procar(f::String)
     # Open the iostream
@@ -1027,7 +1029,9 @@ the most relevant, and then apply the obtained information to customize
 their case.toml configuration file (specifically, the `window` parameter
 in the `dft` block).
 
-See also: [`tools/analyze.jl`](@ref).
+!!! note
+
+    This function is only called by tools/analyze.jl or used in REPL.
 """
 vaspio_procar() = vaspio_procar(pwd())
 
