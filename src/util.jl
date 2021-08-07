@@ -714,6 +714,10 @@ julia> println(red("hello world!"))
 ```
 =#
 
+export COLORS
+export MODES
+export colorize
+
 for k in keys(COLORS)
     f = Symbol(k)
     k == "default" && continue
