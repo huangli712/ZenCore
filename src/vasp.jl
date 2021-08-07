@@ -567,7 +567,7 @@ end
 Check the essential output files by vasp. Here `f` means only the
 directory that contains the desired files.
 
-See also: [`adaptor_init`](@ref).
+See also: [`adaptor_run`](@ref).
 """
 function vaspq_files(f::String)
     fl = ["POSCAR", "IBZKPT", "EIGENVAL", "LOCPROJ", "DOSCAR", "CHGCAR"]
@@ -581,7 +581,7 @@ end
 
 Check the essential output files by vasp in the current directory.
 
-See also: [`adaptor_init`](@ref).
+See also: [`adaptor_run`](@ref).
 """
 vaspq_files() = vaspq_files(pwd())
 
