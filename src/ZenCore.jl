@@ -822,6 +822,7 @@ function _precompile()
     prompt("Well, ZenCore is compiled and loaded ($cf functions).")
     prompt("We are ready to go!")
     println()
+    flush(stdout)
 end
 
 """
@@ -830,8 +831,6 @@ end
 This function would be executed immediately after the module is loaded
 at runtime for the first time.
 """
-##
-##__init__() = _precompile()
-##
+__init__() = _precompile()
 
 end # END OF MODULE
