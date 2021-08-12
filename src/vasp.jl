@@ -268,6 +268,8 @@ end
 
 Reactivate the vasp engine to continue the charge self-consistent
 DFT + DMFT calculation.
+
+See also: [`vasp_stop`](@ref).
 """
 function vasp_back()
     # Read in the correction for density matrix
@@ -281,6 +283,32 @@ function vasp_back()
     # Create vasp.lock file to wake up the vasp
     println("Reactivate the vasp engine (vasp.lock)")
     vaspc_lock("create")
+end
+
+"""
+    vasp_stop()
+
+Stop the vasp engine by creating a STOPCAR file in the working folder.
+It will not return until the vasp engine is completely termined.
+
+See also: [`vasp_back`](@ref).
+"""
+function vasp_stop()
+    # Create the STOPCAR file in the dft folder.
+    vaspc_stopcar()
+
+    # Maybe vasp.lock is necessary.
+    vaspc_lock("create", "dft")
+
+    # Sleep until the STOPCAR is deleted automatically, which means
+    # that the vasp process is termined completely. 
+    while true
+        # Sleep two seconds
+        sleep(2)
+
+        # Check the status of STOPCAR
+        !vaspc_stopcar() && break
+    end
 end
 
 #=
@@ -537,9 +565,6 @@ function vaspc_stopcar()
     end
     #
     println("  > Create STOPCAR for vasp: $fstop")
-
-    # May be vasp.lock is necessary.
-    vaspc_lock("create", "dft")
 end
 
 """
