@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/08/11
+# Last modified: 2021/08/12
 #
 
 """
@@ -426,6 +426,7 @@ vaspc_kpoints  -> Generate essential input file (KPOINTS).
 vaspc_gamma    -> Generate essential input file (GAMMA).
 vaspc_stopcar  -> Create the STOPCAR file to stop vasp.
 vaspc_lock     -> Create the vasp.lock file.
+vaspq_stopcar  -> Check the STOPCAR file.
 vaspq_lock     -> Check the vasp.lock file.
 vaspq_files    -> Check essential output files.
 vaspio_nband   -> Determine number of bands.
@@ -455,6 +456,7 @@ export vaspc_kpoints
 export vaspc_gamma
 export vaspc_stopcar
 export vaspc_lock
+export vaspq_stopcar
 export vaspq_lock
 export vaspq_files
 export vaspio_nband
