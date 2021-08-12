@@ -526,14 +526,16 @@ end
 
 Create the `STOPCAR` file in the dft directory to stop the vasp engine.
 Vasp will stop at the next electronic step, i.e. `WAVECAR` and `CHGCAR`
-might contain non converged results.
+might contain non-converged results.
 """
 function vaspc_stopcar()
     # Create STOPCAR
     fstop = "dft/STOPCAR"
+    #
     open(fstop, "w") do fout
         println(fout, "LABORT = .TRUE.")
     end
+    #
     println("  > Create STOPCAR for vasp: $fstop")
 
     # May be vasp.lock is necessary.
@@ -558,6 +560,18 @@ end
 #=
 ### *Service Functions* : *Group B*
 =#
+
+"""
+    vaspq_stopcar()
+
+Return whether the `STOPCAR` file is available. Its working directory
+might be `root` or `dft`.
+
+See also: [`vaspc_stopcar`](@ref).
+"""
+function vaspq_stopcar()
+    return isfile("dft/STOPCAR") || isfile("STOPCAR")
+end
 
 """
     vaspq_lock()
