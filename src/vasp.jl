@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/08/11
+# Last modified: 2021/08/12
 #
 
 #=
@@ -166,7 +166,7 @@ function vasp_exec(it::IterInfo)
     schedule(t)
     println("  > Add the task to the scheduler's queue")
     println("  > Waiting ...")
-    #
+
     # To ensure that the task is executed
     while true
         sleep(2)
