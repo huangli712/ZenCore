@@ -270,7 +270,8 @@ In the `ZenCore` package, the following environment variables matter:
 * ZEN_CORE
 * ZEN_DMFT
 * ZEN_SOLVER
-* VASP_HOME (If you are using vasp as your DFT engine)
+* VASP_HOME (If we are using vasp as our DFT engine)
+* PWSCF_HOME (If we are using pwscf as our DFT engine)
 
 Please setup them in your `.bashrc` (Lniux) or `.profile` (macOS) files.
 =#
