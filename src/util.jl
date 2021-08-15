@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/08/11
+# Last modified: 2021/08/15
 #
 
 #=
@@ -238,6 +238,10 @@ function query_inps(engine::String)
             if !isfile("POSCAR") || !isfile("POTCAR")
                 error("Please provide both POSCAR and POTCAR files")
             end
+            break
+
+        @case "pwscf"
+            sorry()
             break
 
         @default
