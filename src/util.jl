@@ -329,6 +329,14 @@ function query_dft(engine::String)
             end
             break
 
+        @case "pwscf"
+            if haskey(ENV, "PWSCF_HOME")
+                return ENV["PWSCF_HOME"]
+            else
+                error("PWSCF_HOME is undefined")
+            end
+            break
+
         @default
             sorry()
             break
