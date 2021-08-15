@@ -560,6 +560,27 @@ export view_hamk
 export view_dos
 
 #=
+### *Includes And Exports* : *plo.jl*
+=#
+
+#=
+*Summary* :
+
+Tools for the maximally localized Wannier function scheme (adaptor).
+
+*Members*:
+
+```text
+wannier_adaptor -> Adaptor support.
+```
+=#
+
+#
+include("wannier.jl")
+#
+export wannier_adaptor
+
+#=
 ### *Includes And Exports* : *ir.jl*
 =#
 
