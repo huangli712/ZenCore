@@ -17,7 +17,7 @@ correlated materials. Now this framework is under heavy development.
 
 Zen supports the following DFT backends:
 * `VASP`
-* `QUANTUM ESPRESSO` (Actually `PWSCF`)
+* `PWSCF` (Actually `QUANTUM ESPRESSO`)
 
 Zen supports the following schemes for defining local orbitals:
 * `PLO`
@@ -65,7 +65,6 @@ using LinearAlgebra
 using Distributed
 using Dates
 using Printf
-#using Base: Symbol
 using Base.Math: libm
 
 #=
@@ -566,7 +565,7 @@ export view_dos
 #=
 *Summary* :
 
-Tools for the maximally localized Wannier function scheme (adaptor).
+Tools for the maximally-localised Wannier function scheme (adaptor).
 
 *Members*:
 
