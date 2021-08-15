@@ -65,7 +65,7 @@ using LinearAlgebra
 using Distributed
 using Dates
 using Printf
-using Base: Symbol
+#using Base: Symbol
 using Base.Math: libm
 
 #=
@@ -414,7 +414,7 @@ export conv_it
 Tools for the vasp software package (adaptor). It provide a lot of
 functions to deal with the vasp-related files.
 
-*Members :
+*Members* :
 
 ```text
 vasp_adaptor   -> Adaptor support.
@@ -473,6 +473,28 @@ export vaspio_eigen
 export vaspio_projs
 export vaspio_fermi
 export vaspio_charge
+
+#=
+### *Includes And Exports* : *pwscf.jl*
+=#
+
+#=
+*Summary* :
+
+Tools for the pwscf software package (adaptor). It provide a lot of
+functions to deal with the pwscf-related files.
+
+*Members* :
+
+```text
+pwscf_adaptor   -> Adaptor support.
+```
+=#
+
+#
+include("pwscf.jl")
+#
+export pwscf_adaptor
 
 #=
 ### *Includes And Exports* : *plo.jl*
