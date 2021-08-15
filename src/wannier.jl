@@ -6,3 +6,6 @@
 #
 # Last modified: 2021/08/15
 #
+
+function wannier_adaptor()
+end
