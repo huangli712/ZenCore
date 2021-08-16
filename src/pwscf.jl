@@ -11,7 +11,7 @@ function pwscf_adaptor()
 end
 
 
-
+const Maybe{T} = Union{T,Nothing}
 
 """
     Input
@@ -517,7 +517,7 @@ end
 
 Represent the `ELECTRONS` namelist of `pw.x`.
 """
-@auto_hash_equals struct ElectronsNamelist <: Namelist
+struct ElectronsNamelist <: Namelist
     electron_maxstep::UInt
     scf_must_converge::Bool
     conv_thr::Float64
