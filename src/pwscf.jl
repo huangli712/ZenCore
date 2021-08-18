@@ -4,12 +4,14 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/08/17
+# Last modified: 2021/08/18
 #
 
 function pwscf_adaptor()
 end
 
+function pwscf_parser()
+end
 
 const Maybe{T} = Union{T,Nothing}
 
@@ -43,14 +45,12 @@ Represent cards of an `Input` in Quantum ESPRESSO.
 """
 abstract type Card <: InputEntry end
 
-# The default values are from https://github.com/QEF/q-e/blob/4132a64/Modules/read_namelists.f90.
 """
     ControlNamelist <: Namelist
-    ControlNamelist(; kwargs...)
 
 Represent the `CONTROL` namelist of `pw.x`.
 """
-struct ControlNamelist <: Namelist
+mutable struct ControlNamelist <: Namelist
     calculation::String
     title::String
     verbosity::String
@@ -61,26 +61,26 @@ struct ControlNamelist <: Namelist
     tstress::Bool
     tprnfor::Bool
     dt::Float64
-    outdir::String
-    wfcdir::String
-    prefix::String
-    lkpoint_dir::Bool
-    max_seconds::Float64
-    etot_conv_thr::Float64
-    forc_conv_thr::Float64
-    disk_io::String
-    pseudo_dir::String
-    tefield::Bool
-    dipfield::Bool
-    lelfield::Bool
-    nberrycyc::UInt
-    lorbm::Bool
+    outdir        :: String
+    wfcdir        :: String
+    prefix        :: String
+    lkpoint_dir   :: Bool
+    max_seconds   :: Float64
+    etot_conv_thr :: Float64
+    forc_conv_thr :: Float64
+    disk_io       :: String
+    pseudo_dir    :: String
+    tefield       :: Bool
+    dipfield      :: Bool
+    lelfield      :: Bool
+    nberrycyc     :: UInt
+    lorbm         :: Bool
     lberry::Bool
     gdir::UInt8
     nppstr::UInt
-    lfcpopt::Bool
+    lfcp::Bool
     gate::Bool
-end # struct ControlNamelist
+end
 
 function ControlNamelist(;
     calculation = "scf",
