@@ -236,7 +236,7 @@ struct SystemNL <: Namelist
     Hubbard_J0                :: Vector{Maybe{Float64}}
     Hubbard_alpha             :: Vector{Maybe{Float64}}
     Hubbard_beta              :: Vector{Maybe{Float64}}
-    # Hubbard_J::Vector{Vector{Maybe{Float64}}}
+    Hubbard_J                 :: Matrix{Maybe{Float64}}
     starting_ns_eigenvalue    :: Float64
     U_projection_type         :: String
     edir                      :: UInt8
