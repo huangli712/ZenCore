@@ -167,8 +167,9 @@ function ControlNL(;
     )
 end
 
-xmldir(nml::ControlNamelist) = expanduser(joinpath(nml.outdir, nml.prefix * ".save"))
-wfcfiles(nml::ControlNamelist, n = 1) =
+export xmldir, wfcfiles
+xmldir(nml::ControlNL) = expanduser(joinpath(nml.outdir, nml.prefix * ".save"))
+wfcfiles(nml::ControlNL, n = 1) =
     [joinpath(xmldir(nml), nml.prefix * ".wfc$i") for i in 1:n]
 
 """
