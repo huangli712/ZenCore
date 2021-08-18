@@ -221,6 +221,7 @@ struct SystemNL <: Namelist
     qcutz                     :: Float64
     q2sigma                   :: Float64
     input_dft                 :: String
+    ace                       :: Bool
     exx_fraction              :: Float64
     screening_parameter       :: Float64
     exxdiv_treatment          :: String
@@ -239,12 +240,15 @@ struct SystemNL <: Namelist
     Hubbard_J                 :: Matrix{Maybe{Float64}}
     starting_ns_eigenvalue    :: Float64
     U_projection_type         :: String
+    Hubbard_parameters        :: String
+    ensemble_energies         :: Bool
     edir                      :: UInt8
     emaxpos                   :: Float64
     eopreg                    :: Float64
     eamp                      :: Float64
     angle1                    :: Vector{Maybe{Float64}}
     angle2                    :: Vector{Maybe{Float64}}
+    lforcet                   :: Bool
     constrained_magnetization :: String
     fixed_magnetization       :: Vector{Maybe{Float64}}
     lambda                    :: Float64
@@ -255,13 +259,18 @@ struct SystemNL <: Namelist
     esm_w                     :: Float64
     esm_efield                :: Float64
     esm_nfit                  :: UInt
-    fcp_mu                    :: Float64
+    lgcscf                    :: Bool
+    gcscf_mu                  :: Float64
+    gcscf_conv_thr            :: Float64
+    gcscf_beta                :: Float64
     vdw_corr                  :: String
     london                    :: Bool
     london_s6                 :: Float64
     london_c6                 :: Vector{Maybe{Float64}}
     london_rvdw               :: Vector{Maybe{Float64}}
     london_rcut               :: Float64
+    dftd3_version             :: UInt8
+    dftd3_threebody           :: Bool
     ts_vdw_econv_thr          :: Float64
     ts_vdw_isolated           :: Bool
     xdm                       :: Bool
