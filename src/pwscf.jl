@@ -46,21 +46,21 @@ Represent cards of an `Input` in Quantum ESPRESSO.
 abstract type Card <: InputEntry end
 
 """
-    ControlNamelist <: Namelist
+    ControlNL <: Namelist
 
 Represent the `CONTROL` namelist of `pw.x`.
 """
-mutable struct ControlNamelist <: Namelist
-    calculation::String
-    title::String
-    verbosity::String
-    restart_mode::String
-    wf_collect::Bool
-    nstep::UInt
-    iprint::UInt
-    tstress::Bool
-    tprnfor::Bool
-    dt::Float64
+mutable struct ControlNL <: Namelist
+    calculation   :: String
+    title         :: String
+    verbosity     :: String
+    restart_mode  :: String
+    wf_collect    :: Bool
+    nstep         :: UInt
+    iprint        :: UInt
+    tstress       :: Bool
+    tprnfor       :: Bool
+    dt            :: Float64
     outdir        :: String
     wfcdir        :: String
     prefix        :: String
@@ -75,11 +75,11 @@ mutable struct ControlNamelist <: Namelist
     lelfield      :: Bool
     nberrycyc     :: UInt
     lorbm         :: Bool
-    lberry::Bool
-    gdir::UInt8
-    nppstr::UInt
-    lfcp::Bool
-    gate::Bool
+    lberry        :: Bool
+    gdir          :: UInt
+    nppstr        :: UInt
+    lfcp          :: Bool
+    gate          :: Bool
 end
 
 function ControlNamelist(;
