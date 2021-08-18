@@ -172,12 +172,14 @@ xmldir(nml::ControlNL) = expanduser(joinpath(nml.outdir, nml.prefix * ".save"))
 wfcfiles(nml::ControlNL, n = 1) =
     [joinpath(xmldir(nml), nml.prefix * ".wfc$i") for i in 1:n]
 
+export SystemNL
+
 """
-    SystemNamelist <: Namelist
+    SystemNL <: Namelist
 
 Represent the `SYSTEM` namelist of `pw.x`.
 """
-struct SystemNamelist <: Namelist
+struct SystemNL <: Namelist
     ibrav                     :: Int8
     celldm                    :: Vector{Maybe{Float64}}
     A                         :: Float64
