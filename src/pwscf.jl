@@ -114,9 +114,9 @@ function ControlNamelist(;
     gdir          = 1,
     nppstr        = 0,
     lfcp          = false,
-    gate          = false,
+    gate          = false
 )
-    # These checks are from https://github.com/QEF/q-e/blob/4132a64/Modules/read_namelists.f90#L1282-L1369.
+
     @assert calculation in ("scf", "nscf", "bands", "relax", "md", "vc-relax", "vc-md")
     @assert verbosity in ("high", "low", "debug", "medium", "default", "minimal")
     @assert restart_mode in ("from_scratch", "restart")
@@ -158,8 +158,8 @@ function ControlNamelist(;
         lberry,
         gdir,
         nppstr,
-        lfcpopt,
-        gate,
+        lfcp,
+        gate
     )
 end
 
