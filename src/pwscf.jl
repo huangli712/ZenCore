@@ -178,41 +178,41 @@ wfcfiles(nml::ControlNL, n = 1) =
 Represent the `SYSTEM` namelist of `pw.x`.
 """
 struct SystemNamelist <: Namelist
-    ibrav::Int8
-    celldm::Vector{Maybe{Float64}}
-    A::Float64
-    B::Float64
-    C::Float64
-    cosAB::Float64
-    cosAC::Float64
-    cosBC::Float64
-    nat::UInt
-    ntyp::UInt8
-    nbnd::UInt
-    tot_charge::Float64
-    starting_charge::Vector{Maybe{Float64}}
-    tot_magnetization::Float64
-    starting_magnetization::Vector{Maybe{Float64}}
-    ecutwfc::Float64
-    ecutrho::Float64
-    ecutfock::Float64
-    nr1::UInt
-    nr2::UInt
-    nr3::UInt
-    nr1s::UInt
-    nr2s::UInt
-    nr3s::UInt
-    nosym::Bool
-    nosym_evc::Bool
-    noinv::Bool
-    no_t_rev::Bool
-    force_symmorphic::Bool
-    use_all_frac::Bool
-    occupations::String
-    one_atom_occupations::Bool
-    starting_spin_angle::Bool
-    degauss::Float64
-    smearing::String
+    ibrav                     :: Int8
+    celldm                    :: Vector{Maybe{Float64}}
+    A                         :: Float64
+    B                         :: Float64
+    C                         :: Float64
+    cosAB                     :: Float64
+    cosAC                     :: Float64
+    cosBC                     :: Float64
+    nat                       :: UInt
+    ntyp                      :: UInt8
+    nbnd                      :: UInt
+    tot_charge                :: Float64
+    starting_charge           :: Vector{Maybe{Float64}}
+    tot_magnetization         :: Float64
+    starting_magnetization    :: Vector{Maybe{Float64}}
+    ecutwfc                   :: Float64
+    ecutrho                   :: Float64
+    ecutfock                  :: Float64
+    nr1                       :: UInt
+    nr2                       :: UInt
+    nr3                       :: UInt
+    nr1s                      :: UInt
+    nr2s                      :: UInt
+    nr3s                      :: UInt
+    nosym                     :: Bool
+    nosym_evc                 :: Bool
+    noinv                     :: Bool
+    no_t_rev                  :: Bool
+    force_symmorphic          :: Bool
+    use_all_frac              :: Bool
+    occupations               :: String
+    one_atom_occupations      :: Bool
+    starting_spin_angle       :: Bool
+    degauss                   :: Float64
+    smearing                  :: String
     nspin                     :: UInt8
     noncolin                  :: Bool
     ecfixed                   :: Float64
@@ -245,36 +245,36 @@ struct SystemNamelist <: Namelist
     angle2                    :: Vector{Maybe{Float64}}
     constrained_magnetization :: String
     fixed_magnetization       :: Vector{Maybe{Float64}}
-    lambda::Float64
-    report::UInt
-    lspinorb::Bool
-    assume_isolated::String
-    esm_bc::String
-    esm_w::Float64
-    esm_efield::Float64
-    esm_nfit::UInt
-    fcp_mu::Float64
-    vdw_corr::String
-    london::Bool
-    london_s6::Float64
-    london_c6::Vector{Maybe{Float64}}
-    london_rvdw::Vector{Maybe{Float64}}
-    london_rcut::Float64
-    ts_vdw_econv_thr::Float64
-    ts_vdw_isolated::Bool
-    xdm::Bool
-    xdm_a1::Float64
-    xdm_a2::Float64
-    space_group::UInt8
-    uniqueb::Bool
-    origin_choice::UInt8
-    rhombohedral::Bool
-    zgate::Float64
-    relaxz::Bool
-    block::Bool
-    block_1::Float64
-    block_2::Float64
-    block_height::Float64
+    lambda                    :: Float64
+    report                    :: UInt
+    lspinorb                  :: Bool
+    assume_isolated           :: String
+    esm_bc                    :: String
+    esm_w                     :: Float64
+    esm_efield                :: Float64
+    esm_nfit                  :: UInt
+    fcp_mu                    :: Float64
+    vdw_corr                  :: String
+    london                    :: Bool
+    london_s6                 :: Float64
+    london_c6                 :: Vector{Maybe{Float64}}
+    london_rvdw               :: Vector{Maybe{Float64}}
+    london_rcut               :: Float64
+    ts_vdw_econv_thr          :: Float64
+    ts_vdw_isolated           :: Bool
+    xdm                       :: Bool
+    xdm_a1                    :: Float64
+    xdm_a2                    :: Float64
+    space_group               :: UInt8
+    uniqueb                   :: Bool
+    origin_choice             :: UInt8
+    rhombohedral              :: Bool
+    zgate                     :: Float64
+    relaxz                    :: Bool
+    block                     :: Bool
+    block_1                   :: Float64
+    block_2                   :: Float64
+    block_height              :: Float64
 end
 
 """
