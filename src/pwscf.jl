@@ -119,19 +119,21 @@ function ControlNL(;
     gate          = false
 )
 
+    # Sanity check
     @assert calculation in ("scf", "nscf", "bands", "relax", "md", "vc-relax", "vc-md")
     @assert verbosity in ("high", "low", "debug", "medium", "default", "minimal")
     @assert restart_mode in ("from_scratch", "restart")
     @assert iprint >= 1
     @assert disk_io in ("high", "medium", "low", "none", "default")
     @assert dt >= 0
-    # @assert !(lkpoint_dir && wf_collect) "`lkpoint_dir` currently doesn't work together with `wf_collect`!"
     @assert max_seconds >= 0
     @assert etot_conv_thr >= 0
     @assert forc_conv_thr >= 0
     @assert gdir in 1:3
-    @assert !all((gate, tefield, !dipfield)) "`gate` cannot be used with `tefield` if dipole correction is not active!"
-    @assert !all((gate, dipfield, !tefield)) "dipole correction is not active if `tefield = false`!"
+    @assert !all((gate, tefield, !dipfield))
+    @assert !all((gate, dipfield, !tefield))
+
+    # Call the default constructor
     return ControlNL(
         calculation,
         title,
