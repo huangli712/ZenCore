@@ -174,7 +174,6 @@ wfcfiles(nml::ControlNL, n = 1) =
 
 """
     SystemNamelist <: Namelist
-    SystemNamelist(; kwargs...)
 
 Represent the `SYSTEM` namelist of `pw.x`.
 """
@@ -214,38 +213,38 @@ struct SystemNamelist <: Namelist
     starting_spin_angle::Bool
     degauss::Float64
     smearing::String
-    nspin::UInt8
-    noncolin::Bool
-    ecfixed::Float64
-    qcutz::Float64
-    q2sigma::Float64
-    input_dft::String
-    exx_fraction::Float64
-    screening_parameter::Float64
-    exxdiv_treatment::String
-    x_gamma_extrapolation::Bool
-    ecutvcut::Float64
-    nqx1::UInt
-    nqx2::UInt
-    nqx3::UInt
-    localization_thr::Float64
-    lda_plus_u::Bool
-    lda_plus_u_kind::UInt8
-    Hubbard_U::Vector{Maybe{Float64}}
-    Hubbard_J0::Vector{Maybe{Float64}}
-    Hubbard_alpha::Vector{Maybe{Float64}}
-    Hubbard_beta::Vector{Maybe{Float64}}
+    nspin                     :: UInt8
+    noncolin                  :: Bool
+    ecfixed                   :: Float64
+    qcutz                     :: Float64
+    q2sigma                   :: Float64
+    input_dft                 :: String
+    exx_fraction              :: Float64
+    screening_parameter       :: Float64
+    exxdiv_treatment          :: String
+    x_gamma_extrapolation     :: Bool
+    ecutvcut                  :: Float64
+    nqx1                      :: UInt
+    nqx2                      :: UInt
+    nqx3                      :: UInt
+    localization_thr          :: Float64
+    lda_plus_u                :: Bool
+    lda_plus_u_kind           :: UInt8
+    Hubbard_U                 :: Vector{Maybe{Float64}}
+    Hubbard_J0                :: Vector{Maybe{Float64}}
+    Hubbard_alpha             :: Vector{Maybe{Float64}}
+    Hubbard_beta              :: Vector{Maybe{Float64}}
     # Hubbard_J::Vector{Vector{Maybe{Float64}}}
-    starting_ns_eigenvalue::Float64
-    U_projection_type::String
-    edir::UInt8
-    emaxpos::Float64
-    eopreg::Float64
-    eamp::Float64
-    angle1::Vector{Maybe{Float64}}
-    angle2::Vector{Maybe{Float64}}
-    constrained_magnetization::String
-    fixed_magnetization::Vector{Maybe{Float64}}
+    starting_ns_eigenvalue    :: Float64
+    U_projection_type         :: String
+    edir                      :: UInt8
+    emaxpos                   :: Float64
+    eopreg                    :: Float64
+    eamp                      :: Float64
+    angle1                    :: Vector{Maybe{Float64}}
+    angle2                    :: Vector{Maybe{Float64}}
+    constrained_magnetization :: String
+    fixed_magnetization       :: Vector{Maybe{Float64}}
     lambda::Float64
     report::UInt
     lspinorb::Bool
@@ -276,8 +275,11 @@ struct SystemNamelist <: Namelist
     block_1::Float64
     block_2::Float64
     block_height::Float64
-end # struct SystemNamelist
+end
 
+"""
+    SystemNamelist(; kwargs...)
+"""
 function SystemNamelist(;
     ibrav = 127,
     celldm = zeros(6),  # Must specify
