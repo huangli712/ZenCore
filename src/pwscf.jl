@@ -45,6 +45,8 @@ Represent cards of an `Input` in Quantum ESPRESSO.
 """
 abstract type Card <: InputEntry end
 
+export ControlNL
+
 """
     ControlNL <: Namelist
 
@@ -83,9 +85,9 @@ mutable struct ControlNL <: Namelist
 end
 
 """
-    ControlNamelist(; kwargs...)
+    ControlNL(; kwargs...)
 """
-function ControlNamelist(;
+function ControlNL(;
     calculation   = "scf",
     title         = " ",
     verbosity     = "low",
@@ -130,7 +132,7 @@ function ControlNamelist(;
     @assert gdir in 1:3
     @assert !all((gate, tefield, !dipfield)) "`gate` cannot be used with `tefield` if dipole correction is not active!"
     @assert !all((gate, dipfield, !tefield)) "dipole correction is not active if `tefield = false`!"
-    return ControlNamelist(
+    return ControlNL(
         calculation,
         title,
         verbosity,
