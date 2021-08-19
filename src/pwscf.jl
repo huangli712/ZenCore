@@ -50,21 +50,22 @@ function pwscf_parser()
 end
 
 function process_namelists!(nml::Vector{Any}, valid::Tuple)
+    NLData = Dict{Symbol,Any}()
+
     popfirst!(nml)
-    println(nml)
     for i in eachindex(nml)
         if count(",", nml[i]) > 0
             pairs = split(nml[i], ",")
             for j in eachindex(pairs)
                 key, value = split(pairs[j], "=")
-                println(strip(key), "=", strip(value))
+                NLData[Symbol(key)] = value
             end
         else
             key, value = split(nml[i], "=")
-            println(strip(key), "=", strip(value))
+            NLData[Symbol(key)] = value
         end
     end
-    return 1
+    return NLData
 end
 
 """
