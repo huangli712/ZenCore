@@ -170,26 +170,26 @@ const _SYSTEM = (
 Represent the `ELECTRONS` namelist of `pwscf`.
 """
 const ElectronsNamelist = (
-    electron_maxstep::UInt
-    scf_must_converge::Bool
-    conv_thr::Float64
-    adaptive_thr::Bool
-    conv_thr_init    ,
-    conv_thr_multi   ,
-    mixing_mode      ,
-    mixing_beta      ,
-    mixing_ndim      ,
-    mixing_fixed_ns  ,
-    diagonalization  ,
-    ortho_para       ,
-    diago_thr_init   ,
-    diago_cg_maxiter ,
-    diago_david_ndim ,
-    diago_full_acc   ,
-    efield           ,
-    efield_cart::Vector{Maybe{Float64}}
-    efield_phase::String
-    startingpot::String  # This depends on `calculation`
-    startingwfc::String  # This depends on `calculation`
-    tqr::Bool
+    :electron_maxstep  ,
+    :scf_must_converge ,
+    :conv_thr          ,
+    :adaptive_thr      ,
+    :conv_thr_init     ,
+    :conv_thr_multi    ,
+    :mixing_mode       ,
+    :mixing_beta       ,
+    :mixing_ndim       ,
+    :mixing_fixed_ns   ,
+    :diagonalization   ,
+    :ortho_para        ,
+    :diago_thr_init    ,
+    :diago_cg_maxiter  ,
+    :diago_david_ndim  ,
+    :diago_full_acc    ,
+    :efield            ,
+    :efield_cart       ,
+    :efield_phase      ,
+    :startingpot       ,
+    :startingwfc       ,
+    :tqr
 )
