@@ -11,6 +11,9 @@ function pwscf_adaptor()
 end
 
 function pwscf_parser()
+    for line in eachline("diamond.scf")
+        println(line)
+    end
 end
 
 """
