@@ -54,20 +54,31 @@ function pwscf_parser()
 end
 
 function process_namelists!(nml::Vector{Any}, keylist::Tuple)
-    NLData = Dict{Symbol,Any}()
-
     popfirst!(nml)
+    NLData = Dict{Symbol,Any}()
     for i in eachindex(nml)
         if count(",", nml[i]) > 0
             pairs = split(nml[i], ",")
             for j in eachindex(pairs)
                 key, value = map(x -> strip(x), split(pairs[j], "="))
-                @assert key in keylist
+                ind = findfirst('(', key)
+                if ind isa Nothing
+                    @assert Symbol(key) in keylist
+                else
+                    subkey = SubString(key, 1:ind-1)
+                    @assert Symbol(subkey) in keylist
+                end
                 NLData[Symbol(key)] = value
             end
         else
             key, value = map(x -> strip(x), split(nml[i], "="))
-            @assert key in keylist
+            ind = findfirst('(', key)
+            if ind isa Nothing
+                @assert Symbol(key) in keylist
+            else
+                subkey = SubString(key, 1:ind-1)
+                @assert Symbol(subkey) in keylist
+            end
             NLData[Symbol(key)] = value
         end
     end
