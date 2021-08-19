@@ -165,12 +165,11 @@ const _SYSTEM = (
 )
 
 """
-    ElectronsNamelist <: Namelist
-    ElectronsNamelist(; kwargs...)
+    _ELECTRONS
 
-Represent the `ELECTRONS` namelist of `pw.x`.
+Represent the `ELECTRONS` namelist of `pwscf`.
 """
-struct ElectronsNamelist <: Namelist
+const ElectronsNamelist = (
     electron_maxstep::UInt
     scf_must_converge::Bool
     conv_thr::Float64
@@ -193,60 +192,4 @@ struct ElectronsNamelist <: Namelist
     startingpot::String  # This depends on `calculation`
     startingwfc::String  # This depends on `calculation`
     tqr::Bool
-end # struct ElectronsNamelist
-
-function ElectronsNamelist(;
-    electron_maxstep = 100,
-    scf_must_converge = true,
-    conv_thr = 1e-6,
-    adaptive_thr = false,
-    conv_thr_init = 1e-3,
-    conv_thr_multi = 0.1,
-    mixing_mode = "plain",
-    mixing_beta = 0.7,
-    mixing_ndim = 8,
-    mixing_fixed_ns = 0,
-    diagonalization = "david",
-    ortho_para = 0,
-    diago_thr_init = 0.0,
-    diago_cg_maxiter = 20,
-    diago_david_ndim = 4,
-    diago_full_acc = false,
-    efield = 0.0,
-    efield_cart = zeros(3),
-    efield_phase = "none",
-    startingpot = "atomic",  # This depends on `calculation`
-    startingwfc = "atomic+random",  # This depends on `calculation`
-    tqr = false,
 )
-    # These checks are from https://github.com/QEF/q-e/blob/4132a64/Modules/read_namelists.f90#L1508-L1543.
-    @assert mixing_mode in ("plain", "TF", "local-TF")
-    @assert diagonalization in ("david", "cg", "cg-serial", "david-serial", "ppcg")  # Different from docs
-    @assert efield_phase in ("read", "write", "none")
-    @assert startingpot in ("atomic", "file")
-    @assert startingwfc in ("atomic", "atomic+random", "random", "file")
-    return ElectronsNamelist(
-        electron_maxstep,
-        scf_must_converge,
-        conv_thr,
-        adaptive_thr,
-        conv_thr_init,
-        conv_thr_multi,
-        mixing_mode,
-        mixing_beta,
-        mixing_ndim,
-        mixing_fixed_ns,
-        diagonalization,
-        ortho_para,
-        diago_thr_init,
-        diago_cg_maxiter,
-        diago_david_ndim,
-        diago_full_acc,
-        efield,
-        efield_cart,
-        efield_phase,
-        startingpot,
-        startingwfc,
-        tqr,
-    )
-end
