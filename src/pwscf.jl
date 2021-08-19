@@ -13,44 +13,42 @@ end
 function pwscf_parser()
 end
 
-export ControlNL
-
 """
-    ControlNL <: Namelist
+    _CONTROL
 
 Represent the `CONTROL` namelist of `pw.x`.
 """
-mutable struct ControlNL <: Namelist
-    calculation   :: String
-    title         :: String
-    verbosity     :: String
-    restart_mode  :: String
-    wf_collect    :: Bool
-    nstep         :: UInt
-    iprint        :: UInt
-    tstress       :: Bool
-    tprnfor       :: Bool
-    dt            :: Float64
-    outdir        :: String
-    wfcdir        :: String
-    prefix        :: String
-    lkpoint_dir   :: Bool
-    max_seconds   :: Float64
-    etot_conv_thr :: Float64
-    forc_conv_thr :: Float64
-    disk_io       :: String
-    pseudo_dir    :: String
-    tefield       :: Bool
-    dipfield      :: Bool
-    lelfield      :: Bool
-    nberrycyc     :: UInt
-    lorbm         :: Bool
-    lberry        :: Bool
-    gdir          :: UInt
-    nppstr        :: UInt
-    lfcp          :: Bool
-    gate          :: Bool
-end
+const _CONTROL = (
+    :calculation     ,
+    :title           ,
+    :verbosity       ,
+    :restart_mode    ,
+    :wf_collect      ,
+    :nstep           ,
+    :iprint          ,
+    :tstress         ,
+    :tprnfor         ,
+    :dt              ,
+    :outdir          ,
+    :wfcdir          ,
+    :prefix          ,
+    :lkpoint_dir     ,
+    :max_seconds     ,
+    :etot_conv_thr64 ,
+    :forc_conv_thr64 ,
+    :disk_io         ,
+    :pseudo_dir      ,
+    :tefield         ,
+    :dipfield        ,
+    :lelfield        ,
+    :nberrycyc       ,
+    :lorbm           ,
+    :lberry          ,
+    :gdir            ,
+    :nppstr          ,
+    :lfcp            ,
+    :gate
+)
 
 """
     ControlNL(; kwargs...)
