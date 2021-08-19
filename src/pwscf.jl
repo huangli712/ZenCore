@@ -24,7 +24,6 @@ function pwscf_parser()
             group_end = false
         end
         if startswith(strip_line, "/")
-            group_name = "unknown"
             group_start = false
             group_end = true
         end
@@ -32,12 +31,13 @@ function pwscf_parser()
 
         if group_start
             push!(group_data, strip_line)
-        else
+        elseif length(group_data) > 0
             println(group_data)
-            Namelists[Symbol(group_name)] = group_data
+            Namelists[Symbol(group_name)] = copy(group_data)
             empty!(group_data)
         end
     end
+    @show Namelists
 end
 
 """
