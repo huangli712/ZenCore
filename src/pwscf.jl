@@ -50,7 +50,14 @@ function process_namelists!(nml::Vector{Any}, valid::Tuple)
     println(nml)
     for i in eachindex(nml)
         if count(",", nml[i]) > 0
+            pairs = split(nml[i], ",")
+            for j in eachindex(pairs)
+                key, value = split(pairs[j], "=")
+                println(strip(key), "=", strip(value))
+            end
         else
+            key, value = split(nml[i], "=")
+            println(strip(key), "=", strip(value))
         end
     end
     return 1
