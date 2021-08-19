@@ -268,6 +268,12 @@ const ATOMIC_SPECIES_BLOCK = r"""
 )
 """imx
 
+const ATOMIC_SPECIES_ITEM = r"""
+^ [ \t]* (?P<name>\S+) [ \t]+ (?P<mass>[-+]?[0-9]*\.[0-9]+|[0-9]+\.?[0-9]*) [ \t]+ (?P<pseudo>\S+)
+    [ \t]* \R?
+"""mx
+
+
 """
     AtomicSpecies(atom::Union{AbstractChar,String}, mass::Float64, pseudopot::String)
     AtomicSpecies(x::AtomicPosition, mass, pseudopot)
@@ -329,8 +335,9 @@ function Base.tryparse(::Type{AtomicSpeciesCard}, str::AbstractString)
         return AtomicSpeciesCard(
             map(eachmatch(ATOMIC_SPECIES_ITEM, content)) do matched
                 captured = matched.captures
+                println(captured)
                 atom, mass, pseudopotential =
-                    captured[1], fparse(Float64, captured[2]), captured[3]
+                    captured[1], parse(Float64, captured[2]), captured[3]
                 AtomicSpecies(atom, mass, pseudopotential)
             end,
         )
