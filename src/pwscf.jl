@@ -109,11 +109,11 @@ const _SYSTEM = (
     :localization_thr          ,
     :lda_plus_u                ,
     :lda_plus_u_kind           ,
-    :Hubbard_U                 r{Maybe{Float64}}
-    :Hubbard_J0                r{Maybe{Float64}}
-    :Hubbard_alpha             r{Maybe{Float64}}
-    :Hubbard_beta              r{Maybe{Float64}}
-    :Hubbard_J                 x{Maybe{Float64}}
+    :Hubbard_U                 ,
+    :Hubbard_J0                ,
+    :Hubbard_alpha             ,
+    :Hubbard_beta              ,
+    :Hubbard_J                 ,
     :starting_ns_eigenvalue    ,
     :U_projection_type         ,
     :Hubbard_parameters        ,
