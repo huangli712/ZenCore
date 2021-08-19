@@ -114,28 +114,28 @@ const _SYSTEM = (
     :Hubbard_alpha             r{Maybe{Float64}}
     :Hubbard_beta              r{Maybe{Float64}}
     :Hubbard_J                 x{Maybe{Float64}}
-    :starting_ns_eigenvalue    64
-    :U_projection_type         g
-    :Hubbard_parameters        g
-    :ensemble_energies         
-    :edir                      
-    :emaxpos                   64
-    :eopreg                    64
-    :eamp                      64
-    :angle1                    r{Maybe{Float64}}
+    :starting_ns_eigenvalue    ,
+    :U_projection_type         ,
+    :Hubbard_parameters        ,
+    :ensemble_energies         ,
+    :edir                      ,
+    :emaxpos                   ,
+    :eopreg                    ,
+    :eamp                      ,
+    :angle1                    ,
     :angle2                    ,
     :lforcet                   ,
     :constrained_magnetization ,
     :fixed_magnetization       ,
     :lambda                    ,
-    :report                    
-    :lspinorb                  
-    :assume_isolated           g
-    :esm_bc                    g
-    :esm_w                     64
-    :esm_efield                64
-    :esm_nfit                  
-    :lgcscf                    
+    :report                    ,
+    :lspinorb                  ,
+    :assume_isolated           ,
+    :esm_bc                    ,
+    :esm_w                     ,
+    :esm_efield                ,
+    :esm_nfit                  ,
+    :lgcscf                    ,
     :gcscf_mu                  ,
     :gcscf_conv_thr            ,
     :gcscf_beta                ,
