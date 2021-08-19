@@ -58,13 +58,14 @@ function process_namelists!(nml::Vector{Any}, valid::Tuple)
             pairs = split(nml[i], ",")
             for j in eachindex(pairs)
                 key, value = split(pairs[j], "=")
-                NLData[Symbol(key)] = value
+                NLData[Symbol(strip(key))] = strip(value)
             end
         else
             key, value = split(nml[i], "=")
-            NLData[Symbol(key)] = value
+            NLData[Symbol(strip(key))] = strip(value)
         end
     end
+
     return NLData
 end
 
