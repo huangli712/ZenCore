@@ -68,7 +68,7 @@ const _SYSTEM = (
     :ntyp                      ,
     :nbnd                      ,
     :tot_charge                ,
-    :starting_charge           r{Maybe{Float64}}
+    :starting_charge           ,
     :tot_magnetization         ,
     :starting_magnetization    ,
     :ecutwfc                   ,
@@ -101,14 +101,14 @@ const _SYSTEM = (
     :exx_fraction              ,
     :screening_parameter       ,
     :exxdiv_treatment          ,
-    :x_gamma_extrapolation     
-    :ecutvcut                  64
-    :nqx1                      
-    :nqx2                      
-    :nqx3                      
-    :localization_thr          64
-    :lda_plus_u                
-    :lda_plus_u_kind           
+    :x_gamma_extrapolation     ,
+    :ecutvcut                  ,
+    :nqx1                      ,
+    :nqx2                      ,
+    :nqx3                      ,
+    :localization_thr          ,
+    :lda_plus_u                ,
+    :lda_plus_u_kind           ,
     :Hubbard_U                 r{Maybe{Float64}}
     :Hubbard_J0                r{Maybe{Float64}}
     :Hubbard_alpha             r{Maybe{Float64}}
