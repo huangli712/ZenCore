@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/08/19
+# Last modified: 2021/08/20
 #
 
 function pwscf_adaptor()
@@ -267,3 +267,72 @@ const ATOMIC_SPECIES_BLOCK = r"""
  )+
 )
 """imx
+
+"""
+    AtomicSpecies(atom::Union{AbstractChar,String}, mass::Float64, pseudopot::String)
+    AtomicSpecies(x::AtomicPosition, mass, pseudopot)
+Represent each line of the `ATOMIC_SPECIES` card in QE.
+The `atom` field accepts at most 3 characters.
+# Examples
+```jldoctest
+julia> using QuantumESPRESSOBase.Cards.PWscf
+julia> AtomicSpecies("C1", 12, "C.pbe-n-kjpaw_psl.1.0.0.UPF")
+AtomicSpecies("C1", 12.0, "C.pbe-n-kjpaw_psl.1.0.0.UPF")
+julia> AtomicSpecies(
+           AtomicPosition('S', [0.500000000, 0.288675130, 1.974192764]),
+           32.066,
+           "S.pz-n-rrkjus_psl.0.1.UPF",
+       )
+AtomicSpecies("S", 32.066, "S.pz-n-rrkjus_psl.0.1.UPF")
+```
+"""
+struct AtomicSpecies
+    "Label of the atom. Max total length cannot exceed 3 characters."
+    atom :: String
+    """
+    Mass of the atomic species in atomic unit.
+    Used only when performing molecular dynamics (MD) run
+    or structural optimization runs using damped MD.
+    Not actually used in all other cases (but stored
+    in data files, so phonon calculations will use
+    these values unless other values are provided).
+    """
+    mass :: Float64
+    """
+    File containing pseudopotential for this species.
+    See also: [`pseudoformat`](@ref)
+    """
+    pseudopot::String
+    function AtomicSpecies(atom::Union{AbstractChar,AbstractString}, mass, pseudopot)
+        @assert length(atom) <= 3 "`atom` can have at most 3 characters!"
+        return new(string(atom), mass, pseudopot)
+    end
+end
+
+abstract type Card end
+
+"""
+    AtomicSpeciesCard <: Card
+Represent the `ATOMIC_SPECIES` card in QE. It does not have an "option".
+"""
+struct AtomicSpeciesCard <: Card
+    data::Vector{AtomicSpecies}
+end
+
+export AtomicSpeciesCard
+export AtomicSpecies
+function Base.tryparse(::Type{AtomicSpeciesCard}, str::AbstractString)
+    m = match(ATOMIC_SPECIES_BLOCK, str)
+    # Function `match` only searches for the first match of the regular expression, so it could be a `nothing`
+    if m !== nothing
+        content = only(m.captures)
+        return AtomicSpeciesCard(
+            map(eachmatch(ATOMIC_SPECIES_ITEM, content)) do matched
+                captured = matched.captures
+                atom, mass, pseudopotential =
+                    captured[1], fparse(Float64, captured[2]), captured[3]
+                AtomicSpecies(atom, mass, pseudopotential)
+            end,
+        )
+    end
+end # function Base.tryparse
