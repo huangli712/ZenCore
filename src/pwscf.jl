@@ -17,7 +17,7 @@ function pwscf_parser()
     group_end = false
     group_name = "unknown"
     for line in eachline("diamond.scf")
-        strip_line = strip(line)
+        strip_line = strip(strip(line), ',')
         if startswith(strip_line, "&")
             group_name = split(strip_line, "&", keepempty = false)[1]
             group_start = true
