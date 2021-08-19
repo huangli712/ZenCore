@@ -41,12 +41,15 @@ function pwscf_parser()
     #end
 
     ControlNL = process_namelists!(Namelists[:control], _CONTROL)
+    SystemNL = process_namelists!(Namelists[:system], _SYSTEM)
+    ElectronsNL = process_namelists!(Namelists[:electrons], _ELECTRONS)
 end
 
 function process_namelists!(nml::Vector{Any}, valid::Tuple)
     popfirst!(nml)
     println(nml)
     for i in eachindex(nml)
+        println(count(",", nml[i]))
     end
     return 1
 end
