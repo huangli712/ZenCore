@@ -47,6 +47,10 @@ function pwscf_parser()
     ControlNL = process_namelists!(Namelists[:control], _CONTROL)
     SystemNL = process_namelists!(Namelists[:system], _SYSTEM)
     ElectronsNL = process_namelists!(Namelists[:electrons], _ELECTRONS)
+
+    println(ControlNL)
+    println(SystemNL)
+    println(ElectronsNL)
 end
 
 function process_namelists!(nml::Vector{Any}, valid::Tuple)
@@ -57,12 +61,12 @@ function process_namelists!(nml::Vector{Any}, valid::Tuple)
         if count(",", nml[i]) > 0
             pairs = split(nml[i], ",")
             for j in eachindex(pairs)
-                key, value = split(pairs[j], "=")
-                NLData[Symbol(strip(key))] = strip(value)
+                key, value = map(x -> strip(x), split(pairs[j], "="))
+                NLData[Symbol(key)] = value
             end
         else
-            key, value = split(nml[i], "=")
-            NLData[Symbol(strip(key))] = strip(value)
+            key, value = map(x -> strip(x), split(nml[i], "="))
+            NLData[Symbol(key)] = value
         end
     end
 
