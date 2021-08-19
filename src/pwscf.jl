@@ -183,10 +183,10 @@ const ElectronsNamelist = (
     diagonalization::String
     ortho_para::UInt
     diago_thr_init::Float64
-    diago_cg_maxiter::UInt
-    diago_david_ndim::UInt
-    diago_full_acc::Bool
-    efield::Float64
+    diago_cg_maxiter ,
+    diago_david_ndim ,
+    diago_full_acc   ,
+    efield           ,
     efield_cart::Vector{Maybe{Float64}}
     efield_phase::String
     startingpot::String  # This depends on `calculation`
