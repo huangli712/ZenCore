@@ -92,76 +92,76 @@ const _SYSTEM = (
     :degauss                   64
     :smearing                  g
     :nspin                     
-    noncolin                  
-    ecfixed                   64
-    qcutz                     64
-    q2sigma                   64
-    input_dft                 g
-    ace                       
-    exx_fraction              64
-    screening_parameter       64
-    exxdiv_treatment          g
-    x_gamma_extrapolation     
-    ecutvcut                  64
-    nqx1                      
-    nqx2                      
-    nqx3                      
-    localization_thr          64
-    lda_plus_u                
-    lda_plus_u_kind           
-    Hubbard_U                 r{Maybe{Float64}}
-    Hubbard_J0                r{Maybe{Float64}}
-    Hubbard_alpha             r{Maybe{Float64}}
-    Hubbard_beta              r{Maybe{Float64}}
-    Hubbard_J                 x{Maybe{Float64}}
-    starting_ns_eigenvalue    64
-    U_projection_type         g
-    Hubbard_parameters        g
-    ensemble_energies         
-    edir                      
-    emaxpos                   64
-    eopreg                    64
-    eamp                      64
-    angle1                    r{Maybe{Float64}}
-    angle2                    r{Maybe{Float64}}
-    lforcet                   
-    constrained_magnetization g
-    fixed_magnetization       r{Maybe{Float64}}
-    lambda                    64
-    report                    
-    lspinorb                  
-    assume_isolated           g
-    esm_bc                    g
-    esm_w                     64
-    esm_efield                64
-    esm_nfit                  
-    lgcscf                    
-    gcscf_mu                  64
-    gcscf_conv_thr            64
-    gcscf_beta                64
-    vdw_corr                  g
-    london                    
-    london_s6                 64
-    london_c6                 r{Maybe{Float64}}
-    london_rvdw               r{Maybe{Float64}}
-    london_rcut               64
-    dftd3_version             
-    dftd3_threebody           
-    ts_vdw_econv_thr          64
-    ts_vdw_isolated           
-    xdm                       
-    xdm_a1                    64
-    xdm_a2                    64
-    space_group               
-    uniqueb                   
-    origin_choice             
-    rhombohedral              
-    zgate                     64
-    relaxz                    
-    block                     
-    block_1                   64
-    block_2                   64
-    block_height              64
+    :noncolin                  
+    :ecfixed                   64
+    :qcutz                     64
+    :q2sigma                   64
+    :input_dft                 g
+    :ace                       
+    :exx_fraction              64
+    :screening_parameter       64
+    :exxdiv_treatment          g
+    :x_gamma_extrapolation     
+    :ecutvcut                  64
+    :nqx1                      
+    :nqx2                      
+    :nqx3                      
+    :localization_thr          64
+    :lda_plus_u                
+    :lda_plus_u_kind           
+    :Hubbard_U                 r{Maybe{Float64}}
+    :Hubbard_J0                r{Maybe{Float64}}
+    :Hubbard_alpha             r{Maybe{Float64}}
+    :Hubbard_beta              r{Maybe{Float64}}
+    :Hubbard_J                 x{Maybe{Float64}}
+    :starting_ns_eigenvalue    64
+    :U_projection_type         g
+    :Hubbard_parameters        g
+    :ensemble_energies         
+    :edir                      
+    :emaxpos                   64
+    :eopreg                    64
+    :eamp                      64
+    :angle1                    r{Maybe{Float64}}
+    :angle2                    ,
+    :lforcet                   ,
+    :constrained_magnetization ,
+    :fixed_magnetization       ,
+    :lambda                    ,
+    :report                    
+    :lspinorb                  
+    :assume_isolated           g
+    :esm_bc                    g
+    :esm_w                     64
+    :esm_efield                64
+    :esm_nfit                  
+    :lgcscf                    
+    :gcscf_mu                  64
+    :gcscf_conv_thr            64
+    :gcscf_beta                64
+    :vdw_corr                  g
+    :london                    
+    :london_s6                 64
+    :london_c6                 r{Maybe{Float64}}
+    :london_rvdw               r{Maybe{Float64}}
+    :london_rcut               64
+    :dftd3_version             
+    :dftd3_threebody           
+    :ts_vdw_econv_thr          64
+    :ts_vdw_isolated           
+    :xdm                       
+    :xdm_a1                    64
+    :xdm_a2                    64
+    :space_group               
+    :uniqueb                   
+    :origin_choice             
+    :rhombohedral              
+    :zgate                     64
+    :relaxz                    
+    :block                     
+    :block_1                   64
+    :block_2                   64
+    :block_height              64
 )
 
 """
