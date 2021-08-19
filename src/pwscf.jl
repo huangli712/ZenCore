@@ -169,7 +169,7 @@ const _SYSTEM = (
 
 Represent the `ELECTRONS` namelist of `pwscf`.
 """
-const ElectronsNamelist = (
+const _ELECTRONS = (
     :electron_maxstep  ,
     :scf_must_converge ,
     :conv_thr          ,
@@ -181,7 +181,6 @@ const ElectronsNamelist = (
     :mixing_ndim       ,
     :mixing_fixed_ns   ,
     :diagonalization   ,
-    :ortho_para        ,
     :diago_thr_init    ,
     :diago_cg_maxiter  ,
     :diago_david_ndim  ,
@@ -191,5 +190,6 @@ const ElectronsNamelist = (
     :efield_phase      ,
     :startingpot       ,
     :startingwfc       ,
-    :tqr
+    :tqr               ,
+    :real_space
 )
