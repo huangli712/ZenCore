@@ -53,7 +53,7 @@ function pwscf_parser()
     println(ElectronsNL)
 end
 
-function process_namelists!(nml::Vector{Any}, valid::Tuple)
+function process_namelists!(nml::Vector{Any}, keylist::Tuple)
     NLData = Dict{Symbol,Any}()
 
     popfirst!(nml)
@@ -62,6 +62,7 @@ function process_namelists!(nml::Vector{Any}, valid::Tuple)
             pairs = split(nml[i], ",")
             for j in eachindex(pairs)
                 key, value = map(x -> strip(x), split(pairs[j], "="))
+                
                 NLData[Symbol(key)] = value
             end
         else
