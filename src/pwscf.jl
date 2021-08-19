@@ -258,3 +258,12 @@ const _ELECTRONS = (
     :tqr               ,
     :real_space
 )
+
+const ATOMIC_SPECIES_BLOCK = r"""
+^ [ \t]* ATOMIC_SPECIES [ \t]* \R+
+(?P<block>
+ (?:
+  ^ [ \t]* \S+ [ \t]+ (?:[-+]?[0-9]*\.[0-9]+|[0-9]+\.?[0-9]*) [ \t]+ \S+ [ \t]* \R?
+ )+
+)
+"""imx
