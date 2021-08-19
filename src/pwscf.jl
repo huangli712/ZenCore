@@ -49,7 +49,9 @@ function process_namelists!(nml::Vector{Any}, valid::Tuple)
     popfirst!(nml)
     println(nml)
     for i in eachindex(nml)
-        println(count(",", nml[i]))
+        if count(",", nml[i]) > 0
+        else
+        end
     end
     return 1
 end
