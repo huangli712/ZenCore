@@ -142,26 +142,26 @@ const _SYSTEM = (
     :vdw_corr                  g
     :london                    
     :london_s6                 64
-    :london_c6                 r{Maybe{Float64}}
-    :london_rvdw               r{Maybe{Float64}}
-    :london_rcut               64
-    :dftd3_version             
-    :dftd3_threebody           
-    :ts_vdw_econv_thr          64
-    :ts_vdw_isolated           
-    :xdm                       
-    :xdm_a1                    64
-    :xdm_a2                    64
-    :space_group               
-    :uniqueb                   
-    :origin_choice             
-    :rhombohedral              
-    :zgate                     64
-    :relaxz                    
-    :block                     
-    :block_1                   64
-    :block_2                   64
-    :block_height              64
+    :london_c6                 ,
+    :london_rvdw               ,
+    :london_rcut               ,
+    :dftd3_version             ,
+    :dftd3_threebody           ,
+    :ts_vdw_econv_thr          ,
+    :ts_vdw_isolated           ,
+    :xdm                       ,
+    :xdm_a1                    ,
+    :xdm_a2                    ,
+    :space_group               ,
+    :uniqueb                   ,
+    :origin_choice             ,
+    :rhombohedral              ,
+    :zgate                     ,
+    :relaxz                    ,
+    :block                     ,
+    :block_1                   ,
+    :block_2                   ,
+    :block_height
 )
 
 """
