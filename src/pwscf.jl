@@ -19,7 +19,7 @@ function pwscf_parser()
     for line in eachline("diamond.scf")
         strip_line = strip(strip(line), ',')
         if startswith(strip_line, "&")
-            group_name = split(strip_line, "&", keepempty = false)[1]
+            group_name = lowercase(split(strip_line, "&")[2])
             group_start = true
             group_end = false
         end
@@ -28,13 +28,17 @@ function pwscf_parser()
             group_end = true
         end
 
+        println(strip_line, " ", group_name, " ", group_start, " ", group_end)
+
         if group_start
             push!(group_data, strip_line)
-        elseif length(group_data) > 0
+        elseif !isempty(group_data)
             Namelists[Symbol(group_name)] = copy(group_data)
             empty!(group_data)
         end
     end
+
+    println(Namelists)
 
     #for key in keys(Namelists)
     #    println(typeof(Namelists[key]), typeof(_CONTROL))
