@@ -11,11 +11,32 @@ function pwscf_adaptor()
 end
 
 function pwscf_parser()
-    control = []
-    system = []
-    electrons = []
+    Namelists = Dict{Symbol,Any}()
+    group_data = []
+    group_start = false
+    group_end = false
+    group_name = "unknown"
     for line in eachline("diamond.scf")
-        println(line)
+        strip_line = strip(line)
+        if startswith(strip_line, "&")
+            group_name = split(strip_line, "&", keepempty = false)[1]
+            group_start = true
+            group_end = false
+        end
+        if startswith(strip_line, "/")
+            group_name = "unknown"
+            group_start = false
+            group_end = true
+        end
+        println(strip_line, " ", group_start, " ", group_end, " ", group_name)
+
+        if group_start
+            push!(group_data, strip_line)
+        else
+            println(group_data)
+            Namelists[Symbol(group_name)] = group_data
+            empty!(group_data)
+        end
     end
 end
 
