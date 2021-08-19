@@ -28,7 +28,7 @@ function pwscf_parser()
             group_end = true
         end
 
-        println(strip_line, " ", group_name, " ", group_start, " ", group_end)
+        #println(strip_line, " ", group_name, " ", group_start, " ", group_end)
 
         if group_start
             push!(group_data, strip_line)
@@ -38,7 +38,7 @@ function pwscf_parser()
         end
     end
 
-    println(Namelists)
+    #println(Namelists)
 
     #for key in keys(Namelists)
     #    println(typeof(Namelists[key]), typeof(_CONTROL))
