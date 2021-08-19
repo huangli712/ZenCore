@@ -136,12 +136,12 @@ const _SYSTEM = (
     :esm_efield                64
     :esm_nfit                  
     :lgcscf                    
-    :gcscf_mu                  64
-    :gcscf_conv_thr            64
-    :gcscf_beta                64
-    :vdw_corr                  g
-    :london                    
-    :london_s6                 64
+    :gcscf_mu                  ,
+    :gcscf_conv_thr            ,
+    :gcscf_beta                ,
+    :vdw_corr                  ,
+    :london                    ,
+    :london_s6                 ,
     :london_c6                 ,
     :london_rvdw               ,
     :london_rcut               ,
