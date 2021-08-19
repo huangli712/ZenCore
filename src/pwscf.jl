@@ -16,7 +16,7 @@ end
 """
     _CONTROL
 
-Represent the `CONTROL` namelist of `pw.x`.
+Represent the `CONTROL` namelist of `pwscf`.
 """
 const _CONTROL = (
     :calculation     ,
@@ -51,208 +51,118 @@ const _CONTROL = (
 )
 
 """
-    ControlNL(; kwargs...)
+    _SYSTEM
+
+Represent the `SYSTEM` namelist of `pwscf`.
 """
-function ControlNL(;
-    calculation   = "scf",
-    title         = " ",
-    verbosity     = "low",
-    restart_mode  = "from_scratch",
-    wf_collect    = true,
-    nstep         = 50,
-    iprint        = 100000,
-    tstress       = false,
-    tprnfor       = false,
-    dt            = 20.0,
-    outdir        = "./",
-    wfcdir        = "./",
-    prefix        = "pwscf",
-    lkpoint_dir   = true,
-    max_seconds   = 10000000.0,
-    etot_conv_thr = 1e-4,
-    forc_conv_thr = 1e-3,
-    disk_io       = ifelse(calculation == "scf", "low", "medium"),
-    pseudo_dir    = raw"$HOME/espresso/pseudo/",
-    tefield       = false,
-    dipfield      = false,
-    lelfield      = false,
-    nberrycyc     = 1,
-    lorbm         = false,
-    lberry        = false,
-    gdir          = 1,
-    nppstr        = 0,
-    lfcp          = false,
-    gate          = false
+const _SYSTEM = (
+    :ibrav                     
+    :celldm                    r{Maybe{Float64}}
+    :A                         64
+    :B                         64
+    :C                         64
+    :cosAB                     64
+    :cosAC                     64
+    :cosBC                     64
+    :nat                       
+    :ntyp                      
+    :nbnd                      
+    :tot_charge                64
+    :starting_charge           r{Maybe{Float64}}
+    :tot_magnetization         64
+    :starting_magnetization    r{Maybe{Float64}}
+    :ecutwfc                   64
+    :ecutrho                   64
+    :ecutfock                  64
+    :nr1                       
+    :nr2                       
+    :nr3                       
+    :nr1s                      
+    :nr2s                      
+    :nr3s                      
+    :nosym                     
+    :nosym_evc                 
+    :noinv                     
+    :no_t_rev                  
+    :force_symmorphic          
+    :use_all_frac              
+    :occupations               g
+    :one_atom_occupations      
+    :starting_spin_angle       
+    :degauss                   64
+    :smearing                  g
+    :nspin                     
+    noncolin                  
+    ecfixed                   64
+    qcutz                     64
+    q2sigma                   64
+    input_dft                 g
+    ace                       
+    exx_fraction              64
+    screening_parameter       64
+    exxdiv_treatment          g
+    x_gamma_extrapolation     
+    ecutvcut                  64
+    nqx1                      
+    nqx2                      
+    nqx3                      
+    localization_thr          64
+    lda_plus_u                
+    lda_plus_u_kind           
+    Hubbard_U                 r{Maybe{Float64}}
+    Hubbard_J0                r{Maybe{Float64}}
+    Hubbard_alpha             r{Maybe{Float64}}
+    Hubbard_beta              r{Maybe{Float64}}
+    Hubbard_J                 x{Maybe{Float64}}
+    starting_ns_eigenvalue    64
+    U_projection_type         g
+    Hubbard_parameters        g
+    ensemble_energies         
+    edir                      
+    emaxpos                   64
+    eopreg                    64
+    eamp                      64
+    angle1                    r{Maybe{Float64}}
+    angle2                    r{Maybe{Float64}}
+    lforcet                   
+    constrained_magnetization g
+    fixed_magnetization       r{Maybe{Float64}}
+    lambda                    64
+    report                    
+    lspinorb                  
+    assume_isolated           g
+    esm_bc                    g
+    esm_w                     64
+    esm_efield                64
+    esm_nfit                  
+    lgcscf                    
+    gcscf_mu                  64
+    gcscf_conv_thr            64
+    gcscf_beta                64
+    vdw_corr                  g
+    london                    
+    london_s6                 64
+    london_c6                 r{Maybe{Float64}}
+    london_rvdw               r{Maybe{Float64}}
+    london_rcut               64
+    dftd3_version             
+    dftd3_threebody           
+    ts_vdw_econv_thr          64
+    ts_vdw_isolated           
+    xdm                       
+    xdm_a1                    64
+    xdm_a2                    64
+    space_group               
+    uniqueb                   
+    origin_choice             
+    rhombohedral              
+    zgate                     64
+    relaxz                    
+    block                     
+    block_1                   64
+    block_2                   64
+    block_height              64
 )
-
-    # Sanity check
-    @assert calculation in ("scf", "nscf", "bands", "relax", "md", "vc-relax", "vc-md")
-    @assert verbosity in ("high", "low", "debug", "medium", "default", "minimal")
-    @assert restart_mode in ("from_scratch", "restart")
-    @assert iprint >= 1
-    @assert disk_io in ("high", "medium", "low", "none", "default")
-    @assert dt >= 0
-    @assert max_seconds >= 0
-    @assert etot_conv_thr >= 0
-    @assert forc_conv_thr >= 0
-    @assert gdir in 1:3
-    @assert !all((gate, tefield, !dipfield))
-    @assert !all((gate, dipfield, !tefield))
-
-    # Call the default constructor
-    return ControlNL(
-        calculation,
-        title,
-        verbosity,
-        restart_mode,
-        wf_collect,
-        nstep,
-        iprint,
-        tstress,
-        tprnfor,
-        dt,
-        outdir,
-        wfcdir,
-        prefix,
-        lkpoint_dir,
-        max_seconds,
-        etot_conv_thr,
-        forc_conv_thr,
-        disk_io,
-        pseudo_dir,
-        tefield,
-        dipfield,
-        lelfield,
-        nberrycyc,
-        lorbm,
-        lberry,
-        gdir,
-        nppstr,
-        lfcp,
-        gate
-    )
-end
-
-export xmldir, wfcfiles
-xmldir(nml::ControlNL) = expanduser(joinpath(nml.outdir, nml.prefix * ".save"))
-wfcfiles(nml::ControlNL, n = 1) =
-    [joinpath(xmldir(nml), nml.prefix * ".wfc$i") for i in 1:n]
-
-export SystemNL
-
-"""
-    SystemNL <: Namelist
-
-Represent the `SYSTEM` namelist of `pw.x`.
-"""
-struct SystemNL <: Namelist
-    ibrav                     :: Int8
-    celldm                    :: Vector{Maybe{Float64}}
-    A                         :: Float64
-    B                         :: Float64
-    C                         :: Float64
-    cosAB                     :: Float64
-    cosAC                     :: Float64
-    cosBC                     :: Float64
-    nat                       :: UInt
-    ntyp                      :: UInt8
-    nbnd                      :: UInt
-    tot_charge                :: Float64
-    starting_charge           :: Vector{Maybe{Float64}}
-    tot_magnetization         :: Float64
-    starting_magnetization    :: Vector{Maybe{Float64}}
-    ecutwfc                   :: Float64
-    ecutrho                   :: Float64
-    ecutfock                  :: Float64
-    nr1                       :: UInt
-    nr2                       :: UInt
-    nr3                       :: UInt
-    nr1s                      :: UInt
-    nr2s                      :: UInt
-    nr3s                      :: UInt
-    nosym                     :: Bool
-    nosym_evc                 :: Bool
-    noinv                     :: Bool
-    no_t_rev                  :: Bool
-    force_symmorphic          :: Bool
-    use_all_frac              :: Bool
-    occupations               :: String
-    one_atom_occupations      :: Bool
-    starting_spin_angle       :: Bool
-    degauss                   :: Float64
-    smearing                  :: String
-    nspin                     :: UInt8
-    noncolin                  :: Bool
-    ecfixed                   :: Float64
-    qcutz                     :: Float64
-    q2sigma                   :: Float64
-    input_dft                 :: String
-    ace                       :: Bool
-    exx_fraction              :: Float64
-    screening_parameter       :: Float64
-    exxdiv_treatment          :: String
-    x_gamma_extrapolation     :: Bool
-    ecutvcut                  :: Float64
-    nqx1                      :: UInt
-    nqx2                      :: UInt
-    nqx3                      :: UInt
-    localization_thr          :: Float64
-    lda_plus_u                :: Bool
-    lda_plus_u_kind           :: UInt8
-    Hubbard_U                 :: Vector{Maybe{Float64}}
-    Hubbard_J0                :: Vector{Maybe{Float64}}
-    Hubbard_alpha             :: Vector{Maybe{Float64}}
-    Hubbard_beta              :: Vector{Maybe{Float64}}
-    Hubbard_J                 :: Matrix{Maybe{Float64}}
-    starting_ns_eigenvalue    :: Float64
-    U_projection_type         :: String
-    Hubbard_parameters        :: String
-    ensemble_energies         :: Bool
-    edir                      :: UInt8
-    emaxpos                   :: Float64
-    eopreg                    :: Float64
-    eamp                      :: Float64
-    angle1                    :: Vector{Maybe{Float64}}
-    angle2                    :: Vector{Maybe{Float64}}
-    lforcet                   :: Bool
-    constrained_magnetization :: String
-    fixed_magnetization       :: Vector{Maybe{Float64}}
-    lambda                    :: Float64
-    report                    :: UInt
-    lspinorb                  :: Bool
-    assume_isolated           :: String
-    esm_bc                    :: String
-    esm_w                     :: Float64
-    esm_efield                :: Float64
-    esm_nfit                  :: UInt
-    lgcscf                    :: Bool
-    gcscf_mu                  :: Float64
-    gcscf_conv_thr            :: Float64
-    gcscf_beta                :: Float64
-    vdw_corr                  :: String
-    london                    :: Bool
-    london_s6                 :: Float64
-    london_c6                 :: Vector{Maybe{Float64}}
-    london_rvdw               :: Vector{Maybe{Float64}}
-    london_rcut               :: Float64
-    dftd3_version             :: UInt8
-    dftd3_threebody           :: Bool
-    ts_vdw_econv_thr          :: Float64
-    ts_vdw_isolated           :: Bool
-    xdm                       :: Bool
-    xdm_a1                    :: Float64
-    xdm_a2                    :: Float64
-    space_group               :: UInt8
-    uniqueb                   :: Bool
-    origin_choice             :: UInt8
-    rhombohedral              :: Bool
-    zgate                     :: Float64
-    relaxz                    :: Bool
-    block                     :: Bool
-    block_1                   :: Float64
-    block_2                   :: Float64
-    block_height              :: Float64
-end
 
 """
     SystemNamelist(; kwargs...)
