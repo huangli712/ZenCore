@@ -27,17 +27,28 @@ function pwscf_parser()
             group_start = false
             group_end = true
         end
-        println(strip_line, " ", group_start, " ", group_end, " ", group_name)
 
         if group_start
             push!(group_data, strip_line)
         elseif length(group_data) > 0
-            println(group_data)
             Namelists[Symbol(group_name)] = copy(group_data)
             empty!(group_data)
         end
     end
-    @show Namelists
+
+    #for key in keys(Namelists)
+    #    println(typeof(Namelists[key]), typeof(_CONTROL))
+    #end
+
+    ControlNL = process_namelists!(Namelists[:control], _CONTROL)
+end
+
+function process_namelists!(nml::Vector{Any}, valid::Tuple)
+    popfirst!(nml)
+    println(nml)
+    for i in eachindex(nml)
+    end
+    return 1
 end
 
 """
