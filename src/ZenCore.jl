@@ -494,6 +494,7 @@ pwscf_adaptor   -> Adaptor support.
 include("pwscf.jl")
 #
 export pwscf_adaptor
+export pwscf_parser
 
 #=
 ### *Includes And Exports* : *plo.jl*
