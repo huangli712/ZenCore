@@ -28,8 +28,6 @@ function pwscf_parser()
             group_end = true
         end
 
-        #println(strip_line, " ", group_name, " ", group_start, " ", group_end)
-
         if group_start
             push!(group_data, strip_line)
         elseif !isempty(group_data)
@@ -37,12 +35,6 @@ function pwscf_parser()
             empty!(group_data)
         end
     end
-
-    #println(Namelists)
-
-    #for key in keys(Namelists)
-    #    println(typeof(Namelists[key]), typeof(_CONTROL))
-    #end
 
     ControlNL = process_namelists!(Namelists[:control], _CONTROL)
     SystemNL = process_namelists!(Namelists[:system], _SYSTEM)
@@ -55,7 +47,7 @@ end
 
 function process_namelists!(nml::Vector{Any}, keylist::Tuple)
     popfirst!(nml)
-    NLData = Dict{Symbol,Any}()
+    NLData = Dict{AbstractString,Any}()
     for i in eachindex(nml)
         if count(",", nml[i]) > 0
             pairs = split(nml[i], ",")
@@ -68,7 +60,7 @@ function process_namelists!(nml::Vector{Any}, keylist::Tuple)
                     subkey = SubString(key, 1:ind-1)
                     @assert Symbol(subkey) in keylist
                 end
-                NLData[Symbol(key)] = value
+                NLData[key] = value
             end
         else
             key, value = map(x -> strip(x), split(nml[i], "="))
@@ -79,7 +71,7 @@ function process_namelists!(nml::Vector{Any}, keylist::Tuple)
                 subkey = SubString(key, 1:ind-1)
                 @assert Symbol(subkey) in keylist
             end
-            NLData[Symbol(key)] = value
+            NLData[key] = value
         end
     end
 
