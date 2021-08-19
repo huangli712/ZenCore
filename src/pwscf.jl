@@ -174,15 +174,15 @@ const ElectronsNamelist = (
     scf_must_converge::Bool
     conv_thr::Float64
     adaptive_thr::Bool
-    conv_thr_init::Float64
-    conv_thr_multi::Float64
-    mixing_mode::String
-    mixing_beta::Float64
-    mixing_ndim::UInt
-    mixing_fixed_ns::UInt
-    diagonalization::String
-    ortho_para::UInt
-    diago_thr_init::Float64
+    conv_thr_init    ,
+    conv_thr_multi   ,
+    mixing_mode      ,
+    mixing_beta      ,
+    mixing_ndim      ,
+    mixing_fixed_ns  ,
+    diagonalization  ,
+    ortho_para       ,
+    diago_thr_init   ,
     diago_cg_maxiter ,
     diago_david_ndim ,
     diago_full_acc   ,
