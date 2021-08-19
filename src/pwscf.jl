@@ -56,51 +56,51 @@ const _CONTROL = (
 Represent the `SYSTEM` namelist of `pwscf`.
 """
 const _SYSTEM = (
-    :ibrav                     
-    :celldm                    r{Maybe{Float64}}
-    :A                         64
-    :B                         64
-    :C                         64
-    :cosAB                     64
-    :cosAC                     64
-    :cosBC                     64
-    :nat                       
-    :ntyp                      
-    :nbnd                      
-    :tot_charge                64
+    :ibrav                     ,
+    :celldm                    ,
+    :A                         ,
+    :B                         ,
+    :C                         ,
+    :cosAB                     ,
+    :cosAC                     ,
+    :cosBC                     ,
+    :nat                       ,
+    :ntyp                      ,
+    :nbnd                      ,
+    :tot_charge                ,
     :starting_charge           r{Maybe{Float64}}
-    :tot_magnetization         64
-    :starting_magnetization    r{Maybe{Float64}}
-    :ecutwfc                   64
-    :ecutrho                   64
-    :ecutfock                  64
-    :nr1                       
-    :nr2                       
-    :nr3                       
-    :nr1s                      
-    :nr2s                      
-    :nr3s                      
-    :nosym                     
-    :nosym_evc                 
-    :noinv                     
-    :no_t_rev                  
-    :force_symmorphic          
-    :use_all_frac              
-    :occupations               g
-    :one_atom_occupations      
-    :starting_spin_angle       
-    :degauss                   64
-    :smearing                  g
-    :nspin                     
-    :noncolin                  
-    :ecfixed                   64
-    :qcutz                     64
-    :q2sigma                   64
-    :input_dft                 g
-    :ace                       
-    :exx_fraction              64
-    :screening_parameter       64
-    :exxdiv_treatment          g
+    :tot_magnetization         ,
+    :starting_magnetization    ,
+    :ecutwfc                   ,
+    :ecutrho                   ,
+    :ecutfock                  ,
+    :nr1                       ,
+    :nr2                       ,
+    :nr3                       ,
+    :nr1s                      ,
+    :nr2s                      ,
+    :nr3s                      ,
+    :nosym                     ,
+    :nosym_evc                 ,
+    :noinv                     ,
+    :no_t_rev                  ,
+    :force_symmorphic          ,
+    :use_all_frac              ,
+    :occupations               ,
+    :one_atom_occupations      ,
+    :starting_spin_angle       ,
+    :degauss                   ,
+    :smearing                  ,
+    :nspin                     ,
+    :noncolin                  ,
+    :ecfixed                   ,
+    :qcutz                     ,
+    :q2sigma                   ,
+    :input_dft                 ,
+    :ace                       ,
+    :exx_fraction              ,
+    :screening_parameter       ,
+    :exxdiv_treatment          ,
     :x_gamma_extrapolation     
     :ecutvcut                  64
     :nqx1                      
