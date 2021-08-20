@@ -365,7 +365,7 @@ struct AtomicPosition
     "Label of the atom as specified in `AtomicSpecies`."
     atom::String
     "Atomic positions. A three-element vector of floats."
-    pos::SVector{3,Float64}
+    pos::Vector{Float64}
     """
     Component `i` of the force for this atom is multiplied by `if_pos(i)`,
     which must be either `0` or `1`.  Used to keep selected atoms and/or
@@ -373,7 +373,7 @@ struct AtomicPosition
     With `crystal_sg` atomic coordinates the constraints are copied in all equivalent
     atoms.
     """
-    if_pos::SVector{3,Bool}
+    if_pos::Vector{Bool}
     function AtomicPosition(atom::Union{AbstractChar,AbstractString}, pos, if_pos)
         @assert length(atom) <= 3 "`atom` can have at most 3 characters!"
         return new(string(atom), pos, if_pos)
@@ -449,3 +449,58 @@ const ATOMIC_POSITIONS_BLOCK = r"""
     )+                                          # A positions block should be one or more lines
 )
 """imx
+
+# This regular expression is taken from https://github.com/aiidateam/qe-tools/blob/aedee19/qe_tools/parsers/_input_base.py
+const ATOMIC_POSITIONS_ITEM = r"""
+^                                       # Linestart
+[ \t]*                                  # Optional white space
+(?P<name>[A-Za-z]+[A-Za-z0-9]{0,2})\s+  # get the symbol, max 3 chars, starting with a char
+(?P<x>                                  # Get x
+    [\-|\+]?(\d*[\.]\d+ | \d+[\.]?\d*)
+    ([E|e|d|D][+|-]?\d+)?
+)
+[ \t]+
+(?P<y>                                  # Get y
+    [\-|\+]?(\d*[\.]\d+ | \d+[\.]?\d*)
+    ([E|e|d|D][+|-]?\d+)?
+)
+[ \t]+
+(?P<z>                                  # Get z
+    [\-|\+]?(\d*[\.]\d+ | \d+[\.]?\d*)
+    ([E|e|d|D][+|-]?\d+)?
+)
+[ \t]*
+(?P<fx>[01]?)                           # Get fx
+[ \t]*
+(?P<fy>[01]?)                           # Get fx
+[ \t]*
+(?P<fz>[01]?)                           # Get fx
+"""mx
+
+function Base.tryparse(::Type{AtomicPositionsCard}, str::AbstractString)
+    m = match(ATOMIC_POSITIONS_BLOCK, str)
+    # Function `match` only searches for the first match of the regular expression, so it could be a `nothing`
+    if m !== nothing
+        if string(m.captures[1]) === nothing
+            @warn "Not specifying units is DEPRECATED and will no longer be allowed in the future!"
+            @info "No option is specified, 'alat' is assumed."
+            option = "alat"
+        else
+            option = string(m.captures[1])
+        end
+        content = m.captures[2]
+        return AtomicPositionsCard(
+            map(eachmatch(ATOMIC_POSITIONS_ITEM, content)) do matched
+                # The `matched` cannot be a `nothing` since we have tested by the block regular expression
+                captured = matched.captures
+                # The `if_pos` field is optionally given by users. If they do not give, we provide the default values `1`.
+                if_pos = map(x -> isempty(x) ? 1 : fparse(Int, x), captured[11:13])
+                # The `atom` and `pos` fields are mandatory. So we do not need special treatment.
+                atom, pos = captured[1],
+                map(x -> fparse(Float64, x), [captured[2], captured[5], captured[8]])
+                AtomicPosition(atom, pos, if_pos)
+            end,
+            option,
+        )
+    end
+end # function Base.tryparse
