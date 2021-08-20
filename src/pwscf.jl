@@ -281,18 +281,40 @@ struct AtomicPositionsCard <: Card
     end
 end
 
+"""
+    KMeshCard
+
+Represent the `K_POINTS` card in Quantum ESPRESSO.
+
+See also: [`KPointsCard`](@ref).
+"""
 struct KMeshCard <: KPointsCard
     data :: MonkhorstPackGrid
 end
 
-struct GammaPointCard <: KPointsCard end
+"""
+    GammaPointCard
+
+Represent the `K_POINTS` card in Quantum ESPRESSO.
+
+See also: [`KPointsCard`](@ref).
+"""
+struct GammaPointCard <: KPointsCard
+end
 
 """
-    SpecialKPointsCard(data, option)
-Represent the `K_POINTS` card in QE.
-# Arguments
-- `data::Union{MonkhorstPackGrid,GammaPoint,AbstractVector{SpecialKPoint}}`: A Γ point, a Monkhorst--Pack grid or a vector containing `SpecialKPoint`s.
-- `option::String="tpiba"`: allowed values are: "tpiba", "automatic", "crystal", "gamma", "tpiba_b", "crystal_b", "tpiba_c" and "crystal_c".
+    SpecialKPointsCard
+
+Represent the `K_POINTS` card in Quantum ESPRESSO.
+
+# Members
+
+* data   -> A Γ point, a Monkhorst-Pack grid or a vector
+            containing `SpecialKPoint`s.
+* option -> Allowed values are: `tpiba`, `automatic`, `crystal`, `gamma`,
+            `tpiba_b`, `crystal_b`, `tpiba_c` and `crystal_c`.
+
+See also: [`KPointsCard`](@ref).
 """
 struct SpecialPointsCard <: KPointsCard
     data::Vector{ReciprocalPoint}
