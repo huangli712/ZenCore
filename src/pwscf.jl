@@ -175,15 +175,23 @@ struct AtomicSpecies
 end
 
 """
-    AtomicPosition(atom::Union{AbstractChar,String}, pos::Vector{Float64}[, if_pos::Vector{Int}])
-    AtomicPosition(x::AtomicSpecies, pos, if_pos)
+    AtomicPosition
 
-Represent each line of the `ATOMIC_POSITIONS` card in QE.
-The `atom` field accepts at most 3 characters.
+Represent each line of the `ATOMIC_POSITIONS` card in QE. The `atom`
+field accepts at most 3 characters.
+
+### Members
+
+* atom   -> Label of the atom as specified in `AtomicSpecies`.
+* pos    -> Atomic positions. A three-element vector of floats.
+* if_pos -> Component `i` of the force for this atom is multiplied
+            by `if_pos(i)`, which must be either `0` or `1`.  Used
+            to keep selected atoms and/or selected components fixed
+            in MD dynamics or structural optimization run.
 
 ### Examples
-```jldoctest
-julia> using QuantumESPRESSOBase.Cards.PWscf
+
+```julia-repl
 julia> AtomicPosition('O', [0, 0, 0])
 AtomicPosition("O", [0.0, 0.0, 0.0], Bool[1, 1, 1])
 julia> AtomicPosition(
@@ -192,40 +200,43 @@ julia> AtomicPosition(
        )
 AtomicPosition("S", [0.5, 0.28867513, 1.974192764], Bool[1, 1, 1])
 ```
+
+See also: [`AtomicPositionsCard`](@ref).
 """
 struct AtomicPosition
-    "Label of the atom as specified in `AtomicSpecies`."
-    atom::String
-    "Atomic positions. A three-element vector of floats."
-    pos::Vector{Float64}
-    """
-    Component `i` of the force for this atom is multiplied by `if_pos(i)`,
-    which must be either `0` or `1`.  Used to keep selected atoms and/or
-    selected components fixed in MD dynamics or structural optimization run.
-    With `crystal_sg` atomic coordinates the constraints are copied in all equivalent
-    atoms.
-    """
-    if_pos::Vector{Bool}
+    atom   :: String
+    pos    :: Vector{F64}
+    if_pos :: Vector{Bool}
+
+    # Inner constructor
     function AtomicPosition(atom::Union{AbstractChar,AbstractString}, pos, if_pos)
-        @assert length(atom) <= 3 "`atom` can have at most 3 characters!"
+        @assert length(atom) ≤ 3
         return new(string(atom), pos, if_pos)
     end
 end
 
+"""
+    Card
+
+Represent abstract `CAR` or cards of an `Input` in Quantum ESPRESSO.
+"""
 abstract type Card end
 
 """
-    AtomicSpeciesCard <: Card
-Represent the `ATOMIC_SPECIES` card in QE. It does not have an "option".
+    AtomicSpeciesCard
+
+Represent the `ATOMIC_SPECIES` card in Quantum ESPRESSO.
+
+See also: [`AtomicSpecies`](@ref).
 """
 struct AtomicSpeciesCard <: Card
-    data::Vector{AtomicSpecies}
+    data :: Vector{AtomicSpecies}
 end
 
 """
     AtomicPositionsCard <: Card
 
-Represent the `ATOMIC_POSITIONS` card in QE.
+Represent the `ATOMIC_POSITIONS` card in Quantum ESPRESSO.
 
 ### Arguments
 - `data::AbstractVector{AtomicPosition}`: A vector containing `AtomicPosition`s.
