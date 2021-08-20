@@ -7,6 +7,15 @@
 # Last modified: 2021/08/20
 #
 
+mutable struct PWInput
+    ControlNL
+    SystemNL
+    ElectronsNL
+    AtomicSpeciesBlock
+    AtomicPositionsBlock
+    KPointsBlock
+end
+
 function pwscf_adaptor()
 end
 
@@ -40,9 +49,16 @@ function pwscf_parser()
     SystemNL = process_namelists!(Namelists[:system], _SYSTEM)
     ElectronsNL = process_namelists!(Namelists[:electrons], _ELECTRONS)
 
-    println(ControlNL)
-    println(SystemNL)
-    println(ElectronsNL)
+    #println(ControlNL)
+    #println(SystemNL)
+    #println(ElectronsNL)
+
+    str = read("diamond.scf", String)
+    AtomicSpeciesBlock = parse(AtomicSpeciesCard, str)
+    AtomicPositionsBlock = parse(AtomicPositionsCard, str)
+    KPointsBlock = parse(KPointsCard, str)
+
+    return PWInput(ControlNL, SystemNL, ElectronsNL, AtomicSpeciesBlock, AtomicPositionsBlock, KPointsBlock)
 end
 
 function process_namelists!(nml::Vector{Any}, keylist::Tuple)
@@ -335,7 +351,7 @@ function Base.tryparse(::Type{AtomicSpeciesCard}, str::AbstractString)
         return AtomicSpeciesCard(
             map(eachmatch(ATOMIC_SPECIES_ITEM, content)) do matched
                 captured = matched.captures
-                println(captured)
+                #println(captured)
                 atom, mass, pseudopotential =
                     captured[1], parse(Float64, captured[2]), captured[3]
                 AtomicSpecies(atom, mass, pseudopotential)
@@ -626,3 +642,12 @@ function Base.tryparse(::Type{KPointsCard}, str::AbstractString)
         end
     end
 end # function Base.tryparse
+
+function Base.parse(::Type{T}, str::AbstractString) where {T<:Card}
+    x = tryparse(T, str)
+    if x === nothing
+        throw(Meta.ParseError("cannot find card `$(groupname(T))`!"))
+    else
+        return x
+    end
+end # function Base.parse
