@@ -343,3 +343,45 @@ function Base.tryparse(::Type{AtomicSpeciesCard}, str::AbstractString)
         )
     end
 end # function Base.tryparse
+
+"""
+    AtomicPosition(atom::Union{AbstractChar,String}, pos::Vector{Float64}[, if_pos::Vector{Int}])
+    AtomicPosition(x::AtomicSpecies, pos, if_pos)
+Represent each line of the `ATOMIC_POSITIONS` card in QE.
+The `atom` field accepts at most 3 characters.
+# Examples
+```jldoctest
+julia> using QuantumESPRESSOBase.Cards.PWscf
+julia> AtomicPosition('O', [0, 0, 0])
+AtomicPosition("O", [0.0, 0.0, 0.0], Bool[1, 1, 1])
+julia> AtomicPosition(
+           AtomicSpecies('S', 32.066, "S.pz-n-rrkjus_psl.0.1.UPF"),
+           [0.500000000, 0.288675130, 1.974192764],
+       )
+AtomicPosition("S", [0.5, 0.28867513, 1.974192764], Bool[1, 1, 1])
+```
+"""
+struct AtomicPosition
+    "Label of the atom as specified in `AtomicSpecies`."
+    atom::String
+    "Atomic positions. A three-element vector of floats."
+    pos::SVector{3,Float64}
+    """
+    Component `i` of the force for this atom is multiplied by `if_pos(i)`,
+    which must be either `0` or `1`.  Used to keep selected atoms and/or
+    selected components fixed in MD dynamics or structural optimization run.
+    With `crystal_sg` atomic coordinates the constraints are copied in all equivalent
+    atoms.
+    """
+    if_pos::SVector{3,Bool}
+    function AtomicPosition(atom::Union{AbstractChar,AbstractString}, pos, if_pos)
+        @assert length(atom) <= 3 "`atom` can have at most 3 characters!"
+        return new(string(atom), pos, if_pos)
+    end
+end
+AtomicPosition(atom, pos) = AtomicPosition(atom, pos, trues(3))
+AtomicPosition(x::AtomicSpecies, pos, if_pos) = AtomicPosition(x.atom, pos, if_pos)
+# Introudce mutual constructors since they share the same atoms.
+AtomicSpecies(x::AtomicPosition, mass, pseudopot) = AtomicSpecies(x.atom, mass, pseudopot)
+
+
