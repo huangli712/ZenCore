@@ -406,3 +406,46 @@ optionpool(::Type{AtomicPositionsCard}) =
 
 export AtomicPosition
 export AtomicPositionsCard
+
+# This regular expression is taken from https://github.com/aiidateam/qe-tools/blob/aedee19/qe_tools/parsers/_input_base.py
+const ATOMIC_POSITIONS_BLOCK = r"""
+^ \s* ATOMIC_POSITIONS \s*                      # Atomic positions start with that string
+[{(]? \s* (?P<units>\S+?)? \s* [)}]? \s* $\R    # The units are after the string in optional brackets
+(?P<block>                                      # This is the block of positions
+    (
+        (
+            \s*                                 # White space in front of the element spec is ok
+            (
+                [A-Za-z]+[A-Za-z0-9]{0,2}       # Element spec
+                (
+                    \s+                         # White space in front of the number
+                    [-|+]?                      # Plus or minus in front of the number (optional)
+                    (
+                        (
+                            \d*                 # optional decimal in the beginning .0001 is ok, for example
+                            [\.]                # There has to be a dot followed by
+                            \d+                 # at least one decimal
+                        )
+                        |                       # OR
+                        (
+                            \d+                 # at least one decimal, followed by
+                            [\.]?               # an optional dot ( both 1 and 1. are fine)
+                            \d*                 # And optional number of decimals (1.00001)
+                        )                        # followed by optional decimals
+                    )
+                    ([E|e|d|D][+|-]?\d+)?       # optional exponents E+03, e-05
+                ){3}                            # I expect three float values
+                ((\s+[0-1]){3}\s*)?             # Followed by optional ifpos
+                \s*                             # Followed by optional white space
+                |
+                \#.*                            # If a line is commented out, that is also ok
+                |
+                \!.*                            # Comments also with excl. mark in fortran
+            )
+            |                                   # OR
+            \s*                                 # A line only containing white space
+         )
+        \R                                      # line break at the end
+    )+                                          # A positions block should be one or more lines
+)
+"""imx
