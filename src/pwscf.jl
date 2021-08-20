@@ -590,3 +590,28 @@ const K_POINTS_SPECIAL_BLOCK = r"""
 const K_POINTS_SPECIAL_ITEM = r"""
 ^ [ \t]* (\S+) [ \t]+ (\S+) [ \t]+ (\S+) [ \t]+ (\S+) [ \t]* \R?
 """mx
+
+function Base.tryparse(::Type{GammaPointCard}, str::AbstractString)
+    m = match(K_POINTS_GAMMA_BLOCK, str)
+    return m === nothing ? nothing : GammaPointCard()
+end # function Base.tryparse
+function Base.tryparse(::Type{KMeshCard}, str::AbstractString)
+    m = match(K_POINTS_AUTOMATIC_BLOCK, str)
+    if m !== nothing
+        data = map(x -> fparse(Int, x), m.captures)
+        return KMeshCard(MonkhorstPackGrid(data[1:3], data[4:6]))
+    end
+end # function Base.tryparse
+function Base.tryparse(::Type{SpecialPointsCard}, str::AbstractString)
+    m = match(K_POINTS_SPECIAL_BLOCK, str)
+    if m !== nothing
+        option = m.captures[1] === nothing ? "tpiba" : m.captures[1]
+        return SpecialPointsCard(
+            map(eachmatch(K_POINTS_SPECIAL_ITEM, m.captures[2])) do matched
+                # TODO: Match `nks`
+                ReciprocalPoint(map(x -> fparse(Float64, x), matched.captures)...)
+            end,
+            option,
+        )
+    end
+end # function Base.tryparse
