@@ -238,15 +238,21 @@ end
 
 Represent the `ATOMIC_POSITIONS` card in Quantum ESPRESSO.
 
-### Arguments
-- `data::AbstractVector{AtomicPosition}`: A vector containing `AtomicPosition`s.
-- `option::String="alat"`: allowed values are: "alat", "bohr", "angstrom", "crystal", and "crystal_sg".
+### Members
+
+* data   -> A vector containing `AtomicPosition`s.
+* option -> Allowed values are: `alat`, `bohr`, `angstrom`,
+            `crystal`, and `crystal_sg`.
+
+See also: [`AtomicPosition`](@ref).
 """
 struct AtomicPositionsCard <: Card
-    data::Vector{AtomicPosition}
-    option::String
+    data   :: Vector{AtomicPosition}
+    option :: String
+
+    # Inner constructor
     function AtomicPositionsCard(data, option = "alat")
-        @assert option in optionpool(AtomicPositionsCard)
+        @assert option in ("alat", "bohr", "angstrom", "crystal", "crystal_sg")
         return new(data, option)
     end
 end
@@ -668,7 +674,6 @@ end # function Base.parse
 optionpool(::Type{KMeshCard}) = ("automatic",)
 optionpool(::Type{GammaPointCard}) = ("gamma",)
 optionpool(::Type{SpecialPointsCard}) = ("tpiba", "crystal", "tpiba_b", "crystal_b", "tpiba_c", "crystal_c")
-optionpool(::Type{AtomicPositionsCard}) = ("alat", "bohr", "angstrom", "crystal", "crystal_sg")
 
 AtomicPosition(atom, pos) = AtomicPosition(atom, pos, trues(3))
 AtomicPosition(x::AtomicSpecies, pos, if_pos) = AtomicPosition(x.atom, pos, if_pos)
