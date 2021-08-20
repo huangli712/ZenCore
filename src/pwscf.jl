@@ -260,7 +260,7 @@ end
 abstract type KPointsCard <: Card end
 
 struct KMeshCard <: KPointsCard
-    data::MonkhorstPackGrid
+    data :: MonkhorstPackGrid
 end
 
 struct GammaPointCard <: KPointsCard end
