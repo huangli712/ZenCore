@@ -331,14 +331,23 @@ struct SpecialPointsCard <: KPointsCard
     end
 end
 
+"""
+    PWInput
+
+Represent the input file of Quantum ESPRESSO.
+"""
 mutable struct PWInput
-    ControlNL
-    SystemNL
-    ElectronsNL
-    AtomicSpeciesBlock
-    AtomicPositionsBlock
-    KPointsBlock
+    ControlNL   :: Dict{AbstractString, Any}
+    SystemNL    :: Dict{AbstractString, Any}
+    ElectronsNL :: Dict{AbstractString, Any}
+    AtomicSpeciesBlock   :: AtomicSpeciesCard
+    AtomicPositionsBlock :: AtomicPositionsCard
+    KPointsBlock         :: KPointsCard
 end
+
+#=
+### *Customized Structs : Input Blocks*
+=#
 
 """
     _CONTROL
