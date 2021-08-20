@@ -7,14 +7,6 @@
 # Last modified: 2021/08/20
 #
 
-mutable struct PWInput
-    ControlNL
-    SystemNL
-    ElectronsNL
-    AtomicSpeciesBlock
-    AtomicPositionsBlock
-    KPointsBlock
-end
 
 function pwscf_adaptor()
 end
@@ -48,10 +40,6 @@ function pwscf_parser()
     ControlNL = process_namelists!(Namelists[:control], _CONTROL)
     SystemNL = process_namelists!(Namelists[:system], _SYSTEM)
     ElectronsNL = process_namelists!(Namelists[:electrons], _ELECTRONS)
-
-    #println(ControlNL)
-    #println(SystemNL)
-    #println(ElectronsNL)
 
     str = read("diamond.scf", String)
     AtomicSpeciesBlock = parse(AtomicSpeciesCard, str)
@@ -92,6 +80,15 @@ function process_namelists!(nml::Vector{Any}, keylist::Tuple)
     end
 
     return NLData
+end
+
+mutable struct PWInput
+    ControlNL
+    SystemNL
+    ElectronsNL
+    AtomicSpeciesBlock
+    AtomicPositionsBlock
+    KPointsBlock
 end
 
 """
