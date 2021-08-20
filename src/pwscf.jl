@@ -615,3 +615,12 @@ function Base.tryparse(::Type{SpecialPointsCard}, str::AbstractString)
         )
     end
 end # function Base.tryparse
+
+function Base.tryparse(::Type{KPointsCard}, str::AbstractString)
+    for T in (GammaPointCard, KMeshCard, SpecialPointsCard)
+        x = tryparse(T, str)
+        if x !== nothing
+            return x
+        end
+    end
+end # function Base.tryparse
