@@ -307,20 +307,26 @@ end
 
 Represent the `K_POINTS` card in Quantum ESPRESSO.
 
-# Members
+### Members
 
-* data   -> A Γ point, a Monkhorst-Pack grid or a vector
-            containing `SpecialKPoint`s.
-* option -> Allowed values are: `tpiba`, `automatic`, `crystal`, `gamma`,
-            `tpiba_b`, `crystal_b`, `tpiba_c` and `crystal_c`.
+* data   -> A vector containing `ReciprocalPoint`s.
+* option -> Allowed values are: `tpiba`, `crystal`, `tpiba_b`,
+            `crystal_b`, `tpiba_c` and `crystal_c`.
 
 See also: [`KPointsCard`](@ref).
 """
 struct SpecialPointsCard <: KPointsCard
-    data::Vector{ReciprocalPoint}
-    option::String
+    data   :: Vector{ReciprocalPoint}
+    option :: String
+
+    # Inner constructor
     function SpecialPointsCard(data, option = "tpiba")
-        @assert option in optionpool(SpecialPointsCard)
+        @assert option in ("tpiba",
+                           "crystal",
+                           "tpiba_b",
+                           "crystal_b",
+                           "tpiba_c",
+                           "crystal_c")
         return new(data, option)
     end
 end
@@ -717,7 +723,6 @@ end # function Base.parse
 
 optionpool(::Type{KMeshCard}) = ("automatic",)
 optionpool(::Type{GammaPointCard}) = ("gamma",)
-optionpool(::Type{SpecialPointsCard}) = ("tpiba", "crystal", "tpiba_b", "crystal_b", "tpiba_c", "crystal_c")
 
 AtomicPosition(atom, pos) = AtomicPosition(atom, pos, trues(3))
 AtomicPosition(x::AtomicSpecies, pos, if_pos) = AtomicPosition(x.atom, pos, if_pos)
