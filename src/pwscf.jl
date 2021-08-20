@@ -177,26 +177,6 @@ struct AtomicSpecies
 end
 
 """
-    AtomicSpecies(x::AtomicPosition, mass, upf)
-
-Constructor for `AtomicSpecies`.
-
-### Examples
-
-```julia-repl
-julia> AtomicSpecies(
-           AtomicPosition('S', [0.500000000, 0.288675130, 1.974192764]),
-           32.066,
-           "S.pz-n-rrkjus_psl.0.1.UPF",
-       )
-AtomicSpecies("S", 32.066, "S.pz-n-rrkjus_psl.0.1.UPF")
-```
-
-See also: [`AtomicSpeciesCard`](@ref).
-"""
-AtomicSpecies(x::AtomicPosition, mass, upf) = AtomicSpecies(x.atom, mass, upf)
-
-"""
     AtomicPosition
 
 Represent each line of the `ATOMIC_POSITIONS` card in QE. The `atom`
@@ -231,6 +211,26 @@ struct AtomicPosition
         return new(string(atom), pos, if_pos)
     end
 end
+
+"""
+    AtomicSpecies(x::AtomicPosition, mass, upf)
+
+Constructor for `AtomicSpecies`.
+
+### Examples
+
+```julia-repl
+julia> AtomicSpecies(
+           AtomicPosition('S', [0.500000000, 0.288675130, 1.974192764]),
+           32.066,
+           "S.pz-n-rrkjus_psl.0.1.UPF",
+       )
+AtomicSpecies("S", 32.066, "S.pz-n-rrkjus_psl.0.1.UPF")
+```
+
+See also: [`AtomicSpeciesCard`](@ref).
+"""
+AtomicSpecies(x::AtomicPosition, mass, upf) = AtomicSpecies(x.atom, mass, upf)
 
 """
     AtomicPosition(atom, pos)
