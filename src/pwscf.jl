@@ -87,12 +87,10 @@ end
 ### *Customized Structs*
 =#
 
-export AtomicSpeciesCard
-export AtomicSpecies
-export KPointsCard, KMeshCard, GammaPointCard, SpecialPointsCard
-export ReciprocalPoint, MonkhorstPackGrid
-export AtomicPosition
-export AtomicPositionsCard
+#export ReciprocalPoint, MonkhorstPackGrid
+#export AtomicSpecies, AtomicSpeciesCard
+#export AtomicPosition, AtomicPositionsCard
+#export KPointsCard, KMeshCard, GammaPointCard, SpecialPointsCard
 
 """
     ReciprocalPoint(x, y, z, w)
