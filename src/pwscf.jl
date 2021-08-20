@@ -83,7 +83,7 @@ function process_namelists!(nml::Vector{Any}, keylist::Tuple)
 end
 
 #=
-### *Customized Structs*
+### *Customized Structs : K-Grid*
 =#
 
 """
@@ -135,6 +135,10 @@ struct MonkhorstPackGrid
         return new(mesh, shift)
     end
 end
+
+#=
+### *Customized Structs : ATOMIC_SPECIES Block*
+=#
 
 """
     AtomicSpecies
