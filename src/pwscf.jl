@@ -91,7 +91,8 @@ export AtomicSpeciesCard
 export AtomicSpecies
 export KPointsCard, KMeshCard, GammaPointCard, SpecialPointsCard
 export ReciprocalPoint, MonkhorstPackGrid
-
+export AtomicPosition
+export AtomicPositionsCard
 
 """
     ReciprocalPoint(x, y, z, w)
@@ -460,35 +461,6 @@ const ATOMIC_SPECIES_ITEM = r"""
     [ \t]* \R?
 """mx
 
-
-function Base.tryparse(::Type{AtomicSpeciesCard}, str::AbstractString)
-    m = match(ATOMIC_SPECIES_BLOCK, str)
-    # Function `match` only searches for the first match of the regular expression, so it could be a `nothing`
-    if m !== nothing
-        content = only(m.captures)
-        return AtomicSpeciesCard(
-            map(eachmatch(ATOMIC_SPECIES_ITEM, content)) do matched
-                captured = matched.captures
-                #println(captured)
-                atom, mass, pseudopotential =
-                    captured[1], parse(Float64, captured[2]), captured[3]
-                AtomicSpecies(atom, mass, pseudopotential)
-            end,
-        )
-    end
-end # function Base.tryparse
-
-AtomicPosition(atom, pos) = AtomicPosition(atom, pos, trues(3))
-AtomicPosition(x::AtomicSpecies, pos, if_pos) = AtomicPosition(x.atom, pos, if_pos)
-# Introudce mutual constructors since they share the same atoms.
-AtomicSpecies(x::AtomicPosition, mass, pseudopot) = AtomicSpecies(x.atom, mass, pseudopot)
-
-optionpool(::Type{AtomicPositionsCard}) =
-    ("alat", "bohr", "angstrom", "crystal", "crystal_sg")
-
-export AtomicPosition
-export AtomicPositionsCard
-
 # This regular expression is taken from https://github.com/aiidateam/qe-tools/blob/aedee19/qe_tools/parsers/_input_base.py
 const ATOMIC_POSITIONS_BLOCK = r"""
 ^ \s* ATOMIC_POSITIONS \s*                      # Atomic positions start with that string
@@ -585,6 +557,23 @@ const K_POINTS_SPECIAL_ITEM = r"""
 ^ [ \t]* (\S+) [ \t]+ (\S+) [ \t]+ (\S+) [ \t]+ (\S+) [ \t]* \R?
 """mx
 
+function Base.tryparse(::Type{AtomicSpeciesCard}, str::AbstractString)
+    m = match(ATOMIC_SPECIES_BLOCK, str)
+    # Function `match` only searches for the first match of the regular expression, so it could be a `nothing`
+    if m !== nothing
+        content = only(m.captures)
+        return AtomicSpeciesCard(
+            map(eachmatch(ATOMIC_SPECIES_ITEM, content)) do matched
+                captured = matched.captures
+                #println(captured)
+                atom, mass, pseudopotential =
+                    captured[1], parse(Float64, captured[2]), captured[3]
+                AtomicSpecies(atom, mass, pseudopotential)
+            end,
+        )
+    end
+end # function Base.tryparse
+
 function Base.tryparse(::Type{AtomicPositionsCard}, str::AbstractString)
     m = match(ATOMIC_POSITIONS_BLOCK, str)
     # Function `match` only searches for the first match of the regular expression, so it could be a `nothing`
@@ -613,23 +602,17 @@ function Base.tryparse(::Type{AtomicPositionsCard}, str::AbstractString)
     end
 end # function Base.tryparse
 
-optionpool(::Type{KMeshCard}) = ("automatic",)
-optionpool(::Type{GammaPointCard}) = ("gamma",)
-optionpool(::Type{SpecialPointsCard}) = ("tpiba", "crystal", "tpiba_b", "crystal_b", "tpiba_c", "crystal_c")
-
-
-
-function Base.tryparse(::Type{GammaPointCard}, str::AbstractString)
-    m = match(K_POINTS_GAMMA_BLOCK, str)
-    return m === nothing ? nothing : GammaPointCard()
-end # function Base.tryparse
-
 function Base.tryparse(::Type{KMeshCard}, str::AbstractString)
     m = match(K_POINTS_AUTOMATIC_BLOCK, str)
     if m !== nothing
         data = map(x -> parse(Int, x), m.captures)
         return KMeshCard(MonkhorstPackGrid(data[1:3], data[4:6]))
     end
+end # function Base.tryparse
+
+function Base.tryparse(::Type{GammaPointCard}, str::AbstractString)
+    m = match(K_POINTS_GAMMA_BLOCK, str)
+    return m === nothing ? nothing : GammaPointCard()
 end # function Base.tryparse
 
 function Base.tryparse(::Type{SpecialPointsCard}, str::AbstractString)
@@ -663,3 +646,13 @@ function Base.parse(::Type{T}, str::AbstractString) where {T<:Card}
         return x
     end
 end # function Base.parse
+
+optionpool(::Type{KMeshCard}) = ("automatic",)
+optionpool(::Type{GammaPointCard}) = ("gamma",)
+optionpool(::Type{SpecialPointsCard}) = ("tpiba", "crystal", "tpiba_b", "crystal_b", "tpiba_c", "crystal_c")
+optionpool(::Type{AtomicPositionsCard}) = ("alat", "bohr", "angstrom", "crystal", "crystal_sg")
+
+AtomicPosition(atom, pos) = AtomicPosition(atom, pos, trues(3))
+AtomicPosition(x::AtomicSpecies, pos, if_pos) = AtomicPosition(x.atom, pos, if_pos)
+# Introudce mutual constructors since they share the same atoms.
+AtomicSpecies(x::AtomicPosition, mass, pseudopot) = AtomicSpecies(x.atom, mass, pseudopot)
