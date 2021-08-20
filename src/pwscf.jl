@@ -595,13 +595,15 @@ function Base.tryparse(::Type{GammaPointCard}, str::AbstractString)
     m = match(K_POINTS_GAMMA_BLOCK, str)
     return m === nothing ? nothing : GammaPointCard()
 end # function Base.tryparse
+
 function Base.tryparse(::Type{KMeshCard}, str::AbstractString)
     m = match(K_POINTS_AUTOMATIC_BLOCK, str)
     if m !== nothing
-        data = map(x -> fparse(Int, x), m.captures)
+        data = map(x -> parse(Int, x), m.captures)
         return KMeshCard(MonkhorstPackGrid(data[1:3], data[4:6]))
     end
 end # function Base.tryparse
+
 function Base.tryparse(::Type{SpecialPointsCard}, str::AbstractString)
     m = match(K_POINTS_SPECIAL_BLOCK, str)
     if m !== nothing
