@@ -226,7 +226,29 @@ struct AtomicPositionsCard <: Card
     end
 end
 
+abstract type KPointsCard <: Card end
 
+struct KMeshCard <: KPointsCard
+    data::MonkhorstPackGrid
+end
+
+struct GammaPointCard <: KPointsCard end
+
+"""
+    SpecialKPointsCard(data, option)
+Represent the `K_POINTS` card in QE.
+# Arguments
+- `data::Union{MonkhorstPackGrid,GammaPoint,AbstractVector{SpecialKPoint}}`: A Γ point, a Monkhorst--Pack grid or a vector containing `SpecialKPoint`s.
+- `option::String="tpiba"`: allowed values are: "tpiba", "automatic", "crystal", "gamma", "tpiba_b", "crystal_b", "tpiba_c" and "crystal_c".
+"""
+struct SpecialPointsCard <: KPointsCard
+    data::Vector{ReciprocalPoint}
+    option::String
+    function SpecialPointsCard(data, option = "tpiba")
+        @assert option in optionpool(SpecialPointsCard)
+        return new(data, option)
+    end
+end
 
 mutable struct PWInput
     ControlNL
@@ -461,7 +483,6 @@ AtomicSpecies(x::AtomicPosition, mass, pseudopot) = AtomicSpecies(x.atom, mass, 
 optionpool(::Type{AtomicPositionsCard}) =
     ("alat", "bohr", "angstrom", "crystal", "crystal_sg")
 
-
 export AtomicPosition
 export AtomicPositionsCard
 
@@ -562,30 +583,6 @@ function Base.tryparse(::Type{AtomicPositionsCard}, str::AbstractString)
         )
     end
 end # function Base.tryparse
-
-abstract type KPointsCard <: Card end
-
-struct KMeshCard <: KPointsCard
-    data::MonkhorstPackGrid
-end
-
-struct GammaPointCard <: KPointsCard end
-
-"""
-    SpecialKPointsCard(data, option)
-Represent the `K_POINTS` card in QE.
-# Arguments
-- `data::Union{MonkhorstPackGrid,GammaPoint,AbstractVector{SpecialKPoint}}`: A Γ point, a Monkhorst--Pack grid or a vector containing `SpecialKPoint`s.
-- `option::String="tpiba"`: allowed values are: "tpiba", "automatic", "crystal", "gamma", "tpiba_b", "crystal_b", "tpiba_c" and "crystal_c".
-"""
-struct SpecialPointsCard <: KPointsCard
-    data::Vector{ReciprocalPoint}
-    option::String
-    function SpecialPointsCard(data, option = "tpiba")
-        @assert option in optionpool(SpecialPointsCard)
-        return new(data, option)
-    end
-end
 
 export KPointsCard, KMeshCard, GammaPointCard, SpecialPointsCard
 export ReciprocalPoint, MonkhorstPackGrid
