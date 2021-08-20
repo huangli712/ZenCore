@@ -376,7 +376,7 @@ mutable struct PWInput
 end
 
 #=
-### *Customized Structs : Input Blocks*
+### *Constants Tuples : Namelists*
 =#
 
 """
@@ -560,12 +560,16 @@ const _ELECTRONS = (
     :real_space
 )
 
+#=
+### *Constants Regex*
+=#
+
 const ATOMIC_SPECIES_BLOCK = r"""
 ^ [ \t]* ATOMIC_SPECIES [ \t]* \R+
 (?P<block>
- (?:
-  ^ [ \t]* \S+ [ \t]+ (?:[-+]?[0-9]*\.[0-9]+|[0-9]+\.?[0-9]*) [ \t]+ \S+ [ \t]* \R?
- )+
+    (?:
+        ^ [ \t]* \S+ [ \t]+ (?:[-+]?[0-9]*\.[0-9]+|[0-9]+\.?[0-9]*) [ \t]+ \S+ [ \t]* \R?
+    )+
 )
 """imx
 
@@ -617,7 +621,6 @@ const ATOMIC_POSITIONS_BLOCK = r"""
 )
 """imx
 
-# This regular expression is taken from https://github.com/aiidateam/qe-tools/blob/aedee19/qe_tools/parsers/_input_base.py
 const ATOMIC_POSITIONS_ITEM = r"""
 ^                                       # Linestart
 [ \t]*                                  # Optional white space
@@ -644,17 +647,16 @@ const ATOMIC_POSITIONS_ITEM = r"""
 (?P<fz>[01]?)                           # Get fx
 """mx
 
-# This regular expression is taken from https://github.com/aiidateam/qe-tools/blob/develop/qe_tools/parsers/pwinputparser.py
 const K_POINTS_AUTOMATIC_BLOCK = r"""
 ^ [ \t]* K_POINTS [ \t]* [{(]? [ \t]* automatic [ \t]* [)}]? [ \t]* \R
 ^ [ \t]* (\d+) [ \t]+ (\d+) [ \t]+ (\d+) [ \t]+ (\d+) [ \t]+ (\d+)
     [ \t]+ (\d+) [ \t]* \R?
 """imx
-# This regular expression is taken from https://github.com/aiidateam/qe-tools/blob/develop/qe_tools/parsers/pwinputparser.py
+
 const K_POINTS_GAMMA_BLOCK = r"""
 ^ [ \t]* K_POINTS [ \t]* [{(]? [ \t]* gamma [ \t]* [)}]? [ \t]* \R*
 """imx
-# This regular expression is taken from https://github.com/aiidateam/qe-tools/blob/develop/qe_tools/parsers/pwinputparser.py
+
 const K_POINTS_SPECIAL_BLOCK = r"""
 ^ [ \t]* K_POINTS [ \t]*
     [{(]? [ \t]* (?P<type>\S+?)? [ \t]* [)}]? [ \t]* \R+
@@ -665,31 +667,37 @@ const K_POINTS_SPECIAL_BLOCK = r"""
  )+
 )
 """imx
-# This regular expression is taken from https://github.com/aiidateam/qe-tools/blob/develop/qe_tools/parsers/pwinputparser.py
+
 const K_POINTS_SPECIAL_ITEM = r"""
 ^ [ \t]* (\S+) [ \t]+ (\S+) [ \t]+ (\S+) [ \t]+ (\S+) [ \t]* \R?
 """mx
 
+#=
+### *Parsers*
+=#
+
 function Base.tryparse(::Type{AtomicSpeciesCard}, str::AbstractString)
     m = match(ATOMIC_SPECIES_BLOCK, str)
-    # Function `match` only searches for the first match of the regular expression, so it could be a `nothing`
+
+    # Function `match` only searches for the first match of the regular
+    # expression, so it could be a `nothing`
     if m !== nothing
         content = only(m.captures)
         return AtomicSpeciesCard(
             map(eachmatch(ATOMIC_SPECIES_ITEM, content)) do matched
                 captured = matched.captures
-                #println(captured)
-                atom, mass, pseudopotential =
-                    captured[1], parse(Float64, captured[2]), captured[3]
-                AtomicSpecies(atom, mass, pseudopotential)
+                atom, mass, upf = captured[1], parse(F64, captured[2]), captured[3]
+                AtomicSpecies(atom, mass, upf)
             end,
         )
     end
-end # function Base.tryparse
+end
 
 function Base.tryparse(::Type{AtomicPositionsCard}, str::AbstractString)
     m = match(ATOMIC_POSITIONS_BLOCK, str)
-    # Function `match` only searches for the first match of the regular expression, so it could be a `nothing`
+
+    # Function `match` only searches for the first match of the regular
+    # expression, so it could be a `nothing`
     if m !== nothing
         if string(m.captures[1]) === nothing
             @warn "Not specifying units is DEPRECATED and will no longer be allowed in the future!"
