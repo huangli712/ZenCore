@@ -133,15 +133,13 @@ struct MonkhorstPackGrid
 end
 
 """
-    AtomicSpecies(atom::Union{AbstractChar,String}, mass::Float64, pseudopot::String)
-    AtomicSpecies(x::AtomicPosition, mass, pseudopot)
+    AtomicSpecies
 
-Represent each line of the `ATOMIC_SPECIES` card in QE.
-The `atom` field accepts at most 3 characters.
+Represent each line of the `ATOMIC_SPECIES` card in QE. The `atom`
+field accepts at most 3 characters.
 
 ### Examples
-```jldoctest
-julia> using QuantumESPRESSOBase.Cards.PWscf
+```julia-repl
 julia> AtomicSpecies("C1", 12, "C.pbe-n-kjpaw_psl.1.0.0.UPF")
 AtomicSpecies("C1", 12.0, "C.pbe-n-kjpaw_psl.1.0.0.UPF")
 julia> AtomicSpecies(
