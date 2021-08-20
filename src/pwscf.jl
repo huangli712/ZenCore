@@ -680,7 +680,7 @@ function Base.tryparse(::Type{AtomicSpeciesCard}, str::AbstractString)
     m = match(ATOMIC_SPECIES_BLOCK, str)
 
     # Function `match` only searches for the first match of the regular
-    # expression, so it could be a `nothing`
+    # expression, so it could be a `nothing`.
     if m !== nothing
         content = only(m.captures)
         return AtomicSpeciesCard(
@@ -697,7 +697,7 @@ function Base.tryparse(::Type{AtomicPositionsCard}, str::AbstractString)
     m = match(ATOMIC_POSITIONS_BLOCK, str)
 
     # Function `match` only searches for the first match of the regular
-    # expression, so it could be a `nothing`
+    # expression, so it could be a `nothing`.
     if m !== nothing
         if string(m.captures[1]) === nothing
             @warn "Not specifying units is DEPRECATED and will no longer be allowed in the future!"
@@ -709,13 +709,18 @@ function Base.tryparse(::Type{AtomicPositionsCard}, str::AbstractString)
         content = m.captures[2]
         return AtomicPositionsCard(
             map(eachmatch(ATOMIC_POSITIONS_ITEM, content)) do matched
-                # The `matched` cannot be a `nothing` since we have tested by the block regular expression
+                # The `matched` cannot be a `nothing` since we have
+                # tested by the block regular expression.
                 captured = matched.captures
-                # The `if_pos` field is optionally given by users. If they do not give, we provide the default values `1`.
-                if_pos = map(x -> isempty(x) ? 1 : parse(Int, x), captured[11:13])
-                # The `atom` and `pos` fields are mandatory. So we do not need special treatment.
-                atom, pos = captured[1],
-                map(x -> parse(Float64, x), [captured[2], captured[5], captured[8]])
+                #
+                # The `if_pos` field is optionally given by users. If
+                # they do not give, we provide the default values `1`.
+                if_pos = map(x -> isempty(x) ? 1 : parse(I64, x), captured[11:13])
+                #
+                # The `atom` and `pos` fields are mandatory. So we do
+                # not need special treatment.
+                atom, pos = captured[1], 
+                    map(x -> parse(F64, x), [captured[2], captured[5], captured[8]])
                 AtomicPosition(atom, pos, if_pos)
             end,
             option,
