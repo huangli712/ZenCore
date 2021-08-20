@@ -137,7 +137,7 @@ struct MonkhorstPackGrid
 end
 
 #=
-### *Customized Structs : ATOMIC_SPECIES Block*
+### *Customized Structs : Input Entity*
 =#
 
 """
@@ -223,17 +223,33 @@ struct AtomicPosition
     end
 end
 
+#=
+### *Customized Structs : Input Blocks*
+=#
+
 """
     Card
 
-Represent abstract `CAR` or cards of an `Input` in Quantum ESPRESSO.
+Represent abstract cards of an `Input` in Quantum ESPRESSO. It is used
+to build the internal type system.
 """
 abstract type Card end
+
+"""
+    KPointsCard
+
+Represent abstract ``k``-mesh or ``k``-path in Quantum ESPRESSO.
+"""
+abstract type KPointsCard <: Card end
 
 """
     AtomicSpeciesCard
 
 Represent the `ATOMIC_SPECIES` card in Quantum ESPRESSO.
+
+### Members
+
+* data -> A vector containing `AtomicSpecies`.
 
 See also: [`AtomicSpecies`](@ref).
 """
@@ -242,7 +258,7 @@ struct AtomicSpeciesCard <: Card
 end
 
 """
-    AtomicPositionsCard <: Card
+    AtomicPositionsCard
 
 Represent the `ATOMIC_POSITIONS` card in Quantum ESPRESSO.
 
@@ -264,8 +280,6 @@ struct AtomicPositionsCard <: Card
         return new(data, option)
     end
 end
-
-abstract type KPointsCard <: Card end
 
 struct KMeshCard <: KPointsCard
     data :: MonkhorstPackGrid
