@@ -202,11 +202,6 @@ field accepts at most 3 characters.
 ```julia-repl
 julia> AtomicPosition('O', [0, 0, 0])
 AtomicPosition("O", [0.0, 0.0, 0.0], Bool[1, 1, 1])
-julia> AtomicPosition(
-           AtomicSpecies('S', 32.066, "S.pz-n-rrkjus_psl.0.1.UPF"),
-           [0.500000000, 0.288675130, 1.974192764],
-       )
-AtomicPosition("S", [0.5, 0.28867513, 1.974192764], Bool[1, 1, 1])
 ```
 
 See also: [`AtomicPositionsCard`](@ref).
@@ -222,6 +217,27 @@ struct AtomicPosition
         return new(string(atom), pos, if_pos)
     end
 end
+
+"""
+    AtomicPosition(atom, pos)
+    AtomicPosition(x::AtomicSpecies, pos, if_pos)
+
+Constructors for `AtomicPosition`.
+
+### Examples
+
+```julia-repl
+julia> AtomicPosition(
+           AtomicSpecies('S', 32.066, "S.pz-n-rrkjus_psl.0.1.UPF"),
+           [0.500000000, 0.288675130, 1.974192764],
+       )
+AtomicPosition("S", [0.5, 0.28867513, 1.974192764], Bool[1, 1, 1])
+```
+
+See also: [`AtomicPositionsCard`](@ref).
+"""
+AtomicPosition(atom, pos) = AtomicPosition(atom, pos, trues(3))
+AtomicPosition(x::AtomicSpecies, pos, if_pos) = AtomicPosition(x.atom, pos, if_pos)
 
 #=
 ### *Customized Structs : Input Blocks*
@@ -284,7 +300,7 @@ end
 """
     KMeshCard
 
-Represent the `K_POINTS` card in Quantum ESPRESSO.
+Represent the `K_POINTS` card in Quantum ESPRESSO (`automatic` mode).
 
 See also: [`KPointsCard`](@ref).
 """
@@ -295,7 +311,7 @@ end
 """
     GammaPointCard
 
-Represent the `K_POINTS` card in Quantum ESPRESSO.
+Represent the `K_POINTS` card in Quantum ESPRESSO (`gamma` mode).
 
 See also: [`KPointsCard`](@ref).
 """
@@ -730,10 +746,5 @@ function Base.parse(::Type{T}, str::AbstractString) where {T<:Card}
     end
 end # function Base.parse
 
-optionpool(::Type{KMeshCard}) = ("automatic",)
-optionpool(::Type{GammaPointCard}) = ("gamma",)
-
-AtomicPosition(atom, pos) = AtomicPosition(atom, pos, trues(3))
-AtomicPosition(x::AtomicSpecies, pos, if_pos) = AtomicPosition(x.atom, pos, if_pos)
 # Introudce mutual constructors since they share the same atoms.
 AtomicSpecies(x::AtomicPosition, mass, pseudopot) = AtomicSpecies(x.atom, mass, pseudopot)
