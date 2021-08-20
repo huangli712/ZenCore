@@ -138,7 +138,17 @@ end
 Represent each line of the `ATOMIC_SPECIES` card in QE. The `atom`
 field accepts at most 3 characters.
 
+### Members
+
+* atom -> Label of the atom. Maximum total length cannot exceed
+          3 characters.
+* mass -> Mass of the atomic species in atomic unit. Used only when
+          performing molecular dynamics (MD) run or structural
+          optimization runs using damped MD.
+* upf  -> File containing pseudopotential for this species.
+
 ### Examples
+
 ```julia-repl
 julia> AtomicSpecies("C1", 12, "C.pbe-n-kjpaw_psl.1.0.0.UPF")
 AtomicSpecies("C1", 12.0, "C.pbe-n-kjpaw_psl.1.0.0.UPF")
@@ -149,27 +159,18 @@ julia> AtomicSpecies(
        )
 AtomicSpecies("S", 32.066, "S.pz-n-rrkjus_psl.0.1.UPF")
 ```
+
+See also: [`AtomicSpeciesCard`](@ref).
 """
 struct AtomicSpecies
-    "Label of the atom. Max total length cannot exceed 3 characters."
     atom :: String
-    """
-    Mass of the atomic species in atomic unit.
-    Used only when performing molecular dynamics (MD) run
-    or structural optimization runs using damped MD.
-    Not actually used in all other cases (but stored
-    in data files, so phonon calculations will use
-    these values unless other values are provided).
-    """
-    mass :: Float64
-    """
-    File containing pseudopotential for this species.
-    See also: [`pseudoformat`](@ref)
-    """
-    pseudopot::String
-    function AtomicSpecies(atom::Union{AbstractChar,AbstractString}, mass, pseudopot)
-        @assert length(atom) <= 3 "`atom` can have at most 3 characters!"
-        return new(string(atom), mass, pseudopot)
+    mass :: F64
+    upf  :: String
+
+    # Inner constructor
+    function AtomicSpecies(atom::Union{AbstractChar,AbstractString}, mass, upf)
+        @assert length(atom) ≤ 3
+        return new(string(atom), mass, upf)
     end
 end
 
