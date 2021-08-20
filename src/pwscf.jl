@@ -399,3 +399,10 @@ struct AtomicPositionsCard <: Card
         return new(data, option)
     end
 end
+
+optionpool(::Type{AtomicPositionsCard}) =
+    ("alat", "bohr", "angstrom", "crystal", "crystal_sg")
+
+
+export AtomicPosition
+export AtomicPositionsCard
