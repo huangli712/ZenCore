@@ -87,18 +87,17 @@ end
 ### *Customized Structs*
 =#
 
-#export ReciprocalPoint, MonkhorstPackGrid
-#export AtomicSpecies, AtomicSpeciesCard
-#export AtomicPosition, AtomicPositionsCard
-#export KPointsCard, KMeshCard, GammaPointCard, SpecialPointsCard
-
 """
-    ReciprocalPoint(x, y, z, w)
-Represent a special point of the 3D Brillouin zone. Each of them has a weight `w`.
+    ReciprocalPoint
+
+Represent a special point of the 3D Brillouin zone. Each of them has
+a weight `w`.
+
+See also: [`MonkhorstPackGrid`](@ref).
 """
 struct ReciprocalPoint{T}
-    coord :: Vector{T}
-    weight:: Float64
+    coord  :: Vector{T}
+    weight :: F64
 end
 
 """
