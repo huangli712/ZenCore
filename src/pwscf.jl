@@ -504,3 +504,89 @@ function Base.tryparse(::Type{AtomicPositionsCard}, str::AbstractString)
         )
     end
 end # function Base.tryparse
+
+"""
+    ReciprocalPoint(x, y, z, w)
+Represent a special point of the 3D Brillouin zone. Each of them has a weight `w`.
+"""
+struct ReciprocalPoint{T}
+    coord :: Vector{T}
+    weight:: Float64
+end
+
+"""
+    MonkhorstPackGrid(mesh, is_shift)
+Represent the Monkhorst--Pack grid.
+# Arguments
+- `mesh`: A length-three vector specifying the k-point grid (``nk_1 × nk_2 × nk_3``) as in Monkhorst--Pack grids.
+- `is_shift`: A length-three vector specifying whether the grid is displaced by half a grid step in the corresponding directions.
+"""
+struct MonkhorstPackGrid
+    mesh::Vector{UInt}
+    is_shift::Vector{Bool}
+    function MonkhorstPackGrid(mesh, is_shift)
+        @assert all(mesh .>= 1)
+        if eltype(is_shift) != Bool
+            is_shift = Bool.(is_shift)
+        end
+        return new(mesh, is_shift)
+    end
+end
+
+abstract type KPointsCard <: Card end
+
+struct KMeshCard <: KPointsCard
+    data::MonkhorstPackGrid
+end
+
+struct GammaPointCard <: KPointsCard end
+
+"""
+    SpecialKPointsCard(data, option)
+Represent the `K_POINTS` card in QE.
+# Arguments
+- `data::Union{MonkhorstPackGrid,GammaPoint,AbstractVector{SpecialKPoint}}`: A Γ point, a Monkhorst--Pack grid or a vector containing `SpecialKPoint`s.
+- `option::String="tpiba"`: allowed values are: "tpiba", "automatic", "crystal", "gamma", "tpiba_b", "crystal_b", "tpiba_c" and "crystal_c".
+"""
+struct SpecialPointsCard <: KPointsCard
+    data::Vector{ReciprocalPoint}
+    option::String
+    function SpecialPointsCard(data, option = "tpiba")
+        @assert option in optionpool(SpecialPointsCard)
+        return new(data, option)
+    end
+end
+
+export KPointsCard, KMeshCard, GammaPointCard, SpecialPointsCard
+export ReciprocalPoint, MonkhorstPackGrid
+
+optionpool(::Type{KMeshCard}) = ("automatic",)
+optionpool(::Type{GammaPointCard}) = ("gamma",)
+optionpool(::Type{SpecialPointsCard}) =
+    ("tpiba", "crystal", "tpiba_b", "crystal_b", "tpiba_c", "crystal_c")
+
+# This regular expression is taken from https://github.com/aiidateam/qe-tools/blob/develop/qe_tools/parsers/pwinputparser.py
+const K_POINTS_AUTOMATIC_BLOCK = r"""
+^ [ \t]* K_POINTS [ \t]* [{(]? [ \t]* automatic [ \t]* [)}]? [ \t]* \R
+^ [ \t]* (\d+) [ \t]+ (\d+) [ \t]+ (\d+) [ \t]+ (\d+) [ \t]+ (\d+)
+    [ \t]+ (\d+) [ \t]* \R?
+"""imx
+# This regular expression is taken from https://github.com/aiidateam/qe-tools/blob/develop/qe_tools/parsers/pwinputparser.py
+const K_POINTS_GAMMA_BLOCK = r"""
+^ [ \t]* K_POINTS [ \t]* [{(]? [ \t]* gamma [ \t]* [)}]? [ \t]* \R*
+"""imx
+# This regular expression is taken from https://github.com/aiidateam/qe-tools/blob/develop/qe_tools/parsers/pwinputparser.py
+const K_POINTS_SPECIAL_BLOCK = r"""
+^ [ \t]* K_POINTS [ \t]*
+    [{(]? [ \t]* (?P<type>\S+?)? [ \t]* [)}]? [ \t]* \R+
+^ [ \t]* \S+ [ \t]* \R+  # nks
+(?P<block>
+ (?:
+  ^ [ \t]* \S+ [ \t]+ \S+ [ \t]+ \S+ [ \t]+ \S+ [ \t]* \R*
+ )+
+)
+"""imx
+# This regular expression is taken from https://github.com/aiidateam/qe-tools/blob/develop/qe_tools/parsers/pwinputparser.py
+const K_POINTS_SPECIAL_ITEM = r"""
+^ [ \t]* (\S+) [ \t]+ (\S+) [ \t]+ (\S+) [ \t]+ (\S+) [ \t]* \R?
+"""mx
