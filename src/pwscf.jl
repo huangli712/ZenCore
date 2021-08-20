@@ -494,10 +494,10 @@ function Base.tryparse(::Type{AtomicPositionsCard}, str::AbstractString)
                 # The `matched` cannot be a `nothing` since we have tested by the block regular expression
                 captured = matched.captures
                 # The `if_pos` field is optionally given by users. If they do not give, we provide the default values `1`.
-                if_pos = map(x -> isempty(x) ? 1 : fparse(Int, x), captured[11:13])
+                if_pos = map(x -> isempty(x) ? 1 : parse(Int, x), captured[11:13])
                 # The `atom` and `pos` fields are mandatory. So we do not need special treatment.
                 atom, pos = captured[1],
-                map(x -> fparse(Float64, x), [captured[2], captured[5], captured[8]])
+                map(x -> parse(Float64, x), [captured[2], captured[5], captured[8]])
                 AtomicPosition(atom, pos, if_pos)
             end,
             option,
