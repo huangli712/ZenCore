@@ -726,34 +726,37 @@ function Base.tryparse(::Type{AtomicPositionsCard}, str::AbstractString)
             option,
         )
     end
-end # function Base.tryparse
+end
 
 function Base.tryparse(::Type{KMeshCard}, str::AbstractString)
     m = match(K_POINTS_AUTOMATIC_BLOCK, str)
+
     if m !== nothing
-        data = map(x -> parse(Int, x), m.captures)
+        data = map(x -> parse(I64, x), m.captures)
         return KMeshCard(MonkhorstPackGrid(data[1:3], data[4:6]))
     end
-end # function Base.tryparse
+end
 
 function Base.tryparse(::Type{GammaPointCard}, str::AbstractString)
     m = match(K_POINTS_GAMMA_BLOCK, str)
+
     return m === nothing ? nothing : GammaPointCard()
-end # function Base.tryparse
+end
 
 function Base.tryparse(::Type{SpecialPointsCard}, str::AbstractString)
     m = match(K_POINTS_SPECIAL_BLOCK, str)
+
     if m !== nothing
         option = m.captures[1] === nothing ? "tpiba" : m.captures[1]
         return SpecialPointsCard(
             map(eachmatch(K_POINTS_SPECIAL_ITEM, m.captures[2])) do matched
                 # TODO: Match `nks`
-                ReciprocalPoint(map(x -> fparse(Float64, x), matched.captures)...)
+                ReciprocalPoint(map(x -> parse(F64, x), matched.captures)...)
             end,
             option,
         )
     end
-end # function Base.tryparse
+end
 
 function Base.tryparse(::Type{KPointsCard}, str::AbstractString)
     for T in (GammaPointCard, KMeshCard, SpecialPointsCard)
@@ -762,7 +765,7 @@ function Base.tryparse(::Type{KPointsCard}, str::AbstractString)
             return x
         end
     end
-end # function Base.tryparse
+end
 
 function Base.parse(::Type{T}, str::AbstractString) where {T<:Card}
     x = tryparse(T, str)
@@ -771,4 +774,4 @@ function Base.parse(::Type{T}, str::AbstractString) where {T<:Card}
     else
         return x
     end
-end # function Base.parse
+end
