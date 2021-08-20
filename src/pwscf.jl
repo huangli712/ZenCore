@@ -160,12 +160,6 @@ field accepts at most 3 characters.
 ```julia-repl
 julia> AtomicSpecies("C1", 12, "C.pbe-n-kjpaw_psl.1.0.0.UPF")
 AtomicSpecies("C1", 12.0, "C.pbe-n-kjpaw_psl.1.0.0.UPF")
-julia> AtomicSpecies(
-           AtomicPosition('S', [0.500000000, 0.288675130, 1.974192764]),
-           32.066,
-           "S.pz-n-rrkjus_psl.0.1.UPF",
-       )
-AtomicSpecies("S", 32.066, "S.pz-n-rrkjus_psl.0.1.UPF")
 ```
 
 See also: [`AtomicSpeciesCard`](@ref).
@@ -181,6 +175,26 @@ struct AtomicSpecies
         return new(string(atom), mass, upf)
     end
 end
+
+"""
+    AtomicSpecies(x::AtomicPosition, mass, upf)
+
+Constructor for `AtomicSpecies`.
+
+### Examples
+
+```julia-repl
+julia> AtomicSpecies(
+           AtomicPosition('S', [0.500000000, 0.288675130, 1.974192764]),
+           32.066,
+           "S.pz-n-rrkjus_psl.0.1.UPF",
+       )
+AtomicSpecies("S", 32.066, "S.pz-n-rrkjus_psl.0.1.UPF")
+```
+
+See also: [`AtomicSpeciesCard`](@ref).
+"""
+AtomicSpecies(x::AtomicPosition, mass, upf) = AtomicSpecies(x.atom, mass, upf)
 
 """
     AtomicPosition
@@ -745,6 +759,3 @@ function Base.parse(::Type{T}, str::AbstractString) where {T<:Card}
         return x
     end
 end # function Base.parse
-
-# Introudce mutual constructors since they share the same atoms.
-AtomicSpecies(x::AtomicPosition, mass, pseudopot) = AtomicSpecies(x.atom, mass, pseudopot)
