@@ -82,7 +82,6 @@ function process_namelists!(nml::Vector{Any}, keylist::Tuple)
     return NLData
 end
 
-
 #=
 ### *Customized Structs*
 =#
@@ -92,6 +91,11 @@ end
 
 Represent a special point of the 3D Brillouin zone. Each of them has
 a weight `w`.
+
+### Members
+
+* coord  -> Coordinates, i.e., ``k_x``, ``k_y``, and ``k_z``.
+* weight -> Weight for the ``k``-point.
 
 See also: [`MonkhorstPackGrid`](@ref).
 """
