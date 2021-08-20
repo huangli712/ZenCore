@@ -87,6 +87,12 @@ end
 ### *Customized Structs*
 =#
 
+export AtomicSpeciesCard
+export AtomicSpecies
+export KPointsCard, KMeshCard, GammaPointCard, SpecialPointsCard
+export ReciprocalPoint, MonkhorstPackGrid
+
+
 """
     ReciprocalPoint(x, y, z, w)
 Represent a special point of the 3D Brillouin zone. Each of them has a weight `w`.
@@ -455,9 +461,6 @@ const ATOMIC_SPECIES_ITEM = r"""
 """mx
 
 
-
-export AtomicSpeciesCard
-export AtomicSpecies
 function Base.tryparse(::Type{AtomicSpeciesCard}, str::AbstractString)
     m = match(ATOMIC_SPECIES_BLOCK, str)
     # Function `match` only searches for the first match of the regular expression, so it could be a `nothing`
@@ -510,7 +513,7 @@ const ATOMIC_POSITIONS_BLOCK = r"""
                             \d+                 # at least one decimal, followed by
                             [\.]?               # an optional dot ( both 1 and 1. are fine)
                             \d*                 # And optional number of decimals (1.00001)
-                        )                        # followed by optional decimals
+                        )                       # followed by optional decimals
                     )
                     ([E|e|d|D][+|-]?\d+)?       # optional exponents E+03, e-05
                 ){3}                            # I expect three float values
@@ -556,6 +559,32 @@ const ATOMIC_POSITIONS_ITEM = r"""
 (?P<fz>[01]?)                           # Get fx
 """mx
 
+# This regular expression is taken from https://github.com/aiidateam/qe-tools/blob/develop/qe_tools/parsers/pwinputparser.py
+const K_POINTS_AUTOMATIC_BLOCK = r"""
+^ [ \t]* K_POINTS [ \t]* [{(]? [ \t]* automatic [ \t]* [)}]? [ \t]* \R
+^ [ \t]* (\d+) [ \t]+ (\d+) [ \t]+ (\d+) [ \t]+ (\d+) [ \t]+ (\d+)
+    [ \t]+ (\d+) [ \t]* \R?
+"""imx
+# This regular expression is taken from https://github.com/aiidateam/qe-tools/blob/develop/qe_tools/parsers/pwinputparser.py
+const K_POINTS_GAMMA_BLOCK = r"""
+^ [ \t]* K_POINTS [ \t]* [{(]? [ \t]* gamma [ \t]* [)}]? [ \t]* \R*
+"""imx
+# This regular expression is taken from https://github.com/aiidateam/qe-tools/blob/develop/qe_tools/parsers/pwinputparser.py
+const K_POINTS_SPECIAL_BLOCK = r"""
+^ [ \t]* K_POINTS [ \t]*
+    [{(]? [ \t]* (?P<type>\S+?)? [ \t]* [)}]? [ \t]* \R+
+^ [ \t]* \S+ [ \t]* \R+  # nks
+(?P<block>
+ (?:
+  ^ [ \t]* \S+ [ \t]+ \S+ [ \t]+ \S+ [ \t]+ \S+ [ \t]* \R*
+ )+
+)
+"""imx
+# This regular expression is taken from https://github.com/aiidateam/qe-tools/blob/develop/qe_tools/parsers/pwinputparser.py
+const K_POINTS_SPECIAL_ITEM = r"""
+^ [ \t]* (\S+) [ \t]+ (\S+) [ \t]+ (\S+) [ \t]+ (\S+) [ \t]* \R?
+"""mx
+
 function Base.tryparse(::Type{AtomicPositionsCard}, str::AbstractString)
     m = match(ATOMIC_POSITIONS_BLOCK, str)
     # Function `match` only searches for the first match of the regular expression, so it could be a `nothing`
@@ -584,39 +613,11 @@ function Base.tryparse(::Type{AtomicPositionsCard}, str::AbstractString)
     end
 end # function Base.tryparse
 
-export KPointsCard, KMeshCard, GammaPointCard, SpecialPointsCard
-export ReciprocalPoint, MonkhorstPackGrid
-
 optionpool(::Type{KMeshCard}) = ("automatic",)
 optionpool(::Type{GammaPointCard}) = ("gamma",)
-optionpool(::Type{SpecialPointsCard}) =
-    ("tpiba", "crystal", "tpiba_b", "crystal_b", "tpiba_c", "crystal_c")
+optionpool(::Type{SpecialPointsCard}) = ("tpiba", "crystal", "tpiba_b", "crystal_b", "tpiba_c", "crystal_c")
 
-# This regular expression is taken from https://github.com/aiidateam/qe-tools/blob/develop/qe_tools/parsers/pwinputparser.py
-const K_POINTS_AUTOMATIC_BLOCK = r"""
-^ [ \t]* K_POINTS [ \t]* [{(]? [ \t]* automatic [ \t]* [)}]? [ \t]* \R
-^ [ \t]* (\d+) [ \t]+ (\d+) [ \t]+ (\d+) [ \t]+ (\d+) [ \t]+ (\d+)
-    [ \t]+ (\d+) [ \t]* \R?
-"""imx
-# This regular expression is taken from https://github.com/aiidateam/qe-tools/blob/develop/qe_tools/parsers/pwinputparser.py
-const K_POINTS_GAMMA_BLOCK = r"""
-^ [ \t]* K_POINTS [ \t]* [{(]? [ \t]* gamma [ \t]* [)}]? [ \t]* \R*
-"""imx
-# This regular expression is taken from https://github.com/aiidateam/qe-tools/blob/develop/qe_tools/parsers/pwinputparser.py
-const K_POINTS_SPECIAL_BLOCK = r"""
-^ [ \t]* K_POINTS [ \t]*
-    [{(]? [ \t]* (?P<type>\S+?)? [ \t]* [)}]? [ \t]* \R+
-^ [ \t]* \S+ [ \t]* \R+  # nks
-(?P<block>
- (?:
-  ^ [ \t]* \S+ [ \t]+ \S+ [ \t]+ \S+ [ \t]+ \S+ [ \t]* \R*
- )+
-)
-"""imx
-# This regular expression is taken from https://github.com/aiidateam/qe-tools/blob/develop/qe_tools/parsers/pwinputparser.py
-const K_POINTS_SPECIAL_ITEM = r"""
-^ [ \t]* (\S+) [ \t]+ (\S+) [ \t]+ (\S+) [ \t]+ (\S+) [ \t]* \R?
-"""mx
+
 
 function Base.tryparse(::Type{GammaPointCard}, str::AbstractString)
     m = match(K_POINTS_GAMMA_BLOCK, str)
