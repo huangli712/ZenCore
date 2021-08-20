@@ -384,4 +384,18 @@ AtomicPosition(x::AtomicSpecies, pos, if_pos) = AtomicPosition(x.atom, pos, if_p
 # Introudce mutual constructors since they share the same atoms.
 AtomicSpecies(x::AtomicPosition, mass, pseudopot) = AtomicSpecies(x.atom, mass, pseudopot)
 
-
+"""
+    AtomicPositionsCard <: Card
+Represent the `ATOMIC_POSITIONS` card in QE.
+# Arguments
+- `data::AbstractVector{AtomicPosition}`: A vector containing `AtomicPosition`s.
+- `option::String="alat"`: allowed values are: "alat", "bohr", "angstrom", "crystal", and "crystal_sg".
+"""
+struct AtomicPositionsCard <: Card
+    data::Vector{AtomicPosition}
+    option::String
+    function AtomicPositionsCard(data, option = "alat")
+        @assert option in optionpool(AtomicPositionsCard)
+        return new(data, option)
+    end
+end
