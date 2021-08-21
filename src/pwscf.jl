@@ -24,9 +24,10 @@ function pwscf_parser()
 
     open("case.scf", "w") do fout
         write(fout, ControlNL)
-    #    write(fout, SystemNamelist, SystemNL)
-    #    write(fout, ElectronsNamelist, ElectronsNL)
+        write(fout, SystemNL)
+        write(fout, ElectronsNL)
     end
+
     return PWInput(ControlNL, SystemNL, ElectronsNL, AtomicSpeciesBlock, AtomicPositionsBlock, KPointsBlock)
 end
 
