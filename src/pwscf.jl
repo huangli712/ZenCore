@@ -886,19 +886,3 @@ function Base.write(io::IO, ::Type{ControlNamelist}, nml::Dict{AbstractString,An
     end
     println(io, " /")
 end
-
-function Base.write(io::IO, ::Type{SystemNamelist}, nml::Dict{AbstractString,Any})
-    println(io, " @system")
-    for key in keys(nml)
-        println(io, "    $key = ", nml[key])
-    end
-    println(io, " /")
-end
-
-function Base.write(io::IO, ::Type{ElectronsNamelist}, nml::Dict{AbstractString,Any})
-    println(io, " @electrons")
-    for key in keys(nml)
-        println(io, "    $key = ", nml[key])
-    end
-    println(io, " /")
-end
