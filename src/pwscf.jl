@@ -303,6 +303,10 @@ mutable struct ElectronsNamelist <: Namelist
     data :: Dict{AbstractString,Any}
 end
 
+block_name(::Type{ControlNamelist}) = "control"
+block_name(::Type{SystemNamelist}) = "system"
+block_name(::Type{ElectronsNamelist}) = "electrons"
+
 """
     AtomicSpeciesCard
 
@@ -395,17 +399,14 @@ end
 Represent the input file of Quantum ESPRESSO.
 """
 mutable struct PWInput <: Input
-    ControlNL   :: Dict{AbstractString, Any}
-    SystemNL    :: Dict{AbstractString, Any}
-    ElectronsNL :: Dict{AbstractString, Any}
+    ControlNL   :: ControlNamelist
+    SystemNL    :: SystemNamelist
+    ElectronsNL :: ElectronsNamelist
+    #
     AtomicSpeciesBlock   :: AtomicSpeciesCard
     AtomicPositionsBlock :: AtomicPositionsCard
     KPointsBlock         :: KPointsCard
 end
-
-block_name(::Type{ControlNamelist}) = "control"
-block_name(::Type{SystemNamelist}) = "system"
-block_name(::Type{ElectronsNamelist}) = "electrons"
 
 #=
 ### *Constants Tuples*
