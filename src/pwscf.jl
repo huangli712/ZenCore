@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/08/20
+# Last modified: 2021/08/21
 #
 
 
@@ -81,6 +81,10 @@ function process_namelists!(nml::Vector{Any}, keylist::Tuple)
 
     return NLData
 end
+
+
+
+
 
 #=
 ### *Customized Structs : K-Grid*
