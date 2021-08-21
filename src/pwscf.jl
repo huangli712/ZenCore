@@ -13,9 +13,16 @@ end
 
 function pwscf_parser()
     lines = readlines("diamond.scf")
-    @show parse(ControlNamelist, lines)
-    @show parse(SystemNamelist, lines)
-    @show parse(ElectronsNamelist, lines)
+    ControlNL = parse(ControlNamelist, lines)
+    SystemNL = parse(SystemNamelist, lines)
+    ElectronsNL = parse(ElectronsNamelist, lines)
+
+    str = read("diamond.scf", String)
+    AtomicSpeciesBlock = parse(AtomicSpeciesCard, str)
+    AtomicPositionsBlock = parse(AtomicPositionsCard, str)
+    KPointsBlock = parse(KPointsCard, str)
+
+    return PWInput(ControlNL, SystemNL, ElectronsNL, AtomicSpeciesBlock, AtomicPositionsBlock, KPointsBlock)
 end
 
 function pwscf_parser1()
