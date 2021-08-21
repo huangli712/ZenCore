@@ -190,14 +190,14 @@ struct MonkhorstPackGrid
 end
 
 #=
-### *Customized Structs : Input Entity*
+### *Customized Structs : Input Entry*
 =#
 
 """
     AtomicSpecies
 
-Represent each line of the `ATOMIC_SPECIES` card in QE. The `atom`
-field accepts at most 3 characters.
+Represent each line of the `ATOMIC_SPECIES` card in Quantum ESPRESSO.
+The `atom` field accepts at most 3 characters.
 
 ### Members
 
