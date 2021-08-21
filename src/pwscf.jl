@@ -12,6 +12,11 @@ function pwscf_adaptor()
 end
 
 function pwscf_parser()
+    lines = readlines("diamond.scf")
+    tryparse(ControlNamelist, lines)
+end
+
+function pwscf_parser1()
     Namelists = Dict{Symbol,Any}()
     group_data = []
     group_start = false
@@ -37,9 +42,9 @@ function pwscf_parser()
         end
     end
 
-    ControlNL = process_namelists!(Namelists[:control], _CONTROL)
-    SystemNL = process_namelists!(Namelists[:system], _SYSTEM)
-    ElectronsNL = process_namelists!(Namelists[:electrons], _ELECTRONS)
+    ControlNL = process_namelists!(Namelists[:control], VAR_CONTROL)
+    SystemNL = process_namelists!(Namelists[:system], VAR_SYSTEM)
+    ElectronsNL = process_namelists!(Namelists[:electrons], VAR_ELECTRONS)
 
     str = read("diamond.scf", String)
     AtomicSpeciesBlock = parse(AtomicSpeciesCard, str)
@@ -47,39 +52,6 @@ function pwscf_parser()
     KPointsBlock = parse(KPointsCard, str)
 
     return PWInput(ControlNL, SystemNL, ElectronsNL, AtomicSpeciesBlock, AtomicPositionsBlock, KPointsBlock)
-end
-
-function process_namelists!(nml::Vector{Any}, keylist::Tuple)
-    popfirst!(nml)
-    NLData = Dict{AbstractString,Any}()
-    for i in eachindex(nml)
-        if count(",", nml[i]) > 0
-            pairs = split(nml[i], ",")
-            for j in eachindex(pairs)
-                key, value = map(x -> strip(x), split(pairs[j], "="))
-                ind = findfirst('(', key)
-                if ind isa Nothing
-                    @assert Symbol(key) in keylist
-                else
-                    subkey = SubString(key, 1:ind-1)
-                    @assert Symbol(subkey) in keylist
-                end
-                NLData[key] = value
-            end
-        else
-            key, value = map(x -> strip(x), split(nml[i], "="))
-            ind = findfirst('(', key)
-            if ind isa Nothing
-                @assert Symbol(key) in keylist
-            else
-                subkey = SubString(key, 1:ind-1)
-                @assert Symbol(subkey) in keylist
-            end
-            NLData[key] = value
-        end
-    end
-
-    return NLData
 end
 
 #=
@@ -737,6 +709,113 @@ const K_POINTS_SPECIAL_ITEM = r"""
 ### *Parsers*
 =#
 
+function parse_namelists(nml::Vector{Any}, vars::Tuple)
+    NLData = Dict{AbstractString,Any}()
+    for i in eachindex(nml)
+        if count(",", nml[i]) > 0
+            pairs = split(nml[i], ",")
+            for j in eachindex(pairs)
+                key, value = map(x -> strip(x), split(pairs[j], "="))
+                ind = findfirst('(', key)
+                if ind isa Nothing
+                    @assert Symbol(key) in vars
+                else
+                    subkey = SubString(key, 1:ind-1)
+                    @assert Symbol(subkey) in vars
+                end
+                NLData[key] = value
+            end
+        else
+            key, value = map(x -> strip(x), split(nml[i], "="))
+            ind = findfirst('(', key)
+            if ind isa Nothing
+                @assert Symbol(key) in vars
+            else
+                subkey = SubString(key, 1:ind-1)
+                @assert Symbol(subkey) in vars
+            end
+            NLData[key] = value
+        end
+    end
+
+    return NLData
+end
+
+function Base.tryparse(::Type{ControlNamelist}, strs::Vector{String})
+    group_data = []
+    group_meet = false
+    group_name = "unknown"
+    for l in eachindex(strs)
+        strip_line = strip(strip(strs[l]), ',')
+        if startswith(strip_line, "&")
+            group_name = lowercase(split(strip_line, "&")[2])
+            if group_name == "control"
+                group_meet = true
+            end
+        end
+
+        if startswith(strip_line, "/")
+            group_meet = false
+        end
+
+        if group_meet
+            push!(group_data, strip_line)
+        end
+    end
+    popfirst!(group_data)
+    return parse_namelists(group_data, VAR_CONTROL)
+end
+
+function Base.tryparse(::Type{SystemNamelist}, strs::Vector{String})
+    group_data = []
+    group_meet = false
+    group_name = "unknown"
+    for l in eachindex(strs)
+        strip_line = strip(strip(strs[l]), ',')
+        if startswith(strip_line, "&")
+            group_name = lowercase(split(strip_line, "&")[2])
+            if group_name == "system"
+                group_meet = true
+            end
+        end
+
+        if startswith(strip_line, "/")
+            group_meet = false
+        end
+
+        if group_meet
+            push!(group_data, strip_line)
+        end
+    end
+    popfirst!(group_data)
+    return parse_namelists(group_data, VAR_SYSTEM)
+end
+
+function Base.tryparse(::Type{ElectronsNamelist}, strs::Vector{String})
+    group_data = []
+    group_meet = false
+    group_name = "unknown"
+    for l in eachindex(strs)
+        strip_line = strip(strip(strs[l]), ',')
+        if startswith(strip_line, "&")
+            group_name = lowercase(split(strip_line, "&")[2])
+            if group_name == "electrons"
+                group_meet = true
+            end
+        end
+
+        if startswith(strip_line, "/")
+            group_meet = false
+        end
+
+        if group_meet
+            push!(group_data, strip_line)
+        end
+    end
+    popfirst!(group_data)
+    return parse_namelists(group_data, VAR_ELECTRONS)
+end
+
 function Base.tryparse(::Type{AtomicSpeciesCard}, str::AbstractString)
     m = match(ATOMIC_SPECIES_BLOCK, str)
 
@@ -800,7 +879,6 @@ end
 
 function Base.tryparse(::Type{GammaPointCard}, str::AbstractString)
     m = match(K_POINTS_GAMMA_BLOCK, str)
-
     return m === nothing ? nothing : GammaPointCard()
 end
 
