@@ -13,9 +13,9 @@ end
 
 function pwscf_parser()
     lines = readlines("diamond.scf")
-    tryparse(ControlNamelist, lines)
-    tryparse(SystemNamelist, lines)
-    tryparse(ElectronsNamelist, lines)
+    parse(ControlNamelist, lines)
+    parse(SystemNamelist, lines)
+    parse(ElectronsNamelist, lines)
     #ControlNL = parse(ControlNamelist, lines)
     #SystemNL = parse(SystemNamelist, lines)
     #ElectronsNL = parse(ElectronsNamelist, lines)
@@ -772,7 +772,12 @@ function Base.tryparse(::Type{T}, strs::Vector{String}) where {T <: Namelist}
 
     popfirst!(group_data)
 
-    return T( namelists( group_data, block_vars(T) ) )
+    return namelists(group_data, block_vars(T))
+end
+
+function Base.parse(::Type{T}, strs::Vector{String}) where {T <: Namelist}
+    x = tryparse(T, strs)
+    return T(x)
 end
 
 function Base.tryparse(::Type{AtomicSpeciesCard}, str::AbstractString)
@@ -863,11 +868,6 @@ function Base.tryparse(::Type{KPointsCard}, str::AbstractString)
             return x
         end
     end
-end
-
-function Base.parse(::Type{T}, strs::Vector{String}) where {T <: Namelist}
-    x = tryparse(T, strs)
-    return x
 end
 
 function Base.parse(::Type{T}, str::AbstractString) where {T<:Card}
