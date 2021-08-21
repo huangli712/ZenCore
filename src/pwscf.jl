@@ -751,6 +751,7 @@ function Base.tryparse(::Type{T}, strs::Vector{String}) where {T <: Namelist}
     group_data = []
     group_meet = false
     group_name = "unknown"
+
     for l in eachindex(strs)
         strip_line = strip(strip(strs[l]), ',')
         if startswith(strip_line, "&")
@@ -768,8 +769,10 @@ function Base.tryparse(::Type{T}, strs::Vector{String}) where {T <: Namelist}
             push!(group_data, strip_line)
         end
     end
+
     popfirst!(group_data)
-    namelists(group_data, block_vars(T))
+
+    return T( namelists( group_data, block_vars(T) ) )
 end
 
 #=
