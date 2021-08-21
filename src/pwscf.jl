@@ -13,7 +13,9 @@ end
 
 function pwscf_parser()
     lines = readlines("diamond.scf")
-    parse(ControlNamelist, lines)
+    @show parse(ControlNamelist, lines)
+    @show parse(SystemNamelist, lines)
+    @show parse(ElectronsNamelist, lines)
 end
 
 function pwscf_parser1()
