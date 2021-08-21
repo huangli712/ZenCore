@@ -442,11 +442,11 @@ end
 =#
 
 """
-    _CONTROL
+    VAR_CONTROL
 
 Represent the `CONTROL` namelist of `pwscf`.
 """
-const _CONTROL = (
+const VAR_CONTROL = (
     :calculation     ,
     :title           ,
     :verbosity       ,
@@ -479,11 +479,11 @@ const _CONTROL = (
 )
 
 """
-    _SYSTEM
+    VAR_SYSTEM
 
 Represent the `SYSTEM` namelist of `pwscf`.
 """
-const _SYSTEM = (
+const VAR_SYSTEM = (
     :ibrav                     ,
     :celldm                    ,
     :A                         ,
@@ -593,11 +593,11 @@ const _SYSTEM = (
 )
 
 """
-    _ELECTRONS
+    VAR_ELECTRONS
 
 Represent the `ELECTRONS` namelist of `pwscf`.
 """
-const _ELECTRONS = (
+const VAR_ELECTRONS = (
     :electron_maxstep  ,
     :scf_must_converge ,
     :conv_thr          ,
