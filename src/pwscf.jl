@@ -403,8 +403,7 @@ Represent the `K_POINTS` card in Quantum ESPRESSO.
 ### Members
 
 * data   -> A vector containing `ReciprocalPoint`s.
-* option -> Allowed values are: `tpiba`, `crystal`, `tpiba_b`,
-            `crystal_b`, `tpiba_c` and `crystal_c`.
+* option -> The way about how to define ``k``-mesh.
 
 See also: [`KPointsCard`](@ref).
 """
@@ -429,7 +428,7 @@ end
 
 Represent the input file of Quantum ESPRESSO.
 """
-mutable struct PWInput
+mutable struct PWInput <: Input
     ControlNL   :: Dict{AbstractString, Any}
     SystemNL    :: Dict{AbstractString, Any}
     ElectronsNL :: Dict{AbstractString, Any}
