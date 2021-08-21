@@ -773,11 +773,6 @@ function Base.tryparse(::Type{T}, strs::Vector{String}) where {T <: Namelist}
     return namelists(group_data, block_vars(T))
 end
 
-function Base.parse(::Type{T}, strs::Vector{String}) where {T <: Namelist}
-    x = tryparse(T, strs)
-    return T(x)
-end
-
 function Base.tryparse(::Type{AtomicSpeciesCard}, str::AbstractString)
     m = match(ATOMIC_SPECIES_BLOCK, str)
 
@@ -868,18 +863,22 @@ function Base.tryparse(::Type{KPointsCard}, str::AbstractString)
     end
 end
 
+function Base.parse(::Type{T}, strs::Vector{String}) where {T <: Namelist}
+    x = tryparse(T, strs)
+    return T(x)
+end
+
 function Base.parse(::Type{T}, str::AbstractString) where {T<:Card}
     x = tryparse(T, str)
     if x === nothing
-        throw(Meta.ParseError("cannot find card `$(groupname(T))`!"))
+        throw(Meta.ParseError("cannot find card `$(block_name(T))`!"))
     else
         return x
     end
 end
 
 function Base.write(io::IO, x::T) where {T <: Namelist}
-    group_name = block_name(T)
-    println(io, " @$group_name")
+    println(io, " @$(block_name(T))")
     for key in keys(x.data)
         println(io, "    $key = ", x.data[key])
     end
