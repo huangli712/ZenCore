@@ -22,8 +22,6 @@ function pwscf_parser()
     AtomicPositionsBlock = parse(AtomicPositionsCard, str)
     KPointsBlock = parse(KPointsCard, str)
 
-    println(lines)
-    println(str)
     return PWInput(ControlNL, SystemNL, ElectronsNL, AtomicSpeciesBlock, AtomicPositionsBlock, KPointsBlock)
 end
 
@@ -682,8 +680,9 @@ const K_POINTS_SPECIAL_ITEM = r"""
 ### *Parsers*
 =#
 
-function parse_namelists(nml::Vector{Any}, vars::Tuple)
+function namelists(nml::Vector{Any}, vars::Tuple)
     NLData = Dict{AbstractString,Any}()
+
     for i in eachindex(nml)
         if count(",", nml[i]) > 0
             pairs = split(nml[i], ",")
@@ -736,7 +735,7 @@ function Base.tryparse(::Type{ControlNamelist}, strs::Vector{String})
         end
     end
     popfirst!(group_data)
-    return parse_namelists(group_data, VAR_CONTROL)
+    return namelists(group_data, VAR_CONTROL)
 end
 
 function Base.tryparse(::Type{SystemNamelist}, strs::Vector{String})
@@ -761,7 +760,7 @@ function Base.tryparse(::Type{SystemNamelist}, strs::Vector{String})
         end
     end
     popfirst!(group_data)
-    return parse_namelists(group_data, VAR_SYSTEM)
+    return namelists(group_data, VAR_SYSTEM)
 end
 
 function Base.tryparse(::Type{ElectronsNamelist}, strs::Vector{String})
@@ -786,7 +785,7 @@ function Base.tryparse(::Type{ElectronsNamelist}, strs::Vector{String})
         end
     end
     popfirst!(group_data)
-    return parse_namelists(group_data, VAR_ELECTRONS)
+    return namelists(group_data, VAR_ELECTRONS)
 end
 
 function Base.tryparse(::Type{AtomicSpeciesCard}, str::AbstractString)
