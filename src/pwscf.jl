@@ -311,6 +311,33 @@ AtomicPosition(x::AtomicSpecies, pos, if_pos) = AtomicPosition(x.atom, pos, if_p
 =#
 
 """
+    ControlNamelist
+
+Represent the `control` namelist in Quantum ESPRESSO.
+
+See also: [`Namelist`](@ref).
+"""
+struct ControlNamelist <: Namelist end
+
+"""
+    SystemNamelist
+
+Represent the `control` namelist in Quantum ESPRESSO.
+
+See also: [`Namelist`](@ref).
+"""
+struct SystemNamelist <: Namelist end
+
+"""
+    ElectronsNamelist
+
+Represent the `control` namelist in Quantum ESPRESSO.
+
+See also: [`Namelist`](@ref).
+"""
+struct ElectronsNamelist <: Namelist end
+
+"""
     AtomicSpeciesCard
 
 Represent the `ATOMIC_SPECIES` card in Quantum ESPRESSO.
@@ -367,8 +394,7 @@ Represent the `K_POINTS` card in Quantum ESPRESSO (`gamma` mode).
 
 See also: [`KPointsCard`](@ref).
 """
-struct GammaPointCard <: KPointsCard
-end
+struct GammaPointCard <: KPointsCard end
 
 """
     SpecialKPointsCard
