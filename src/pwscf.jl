@@ -232,8 +232,8 @@ end
 """
     AtomicPosition
 
-Represent each line of the `ATOMIC_POSITIONS` card in QE. The `atom`
-field accepts at most 3 characters.
+Represent each line of the `ATOMIC_POSITIONS` card in Quantum ESPRESSO.
+The `atom` field accepts at most 3 characters.
 
 ### Members
 
@@ -616,7 +616,6 @@ const ATOMIC_SPECIES_ITEM = r"""
     [ \t]* \R?
 """mx
 
-# This regular expression is taken from https://github.com/aiidateam/qe-tools/blob/aedee19/qe_tools/parsers/_input_base.py
 const ATOMIC_POSITIONS_BLOCK = r"""
 ^ \s* ATOMIC_POSITIONS \s*                      # Atomic positions start with that string
 [{(]? \s* (?P<units>\S+?)? \s* [)}]? \s* $\R    # The units are after the string in optional brackets
