@@ -147,6 +147,14 @@ See also: [`MonkhorstPackGrid`](@ref).
 struct ReciprocalPoint
     coord  :: Vector{F64}
     weight :: F64
+
+    # Inner constructor
+    function ReciprocalPoint(coord, weight)
+        @assert length(coord) == 3
+        @assert weight > 0.0
+        #
+        return new(coord, weight)
+    end
 end
 
 """
