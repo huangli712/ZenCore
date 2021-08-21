@@ -342,13 +342,13 @@ struct AtomicPositionsCard <: Card
 end
 
 """
-    KMeshCard
+    AutoKmeshCard
 
 Represent the `K_POINTS` card in Quantum ESPRESSO (`automatic` mode).
 
 See also: [`KPointsCard`](@ref).
 """
-struct KMeshCard <: KPointsCard
+struct AutoKmeshCard <: KPointsCard
     data :: MonkhorstPackGrid
 end
 
@@ -867,12 +867,12 @@ function Base.tryparse(::Type{AtomicPositionsCard}, str::AbstractString)
     end
 end
 
-function Base.tryparse(::Type{KMeshCard}, str::AbstractString)
+function Base.tryparse(::Type{AutoKmeshCard}, str::AbstractString)
     m = match(K_POINTS_AUTOMATIC_BLOCK, str)
 
     if m !== nothing
         data = map(x -> parse(I64, x), m.captures)
-        return KMeshCard(MonkhorstPackGrid(data[1:3], data[4:6]))
+        return AutoKmeshCard(MonkhorstPackGrid(data[1:3], data[4:6]))
     end
 end
 
@@ -897,7 +897,7 @@ function Base.tryparse(::Type{SpecialPointsCard}, str::AbstractString)
 end
 
 function Base.tryparse(::Type{KPointsCard}, str::AbstractString)
-    for T in (GammaPointCard, KMeshCard, SpecialPointsCard)
+    for T in (AutoKmeshCard, GammaPointCard, SpecialPointsCard)
         x = tryparse(T, str)
         if x !== nothing
             return x
