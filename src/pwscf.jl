@@ -438,7 +438,7 @@ mutable struct PWInput <: Input
 end
 
 #=
-### *Constants Tuples : Namelists*
+### *Constants Tuples*
 =#
 
 """
