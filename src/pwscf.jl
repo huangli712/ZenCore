@@ -90,7 +90,8 @@ end
     Input
 
 An abstract type representing an input object of `ab initio` software.
-All other input types should subtype `Input`.
+All other input types should subtype `Input`.  It is used to build
+the internal type system.
 """
 abstract type Input end
 
@@ -98,13 +99,16 @@ abstract type Input end
     InputEntry
 
 Represent any component of an `Input`. The fields of an `Input` should
-all be either `InputEntry` or `Nothing` (no value provided).
+all be either `InputEntry` or `Nothing` (no value provided).  It is used
+to build the internal type system.
 """
 abstract type InputEntry end
 
 """
-    Namelist <: InputEntry
-Represent a component of an `Input`, a basic Fortran data structure.
+    Namelist
+
+Represent a component of an `Input`, a basic Fortran data structure. It
+is used to build the internal type system.
 """
 abstract type Namelist <: InputEntry end
 
@@ -114,7 +118,7 @@ abstract type Namelist <: InputEntry end
 Represent abstract cards of an `Input` in Quantum ESPRESSO. It is used
 to build the internal type system.
 """
-abstract type Card end
+abstract type Card <: InputEntry end
 
 """
     KPointsCard
@@ -122,7 +126,6 @@ abstract type Card end
 Represent abstract ``k``-mesh or ``k``-path in Quantum ESPRESSO.
 """
 abstract type KPointsCard <: Card end
-
 
 #=
 ### *Customized Structs : K-Grid*
