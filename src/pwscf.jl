@@ -22,6 +22,8 @@ function pwscf_parser()
     AtomicPositionsBlock = parse(AtomicPositionsCard, str)
     KPointsBlock = parse(KPointsCard, str)
 
+    println(lines)
+    println(str)
     return PWInput(ControlNL, SystemNL, ElectronsNL, AtomicSpeciesBlock, AtomicPositionsBlock, KPointsBlock)
 end
 
