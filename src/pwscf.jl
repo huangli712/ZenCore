@@ -25,44 +25,6 @@ function pwscf_parser()
     return PWInput(ControlNL, SystemNL, ElectronsNL, AtomicSpeciesBlock, AtomicPositionsBlock, KPointsBlock)
 end
 
-function pwscf_parser1()
-    Namelists = Dict{Symbol,Any}()
-    group_data = []
-    group_start = false
-    group_end = false
-    group_name = "unknown"
-    for line in eachline("diamond.scf")
-        strip_line = strip(strip(line), ',')
-        if startswith(strip_line, "&")
-            group_name = lowercase(split(strip_line, "&")[2])
-            group_start = true
-            group_end = false
-        end
-        if startswith(strip_line, "/")
-            group_start = false
-            group_end = true
-        end
-
-        if group_start
-            push!(group_data, strip_line)
-        elseif !isempty(group_data)
-            Namelists[Symbol(group_name)] = copy(group_data)
-            empty!(group_data)
-        end
-    end
-
-    ControlNL = process_namelists!(Namelists[:control], VAR_CONTROL)
-    SystemNL = process_namelists!(Namelists[:system], VAR_SYSTEM)
-    ElectronsNL = process_namelists!(Namelists[:electrons], VAR_ELECTRONS)
-
-    str = read("diamond.scf", String)
-    AtomicSpeciesBlock = parse(AtomicSpeciesCard, str)
-    AtomicPositionsBlock = parse(AtomicPositionsCard, str)
-    KPointsBlock = parse(KPointsCard, str)
-
-    return PWInput(ControlNL, SystemNL, ElectronsNL, AtomicSpeciesBlock, AtomicPositionsBlock, KPointsBlock)
-end
-
 #=
 ### *Abstract Types*
 =#
