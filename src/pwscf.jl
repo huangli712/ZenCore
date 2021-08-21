@@ -144,8 +144,8 @@ a weight `w`.
 
 See also: [`MonkhorstPackGrid`](@ref).
 """
-struct ReciprocalPoint{T}
-    coord  :: Vector{T}
+struct ReciprocalPoint
+    coord  :: Vector{F64}
     weight :: F64
 end
 
