@@ -391,6 +391,10 @@ mutable struct PWInput <: Input
     KPointsBlock         :: KPointsCard
 end
 
+block_name(::Type{ControlNamelist}) = "control"
+block_name(::Type{SystemNamelist}) = "system"
+block_name(::Type{ElectronsNamelist}) = "electrons"
+
 #=
 ### *Constants Tuples*
 =#
