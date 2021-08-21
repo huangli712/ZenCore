@@ -87,10 +87,20 @@ end
 =#
 
 """
-    InputEntry
-Represent any component of an `Input`. The fields of an `Input` should all be either `InputEntry` or `Nothing` (no value provided).
+    Input
+
+An abstract type representing an input object of `ab initio` software.
+All other input types should subtype `Input`.
 """
-abstract type InputEntry end  # Define this to make the `eltype` not `Any` if both `Namelist` & `Card` exist.
+abstract type Input end
+
+"""
+    InputEntry
+
+Represent any component of an `Input`. The fields of an `Input` should
+all be either `InputEntry` or `Nothing` (no value provided).
+"""
+abstract type InputEntry end
 
 """
     Namelist <: InputEntry
