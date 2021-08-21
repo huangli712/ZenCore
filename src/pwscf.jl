@@ -22,11 +22,11 @@ function pwscf_parser()
     AtomicPositionsBlock = parse(AtomicPositionsCard, str)
     KPointsBlock = parse(KPointsCard, str)
 
-    #open("case.scf", "w") do fout
-    #    write(fout, ControlNamelist, ControlNL)
+    open("case.scf", "w") do fout
+        write(fout, ControlNL)
     #    write(fout, SystemNamelist, SystemNL)
     #    write(fout, ElectronsNamelist, ElectronsNL)
-    #end
+    end
     return PWInput(ControlNL, SystemNL, ElectronsNL, AtomicSpeciesBlock, AtomicPositionsBlock, KPointsBlock)
 end
 
@@ -876,10 +876,11 @@ function Base.parse(::Type{T}, str::AbstractString) where {T<:Card}
     end
 end
 
-function Base.write(io::IO, ::Type{ControlNamelist}, nml::Dict{AbstractString,Any})
-    println(io, " @control")
-    for key in keys(nml)
-        println(io, "    $key = ", nml[key])
+function Base.write(io::IO, x::T) where {T <: Namelist}
+    group_name = block_name(T)
+    println(io, " @$group_name")
+    for key in keys(x.data)
+        println(io, "    $key = ", x.data[key])
     end
     println(io, " /")
 end
