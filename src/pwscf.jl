@@ -37,7 +37,7 @@ end
 """
     Input
 
-An abstract type representing an input object of `ab initio` software.
+An abstract type representing an input object of ab initio software.
 All other input types should subtype `Input`.  It is used to build
 the internal type system.
 """
@@ -47,7 +47,7 @@ abstract type Input end
     InputEntry
 
 Represent any component of an `Input`. The fields of an `Input` should
-all be either `InputEntry` or `Nothing` (no value provided).  It is used
+all be either `InputEntry` or `Nothing` (no value provided). It is used
 to build the internal type system.
 """
 abstract type InputEntry end
@@ -265,7 +265,9 @@ Represent the `control` namelist in Quantum ESPRESSO.
 
 See also: [`Namelist`](@ref).
 """
-struct ControlNamelist <: Namelist end
+mutable struct ControlNamelist <: Namelist
+    data :: Dict{AbstractString,Any}
+end
 
 """
     SystemNamelist
@@ -274,7 +276,9 @@ Represent the `control` namelist in Quantum ESPRESSO.
 
 See also: [`Namelist`](@ref).
 """
-struct SystemNamelist <: Namelist end
+mutable struct SystemNamelist <: Namelist
+    data :: Dict{AbstractString,Any}
+end
 
 """
     ElectronsNamelist
@@ -283,7 +287,9 @@ Represent the `control` namelist in Quantum ESPRESSO.
 
 See also: [`Namelist`](@ref).
 """
-struct ElectronsNamelist <: Namelist end
+mutable struct ElectronsNamelist <: Namelist
+    data :: Dict{AbstractString,Any}
+end
 
 """
     AtomicSpeciesCard
