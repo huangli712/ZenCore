@@ -14,6 +14,8 @@ end
 function pwscf_parser()
     lines = readlines("diamond.scf")
     tryparse(ControlNamelist, lines)
+    tryparse(SystemNamelist, lines)
+    tryparse(ElectronsNamelist, lines)
     #ControlNL = parse(ControlNamelist, lines)
     #SystemNL = parse(SystemNamelist, lines)
     #ElectronsNL = parse(ElectronsNamelist, lines)
@@ -307,6 +309,9 @@ end
 block_name(::Type{ControlNamelist}) = "control"
 block_name(::Type{SystemNamelist}) = "system"
 block_name(::Type{ElectronsNamelist}) = "electrons"
+block_vars(::Type{ControlNamelist}) = VAR_CONTROL
+block_vars(::Type{SystemNamelist}) = VAR_SYSTEM
+block_vars(::Type{ElectronsNamelist}) = VAR_ELECTRONS
 
 """
     AtomicSpeciesCard
@@ -750,7 +755,7 @@ function Base.tryparse(::Type{T}, strs::Vector{String}) where {T <: Namelist}
         strip_line = strip(strip(strs[l]), ',')
         if startswith(strip_line, "&")
             group_name = lowercase(split(strip_line, "&")[2])
-            if group_name == "control"
+            if group_name == block_name(T)
                 group_meet = true
             end
         end
@@ -764,7 +769,7 @@ function Base.tryparse(::Type{T}, strs::Vector{String}) where {T <: Namelist}
         end
     end
     popfirst!(group_data)
-    #return namelists(group_data, VAR_CONTROL)
+    namelists(group_data, block_vars(T))
 end
 
 #=
