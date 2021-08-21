@@ -360,8 +360,7 @@ Represent the `ATOMIC_POSITIONS` card in Quantum ESPRESSO.
 ### Members
 
 * data   -> A vector containing `AtomicPosition`s.
-* option -> Allowed values are: `alat`, `bohr`, `angstrom`,
-            `crystal`, and `crystal_sg`.
+* option -> The scheme about how to define atomic positions.
 
 See also: [`AtomicPosition`](@ref).
 """
