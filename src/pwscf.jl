@@ -880,7 +880,7 @@ end
 function Base.write(io::IO, x::T) where {T <: Namelist}
     println(io, " @$(block_name(T))")
     for key in keys(x.data)
-        println(io, "    $key = ", x.data[key])
+        println(io, "    $key = ", x.data[key], ",")
     end
     println(io, " /")
 end
