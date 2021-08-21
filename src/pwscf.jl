@@ -263,6 +263,10 @@ AtomicPosition(x::AtomicSpecies, pos, if_pos) = AtomicPosition(x.atom, pos, if_p
 
 Represent the `control` namelist in Quantum ESPRESSO.
 
+### Members
+
+* data -> A dict containing pairs of key and value.
+
 See also: [`Namelist`](@ref).
 """
 mutable struct ControlNamelist <: Namelist
@@ -274,6 +278,10 @@ end
 
 Represent the `control` namelist in Quantum ESPRESSO.
 
+### Members
+
+* data -> A dict containing pairs of key and value.
+
 See also: [`Namelist`](@ref).
 """
 mutable struct SystemNamelist <: Namelist
@@ -284,6 +292,10 @@ end
     ElectronsNamelist
 
 Represent the `control` namelist in Quantum ESPRESSO.
+
+### Members
+
+* data -> A dict containing pairs of key and value.
 
 See also: [`Namelist`](@ref).
 """
