@@ -13,21 +13,22 @@ end
 
 function pwscf_parser()
     lines = readlines("diamond.scf")
-    ControlNL = parse(ControlNamelist, lines)
-    SystemNL = parse(SystemNamelist, lines)
-    ElectronsNL = parse(ElectronsNamelist, lines)
+    tryparse(ControlNamelist, lines)
+    #ControlNL = parse(ControlNamelist, lines)
+    #SystemNL = parse(SystemNamelist, lines)
+    #ElectronsNL = parse(ElectronsNamelist, lines)
 
-    str = read("diamond.scf", String)
-    AtomicSpeciesBlock = parse(AtomicSpeciesCard, str)
-    AtomicPositionsBlock = parse(AtomicPositionsCard, str)
-    KPointsBlock = parse(KPointsCard, str)
+    #str = read("diamond.scf", String)
+    #AtomicSpeciesBlock = parse(AtomicSpeciesCard, str)
+    #AtomicPositionsBlock = parse(AtomicPositionsCard, str)
+    #KPointsBlock = parse(KPointsCard, str)
 
-    open("case.scf", "w") do fout
-        write(fout, ControlNamelist, ControlNL)
-        write(fout, SystemNamelist, SystemNL)
-        write(fout, ElectronsNamelist, ElectronsNL)
-    end
-    return PWInput(ControlNL, SystemNL, ElectronsNL, AtomicSpeciesBlock, AtomicPositionsBlock, KPointsBlock)
+    #open("case.scf", "w") do fout
+    #    write(fout, ControlNamelist, ControlNL)
+    #    write(fout, SystemNamelist, SystemNL)
+    #    write(fout, ElectronsNamelist, ElectronsNL)
+    #end
+    #return PWInput(ControlNL, SystemNL, ElectronsNL, AtomicSpeciesBlock, AtomicPositionsBlock, KPointsBlock)
 end
 
 #=
@@ -741,7 +742,7 @@ function namelists(nml::Vector{Any}, vars::Tuple)
     return NLData
 end
 
-function Base.tryparse(::Type{ControlNamelist}, strs::Vector{String})
+function Base.tryparse(::Type{T}, strs::Vector{String}) where {T <: Namelist}
     group_data = []
     group_meet = false
     group_name = "unknown"
@@ -763,9 +764,10 @@ function Base.tryparse(::Type{ControlNamelist}, strs::Vector{String})
         end
     end
     popfirst!(group_data)
-    return namelists(group_data, VAR_CONTROL)
+    #return namelists(group_data, VAR_CONTROL)
 end
 
+#=
 function Base.tryparse(::Type{SystemNamelist}, strs::Vector{String})
     group_data = []
     group_meet = false
@@ -815,6 +817,7 @@ function Base.tryparse(::Type{ElectronsNamelist}, strs::Vector{String})
     popfirst!(group_data)
     return namelists(group_data, VAR_ELECTRONS)
 end
+=#
 
 function Base.tryparse(::Type{AtomicSpeciesCard}, str::AbstractString)
     m = match(ATOMIC_SPECIES_BLOCK, str)
