@@ -775,58 +775,6 @@ function Base.tryparse(::Type{T}, strs::Vector{String}) where {T <: Namelist}
     return T( namelists( group_data, block_vars(T) ) )
 end
 
-#=
-function Base.tryparse(::Type{SystemNamelist}, strs::Vector{String})
-    group_data = []
-    group_meet = false
-    group_name = "unknown"
-    for l in eachindex(strs)
-        strip_line = strip(strip(strs[l]), ',')
-        if startswith(strip_line, "&")
-            group_name = lowercase(split(strip_line, "&")[2])
-            if group_name == "system"
-                group_meet = true
-            end
-        end
-
-        if startswith(strip_line, "/")
-            group_meet = false
-        end
-
-        if group_meet
-            push!(group_data, strip_line)
-        end
-    end
-    popfirst!(group_data)
-    return namelists(group_data, VAR_SYSTEM)
-end
-
-function Base.tryparse(::Type{ElectronsNamelist}, strs::Vector{String})
-    group_data = []
-    group_meet = false
-    group_name = "unknown"
-    for l in eachindex(strs)
-        strip_line = strip(strip(strs[l]), ',')
-        if startswith(strip_line, "&")
-            group_name = lowercase(split(strip_line, "&")[2])
-            if group_name == "electrons"
-                group_meet = true
-            end
-        end
-
-        if startswith(strip_line, "/")
-            group_meet = false
-        end
-
-        if group_meet
-            push!(group_data, strip_line)
-        end
-    end
-    popfirst!(group_data)
-    return namelists(group_data, VAR_ELECTRONS)
-end
-=#
-
 function Base.tryparse(::Type{AtomicSpeciesCard}, str::AbstractString)
     m = match(ATOMIC_SPECIES_BLOCK, str)
 
