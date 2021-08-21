@@ -82,8 +82,36 @@ function process_namelists!(nml::Vector{Any}, keylist::Tuple)
     return NLData
 end
 
+#=
+### *Abstract Types*
+=#
 
+"""
+    InputEntry
+Represent any component of an `Input`. The fields of an `Input` should all be either `InputEntry` or `Nothing` (no value provided).
+"""
+abstract type InputEntry end  # Define this to make the `eltype` not `Any` if both `Namelist` & `Card` exist.
 
+"""
+    Namelist <: InputEntry
+Represent a component of an `Input`, a basic Fortran data structure.
+"""
+abstract type Namelist <: InputEntry end
+
+"""
+    Card
+
+Represent abstract cards of an `Input` in Quantum ESPRESSO. It is used
+to build the internal type system.
+"""
+abstract type Card end
+
+"""
+    KPointsCard
+
+Represent abstract ``k``-mesh or ``k``-path in Quantum ESPRESSO.
+"""
+abstract type KPointsCard <: Card end
 
 
 #=
@@ -260,21 +288,6 @@ AtomicPosition(x::AtomicSpecies, pos, if_pos) = AtomicPosition(x.atom, pos, if_p
 #=
 ### *Customized Structs : Input Blocks*
 =#
-
-"""
-    Card
-
-Represent abstract cards of an `Input` in Quantum ESPRESSO. It is used
-to build the internal type system.
-"""
-abstract type Card end
-
-"""
-    KPointsCard
-
-Represent abstract ``k``-mesh or ``k``-path in Quantum ESPRESSO.
-"""
-abstract type KPointsCard <: Card end
 
 """
     AtomicSpeciesCard
