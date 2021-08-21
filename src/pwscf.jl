@@ -13,7 +13,7 @@ end
 
 function pwscf_parser()
     lines = readlines("diamond.scf")
-    tryparse(ControlNamelist, lines)
+    parse(ControlNamelist, lines)
 end
 
 function pwscf_parser1()
@@ -904,6 +904,11 @@ function Base.tryparse(::Type{KPointsCard}, str::AbstractString)
             return x
         end
     end
+end
+
+function Base.parse(::Type{T}, strs::Vector{String}) where {T <: Namelist}
+    x = tryparse(T, strs)
+    return x
 end
 
 function Base.parse(::Type{T}, str::AbstractString) where {T<:Card}
