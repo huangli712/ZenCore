@@ -14,13 +14,22 @@
 function pwscf_adaptor()
 end
 
-function pwscf_init()
+"""
+    pwscf_init(it::IterInfo)
+"""
+function pwscf_init(it::IterInfo)
 end
 
-function pwscf_exec()
+"""
+    pwscf_exec(it::IterInfo)
+"""
+function pwscf_exec(it::IterInfo)
 end
 
-function pwscf_save()
+"""
+    pwscf_save(it::IterInfo)
+"""
+function pwscf_save(it::IterInfo)
 end
 
 function pwscf_parser()
