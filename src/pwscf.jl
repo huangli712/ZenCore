@@ -61,7 +61,10 @@ Parse the `PWSCF.INP` file, and return the PWInput struct. Actually,
 `PWSCF.INP` is a standard, but mini input file for pwscf. It should
 contains the `control`, `system`, `electrons` (namelists) and the
 `ATOMIC_SPECIES`, `ATOMIC_POSITIONS`, `K_POINTS` (cards) input blocks
-only.
+only. If you want to support more input entries, please make your
+modifications.
+
+See also: [`PWInput`](@ref).
 """
 function pwscfio_input()
     # Check the file status
