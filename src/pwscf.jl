@@ -919,5 +919,10 @@ end
 
 function Base.write(io::IO, x::SpecialPointsCard)
     println(io, "K_POINTS {$(x.option)}")
-    
+    nks = length(x.data)
+    println(io, nks)
+    for i = 1:nks
+        RP = x.data[i]
+        @printf(io, "%8.5 %8.5f %8.5f %8.5f\n", RP.coord..., RP.weight)
+    end
 end
