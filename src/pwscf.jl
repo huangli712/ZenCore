@@ -12,12 +12,12 @@ function pwscf_adaptor()
 end
 
 function pwscf_parser()
-    lines = readlines("al.scf")
+    lines = readlines("co.scf")
     ControlNL = parse(ControlNamelist, lines)
     SystemNL = parse(SystemNamelist, lines)
     ElectronsNL = parse(ElectronsNamelist, lines)
 
-    str = read("al.scf", String)
+    str = read("co.scf", String)
     AtomicSpeciesBlock = parse(AtomicSpeciesCard, str)
     AtomicPositionsBlock = parse(AtomicPositionsCard, str)
     KPointsBlock = parse(KPointsCard, str)
@@ -924,9 +924,9 @@ end
 function Base.write(io::IO, x::SpecialPointsCard)
     println(io, "K_POINTS {$(x.option)}")
     nks = length(x.data)
-    println(io, nks)
+    println(io, "  $nks")
     for i = 1:nks
         RP = x.data[i]
-        @printf(io, "%8.5f %8.5f %8.5f %8.5f\n", RP.coord..., RP.weight)
+        @printf(io, " %11.7f%11.7f%11.7f%7.2f\n", RP.coord..., RP.weight)
     end
 end
