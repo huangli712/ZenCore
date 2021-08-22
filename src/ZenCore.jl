@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/08/20
+# Last modified: 2021/08/22
 #
 
 """
@@ -486,7 +486,10 @@ functions to deal with the pwscf-related files.
 *Members* :
 
 ```text
-pwscf_adaptor   -> Adaptor support.
+pwscf_adaptor -> Adaptor support.
+pwscf_init    -> Prepare pwscf's input files.
+pwscf_exec    -> Execute pwscf program.
+pwscf_save    -> Backup pwscf's output files.
 ```
 =#
 
@@ -494,7 +497,9 @@ pwscf_adaptor   -> Adaptor support.
 include("pwscf.jl")
 #
 export pwscf_adaptor
-export pwscf_parser
+export pwscf_init
+export pwscf_exec
+export pwscf_save
 
 #=
 ### *Includes And Exports* : *plo.jl*
