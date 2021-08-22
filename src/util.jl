@@ -252,7 +252,9 @@ function query_inps(engine::String)
             break
 
         @case "pwscf"
-            sorry()
+            if !isfile("pwscf.in")
+                error("Please provide the pwscf.in file")
+            end
             break
 
         @default

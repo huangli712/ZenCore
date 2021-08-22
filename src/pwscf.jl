@@ -67,15 +67,15 @@ abstract type Namelist <: InputEntry end
 """
     Card
 
-Represent abstract cards of an `Input` in quantum espresso. It is used
-to build the internal type system.
+Represent abstract cards of an `Input` in pwscf. It is used to build
+the internal type system.
 """
 abstract type Card <: InputEntry end
 
 """
     KPointsCard
 
-Represent abstract ``k``-mesh or ``k``-path in quantum espresso.
+Represent abstract ``k``-mesh or ``k``-path in pwscf.
 """
 abstract type KPointsCard <: Card end
 
@@ -152,8 +152,8 @@ end
 """
     AtomicSpecies
 
-Represent each line of the `ATOMIC_SPECIES` card in quantum espresso.
-The `atom` field accepts at most 3 characters.
+Represent each line of the `ATOMIC_SPECIES` card in pwscf. The `atom`
+field accepts at most 3 characters.
 
 ### Members
 
@@ -188,8 +188,8 @@ end
 """
     AtomicPosition
 
-Represent each line of the `ATOMIC_POSITIONS` card in quantum espresso.
-The `atom` field accepts at most 3 characters.
+Represent each line of the `ATOMIC_POSITIONS` card in pwscf. The `atom`
+field accepts at most 3 characters.
 
 ### Members
 
@@ -271,7 +271,7 @@ AtomicPosition(x::AtomicSpecies, pos, if_pos) = AtomicPosition(x.atom, pos, if_p
 """
     ControlNamelist
 
-Represent the `control` namelist in quantum espresso.
+Represent the `control` namelist in pwscf.
 
 ### Members
 
@@ -286,7 +286,7 @@ end
 """
     SystemNamelist
 
-Represent the `control` namelist in quantum espresso.
+Represent the `control` namelist in pwscf.
 
 ### Members
 
@@ -301,7 +301,7 @@ end
 """
     ElectronsNamelist
 
-Represent the `control` namelist in quantum espresso.
+Represent the `control` namelist in pwscf.
 
 ### Members
 
@@ -323,7 +323,7 @@ block_vars(::Type{ElectronsNamelist}) = VAR_ELECTRONS
 """
     AtomicSpeciesCard
 
-Represent the `ATOMIC_SPECIES` card in quantum espresso.
+Represent the `ATOMIC_SPECIES` card in pwscf.
 
 ### Members
 
@@ -338,7 +338,7 @@ end
 """
     AtomicPositionsCard
 
-Represent the `ATOMIC_POSITIONS` card in quantum espresso.
+Represent the `ATOMIC_POSITIONS` card in pwscf.
 
 ### Members
 
@@ -361,7 +361,7 @@ end
 """
     AutoKmeshCard
 
-Represent the `K_POINTS` card in quantum espresso (`automatic` mode).
+Represent the `K_POINTS` card in pwscf (`automatic` mode).
 
 See also: [`KPointsCard`](@ref).
 """
@@ -372,7 +372,7 @@ end
 """
     GammaPointCard
 
-Represent the `K_POINTS` card in quantum espresso (`gamma` mode).
+Represent the `K_POINTS` card in pwscf (`gamma` mode).
 
 See also: [`KPointsCard`](@ref).
 """
@@ -381,7 +381,7 @@ struct GammaPointCard <: KPointsCard end
 """
     SpecialKPointsCard
 
-Represent the `K_POINTS` card in quantum espresso.
+Represent the `K_POINTS` card in pwscf.
 
 ### Members
 
@@ -409,7 +409,7 @@ end
 """
     PWInput
 
-Represent the input file of quantum espresso.
+Represent the input file of pwscf.
 """
 mutable struct PWInput <: Input
     ControlNL   :: ControlNamelist
