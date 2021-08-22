@@ -23,10 +23,12 @@ See also: [`pwscf_exec`](@ref), [`pwscf_save`](@ref).
 """
 function pwscf_init(it::IterInfo)
     # Print the header
-    println("Engine : VASP")
+    println("Engine : PWSCF")
     println("Try to perform ab initio electronic structure calculation")
     println("Current directory: ", pwd())
-    println("Prepare necessary input files for vasp")
+    println("Prepare necessary input files for pwscf")
+
+
 end
 
 """

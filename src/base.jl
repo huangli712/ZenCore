@@ -743,6 +743,7 @@ function dft_run(it::IterInfo, lr::Logger, sc::Bool = false)
                 pwscf_init(it)
                 pwscf_exec(it)
                 pwscf_save(it)
+                break
 
             @default
                 sorry()
