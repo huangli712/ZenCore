@@ -4,117 +4,8 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/08/22
+# Last modified: 2021/08/23
 #
-
-#=
-### *Driver Functions*
-=#
-
-function pwscf_adaptor()
-end
-
-"""
-    pwscf_init(it::IterInfo)
-
-Check the runtime environment of pwscf, prepare necessary input files.
-
-See also: [`pwscf_exec`](@ref), [`pwscf_save`](@ref).
-"""
-function pwscf_init(it::IterInfo)
-    # Print the header
-    println("Engine : PWSCF")
-    println("Try to perform ab initio electronic structure calculation")
-    println("Current directory: ", pwd())
-    println("Prepare necessary input files for pwscf")
-
-    # Prepare essential input files
-    # Copy PWSCF.INP
-    cp("../PWSCF.INP", joinpath(pwd(), "PWSCF.INP"), force = true)
-    println("  > File PWSCF.INP is ready")
-    #
-    # Parse PWSCF.INP file, get the PWInput struct.
-    PWINP = pwscfio_input()
-    #
-    # Create the real input file
-    pwscfc_input(PWINP, it)
-end
-
-"""
-    pwscf_exec(it::IterInfo)
-"""
-function pwscf_exec(it::IterInfo)
-end
-
-"""
-    pwscf_save(it::IterInfo)
-"""
-function pwscf_save(it::IterInfo)
-end
-
-#=
-### *Service Functions* : *Group A*
-=#
-
-"""
-    pwscfc_input(PWINP::PWInput, it::IterInfo)
-"""
-function pwscfc_input(PWINP::PWInput, it::IterInfo)
-    open("case.scf", "w") do fout
-        write(fout, PWINP.ControlNL)
-        write(fout, PWINP.SystemNL)
-        write(fout, PWINP.ElectronsNL)
-        write(fout, PWINP.AtomicSpeciesBlock)
-        write(fout, PWINP.AtomicPositionsBlock)
-        write(fout, PWINP.KPointsBlock)
-    end
-end
-
-#=
-### *Service Functions* : *Group B*
-=#
-
-#=
-### *Service Functions* : *Group C*
-=#
-
-"""
-    pwscfio_input()
-
-Parse the `PWSCF.INP` file, and return the PWInput struct. Actually,
-`PWSCF.INP` is a standard, but mini input file for pwscf. It should
-contains the `control`, `system`, `electrons` (namelists) and the
-`ATOMIC_SPECIES`, `ATOMIC_POSITIONS`, `K_POINTS` (cards) input blocks
-only. If you want to support more input entries, please make your
-own modifications.
-
-See also: [`PWInput`](@ref).
-"""
-function pwscfio_input()
-    # Check the file status
-    finput = "PWSCF.INP"
-    @assert isfile(finput)
-
-    # Parse the namelists
-    lines = readlines(finput)
-    ControlNL = parse(ControlNamelist, lines)
-    SystemNL = parse(SystemNamelist, lines)
-    ElectronsNL = parse(ElectronsNamelist, lines)
-
-    # Parse the cards
-    line = read(finput, String)
-    AtomicSpeciesBlock = parse(AtomicSpeciesCard, line)
-    AtomicPositionsBlock = parse(AtomicPositionsCard, line)
-    KPointsBlock = parse(KPointsCard, line)
-
-    # Return a PWInput struct
-    return PWInput(ControlNL, 
-                   SystemNL,
-                   ElectronsNL,
-                   AtomicSpeciesBlock,
-                   AtomicPositionsBlock,
-                   KPointsBlock)
-end
 
 #=
 ### *Abstract Types*
@@ -1011,4 +902,143 @@ function Base.write(io::IO, x::SpecialPointsCard)
         RP = x.data[i]
         @printf(io, " %11.7f%11.7f%11.7f%7.2f\n", RP.coord..., RP.weight)
     end
+end
+
+#=
+### *Driver Functions*
+=#
+
+function pwscf_adaptor()
+end
+
+"""
+    pwscf_init(it::IterInfo)
+
+Check the runtime environment of pwscf, prepare necessary input files.
+
+See also: [`pwscf_exec`](@ref), [`pwscf_save`](@ref).
+"""
+function pwscf_init(it::IterInfo)
+    # Print the header
+    println("Engine : PWSCF")
+    println("Try to perform ab initio electronic structure calculation")
+    println("Current directory: ", pwd())
+    println("Prepare necessary input files for pwscf")
+
+    # Prepare essential input files
+    # Copy PWSCF.INP
+    cp("../PWSCF.INP", joinpath(pwd(), "PWSCF.INP"), force = true)
+    println("  > File PWSCF.INP is ready")
+    #
+    # Parse PWSCF.INP file, get the PWInput struct.
+    PWINP = pwscfio_input()
+    #
+    # Create the real input file
+    pwscfc_input(PWINP, it)
+end
+
+"""
+    pwscf_exec(it::IterInfo)
+"""
+function pwscf_exec(it::IterInfo)
+end
+
+"""
+    pwscf_save(it::IterInfo)
+"""
+function pwscf_save(it::IterInfo)
+end
+
+#=
+### *Service Functions* : *Group A*
+=#
+
+"""
+    pwscfc_input(PWINP::PWInput, it::IterInfo)
+"""
+function pwscfc_input(PWINP::PWInput, it::IterInfo)
+    # Customize your PWInput according to the case.toml
+    #
+    # For smearing
+    smear = get_d("smear")
+    @cswitch smear begin
+        @case "mp2"
+            PWINP.SystemNL["occupations"] = "'smearing'"
+            PWINP.SystemNL["smearing"] = "'m-p'"
+            break
+
+        @case "mp1"
+            PWINP.SystemNL["occupations"] = "'smearing'"
+            PWINP.SystemNL["smearing"] = "'m-p'"
+            break
+
+        @case "gauss"
+            PWINP.SystemNL["occupations"] = "'smearing'"
+            PWINP.SystemNL["smearing"] = "'gauss'"
+            break
+
+        @case "tetra"
+            PWINP.SystemNL["occupations"] = "'tetrahedra'"
+            break
+
+        @default
+            PWINP.SystemNL["occupations"] = "'smearing'"
+            PWINP.SystemNL["smearing"] = "'gauss'"
+            break
+    end
+
+    open("case.scf", "w") do fout
+        write(fout, PWINP.ControlNL)
+        write(fout, PWINP.SystemNL)
+        write(fout, PWINP.ElectronsNL)
+        write(fout, PWINP.AtomicSpeciesBlock)
+        write(fout, PWINP.AtomicPositionsBlock)
+        write(fout, PWINP.KPointsBlock)
+    end
+end
+
+#=
+### *Service Functions* : *Group B*
+=#
+
+#=
+### *Service Functions* : *Group C*
+=#
+
+"""
+    pwscfio_input()
+
+Parse the `PWSCF.INP` file, and return the PWInput struct. Actually,
+`PWSCF.INP` is a standard, but mini input file for pwscf. It should
+contains the `control`, `system`, `electrons` (namelists) and the
+`ATOMIC_SPECIES`, `ATOMIC_POSITIONS`, `K_POINTS` (cards) input blocks
+only. If you want to support more input entries, please make your
+own modifications.
+
+See also: [`PWInput`](@ref).
+"""
+function pwscfio_input()
+    # Check the file status
+    finput = "PWSCF.INP"
+    @assert isfile(finput)
+
+    # Parse the namelists
+    lines = readlines(finput)
+    ControlNL = parse(ControlNamelist, lines)
+    SystemNL = parse(SystemNamelist, lines)
+    ElectronsNL = parse(ElectronsNamelist, lines)
+
+    # Parse the cards
+    line = read(finput, String)
+    AtomicSpeciesBlock = parse(AtomicSpeciesCard, line)
+    AtomicPositionsBlock = parse(AtomicPositionsCard, line)
+    KPointsBlock = parse(KPointsCard, line)
+
+    # Return a PWInput struct
+    return PWInput(ControlNL, 
+                   SystemNL,
+                   ElectronsNL,
+                   AtomicSpeciesBlock,
+                   AtomicPositionsBlock,
+                   KPointsBlock)
 end
