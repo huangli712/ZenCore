@@ -4,11 +4,23 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/08/21
+# Last modified: 2021/08/22
 #
 
+#=
+### *Driver Functions*
+=#
 
 function pwscf_adaptor()
+end
+
+function pwscf_init()
+end
+
+function pwscf_exec()
+end
+
+function pwscf_save()
 end
 
 function pwscf_parser()
