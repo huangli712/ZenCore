@@ -34,7 +34,9 @@ function pwscf_init(it::IterInfo)
     println("  > File PWSCF.INP is ready")
     #
     # Parse PWSCF.INP file, get the PWInput struct.
-
+    PWINP = pwscfio_input()
+    #
+    # Create the real input file
     
 end
 
