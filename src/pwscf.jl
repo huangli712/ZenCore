@@ -27,8 +27,8 @@ function pwscf_parser()
         write(fout, SystemNL)
         write(fout, ElectronsNL)
         write(fout, AtomicSpeciesBlock)
+        write(fout, AtomicPositionsCard)
     end
-    #println(AtomicSpeciesBlock)
 
     return PWInput(ControlNL, SystemNL, ElectronsNL, AtomicSpeciesBlock, AtomicPositionsBlock, KPointsBlock)
 end
