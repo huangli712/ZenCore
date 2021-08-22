@@ -902,6 +902,6 @@ function Base.write(io::IO, x::AtomicPositionsCard)
     for i =  1:length(x.data)
         AP = x.data[i]
         print(io, " $(AP.atom) ")
-        @printf(io, "%5.3f %5.3f %5.3f\n", AP.)
+        @printf(io, "%6.3f %6.3f %6.3f\n", AP.pos...)
     end
 end
