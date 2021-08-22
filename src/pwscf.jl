@@ -26,7 +26,9 @@ function pwscf_parser()
         write(fout, ControlNL)
         write(fout, SystemNL)
         write(fout, ElectronsNL)
+        write(fout, AtomicSpeciesBlock)
     end
+    #println(AtomicSpeciesBlock)
 
     return PWInput(ControlNL, SystemNL, ElectronsNL, AtomicSpeciesBlock, AtomicPositionsBlock, KPointsBlock)
 end
@@ -883,4 +885,12 @@ function Base.write(io::IO, x::T) where {T <: Namelist}
         println(io, "    $key = ", x.data[key], ",")
     end
     println(io, " /")
+end
+
+function Base.write(io::IO, x::AtomicSpeciesCard)
+    println(io, "ATOMIC_SPECIES")
+    for i = 1:length(x.data)
+        AS = x.data[i]
+        println(io, " $(AS.atom)  $(AS.mass)  $(AS.upf)")
+    end
 end
