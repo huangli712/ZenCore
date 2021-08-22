@@ -27,7 +27,7 @@ function pwscf_parser()
         write(fout, SystemNL)
         write(fout, ElectronsNL)
         write(fout, AtomicSpeciesBlock)
-        write(fout, AtomicPositionsCard)
+        write(fout, AtomicPositionsBlock)
     end
 
     return PWInput(ControlNL, SystemNL, ElectronsNL, AtomicSpeciesBlock, AtomicPositionsBlock, KPointsBlock)
@@ -897,4 +897,8 @@ end
 
 function Base.write(io::IO, x::AtomicPositionsCard)
     println(io, "ATOMIC_POSITIONS {$(x.option)}")
+    for i =  1:length(x.data)
+        AP = x.data[i]
+        println(AP)
+    end
 end
