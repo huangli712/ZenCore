@@ -12,12 +12,12 @@ function pwscf_adaptor()
 end
 
 function pwscf_parser()
-    lines = readlines("co.scf")
+    lines = readlines("feo.scf")
     ControlNL = parse(ControlNamelist, lines)
     SystemNL = parse(SystemNamelist, lines)
     ElectronsNL = parse(ElectronsNamelist, lines)
 
-    str = read("co.scf", String)
+    str = read("feo.scf", String)
     AtomicSpeciesBlock = parse(AtomicSpeciesCard, str)
     AtomicPositionsBlock = parse(AtomicPositionsCard, str)
     KPointsBlock = parse(KPointsCard, str)
