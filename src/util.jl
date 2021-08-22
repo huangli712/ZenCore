@@ -225,7 +225,7 @@ automatically. Do not worry about them.
 
 For `quantum espresso`, the essential input files include:
 
-* pwscf.in
+* PWSCF.INP
 * Pseudopotential files.
 
 As for the other files, they should be generated automatically. Do
@@ -252,8 +252,8 @@ function query_inps(engine::String)
             break
 
         @case "pwscf"
-            if !isfile("pwscf.in")
-                error("Please provide the pwscf.in file")
+            if !isfile("PWSCF.INP")
+                error("Please provide the PWSCF.INP file")
             end
             break
 

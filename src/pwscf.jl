@@ -28,7 +28,11 @@ function pwscf_init(it::IterInfo)
     println("Current directory: ", pwd())
     println("Prepare necessary input files for pwscf")
 
-
+    # Prepare essential input files
+    # Copy PWSCF.INP
+    cp("../PWSCF.INP", joinpath(pwd(), "PWSCF.INP"), force = true)
+    println("  > File PWSCF.INP is ready")
+    
 end
 
 """
