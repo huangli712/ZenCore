@@ -32,6 +32,9 @@ function pwscf_init(it::IterInfo)
     # Copy PWSCF.INP
     cp("../PWSCF.INP", joinpath(pwd(), "PWSCF.INP"), force = true)
     println("  > File PWSCF.INP is ready")
+    #
+    # Parse PWSCF.INP file, get the PWInput struct.
+
     
 end
 
@@ -47,7 +50,7 @@ end
 function pwscf_save(it::IterInfo)
 end
 
-function pwscf_parser()
+function pwscfio_input()
     lines = readlines("pwscf.in")
     ControlNL = parse(ControlNamelist, lines)
     SystemNL = parse(SystemNamelist, lines)
@@ -58,6 +61,10 @@ function pwscf_parser()
     AtomicPositionsBlock = parse(AtomicPositionsCard, str)
     KPointsBlock = parse(KPointsCard, str)
 
+    return PWInput(ControlNL, SystemNL, ElectronsNL, AtomicSpeciesBlock, AtomicPositionsBlock, KPointsBlock)
+end
+
+function pwscf_test()
     open("case.scf", "w") do fout
         write(fout, ControlNL)
         write(fout, SystemNL)
@@ -66,8 +73,6 @@ function pwscf_parser()
         write(fout, AtomicPositionsBlock)
         write(fout, KPointsBlock)
     end
-
-    return PWInput(ControlNL, SystemNL, ElectronsNL, AtomicSpeciesBlock, AtomicPositionsBlock, KPointsBlock)
 end
 
 #=

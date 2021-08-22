@@ -490,6 +490,7 @@ pwscf_adaptor -> Adaptor support.
 pwscf_init    -> Prepare pwscf's input files.
 pwscf_exec    -> Execute pwscf program.
 pwscf_save    -> Backup pwscf's output files.
+pwscfio_input -> Parse PWSCF.INP, return PWInput struct.
 ```
 =#
 
@@ -500,6 +501,7 @@ export pwscf_adaptor
 export pwscf_init
 export pwscf_exec
 export pwscf_save
+export pwscfio_input
 
 #=
 ### *Includes And Exports* : *plo.jl*
