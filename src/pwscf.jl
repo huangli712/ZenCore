@@ -37,7 +37,7 @@ function pwscf_init(it::IterInfo)
     PWINP = pwscfio_input()
     #
     # Create the real input file
-    
+
 end
 
 """
@@ -51,6 +51,17 @@ end
 """
 function pwscf_save(it::IterInfo)
 end
+
+#=
+### *Service Functions* : *Group A*
+=#
+
+function pwscfc_input()
+end
+
+#=
+### *Service Functions* : *Group B*
+=#
 
 #=
 ### *Service Functions* : *Group C*
