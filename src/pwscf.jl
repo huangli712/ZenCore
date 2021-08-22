@@ -894,3 +894,7 @@ function Base.write(io::IO, x::AtomicSpeciesCard)
         println(io, " $(AS.atom)  $(AS.mass)  $(AS.upf)")
     end
 end
+
+function Base.write(io::IO, x::AtomicPositionsCard)
+    println(io, "ATOMIC_POSITIONS {$(x.option)}")
+end
