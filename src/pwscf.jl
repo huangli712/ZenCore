@@ -905,3 +905,12 @@ function Base.write(io::IO, x::AtomicPositionsCard)
         @printf(io, "%6.3f %6.3f %6.3f\n", AP.pos...)
     end
 end
+
+function Base.write(io::IO, x::AutoKmeshCard)
+end
+
+function Base.write(io::IO, x::GammaPointCard)
+end
+
+function Base.write(io::IO, x::SpecialPointsCard)
+end
