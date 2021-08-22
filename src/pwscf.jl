@@ -50,16 +50,30 @@ end
 function pwscf_save(it::IterInfo)
 end
 
+#=
+### *Service Functions* : *Group C*
+=#
+
+"""
+    pwscfio_input()
+
+"""
 function pwscfio_input()
-    lines = readlines("pwscf.in")
+    # Check the file status
+    finput = "PWSCF.INP"
+    @assert isfile(finput)
+
+    # Parse the namelists
+    lines = readlines(finput)
     ControlNL = parse(ControlNamelist, lines)
     SystemNL = parse(SystemNamelist, lines)
     ElectronsNL = parse(ElectronsNamelist, lines)
 
-    str = read("pwscf.in", String)
-    AtomicSpeciesBlock = parse(AtomicSpeciesCard, str)
-    AtomicPositionsBlock = parse(AtomicPositionsCard, str)
-    KPointsBlock = parse(KPointsCard, str)
+    # Parse the cards
+    line = read(finput, String)
+    AtomicSpeciesBlock = parse(AtomicSpeciesCard, line)
+    AtomicPositionsBlock = parse(AtomicPositionsCard, line)
+    KPointsBlock = parse(KPointsCard, line)
 
     return PWInput(ControlNL, SystemNL, ElectronsNL, AtomicSpeciesBlock, AtomicPositionsBlock, KPointsBlock)
 end
