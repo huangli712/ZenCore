@@ -904,6 +904,10 @@ function Base.write(io::IO, x::SpecialPointsCard)
     end
 end
 
+function Base.setindex!(nml::T, value, key::AbstractString) where {T <: Namelist}
+    nml.data[key] = value
+end
+
 #=
 ### *Driver Functions*
 =#
@@ -957,6 +961,7 @@ end
     pwscfc_input(PWINP::PWInput, it::IterInfo)
 """
 function pwscfc_input(PWINP::PWInput, it::IterInfo)
+    println(PWINP)
     # Customize your PWInput according to the case.toml
     #
     # For smearing
