@@ -837,7 +837,7 @@ function Base.tryparse(::Type{AtomicPositionsCard}, str::AbstractString)
                 #
                 # The `atom` and `pos` fields are mandatory. So we do
                 # not need special treatment.
-                atom, pos = captured[1], 
+                atom, pos = captured[1],
                     map(x -> parse(F64, x), [captured[2], captured[5], captured[8]])
                 AtomicPosition(atom, pos, if_pos)
             end,

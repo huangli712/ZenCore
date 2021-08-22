@@ -301,7 +301,7 @@ function vasp_stop()
     vaspc_lock("create", "dft")
 
     # Sleep until the STOPCAR is deleted automatically, which means
-    # that the vasp process is termined completely. 
+    # that the vasp process is termined completely.
     while true
         # Sleep two seconds
         sleep(2)
