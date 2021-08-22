@@ -61,12 +61,12 @@ end
 """
 function pwscfc_input(PWINP::PWInput, it::IterInfo)
     open("case.scf", "w") do fout
-        write(fout, ControlNL)
-        write(fout, SystemNL)
-        write(fout, ElectronsNL)
-        write(fout, AtomicSpeciesBlock)
-        write(fout, AtomicPositionsBlock)
-        write(fout, KPointsBlock)
+        write(fout, PWINP.ControlNL)
+        write(fout, PWINP.SystemNL)
+        write(fout, PWINP.ElectronsNL)
+        write(fout, PWINP.AtomicSpeciesBlock)
+        write(fout, PWINP.AtomicPositionsBlock)
+        write(fout, PWINP.KPointsBlock)
     end
 end
 
