@@ -28,6 +28,7 @@ function pwscf_parser()
         write(fout, ElectronsNL)
         write(fout, AtomicSpeciesBlock)
         write(fout, AtomicPositionsBlock)
+        write(fout, KPointsBlock)
     end
 
     return PWInput(ControlNL, SystemNL, ElectronsNL, AtomicSpeciesBlock, AtomicPositionsBlock, KPointsBlock)
@@ -907,10 +908,15 @@ function Base.write(io::IO, x::AtomicPositionsCard)
 end
 
 function Base.write(io::IO, x::AutoKmeshCard)
+    println(io, "K_POINTS {automatic}")
+    MPG = x.data
+    @printf(io, "%3i%3i%3i%2i%2i%2i\n", MPG.mesh..., MPG.shift...)
 end
 
 function Base.write(io::IO, x::GammaPointCard)
+    println(io, "K_POINTS {gamma}")
 end
 
 function Base.write(io::IO, x::SpecialPointsCard)
+    println("special")
 end
