@@ -962,6 +962,7 @@ end
 """
 function pwscfc_input(PWINP::PWInput, it::IterInfo)
     println(PWINP)
+
     # Customize your PWInput according to the case.toml
     #
     # For smearing
@@ -992,7 +993,9 @@ function pwscfc_input(PWINP::PWInput, it::IterInfo)
             break
     end
 
-    open("case.scf", "w") do fout
+    case = get_c("case")
+    finput = "$case.scf"
+    open(finput, "w") do fout
         write(fout, PWINP.ControlNL)
         write(fout, PWINP.SystemNL)
         write(fout, PWINP.ElectronsNL)
