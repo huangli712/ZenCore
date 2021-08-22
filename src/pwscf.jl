@@ -37,7 +37,7 @@ function pwscf_init(it::IterInfo)
     PWINP = pwscfio_input()
     #
     # Create the real input file
-
+    pwscfc_input(PWINP, it)
 end
 
 """
@@ -56,7 +56,18 @@ end
 ### *Service Functions* : *Group A*
 =#
 
-function pwscfc_input()
+"""
+    pwscfc_input(PWINP::PWInput, it::IterInfo)
+"""
+function pwscfc_input(PWINP::PWInput, it::IterInfo)
+    open("case.scf", "w") do fout
+        write(fout, ControlNL)
+        write(fout, SystemNL)
+        write(fout, ElectronsNL)
+        write(fout, AtomicSpeciesBlock)
+        write(fout, AtomicPositionsBlock)
+        write(fout, KPointsBlock)
+    end
 end
 
 #=
@@ -103,17 +114,6 @@ function pwscfio_input()
                    AtomicSpeciesBlock,
                    AtomicPositionsBlock,
                    KPointsBlock)
-end
-
-function pwscf_test()
-    open("case.scf", "w") do fout
-        write(fout, ControlNL)
-        write(fout, SystemNL)
-        write(fout, ElectronsNL)
-        write(fout, AtomicSpeciesBlock)
-        write(fout, AtomicPositionsBlock)
-        write(fout, KPointsBlock)
-    end
 end
 
 #=
