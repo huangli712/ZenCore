@@ -62,7 +62,7 @@ Parse the `PWSCF.INP` file, and return the PWInput struct. Actually,
 contains the `control`, `system`, `electrons` (namelists) and the
 `ATOMIC_SPECIES`, `ATOMIC_POSITIONS`, `K_POINTS` (cards) input blocks
 only. If you want to support more input entries, please make your
-modifications.
+own modifications.
 
 See also: [`PWInput`](@ref).
 """
@@ -83,7 +83,13 @@ function pwscfio_input()
     AtomicPositionsBlock = parse(AtomicPositionsCard, line)
     KPointsBlock = parse(KPointsCard, line)
 
-    return PWInput(ControlNL, SystemNL, ElectronsNL, AtomicSpeciesBlock, AtomicPositionsBlock, KPointsBlock)
+    # Return a PWInput struct
+    return PWInput(ControlNL, 
+                   SystemNL,
+                   ElectronsNL,
+                   AtomicSpeciesBlock,
+                   AtomicPositionsBlock,
+                   KPointsBlock)
 end
 
 function pwscf_test()
