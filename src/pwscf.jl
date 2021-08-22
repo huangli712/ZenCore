@@ -908,6 +908,10 @@ function Base.setindex!(nml::T, value, key::AbstractString) where {T <: Namelist
     nml.data[key] = value
 end
 
+function Base.delete!(nml::T, key::AbstractString) where {T <: Namelist}
+    delete!(nml.data, key)
+end
+
 #=
 ### *Driver Functions*
 =#
@@ -985,6 +989,8 @@ function pwscfc_input(PWINP::PWInput, it::IterInfo)
 
         @case "tetra"
             PWINP.SystemNL["occupations"] = "'tetrahedra'"
+            delete!(PWINP.SystemNL, "smearing")
+            delete!(PWINP.SystemNL, "degauss")
             break
 
         @default
