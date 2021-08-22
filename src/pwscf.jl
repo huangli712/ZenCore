@@ -12,12 +12,12 @@ function pwscf_adaptor()
 end
 
 function pwscf_parser()
-    lines = readlines("diamond.scf")
+    lines = readlines("al.scf")
     ControlNL = parse(ControlNamelist, lines)
     SystemNL = parse(SystemNamelist, lines)
     ElectronsNL = parse(ElectronsNamelist, lines)
 
-    str = read("diamond.scf", String)
+    str = read("al.scf", String)
     AtomicSpeciesBlock = parse(AtomicSpeciesCard, str)
     AtomicPositionsBlock = parse(AtomicPositionsCard, str)
     KPointsBlock = parse(KPointsCard, str)
@@ -107,6 +107,10 @@ struct ReciprocalPoint
         #
         return new(coord, weight)
     end
+end
+
+function ReciprocalPoint(x::F64, y::F64, z::F64, w::F64)
+    return ReciprocalPoint([x, y, z], w)
 end
 
 """
