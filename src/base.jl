@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/08/12
+# Last modified: 2021/08/22
 #
 
 #=
@@ -712,8 +712,8 @@ If `sc = true`, this function will read in the correction for density
 matrix, and then feed it back to the DFT engine to continue the DFT + DMFT
 calculations.
 
-Now only the vasp engine is supported. If you want to support the other
-DFT engine, this function must be adapted.
+Now only the vasp and pwscf engines are supported. If you want to support
+more DFT engines, this function must be adapted.
 
 See also: [`adaptor_run`](@ref), [`dmft_run`](@ref), [`solver_run`](@ref).
 """
@@ -737,6 +737,12 @@ function dft_run(it::IterInfo, lr::Logger, sc::Bool = false)
                 vasp_exec(it)
                 vasp_save(it)
                 break
+
+            # For pwscf
+            @case "pwscf"
+                pwscf_init(it)
+                pwscf_exec(it)
+                pwscf_save(it)
 
             @default
                 sorry()
