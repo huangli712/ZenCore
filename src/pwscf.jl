@@ -212,6 +212,8 @@ struct AtomicPosition
     # Inner constructor
     function AtomicPosition(atom::Union{AbstractChar,AbstractString}, pos, if_pos)
         @assert length(atom) ≤ 3
+        @assert length(pos) == 3
+        @assert length(if_pos) == 3
         return new(string(atom), pos, if_pos)
     end
 end
@@ -899,6 +901,7 @@ function Base.write(io::IO, x::AtomicPositionsCard)
     println(io, "ATOMIC_POSITIONS {$(x.option)}")
     for i =  1:length(x.data)
         AP = x.data[i]
-        println(AP)
+        print(io, " $(AP.atom) ")
+        @printf(io, "%5.3f %5.3f %5.3f\n", AP.)
     end
 end
