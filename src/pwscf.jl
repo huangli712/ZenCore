@@ -918,5 +918,6 @@ function Base.write(io::IO, x::GammaPointCard)
 end
 
 function Base.write(io::IO, x::SpecialPointsCard)
-    println("special")
+    println(io, "K_POINTS {$(x.option)}")
+    
 end
