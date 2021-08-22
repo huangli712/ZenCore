@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/08/15
+# Last modified: 2021/08/22
 #
 
 #=
@@ -211,14 +211,25 @@ function query_case()
 end
 
 #=
-*Remarks* :
+*Remarks 1* :
 
 For `vasp`, the essential input files include:
+
 * POSCAR
 * POTCAR
 
 As for the `INCAR` and `KPOINTS` files, they should be generated
 automatically. Do not worry about them.
+
+*Remarks 2* :
+
+For `quantum espresso`, the essential input files include:
+
+* pwscf.in
+* Pseudopotential files.
+
+As for the other files, they should be generated automatically. Do
+not worry about them.
 =#
 
 """

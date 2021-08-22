@@ -67,7 +67,7 @@ abstract type Namelist <: InputEntry end
 """
     Card
 
-Represent abstract cards of an `Input` in Quantum ESPRESSO. It is used
+Represent abstract cards of an `Input` in quantum espresso. It is used
 to build the internal type system.
 """
 abstract type Card <: InputEntry end
@@ -75,7 +75,7 @@ abstract type Card <: InputEntry end
 """
     KPointsCard
 
-Represent abstract ``k``-mesh or ``k``-path in Quantum ESPRESSO.
+Represent abstract ``k``-mesh or ``k``-path in quantum espresso.
 """
 abstract type KPointsCard <: Card end
 
@@ -152,7 +152,7 @@ end
 """
     AtomicSpecies
 
-Represent each line of the `ATOMIC_SPECIES` card in Quantum ESPRESSO.
+Represent each line of the `ATOMIC_SPECIES` card in quantum espresso.
 The `atom` field accepts at most 3 characters.
 
 ### Members
@@ -188,7 +188,7 @@ end
 """
     AtomicPosition
 
-Represent each line of the `ATOMIC_POSITIONS` card in Quantum ESPRESSO.
+Represent each line of the `ATOMIC_POSITIONS` card in quantum espresso.
 The `atom` field accepts at most 3 characters.
 
 ### Members
@@ -271,7 +271,7 @@ AtomicPosition(x::AtomicSpecies, pos, if_pos) = AtomicPosition(x.atom, pos, if_p
 """
     ControlNamelist
 
-Represent the `control` namelist in Quantum ESPRESSO.
+Represent the `control` namelist in quantum espresso.
 
 ### Members
 
@@ -286,7 +286,7 @@ end
 """
     SystemNamelist
 
-Represent the `control` namelist in Quantum ESPRESSO.
+Represent the `control` namelist in quantum espresso.
 
 ### Members
 
@@ -301,7 +301,7 @@ end
 """
     ElectronsNamelist
 
-Represent the `control` namelist in Quantum ESPRESSO.
+Represent the `control` namelist in quantum espresso.
 
 ### Members
 
@@ -323,7 +323,7 @@ block_vars(::Type{ElectronsNamelist}) = VAR_ELECTRONS
 """
     AtomicSpeciesCard
 
-Represent the `ATOMIC_SPECIES` card in Quantum ESPRESSO.
+Represent the `ATOMIC_SPECIES` card in quantum espresso.
 
 ### Members
 
@@ -338,7 +338,7 @@ end
 """
     AtomicPositionsCard
 
-Represent the `ATOMIC_POSITIONS` card in Quantum ESPRESSO.
+Represent the `ATOMIC_POSITIONS` card in quantum espresso.
 
 ### Members
 
@@ -361,7 +361,7 @@ end
 """
     AutoKmeshCard
 
-Represent the `K_POINTS` card in Quantum ESPRESSO (`automatic` mode).
+Represent the `K_POINTS` card in quantum espresso (`automatic` mode).
 
 See also: [`KPointsCard`](@ref).
 """
@@ -372,7 +372,7 @@ end
 """
     GammaPointCard
 
-Represent the `K_POINTS` card in Quantum ESPRESSO (`gamma` mode).
+Represent the `K_POINTS` card in quantum espresso (`gamma` mode).
 
 See also: [`KPointsCard`](@ref).
 """
@@ -381,7 +381,7 @@ struct GammaPointCard <: KPointsCard end
 """
     SpecialKPointsCard
 
-Represent the `K_POINTS` card in Quantum ESPRESSO.
+Represent the `K_POINTS` card in quantum espresso.
 
 ### Members
 
@@ -409,7 +409,7 @@ end
 """
     PWInput
 
-Represent the input file of Quantum ESPRESSO.
+Represent the input file of quantum espresso.
 """
 mutable struct PWInput <: Input
     ControlNL   :: ControlNamelist
