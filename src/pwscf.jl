@@ -230,6 +230,14 @@ AtomicSpecies(x::AtomicPosition, mass, upf) = AtomicSpecies(x.atom, mass, upf)
 
 """
     AtomicPosition(atom, pos)
+
+Constructors for `AtomicPosition`.
+
+See also: [`AtomicPositionsCard`](@ref).
+"""
+AtomicPosition(atom, pos) = AtomicPosition(atom, pos, trues(3))
+
+"""
     AtomicPosition(x::AtomicSpecies, pos, if_pos)
 
 Constructors for `AtomicPosition`.
@@ -246,7 +254,6 @@ AtomicPosition("S", [0.5, 0.28867513, 1.974192764], Bool[1, 1, 1])
 
 See also: [`AtomicPositionsCard`](@ref).
 """
-AtomicPosition(atom, pos) = AtomicPosition(atom, pos, trues(3))
 AtomicPosition(x::AtomicSpecies, pos, if_pos) = AtomicPosition(x.atom, pos, if_pos)
 
 #=
@@ -258,51 +265,15 @@ AtomicPosition(x::AtomicSpecies, pos, if_pos) = AtomicPosition(x.atom, pos, if_p
 
 Represent a component of an `PWInput`, a basic Fortran data structure.
 It is used to build the internal type system.
-"""
-abstract type PWNamelist <: PWInputEntry end
-
-"""
-    ControlNamelist
-
-Represent the `control` namelist in pwscf.
 
 ### Members
 
 * data -> A dict containing pairs of key and value.
 
-See also: [`Namelist`](@ref).
+See also: [`PWCard`](@ref).
 """
-mutable struct ControlNamelist <: Namelist
-    data :: Dict{AbstractString,Any}
-end
-
-"""
-    SystemNamelist
-
-Represent the `control` namelist in pwscf.
-
-### Members
-
-* data -> A dict containing pairs of key and value.
-
-See also: [`Namelist`](@ref).
-"""
-mutable struct SystemNamelist <: Namelist
-    data :: Dict{AbstractString,Any}
-end
-
-"""
-    ElectronsNamelist
-
-Represent the `control` namelist in pwscf.
-
-### Members
-
-* data -> A dict containing pairs of key and value.
-
-See also: [`Namelist`](@ref).
-"""
-mutable struct ElectronsNamelist <: Namelist
+mutable struct PWNamelist <: PWInputEntry
+    name :: AbstractString
     data :: Dict{AbstractString,Any}
 end
 
