@@ -74,6 +74,13 @@ struct ReciprocalPoint
     end
 end
 
+"""
+    ReciprocalPoint(x::F64, y::F64, z::F64, w::F64)
+
+Constructor for ReciprocalPoint.
+
+See also: [`MonkhorstPackGrid`](@ref).
+"""
 function ReciprocalPoint(x::F64, y::F64, z::F64, w::F64)
     return ReciprocalPoint([x, y, z], w)
 end
@@ -108,6 +115,19 @@ struct MonkhorstPackGrid
         #
         return new(mesh, shift)
     end
+end
+
+"""
+    MonkhorstPackGrid(k1, k2, k3, s1, s2, s3)
+
+Constructor for MonkhorstPackGrid.
+
+See also: [`ReciprocalPoint`](@ref).
+"""
+function MonkhorstPackGrid(k1, k2, k3, s1, s2, s3)
+    k = [k1, k2, k3]
+    s = [s1, s2, s3]
+    return MonkhorstPackGrid(k, s)
 end
 
 #=
