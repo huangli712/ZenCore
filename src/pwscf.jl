@@ -563,7 +563,7 @@ end
 """
     tryparse(::Type{AtomicSpeciesCard}, str::AbstractString)
 
-Try to parse the AtomicSpeciesCard object.
+Try to parse the `AtomicSpeciesCard` object.
 
 See also: [`AtomicSpeciesCard`](@ref).
 """
@@ -587,7 +587,7 @@ end
 """
     tryparse(::Type{AtomicPositionsCard}, str::AbstractString)
 
-Try to parse the AtomicPositionsCard object.
+Try to parse the `AtomicPositionsCard` object.
 
 See also: [`AtomicPositionsCard`](@ref).
 """
@@ -626,6 +626,13 @@ function Base.tryparse(::Type{AtomicPositionsCard}, str::AbstractString)
     end
 end
 
+"""
+    tryparse(::Type{AutoKmeshCard}, str::AbstractString)
+
+Try to parse the `AutoKmeshCard` object.
+
+See also: [`AutoKmeshCard`](@ref).
+"""
 function Base.tryparse(::Type{AutoKmeshCard}, str::AbstractString)
     m = match(K_POINTS_AUTOMATIC_BLOCK, str)
 
@@ -635,6 +642,13 @@ function Base.tryparse(::Type{AutoKmeshCard}, str::AbstractString)
     end
 end
 
+"""
+    tryparse(::Type{GammaPointCard}, str::AbstractString)
+
+Try to parse the `GammaPointCard` object.
+
+See also: [`GammaPointCard`](@ref).
+"""
 function Base.tryparse(::Type{GammaPointCard}, str::AbstractString)
     m = match(K_POINTS_GAMMA_BLOCK, str)
     return m === nothing ? nothing : GammaPointCard()
