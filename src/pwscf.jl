@@ -654,6 +654,13 @@ function Base.tryparse(::Type{GammaPointCard}, str::AbstractString)
     return m === nothing ? nothing : GammaPointCard()
 end
 
+"""
+    tryparse(::Type{SpecialPointsCard}, str::AbstractString)
+
+Try to parse the `SpecialPointsCard` object.
+
+See also: [`SpecialPointsCard`](@ref).
+"""
 function Base.tryparse(::Type{SpecialPointsCard}, str::AbstractString)
     m = match(K_POINTS_SPECIAL_BLOCK, str)
 
