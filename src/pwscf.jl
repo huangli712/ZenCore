@@ -493,7 +493,31 @@ const K_POINTS_SPECIAL_ITEM = r"""
 ### *Parsers*
 =#
 
-function namelists(nml::Vector{Any}, vars::Tuple)
+function Base.tryparse(::Type{PWNamelist}, strs::Vector{String}, name::String)
+    group_data = []
+    group_meet = false
+    group_name = "unknown"
+
+    for l in eachindex(strs)
+        strip_line = strip(strip(strs[l]), ',')
+        if startswith(strip_line, "&")
+            group_name = lowercase(split(strip_line, "&")[2])
+            if group_name == name
+                group_meet = true
+            end
+        end
+
+        if startswith(strip_line, "/")
+            group_meet = false
+        end
+
+        if group_meet
+            push!(group_data, strip_line)
+        end
+    end
+
+    popfirst!(group_data)
+
     NLData = Dict{AbstractString,Any}()
 
     for i in eachindex(nml)
@@ -522,36 +546,7 @@ function namelists(nml::Vector{Any}, vars::Tuple)
             NLData[key] = value
         end
     end
-
-    return NLData
-end
-
-function Base.tryparse(::Type{T}, strs::Vector{String}) where {T <: Namelist}
-    group_data = []
-    group_meet = false
-    group_name = "unknown"
-
-    for l in eachindex(strs)
-        strip_line = strip(strip(strs[l]), ',')
-        if startswith(strip_line, "&")
-            group_name = lowercase(split(strip_line, "&")[2])
-            if group_name == block_name(T)
-                group_meet = true
-            end
-        end
-
-        if startswith(strip_line, "/")
-            group_meet = false
-        end
-
-        if group_meet
-            push!(group_data, strip_line)
-        end
-    end
-
-    popfirst!(group_data)
-
-    return namelists(group_data, block_vars(T))
+    return
 end
 
 function Base.tryparse(::Type{AtomicSpeciesCard}, str::AbstractString)
