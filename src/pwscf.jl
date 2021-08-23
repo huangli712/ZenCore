@@ -701,8 +701,8 @@ function Base.parse(::Type{T}, str::AbstractString) where {T<:Card}
     end
 end
 
-function Base.write(io::IO, x::T) where {T <: Namelist}
-    println(io, " @$(block_name(T))")
+function Base.write(io::IO, x::PWNamelist)
+    println(io, " &$(x.name)")
     for key in keys(x.data)
         println(io, "    $key = ", x.data[key], ",")
     end
