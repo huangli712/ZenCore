@@ -268,6 +268,9 @@ It is used to build the internal type system.
 
 ### Members
 
+* name -> Name of the namelist. It should be `control`, `system`, or
+          `electrons`. If you want to support more namelists, please
+          make your own modifications.
 * data -> A dict containing pairs of key and value.
 
 See also: [`PWCard`](@ref).
