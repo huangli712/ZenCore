@@ -366,47 +366,6 @@ struct SpecialPointsCard <: KPointsCard
     end
 end
 
-#=
-### *Constants Tuples*
-=#
-
-"""
-    VAR_CONTROL
-
-Represent the `CONTROL` namelist of `pwscf`.
-"""
-const VAR_CONTROL = (
-    :calculation     ,
-    :title           ,
-    :verbosity       ,
-    :restart_mode    ,
-    :wf_collect      ,
-    :nstep           ,
-    :iprint          ,
-    :tstress         ,
-    :tprnfor         ,
-    :dt              ,
-    :outdir          ,
-    :wfcdir          ,
-    :prefix          ,
-    :lkpoint_dir     ,
-    :max_seconds     ,
-    :etot_conv_thr64 ,
-    :forc_conv_thr64 ,
-    :disk_io         ,
-    :pseudo_dir      ,
-    :tefield         ,
-    :dipfield        ,
-    :lelfield        ,
-    :nberrycyc       ,
-    :lorbm           ,
-    :lberry          ,
-    :gdir            ,
-    :nppstr          ,
-    :lfcp            ,
-    :gate
-)
-
 """
     VAR_SYSTEM
 
