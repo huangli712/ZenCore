@@ -887,30 +887,3 @@ own modifications.
 
 See also: [`PWInput`](@ref).
 """
-function pwscfio_input()
-#=
-    # Check the file status
-    finput = "PWSCF.INP"
-    @assert isfile(finput)
-
-    # Parse the namelists
-    lines = readlines(finput)
-    ControlNL = parse(ControlNamelist, lines)
-    SystemNL = parse(SystemNamelist, lines)
-    ElectronsNL = parse(ElectronsNamelist, lines)
-
-    # Parse the cards
-    line = read(finput, String)
-    AtomicSpeciesBlock = parse(AtomicSpeciesCard, line)
-    AtomicPositionsBlock = parse(AtomicPositionsCard, line)
-    KPointsBlock = parse(KPointsCard, line)
-
-    # Return a PWInput struct
-    return PWInput(ControlNL, 
-                   SystemNL,
-                   ElectronsNL,
-                   AtomicSpeciesBlock,
-                   AtomicPositionsBlock,
-                   KPointsBlock)
-=#
-end

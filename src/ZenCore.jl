@@ -491,7 +491,6 @@ pwscf_init    -> Prepare pwscf's input files.
 pwscf_exec    -> Execute pwscf program.
 pwscf_save    -> Backup pwscf's output files.
 pwscfc_input  -> Generate essential input file (case.scf or case.nscf).
-pwscfio_input -> Parse PWSCF.INP, return PWInput struct.
 ```
 =#
 
@@ -503,7 +502,6 @@ export pwscf_init
 export pwscf_exec
 export pwscf_save
 export pwscfc_input
-export pwscfio_input
 
 #=
 ### *Includes And Exports* : *plo.jl*
