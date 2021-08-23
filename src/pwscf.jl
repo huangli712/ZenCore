@@ -493,46 +493,70 @@ const K_POINTS_SPECIAL_ITEM = r"""
 ### *Parsers*
 =#
 
+"""
+    tryparse(::Type{PWNamelist}, strs::Vector{String}, name::String)
+
+Try to parse the `PWNamelist` object.
+
+See also: [`PWNamelist`](@ref).
+"""
 function Base.tryparse(::Type{PWNamelist}, strs::Vector{String}, name::String)
+    # Try to parse `strs` to extract the data
+    #
+    # Prepare necessary data structures
     group_data = []
     group_meet = false
     group_name = "unknown"
     #
+    # Go through each line
     for l in eachindex(strs)
+        # Get rid of the blanks and `,`
         strip_line = strip(strip(strs[l]), ',')
+        # Meet a namelist
         if startswith(strip_line, "&")
             group_name = lowercase(split(strip_line, "&")[2])
+            # It is the namelist what we try to locate
             if group_name == name
                 group_meet = true
             end
         end
 
+        # End of namelist
         if startswith(strip_line, "/")
             group_meet = false
         end
 
+        # Store the data in group_data
         if group_meet
             push!(group_data, strip_line)
         end
     end
     #
+    # The first element is not useful. We have to remove it.
     popfirst!(group_data)
 
+    # Try to build a PWNamelist object
+    #
+    # Prepare a dictionary, it will contain the namelist's data.
     NLData = Dict{AbstractString,Any}()
-
+    #
+    # Go throught each element in group_data
     for i in eachindex(group_data)
+        # There are multiple entries in the element (line)
         if count(",", group_data[i]) > 0
             pairs = split(group_data[i], ",")
             for j in eachindex(pairs)
                 key, value = map(x -> strip(x), split(pairs[j], "="))
                 NLData[key] = value
             end
+        # There is only one entry in the element (line)
         else
             key, value = map(x -> strip(x), split(group_data[i], "="))
             NLData[key] = value
         end
     end
 
+    # Return the desired object
     return PWNamelist(name, NLData)
 end
 
