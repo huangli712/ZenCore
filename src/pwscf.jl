@@ -746,11 +746,11 @@ function Base.write(io::IO, x::SpecialPointsCard)
     end
 end
 
-function Base.setindex!(nml::T, value, key::AbstractString) where {T <: Namelist}
+function Base.setindex!(nml::PWNamelist, value, key::AbstractString)
     nml.data[key] = value
 end
 
-function Base.delete!(nml::T, key::AbstractString) where {T <: Namelist}
+function Base.delete!(nml::PWNamelist, key::AbstractString)
     delete!(nml.data, key)
 end
 
