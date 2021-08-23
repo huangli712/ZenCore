@@ -366,36 +366,6 @@ struct SpecialPointsCard <: KPointsCard
     end
 end
 
-"""
-    VAR_ELECTRONS
-
-Represent the `ELECTRONS` namelist of `pwscf`.
-"""
-const VAR_ELECTRONS = (
-    :electron_maxstep  ,
-    :scf_must_converge ,
-    :conv_thr          ,
-    :adaptive_thr      ,
-    :conv_thr_init     ,
-    :conv_thr_multi    ,
-    :mixing_mode       ,
-    :mixing_beta       ,
-    :mixing_ndim       ,
-    :mixing_fixed_ns   ,
-    :diagonalization   ,
-    :diago_thr_init    ,
-    :diago_cg_maxiter  ,
-    :diago_david_ndim  ,
-    :diago_full_acc    ,
-    :efield            ,
-    :efield_cart       ,
-    :efield_phase      ,
-    :startingpot       ,
-    :startingwfc       ,
-    :tqr               ,
-    :real_space
-)
-
 #=
 ### *Constants Regex*
 =#
