@@ -494,13 +494,13 @@ const K_POINTS_SPECIAL_ITEM = r"""
 =#
 
 """
-    tryparse(::Type{PWNamelist}, strs::Vector{String}, name::String)
+    parse(::Type{PWNamelist}, strs::Vector{String}, name::String)
 
-Try to parse the `PWNamelist` object.
+Parse the `PWNamelist` object.
 
 See also: [`PWNamelist`](@ref).
 """
-function Base.tryparse(::Type{PWNamelist}, strs::Vector{String}, name::String)
+function Base.parse(::Type{PWNamelist}, strs::Vector{String}, name::String)
     # Try to parse `strs` to extract the data
     #
     # Prepare necessary data structures
@@ -692,15 +692,10 @@ function Base.tryparse(::Type{KPointsCard}, str::AbstractString)
     end
 end
 
-function Base.parse(::Type{T}, strs::Vector{String}) where {T <: Namelist}
-    x = tryparse(T, strs)
-    return T(x)
-end
-
 function Base.parse(::Type{T}, str::AbstractString) where {T<:Card}
     x = tryparse(T, str)
     if x === nothing
-        throw(Meta.ParseError("cannot find card `$(block_name(T))`!"))
+        error("cannot find card `$T`!")
     else
         return x
     end
