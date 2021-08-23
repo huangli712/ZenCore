@@ -584,6 +584,13 @@ function Base.tryparse(::Type{AtomicSpeciesCard}, str::AbstractString)
     end
 end
 
+"""
+    tryparse(::Type{AtomicPositionsCard}, str::AbstractString)
+
+Try to parse the AtomicPositionsCard object.
+
+See also: [`AtomicPositionsCard`](@ref).
+"""
 function Base.tryparse(::Type{AtomicPositionsCard}, str::AbstractString)
     m = match(ATOMIC_POSITIONS_BLOCK, str)
 
