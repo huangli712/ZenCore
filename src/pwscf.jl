@@ -280,13 +280,6 @@ mutable struct PWNamelist <: PWInputEntry
     data :: Dict{AbstractString,Any}
 end
 
-block_name(::Type{ControlNamelist}) = "control"
-block_name(::Type{SystemNamelist}) = "system"
-block_name(::Type{ElectronsNamelist}) = "electrons"
-block_vars(::Type{ControlNamelist}) = VAR_CONTROL
-block_vars(::Type{SystemNamelist}) = VAR_SYSTEM
-block_vars(::Type{ElectronsNamelist}) = VAR_ELECTRONS
-
 """
     AtomicSpeciesCard
 
