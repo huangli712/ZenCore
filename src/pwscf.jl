@@ -676,6 +676,13 @@ function Base.tryparse(::Type{SpecialPointsCard}, str::AbstractString)
     end
 end
 
+"""
+    tryparse(::Type{KPointsCard}, str::AbstractString)
+
+Try to parse the `KPointsCard` object.
+
+See also: [`KPointsCard`](@ref).
+"""
 function Base.tryparse(::Type{KPointsCard}, str::AbstractString)
     for T in (AutoKmeshCard, GammaPointCard, SpecialPointsCard)
         x = tryparse(T, str)
