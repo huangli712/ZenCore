@@ -12,45 +12,37 @@
 =#
 
 """
-    Input
+    PWInput
 
-An abstract type representing an input object of ab initio software.
-All other input types should subtype `Input`.  It is used to build
+An abstract type representing an input object of quantum espresso. All
+other input types should subtype `PWInput`.  It is used to build the
+internal type system.
+"""
+abstract type PWInput end
+
+"""
+    PWInputEntry
+
+Represent any component of an `PWInput`. The fields of an `PWInput`
+should all be either `PWInputEntry` or `Nothing` (no value provided).
+It is used to build the internal type system.
+"""
+abstract type PWInputEntry end
+
+"""
+    PWCard
+
+Represent abstract cards of an `PWInput` in pwscf. It is used to build
 the internal type system.
 """
-abstract type Input end
-
-"""
-    InputEntry
-
-Represent any component of an `Input`. The fields of an `Input` should
-all be either `InputEntry` or `Nothing` (no value provided). It is used
-to build the internal type system.
-"""
-abstract type InputEntry end
-
-"""
-    Namelist
-
-Represent a component of an `Input`, a basic Fortran data structure. It
-is used to build the internal type system.
-"""
-abstract type Namelist <: InputEntry end
-
-"""
-    Card
-
-Represent abstract cards of an `Input` in pwscf. It is used to build
-the internal type system.
-"""
-abstract type Card <: InputEntry end
+abstract type PWCard <: PWInputEntry end
 
 """
     KPointsCard
 
 Represent abstract ``k``-mesh or ``k``-path in pwscf.
 """
-abstract type KPointsCard <: Card end
+abstract type KPointsCard <: PWCard end
 
 #=
 ### *Customized Structs : K-Grid*
@@ -240,6 +232,14 @@ AtomicPosition(x::AtomicSpecies, pos, if_pos) = AtomicPosition(x.atom, pos, if_p
 #=
 ### *Customized Structs : Input Blocks*
 =#
+
+"""
+    PWNamelist
+
+Represent a component of an `PWInput`, a basic Fortran data structure.
+It is used to build the internal type system.
+"""
+abstract type PWNamelist <: PWInputEntry end
 
 """
     ControlNamelist
