@@ -370,6 +370,10 @@ end
 ### *Constants Regex*
 =#
 
+#=
+### *Remarks* : For ATOMIC_SPECIES Card
+=#
+
 const ATOMIC_SPECIES_BLOCK = r"""
 ^ [ \t]* ATOMIC_SPECIES [ \t]* \R+
 (?P<block>
@@ -383,6 +387,10 @@ const ATOMIC_SPECIES_ITEM = r"""
 ^ [ \t]* (?P<name>\S+) [ \t]+ (?P<mass>[-+]?[0-9]*\.[0-9]+|[0-9]+\.?[0-9]*) [ \t]+ (?P<pseudo>\S+)
     [ \t]* \R?
 """mx
+
+#=
+### *Remarks* : For ATOMIC_POSITIONS Card
+=#
 
 const ATOMIC_POSITIONS_BLOCK = r"""
 ^ \s* ATOMIC_POSITIONS \s*                      # Atomic positions start with that string
@@ -451,6 +459,10 @@ const ATOMIC_POSITIONS_ITEM = r"""
 [ \t]*
 (?P<fz>[01]?)                           # Get fx
 """mx
+
+#=
+### *Remarks* : For K_POINTS Card
+=#
 
 const K_POINTS_AUTOMATIC_BLOCK = r"""
 ^ [ \t]* K_POINTS [ \t]* [{(]? [ \t]* automatic [ \t]* [)}]? [ \t]* \R
