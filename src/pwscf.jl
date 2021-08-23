@@ -77,7 +77,7 @@ end
 """
     ReciprocalPoint(x::F64, y::F64, z::F64, w::F64)
 
-Constructor for ReciprocalPoint.
+Constructor for `ReciprocalPoint`.
 
 See also: [`MonkhorstPackGrid`](@ref).
 """
@@ -120,7 +120,7 @@ end
 """
     MonkhorstPackGrid(k1, k2, k3, s1, s2, s3)
 
-Constructor for MonkhorstPackGrid.
+Constructor for `MonkhorstPackGrid`.
 
 See also: [`ReciprocalPoint`](@ref).
 """
