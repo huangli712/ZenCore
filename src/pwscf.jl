@@ -497,7 +497,7 @@ function Base.tryparse(::Type{PWNamelist}, strs::Vector{String}, name::String)
     group_data = []
     group_meet = false
     group_name = "unknown"
-
+    #
     for l in eachindex(strs)
         strip_line = strip(strip(strs[l]), ',')
         if startswith(strip_line, "&")
@@ -515,38 +515,25 @@ function Base.tryparse(::Type{PWNamelist}, strs::Vector{String}, name::String)
             push!(group_data, strip_line)
         end
     end
-
+    #
     popfirst!(group_data)
 
     NLData = Dict{AbstractString,Any}()
 
-    for i in eachindex(nml)
-        if count(",", nml[i]) > 0
-            pairs = split(nml[i], ",")
+    for i in eachindex(group_data)
+        if count(",", group_data[i]) > 0
+            pairs = split(group_data[i], ",")
             for j in eachindex(pairs)
                 key, value = map(x -> strip(x), split(pairs[j], "="))
-                ind = findfirst('(', key)
-                if ind isa Nothing
-                    @assert Symbol(key) in vars
-                else
-                    subkey = SubString(key, 1:ind-1)
-                    @assert Symbol(subkey) in vars
-                end
                 NLData[key] = value
             end
         else
-            key, value = map(x -> strip(x), split(nml[i], "="))
-            ind = findfirst('(', key)
-            if ind isa Nothing
-                @assert Symbol(key) in vars
-            else
-                subkey = SubString(key, 1:ind-1)
-                @assert Symbol(subkey) in vars
-            end
+            key, value = map(x -> strip(x), split(group_data[i], "="))
             NLData[key] = value
         end
     end
-    return
+
+    return PWNamelist(name, NLData)
 end
 
 function Base.tryparse(::Type{AtomicSpeciesCard}, str::AbstractString)
