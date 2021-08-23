@@ -781,10 +781,10 @@ function pwscf_init(it::IterInfo)
     println("  > File PWSCF.INP is ready")
     #
     # Parse PWSCF.INP file, get the PWInput struct.
-    PWINP = pwscfio_input()
+    #PWINP = pwscfio_input()
     #
     # Create the real input file
-    pwscfc_input(PWINP, it)
+    pwscfc_input(it)
 end
 
 """
@@ -804,10 +804,24 @@ end
 =#
 
 """
-    pwscfc_input(PWINP::PWInput, it::IterInfo)
+    pwscfc_input(it::IterInfo)
 """
-function pwscfc_input(PWINP::PWInput, it::IterInfo)
-    println(PWINP)
+function pwscfc_input(it::IterInfo)
+    # Check the file status
+    finput = "PWSCF.INP"
+    @assert isfile(finput)
+
+    # Parse the namelists
+    lines = readlines(finput)
+    ControlNL = parse(PWNamelist, lines, "control")
+    SystemNL = parse(PWNamelist, lines, "system")
+    ElectronsNL = parse(PWNamelist, lines, "electrons")
+
+    # Parse the cards
+    line = read(finput, String)
+    AtomicSpeciesBlock = parse(AtomicSpeciesCard, line)
+    AtomicPositionsBlock = parse(AtomicPositionsCard, line)
+    KPointsBlock = parse(KPointsCard, line)
 
     # Customize your PWInput according to the case.toml
     #
@@ -815,41 +829,41 @@ function pwscfc_input(PWINP::PWInput, it::IterInfo)
     smear = get_d("smear")
     @cswitch smear begin
         @case "mp2"
-            PWINP.SystemNL["occupations"] = "'smearing'"
-            PWINP.SystemNL["smearing"] = "'m-p'"
+            SystemNL["occupations"] = "'smearing'"
+            SystemNL["smearing"] = "'m-p'"
             break
 
         @case "mp1"
-            PWINP.SystemNL["occupations"] = "'smearing'"
-            PWINP.SystemNL["smearing"] = "'m-p'"
+            SystemNL["occupations"] = "'smearing'"
+            SystemNL["smearing"] = "'m-p'"
             break
 
         @case "gauss"
-            PWINP.SystemNL["occupations"] = "'smearing'"
-            PWINP.SystemNL["smearing"] = "'gauss'"
+            SystemNL["occupations"] = "'smearing'"
+            SystemNL["smearing"] = "'gauss'"
             break
 
         @case "tetra"
-            PWINP.SystemNL["occupations"] = "'tetrahedra'"
-            delete!(PWINP.SystemNL, "smearing")
-            delete!(PWINP.SystemNL, "degauss")
+            SystemNL["occupations"] = "'tetrahedra'"
+            delete!(SystemNL, "smearing")
+            delete!(SystemNL, "degauss")
             break
 
         @default
-            PWINP.SystemNL["occupations"] = "'smearing'"
-            PWINP.SystemNL["smearing"] = "'gauss'"
+            SystemNL["occupations"] = "'smearing'"
+            SystemNL["smearing"] = "'gauss'"
             break
     end
 
     case = get_c("case")
     finput = "$case.scf"
     open(finput, "w") do fout
-        write(fout, PWINP.ControlNL)
-        write(fout, PWINP.SystemNL)
-        write(fout, PWINP.ElectronsNL)
-        write(fout, PWINP.AtomicSpeciesBlock)
-        write(fout, PWINP.AtomicPositionsBlock)
-        write(fout, PWINP.KPointsBlock)
+        write(fout, ControlNL)
+        write(fout, SystemNL)
+        write(fout, ElectronsNL)
+        write(fout, AtomicSpeciesBlock)
+        write(fout, AtomicPositionsBlock)
+        write(fout, KPointsBlock)
     end
 end
 
@@ -874,6 +888,7 @@ own modifications.
 See also: [`PWInput`](@ref).
 """
 function pwscfio_input()
+#=
     # Check the file status
     finput = "PWSCF.INP"
     @assert isfile(finput)
@@ -897,4 +912,5 @@ function pwscfio_input()
                    AtomicSpeciesBlock,
                    AtomicPositionsBlock,
                    KPointsBlock)
+=#
 end
