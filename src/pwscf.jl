@@ -560,6 +560,13 @@ function Base.tryparse(::Type{PWNamelist}, strs::Vector{String}, name::String)
     return PWNamelist(name, NLData)
 end
 
+"""
+    tryparse(::Type{AtomicSpeciesCard}, str::AbstractString)
+
+Try to parse the AtomicSpeciesCard object.
+
+See also: [`AtomicSpeciesCard`](@ref).
+"""
 function Base.tryparse(::Type{AtomicSpeciesCard}, str::AbstractString)
     m = match(ATOMIC_SPECIES_BLOCK, str)
 
