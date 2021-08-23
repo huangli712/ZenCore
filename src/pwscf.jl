@@ -291,7 +291,7 @@ Represent the `ATOMIC_SPECIES` card in pwscf.
 
 See also: [`AtomicSpecies`](@ref).
 """
-struct AtomicSpeciesCard <: Card
+struct AtomicSpeciesCard <: PWCard
     data :: Vector{AtomicSpecies}
 end
 
@@ -307,7 +307,7 @@ Represent the `ATOMIC_POSITIONS` card in pwscf.
 
 See also: [`AtomicPosition`](@ref).
 """
-struct AtomicPositionsCard <: Card
+struct AtomicPositionsCard <: PWCard
     data   :: Vector{AtomicPosition}
     option :: String
 
@@ -692,7 +692,7 @@ function Base.tryparse(::Type{KPointsCard}, str::AbstractString)
     end
 end
 
-function Base.parse(::Type{T}, str::AbstractString) where {T<:Card}
+function Base.parse(::Type{T}, str::AbstractString) where {T<:PWCard}
     x = tryparse(T, str)
     if x === nothing
         error("cannot find card `$T`!")
