@@ -366,21 +366,6 @@ struct SpecialPointsCard <: KPointsCard
     end
 end
 
-"""
-    PWInput
-
-Represent the input file of pwscf.
-"""
-mutable struct PWInput <: Input
-    ControlNL   :: ControlNamelist
-    SystemNL    :: SystemNamelist
-    ElectronsNL :: ElectronsNamelist
-    #
-    AtomicSpeciesBlock   :: AtomicSpeciesCard
-    AtomicPositionsBlock :: AtomicPositionsCard
-    KPointsBlock         :: KPointsCard
-end
-
 #=
 ### *Constants Tuples*
 =#
