@@ -983,6 +983,12 @@ function pwscfc_input(it::IterInfo)
         end
     end
 
+    # For magnetic moment
+    magmom = get_d("magmom")
+    if !isa(magmom, Missing)
+        write(ios, "MAGMOM   = $magmom \n")
+    end
+
     case = get_c("case")
     finput = "$case.scf"
     open(finput, "w") do fout
