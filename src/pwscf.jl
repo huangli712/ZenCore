@@ -963,15 +963,15 @@ function pwscfc_input(it::IterInfo)
         shift = copy(KPointsBlock.data.shift)
         @cswitch kmesh begin
             @case "accurate"
-                KPointsBlock = AutoKmeshCard(MonkhorstPackGrid([14, 14, 14], shift))
+                KPointsBlock = AutoKmeshCard(MonkhorstPackGrid([16, 14, 14], shift))
                 break
 
             @case "medium"
-                KPointsBlock = AutoKmeshCard(MonkhorstPackGrid([10, 10, 10], shift))
+                KPointsBlock = AutoKmeshCard(MonkhorstPackGrid([12, 10, 10], shift))
                 break
 
             @case "coarse"
-                KPointsBlock = AutoKmeshCard(MonkhorstPackGrid([6, 6, 6], shift))
+                KPointsBlock = AutoKmeshCard(MonkhorstPackGrid([08, 08, 08], shift))
                 break
 
             @case "file"
@@ -979,7 +979,7 @@ function pwscfc_input(it::IterInfo)
                 break
 
             @default # Very coarse kmesh
-                KPointsBlock = AutoKmeshCard(MonkhorstPackGrid([4, 4, 4], shift))
+                KPointsBlock = AutoKmeshCard(MonkhorstPackGrid([04, 04, 04], shift))
                 break
         end
     end
