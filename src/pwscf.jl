@@ -921,7 +921,7 @@ function pwscfc_input(it::IterInfo)
     AtomicPositionsBlock = parse(AtomicPositionsCard, line)
     KPointsBlock = parse(KPointsCard, line)
 
-    # Customize your PWInput according to the case.toml
+    # Customize the namelists and cards according to case.toml
     #
     # For smearing
     smear = get_d("smear")
