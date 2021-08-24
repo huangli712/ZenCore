@@ -959,24 +959,26 @@ function pwscfc_input(it::IterInfo)
     # Note that kmesh == "file" is not supported for pwscf.
     kmesh = get_d("kmesh")
     if isa(KPointsBlock,AutoKmeshCard)
+        shift = copy(KPointsBlock.data.shift)
         @cswitch kmesh begin
             @case "accurate"
-                write(ios, "KSPACING = 0.1 \n")
+                KPointsBlock = AutoKmeshCard(MonkhorstPackGrid([14, 14, 14], shift))
                 break
 
             @case "medium"
-                write(ios, "KSPACING = 0.2 \n")
+                KPointsBlock = AutoKmeshCard(MonkhorstPackGrid([10, 10, 10], shift))
                 break
 
             @case "coarse"
-                write(ios, "KSPACING = 0.4 \n")
+                KPointsBlock = AutoKmeshCard(MonkhorstPackGrid([6, 6, 6], shift))
                 break
 
             @case "file"
+                sorry()
                 break
 
             @default # Very coarse kmesh
-                write(ios, "KSPACING = 0.5 \n")
+                KPointsBlock = AutoKmeshCard(MonkhorstPackGrid([4, 4, 4], shift))
                 break
         end
     end
