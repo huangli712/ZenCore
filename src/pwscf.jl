@@ -905,6 +905,23 @@ function pwscf_exec(it::IterInfo)
     dft_home = query_dft("pwscf")
     println("  > Home directory for pwscf: ", dft_home)
 
+    # Select suitable pwscf program
+    # We use the same code for with or without spin-orbit coupling
+    if get_d("lspinorb")
+        pwscf_exe = "$dft_home/pw.x"
+    else
+        pwscf_exe = "$dft_home/pw.x"
+    end
+    @assert isfile(pwscf_exe)
+    println("  > Executable program is available: ", basename(pwscf_exe))
+
+    # Assemble command
+    if isnothing(mpi_prefix)
+        pwscf_cmd = pwscf_exe
+    else
+        pwscf_cmd = split("$mpi_prefix $pwscf_exe", " ")
+    end
+    println("  > Assemble command: $(prod(x -> x * ' ', pwscf_cmd))")
 end
 
 """
