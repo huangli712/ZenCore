@@ -25,9 +25,10 @@ abstract type PWInputEntry end
 """
     PWCard
 
-Represent abstract cards in `pwscf`.  It is used to build the internal
-type system. The input file of `pwscf` consists of various cards and
-namelists, represented by `PWCard` and `PWNamelist`, respectively.
+Represent abstract cards in the input file of `pwscf`.  It is used to
+build the internal type system. The input file of `pwscf` consists of
+various cards and namelists, represented by `PWCard` and `PWNamelist`,
+respectively.
 
 See also: [`PWNamelist`](@ref).
 """
@@ -36,7 +37,7 @@ abstract type PWCard <: PWInputEntry end
 """
     KPointsCard
 
-Represent abstract ``k``-mesh or ``k``-path in pwscf.
+Represent abstract `K-POINTS` card in the input file of `pwscf`.
 """
 abstract type KPointsCard <: PWCard end
 
