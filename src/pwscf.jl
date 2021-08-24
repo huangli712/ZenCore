@@ -849,7 +849,7 @@ end
 """
     pwscf_init(it::IterInfo)
 
-Check the runtime environment of pwscf, prepare necessary input files.
+Check the runtime environment of `pwscf`, prepare necessary input files.
 
 See also: [`pwscf_exec`](@ref), [`pwscf_save`](@ref).
 """
@@ -865,10 +865,7 @@ function pwscf_init(it::IterInfo)
     cp("../PWSCF.INP", joinpath(pwd(), "PWSCF.INP"), force = true)
     println("  > File PWSCF.INP is ready")
     #
-    # Parse PWSCF.INP file, get the PWInput struct.
-    #PWINP = pwscfio_input()
-    #
-    # Create the real input file
+    # Create the real input file, case.scf and case.nscf.
     pwscfc_input(it)
 end
 
@@ -890,6 +887,22 @@ end
 
 """
     pwscfc_input(it::IterInfo)
+
+It will parse the `PWSCF.INP` file at first. Actually, `PWSCF.INP` is a
+standard, but mini input file for `pwscf`. It should include three
+namelists (`control`, `system`, and `electrons`) and three cards
+(`ATOMIC_SPECIES`, `ATOMIC_POSITIONS`, and `K_POINTS`). If you want
+to support more input entries, please make your own modifications.
+
+Then this function will try to customize these namelists and cards
+according to the setup in `case.toml`.
+
+Finally, this function will generate the input files for `pwscf`. They
+are `case.scf` and `case.nscf`. As shown by their names, one is for the
+self-consistent calculation, the other is for the non-self-consistent
+calculation.
+
+See also: [`PWNamelist`](@ref), [`PWCard`](@ref).
 """
 function pwscfc_input(it::IterInfo)
     # Check the file status
@@ -959,16 +972,3 @@ end
 #=
 ### *Service Functions* : *Group C*
 =#
-
-"""
-    pwscfio_input()
-
-Parse the `PWSCF.INP` file, and return the PWInput struct. Actually,
-`PWSCF.INP` is a standard, but mini input file for pwscf. It should
-contains the `control`, `system`, `electrons` (namelists) and the
-`ATOMIC_SPECIES`, `ATOMIC_POSITIONS`, `K_POINTS` (cards) input blocks
-only. If you want to support more input entries, please make your
-own modifications.
-
-See also: [`PWInput`](@ref).
-"""
