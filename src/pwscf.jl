@@ -986,7 +986,15 @@ function pwscfc_input(it::IterInfo)
     # For magnetic moment
     magmom = get_d("magmom")
     if !isa(magmom, Missing)
-        write(ios, "MAGMOM   = $magmom \n")
+        SystemNL["starting_magnetization"] = magmom
+    end
+
+    # For symmetry
+    lsymm = get_d("lsymm")
+    if lsymm
+        write(ios, "ISYM     = 2 \n")
+    else # Ignore the symmetry completely
+        write(ios, "ISYM     =-1 \n")
     end
 
     case = get_c("case")
