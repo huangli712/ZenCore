@@ -894,16 +894,16 @@ end
 """
 function pwscf_exec(it::IterInfo)
     # Print the header
-    println("Detect the runtime environment for vasp")
+    println("Detect the runtime environment for pwscf")
 
-    # Determine mpi prefix (whether the vasp is executed sequentially)
+    # Determine mpi prefix (whether the pwscf is executed sequentially)
     mpi_prefix = inp_toml("../MPI.toml", "dft", false)
     numproc = parse(I64, line_to_array(mpi_prefix)[3])
     println("  > Using $numproc processors (MPI)")
 
-    # Get the home directory of vasp
-    dft_home = query_dft("vasp")
-    println("  > Home directory for vasp: ", dft_home)
+    # Get the home directory of pwscf
+    dft_home = query_dft("pwscf")
+    println("  > Home directory for pwscf: ", dft_home)
 
 end
 
