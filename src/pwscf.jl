@@ -928,7 +928,9 @@ function pwscf_exec(it::IterInfo)
 
     # Create a task, but do not run it immediately
     t = @task begin
-        run(pipeline(`$pwscf_cmd`, stdout = "pwscf.out"))
+        case = get_c("case")
+        finp = "$case.scf"
+        run(pipeline(`$pwscf_cmd`, stdin = finp, stdout = "pwscf.out"))
     end
     println("  > Create a task")
 
