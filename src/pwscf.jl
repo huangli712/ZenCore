@@ -909,13 +909,13 @@ function pwscfc_input(it::IterInfo)
     finput = "PWSCF.INP"
     @assert isfile(finput)
 
-    # Parse the namelists
+    # Parse the namelists, control, system, and electrons.
     lines = readlines(finput)
     ControlNL = parse(PWNamelist, lines, "control")
     SystemNL = parse(PWNamelist, lines, "system")
     ElectronsNL = parse(PWNamelist, lines, "electrons")
 
-    # Parse the cards
+    # Parse the cards, ATOMIC_SPECIES, ATOMIC_POSITIONS, and K_POINTS.
     line = read(finput, String)
     AtomicSpeciesBlock = parse(AtomicSpeciesCard, line)
     AtomicPositionsBlock = parse(AtomicPositionsCard, line)
