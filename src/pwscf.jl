@@ -1005,9 +1005,49 @@ function pwscfc_input(it::IterInfo)
         SystemNL["nspin"] = 1
     end
 
+    # For spin-orbit coupling
+    lspinorb = get_d("lspinorb")
+    if lspinorb
+        SystemNL["noncolin"] = ".true."
+        if lspins
+            SystemNL["nspin"] = 4
+        end
+    else
+        SystemNL["noncolin"] = ".false."
+    end
+
+    # For optimized projectors
+    # SKIP
+
+    # For local orbitals and projectors
+    # SKIP
+
+    # For number of bands
+    # SKIP
+
+    # Build input files for pwscf
+    #
+    # Get case's name
     case = get_c("case")
-    finput = "$case.scf"
-    open(finput, "w") do fout
+    #
+    # Setup filenames
+    fscf = "$case.scf"
+    fnscf = "$case.nscf"
+    #
+    # For case.scf
+    ControlNL["calculation"] = "'scf'"
+    open(fscf, "w") do fout
+        write(fout, ControlNL)
+        write(fout, SystemNL)
+        write(fout, ElectronsNL)
+        write(fout, AtomicSpeciesBlock)
+        write(fout, AtomicPositionsBlock)
+        write(fout, KPointsBlock)
+    end
+    #
+    # For case.nscf
+    ControlNL["calculation"] = "'nscf'"
+    open(fnscf, "w") do fout
         write(fout, ControlNL)
         write(fout, SystemNL)
         write(fout, ElectronsNL)
