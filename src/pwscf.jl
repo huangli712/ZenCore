@@ -315,7 +315,8 @@ end
 """
     AutoKmeshCard
 
-Represent the `K_POINTS` card in pwscf (`automatic` mode).
+Represent the `K_POINTS` card in the input file of `pwscf` (within
+the `automatic` mode).
 
 See also: [`KPointsCard`](@ref).
 """
@@ -326,7 +327,8 @@ end
 """
     GammaPointCard
 
-Represent the `K_POINTS` card in pwscf (`gamma` mode).
+Represent the `K_POINTS` card in the input file of `pwscf` (within
+the `gamma` mode).
 
 See also: [`KPointsCard`](@ref).
 """
@@ -335,7 +337,7 @@ struct GammaPointCard <: KPointsCard end
 """
     SpecialKPointsCard
 
-Represent the `K_POINTS` card in pwscf.
+Represent the `K_POINTS` card in the input file of `pwscf`.
 
 ### Members
 
@@ -362,6 +364,19 @@ end
 
 #=
 ### *Constants Regex*
+
+### *Remarks* :
+
+Note that these regular expressions are followed by various combinations
+of the `i`, `m`, and `x` flags. These flags have the following meanings:
+
+* `i` : Do case-insensitive pattern matching.
+* `m` : Treat string as multiple lines.
+* `s` : Treat string as single line.
+* `x` : Tells the regular expression parser to ignore most whitespace
+        that is neither backslashed nor within a character class.
+
+See: https://docs.julialang.org/en/v1/manual/strings/#Regular-Expressions
 =#
 
 #=
