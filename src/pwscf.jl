@@ -574,6 +574,17 @@ function Base.parse(::Type{PWNamelist}, strs::Vector{String}, name::String)
     return PWNamelist(name, NLData)
 end
 
+"""
+    parse(::Type{T}, str::AbstractString)
+
+Parse the `PWCard` object. Now we support the following cards:
+
+* `ATOMIC_SPECIES` (`AtomicSpeciesCard`)
+* `ATOMIC_POSITIONS` (`AtomicPositionsCard`)
+* `K_POINTS` (`AutoKmeshCard`, `GammaPointCard`, `SpecialKPointsCard`)
+
+See also: [`PWCard`](@ref).
+"""
 function Base.parse(::Type{T}, str::AbstractString) where {T<:PWCard}
     x = tryparse(T, str)
     if x === nothing
