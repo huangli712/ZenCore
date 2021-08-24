@@ -732,6 +732,10 @@ end
 
 """
     Base.write(io::IO, x::PWNamelist)
+
+Write the `PWNamelist` object to `IOStream`.
+
+See also: [`PWNamelist`](@ref).
 """
 function Base.write(io::IO, x::PWNamelist)
     println(io, " &$(x.name)")
@@ -741,6 +745,13 @@ function Base.write(io::IO, x::PWNamelist)
     println(io, " /")
 end
 
+"""
+    Base.write(io::IO, x::AtomicSpeciesCard)
+
+Write the `AtomicSpeciesCard` object to `IOStream`.
+
+See also: [`AtomicSpeciesCard`](@ref).
+"""
 function Base.write(io::IO, x::AtomicSpeciesCard)
     println(io, "ATOMIC_SPECIES")
     for i = 1:length(x.data)
@@ -749,6 +760,13 @@ function Base.write(io::IO, x::AtomicSpeciesCard)
     end
 end
 
+"""
+    Base.write(io::IO, x::AtomicPositionsCard)
+
+Write the `AtomicPositionsCard` object to `IOStream`.
+
+See also: [`AtomicPositionsCard`](@ref).
+"""
 function Base.write(io::IO, x::AtomicPositionsCard)
     println(io, "ATOMIC_POSITIONS {$(x.option)}")
     for i =  1:length(x.data)
