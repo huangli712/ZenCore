@@ -888,8 +888,8 @@ end
 """
     pwscfc_input(it::IterInfo)
 
-It will parse the `PWSCF.INP` file at first. Actually, `PWSCF.INP` is a
-standard, but mini input file for `pwscf`. It only includes three
+It will parse the `PWSCF.INP` file at first. Actually, `PWSCF.INP` is
+a standard, but mini input file for `pwscf`. It only includes three
 namelists (namely `control`, `system`, and `electrons`) and three
 cards (namely `ATOMIC_SPECIES`, `ATOMIC_POSITIONS`, and `K_POINTS`).
 If you want to support more input entries, please make your own
@@ -953,6 +953,12 @@ function pwscfc_input(it::IterInfo)
             SystemNL["smearing"] = "'gauss'"
             break
     end
+
+    # For kmesh density
+    #
+    # Note that kmesh == "file" is not supported for pwscf.
+    kmesh = get_d("kmesh")
+    @show KPointsBlock isa AutoKmeshCard
 
     case = get_c("case")
     finput = "$case.scf"
