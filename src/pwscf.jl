@@ -66,7 +66,6 @@ struct ReciprocalPoint
     function ReciprocalPoint(coord, weight)
         @assert length(coord) == 3
         @assert weight > 0.0
-        #
         return new(coord, weight)
     end
 end
@@ -105,23 +104,21 @@ struct MonkhorstPackGrid
         @assert length(mesh) == 3
         @assert length(shift) == 3
         @assert all(mesh .>= 1)
-        #
         if eltype(shift) != Bool
             shift = Bool.(shift)
         end
-        #
         return new(mesh, shift)
     end
 end
 
 """
-    MonkhorstPackGrid(k1, k2, k3, s1, s2, s3)
+    MonkhorstPackGrid(k1::I64, k2::I64, k3::I64, s1::I64, s2::I64, s3::I64)
 
 Constructor for `MonkhorstPackGrid`.
 
 See also: [`ReciprocalPoint`](@ref).
 """
-function MonkhorstPackGrid(k1, k2, k3, s1, s2, s3)
+function MonkhorstPackGrid(k1::I64, k2::I64, k3::I64, s1::I64, s2::I64, s3::I64)
     k = [k1, k2, k3]
     s = [s1, s2, s3]
     return MonkhorstPackGrid(k, s)
@@ -134,8 +131,8 @@ end
 """
     AtomicSpecies
 
-Represent each line of the `ATOMIC_SPECIES` card in pwscf. The `atom`
-field accepts at most 3 characters.
+Represent each line of the `ATOMIC_SPECIES` card in the input file of
+`pwscf`. The `atom` field accepts at most 3 characters.
 
 ### Members
 
