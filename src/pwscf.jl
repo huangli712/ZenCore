@@ -503,7 +503,7 @@ const K_POINTS_SPECIAL_ITEM = r"""
 =#
 
 """
-    parse(::Type{PWNamelist}, strs::Vector{String}, name::String)
+    Base.parse(::Type{PWNamelist}, strs::Vector{String}, name::String)
 
 Parse the `PWNamelist` object. The name of the namelist is specified
 by argument `name`.
@@ -575,7 +575,7 @@ function Base.parse(::Type{PWNamelist}, strs::Vector{String}, name::String)
 end
 
 """
-    parse(::Type{T}, str::AbstractString)
+    Base.parse(::Type{T}, str::AbstractString)
 
 Parse the `PWCard` object. Now we support the following cards:
 
@@ -595,7 +595,7 @@ function Base.parse(::Type{T}, str::AbstractString) where {T<:PWCard}
 end
 
 """
-    tryparse(::Type{AtomicSpeciesCard}, str::AbstractString)
+    Base.tryparse(::Type{AtomicSpeciesCard}, str::AbstractString)
 
 Try to parse the `AtomicSpeciesCard` object.
 
@@ -619,7 +619,7 @@ function Base.tryparse(::Type{AtomicSpeciesCard}, str::AbstractString)
 end
 
 """
-    tryparse(::Type{AtomicPositionsCard}, str::AbstractString)
+    Base.tryparse(::Type{AtomicPositionsCard}, str::AbstractString)
 
 Try to parse the `AtomicPositionsCard` object.
 
@@ -661,7 +661,7 @@ function Base.tryparse(::Type{AtomicPositionsCard}, str::AbstractString)
 end
 
 """
-    tryparse(::Type{AutoKmeshCard}, str::AbstractString)
+    Base.tryparse(::Type{AutoKmeshCard}, str::AbstractString)
 
 Try to parse the `AutoKmeshCard` object.
 
@@ -677,7 +677,7 @@ function Base.tryparse(::Type{AutoKmeshCard}, str::AbstractString)
 end
 
 """
-    tryparse(::Type{GammaPointCard}, str::AbstractString)
+    Base.tryparse(::Type{GammaPointCard}, str::AbstractString)
 
 Try to parse the `GammaPointCard` object.
 
@@ -689,7 +689,7 @@ function Base.tryparse(::Type{GammaPointCard}, str::AbstractString)
 end
 
 """
-    tryparse(::Type{SpecialPointsCard}, str::AbstractString)
+    Base.tryparse(::Type{SpecialPointsCard}, str::AbstractString)
 
 Try to parse the `SpecialPointsCard` object.
 
@@ -711,7 +711,7 @@ function Base.tryparse(::Type{SpecialPointsCard}, str::AbstractString)
 end
 
 """
-    tryparse(::Type{KPointsCard}, str::AbstractString)
+    Base.tryparse(::Type{KPointsCard}, str::AbstractString)
 
 Try to parse the `KPointsCard` object.
 
@@ -726,6 +726,13 @@ function Base.tryparse(::Type{KPointsCard}, str::AbstractString)
     end
 end
 
+#=
+### *Input File Writers*
+=#
+
+"""
+    Base.write(io::IO, x::PWNamelist)
+"""
 function Base.write(io::IO, x::PWNamelist)
     println(io, " &$(x.name)")
     for key in keys(x.data)
