@@ -992,9 +992,17 @@ function pwscfc_input(it::IterInfo)
     # For symmetry
     lsymm = get_d("lsymm")
     if lsymm
-        write(ios, "ISYM     = 2 \n")
+        SystemNL["nosym"] = ".false."
     else # Ignore the symmetry completely
-        write(ios, "ISYM     =-1 \n")
+        SystemNL["nosym"] = ".true."
+    end
+
+    # For spin polarizations
+    lspins = get_d("lspins")
+    if lspins
+        SystemNL["nspin"] = 2
+    else
+        SystemNL["nspin"] = 1
     end
 
     case = get_c("case")
