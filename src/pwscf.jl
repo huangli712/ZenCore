@@ -956,7 +956,8 @@ function pwscfc_input(it::IterInfo)
 
     # For kmesh density
     #
-    # Note that kmesh == "file" is not supported for pwscf.
+    # Note that if kmesh == "file", the original setup in PWSCF.INP is
+    # kept. In other words, KPointsBlock will not be changed.
     kmesh = get_d("kmesh")
     if isa(KPointsBlock,AutoKmeshCard)
         shift = copy(KPointsBlock.data.shift)
