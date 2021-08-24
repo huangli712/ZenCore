@@ -560,6 +560,15 @@ function Base.parse(::Type{PWNamelist}, strs::Vector{String}, name::String)
     return PWNamelist(name, NLData)
 end
 
+function Base.parse(::Type{T}, str::AbstractString) where {T<:PWCard}
+    x = tryparse(T, str)
+    if x === nothing
+        error("cannot find card `$T`!")
+    else
+        return x
+    end
+end
+
 """
     tryparse(::Type{AtomicSpeciesCard}, str::AbstractString)
 
@@ -689,15 +698,6 @@ function Base.tryparse(::Type{KPointsCard}, str::AbstractString)
         if x !== nothing
             return x
         end
-    end
-end
-
-function Base.parse(::Type{T}, str::AbstractString) where {T<:PWCard}
-    x = tryparse(T, str)
-    if x === nothing
-        error("cannot find card `$T`!")
-    else
-        return x
     end
 end
 
