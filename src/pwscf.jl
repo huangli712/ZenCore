@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/08/23
+# Last modified: 2021/08/24
 #
 
 #=
@@ -12,28 +12,24 @@
 =#
 
 """
-    PWInput
-
-An abstract type representing an input object of quantum espresso. All
-other input types should subtype `PWInput`.  It is used to build the
-internal type system.
-"""
-abstract type PWInput end
-
-"""
     PWInputEntry
 
-Represent any component of an `PWInput`. The fields of an `PWInput`
-should all be either `PWInputEntry` or `Nothing` (no value provided).
-It is used to build the internal type system.
+An abstract type representing an input component of `pwscf`. Note that
+all other input types (such as `PWCard` and `PWNamelist`) should subtype
+`PWInputEntry`.  It is used to build the internal type system.
+
+See also: [`PWCard`](@ref), [`PWNamelist`](@ref).
 """
 abstract type PWInputEntry end
 
 """
     PWCard
 
-Represent abstract cards of an `PWInput` in pwscf. It is used to build
-the internal type system.
+Represent abstract cards in `pwscf`.  It is used to build the internal
+type system. The input file of `pwscf` consists of various cards and
+namelists, represented by `PWCard` and `PWNamelist`, respectively.
+
+See also: [`PWNamelist`](@ref).
 """
 abstract type PWCard <: PWInputEntry end
 
