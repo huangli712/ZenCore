@@ -889,10 +889,11 @@ end
     pwscfc_input(it::IterInfo)
 
 It will parse the `PWSCF.INP` file at first. Actually, `PWSCF.INP` is a
-standard, but mini input file for `pwscf`. It should include three
-namelists (`control`, `system`, and `electrons`) and three cards
-(`ATOMIC_SPECIES`, `ATOMIC_POSITIONS`, and `K_POINTS`). If you want
-to support more input entries, please make your own modifications.
+standard, but mini input file for `pwscf`. It only includes three
+namelists (namely `control`, `system`, and `electrons`) and three
+cards (namely `ATOMIC_SPECIES`, `ATOMIC_POSITIONS`, and `K_POINTS`).
+If you want to support more input entries, please make your own
+modifications here.
 
 Then this function will try to customize these namelists and cards
 according to the setup in `case.toml`.
