@@ -922,6 +922,28 @@ function pwscf_exec(it::IterInfo)
         pwscf_cmd = split("$mpi_prefix $pwscf_exe", " ")
     end
     println("  > Assemble command: $(prod(x -> x * ' ', pwscf_cmd))")
+
+    # Print the header
+    println("Launch the computational engine pwscf")
+
+    # Create a task, but do not run it immediately
+    t = @task begin
+        run(pipeline(`$pwscf_cmd`, stdout = "pwscf.out"))
+    end
+    println("  > Create a task")
+
+    # Launch it, the terminal output is redirected to pwscf.out.
+    # Note that the task runs asynchronously. It will not block
+    # the execution.
+    schedule(t)
+    println("  > Add the task to the scheduler's queue")
+    println("  > Waiting ...")
+
+    # To ensure that the task is executed
+    while true
+        sleep(2)
+        istaskstarted(t) && break
+    end
 end
 
 """
