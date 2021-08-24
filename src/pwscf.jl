@@ -499,13 +499,14 @@ const K_POINTS_SPECIAL_ITEM = r"""
 """mx
 
 #=
-### *Parsers*
+### *Input File Parsers*
 =#
 
 """
     parse(::Type{PWNamelist}, strs::Vector{String}, name::String)
 
-Parse the `PWNamelist` object.
+Parse the `PWNamelist` object. The name of the namelist is specified
+by argument `name`.
 
 See also: [`PWNamelist`](@ref).
 """
@@ -542,7 +543,11 @@ function Base.parse(::Type{PWNamelist}, strs::Vector{String}, name::String)
     end
     #
     # The first element is not useful. We have to remove it.
-    popfirst!(group_data)
+    if isempty(group_data)
+        return nothing # Fail to figure out a namelist
+    else
+        popfirst!(group_data)
+    end
 
     # Try to build a PWNamelist object
     #
