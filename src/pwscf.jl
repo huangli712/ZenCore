@@ -277,7 +277,7 @@ end
 """
     AtomicSpeciesCard
 
-Represent the `ATOMIC_SPECIES` card in pwscf.
+Represent the `ATOMIC_SPECIES` card in the input file of `pwscf`.
 
 ### Members
 
@@ -292,7 +292,7 @@ end
 """
     AtomicPositionsCard
 
-Represent the `ATOMIC_POSITIONS` card in pwscf.
+Represent the `ATOMIC_POSITIONS` card in the input file of `pwscf`.
 
 ### Members
 
