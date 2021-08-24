@@ -275,6 +275,28 @@ mutable struct PWNamelist <: PWInputEntry
 end
 
 """
+    Base.setindex!(pnl::PWNamelist, value, key::AbstractString)
+
+Modify an entry (specified by `key`) in the namelist object (`pnl`).
+
+See also: [`PWNamelist`](@ref).
+"""
+function Base.setindex!(pnl::PWNamelist, value, key::AbstractString)
+    pnl.data[key] = value
+end
+
+"""
+    Base.delete!(pnl::PWNamelist, key::AbstractString)
+
+Remove an entry (specified by `key`) in the namelist object (`pnl`).
+
+See also: [`PWNamelist`](@ref).
+"""
+function Base.delete!(pnl::PWNamelist, key::AbstractString)
+    delete!(pnl.data, key)
+end
+
+"""
     AtomicSpeciesCard
 
 Represent the `ATOMIC_SPECIES` card in the input file of `pwscf`.
@@ -815,14 +837,6 @@ function Base.write(io::IO, x::SpecialPointsCard)
         RP = x.data[i]
         @printf(io, " %11.7f%11.7f%11.7f%7.2f\n", RP.coord..., RP.weight)
     end
-end
-
-function Base.setindex!(nml::PWNamelist, value, key::AbstractString)
-    nml.data[key] = value
-end
-
-function Base.delete!(nml::PWNamelist, key::AbstractString)
-    delete!(nml.data, key)
 end
 
 #=
