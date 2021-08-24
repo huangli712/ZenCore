@@ -881,8 +881,12 @@ function pwscf_init(it::IterInfo)
     println("  > File $case.nscf is ready")
     #
     # Check the pseudopotentials
-    pdir = ControlNL["pseudo_dir"] 
-    @show pdir
+    pdir = strip(ControlNL["pseudo_dir"],''')
+    upf = map(x -> joinpath(pdir, x.upf), AtomicSpeciesBlock.data)
+    for f in upf
+        @assert isfile(f)
+        println("  > File $f is ready")
+    end
 end
 
 """
@@ -1043,6 +1047,11 @@ function pwscfc_input(it::IterInfo)
 
     # For number of bands
     # SKIP
+
+    # Special treatment for pseudo_dir
+    pseudo_dir = strip(ControlNL["pseudo_dir"],''') # Get rid of `
+    pseudo_dir = joinpath("..", pseudo_dir)
+    ControlNL["pseudo_dir"] = "'$pseudo_dir'" # Add ' back
 
     # Build input files for pwscf
     #
