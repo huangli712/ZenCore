@@ -867,6 +867,9 @@ function pwscf_init(it::IterInfo)
     #
     # Create the real input file, case.scf and case.nscf.
     pwscfc_input(it)
+    case = get_c("case")
+    println("  > File $case.scf is ready")
+    println("  > File $case.nscf is ready")
 end
 
 """
