@@ -959,26 +959,26 @@ function pwscfc_input(it::IterInfo)
     # Note that kmesh == "file" is not supported for pwscf.
     kmesh = get_d("kmesh")
     if isa(KPointsBlock,AutoKmeshCard)
-    @cswitch kmesh begin
-        @case "accurate"
-            write(ios, "KSPACING = 0.1 \n")
-            break
+        @cswitch kmesh begin
+            @case "accurate"
+                write(ios, "KSPACING = 0.1 \n")
+                break
 
-        @case "medium"
-            write(ios, "KSPACING = 0.2 \n")
-            break
+            @case "medium"
+                write(ios, "KSPACING = 0.2 \n")
+                break
 
-        @case "coarse"
-            write(ios, "KSPACING = 0.4 \n")
-            break
+            @case "coarse"
+                write(ios, "KSPACING = 0.4 \n")
+                break
 
-        @case "file"
-            break
+            @case "file"
+                break
 
-        @default # Very coarse kmesh
-            write(ios, "KSPACING = 0.5 \n")
-            break
-    end
+            @default # Very coarse kmesh
+                write(ios, "KSPACING = 0.5 \n")
+                break
+        end
     end
 
     case = get_c("case")
