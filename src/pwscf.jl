@@ -866,7 +866,7 @@ function pwscf_init(it::IterInfo)
     println("  > File PWSCF.INP is ready")
     #
     # Create the real input file, case.scf and case.nscf.
-    pwscfc_input(it)
+    ControlNl, AtomicSpeciesBlock = pwscfc_input(it)
     case = get_c("case")
     println("  > File $case.scf is ready")
     println("  > File $case.nscf is ready")
@@ -905,6 +905,9 @@ Finally, this function will generate the input files for `pwscf`. They
 are `case.scf` and `case.nscf`. As shown by their names, one is for the
 self-consistent calculation, the other is for the non-self-consistent
 calculation.
+
+The return values of this function are namelist (`control`) and card
+(`ATOMIC_SPECIES`), which will be used to check the pseudopotentials.
 
 See also: [`PWNamelist`](@ref), [`PWCard`](@ref).
 """
@@ -1058,6 +1061,10 @@ function pwscfc_input(it::IterInfo)
         write(fout, AtomicPositionsBlock)
         write(fout, KPointsBlock)
     end
+
+    # Return the namelist and the card, which will be used to check
+    # whether the pseudopotential files are ready.
+    return ControlNl, AtomicSpeciesBlock
 end
 
 #=
