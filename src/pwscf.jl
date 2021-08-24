@@ -275,6 +275,15 @@ mutable struct PWNamelist <: PWInputEntry
 end
 
 """
+    Base.getindex(pnl::PWNamelist, key::AbstractString)
+
+Return an entry (specified by `key`) in the namelist object (`pnl`).
+
+See also: [`PWNamelist`](@ref).
+"""
+Base.getindex(pnl::PWNamelist, key::AbstractString) = pnl.data[key]
+
+"""
     Base.setindex!(pnl::PWNamelist, value, key::AbstractString)
 
 Modify an entry (specified by `key`) in the namelist object (`pnl`).
@@ -866,10 +875,14 @@ function pwscf_init(it::IterInfo)
     println("  > File PWSCF.INP is ready")
     #
     # Create the real input file, case.scf and case.nscf.
-    ControlNl, AtomicSpeciesBlock = pwscfc_input(it)
+    ControlNL, AtomicSpeciesBlock = pwscfc_input(it)
     case = get_c("case")
     println("  > File $case.scf is ready")
     println("  > File $case.nscf is ready")
+    #
+    # Check the pseudopotentials
+    pdir = ControlNL["pseudo_dir"] 
+    @show pdir
 end
 
 """
@@ -1064,7 +1077,7 @@ function pwscfc_input(it::IterInfo)
 
     # Return the namelist and the card, which will be used to check
     # whether the pseudopotential files are ready.
-    return ControlNl, AtomicSpeciesBlock
+    return ControlNL, AtomicSpeciesBlock
 end
 
 #=
