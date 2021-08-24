@@ -167,8 +167,8 @@ end
 """
     AtomicPosition
 
-Represent each line of the `ATOMIC_POSITIONS` card in pwscf. The `atom`
-field accepts at most 3 characters.
+Represent each line of the `ATOMIC_POSITIONS` card in the input file of
+`pwscf`. The `atom` field accepts at most 3 characters.
 
 ### Members
 
@@ -257,8 +257,8 @@ AtomicPosition(x::AtomicSpecies, pos, if_pos) = AtomicPosition(x.atom, pos, if_p
 """
     PWNamelist
 
-Represent a component of an `PWInput`, a basic Fortran data structure.
-It is used to build the internal type system.
+Represent a namelist in the input file of `pwscf`, a basic Fortran
+data structure. It is used to build the internal type system.
 
 ### Members
 
