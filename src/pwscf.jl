@@ -1047,25 +1047,49 @@ function pwscf_exec(it::IterInfo, scf::Bool = true)
         # Increase the counter
         c = c + 1
 
-        # Parse the `fout` file
-        iters = readlines(fout)
-        filter!(x -> contains(x, "iteration #"), iters)
-        ethrs = readlines(fout)
-        filter!(x -> contains(x, "ethr ="), ethrs)
+        # For self-consistent dft calculation mode
+        if scf
 
-        # Figure out the number of iterations (`ni`) and deltaE (`dE`)
-        if length(ethrs) > 0
-            arr = line_to_array(iters[end])
-            ni = parse(I64, arr[3])
-            arr = line_to_array(ethrs[end])
-            dE = strip(arr[3],''')
-        else # The first iteration has not been finished
-            ni = 0
-            dE = "unknown"
+            # Parse the `fout` file
+            iters = readlines(fout)
+            filter!(x -> contains(x, "iteration #"), iters)
+            ethrs = readlines(fout)
+            filter!(x -> contains(x, "ethr ="), ethrs)
+
+            # Figure out the number of iterations (`ni`) and deltaE (`dE`)
+            if length(ethrs) > 0
+                arr = line_to_array(iters[end])
+                ni = parse(I64, arr[3])
+                arr = line_to_array(ethrs[end])
+                dE = strip(arr[3],',')
+            else # The first iteration has not been finished
+                ni = 0
+                dE = "unknown"
+            end
+
+            # Print the log to screen
+            @printf("  > Elapsed %4i seconds, %3i iterations (dE = %12s)\r", 5*c, ni, dE)
+
+        # For non-self-consistent dft calculation mode
+        else
+
+            # Parse the `fout` file
+            lines = readlines(fout)
+            filter!(x -> contains(x, "Computing kpt #"), lines)
+
+            # Figure out how many k-points are finished
+            if length(lines) > 0
+                arr = line_to_array(lines[end])
+                ikpt = parse(I64, arr[4])
+                nkpt = parse(I64, arr[6])
+            else # The first k-point has not been finished
+                ikpt = 0
+                nkpt = 0
+            end
+
+            # Print the log to screen
+            @printf("  > Elapsed %4i seconds, %4i of %4i k-points\r", 5*c, ikpt, nkpt)
         end
-
-        # Print the log to screen
-        @printf("  > Elapsed %4i seconds, %3i iterations (dE = %12s)\r", 5*c, ni, dE)
 
         # Break the loop
         istaskdone(t) && break
@@ -1156,7 +1180,6 @@ function pwscfc_input(it::IterInfo)
         @case "tetra"
             SystemNL["occupations"] = "'tetrahedra'"
             delete!(SystemNL, "smearing")
-            delete!(SystemNL, "degauss")
             break
 
         @default
@@ -1236,6 +1259,9 @@ function pwscfc_input(it::IterInfo)
     # For number of bands
     # SKIP
 
+    # Special treatment for verbosity
+    ControlNL["verbosity"] = "'high'"
+
     # Special treatment for pseudo_dir
     pseudo_dir = strip(ControlNL["pseudo_dir"],''') # Get rid of `
     pseudo_dir = joinpath("..", pseudo_dir)
@@ -1264,9 +1290,12 @@ function pwscfc_input(it::IterInfo)
     # For case.nscf
     ControlNL["calculation"] = "'nscf'"
     delete!(ControlNL, "restart_mode")
+    #
     # We have to specify the k-points explicitly during the
     # non-self-consistent calculations.
     begin
+        # At the same time, the tetrahedron algorithm will fail.
+        SystemNL["occupations"] = "'smearing'"
         @cswitch kmesh begin
             @case "accurate"
                 KPointsBlock = SpecialPointsCard(10)
