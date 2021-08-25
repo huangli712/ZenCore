@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/08/15
+# Last modified: 2021/08/25
 #
 
 #=
@@ -210,7 +210,7 @@ function chk_dict()
         @assert !get_d("lspins")
     end
     if get_d("lproj")
-        @assert !get_d("lsymm") && !isa(get_d("sproj"), Missing)
+        @assert !isa(get_d("sproj"), Missing)
     end
     #
     # Check solver block
