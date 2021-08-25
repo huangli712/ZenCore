@@ -405,13 +405,14 @@ struct SpecialPointsCard <: KPointsCard
 end
 
 """
-    SpecialPointsCard(Nk::I64, option::String)
+    SpecialPointsCard(nkx::I64, option::String = "crystal")
 
 Constructor for `SpecialPointsCard`.
 
 See also: [`KPointsCard`](@ref).
 """
-function SpecialPointsCard(Nk::I64, option::String)
+function SpecialPointsCard(nkx::I64, option::String = "crystal")
+    return SpecialPointsCard(nkx, nkx, nkx, option)
 end
 
 #=
