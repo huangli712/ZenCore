@@ -945,6 +945,8 @@ function pwscf_exec(it::IterInfo, scf::Bool = true)
         finp = "$case.nscf"
         fout = "nscf.out"
     end
+    println("  > Using input file: $finp")
+    println("  > Using output file: $fout")
 
     # Print the header
     println("Launch the computational engine pwscf")
@@ -986,10 +988,9 @@ function pwscf_exec(it::IterInfo, scf::Bool = true)
         filter!(x -> contains(x, "iteration #"), iters)
         ethrs = readlines(fout)
         filter!(x -> contains(x, "ethr ="), ethrs)
-        @assert length(iters) == length(ethrs)
 
         # Figure out the number of iterations (`ni`) and deltaE (`dE`)
-        if length(iters) > 0
+        if length(ethrs) > 0
             arr = line_to_array(iters[end])
             ni = parse(I64, arr[3])
             arr = line_to_array(ethrs[end])
