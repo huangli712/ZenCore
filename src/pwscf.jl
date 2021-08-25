@@ -362,7 +362,7 @@ Constructor for `AutoKmeshCard`.
 
 See also: [`KPointsCard`](@ref).
 """
-function AutoKmeshCard(mesh::Vector{I64}, shift::Vector{I64})
+function AutoKmeshCard(mesh::Vector{I64}, shift::Vector{Bool})
     return AutoKmeshCard(MonkhorstPackGrid(mesh, shift))
 end
 
@@ -402,6 +402,16 @@ struct SpecialPointsCard <: KPointsCard
                            "crystal_c")
         return new(data, option)
     end
+end
+
+"""
+    SpecialPointsCard(Nk::I64, option::String)
+
+Constructor for `SpecialPointsCard`.
+
+See also: [`KPointsCard`](@ref).
+"""
+function SpecialPointsCard(Nk::I64, option::String)
 end
 
 #=
@@ -1119,6 +1129,7 @@ function pwscfc_input(it::IterInfo)
     kmesh = get_d("kmesh")
     if isa(KPointsBlock,AutoKmeshCard)
         shift = copy(KPointsBlock.data.shift)
+        println(typeof(shift))
         @cswitch kmesh begin
             @case "accurate"
                 KPointsBlock = AutoKmeshCard([16, 16, 16], shift)
