@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/08/22
+# Last modified: 2021/08/26
 #
 
 #=
@@ -741,7 +741,8 @@ function dft_run(it::IterInfo, lr::Logger, sc::Bool = false)
             # For pwscf
             @case "pwscf"
                 pwscf_init(it)
-                pwscf_exec(it)
+                pwscf_exec(it, true)
+                pwscf_exec(it, false)
                 pwscf_save(it)
                 break
 
