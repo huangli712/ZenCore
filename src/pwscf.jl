@@ -1399,7 +1399,7 @@ function pwscfio_fermi(f::String, silent::Bool = true)
     !silent && println("  > Open and read scf.out")
 
     # Try to figure out whether the scf.out file is valid
-    lines = readlines(joinpath(f, "DOSCAR"))
+    lines = readlines(joinpath(f, "scf.out"))
     filter!(x -> contains(x, "Fermi energy"), lines)
     @assert length(lines) == 1
 
