@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/08/24
+# Last modified: 2021/08/25
 #
 
 #=
@@ -930,11 +930,12 @@ function pwscf_exec(it::IterInfo)
     t = @task begin
         case = get_c("case")
         finp = "$case.scf"
-        run(pipeline(`$pwscf_cmd`, stdin = finp, stdout = "pwscf.out"))
+        fout = "scf.out"
+        run(pipeline(`$pwscf_cmd`, stdin = finp, stdout = fout))
     end
     println("  > Create a task")
 
-    # Launch it, the terminal output is redirected to pwscf.out.
+    # Launch it, the terminal output is redirected to scf.out.
     # Note that the task runs asynchronously. It will not block
     # the execution.
     schedule(t)
@@ -946,6 +947,51 @@ function pwscf_exec(it::IterInfo)
         sleep(2)
         istaskstarted(t) && break
     end
+
+    # Analyze the vasp.out file during the calculation
+    #
+    # `c` is a time counter
+    c = 0
+    #
+    # Enter infinite loop
+    while true
+        # Sleep five seconds
+        sleep(5)
+
+        # Increase the counter
+        c = c + 1
+
+        # Parse vasp.out file
+        iters = readlines("vasp.out")
+        filter!(x -> contains(x, "DAV:"), iters)
+
+        # Figure out the number of iterations (`ni`) and deltaE (`dE`)
+        if length(iters) > 0
+            arr = line_to_array(iters[end])
+            ni = parse(I64, arr[2])
+            dE = arr[4]
+        else # The first iteration has not been finished
+            ni = 0
+            dE = "unknown"
+        end
+
+        # Print the log to screen
+        @printf("  > Elapsed %4i seconds, %3i iterations (dE = %12s)\r", 5*c, ni, dE)
+
+        # Break the loop
+        istaskdone(t) && break
+    end
+    #
+    # Keep the last output
+    println()
+
+    # Wait for the vasp task to finish
+    wait(t)
+
+    # Extract how many iterations are executed
+    iters = readlines("vasp.out")
+    filter!(x -> contains(x, "DAV:"), iters)
+    println("  > Converged after $(length(iters)) iterations")
 end
 
 """
