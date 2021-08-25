@@ -1394,6 +1394,23 @@ pwscfio_energy() = pwscfio_energy(pwd())
     pwscfio_fermi(f::String, silent::Bool = true)
 """
 function pwscfio_fermi(f::String, silent::Bool = true)
+    # Print the header
+    !silent && println("Parse fermi level")
+    !silent && println("  > Open and read scf.out")
+
+    # Try to figure out whether the scf.out file is valid
+    lines = readlines(joinpath(f, "DOSCAR"))
+    filter!(x -> contains(x, "Fermi energy"), lines)
+    @assert length(lines) == 1
+
+    # Extract the fermi level
+    fermi = parse(F64, line_to_array(lines[end])[5])
+
+    # Print some useful information to check
+    !silent && println("  > Fermi level: $fermi eV")
+
+    # Return the desired data
+    return fermi
 end
 
 """
