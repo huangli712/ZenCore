@@ -412,15 +412,22 @@ Constructor for `SpecialPointsCard`.
 See also: [`KPointsCard`](@ref).
 """
 function SpecialPointsCard(nkx::I64, nky::I64, nkz::I64, option::String = "crystal")
+    # Sanity check
     @assert nkx >= 1
     @assert nky >= 1
     @assert nkz >= 1
 
+    # Calculate total number of k-points
     nkpt = nkx * nky * nkz
+
+    # Calculate weight per k-point
     w = 1.0 / nkpt
 
+    # Generate uniform k-mesh. Note that the k-point is represented
+    # by ReciprocalPoint struct.
     data = Vector{ReciprocalPoint}(undef,nkpt)
-    c = 0
+    c = 0 # Counter
+    #
     for x = 0:nkx - 1
         for y = 0:nky - 1
             for z = 0:nkz - 1
@@ -432,8 +439,10 @@ function SpecialPointsCard(nkx::I64, nky::I64, nkz::I64, option::String = "cryst
             end
         end
     end
+    #
     @assert c == nkpt
 
+    # Call the default constructor
     return SpecialPointsCard(data, option)
 end
 
