@@ -1058,7 +1058,7 @@ function pwscf_exec(it::IterInfo, scf::Bool = true)
             arr = line_to_array(iters[end])
             ni = parse(I64, arr[3])
             arr = line_to_array(ethrs[end])
-            dE = arr[3]
+            dE = strip(arr[3],''')
         else # The first iteration has not been finished
             ni = 0
             dE = "unknown"
