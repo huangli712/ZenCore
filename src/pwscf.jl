@@ -1401,6 +1401,9 @@ end
 
 """
     pwscfio_energy()
+
+Reading pwscf's `scf.out` file, return DFT total energy, which will
+be used to determine the DFT + DMFT energy.
 """
 pwscfio_energy() = pwscfio_energy(pwd())
 
