@@ -920,7 +920,7 @@ function pwscf_exec(it::IterInfo, scf::Bool = true)
     println("  > Home directory for pwscf: ", dft_home)
 
     # Select suitable pwscf program
-    # We use the same code for with or without spin-orbit coupling
+    # We use the same code pw.x for with or without spin-orbit coupling
     if get_d("lspinorb")
         pwscf_exe = "$dft_home/pw.x"
     else
@@ -937,14 +937,20 @@ function pwscf_exec(it::IterInfo, scf::Bool = true)
     end
     println("  > Assemble command: $(prod(x -> x * ' ', pwscf_cmd))")
 
+    # Determine suitable input and output files
+    case = get_c("case")
+    finp = "$case.scf"
+    fout = "scf.out"
+    if !scf
+        finp = "$case.nscf"
+        fout = "nscf.out"
+    end
+
     # Print the header
     println("Launch the computational engine pwscf")
 
     # Create a task, but do not run it immediately
     t = @task begin
-        case = get_c("case")
-        finp = "$case.scf"
-        fout = "scf.out"
         run(pipeline(`$pwscf_cmd`, stdin = finp, stdout = fout))
     end
     println("  > Create a task")
