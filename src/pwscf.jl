@@ -405,6 +405,39 @@ struct SpecialPointsCard <: KPointsCard
 end
 
 """
+    SpecialPointsCard(nkx::I64, nky::I64, nkz::I64, option::String = "crystal")
+
+Constructor for `SpecialPointsCard`.
+
+See also: [`KPointsCard`](@ref).
+"""
+function SpecialPointsCard(nkx::I64, nky::I64, nkz::I64, option::String = "crystal")
+    @assert nkx >= 1
+    @assert nky >= 1
+    @assert nkz >= 1
+
+    nkpt = nkx * nky * nkz
+    w = 1.0 / nkpt
+
+    data = Vector{ReciprocalPoint}(undef,nkpt)
+    c = 0
+    for x = 0:nkx - 1
+        for y = 0:nky - 1
+            for z = 0:nkz - 1
+                c = c + 1
+                kx = float(x) / nkx
+                ky = float(y) / nky
+                kz = float(z) / nkz
+                data[c] = ReciprocalPoint(kx, ky, kz, w)
+            end
+        end
+    end
+    @assert c == nkpt
+
+    return SpecialPointsCard(data, option)
+end
+
+"""
     SpecialPointsCard(nkx::I64, option::String = "crystal")
 
 Constructor for `SpecialPointsCard`.
