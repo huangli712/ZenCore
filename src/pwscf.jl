@@ -908,7 +908,7 @@ function Base.write(io::IO, x::SpecialPointsCard)
     println(io, "  $nks")
     for i = 1:nks
         RP = x.data[i]
-        @printf(io, " %11.7f%11.7f%11.7f%7.2f\n", RP.coord..., RP.weight)
+        @printf(io, " %11.7f%11.7f%11.7f%16.12f\n", RP.coord..., RP.weight)
     end
 end
 
