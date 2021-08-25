@@ -1009,6 +1009,7 @@ function pwscf_exec(it::IterInfo, scf::Bool = true)
         finp = "$case.nscf"
         fout = "nscf.out"
     end
+    println("  > Self-consistent dft calculation: $scf")
     println("  > Using input file: $finp")
     println("  > Using output file: $fout")
 
