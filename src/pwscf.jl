@@ -1009,7 +1009,7 @@ function pwscf_exec(it::IterInfo, scf::Bool = true)
         finp = "$case.nscf"
         fout = "nscf.out"
     end
-    println("  > Self-consistent dft calculation: $scf")
+    println("  > Self-consistent DFT calculation: $scf")
     println("  > Using input file: $finp")
     println("  > Using output file: $fout")
 
@@ -1048,7 +1048,7 @@ function pwscf_exec(it::IterInfo, scf::Bool = true)
         # Increase the counter
         c = c + 1
 
-        # For self-consistent dft calculation mode
+        # For self-consistent DFT calculation mode
         if scf
 
             # Parse the `fout` file
@@ -1071,7 +1071,7 @@ function pwscf_exec(it::IterInfo, scf::Bool = true)
             # Print the log to screen
             @printf("  > Elapsed %4i seconds, %3i iterations (dE = %12s)\r", 5*c, ni, dE)
 
-        # For non-self-consistent dft calculation mode
+        # For non-self-consistent DFT calculation mode
         else
 
             # Parse the `fout` file
@@ -1141,15 +1141,15 @@ function pwscf_save(it::IterInfo)
     end
     println("  > Save the key output files")
 
-    # Anyway, the DFT fermi level is extracted from DOSCAR, and its
+    # Anyway, the DFT fermi level is extracted from scf.out, and its
     # value will be saved at IterInfo.μ₀.
-    #it.μ₀ = vaspio_fermi(pwd())
-    #println("  > Extract the fermi level from DOSCAR: $(it.μ₀) eV")
+    it.μ₀ = pwscfio_fermi(pwd())
+    println("  > Extract the fermi level from scf.out: $(it.μ₀) eV")
 
-    # We also try to read the DFT band energy from OSZICAR, and its
+    # We also try to read the DFT band energy from scf.out, and its
     # value will be saved at IterInfo.et.
-    #it.et.dft = vaspio_energy(pwd())
-    #println("  > Extract the DFT band energy from OSZICAR: $(it.et.dft) eV")
+    it.et.dft = pwscfio_energy(pwd())
+    println("  > Extract the DFT band energy from scf.out: $(it.et.dft) eV")
 end
 
 #=
