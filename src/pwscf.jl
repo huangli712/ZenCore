@@ -955,7 +955,7 @@ function pwscf_exec(it::IterInfo, scf::Bool = true)
     end
     println("  > Create a task")
 
-    # Launch it, the terminal output is redirected to scf.out.
+    # Launch it, the terminal output is redirected to `fout`.
     # Note that the task runs asynchronously. It will not block
     # the execution.
     schedule(t)
@@ -968,7 +968,7 @@ function pwscf_exec(it::IterInfo, scf::Bool = true)
         istaskstarted(t) && break
     end
 
-    # Analyze the scf.out file during the calculation
+    # Analyze the `fout` file during the calculation
     #
     # `c` is a time counter
     c = 0
@@ -981,15 +981,19 @@ function pwscf_exec(it::IterInfo, scf::Bool = true)
         # Increase the counter
         c = c + 1
 
-        # Parse scf.out file
-        iters = readlines("scf.out")
+        # Parse the `fout` file
+        iters = readlines(fout)
         filter!(x -> contains(x, "iteration #"), iters)
+        ethrs = readlines(fout)
+        filter!(x -> contains(x, "ethr ="), ethrs)
+        @assert length(iters) == length(ethrs)
 
         # Figure out the number of iterations (`ni`) and deltaE (`dE`)
         if length(iters) > 0
             arr = line_to_array(iters[end])
-            ni = parse(I64, arr[2])
-            dE = arr[4]
+            ni = parse(I64, arr[3])
+            arr = line_to_array(ethrs[end])
+            dE = arr[3]
         else # The first iteration has not been finished
             ni = 0
             dE = "unknown"
@@ -1005,7 +1009,7 @@ function pwscf_exec(it::IterInfo, scf::Bool = true)
     # Keep the last output
     println()
 
-    # Wait for the vasp task to finish
+    # Wait for the pwscf task to finish
     wait(t)
 
     # Extract how many iterations are executed
