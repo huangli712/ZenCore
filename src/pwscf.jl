@@ -890,9 +890,23 @@ function pwscf_init(it::IterInfo)
 end
 
 """
-    pwscf_exec(it::IterInfo)
+    pwscf_exec(it::IterInfo, scf::Bool = true)
+
+Execute the pwscf program, monitor the convergence progress, and output
+the relevant information. The argument `scf` determines which input file
+should be used. If scf == true, then the input file is case.scf, or else
+it is case.nscf.  
+
+In order to execute this function correctly, you have to setup the
+following environment variables:
+
+* PWSCF_HOME
+
+and make sure the file `MPI.toml` is available.
+
+See also: [`pwscf_init`](@ref), [`pwscf_save`](@ref).
 """
-function pwscf_exec(it::IterInfo)
+function pwscf_exec(it::IterInfo, scf::Bool = true)
     # Print the header
     println("Detect the runtime environment for pwscf")
 
@@ -948,7 +962,7 @@ function pwscf_exec(it::IterInfo)
         istaskstarted(t) && break
     end
 
-    # Analyze the vasp.out file during the calculation
+    # Analyze the scf.out file during the calculation
     #
     # `c` is a time counter
     c = 0
@@ -961,9 +975,9 @@ function pwscf_exec(it::IterInfo)
         # Increase the counter
         c = c + 1
 
-        # Parse vasp.out file
-        iters = readlines("vasp.out")
-        filter!(x -> contains(x, "DAV:"), iters)
+        # Parse scf.out file
+        iters = readlines("scf.out")
+        filter!(x -> contains(x, "iteration #"), iters)
 
         # Figure out the number of iterations (`ni`) and deltaE (`dE`)
         if length(iters) > 0
