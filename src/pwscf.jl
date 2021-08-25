@@ -1383,6 +1383,16 @@ end
     pwscfio_energy(f::String)
 """
 function pwscfio_energy(f::String)
+    # Try to figure out whether the scf.out file is valid
+    lines = readlines(joinpath(f, "scf.out"))
+    filter!(x -> contains(x, "!    total energy"), lines)
+    @assert length(lines) == 1
+
+    # Extract the total energy
+    etot = parse(F64, line_to_array(lines[end])[5])
+
+    # Return the desired value
+    return etot
 end
 
 """
