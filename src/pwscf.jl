@@ -1409,6 +1409,11 @@ pwscfio_energy() = pwscfio_energy(pwd())
 
 """
     pwscfio_fermi(f::String, silent::Bool = true)
+
+Reading pwscf's `scf.out` file, return the fermi level. Here `f` means
+only the directory that contains `scf.out`.
+
+See also: [`irio_fermi`](@ref).
 """
 function pwscfio_fermi(f::String, silent::Bool = true)
     # Print the header
@@ -1432,5 +1437,9 @@ end
 
 """
     pwscfio_fermi()
+
+Reading pwscf's `scf.out` file, return the fermi level.
+
+See also: [`irio_fermi`](@ref).
 """
 pwscfio_fermi() = pwscfio_fermi(pwd())
