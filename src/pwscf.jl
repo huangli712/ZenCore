@@ -959,7 +959,7 @@ end
 Execute the pwscf program, monitor the convergence progress, and output
 the relevant information. The argument `scf` determines which input file
 should be used. If scf == true, then the input file is case.scf, or else
-it is case.nscf.  
+it is case.nscf.
 
 In order to execute this function correctly, you have to setup the
 following environment variables:
