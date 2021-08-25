@@ -1090,6 +1090,7 @@ function pwscf_exec(it::IterInfo, scf::Bool = true)
 
             # Print the log to screen
             @printf("  > Elapsed %4i seconds, %4i of %4i k-points\r", 5*c, ikpt, nkpt)
+
         end
 
         # Break the loop
@@ -1117,8 +1118,40 @@ end
 
 """
     pwscf_save(it::IterInfo)
+
+Backup the output files of pwscf if necessary. Furthermore, the DFT fermi
+level in `IterInfo` struct is also updated (`IterInfo.μ₀`).
+
+See also: [`pwscf_init`](@ref), [`pwscf_exec`](@ref).
 """
 function pwscf_save(it::IterInfo)
+    # Special treatment for self-consistent mode
+    it.sc == 2 && return
+
+    # Print the header
+    println("Finalize the computational task")
+
+    # Store the data files
+    #
+    # Create list of files
+    fl = ["INCAR", "vasp.out"]
+    #
+    # Go through the file list, backup the files one by one.
+    for i in eachindex(fl)
+        f = fl[i]
+        cp(f, "$f.$(it.I₃)", force = true)
+    end
+    println("  > Save the key output files")
+
+    # Anyway, the DFT fermi level is extracted from DOSCAR, and its
+    # value will be saved at IterInfo.μ₀.
+    it.μ₀ = vaspio_fermi(pwd())
+    println("  > Extract the fermi level from DOSCAR: $(it.μ₀) eV")
+
+    # We also try to read the DFT band energy from OSZICAR, and its
+    # value will be saved at IterInfo.et.
+    it.et.dft = vaspio_energy(pwd())
+    println("  > Extract the DFT band energy from OSZICAR: $(it.et.dft) eV")
 end
 
 #=
