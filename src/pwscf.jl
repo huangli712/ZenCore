@@ -1172,18 +1172,17 @@ function pwscfc_input(it::IterInfo)
     kmesh = get_d("kmesh")
     if isa(KPointsBlock,AutoKmeshCard)
         shift = copy(KPointsBlock.data.shift)
-        println(typeof(shift))
         @cswitch kmesh begin
             @case "accurate"
-                KPointsBlock = AutoKmeshCard([16, 16, 16], shift)
+                KPointsBlock = AutoKmeshCard([10, 10, 10], shift)
                 break
 
             @case "medium"
-                KPointsBlock = AutoKmeshCard([12, 12, 12], shift)
+                KPointsBlock = AutoKmeshCard([08, 08, 08], shift)
                 break
 
             @case "coarse"
-                KPointsBlock = AutoKmeshCard([08, 08, 08], shift)
+                KPointsBlock = AutoKmeshCard([06, 06, 06], shift)
                 break
 
             @case "file"
@@ -1265,7 +1264,31 @@ function pwscfc_input(it::IterInfo)
     # For case.nscf
     ControlNL["calculation"] = "'nscf'"
     delete!(ControlNL, "restart_mode")
-    KPointsBlock = SpecialPointsCard(8)
+    # We have to specify the k-points explicitly during the
+    # non-self-consistent calculations.
+    begin
+        @cswitch kmesh begin
+            @case "accurate"
+                KPointsBlock = SpecialPointsCard(10)
+                break
+
+            @case "medium"
+                KPointsBlock = SpecialPointsCard(08)
+                break
+
+            @case "coarse"
+                KPointsBlock = SpecialPointsCard(06)
+                break
+
+            @case "file"
+                @assert isa(KPointsBlock, SpecialPointsCard)
+                break
+
+            @default # Very coarse kmesh
+                KPointsBlock = SpecialPointsCard(04)
+                break
+        end
+    end
     open(fnscf, "w") do fout
         write(fout, ControlNL)
         write(fout, SystemNL)
