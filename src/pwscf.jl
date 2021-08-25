@@ -356,6 +356,17 @@ struct AutoKmeshCard <: KPointsCard
 end
 
 """
+    AutoKmeshCard(mesh::Vector{I64}, shift::Vector{I64})
+
+Constructor for `AutoKmeshCard`.
+
+See also: [`KPointsCard`](@ref).
+"""
+function AutoKmeshCard(mesh::Vector{I64}, shift::Vector{I64})
+    return AutoKmeshCard(MonkhorstPackGrid(mesh, shift))
+end
+
+"""
     GammaPointCard
 
 Represent the `K_POINTS` card in the input file of `pwscf` (within
@@ -1110,22 +1121,22 @@ function pwscfc_input(it::IterInfo)
         shift = copy(KPointsBlock.data.shift)
         @cswitch kmesh begin
             @case "accurate"
-                KPointsBlock = AutoKmeshCard(MonkhorstPackGrid([16, 16, 16], shift))
+                KPointsBlock = AutoKmeshCard([16, 16, 16], shift)
                 break
 
             @case "medium"
-                KPointsBlock = AutoKmeshCard(MonkhorstPackGrid([12, 12, 12], shift))
+                KPointsBlock = AutoKmeshCard([12, 12, 12], shift)
                 break
 
             @case "coarse"
-                KPointsBlock = AutoKmeshCard(MonkhorstPackGrid([08, 08, 08], shift))
+                KPointsBlock = AutoKmeshCard([08, 08, 08], shift)
                 break
 
             @case "file"
                 break
 
             @default # Very coarse kmesh
-                KPointsBlock = AutoKmeshCard(MonkhorstPackGrid([04, 04, 04], shift))
+                KPointsBlock = AutoKmeshCard([04, 04, 04], shift)
                 break
         end
     end
@@ -1199,6 +1210,8 @@ function pwscfc_input(it::IterInfo)
     #
     # For case.nscf
     ControlNL["calculation"] = "'nscf'"
+    delete!(ControlNL, "restart_mode")
+
     open(fnscf, "w") do fout
         write(fout, ControlNL)
         write(fout, SystemNL)
