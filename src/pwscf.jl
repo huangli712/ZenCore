@@ -1013,8 +1013,8 @@ function pwscf_exec(it::IterInfo, scf::Bool = true)
     wait(t)
 
     # Extract how many iterations are executed
-    iters = readlines("vasp.out")
-    filter!(x -> contains(x, "DAV:"), iters)
+    iters = readlines(fout)
+    filter!(x -> contains(x, "iteration #"), iters)
     println("  > Converged after $(length(iters)) iterations")
 end
 
