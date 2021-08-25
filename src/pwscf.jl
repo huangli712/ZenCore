@@ -1265,7 +1265,7 @@ function pwscfc_input(it::IterInfo)
     # For case.nscf
     ControlNL["calculation"] = "'nscf'"
     delete!(ControlNL, "restart_mode")
-
+    KPointsBlock = SpecialPointsCard(8)
     open(fnscf, "w") do fout
         write(fout, ControlNL)
         write(fout, SystemNL)
