@@ -1381,6 +1381,10 @@ end
 
 """
     pwscfio_energy(f::String)
+
+Reading pwscf's `scf.out` file, return DFT total energy, which will
+be used to determine the DFT + DMFT energy. Here `f` means only the
+directory that contains `scf.out`.
 """
 function pwscfio_energy(f::String)
     # Try to figure out whether the scf.out file is valid
