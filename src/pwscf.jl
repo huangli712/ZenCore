@@ -1378,3 +1378,13 @@ end
 #=
 ### *Service Functions* : *Group C*
 =#
+
+function pwscfio_energy(f::String)
+end
+
+pwscfio_energy() = pwscfio_energy(pwd())
+
+function pwscfio_fermi(f::String, silent::Bool = true)
+end
+
+pwscfio_fermi() = pwscfio_fermi(pwd())
