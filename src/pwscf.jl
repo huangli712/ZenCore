@@ -1125,16 +1125,14 @@ level in `IterInfo` struct is also updated (`IterInfo.μ₀`).
 See also: [`pwscf_init`](@ref), [`pwscf_exec`](@ref).
 """
 function pwscf_save(it::IterInfo)
-    # Special treatment for self-consistent mode
-    it.sc == 2 && return
-
     # Print the header
     println("Finalize the computational task")
 
     # Store the data files
     #
     # Create list of files
-    fl = ["INCAR", "vasp.out"]
+    case = get_c("case")
+    fl = ["$case.scf", "$case.nscf", "scf.out", "nscf.out"]
     #
     # Go through the file list, backup the files one by one.
     for i in eachindex(fl)
@@ -1145,13 +1143,13 @@ function pwscf_save(it::IterInfo)
 
     # Anyway, the DFT fermi level is extracted from DOSCAR, and its
     # value will be saved at IterInfo.μ₀.
-    it.μ₀ = vaspio_fermi(pwd())
-    println("  > Extract the fermi level from DOSCAR: $(it.μ₀) eV")
+    #it.μ₀ = vaspio_fermi(pwd())
+    #println("  > Extract the fermi level from DOSCAR: $(it.μ₀) eV")
 
     # We also try to read the DFT band energy from OSZICAR, and its
     # value will be saved at IterInfo.et.
-    it.et.dft = vaspio_energy(pwd())
-    println("  > Extract the DFT band energy from OSZICAR: $(it.et.dft) eV")
+    #it.et.dft = vaspio_energy(pwd())
+    #println("  > Extract the DFT band energy from OSZICAR: $(it.et.dft) eV")
 end
 
 #=
