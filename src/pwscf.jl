@@ -1102,9 +1102,16 @@ function pwscf_exec(it::IterInfo, scf::Bool = true)
     wait(t)
 
     # Extract how many iterations are executed
-    iters = readlines(fout)
-    filter!(x -> contains(x, "iteration #"), iters)
-    println("  > Converged after $(length(iters)) iterations")
+    if scf
+        iters = readlines(fout)
+        filter!(x -> contains(x, "iteration #"), iters)
+        println("  > Converged after $(length(iters)) iterations")
+    # Extract how many k-points are finished
+    else
+        lines = readlines(fout)
+        filter!(x -> contains(x, "Computing kpt #"), lines)
+        println("  > Calculated eigenvalues for $(length(lines)) k-points")
+    end
 end
 
 """
