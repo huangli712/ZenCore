@@ -1454,6 +1454,16 @@ be used to determine the DFT + DMFT energy.
 """
 pwscfio_energy() = pwscfio_energy(pwd())
 
+
+"""
+    pwscfio_lattice()
+
+Reading pwscf's `scf.out` file, return crystallography information.
+
+See also: [`Lattice`](@ref), [`irio_lattice`](@ref).
+"""
+pwscfio_lattice() = pwscfio_lattice(pwd())
+
 """
     pwscfio_fermi(f::String, silent::Bool = true)
 
