@@ -1467,7 +1467,11 @@ function pwscfio_lattice(f::String, silent::Bool = true)
     !silent && println("Parse lattice")
     !silent && println("  > Open and read scf.out")
 
+    # Read in all lines in `scf.out`
     lines = readlines(joinpath(f, "scf.out"))
+
+    # Sorry, `scf.out` does not contain information about case.
+    _case = get_c("case")
 
     # Get the scaling factor
     ind = findfirst(x -> contains(x, "lattice parameter"), lines)
@@ -1484,27 +1488,32 @@ function pwscfio_lattice(f::String, silent::Bool = true)
     @assert ind > 0
     nsort = parse(I64, line_to_array(lines[ind])[6])
 
+    # Now all the parameters are ready, we would like to create
+    # `Lattice` struct here.
+    latt = Lattice(_case, scale, nsort, natom)
+
     # Get the lattice vectors
     lvect = zeros(F64, 3, 3)
     ind = findfirst(x -> contains(x, "crystal axes:"), lines)
+    @assert ind > 0
     lvect[1, :] = parse.(F64, line_to_array(lines[ind+1])[4:6])
     lvect[2, :] = parse.(F64, line_to_array(lines[ind+2])[4:6])
     lvect[3, :] = parse.(F64, line_to_array(lines[ind+3])[4:6])
 
-#=
-    # Get the case
-    _case = string(strip(readline(fin)))
-
-
     # Get the symbol list
-    symbols = line_to_array(fin)
+    symbols = Vector{String}(undef, nsort)
+    ind = findfirst(x -> contains(x, "atomic species   valence"), lines)
+    for i = 1:nsort
+        symbols[i] = line_to_array(lines[ind+i])[1]
+    end
+    println(symbols)
+
+    #println(latt)
+
+#=
 
     # Get the number list
     numbers = parse.(I64, line_to_array(fin))
-
-    # Now all the parameters are ready, we would like to create
-    # `Lattice` struct here.
-    latt = Lattice(_case, scale, nsort, natom)
 
     # Update latt using the available data
     latt.lvect = lvect
