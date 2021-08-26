@@ -1035,6 +1035,9 @@ function adaptor_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
             @time_call vasp_adaptor(DFTData)
             break
 
+        @case "pwscf"
+            break
+
         @default
             sorry()
             break
