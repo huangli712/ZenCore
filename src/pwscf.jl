@@ -940,6 +940,9 @@ function pwscf_adaptor(D::Dict{Symbol,Any})
 
     # P02: Read in lattice structure
     D[:latt] = pwscfio_lattice(pwd(), false)
+
+    # P03: Read in kmesh and the corresponding weights
+    D[:kmesh], D[:weight] = pwscfio_kmesh(pwd())
 end
 
 """
