@@ -1455,17 +1455,17 @@ be used to determine the DFT + DMFT energy.
 pwscfio_energy() = pwscfio_energy(pwd())
 
 """
-    vaspio_lattice(f::String, silent::Bool = true)
+    pwscfio_lattice(f::String, silent::Bool = true)
 
-Reading vasp's `POSCAR` file, return crystallography information. Here `f`
-means only the directory that contains `POSCAR`.
+Reading pwscf's `scf.out` file, return crystallography information. Here `f`
+means only the directory that contains `scf.out`.
 
 See also: [`Lattice`](@ref), [`irio_lattice`](@ref).
 """
-function vaspio_lattice(f::String, silent::Bool = true)
+function pwscfio_lattice(f::String, silent::Bool = true)
     # Print the header
     !silent && println("Parse lattice")
-    !silent && println("  > Open and read POSCAR")
+    !silent && println("  > Open and read scf.out")
 
     # Open the iostream
     fin = open(joinpath(f, "POSCAR"), "r")
