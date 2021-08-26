@@ -916,7 +916,11 @@ end
 ### *Driver Functions*
 =#
 
-function pwscf_adaptor()
+"""
+    pwscf_adaptor(D::Dict{Symbol,Any})
+
+"""
+function pwscf_adaptor(D::Dict{Symbol,Any})
 end
 
 """
