@@ -919,6 +919,18 @@ end
 """
     pwscf_adaptor(D::Dict{Symbol,Any})
 
+Adaptor support for pwscf code. It will parse the output files of pwscf
+code, extract the Kohn-Sham dataset,  and then fulfill the `DFTData`
+dict (i.e `D`).
+
+The following pwscf's output files are needed:
+
+* `scf.out`
+
+Note that in the input file of pwscf, the verbosity parameter must be
+set to 'high'.
+
+See also: [`plo_adaptor`](@ref), [`ir_adaptor`](@ref).
 """
 function pwscf_adaptor(D::Dict{Symbol,Any})
 end
