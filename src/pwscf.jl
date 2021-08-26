@@ -1391,13 +1391,14 @@ function vaspq_files(f::String)
 end
 
 """
-    vaspq_files()
+    pwscfq_files()
 
-Check the essential output files by vasp in the current directory.
+Check the essential output files by pwscf in the current directory.
 
 See also: [`adaptor_run`](@ref).
 """
-vaspq_files() = vaspq_files(pwd())
+pwscfq_files() = pwscfq_files(pwd())
+
 #=
 ### *Service Functions* : *Group C*
 =#
