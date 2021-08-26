@@ -1579,7 +1579,7 @@ function pwscfio_kmesh(f::String)
         kmesh[i, 1:2] = parse.(F64, k1k2)
         #
         k3 = line_to_array(lines[ind+1+i])[7]
-        k3 = strip(k3, [',', ')'])
+        k3 = strip(k3, [',', ')']) # Get rid of some chars
         kmesh[i, 3] = parse(F64, k3)
         #
         w  = line_to_array(lines[ind+1+i])[10]
