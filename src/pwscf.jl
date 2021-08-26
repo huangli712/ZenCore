@@ -1470,10 +1470,11 @@ function pwscfio_lattice(f::String, silent::Bool = true)
     # Read in all lines in `scf.out`
     lines = readlines(joinpath(f, "scf.out"))
 
-    # Sorry, `scf.out` does not contain information about case.
+    # Sorry, `scf.out` does not contain any information about case.
     _case = get_c("case")
 
     # Get the scaling factor
+    # Shall we convert it into SI?
     ind = findfirst(x -> contains(x, "lattice parameter"), lines)
     @assert ind > 0
     scale = parse(F64, line_to_array(lines[ind])[5])
@@ -1504,7 +1505,7 @@ function pwscfio_lattice(f::String, silent::Bool = true)
     @assert ind > 0
     for i = 1:nsort
         latt.sorts[i, 1] = string( line_to_array(lines[ind+i])[1] )
-        latt.sorts[i, 2] = 0
+        latt.sorts[i, 2] = 0 # Init it with 0
     end
 
     # Get the atom list and the coordinates of atoms
