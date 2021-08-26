@@ -1609,6 +1609,75 @@ See also: [`pwscfio_tetra`](@ref), [`irio_kmesh`](@ref).
 pwscfio_kmesh() = pwscfio_kmesh(pwd())
 
 """
+    pwscfio_eigen(f::String)
+
+Reading pwscf's `nscf.out` file, return energy band information. Here `f`
+means only the directory that contains `nscf.out`.
+
+Note that in `scf.out`, the eigenvalues may be not defined on the uniform
+k-mesh. So we have to read eigenvalues from the `nscf.out` file.
+
+See also: [`irio_eigen`](@ref).
+"""
+function pwscfio_eigen(f::String)
+    # Print the header
+    println("Parse enk and occupy")
+
+    # Check whether the `EIGENVAL` file contains valid data
+    lines = readlines(joinpath(f, "EIGENVAL"))
+
+    # Read EIGENVAL
+    println("  > Open and read EIGENVAL")
+
+    # Open the iostream
+    fin = open(joinpath(f, "EIGENVAL"), "r")
+
+    # Determine number of spins
+    nspin = parse(I64, line_to_array(fin)[end])
+    @assert nspin == 1 || nspin == 2
+
+    # Skip for lines
+    for i = 1:4
+        readline(fin)
+    end
+
+    # Read in some key parameters: nelect, nkpt, nbands
+    _, nkpt, nband = parse.(I64, line_to_array(fin))
+
+    # Create arrays
+    enk = zeros(F64, nband, nkpt, nspin)
+    occupy = zeros(F64, nband, nkpt, nspin)
+
+    # Read in the energy bands and the corresponding occupations
+    for i = 1:nkpt
+        readline(fin)
+        readline(fin)
+        for j = 1:nband
+            arr = line_to_array(fin)
+            for s = 1:nspin
+                enk[j, i, s] = parse(F64, arr[s+1])
+                occupy[j, i, s] = parse(F64, arr[s+1+nspin])
+            end # END OF S LOOP
+        end # END OF J LOOP
+    end # END OF I LOOP
+
+    # close the iostream
+    close(fin)
+
+    # Print some useful information to check
+    println("  > Number of DFT bands: ", nband)
+    println("  > Number of k-points: ", nkpt)
+    println("  > Number of spins: ", nspin)
+    println("  > Shape of Array enk: ", size(enk))
+    println("  > Shape of Array occupy: ", size(occupy))
+
+    # return the desired arrays
+    return enk, occupy
+end
+
+
+
+"""
     pwscfio_eigen()
 
 Reading pwscf's `nscf.out` file, return energy band information.
