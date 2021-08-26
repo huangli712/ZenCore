@@ -1376,15 +1376,15 @@ end
 =#
 
 """
-    vaspq_files(f::String)
+    pwscfq_files(f::String)
 
-Check the essential output files by vasp. Here `f` means only the
+Check the essential output files by pwscf. Here `f` means only the
 directory that contains the desired files.
 
 See also: [`adaptor_run`](@ref).
 """
-function vaspq_files(f::String)
-    fl = ["POSCAR", "IBZKPT", "EIGENVAL", "LOCPROJ", "DOSCAR", "CHGCAR"]
+function pwscfq_files(f::String)
+    fl = ["scf.out", "scf.out"]
     for i in eachindex(fl)
         @assert isfile( joinpath(f, fl[i]) )
     end
