@@ -1384,7 +1384,7 @@ directory that contains the desired files.
 See also: [`adaptor_run`](@ref).
 """
 function pwscfq_files(f::String)
-    fl = ["scf.out", "scf.out"]
+    fl = ["scf.out", "nscf.out"]
     for i in eachindex(fl)
         @assert isfile( joinpath(f, fl[i]) )
     end
