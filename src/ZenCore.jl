@@ -486,14 +486,15 @@ functions to deal with the pwscf-related files.
 *Members* :
 
 ```text
-pwscf_adaptor  -> Adaptor support.
-pwscf_init     -> Prepare pwscf's input files.
-pwscf_exec     -> Execute pwscf program.
-pwscf_save     -> Backup pwscf's output files.
-pwscfc_input   -> Generate essential input file (case.scf or case.nscf).
-pwscfq_files   -> Check essential output files.
-pwscfio_energy -> Read DFT total energy.
-pwscfio_fermi  -> Read fermi level.
+pwscf_adaptor   -> Adaptor support.
+pwscf_init      -> Prepare pwscf's input files.
+pwscf_exec      -> Execute pwscf program.
+pwscf_save      -> Backup pwscf's output files.
+pwscfc_input    -> Generate essential input file (case.scf or case.nscf).
+pwscfq_files    -> Check essential output files.
+pwscfio_energy  -> Read DFT total energy.
+pwscfio_lattice -> Read lattice information.
+pwscfio_fermi   -> Read fermi level.
 ```
 =#
 
@@ -507,6 +508,7 @@ export pwscf_save
 export pwscfc_input
 export pwscfq_files
 export pwscfio_energy
+export pwscfio_lattice
 export pwscfio_fermi
 
 #=

@@ -920,7 +920,7 @@ end
     pwscf_adaptor(D::Dict{Symbol,Any})
 
 Adaptor support for pwscf code. It will parse the output files of pwscf
-code, extract the Kohn-Sham dataset,  and then fulfill the `DFTData`
+code, extract the Kohn-Sham dataset, and then fulfill the `DFTData`
 dict (i.e `D`).
 
 The following pwscf's output files are needed:
@@ -937,6 +937,9 @@ function pwscf_adaptor(D::Dict{Symbol,Any})
     println("Adaptor : PWSCF")
     println("Try to extract the Kohn-Sham dataset")
     println("Current directory: ", pwd())
+
+    # P02: Read in lattice structure
+    D[:latt] = pwscfio_lattice(pwd(), false)
 end
 
 """
