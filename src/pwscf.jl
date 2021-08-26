@@ -1546,6 +1546,51 @@ See also: [`Lattice`](@ref), [`irio_lattice`](@ref).
 pwscfio_lattice() = pwscfio_lattice(pwd())
 
 """
+    pwscfio_kmesh(f::String)
+
+Reading pwscf's `scf.out` file, return `kmesh` and `weight`. Here `f` means
+only the directory that contains `scf.out`.
+
+See also: [`pwscfio_tetra`](@ref), [`irio_kmesh`](@ref).
+"""
+function vaspio_kmesh(f::String)
+    # Print the header
+    println("Parse kmesh and weight")
+    println("  > Open and read IBZKPT")
+
+    # Open the iostream
+    fin = open(joinpath(f, "IBZKPT"), "r")
+
+    # Extract number of 𝑘-points
+    readline(fin)
+    nkpt = parse(I64, readline(fin))
+    readline(fin)
+
+    # Create arrays
+    kmesh = zeros(F64, nkpt, 3)
+    weight = zeros(F64, nkpt)
+
+    # Read in the 𝑘-points and their weights
+    for i = 1:nkpt
+        arr = parse.(F64, line_to_array(fin))
+        kmesh[i, 1:3] = arr[1:3]
+        weight[i] = arr[4]
+    end
+
+    # Close the iostream
+    close(fin)
+
+    # Print some useful information to check
+    println("  > Number of k-points: ", nkpt)
+    println("  > Total sum of weights: ", sum(weight))
+    println("  > Shape of Array kmesh: ", size(kmesh))
+    println("  > Shape of Array weight: ", size(weight))
+
+    # Return the desired arrays
+    return kmesh, weight
+end
+
+"""
     pwscfio_kmesh()
 
 Reading pwscf's `scf.out` file, return `kmesh` and `weight`.
