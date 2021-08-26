@@ -933,6 +933,10 @@ set to 'high'.
 See also: [`plo_adaptor`](@ref), [`ir_adaptor`](@ref).
 """
 function pwscf_adaptor(D::Dict{Symbol,Any})
+    # P01: Print the header
+    println("Adaptor : PWSCF")
+    println("Try to extract the Kohn-Sham dataset")
+    println("Current directory: ", pwd())
 end
 
 """
