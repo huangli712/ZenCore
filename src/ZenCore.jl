@@ -491,6 +491,7 @@ pwscf_init     -> Prepare pwscf's input files.
 pwscf_exec     -> Execute pwscf program.
 pwscf_save     -> Backup pwscf's output files.
 pwscfc_input   -> Generate essential input file (case.scf or case.nscf).
+pwscfq_files   -> Check essential output files.
 pwscfio_energy -> Read DFT total energy.
 pwscfio_fermi  -> Read fermi level.
 ```
@@ -504,6 +505,7 @@ export pwscf_init
 export pwscf_exec
 export pwscf_save
 export pwscfc_input
+export pwscfq_files
 export pwscfio_energy
 export pwscfio_fermi
 
