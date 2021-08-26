@@ -1609,6 +1609,15 @@ See also: [`pwscfio_tetra`](@ref), [`irio_kmesh`](@ref).
 pwscfio_kmesh() = pwscfio_kmesh(pwd())
 
 """
+    pwscfio_eigen()
+
+Reading pwscf's `nscf.out` file, return energy band information.
+
+See also: [`irio_eigen`](@ref).
+"""
+pwscfio_eigen() = pwscfio_eigen(pwd())
+
+"""
     pwscfio_fermi(f::String, silent::Bool = true)
 
 Reading pwscf's `scf.out` file, return the fermi level. Here `f` means
