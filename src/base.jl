@@ -1036,6 +1036,8 @@ function adaptor_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
             break
 
         @case "pwscf"
+            pwscfq_files()
+            @time_call pwscf_adaptor(DFTData)
             break
 
         @default
