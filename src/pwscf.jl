@@ -1553,13 +1553,10 @@ only the directory that contains `scf.out`.
 
 See also: [`pwscfio_tetra`](@ref), [`irio_kmesh`](@ref).
 """
-function vaspio_kmesh(f::String)
+function pwscfio_kmesh(f::String)
     # Print the header
     println("Parse kmesh and weight")
-    println("  > Open and read IBZKPT")
-
-    # Open the iostream
-    fin = open(joinpath(f, "IBZKPT"), "r")
+    println("  > Open and read scf.out")
 
     # Extract number of 𝑘-points
     readline(fin)
@@ -1571,14 +1568,6 @@ function vaspio_kmesh(f::String)
     weight = zeros(F64, nkpt)
 
     # Read in the 𝑘-points and their weights
-    for i = 1:nkpt
-        arr = parse.(F64, line_to_array(fin))
-        kmesh[i, 1:3] = arr[1:3]
-        weight[i] = arr[4]
-    end
-
-    # Close the iostream
-    close(fin)
 
     # Print some useful information to check
     println("  > Number of k-points: ", nkpt)
