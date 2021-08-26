@@ -1623,6 +1623,7 @@ function pwscfio_eigen(f::String)
     # Print the header
     println("Parse enk and occupy")
 
+#=
     # Check whether the `EIGENVAL` file contains valid data
     lines = readlines(joinpath(f, "EIGENVAL"))
 
@@ -1663,6 +1664,8 @@ function pwscfio_eigen(f::String)
 
     # close the iostream
     close(fin)
+
+=#
 
     # Print some useful information to check
     println("  > Number of DFT bands: ", nband)
