@@ -1551,6 +1551,9 @@ pwscfio_lattice() = pwscfio_lattice(pwd())
 Reading pwscf's `nscf.out` file, return `kmesh` and `weight`. Here `f`
 means only the directory that contains `nscf.out`.
 
+Note, in `scf.out`, the k-mesh is not uniform. So we have to read k-mesh
+from the `nscf.out`.
+
 See also: [`pwscfio_tetra`](@ref), [`irio_kmesh`](@ref).
 """
 function pwscfio_kmesh(f::String)
@@ -1581,7 +1584,6 @@ function pwscfio_kmesh(f::String)
         #
         w  = line_to_array(lines[ind+1+i])[10]
         weight[i] = parse(F64, w)
-        println(i, kmesh[i,:], weight)
     end
 
     # Print some useful information to check
