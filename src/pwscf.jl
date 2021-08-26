@@ -1478,34 +1478,29 @@ function pwscfio_lattice(f::String, silent::Bool = true)
     ind = findfirst(x -> contains(x, "number of atoms/cell"), lines)
     @assert ind > 0
     natom = parse(I64, line_to_array(lines[ind])[5])
-    println(natom)
 
     # Get the number of sorts of atoms
     ind = findfirst(x -> contains(x, "number of atomic types"), lines)
     @assert ind > 0
     nsort = parse(I64, line_to_array(lines[ind])[6])
 
+    # Get the lattice vectors
+    lvect = zeros(F64, 3, 3)
+    ind = findfirst(x -> contains(x, "crystal axes:"), lines)
+    lvect[1, :] = parse.(F64, line_to_array(lines[ind+1])[4:6])
+    lvect[2, :] = parse.(F64, line_to_array(lines[ind+2])[4:6])
+    lvect[3, :] = parse.(F64, line_to_array(lines[ind+3])[4:6])
 
 #=
-    # Open the iostream
-    fin = open(joinpath(f, "POSCAR"), "r")
-
     # Get the case
     _case = string(strip(readline(fin)))
 
-    # Get the lattice vectors
-    lvect = zeros(F64, 3, 3)
-    lvect[1, :] = parse.(F64, line_to_array(fin))
-    lvect[2, :] = parse.(F64, line_to_array(fin))
-    lvect[3, :] = parse.(F64, line_to_array(fin))
 
     # Get the symbol list
     symbols = line_to_array(fin)
 
-
     # Get the number list
     numbers = parse.(I64, line_to_array(fin))
-
 
     # Now all the parameters are ready, we would like to create
     # `Lattice` struct here.
@@ -1534,9 +1529,6 @@ function pwscfio_lattice(f::String, silent::Bool = true)
     for i = 1:natom
         latt.coord[i, :] = parse.(F64, line_to_array(fin)[1:3])
     end
-
-    # Close the iostream
-    close(fin)
 
     # Print some useful information to check
     !silent && println("  > System: ", latt._case)
