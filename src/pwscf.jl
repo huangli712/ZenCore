@@ -1548,26 +1548,41 @@ pwscfio_lattice() = pwscfio_lattice(pwd())
 """
     pwscfio_kmesh(f::String)
 
-Reading pwscf's `scf.out` file, return `kmesh` and `weight`. Here `f` means
-only the directory that contains `scf.out`.
+Reading pwscf's `nscf.out` file, return `kmesh` and `weight`. Here `f`
+means only the directory that contains `nscf.out`.
 
 See also: [`pwscfio_tetra`](@ref), [`irio_kmesh`](@ref).
 """
 function pwscfio_kmesh(f::String)
     # Print the header
     println("Parse kmesh and weight")
-    println("  > Open and read scf.out")
+    println("  > Open and read nscf.out")
+
+    # Read in all lines in `nscf.out`
+    lines = readlines(joinpath(f, "nscf.out"))
 
     # Extract number of 𝑘-points
-    readline(fin)
-    nkpt = parse(I64, readline(fin))
-    readline(fin)
+    ind = findfirst(x -> contains(x, "number of k points="), lines)
+    @assert ind > 0
+    nkpt = parse(I64, line_to_array(lines[ind])[5])
 
     # Create arrays
     kmesh = zeros(F64, nkpt, 3)
     weight = zeros(F64, nkpt)
 
     # Read in the 𝑘-points and their weights
+    for i = 1:nkpt
+        k1k2 = line_to_array(lines[ind+1+i])[5:6]
+        kmesh[i, 1:2] = parse.(F64, k1k2)
+        #
+        k3 = line_to_array(lines[ind+1+i])[7]
+        k3 = strip(k3, [',', ')'])
+        kmesh[i, 3] = parse(F64, k3)
+        #
+        w  = line_to_array(lines[ind+1+i])[10]
+        weight[i] = parse(F64, w)
+        println(i, kmesh[i,:], weight)
+    end
 
     # Print some useful information to check
     println("  > Number of k-points: ", nkpt)
@@ -1582,7 +1597,7 @@ end
 """
     pwscfio_kmesh()
 
-Reading pwscf's `scf.out` file, return `kmesh` and `weight`.
+Reading pwscf's `nscf.out` file, return `kmesh` and `weight`.
 
 See also: [`pwscfio_tetra`](@ref), [`irio_kmesh`](@ref).
 """
