@@ -1501,18 +1501,28 @@ function pwscfio_lattice(f::String, silent::Bool = true)
 
     # Get the symbol list
     ind = findfirst(x -> contains(x, "atomic species   valence"), lines)
+    @assert ind > 0
     for i = 1:nsort
         latt.sorts[i, 1] = string( line_to_array(lines[ind+i])[1] )
+        latt.sorts[i, 2] = 0
     end
 
     # Get the atom list and the coordinates of atoms
     ind = findfirst(x -> contains(x, "Cartesian axes"), lines)
+    @assert ind > 0
     for i = 1:natom
         latt.atoms[i] = line_to_array(lines[ind+2+i])[2]
         latt.coord[i, :] = parse.(F64, line_to_array(lines[ind+2+i])[7:9])
     end
 
-    println(latt)
+    # Well, now we try to update latt.sorts further
+    for i = 1:natom
+        for j = 1:nsort
+            if latt.atoms[i] == latt.sorts[j, 1]
+                latt.sorts[j, 2] = latt.sorts[j, 2] + 1
+            end
+        end
+    end
 
     # Print some useful information to check
     !silent && println("  > System: ", latt._case)
