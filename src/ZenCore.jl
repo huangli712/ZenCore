@@ -495,6 +495,7 @@ pwscfq_files    -> Check essential output files.
 pwscfio_energy  -> Read DFT total energy.
 pwscfio_lattice -> Read lattice information.
 pwscfio_kmesh   -> Read kmesh.
+pwscfio_eigen   -> Read eigenvalues.
 pwscfio_fermi   -> Read fermi level.
 ```
 =#
@@ -511,6 +512,7 @@ export pwscfq_files
 export pwscfio_energy
 export pwscfio_lattice
 export pwscfio_kmesh
+export pwscfio_eigen
 export pwscfio_fermi
 
 #=
