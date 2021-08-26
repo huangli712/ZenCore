@@ -1493,59 +1493,33 @@ function pwscfio_lattice(f::String, silent::Bool = true)
     latt = Lattice(_case, scale, nsort, natom)
 
     # Get the lattice vectors
-    lvect = zeros(F64, 3, 3)
     ind = findfirst(x -> contains(x, "crystal axes:"), lines)
     @assert ind > 0
-    lvect[1, :] = parse.(F64, line_to_array(lines[ind+1])[4:6])
-    lvect[2, :] = parse.(F64, line_to_array(lines[ind+2])[4:6])
-    lvect[3, :] = parse.(F64, line_to_array(lines[ind+3])[4:6])
+    latt.lvect[1, :] = parse.(F64, line_to_array(lines[ind+1])[4:6])
+    latt.lvect[2, :] = parse.(F64, line_to_array(lines[ind+2])[4:6])
+    latt.lvect[3, :] = parse.(F64, line_to_array(lines[ind+3])[4:6])
 
     # Get the symbol list
-    symbols = Vector{String}(undef, nsort)
     ind = findfirst(x -> contains(x, "atomic species   valence"), lines)
     for i = 1:nsort
-        symbols[i] = line_to_array(lines[ind+i])[1]
-    end
-    println(symbols)
-
-    #println(latt)
-
-#=
-
-    # Get the number list
-    numbers = parse.(I64, line_to_array(fin))
-
-    # Update latt using the available data
-    latt.lvect = lvect
-    for i = 1:nsort
-        latt.sorts[i, 1] = string(symbols[i])
-        latt.sorts[i, 2] = numbers[i]
+        latt.sorts[i, 1] = string( line_to_array(lines[ind+i])[1] )
     end
 
-    # Get the atom list
-    k = 0
-    for i = 1:nsort
-        for j = 1:numbers[i]
-            k = k + 1
-            latt.atoms[k] = symbols[i]
-        end
-    end
-    # Sanity check
-    @assert k == natom
-
-    # Get the coordinates of atoms
-    readline(fin)
+    # Get the atom list and the coordinates of atoms
+    ind = findfirst(x -> contains(x, "Cartesian axes"), lines)
     for i = 1:natom
-        latt.coord[i, :] = parse.(F64, line_to_array(fin)[1:3])
+        latt.atoms[i] = line_to_array(lines[ind+2+i])[2]
+        latt.coord[i, :] = parse.(F64, line_to_array(lines[ind+2+i])[7:9])
     end
+
+    println(latt)
 
     # Print some useful information to check
     !silent && println("  > System: ", latt._case)
     !silent && println("  > Atoms: ", latt.atoms)
-=#
 
     # Return the desired struct
-    return 1 #latt
+    return latt
 end
 
 """
