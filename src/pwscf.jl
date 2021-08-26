@@ -1454,6 +1454,84 @@ be used to determine the DFT + DMFT energy.
 """
 pwscfio_energy() = pwscfio_energy(pwd())
 
+"""
+    vaspio_lattice(f::String, silent::Bool = true)
+
+Reading vasp's `POSCAR` file, return crystallography information. Here `f`
+means only the directory that contains `POSCAR`.
+
+See also: [`Lattice`](@ref), [`irio_lattice`](@ref).
+"""
+function vaspio_lattice(f::String, silent::Bool = true)
+    # Print the header
+    !silent && println("Parse lattice")
+    !silent && println("  > Open and read POSCAR")
+
+    # Open the iostream
+    fin = open(joinpath(f, "POSCAR"), "r")
+
+    # Get the case
+    _case = string(strip(readline(fin)))
+
+    # Get the scaling factor
+    scale = parse(F64, readline(fin))
+
+    # Get the lattice vectors
+    lvect = zeros(F64, 3, 3)
+    lvect[1, :] = parse.(F64, line_to_array(fin))
+    lvect[2, :] = parse.(F64, line_to_array(fin))
+    lvect[3, :] = parse.(F64, line_to_array(fin))
+
+    # Get the symbol list
+    symbols = line_to_array(fin)
+
+    # Get the number of sorts of atoms
+    nsort = length(symbols)
+
+    # Get the number list
+    numbers = parse.(I64, line_to_array(fin))
+
+    # Get the total number of atoms
+    natom = sum(numbers)
+
+    # Now all the parameters are ready, we would like to create
+    # `Lattice` struct here.
+    latt = Lattice(_case, scale, nsort, natom)
+
+    # Update latt using the available data
+    latt.lvect = lvect
+    for i = 1:nsort
+        latt.sorts[i, 1] = string(symbols[i])
+        latt.sorts[i, 2] = numbers[i]
+    end
+
+    # Get the atom list
+    k = 0
+    for i = 1:nsort
+        for j = 1:numbers[i]
+            k = k + 1
+            latt.atoms[k] = symbols[i]
+        end
+    end
+    # Sanity check
+    @assert k == natom
+
+    # Get the coordinates of atoms
+    readline(fin)
+    for i = 1:natom
+        latt.coord[i, :] = parse.(F64, line_to_array(fin)[1:3])
+    end
+
+    # Close the iostream
+    close(fin)
+
+    # Print some useful information to check
+    !silent && println("  > System: ", latt._case)
+    !silent && println("  > Atoms: ", latt.atoms)
+
+    # Return the desired struct
+    return latt
+end
 
 """
     pwscfio_lattice()
