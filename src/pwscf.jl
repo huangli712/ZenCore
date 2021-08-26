@@ -1546,6 +1546,15 @@ See also: [`Lattice`](@ref), [`irio_lattice`](@ref).
 pwscfio_lattice() = pwscfio_lattice(pwd())
 
 """
+    pwscfio_kmesh()
+
+Reading pwscf's `scf.out` file, return `kmesh` and `weight`.
+
+See also: [`pwscfio_tetra`](@ref), [`irio_kmesh`](@ref).
+"""
+pwscfio_kmesh() = pwscfio_kmesh(pwd())
+
+"""
     pwscfio_fermi(f::String, silent::Bool = true)
 
 Reading pwscf's `scf.out` file, return the fermi level. Here `f` means
