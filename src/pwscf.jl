@@ -1467,14 +1467,26 @@ function pwscfio_lattice(f::String, silent::Bool = true)
     !silent && println("Parse lattice")
     !silent && println("  > Open and read scf.out")
 
+    lines = readlines(joinpath(f, "scf.out"))
+
+    # Get the scaling factor
+    ind = findfirst(x -> contains(x, "lattice parameter"), lines)
+    @assert ind > 0
+    scale = parse(F64, line_to_array(lines[ind])[5])
+
+    # Get the number of sorts of atoms
+    ind = findfirst(x -> contains(x, "number of atomic types"), lines)
+    @assert ind > 0
+    nsort = parse(I64, line_to_array(lines[ind])[6])
+    println(nsort)
+
+
+#=
     # Open the iostream
     fin = open(joinpath(f, "POSCAR"), "r")
 
     # Get the case
     _case = string(strip(readline(fin)))
-
-    # Get the scaling factor
-    scale = parse(F64, readline(fin))
 
     # Get the lattice vectors
     lvect = zeros(F64, 3, 3)
@@ -1485,8 +1497,6 @@ function pwscfio_lattice(f::String, silent::Bool = true)
     # Get the symbol list
     symbols = line_to_array(fin)
 
-    # Get the number of sorts of atoms
-    nsort = length(symbols)
 
     # Get the number list
     numbers = parse.(I64, line_to_array(fin))
@@ -1528,9 +1538,10 @@ function pwscfio_lattice(f::String, silent::Bool = true)
     # Print some useful information to check
     !silent && println("  > System: ", latt._case)
     !silent && println("  > Atoms: ", latt.atoms)
+=#
 
     # Return the desired struct
-    return latt
+    return 1 #latt
 end
 
 """
