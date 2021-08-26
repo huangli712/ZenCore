@@ -1474,11 +1474,16 @@ function pwscfio_lattice(f::String, silent::Bool = true)
     @assert ind > 0
     scale = parse(F64, line_to_array(lines[ind])[5])
 
+    # Get the total number of atoms
+    ind = findfirst(x -> contains(x, "number of atoms/cell"), lines)
+    @assert ind > 0
+    natom = parse(I64, line_to_array(lines[ind])[5])
+    println(natom)
+
     # Get the number of sorts of atoms
     ind = findfirst(x -> contains(x, "number of atomic types"), lines)
     @assert ind > 0
     nsort = parse(I64, line_to_array(lines[ind])[6])
-    println(nsort)
 
 
 #=
@@ -1501,8 +1506,6 @@ function pwscfio_lattice(f::String, silent::Bool = true)
     # Get the number list
     numbers = parse.(I64, line_to_array(fin))
 
-    # Get the total number of atoms
-    natom = sum(numbers)
 
     # Now all the parameters are ready, we would like to create
     # `Lattice` struct here.
