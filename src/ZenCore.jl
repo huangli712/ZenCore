@@ -494,6 +494,7 @@ pwscfc_input    -> Generate essential input file (case.scf or case.nscf).
 pwscfq_files    -> Check essential output files.
 pwscfio_energy  -> Read DFT total energy.
 pwscfio_lattice -> Read lattice information.
+pwscfio_kmesh   -> Read kmesh.
 pwscfio_fermi   -> Read fermi level.
 ```
 =#
@@ -509,6 +510,7 @@ export pwscfc_input
 export pwscfq_files
 export pwscfio_energy
 export pwscfio_lattice
+export pwscfio_kmesh
 export pwscfio_fermi
 
 #=
