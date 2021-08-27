@@ -7,6 +7,10 @@
 # Last modified: 2021/08/26
 #
 
+#=
+### *Driver Functions*
+=#
+
 """
     pwscf_adaptor(D::Dict{Symbol,Any})
 
@@ -71,6 +75,205 @@ function pwscf_init(it::IterInfo)
         @assert isfile(f)
         println("  > File $f is ready")
     end
+end
+
+"""
+    pwscf_exec(it::IterInfo, scf::Bool = true)
+
+Execute the pwscf program, monitor the convergence progress, and output
+the relevant information. The argument `scf` determines which input file
+should be used. If scf == true, then the input file is case.scf, or else
+it is case.nscf.
+
+In order to execute this function correctly, you have to setup the
+following environment variables:
+
+* PWSCF_HOME
+
+and make sure the file `MPI.toml` is available.
+
+See also: [`pwscf_init`](@ref), [`pwscf_save`](@ref).
+"""
+function pwscf_exec(it::IterInfo, scf::Bool = true)
+    # Print the header
+    println("Detect the runtime environment for pwscf")
+
+    # Determine mpi prefix (whether the pwscf is executed sequentially)
+    mpi_prefix = inp_toml("../MPI.toml", "dft", false)
+    numproc = parse(I64, line_to_array(mpi_prefix)[3])
+    println("  > Using $numproc processors (MPI)")
+
+    # Get the home directory of pwscf
+    dft_home = query_dft("pwscf")
+    println("  > Home directory for pwscf: ", dft_home)
+
+    # Select suitable pwscf program
+    # We use the same code pw.x for with or without spin-orbit coupling
+    if get_d("lspinorb")
+        pwscf_exe = "$dft_home/pw.x"
+    else
+        pwscf_exe = "$dft_home/pw.x"
+    end
+    @assert isfile(pwscf_exe)
+    println("  > Executable program is available: ", basename(pwscf_exe))
+
+    # Assemble command
+    if isnothing(mpi_prefix)
+        pwscf_cmd = pwscf_exe
+    else
+        pwscf_cmd = split("$mpi_prefix $pwscf_exe", " ")
+    end
+    println("  > Assemble command: $(prod(x -> x * ' ', pwscf_cmd))")
+
+    # Determine suitable input and output files
+    case = get_c("case")
+    finp = "$case.scf"
+    fout = "scf.out"
+    if !scf
+        finp = "$case.nscf"
+        fout = "nscf.out"
+    end
+    println("  > Self-consistent DFT calculation: $scf")
+    println("  > Using input file: $finp")
+    println("  > Using output file: $fout")
+
+    # Print the header
+    println("Launch the computational engine pwscf")
+
+    # Create a task, but do not run it immediately
+    t = @task begin
+        run(pipeline(`$pwscf_cmd`, stdin = finp, stdout = fout))
+    end
+    println("  > Create a task")
+
+    # Launch it, the terminal output is redirected to `fout`.
+    # Note that the task runs asynchronously. It will not block
+    # the execution.
+    schedule(t)
+    println("  > Add the task to the scheduler's queue")
+    println("  > Waiting ...")
+
+    # To ensure that the task is executed
+    while true
+        sleep(2)
+        istaskstarted(t) && break
+    end
+
+    # Analyze the `fout` file during the calculation
+    #
+    # `c` is a time counter
+    c = 0
+    #
+    # Enter infinite loop
+    while true
+        # Sleep five seconds
+        sleep(5)
+
+        # Increase the counter
+        c = c + 1
+
+        # For self-consistent DFT calculation mode
+        if scf
+
+            # Parse the `fout` file
+            iters = readlines(fout)
+            filter!(x -> contains(x, "iteration #"), iters)
+            ethrs = readlines(fout)
+            filter!(x -> contains(x, "ethr ="), ethrs)
+
+            # Figure out the number of iterations (`ni`) and deltaE (`dE`)
+            if length(ethrs) > 0
+                arr = line_to_array(iters[end])
+                ni = parse(I64, arr[3])
+                arr = line_to_array(ethrs[end])
+                dE = strip(arr[3],',')
+            else # The first iteration has not been finished
+                ni = 0
+                dE = "unknown"
+            end
+
+            # Print the log to screen
+            @printf("  > Elapsed %4i seconds, %3i iterations (dE = %12s)\r", 5*c, ni, dE)
+
+        # For non-self-consistent DFT calculation mode
+        else
+
+            # Parse the `fout` file
+            lines = readlines(fout)
+            filter!(x -> contains(x, "Computing kpt #"), lines)
+
+            # Figure out how many k-points are finished
+            if length(lines) > 0
+                arr = line_to_array(lines[end])
+                ikpt = parse(I64, arr[4])
+                nkpt = parse(I64, arr[6])
+            else # The first k-point has not been finished
+                ikpt = 0
+                nkpt = 0
+            end
+
+            # Print the log to screen
+            @printf("  > Elapsed %4i seconds, %4i of %4i k-points\r", 5*c, ikpt, nkpt)
+
+        end
+
+        # Break the loop
+        istaskdone(t) && break
+    end
+    #
+    # Keep the last output
+    println()
+
+    # Wait for the pwscf task to finish
+    wait(t)
+
+    # Extract how many iterations are executed
+    if scf
+        iters = readlines(fout)
+        filter!(x -> contains(x, "iteration #"), iters)
+        println("  > Converged after $(length(iters)) iterations")
+    # Extract how many k-points are finished
+    else
+        lines = readlines(fout)
+        filter!(x -> contains(x, "Computing kpt #"), lines)
+        println("  > Calculated eigenvalues for $(length(lines)) k-points")
+    end
+end
+
+"""
+    pwscf_save(it::IterInfo)
+
+Backup the output files of pwscf if necessary. Furthermore, the DFT fermi
+level in `IterInfo` struct is also updated (`IterInfo.μ₀`).
+
+See also: [`pwscf_init`](@ref), [`pwscf_exec`](@ref).
+"""
+function pwscf_save(it::IterInfo)
+    # Print the header
+    println("Finalize the computational task")
+
+    # Store the data files
+    #
+    # Create list of files
+    case = get_c("case")
+    fl = ["$case.scf", "$case.nscf", "scf.out", "nscf.out"]
+    #
+    # Go through the file list, backup the files one by one.
+    for i in eachindex(fl)
+        f = fl[i]
+        cp(f, "$f.$(it.I₃)", force = true)
+    end
+    println("  > Save the key output files")
+
+    # Anyway, the DFT fermi level is extracted from scf.out, and its
+    # value will be saved at IterInfo.μ₀.
+    it.μ₀ = pwscfio_fermi(pwd())
+    println("  > Extract the fermi level from scf.out: $(it.μ₀) eV")
+
+    # We also try to read the DFT band energy from scf.out, and its
+    # value will be saved at IterInfo.et.
+    it.et.dft = pwscfio_energy(pwd())
+    println("  > Extract the DFT band energy from scf.out: $(it.et.dft) eV")
 end
 
 #=
@@ -976,209 +1179,6 @@ function Base.write(io::IO, x::SpecialPointsCard)
         RP = x.data[i]
         @printf(io, " %11.7f%11.7f%11.7f%16.12f\n", RP.coord..., RP.weight)
     end
-end
-
-#=
-### *Driver Functions*
-=#
-
-"""
-    pwscf_exec(it::IterInfo, scf::Bool = true)
-
-Execute the pwscf program, monitor the convergence progress, and output
-the relevant information. The argument `scf` determines which input file
-should be used. If scf == true, then the input file is case.scf, or else
-it is case.nscf.
-
-In order to execute this function correctly, you have to setup the
-following environment variables:
-
-* PWSCF_HOME
-
-and make sure the file `MPI.toml` is available.
-
-See also: [`pwscf_init`](@ref), [`pwscf_save`](@ref).
-"""
-function pwscf_exec(it::IterInfo, scf::Bool = true)
-    # Print the header
-    println("Detect the runtime environment for pwscf")
-
-    # Determine mpi prefix (whether the pwscf is executed sequentially)
-    mpi_prefix = inp_toml("../MPI.toml", "dft", false)
-    numproc = parse(I64, line_to_array(mpi_prefix)[3])
-    println("  > Using $numproc processors (MPI)")
-
-    # Get the home directory of pwscf
-    dft_home = query_dft("pwscf")
-    println("  > Home directory for pwscf: ", dft_home)
-
-    # Select suitable pwscf program
-    # We use the same code pw.x for with or without spin-orbit coupling
-    if get_d("lspinorb")
-        pwscf_exe = "$dft_home/pw.x"
-    else
-        pwscf_exe = "$dft_home/pw.x"
-    end
-    @assert isfile(pwscf_exe)
-    println("  > Executable program is available: ", basename(pwscf_exe))
-
-    # Assemble command
-    if isnothing(mpi_prefix)
-        pwscf_cmd = pwscf_exe
-    else
-        pwscf_cmd = split("$mpi_prefix $pwscf_exe", " ")
-    end
-    println("  > Assemble command: $(prod(x -> x * ' ', pwscf_cmd))")
-
-    # Determine suitable input and output files
-    case = get_c("case")
-    finp = "$case.scf"
-    fout = "scf.out"
-    if !scf
-        finp = "$case.nscf"
-        fout = "nscf.out"
-    end
-    println("  > Self-consistent DFT calculation: $scf")
-    println("  > Using input file: $finp")
-    println("  > Using output file: $fout")
-
-    # Print the header
-    println("Launch the computational engine pwscf")
-
-    # Create a task, but do not run it immediately
-    t = @task begin
-        run(pipeline(`$pwscf_cmd`, stdin = finp, stdout = fout))
-    end
-    println("  > Create a task")
-
-    # Launch it, the terminal output is redirected to `fout`.
-    # Note that the task runs asynchronously. It will not block
-    # the execution.
-    schedule(t)
-    println("  > Add the task to the scheduler's queue")
-    println("  > Waiting ...")
-
-    # To ensure that the task is executed
-    while true
-        sleep(2)
-        istaskstarted(t) && break
-    end
-
-    # Analyze the `fout` file during the calculation
-    #
-    # `c` is a time counter
-    c = 0
-    #
-    # Enter infinite loop
-    while true
-        # Sleep five seconds
-        sleep(5)
-
-        # Increase the counter
-        c = c + 1
-
-        # For self-consistent DFT calculation mode
-        if scf
-
-            # Parse the `fout` file
-            iters = readlines(fout)
-            filter!(x -> contains(x, "iteration #"), iters)
-            ethrs = readlines(fout)
-            filter!(x -> contains(x, "ethr ="), ethrs)
-
-            # Figure out the number of iterations (`ni`) and deltaE (`dE`)
-            if length(ethrs) > 0
-                arr = line_to_array(iters[end])
-                ni = parse(I64, arr[3])
-                arr = line_to_array(ethrs[end])
-                dE = strip(arr[3],',')
-            else # The first iteration has not been finished
-                ni = 0
-                dE = "unknown"
-            end
-
-            # Print the log to screen
-            @printf("  > Elapsed %4i seconds, %3i iterations (dE = %12s)\r", 5*c, ni, dE)
-
-        # For non-self-consistent DFT calculation mode
-        else
-
-            # Parse the `fout` file
-            lines = readlines(fout)
-            filter!(x -> contains(x, "Computing kpt #"), lines)
-
-            # Figure out how many k-points are finished
-            if length(lines) > 0
-                arr = line_to_array(lines[end])
-                ikpt = parse(I64, arr[4])
-                nkpt = parse(I64, arr[6])
-            else # The first k-point has not been finished
-                ikpt = 0
-                nkpt = 0
-            end
-
-            # Print the log to screen
-            @printf("  > Elapsed %4i seconds, %4i of %4i k-points\r", 5*c, ikpt, nkpt)
-
-        end
-
-        # Break the loop
-        istaskdone(t) && break
-    end
-    #
-    # Keep the last output
-    println()
-
-    # Wait for the pwscf task to finish
-    wait(t)
-
-    # Extract how many iterations are executed
-    if scf
-        iters = readlines(fout)
-        filter!(x -> contains(x, "iteration #"), iters)
-        println("  > Converged after $(length(iters)) iterations")
-    # Extract how many k-points are finished
-    else
-        lines = readlines(fout)
-        filter!(x -> contains(x, "Computing kpt #"), lines)
-        println("  > Calculated eigenvalues for $(length(lines)) k-points")
-    end
-end
-
-"""
-    pwscf_save(it::IterInfo)
-
-Backup the output files of pwscf if necessary. Furthermore, the DFT fermi
-level in `IterInfo` struct is also updated (`IterInfo.μ₀`).
-
-See also: [`pwscf_init`](@ref), [`pwscf_exec`](@ref).
-"""
-function pwscf_save(it::IterInfo)
-    # Print the header
-    println("Finalize the computational task")
-
-    # Store the data files
-    #
-    # Create list of files
-    case = get_c("case")
-    fl = ["$case.scf", "$case.nscf", "scf.out", "nscf.out"]
-    #
-    # Go through the file list, backup the files one by one.
-    for i in eachindex(fl)
-        f = fl[i]
-        cp(f, "$f.$(it.I₃)", force = true)
-    end
-    println("  > Save the key output files")
-
-    # Anyway, the DFT fermi level is extracted from scf.out, and its
-    # value will be saved at IterInfo.μ₀.
-    it.μ₀ = pwscfio_fermi(pwd())
-    println("  > Extract the fermi level from scf.out: $(it.μ₀) eV")
-
-    # We also try to read the DFT band energy from scf.out, and its
-    # value will be saved at IterInfo.et.
-    it.et.dft = pwscfio_energy(pwd())
-    println("  > Extract the DFT band energy from scf.out: $(it.et.dft) eV")
 end
 
 #=
