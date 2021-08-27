@@ -36,7 +36,41 @@ function pwscf_adaptor(D::Dict{Symbol,Any})
     D[:kmesh], D[:weight] = pwscfio_kmesh(pwd())
 
     # P04: Read in band structure and the corresponding occupancies
-    D[:enk], D[:occupy] = pwscfio_eigen(pwd())
+    #D[:enk], D[:occupy] = pwscfio_eigen(pwd())
+end
+
+"""
+    pwscf_init(it::IterInfo)
+
+Check the runtime environment of `pwscf`, prepare necessary input files.
+
+See also: [`pwscf_exec`](@ref), [`pwscf_save`](@ref).
+"""
+function pwscf_init(it::IterInfo)
+    # Print the header
+    println("Engine : PWSCF")
+    println("Try to perform ab initio electronic structure calculation")
+    println("Current directory: ", pwd())
+    println("Prepare necessary input files for pwscf")
+
+    # Prepare essential input files
+    # Copy PWSCF.INP
+    cp("../PWSCF.INP", joinpath(pwd(), "PWSCF.INP"), force = true)
+    println("  > File PWSCF.INP is ready")
+    #
+    # Create the real input file, case.scf and case.nscf.
+    ControlNL, AtomicSpeciesBlock = pwscfc_input(it)
+    case = get_c("case")
+    println("  > File $case.scf is ready")
+    println("  > File $case.nscf is ready")
+    #
+    # Check the pseudopotentials
+    pdir = strip(ControlNL["pseudo_dir"],''')
+    upf = map(x -> joinpath(pdir, x.upf), AtomicSpeciesBlock.data)
+    for f in upf
+        @assert isfile(f)
+        println("  > File $f is ready")
+    end
 end
 
 #=
@@ -947,40 +981,6 @@ end
 #=
 ### *Driver Functions*
 =#
-
-"""
-    pwscf_init(it::IterInfo)
-
-Check the runtime environment of `pwscf`, prepare necessary input files.
-
-See also: [`pwscf_exec`](@ref), [`pwscf_save`](@ref).
-"""
-function pwscf_init(it::IterInfo)
-    # Print the header
-    println("Engine : PWSCF")
-    println("Try to perform ab initio electronic structure calculation")
-    println("Current directory: ", pwd())
-    println("Prepare necessary input files for pwscf")
-
-    # Prepare essential input files
-    # Copy PWSCF.INP
-    cp("../PWSCF.INP", joinpath(pwd(), "PWSCF.INP"), force = true)
-    println("  > File PWSCF.INP is ready")
-    #
-    # Create the real input file, case.scf and case.nscf.
-    ControlNL, AtomicSpeciesBlock = pwscfc_input(it)
-    case = get_c("case")
-    println("  > File $case.scf is ready")
-    println("  > File $case.nscf is ready")
-    #
-    # Check the pseudopotentials
-    pdir = strip(ControlNL["pseudo_dir"],''')
-    upf = map(x -> joinpath(pdir, x.upf), AtomicSpeciesBlock.data)
-    for f in upf
-        @assert isfile(f)
-        println("  > File $f is ready")
-    end
-end
 
 """
     pwscf_exec(it::IterInfo, scf::Bool = true)
