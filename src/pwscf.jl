@@ -276,6 +276,10 @@ function pwscf_save(it::IterInfo)
     println("  > Extract the DFT band energy from scf.out: $(it.et.dft) eV")
 end
 
+#=
+### *Service Functions* : *Group A*
+=#
+
 """
     pwscfc_input(it::IterInfo)
 
@@ -490,6 +494,332 @@ function pwscfc_input(it::IterInfo)
     # whether the pseudopotential files are ready.
     return ControlNL, AtomicSpeciesBlock
 end
+
+#=
+### *Service Functions* : *Group B*
+=#
+
+"""
+    pwscfq_files(f::String)
+
+Check the essential output files by pwscf. Here `f` means only the
+directory that contains the desired files.
+
+See also: [`adaptor_run`](@ref).
+"""
+function pwscfq_files(f::String)
+    fl = ["scf.out", "nscf.out"]
+    for i in eachindex(fl)
+        @assert isfile( joinpath(f, fl[i]) )
+    end
+end
+
+"""
+    pwscfq_files()
+
+Check the essential output files by pwscf in the current directory.
+
+See also: [`adaptor_run`](@ref).
+"""
+pwscfq_files() = pwscfq_files(pwd())
+
+#=
+### *Service Functions* : *Group C*
+=#
+
+"""
+    pwscfio_energy(f::String)
+
+Reading pwscf's `scf.out` file, return DFT total energy, which will
+be used to determine the DFT + DMFT energy. Here `f` means only the
+directory that contains `scf.out`.
+"""
+function pwscfio_energy(f::String)
+    # Try to figure out whether the scf.out file is valid
+    lines = readlines(joinpath(f, "scf.out"))
+    filter!(x -> contains(x, "!    total energy"), lines)
+    @assert length(lines) == 1
+
+    # Extract the total energy
+    etot = parse(F64, line_to_array(lines[end])[5])
+
+    # Return the desired value
+    return etot
+end
+
+"""
+    pwscfio_energy()
+
+Reading pwscf's `scf.out` file, return DFT total energy, which will
+be used to determine the DFT + DMFT energy.
+"""
+pwscfio_energy() = pwscfio_energy(pwd())
+
+"""
+    pwscfio_lattice(f::String, silent::Bool = true)
+
+Reading pwscf's `scf.out` file, return crystallography information. Here `f`
+means only the directory that contains `scf.out`.
+
+See also: [`Lattice`](@ref), [`irio_lattice`](@ref).
+"""
+function pwscfio_lattice(f::String, silent::Bool = true)
+    # Print the header
+    !silent && println("Parse lattice")
+    !silent && println("  > Open and read scf.out")
+
+    # Read in all lines in `scf.out`
+    lines = readlines(joinpath(f, "scf.out"))
+
+    # Sorry, `scf.out` does not contain any information about case.
+    _case = get_c("case")
+
+    # Get the scaling factor
+    # Shall we convert it into SI?
+    ind = findfirst(x -> contains(x, "lattice parameter"), lines)
+    @assert ind > 0
+    scale = parse(F64, line_to_array(lines[ind])[5])
+
+    # Get the total number of atoms
+    ind = findfirst(x -> contains(x, "number of atoms/cell"), lines)
+    @assert ind > 0
+    natom = parse(I64, line_to_array(lines[ind])[5])
+
+    # Get the number of sorts of atoms
+    ind = findfirst(x -> contains(x, "number of atomic types"), lines)
+    @assert ind > 0
+    nsort = parse(I64, line_to_array(lines[ind])[6])
+
+    # Now all the parameters are ready, we would like to create
+    # `Lattice` struct here.
+    latt = Lattice(_case, scale, nsort, natom)
+
+    # Get the lattice vectors
+    ind = findfirst(x -> contains(x, "crystal axes:"), lines)
+    @assert ind > 0
+    latt.lvect[1, :] = parse.(F64, line_to_array(lines[ind+1])[4:6])
+    latt.lvect[2, :] = parse.(F64, line_to_array(lines[ind+2])[4:6])
+    latt.lvect[3, :] = parse.(F64, line_to_array(lines[ind+3])[4:6])
+
+    # Get the symbol list
+    ind = findfirst(x -> contains(x, "atomic species   valence"), lines)
+    @assert ind > 0
+    for i = 1:nsort
+        latt.sorts[i, 1] = string( line_to_array(lines[ind+i])[1] )
+        latt.sorts[i, 2] = 0 # Init it with 0
+    end
+
+    # Get the atom list and the coordinates of atoms
+    ind = findfirst(x -> contains(x, "Cartesian axes"), lines)
+    @assert ind > 0
+    for i = 1:natom
+        latt.atoms[i] = line_to_array(lines[ind+2+i])[2]
+        latt.coord[i, :] = parse.(F64, line_to_array(lines[ind+2+i])[7:9])
+    end
+
+    # Well, now we try to update latt.sorts further
+    for i = 1:natom
+        for j = 1:nsort
+            if latt.atoms[i] == latt.sorts[j, 1]
+                latt.sorts[j, 2] = latt.sorts[j, 2] + 1
+            end
+        end
+    end
+
+    # Print some useful information to check
+    !silent && println("  > System: ", latt._case)
+    !silent && println("  > Atoms: ", latt.atoms)
+
+    # Return the desired struct
+    return latt
+end
+
+"""
+    pwscfio_lattice()
+
+Reading pwscf's `scf.out` file, return crystallography information.
+
+See also: [`Lattice`](@ref), [`irio_lattice`](@ref).
+"""
+pwscfio_lattice() = pwscfio_lattice(pwd())
+
+"""
+    pwscfio_kmesh(f::String)
+
+Reading pwscf's `nscf.out` file, return `kmesh` and `weight`. Here `f`
+means only the directory that contains `nscf.out`.
+
+Note, in `scf.out`, the k-mesh is not uniform. So we have to read k-mesh
+from the `nscf.out`.
+
+See also: [`pwscfio_tetra`](@ref), [`irio_kmesh`](@ref).
+"""
+function pwscfio_kmesh(f::String)
+    # Print the header
+    println("Parse kmesh and weight")
+    println("  > Open and read nscf.out")
+
+    # Read in all lines in `nscf.out`
+    lines = readlines(joinpath(f, "nscf.out"))
+
+    # Extract number of 𝑘-points
+    ind = findfirst(x -> contains(x, "number of k points="), lines)
+    @assert ind > 0
+    nkpt = parse(I64, line_to_array(lines[ind])[5])
+
+    # Create arrays
+    kmesh = zeros(F64, nkpt, 3)
+    weight = zeros(F64, nkpt)
+
+    # Read in the 𝑘-points and their weights
+    for i = 1:nkpt
+        k1k2 = line_to_array(lines[ind+1+i])[5:6]
+        kmesh[i, 1:2] = parse.(F64, k1k2)
+        #
+        k3 = line_to_array(lines[ind+1+i])[7]
+        k3 = strip(k3, [',', ')']) # Get rid of some chars
+        kmesh[i, 3] = parse(F64, k3)
+        #
+        w  = line_to_array(lines[ind+1+i])[10]
+        weight[i] = parse(F64, w)
+    end
+
+    # Print some useful information to check
+    println("  > Number of k-points: ", nkpt)
+    println("  > Total sum of weights: ", sum(weight))
+    println("  > Shape of Array kmesh: ", size(kmesh))
+    println("  > Shape of Array weight: ", size(weight))
+
+    # Return the desired arrays
+    return kmesh, weight
+end
+
+"""
+    pwscfio_kmesh()
+
+Reading pwscf's `nscf.out` file, return `kmesh` and `weight`.
+
+See also: [`pwscfio_tetra`](@ref), [`irio_kmesh`](@ref).
+"""
+pwscfio_kmesh() = pwscfio_kmesh(pwd())
+
+"""
+    pwscfio_eigen(f::String)
+
+Reading pwscf's `nscf.out` file, return energy band information. Here `f`
+means only the directory that contains `nscf.out`.
+
+Note that in `scf.out`, the eigenvalues may be not defined on the uniform
+k-mesh. So we have to read eigenvalues from the `nscf.out` file.
+
+See also: [`irio_eigen`](@ref).
+"""
+function pwscfio_eigen(f::String)
+    # Print the header
+    println("Parse enk and occupy")
+
+#=
+    # Check whether the `EIGENVAL` file contains valid data
+    lines = readlines(joinpath(f, "EIGENVAL"))
+
+    # Read EIGENVAL
+    println("  > Open and read EIGENVAL")
+
+    # Open the iostream
+    fin = open(joinpath(f, "EIGENVAL"), "r")
+
+    # Determine number of spins
+    nspin = parse(I64, line_to_array(fin)[end])
+    @assert nspin == 1 || nspin == 2
+
+    # Skip for lines
+    for i = 1:4
+        readline(fin)
+    end
+
+    # Read in some key parameters: nelect, nkpt, nbands
+    _, nkpt, nband = parse.(I64, line_to_array(fin))
+
+    # Create arrays
+    enk = zeros(F64, nband, nkpt, nspin)
+    occupy = zeros(F64, nband, nkpt, nspin)
+
+    # Read in the energy bands and the corresponding occupations
+    for i = 1:nkpt
+        readline(fin)
+        readline(fin)
+        for j = 1:nband
+            arr = line_to_array(fin)
+            for s = 1:nspin
+                enk[j, i, s] = parse(F64, arr[s+1])
+                occupy[j, i, s] = parse(F64, arr[s+1+nspin])
+            end # END OF S LOOP
+        end # END OF J LOOP
+    end # END OF I LOOP
+
+    # close the iostream
+    close(fin)
+
+=#
+
+    # Print some useful information to check
+    println("  > Number of DFT bands: ", nband)
+    println("  > Number of k-points: ", nkpt)
+    println("  > Number of spins: ", nspin)
+    println("  > Shape of Array enk: ", size(enk))
+    println("  > Shape of Array occupy: ", size(occupy))
+
+    # return the desired arrays
+    return enk, occupy
+end
+
+
+
+"""
+    pwscfio_eigen()
+
+Reading pwscf's `nscf.out` file, return energy band information.
+
+See also: [`irio_eigen`](@ref).
+"""
+pwscfio_eigen() = pwscfio_eigen(pwd())
+
+"""
+    pwscfio_fermi(f::String, silent::Bool = true)
+
+Reading pwscf's `scf.out` file, return the fermi level. Here `f` means
+only the directory that contains `scf.out`.
+
+See also: [`irio_fermi`](@ref).
+"""
+function pwscfio_fermi(f::String, silent::Bool = true)
+    # Print the header
+    !silent && println("Parse fermi level")
+    !silent && println("  > Open and read scf.out")
+
+    # Try to figure out whether the scf.out file is valid
+    lines = readlines(joinpath(f, "scf.out"))
+    filter!(x -> contains(x, "Fermi energy"), lines)
+    @assert length(lines) == 1
+
+    # Extract the fermi level
+    fermi = parse(F64, line_to_array(lines[end])[5])
+
+    # Print some useful information to check
+    !silent && println("  > Fermi level: $fermi eV")
+
+    # Return the desired data
+    return fermi
+end
+
+"""
+    pwscfio_fermi()
+
+Reading pwscf's `scf.out` file, return the fermi level.
+
+See also: [`irio_fermi`](@ref).
+"""
+pwscfio_fermi() = pwscfio_fermi(pwd())
 
 #=
 ### *Abstract Types*
@@ -1395,333 +1725,3 @@ function Base.write(io::IO, x::SpecialPointsCard)
         @printf(io, " %11.7f%11.7f%11.7f%16.12f\n", RP.coord..., RP.weight)
     end
 end
-
-#=
-### *Service Functions* : *Group A*
-=#
-
-#=
-### *Service Functions* : *Group B*
-=#
-
-"""
-    pwscfq_files(f::String)
-
-Check the essential output files by pwscf. Here `f` means only the
-directory that contains the desired files.
-
-See also: [`adaptor_run`](@ref).
-"""
-function pwscfq_files(f::String)
-    fl = ["scf.out", "nscf.out"]
-    for i in eachindex(fl)
-        @assert isfile( joinpath(f, fl[i]) )
-    end
-end
-
-"""
-    pwscfq_files()
-
-Check the essential output files by pwscf in the current directory.
-
-See also: [`adaptor_run`](@ref).
-"""
-pwscfq_files() = pwscfq_files(pwd())
-
-#=
-### *Service Functions* : *Group C*
-=#
-
-"""
-    pwscfio_energy(f::String)
-
-Reading pwscf's `scf.out` file, return DFT total energy, which will
-be used to determine the DFT + DMFT energy. Here `f` means only the
-directory that contains `scf.out`.
-"""
-function pwscfio_energy(f::String)
-    # Try to figure out whether the scf.out file is valid
-    lines = readlines(joinpath(f, "scf.out"))
-    filter!(x -> contains(x, "!    total energy"), lines)
-    @assert length(lines) == 1
-
-    # Extract the total energy
-    etot = parse(F64, line_to_array(lines[end])[5])
-
-    # Return the desired value
-    return etot
-end
-
-"""
-    pwscfio_energy()
-
-Reading pwscf's `scf.out` file, return DFT total energy, which will
-be used to determine the DFT + DMFT energy.
-"""
-pwscfio_energy() = pwscfio_energy(pwd())
-
-"""
-    pwscfio_lattice(f::String, silent::Bool = true)
-
-Reading pwscf's `scf.out` file, return crystallography information. Here `f`
-means only the directory that contains `scf.out`.
-
-See also: [`Lattice`](@ref), [`irio_lattice`](@ref).
-"""
-function pwscfio_lattice(f::String, silent::Bool = true)
-    # Print the header
-    !silent && println("Parse lattice")
-    !silent && println("  > Open and read scf.out")
-
-    # Read in all lines in `scf.out`
-    lines = readlines(joinpath(f, "scf.out"))
-
-    # Sorry, `scf.out` does not contain any information about case.
-    _case = get_c("case")
-
-    # Get the scaling factor
-    # Shall we convert it into SI?
-    ind = findfirst(x -> contains(x, "lattice parameter"), lines)
-    @assert ind > 0
-    scale = parse(F64, line_to_array(lines[ind])[5])
-
-    # Get the total number of atoms
-    ind = findfirst(x -> contains(x, "number of atoms/cell"), lines)
-    @assert ind > 0
-    natom = parse(I64, line_to_array(lines[ind])[5])
-
-    # Get the number of sorts of atoms
-    ind = findfirst(x -> contains(x, "number of atomic types"), lines)
-    @assert ind > 0
-    nsort = parse(I64, line_to_array(lines[ind])[6])
-
-    # Now all the parameters are ready, we would like to create
-    # `Lattice` struct here.
-    latt = Lattice(_case, scale, nsort, natom)
-
-    # Get the lattice vectors
-    ind = findfirst(x -> contains(x, "crystal axes:"), lines)
-    @assert ind > 0
-    latt.lvect[1, :] = parse.(F64, line_to_array(lines[ind+1])[4:6])
-    latt.lvect[2, :] = parse.(F64, line_to_array(lines[ind+2])[4:6])
-    latt.lvect[3, :] = parse.(F64, line_to_array(lines[ind+3])[4:6])
-
-    # Get the symbol list
-    ind = findfirst(x -> contains(x, "atomic species   valence"), lines)
-    @assert ind > 0
-    for i = 1:nsort
-        latt.sorts[i, 1] = string( line_to_array(lines[ind+i])[1] )
-        latt.sorts[i, 2] = 0 # Init it with 0
-    end
-
-    # Get the atom list and the coordinates of atoms
-    ind = findfirst(x -> contains(x, "Cartesian axes"), lines)
-    @assert ind > 0
-    for i = 1:natom
-        latt.atoms[i] = line_to_array(lines[ind+2+i])[2]
-        latt.coord[i, :] = parse.(F64, line_to_array(lines[ind+2+i])[7:9])
-    end
-
-    # Well, now we try to update latt.sorts further
-    for i = 1:natom
-        for j = 1:nsort
-            if latt.atoms[i] == latt.sorts[j, 1]
-                latt.sorts[j, 2] = latt.sorts[j, 2] + 1
-            end
-        end
-    end
-
-    # Print some useful information to check
-    !silent && println("  > System: ", latt._case)
-    !silent && println("  > Atoms: ", latt.atoms)
-
-    # Return the desired struct
-    return latt
-end
-
-"""
-    pwscfio_lattice()
-
-Reading pwscf's `scf.out` file, return crystallography information.
-
-See also: [`Lattice`](@ref), [`irio_lattice`](@ref).
-"""
-pwscfio_lattice() = pwscfio_lattice(pwd())
-
-"""
-    pwscfio_kmesh(f::String)
-
-Reading pwscf's `nscf.out` file, return `kmesh` and `weight`. Here `f`
-means only the directory that contains `nscf.out`.
-
-Note, in `scf.out`, the k-mesh is not uniform. So we have to read k-mesh
-from the `nscf.out`.
-
-See also: [`pwscfio_tetra`](@ref), [`irio_kmesh`](@ref).
-"""
-function pwscfio_kmesh(f::String)
-    # Print the header
-    println("Parse kmesh and weight")
-    println("  > Open and read nscf.out")
-
-    # Read in all lines in `nscf.out`
-    lines = readlines(joinpath(f, "nscf.out"))
-
-    # Extract number of 𝑘-points
-    ind = findfirst(x -> contains(x, "number of k points="), lines)
-    @assert ind > 0
-    nkpt = parse(I64, line_to_array(lines[ind])[5])
-
-    # Create arrays
-    kmesh = zeros(F64, nkpt, 3)
-    weight = zeros(F64, nkpt)
-
-    # Read in the 𝑘-points and their weights
-    for i = 1:nkpt
-        k1k2 = line_to_array(lines[ind+1+i])[5:6]
-        kmesh[i, 1:2] = parse.(F64, k1k2)
-        #
-        k3 = line_to_array(lines[ind+1+i])[7]
-        k3 = strip(k3, [',', ')']) # Get rid of some chars
-        kmesh[i, 3] = parse(F64, k3)
-        #
-        w  = line_to_array(lines[ind+1+i])[10]
-        weight[i] = parse(F64, w)
-    end
-
-    # Print some useful information to check
-    println("  > Number of k-points: ", nkpt)
-    println("  > Total sum of weights: ", sum(weight))
-    println("  > Shape of Array kmesh: ", size(kmesh))
-    println("  > Shape of Array weight: ", size(weight))
-
-    # Return the desired arrays
-    return kmesh, weight
-end
-
-"""
-    pwscfio_kmesh()
-
-Reading pwscf's `nscf.out` file, return `kmesh` and `weight`.
-
-See also: [`pwscfio_tetra`](@ref), [`irio_kmesh`](@ref).
-"""
-pwscfio_kmesh() = pwscfio_kmesh(pwd())
-
-"""
-    pwscfio_eigen(f::String)
-
-Reading pwscf's `nscf.out` file, return energy band information. Here `f`
-means only the directory that contains `nscf.out`.
-
-Note that in `scf.out`, the eigenvalues may be not defined on the uniform
-k-mesh. So we have to read eigenvalues from the `nscf.out` file.
-
-See also: [`irio_eigen`](@ref).
-"""
-function pwscfio_eigen(f::String)
-    # Print the header
-    println("Parse enk and occupy")
-
-#=
-    # Check whether the `EIGENVAL` file contains valid data
-    lines = readlines(joinpath(f, "EIGENVAL"))
-
-    # Read EIGENVAL
-    println("  > Open and read EIGENVAL")
-
-    # Open the iostream
-    fin = open(joinpath(f, "EIGENVAL"), "r")
-
-    # Determine number of spins
-    nspin = parse(I64, line_to_array(fin)[end])
-    @assert nspin == 1 || nspin == 2
-
-    # Skip for lines
-    for i = 1:4
-        readline(fin)
-    end
-
-    # Read in some key parameters: nelect, nkpt, nbands
-    _, nkpt, nband = parse.(I64, line_to_array(fin))
-
-    # Create arrays
-    enk = zeros(F64, nband, nkpt, nspin)
-    occupy = zeros(F64, nband, nkpt, nspin)
-
-    # Read in the energy bands and the corresponding occupations
-    for i = 1:nkpt
-        readline(fin)
-        readline(fin)
-        for j = 1:nband
-            arr = line_to_array(fin)
-            for s = 1:nspin
-                enk[j, i, s] = parse(F64, arr[s+1])
-                occupy[j, i, s] = parse(F64, arr[s+1+nspin])
-            end # END OF S LOOP
-        end # END OF J LOOP
-    end # END OF I LOOP
-
-    # close the iostream
-    close(fin)
-
-=#
-
-    # Print some useful information to check
-    println("  > Number of DFT bands: ", nband)
-    println("  > Number of k-points: ", nkpt)
-    println("  > Number of spins: ", nspin)
-    println("  > Shape of Array enk: ", size(enk))
-    println("  > Shape of Array occupy: ", size(occupy))
-
-    # return the desired arrays
-    return enk, occupy
-end
-
-
-
-"""
-    pwscfio_eigen()
-
-Reading pwscf's `nscf.out` file, return energy band information.
-
-See also: [`irio_eigen`](@ref).
-"""
-pwscfio_eigen() = pwscfio_eigen(pwd())
-
-"""
-    pwscfio_fermi(f::String, silent::Bool = true)
-
-Reading pwscf's `scf.out` file, return the fermi level. Here `f` means
-only the directory that contains `scf.out`.
-
-See also: [`irio_fermi`](@ref).
-"""
-function pwscfio_fermi(f::String, silent::Bool = true)
-    # Print the header
-    !silent && println("Parse fermi level")
-    !silent && println("  > Open and read scf.out")
-
-    # Try to figure out whether the scf.out file is valid
-    lines = readlines(joinpath(f, "scf.out"))
-    filter!(x -> contains(x, "Fermi energy"), lines)
-    @assert length(lines) == 1
-
-    # Extract the fermi level
-    fermi = parse(F64, line_to_array(lines[end])[5])
-
-    # Print some useful information to check
-    !silent && println("  > Fermi level: $fermi eV")
-
-    # Return the desired data
-    return fermi
-end
-
-"""
-    pwscfio_fermi()
-
-Reading pwscf's `scf.out` file, return the fermi level.
-
-See also: [`irio_fermi`](@ref).
-"""
-pwscfio_fermi() = pwscfio_fermi(pwd())
