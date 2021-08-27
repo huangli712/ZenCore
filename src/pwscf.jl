@@ -276,6 +276,221 @@ function pwscf_save(it::IterInfo)
     println("  > Extract the DFT band energy from scf.out: $(it.et.dft) eV")
 end
 
+"""
+    pwscfc_input(it::IterInfo)
+
+It will parse the `PWSCF.INP` file at first. Actually, `PWSCF.INP` is
+a standard, but mini input file for `pwscf`. It only includes three
+namelists (namely `control`, `system`, and `electrons`) and three
+cards (namely `ATOMIC_SPECIES`, `ATOMIC_POSITIONS`, and `K_POINTS`).
+If you want to support more input entries, please make your own
+modifications here.
+
+Then this function will try to customize these namelists and cards
+according to the setup in `case.toml`.
+
+Finally, this function will generate the input files for `pwscf`. They
+are `case.scf` and `case.nscf`. As shown by their names, one is for the
+self-consistent calculation, the other is for the non-self-consistent
+calculation.
+
+The return values of this function are namelist (`control`) and card
+(`ATOMIC_SPECIES`), which will be used to check the pseudopotentials.
+
+See also: [`PWNamelist`](@ref), [`PWCard`](@ref).
+"""
+function pwscfc_input(it::IterInfo)
+    # Check the file status
+    finput = "PWSCF.INP"
+    @assert isfile(finput)
+
+    # Parse the namelists, control, system, and electrons.
+    lines = readlines(finput)
+    ControlNL = parse(PWNamelist, lines, "control")
+    SystemNL = parse(PWNamelist, lines, "system")
+    ElectronsNL = parse(PWNamelist, lines, "electrons")
+
+    # Parse the cards, ATOMIC_SPECIES, ATOMIC_POSITIONS, and K_POINTS.
+    line = read(finput, String)
+    AtomicSpeciesBlock = parse(AtomicSpeciesCard, line)
+    AtomicPositionsBlock = parse(AtomicPositionsCard, line)
+    KPointsBlock = parse(KPointsCard, line)
+
+    # Customize the namelists and cards according to case.toml
+    #
+    # For smearing
+    smear = get_d("smear")
+    @cswitch smear begin
+        @case "mp2"
+            SystemNL["occupations"] = "'smearing'"
+            SystemNL["smearing"] = "'m-p'"
+            break
+
+        @case "mp1"
+            SystemNL["occupations"] = "'smearing'"
+            SystemNL["smearing"] = "'m-p'"
+            break
+
+        @case "gauss"
+            SystemNL["occupations"] = "'smearing'"
+            SystemNL["smearing"] = "'gauss'"
+            break
+
+        @case "tetra"
+            SystemNL["occupations"] = "'tetrahedra'"
+            delete!(SystemNL, "smearing")
+            break
+
+        @default
+            SystemNL["occupations"] = "'smearing'"
+            SystemNL["smearing"] = "'gauss'"
+            break
+    end
+
+    # For kmesh density
+    #
+    # Note that if kmesh == "file", the original setup in PWSCF.INP is
+    # kept. In other words, KPointsBlock will not be changed.
+    kmesh = get_d("kmesh")
+    if isa(KPointsBlock,AutoKmeshCard)
+        shift = copy(KPointsBlock.data.shift)
+        @cswitch kmesh begin
+            @case "accurate"
+                KPointsBlock = AutoKmeshCard([10, 10, 10], shift)
+                break
+
+            @case "medium"
+                KPointsBlock = AutoKmeshCard([08, 08, 08], shift)
+                break
+
+            @case "coarse"
+                KPointsBlock = AutoKmeshCard([06, 06, 06], shift)
+                break
+
+            @case "file"
+                break
+
+            @default # Very coarse kmesh
+                KPointsBlock = AutoKmeshCard([04, 04, 04], shift)
+                break
+        end
+    end
+
+    # For magnetic moment
+    magmom = get_d("magmom")
+    if !isa(magmom, Missing)
+        SystemNL["starting_magnetization"] = magmom
+    end
+
+    # For symmetry
+    lsymm = get_d("lsymm")
+    if lsymm
+        SystemNL["nosym"] = ".false."
+    else # Ignore the symmetry completely
+        SystemNL["nosym"] = ".true."
+    end
+
+    # For spin polarizations
+    lspins = get_d("lspins")
+    if lspins
+        SystemNL["nspin"] = 2
+    else
+        SystemNL["nspin"] = 1
+    end
+
+    # For spin-orbit coupling
+    lspinorb = get_d("lspinorb")
+    if lspinorb
+        SystemNL["noncolin"] = ".true."
+        if lspins
+            SystemNL["nspin"] = 4
+        end
+    else
+        SystemNL["noncolin"] = ".false."
+    end
+
+    # For optimized projectors
+    # SKIP
+
+    # For local orbitals and projectors
+    # SKIP
+
+    # For number of bands
+    # SKIP
+
+    # Special treatment for verbosity
+    ControlNL["verbosity"] = "'high'"
+
+    # Special treatment for pseudo_dir
+    pseudo_dir = strip(ControlNL["pseudo_dir"],''') # Get rid of `
+    pseudo_dir = joinpath("..", pseudo_dir)
+    ControlNL["pseudo_dir"] = "'$pseudo_dir'" # Add ' back
+
+    # Build input files for pwscf
+    #
+    # Get case's name
+    case = get_c("case")
+    #
+    # Setup filenames
+    fscf = "$case.scf"
+    fnscf = "$case.nscf"
+    #
+    # For case.scf
+    ControlNL["calculation"] = "'scf'"
+    open(fscf, "w") do fout
+        write(fout, ControlNL)
+        write(fout, SystemNL)
+        write(fout, ElectronsNL)
+        write(fout, AtomicSpeciesBlock)
+        write(fout, AtomicPositionsBlock)
+        write(fout, KPointsBlock)
+    end
+    #
+    # For case.nscf
+    ControlNL["calculation"] = "'nscf'"
+    delete!(ControlNL, "restart_mode")
+    #
+    # We have to specify the k-points explicitly during the
+    # non-self-consistent calculations.
+    begin
+        # At the same time, the tetrahedron algorithm will fail.
+        SystemNL["occupations"] = "'smearing'"
+        @cswitch kmesh begin
+            @case "accurate"
+                KPointsBlock = SpecialPointsCard(10)
+                break
+
+            @case "medium"
+                KPointsBlock = SpecialPointsCard(08)
+                break
+
+            @case "coarse"
+                KPointsBlock = SpecialPointsCard(06)
+                break
+
+            @case "file"
+                @assert isa(KPointsBlock, SpecialPointsCard)
+                break
+
+            @default # Very coarse kmesh
+                KPointsBlock = SpecialPointsCard(04)
+                break
+        end
+    end
+    open(fnscf, "w") do fout
+        write(fout, ControlNL)
+        write(fout, SystemNL)
+        write(fout, ElectronsNL)
+        write(fout, AtomicSpeciesBlock)
+        write(fout, AtomicPositionsBlock)
+        write(fout, KPointsBlock)
+    end
+
+    # Return the namelist and the card, which will be used to check
+    # whether the pseudopotential files are ready.
+    return ControlNL, AtomicSpeciesBlock
+end
+
 #=
 ### *Abstract Types*
 =#
@@ -1184,221 +1399,6 @@ end
 #=
 ### *Service Functions* : *Group A*
 =#
-
-"""
-    pwscfc_input(it::IterInfo)
-
-It will parse the `PWSCF.INP` file at first. Actually, `PWSCF.INP` is
-a standard, but mini input file for `pwscf`. It only includes three
-namelists (namely `control`, `system`, and `electrons`) and three
-cards (namely `ATOMIC_SPECIES`, `ATOMIC_POSITIONS`, and `K_POINTS`).
-If you want to support more input entries, please make your own
-modifications here.
-
-Then this function will try to customize these namelists and cards
-according to the setup in `case.toml`.
-
-Finally, this function will generate the input files for `pwscf`. They
-are `case.scf` and `case.nscf`. As shown by their names, one is for the
-self-consistent calculation, the other is for the non-self-consistent
-calculation.
-
-The return values of this function are namelist (`control`) and card
-(`ATOMIC_SPECIES`), which will be used to check the pseudopotentials.
-
-See also: [`PWNamelist`](@ref), [`PWCard`](@ref).
-"""
-function pwscfc_input(it::IterInfo)
-    # Check the file status
-    finput = "PWSCF.INP"
-    @assert isfile(finput)
-
-    # Parse the namelists, control, system, and electrons.
-    lines = readlines(finput)
-    ControlNL = parse(PWNamelist, lines, "control")
-    SystemNL = parse(PWNamelist, lines, "system")
-    ElectronsNL = parse(PWNamelist, lines, "electrons")
-
-    # Parse the cards, ATOMIC_SPECIES, ATOMIC_POSITIONS, and K_POINTS.
-    line = read(finput, String)
-    AtomicSpeciesBlock = parse(AtomicSpeciesCard, line)
-    AtomicPositionsBlock = parse(AtomicPositionsCard, line)
-    KPointsBlock = parse(KPointsCard, line)
-
-    # Customize the namelists and cards according to case.toml
-    #
-    # For smearing
-    smear = get_d("smear")
-    @cswitch smear begin
-        @case "mp2"
-            SystemNL["occupations"] = "'smearing'"
-            SystemNL["smearing"] = "'m-p'"
-            break
-
-        @case "mp1"
-            SystemNL["occupations"] = "'smearing'"
-            SystemNL["smearing"] = "'m-p'"
-            break
-
-        @case "gauss"
-            SystemNL["occupations"] = "'smearing'"
-            SystemNL["smearing"] = "'gauss'"
-            break
-
-        @case "tetra"
-            SystemNL["occupations"] = "'tetrahedra'"
-            delete!(SystemNL, "smearing")
-            break
-
-        @default
-            SystemNL["occupations"] = "'smearing'"
-            SystemNL["smearing"] = "'gauss'"
-            break
-    end
-
-    # For kmesh density
-    #
-    # Note that if kmesh == "file", the original setup in PWSCF.INP is
-    # kept. In other words, KPointsBlock will not be changed.
-    kmesh = get_d("kmesh")
-    if isa(KPointsBlock,AutoKmeshCard)
-        shift = copy(KPointsBlock.data.shift)
-        @cswitch kmesh begin
-            @case "accurate"
-                KPointsBlock = AutoKmeshCard([10, 10, 10], shift)
-                break
-
-            @case "medium"
-                KPointsBlock = AutoKmeshCard([08, 08, 08], shift)
-                break
-
-            @case "coarse"
-                KPointsBlock = AutoKmeshCard([06, 06, 06], shift)
-                break
-
-            @case "file"
-                break
-
-            @default # Very coarse kmesh
-                KPointsBlock = AutoKmeshCard([04, 04, 04], shift)
-                break
-        end
-    end
-
-    # For magnetic moment
-    magmom = get_d("magmom")
-    if !isa(magmom, Missing)
-        SystemNL["starting_magnetization"] = magmom
-    end
-
-    # For symmetry
-    lsymm = get_d("lsymm")
-    if lsymm
-        SystemNL["nosym"] = ".false."
-    else # Ignore the symmetry completely
-        SystemNL["nosym"] = ".true."
-    end
-
-    # For spin polarizations
-    lspins = get_d("lspins")
-    if lspins
-        SystemNL["nspin"] = 2
-    else
-        SystemNL["nspin"] = 1
-    end
-
-    # For spin-orbit coupling
-    lspinorb = get_d("lspinorb")
-    if lspinorb
-        SystemNL["noncolin"] = ".true."
-        if lspins
-            SystemNL["nspin"] = 4
-        end
-    else
-        SystemNL["noncolin"] = ".false."
-    end
-
-    # For optimized projectors
-    # SKIP
-
-    # For local orbitals and projectors
-    # SKIP
-
-    # For number of bands
-    # SKIP
-
-    # Special treatment for verbosity
-    ControlNL["verbosity"] = "'high'"
-
-    # Special treatment for pseudo_dir
-    pseudo_dir = strip(ControlNL["pseudo_dir"],''') # Get rid of `
-    pseudo_dir = joinpath("..", pseudo_dir)
-    ControlNL["pseudo_dir"] = "'$pseudo_dir'" # Add ' back
-
-    # Build input files for pwscf
-    #
-    # Get case's name
-    case = get_c("case")
-    #
-    # Setup filenames
-    fscf = "$case.scf"
-    fnscf = "$case.nscf"
-    #
-    # For case.scf
-    ControlNL["calculation"] = "'scf'"
-    open(fscf, "w") do fout
-        write(fout, ControlNL)
-        write(fout, SystemNL)
-        write(fout, ElectronsNL)
-        write(fout, AtomicSpeciesBlock)
-        write(fout, AtomicPositionsBlock)
-        write(fout, KPointsBlock)
-    end
-    #
-    # For case.nscf
-    ControlNL["calculation"] = "'nscf'"
-    delete!(ControlNL, "restart_mode")
-    #
-    # We have to specify the k-points explicitly during the
-    # non-self-consistent calculations.
-    begin
-        # At the same time, the tetrahedron algorithm will fail.
-        SystemNL["occupations"] = "'smearing'"
-        @cswitch kmesh begin
-            @case "accurate"
-                KPointsBlock = SpecialPointsCard(10)
-                break
-
-            @case "medium"
-                KPointsBlock = SpecialPointsCard(08)
-                break
-
-            @case "coarse"
-                KPointsBlock = SpecialPointsCard(06)
-                break
-
-            @case "file"
-                @assert isa(KPointsBlock, SpecialPointsCard)
-                break
-
-            @default # Very coarse kmesh
-                KPointsBlock = SpecialPointsCard(04)
-                break
-        end
-    end
-    open(fnscf, "w") do fout
-        write(fout, ControlNL)
-        write(fout, SystemNL)
-        write(fout, ElectronsNL)
-        write(fout, AtomicSpeciesBlock)
-        write(fout, AtomicPositionsBlock)
-        write(fout, KPointsBlock)
-    end
-
-    # Return the namelist and the card, which will be used to check
-    # whether the pseudopotential files are ready.
-    return ControlNL, AtomicSpeciesBlock
-end
 
 #=
 ### *Service Functions* : *Group B*
