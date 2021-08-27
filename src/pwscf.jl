@@ -7,6 +7,38 @@
 # Last modified: 2021/08/26
 #
 
+"""
+    pwscf_adaptor(D::Dict{Symbol,Any})
+
+Adaptor support for pwscf code. It will parse the output files of pwscf
+code, extract the Kohn-Sham dataset, and then fulfill the `DFTData`
+dict (i.e `D`).
+
+The following pwscf's output files are needed:
+
+* `scf.out`
+
+Note that in the input file of pwscf, the verbosity parameter must be
+set to 'high'.
+
+See also: [`plo_adaptor`](@ref), [`ir_adaptor`](@ref).
+"""
+function pwscf_adaptor(D::Dict{Symbol,Any})
+    # P01: Print the header
+    println("Adaptor : PWSCF")
+    println("Try to extract the Kohn-Sham dataset")
+    println("Current directory: ", pwd())
+
+    # P02: Read in lattice structure
+    D[:latt] = pwscfio_lattice(pwd(), false)
+
+    # P03: Read in kmesh and the corresponding weights
+    D[:kmesh], D[:weight] = pwscfio_kmesh(pwd())
+
+    # P04: Read in band structure and the corresponding occupancies
+    D[:enk], D[:occupy] = pwscfio_eigen(pwd())
+end
+
 #=
 ### *Abstract Types*
 =#
@@ -915,38 +947,6 @@ end
 #=
 ### *Driver Functions*
 =#
-
-"""
-    pwscf_adaptor(D::Dict{Symbol,Any})
-
-Adaptor support for pwscf code. It will parse the output files of pwscf
-code, extract the Kohn-Sham dataset, and then fulfill the `DFTData`
-dict (i.e `D`).
-
-The following pwscf's output files are needed:
-
-* `scf.out`
-
-Note that in the input file of pwscf, the verbosity parameter must be
-set to 'high'.
-
-See also: [`plo_adaptor`](@ref), [`ir_adaptor`](@ref).
-"""
-function pwscf_adaptor(D::Dict{Symbol,Any})
-    # P01: Print the header
-    println("Adaptor : PWSCF")
-    println("Try to extract the Kohn-Sham dataset")
-    println("Current directory: ", pwd())
-
-    # P02: Read in lattice structure
-    D[:latt] = pwscfio_lattice(pwd(), false)
-
-    # P03: Read in kmesh and the corresponding weights
-    D[:kmesh], D[:weight] = pwscfio_kmesh(pwd())
-
-    # P04: Read in band structure and the corresponding occupancies
-    D[:enk], D[:occupy] = pwscfio_eigen(pwd())
-end
 
 """
     pwscf_init(it::IterInfo)
