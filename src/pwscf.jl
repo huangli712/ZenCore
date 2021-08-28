@@ -14,16 +14,17 @@
 """
     pwscf_adaptor(D::Dict{Symbol,Any})
 
-Adaptor support for pwscf code. It will parse the output files of pwscf
-code, extract the Kohn-Sham dataset, and then fulfill the `DFTData`
-dict (i.e `D`).
+Adaptor support for the `pwscf` code. It will parse the output files of
+the `pwscf` code, extract the Kohn-Sham dataset, and then fulfill the
+`DFTData` dict (i.e `D`).
 
-The following pwscf's output files are needed:
+The following output files of the `pwscf` code are needed:
 
 * `scf.out`
+* `nscf.out`
 
-Note that in the input file of pwscf, the verbosity parameter must be
-set to 'high'.
+Note in the input file of the `pwscf` code, the `verbosity` parameter
+must be set to 'high'.
 
 See also: [`plo_adaptor`](@ref), [`ir_adaptor`](@ref).
 """
