@@ -1286,7 +1286,7 @@ function SpecialPointsCard(nkx::I64, option::String = "crystal")
 end
 
 #=
-### *Constants Regex*
+### *Predefined Regex*
 
 *Remarks* :
 
@@ -1435,7 +1435,12 @@ const K_POINTS_SPECIAL_BLOCK = r"""
 """imx
 
 const K_POINTS_SPECIAL_ITEM = r"""
-^ [ \t]* (\S+) [ \t]+ (\S+) [ \t]+ (\S+) [ \t]+ (\S+) [ \t]* \R?
+^ [ \t]*
+    (\S+) [ \t]+
+    (\S+) [ \t]+
+    (\S+) [ \t]+
+    (\S+) [ \t]*
+\R?
 """mx
 
 #=
@@ -1572,7 +1577,6 @@ function Base.tryparse(::Type{AtomicPositionsCard}, str::AbstractString)
     # expression, so it could be a `nothing`.
     if m !== nothing
         if string(m.captures[1]) === nothing
-            @warn "Not specifying units is DEPRECATED and will no longer be allowed in the future!"
             @info "No option is specified, 'alat' is assumed."
             option = "alat"
         else
@@ -1597,6 +1601,22 @@ function Base.tryparse(::Type{AtomicPositionsCard}, str::AbstractString)
             end,
             option,
         )
+    end
+end
+
+"""
+    Base.tryparse(::Type{KPointsCard}, str::AbstractString)
+
+Try to parse the `KPointsCard` object.
+
+See also: [`KPointsCard`](@ref).
+"""
+function Base.tryparse(::Type{KPointsCard}, str::AbstractString)
+    for T in (AutoKmeshCard, GammaPointCard, SpecialPointsCard)
+        x = tryparse(T, str)
+        if x !== nothing
+            return x
+        end
     end
 end
 
@@ -1642,27 +1662,10 @@ function Base.tryparse(::Type{SpecialPointsCard}, str::AbstractString)
         option = m.captures[1] === nothing ? "tpiba" : m.captures[1]
         return SpecialPointsCard(
             map(eachmatch(K_POINTS_SPECIAL_ITEM, m.captures[2])) do matched
-                # TODO: Match `nks`
                 ReciprocalPoint(map(x -> parse(F64, x), matched.captures)...)
             end,
             option,
         )
-    end
-end
-
-"""
-    Base.tryparse(::Type{KPointsCard}, str::AbstractString)
-
-Try to parse the `KPointsCard` object.
-
-See also: [`KPointsCard`](@ref).
-"""
-function Base.tryparse(::Type{KPointsCard}, str::AbstractString)
-    for T in (AutoKmeshCard, GammaPointCard, SpecialPointsCard)
-        x = tryparse(T, str)
-        if x !== nothing
-            return x
-        end
     end
 end
 
