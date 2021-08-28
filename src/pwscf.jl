@@ -298,9 +298,9 @@ Then this function will try to customize these namelists and cards
 according to the setup in `case.toml`.
 
 Finally, this function will generate the input files for `pwscf`. They
-are `case.scf` and `case.nscf`. As shown by their names, one is for the
-self-consistent calculation, the other is for the non-self-consistent
-calculation.
+are `case.scf` and `case.nscf`. As shown by their names, one file is
+for the self-consistent calculation, while another other one is for the
+non-self-consistent calculation.
 
 The return values of this function are namelist (`control`) and card
 (`ATOMIC_SPECIES`), which will be used to check the pseudopotentials.
@@ -323,10 +323,6 @@ function pwscfc_input(it::IterInfo)
     AtomicSpeciesBlock = parse(AtomicSpeciesCard, line)
     AtomicPositionsBlock = parse(AtomicPositionsCard, line)
     KPointsBlock = parse(KPointsCard, line)
-    println(AtomicSpeciesBlock)
-    println(AtomicPositionsBlock)
-    println(KPointsBlock)
-    sorry()
 
     # Customize the namelists and cards according to case.toml
     #
