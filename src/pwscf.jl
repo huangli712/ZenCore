@@ -728,29 +728,28 @@ function pwscfio_eigen(f::String)
     println("Parse enk and occupy")
     println("  > Open and read nscf.out")
 
+    # Read in all lines in `nscf.out`
+    lines = readlines(joinpath(f, "nscf.out"))
+
     # Extract number of 𝑘-points
     ind = findfirst(x -> contains(x, "number of k points="), lines)
     @assert ind > 0
     nkpt = parse(I64, line_to_array(lines[ind])[5])
 
-    println(nkpt)
-#=
+    # Extract number of bands
+    ind = findfirst(x -> contains(x, "number of Kohn-Sham states"), lines)
+    @assert ind > 0
+    nband = parse(I64, line_to_array(lines[ind])[5])
+
     # Determine number of spins
-    nspin = parse(I64, line_to_array(fin)[end])
+    nspin = 1 # Fixed me
     @assert nspin == 1 || nspin == 2
-
-    # Skip for lines
-    for i = 1:4
-        readline(fin)
-    end
-
-    # Read in some key parameters: nelect, nkpt, nbands
-    _, nkpt, nband = parse.(I64, line_to_array(fin))
 
     # Create arrays
     enk = zeros(F64, nband, nkpt, nspin)
     occupy = zeros(F64, nband, nkpt, nspin)
 
+#=
     # Read in the energy bands and the corresponding occupations
     for i = 1:nkpt
         readline(fin)
