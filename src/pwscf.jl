@@ -138,8 +138,8 @@ function pwscf_exec(it::IterInfo, scf::Bool = true)
         fout = "nscf.out"
     end
     println("  > Self-consistent DFT calculation: $scf")
-    println("  > Using input file: $finp")
-    println("  > Using output file: $fout")
+    println("  > Applying input file: $finp")
+    println("  > Applying output file: $fout")
 
     # Print the header
     println("Launch the computational engine pwscf")
