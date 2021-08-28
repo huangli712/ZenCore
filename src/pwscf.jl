@@ -461,7 +461,10 @@ function pwscfc_input(it::IterInfo)
     # We have to specify the k-points explicitly during the
     # non-self-consistent calculations.
     begin
-        # At the same time, the tetrahedron algorithm will fail.
+        # The tetrahedron algorithm requires an uniform, automatically
+        # generted k-mesh. This can not be fulfilled in the calculations.
+        # So we have to use the smearing algorithm to calculate the
+        # occupations.
         SystemNL["occupations"] = "'smearing'"
         @cswitch kmesh begin
             @case "accurate"
