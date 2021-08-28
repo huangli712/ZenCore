@@ -566,8 +566,8 @@ pwscfio_energy() = pwscfio_energy(pwd())
 """
     pwscfio_lattice(f::String, silent::Bool = true)
 
-Reading pwscf's `scf.out` file, return crystallography information. Here `f`
-means only the directory that contains `scf.out`.
+Reading pwscf's `scf.out` file, return crystallography information.
+Here `f` means only the directory that contains `scf.out`.
 
 See also: [`Lattice`](@ref), [`irio_lattice`](@ref).
 """
@@ -657,8 +657,9 @@ pwscfio_lattice() = pwscfio_lattice(pwd())
 Reading pwscf's `nscf.out` file, return `kmesh` and `weight`. Here `f`
 means only the directory that contains `nscf.out`.
 
-Note, in `scf.out`, the k-mesh is not uniform. So we have to read k-mesh
-from the `nscf.out`.
+Note in `scf.out`, the k-mesh is not uniform. So we have to read k-mesh
+from the `nscf.out`. In addition, the verbosity parameter must be set to
+'high' in the input file.
 
 See also: [`pwscfio_tetra`](@ref), [`irio_kmesh`](@ref).
 """
