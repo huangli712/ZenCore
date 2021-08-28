@@ -1284,7 +1284,7 @@ end
 #=
 ### *Constants Regex*
 
-### *Remarks* :
+*Remarks* :
 
 Note that these regular expressions are followed by various combinations
 of the `i`, `m`, and `x` flags. These flags have the following meanings:
