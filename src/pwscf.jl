@@ -62,7 +62,7 @@ function pwscf_init(it::IterInfo)
     println("Prepare necessary input files for pwscf")
 
     # Prepare essential input files
-    # Copy PWSCF.INP
+    # Copy PWSCF.INP (It is used as a template.)
     cp("../PWSCF.INP", joinpath(pwd(), "PWSCF.INP"), force = true)
     println("  > File PWSCF.INP is ready")
     #
@@ -73,11 +73,11 @@ function pwscf_init(it::IterInfo)
     println("  > File $case.nscf is ready")
     #
     # Check the pseudopotentials
-    pdir = strip(ControlNL["pseudo_dir"],''')
-    upf = map(x -> joinpath(pdir, x.upf), AtomicSpeciesBlock.data)
+    pseudo_dir = strip(ControlNL["pseudo_dir"],''')
+    upf = map(x -> joinpath(pseudo_dir, x.upf), AtomicSpeciesBlock.data)
     for f in upf
         @assert isfile(f)
-        println("  > File $f is ready")
+        println("  > File $f (pseudopotential) is ready")
     end
 end
 
