@@ -319,6 +319,10 @@ function pwscfc_input(it::IterInfo)
     AtomicSpeciesBlock = parse(AtomicSpeciesCard, line)
     AtomicPositionsBlock = parse(AtomicPositionsCard, line)
     KPointsBlock = parse(KPointsCard, line)
+    println(AtomicSpeciesBlock)
+    println(AtomicPositionsBlock)
+    println(KPointsBlock)
+    sorry()
 
     # Customize the namelists and cards according to case.toml
     #
@@ -1306,14 +1310,21 @@ const ATOMIC_SPECIES_BLOCK = r"""
 ^ [ \t]* ATOMIC_SPECIES [ \t]* \R+
 (?P<block>
     (?:
-        ^ [ \t]* \S+ [ \t]+ (?:[-+]?[0-9]*\.[0-9]+|[0-9]+\.?[0-9]*) [ \t]+ \S+ [ \t]* \R?
+        ^ [ \t]*
+            \S+ [ \t]+
+            (?:[-+]?[0-9]*\.[0-9]+|[0-9]+\.?[0-9]*) [ \t]+
+            \S+ [ \t]*
+        \R?
     )+
 )
 """imx
 
 const ATOMIC_SPECIES_ITEM = r"""
-^ [ \t]* (?P<name>\S+) [ \t]+ (?P<mass>[-+]?[0-9]*\.[0-9]+|[0-9]+\.?[0-9]*) [ \t]+ (?P<pseudo>\S+)
-    [ \t]* \R?
+^ [ \t]*
+    (?P<name>\S+) [ \t]+
+    (?P<mass>[-+]?[0-9]*\.[0-9]+|[0-9]+\.?[0-9]*) [ \t]+
+    (?P<pseudo>\S+) [ \t]*
+\R?
 """mx
 
 #=
@@ -1321,44 +1332,44 @@ const ATOMIC_SPECIES_ITEM = r"""
 =#
 
 const ATOMIC_POSITIONS_BLOCK = r"""
-^ \s* ATOMIC_POSITIONS \s*                      # Atomic positions start with that string
-[{(]? \s* (?P<units>\S+?)? \s* [)}]? \s* $\R    # The units are after the string in optional brackets
-(?P<block>                                      # This is the block of positions
+^ \s* ATOMIC_POSITIONS \s*                   # Atomic positions start with that string
+[{(]? \s* (?P<units>\S+?)? \s* [)}]? \s* $\R # The units are after the string in optional brackets
+(?P<block>                                   # This is the block of positions
     (
         (
-            \s*                                 # White space in front of the element spec is ok
+            \s*                              # White space in front of the element spec is ok
             (
-                [A-Za-z]+[A-Za-z0-9]{0,2}       # Element spec
+                [A-Za-z]+[A-Za-z0-9]{0,2}    # Element spec
                 (
-                    \s+                         # White space in front of the number
-                    [-|+]?                      # Plus or minus in front of the number (optional)
+                    \s+                      # White space in front of the number
+                    [-|+]?                   # Plus or minus in front of the number (optional)
                     (
                         (
-                            \d*                 # optional decimal in the beginning .0001 is ok, for example
-                            [\.]                # There has to be a dot followed by
-                            \d+                 # at least one decimal
+                            \d*              # optional decimal in the beginning .0001 is ok, for example
+                            [\.]             # There has to be a dot followed by
+                            \d+              # at least one decimal
                         )
-                        |                       # OR
+                        |                    # OR
                         (
-                            \d+                 # at least one decimal, followed by
-                            [\.]?               # an optional dot ( both 1 and 1. are fine)
-                            \d*                 # And optional number of decimals (1.00001)
-                        )                       # followed by optional decimals
+                            \d+              # at least one decimal, followed by
+                            [\.]?            # an optional dot ( both 1 and 1. are fine)
+                            \d*              # And optional number of decimals (1.00001)
+                        )                    # followed by optional decimals
                     )
-                    ([E|e|d|D][+|-]?\d+)?       # optional exponents E+03, e-05
-                ){3}                            # I expect three float values
-                ((\s+[0-1]){3}\s*)?             # Followed by optional ifpos
-                \s*                             # Followed by optional white space
+                    ([E|e|d|D][+|-]?\d+)?    # optional exponents E+03, e-05
+                ){3}                         # I expect three float values
+                ((\s+[0-1]){3}\s*)?          # Followed by optional ifpos
+                \s*                          # Followed by optional white space
                 |
-                \#.*                            # If a line is commented out, that is also ok
+                \#.*                         # If a line is commented out, that is also ok
                 |
-                \!.*                            # Comments also with excl. mark in fortran
+                \!.*                         # Comments also with excl. mark in fortran
             )
-            |                                   # OR
-            \s*                                 # A line only containing white space
+            |                                # OR
+            \s*                              # A line only containing white space
          )
-        \R                                      # line break at the end
-    )+                                          # A positions block should be one or more lines
+        \R                                   # line break at the end
+    )+                                       # A positions block should be one or more lines
 )
 """imx
 
@@ -1394,8 +1405,14 @@ const ATOMIC_POSITIONS_ITEM = r"""
 
 const K_POINTS_AUTOMATIC_BLOCK = r"""
 ^ [ \t]* K_POINTS [ \t]* [{(]? [ \t]* automatic [ \t]* [)}]? [ \t]* \R
-^ [ \t]* (\d+) [ \t]+ (\d+) [ \t]+ (\d+) [ \t]+ (\d+) [ \t]+ (\d+)
-    [ \t]+ (\d+) [ \t]* \R?
+^ [ \t]*
+    (\d+) [ \t]+
+    (\d+) [ \t]+
+    (\d+) [ \t]+
+    (\d+) [ \t]+
+    (\d+) [ \t]+ 
+    (\d+) [ \t]*
+\R?
 """imx
 
 const K_POINTS_GAMMA_BLOCK = r"""
@@ -1403,14 +1420,18 @@ const K_POINTS_GAMMA_BLOCK = r"""
 """imx
 
 const K_POINTS_SPECIAL_BLOCK = r"""
-^ [ \t]* K_POINTS [ \t]*
-    [{(]? [ \t]* (?P<type>\S+?)? [ \t]* [)}]? [ \t]* \R+
-^ [ \t]* \S+ [ \t]* \R+  # nks
-(?P<block>
- (?:
-  ^ [ \t]* \S+ [ \t]+ \S+ [ \t]+ \S+ [ \t]+ \S+ [ \t]* \R*
- )+
-)
+^ [ \t]* K_POINTS [ \t]* [{(]? [ \t]* (?P<type>\S+?)? [ \t]* [)}]? [ \t]* \R+
+    ^ [ \t]* \S+ [ \t]* \R+  # nks
+        (?P<block>
+            (?:
+                ^ [ \t]*
+                    \S+ [ \t]+
+                    \S+ [ \t]+
+                    \S+ [ \t]+
+                    \S+ [ \t]*
+                \R*
+            )+
+        )
 """imx
 
 const K_POINTS_SPECIAL_ITEM = r"""
