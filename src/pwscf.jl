@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/08/26
+# Last modified: 2021/08/28
 #
 
 #=
@@ -820,7 +820,14 @@ See also: [`irio_fermi`](@ref).
 pwscfio_fermi() = pwscfio_fermi(pwd())
 
 #=
-### *Abstract Types*
+*Remarks* :
+
+The following codes are internally used to parse the input files of
+`pwscf`. Please do not change them and export them.
+=#
+
+#=
+### *Customized Structs : Abstract Types*
 =#
 
 """
@@ -854,7 +861,7 @@ Represent abstract `K-POINTS` card in the input file of `pwscf`.
 abstract type KPointsCard <: PWCard end
 
 #=
-### *Customized Structs : K-Grid*
+### *Customized Structs : K-Grids*
 =#
 
 """
@@ -915,7 +922,7 @@ struct MonkhorstPackGrid
     function MonkhorstPackGrid(mesh, shift)
         @assert length(mesh) == 3
         @assert length(shift) == 3
-        @assert all(mesh .>= 1)
+        @assert all(mesh .≥ 1)
         if eltype(shift) != Bool
             shift = Bool.(shift)
         end
@@ -937,14 +944,14 @@ function MonkhorstPackGrid(k1::I64, k2::I64, k3::I64, s1::I64, s2::I64, s3::I64)
 end
 
 #=
-### *Customized Structs : Input Entry*
+### *Customized Structs : Basic Entries*
 =#
 
 """
     AtomicSpecies
 
 Represent each line of the `ATOMIC_SPECIES` card in the input file of
-`pwscf`. The `atom` field accepts at most 3 characters.
+`pwscf`.
 
 ### Members
 
@@ -980,11 +987,12 @@ end
     AtomicPosition
 
 Represent each line of the `ATOMIC_POSITIONS` card in the input file of
-`pwscf`. The `atom` field accepts at most 3 characters.
+`pwscf`.
 
 ### Members
 
-* atom   -> Label of the atom as specified in `AtomicSpecies`.
+* atom   -> Label of the atom as specified in `AtomicSpecies`. It
+            accepts at most 3 characters.
 * pos    -> Atomic positions. A three-element vector of floats.
 * if_pos -> Component `i` of the force for this atom is multiplied
             by `if_pos(i)`, which must be either `0` or `1`.  Used
@@ -1070,7 +1078,7 @@ AtomicPosition(x::AtomicSpecies, pos, if_pos) = AtomicPosition(x.atom, pos, if_p
     PWNamelist
 
 Represent a namelist in the input file of `pwscf`, a basic Fortran
-data structure. It is used to build the internal type system.
+data structure.
 
 ### Members
 

@@ -223,7 +223,7 @@ automatically. Do not worry about them.
 
 *Remarks 2* :
 
-For `quantum espresso`, the essential input files include:
+For `pwscf`, the essential input files include:
 
 * PWSCF.INP
 * Pseudopotential files.
