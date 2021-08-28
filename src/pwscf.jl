@@ -1317,7 +1317,7 @@ const ATOMIC_SPECIES_ITEM = r"""
 """mx
 
 #=
-### *Remarks* : For ATOMIC_POSITIONS Card
+*Remarks* : For ATOMIC_POSITIONS Card
 =#
 
 const ATOMIC_POSITIONS_BLOCK = r"""
@@ -1389,7 +1389,7 @@ const ATOMIC_POSITIONS_ITEM = r"""
 """mx
 
 #=
-### *Remarks* : For K_POINTS Card
+*Remarks* : For K_POINTS Card
 =#
 
 const K_POINTS_AUTOMATIC_BLOCK = r"""
