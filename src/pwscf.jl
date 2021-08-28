@@ -488,6 +488,7 @@ function pwscfc_input(it::IterInfo)
                 break
         end
     end
+    #
     open(fnscf, "w") do fout
         write(fout, ControlNL)
         write(fout, SystemNL)
