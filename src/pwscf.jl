@@ -1158,7 +1158,11 @@ struct AtomicPositionsCard <: PWCard
 
     # Inner constructor
     function AtomicPositionsCard(data, option = "alat")
-        @assert option in ("alat", "bohr", "angstrom", "crystal", "crystal_sg")
+        @assert option in ("alat",
+                           "bohr",
+                           "angstrom",
+                           "crystal",
+                           "crystal_sg")
         return new(data, option)
     end
 end
@@ -1225,17 +1229,17 @@ struct SpecialPointsCard <: KPointsCard
 end
 
 """
-    SpecialPointsCard(nkx::I64, nky::I64, nkz::I64, option::String = "crystal")
+    SpecialPointsCard(nkx::I64, nky::I64, nkz::I64, option::String)
 
 Constructor for `SpecialPointsCard`.
 
 See also: [`KPointsCard`](@ref).
 """
-function SpecialPointsCard(nkx::I64, nky::I64, nkz::I64, option::String = "crystal")
+function SpecialPointsCard(nkx::I64, nky::I64, nkz::I64, option::String)
     # Sanity check
-    @assert nkx >= 1
-    @assert nky >= 1
-    @assert nkz >= 1
+    @assert nkx ≥ 1
+    @assert nky ≥ 1
+    @assert nkz ≥ 1
 
     # Calculate total number of k-points
     nkpt = nkx * nky * nkz
