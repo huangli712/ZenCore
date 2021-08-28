@@ -41,7 +41,10 @@ function pwscf_adaptor(D::Dict{Symbol,Any})
     D[:kmesh], D[:weight] = pwscfio_kmesh(pwd())
 
     # P04: Read in band structure and the corresponding occupancies
-    #D[:enk], D[:occupy] = pwscfio_eigen(pwd())
+    D[:enk], D[:occupy] = pwscfio_eigen(pwd())
+
+    # V05: Read in fermi level
+    D[:fermi] = pwscfio_fermi(pwd(), false)
 end
 
 """
