@@ -726,17 +726,15 @@ See also: [`irio_eigen`](@ref).
 function pwscfio_eigen(f::String)
     # Print the header
     println("Parse enk and occupy")
+    println("  > Open and read nscf.out")
 
+    # Extract number of 𝑘-points
+    ind = findfirst(x -> contains(x, "number of k points="), lines)
+    @assert ind > 0
+    nkpt = parse(I64, line_to_array(lines[ind])[5])
+
+    println(nkpt)
 #=
-    # Check whether the `EIGENVAL` file contains valid data
-    lines = readlines(joinpath(f, "EIGENVAL"))
-
-    # Read EIGENVAL
-    println("  > Open and read EIGENVAL")
-
-    # Open the iostream
-    fin = open(joinpath(f, "EIGENVAL"), "r")
-
     # Determine number of spins
     nspin = parse(I64, line_to_array(fin)[end])
     @assert nspin == 1 || nspin == 2
@@ -765,10 +763,6 @@ function pwscfio_eigen(f::String)
             end # END OF S LOOP
         end # END OF J LOOP
     end # END OF I LOOP
-
-    # close the iostream
-    close(fin)
-
 =#
 
     # Print some useful information to check
