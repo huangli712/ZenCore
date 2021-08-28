@@ -773,8 +773,6 @@ function pwscfio_eigen(f::String)
     return enk, occupy
 end
 
-
-
 """
     pwscfio_eigen()
 
