@@ -782,18 +782,19 @@ function pwscfio_eigen(f::String)
                 bs = (r - 1) * 8 + 1
                 be = (r - 1) * 8 + 8
                 occupy[bs:be,i,1] = parse.(F64, line_to_array(lines[start]))
+                println("i: $i r: $r", occupy[bs:be,i,1])
             end
             start = start + 1
             bs = (nrow - 1) * 8 + 1 
             be = nband
             occupy[bs:be,i,1] = parse.(F64, line_to_array(lines[start]))
+            println("i: $i r: $nrow", occupy[bs:be,i,1])
         else
             @assert nrow == 1
             start = start + 1
             occupy[:,i,1] = parse.(F64, line_to_array(lines[start]))
         end
     end 
-
 
     # Print some useful information to check
     println("  > Number of DFT bands: ", nband)
