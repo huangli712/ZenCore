@@ -16,6 +16,18 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     println("Adaptor : WANNIER")
     println("Try to process the Kohn-Sham dataset")
     println("Current directory: ", pwd())
+
+    wannier_init()
+
+    wannier_exec()
+    wannier_save()
+
+    pw2wan_init()
+    pw2wan_exec()
+    pw2wan_save()
+
+    wannier_exec()
+    wannier_save()
 end
 
 #=
