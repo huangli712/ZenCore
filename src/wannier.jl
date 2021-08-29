@@ -11,7 +11,11 @@
 ### *Driver Functions*
 =#
 
-function wannier_adaptor()
+function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
+    # Print the header
+    println("Adaptor : WANNIER")
+    println("Try to process the Kohn-Sham dataset")
+    println("Current directory: ", pwd())
 end
 
 #=
