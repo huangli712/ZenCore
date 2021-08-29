@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/08/26
+# Last modified: 2021/08/30
 #
 
 """
@@ -579,7 +579,7 @@ export view_hamk
 export view_dos
 
 #=
-### *Includes And Exports* : *plo.jl*
+### *Includes And Exports* : *wannier.jl*
 =#
 
 #=
@@ -598,6 +598,12 @@ wannier_adaptor -> Adaptor support.
 include("wannier.jl")
 #
 export wannier_adaptor
+export wannier_init
+export wannier_exec
+export wannier_save
+export pw2wan_init
+export pw2wan_exec
+export pw2wan_save
 
 #=
 ### *Includes And Exports* : *ir.jl*
