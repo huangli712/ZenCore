@@ -773,10 +773,24 @@ function pwscfio_eigen(f::String)
             start = start + 1
             enk[:,i,1] = parse.(F64, line_to_array(lines[start]))
         end
+        #
         # Read occupations
         start = start + 2
         if nrow > 1
+            for r = 1:nrow - 1
+                start = start + 1
+                bs = (r - 1) * 8 + 1
+                be = (r - 1) * 8 + 8
+                occupy[bs:be,i,1] = parse.(F64, line_to_array(lines[start]))
+            end
+            start = start + 1
+            bs = (nrow - 1) * 8 + 1 
+            be = nband
+            occupy[bs:be,i,1] = parse.(F64, line_to_array(lines[start]))
         else
+            @assert nrow == 1
+            start = start + 1
+            occupy[:,i,1] = parse.(F64, line_to_array(lines[start]))
         end
     end 
 
