@@ -750,20 +750,26 @@ function pwscfio_eigen(f::String)
     occupy = zeros(F64, nband, nkpt, nspin)
 
     # Read in the energy bands and the corresponding occupations
+    #
+    # Determine the start of data block 
     start = findfirst(x -> contains(x, "End of band structure calculation"), lines)
     @assert start > 0
+    #
+    # Determine how many lines are there for each k-point
     nrow = div(nband, 8)
     nrem = rem(nband, 8)
+    #
+    # Go through each k-point
     for i = 1:nkpt
         # Read eigenvalues
         start = start + 3
-        if nrow > 1
+        if nrow > 1 # nband > 8
             for r = 1:nrow - 1
                 start = start + 1
                 bs = (r - 1) * 8 + 1
                 be = (r - 1) * 8 + 8
                 enk[bs:be,i,1] = parse.(F64, line_to_array(lines[start]))
-            end
+            end # END OF R LOOP
             start = start + 1
             bs = (nrow - 1) * 8 + 1 
             be = nband
@@ -776,25 +782,23 @@ function pwscfio_eigen(f::String)
         #
         # Read occupations
         start = start + 2
-        if nrow > 1
+        if nrow > 1 # nband > 8
             for r = 1:nrow - 1
                 start = start + 1
                 bs = (r - 1) * 8 + 1
                 be = (r - 1) * 8 + 8
                 occupy[bs:be,i,1] = parse.(F64, line_to_array(lines[start]))
-                println("i: $i r: $r", occupy[bs:be,i,1])
-            end
+            end # END OF R LOOP
             start = start + 1
             bs = (nrow - 1) * 8 + 1 
             be = nband
             occupy[bs:be,i,1] = parse.(F64, line_to_array(lines[start]))
-            println("i: $i r: $nrow", occupy[bs:be,i,1])
         else
             @assert nrow == 1
             start = start + 1
             occupy[:,i,1] = parse.(F64, line_to_array(lines[start]))
         end
-    end 
+    end # END OF I LOOP 
 
     # Print some useful information to check
     println("  > Number of DFT bands: ", nband)
