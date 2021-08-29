@@ -755,7 +755,7 @@ function pwscfio_eigen(f::String)
     nrow = div(nband, 8)
     nrem = rem(nband, 8)
     for i = 1:nkpt
-        # For eigenvalues
+        # Read eigenvalues
         start = start + 3
         if nrow > 1
             for r = 1:nrow - 1
@@ -769,9 +769,11 @@ function pwscfio_eigen(f::String)
             be = nband
             enk[bs:be,i,1] = parse.(F64, line_to_array(lines[start]))
         else
-            @assert nrow = 1
+            @assert nrow == 1
+            start = start + 1
+            enk[:,i,1] = parse.(F64, line_to_array(lines[start]))
         end
-        #
+        # Read occupations
         start = start + 2
         if nrow > 1
         else
