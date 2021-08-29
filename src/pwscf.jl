@@ -749,20 +749,35 @@ function pwscfio_eigen(f::String)
     enk = zeros(F64, nband, nkpt, nspin)
     occupy = zeros(F64, nband, nkpt, nspin)
 
-#=
     # Read in the energy bands and the corresponding occupations
+    start = findfirst(x -> contains(x, "End of band structure calculation"), lines)
+    @assert start > 0
+    nrow = div(nband, 8)
+    nrem = rem(nband, 8)
     for i = 1:nkpt
-        readline(fin)
-        readline(fin)
-        for j = 1:nband
-            arr = line_to_array(fin)
-            for s = 1:nspin
-                enk[j, i, s] = parse(F64, arr[s+1])
-                occupy[j, i, s] = parse(F64, arr[s+1+nspin])
-            end # END OF S LOOP
-        end # END OF J LOOP
-    end # END OF I LOOP
-=#
+        # For eigenvalues
+        start = start + 3
+        if nrow > 1
+            for r = 1:nrow - 1
+                start = start + 1
+                bs = (r - 1) * 8 + 1
+                be = (r - 1) * 8 + 8
+                enk[bs:be,i,1] = parse.(F64, line_to_array(lines[start]))
+            end
+            start = start + 1
+            bs = (nrow - 1) * 8 + 1 
+            be = nband
+            enk[bs:be,i,1] = parse.(F64, line_to_array(lines[start]))
+        else
+            @assert nrow = 1
+        end
+        #
+        start = start + 2
+        if nrow > 1
+        else
+        end
+    end 
+
 
     # Print some useful information to check
     println("  > Number of DFT bands: ", nband)
