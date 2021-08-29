@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/08/26
+# Last modified: 2021/08/30
 #
 
 #=
@@ -1071,7 +1071,7 @@ function adaptor_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
 
         # For maximally localized wannier function scheme
         @case "wannier"
-            sorry()
+            @time_call wannier_adaptor(DFTData, ai)
             break
 
         @default
