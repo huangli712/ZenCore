@@ -69,32 +69,10 @@ function pw2wan_save()
 end
 
 """
-    w90_write_win(io::IOStream, kmesh::Array{F64,2})
-
-Write the block for k-points into case.win.
-
-See also: [`wannier_init`](@ref).
-"""
-function w90_write_win(io::IOStream, kmesh::Array{F64,2})
-    # Extract parameters
-    nkpt, ndir = size(kmesh)
-
-    # Sanity check
-    @assert ndir == 3
-
-    # Write the block for k-points
-    println(io, "begin kpoints")
-    #
-    for k = 1:nkpt
-        @printf(io, "%12.8f%12.8f%12.8f\n", kmesh[k,:]...)
-    end
-    #
-    println(io, "end kpoints\n")
-end
-
-"""
     w90_write_win(io::IOStream, latt::Lattice)
 
+Write crystallography information into case.win.
+ 
 See also: [`Lattice`](@ref), [`wannier_init`](@ref).
 """
 function w90_write_win(io::IOStream, latt::Lattice)
@@ -121,4 +99,28 @@ function w90_write_win(io::IOStream, latt::Lattice)
     end
     #
     println(io, "end unit_cell_cart\n")
+end
+
+"""
+    w90_write_win(io::IOStream, kmesh::Array{F64,2})
+
+Write the block for k-points into case.win.
+
+See also: [`wannier_init`](@ref).
+"""
+function w90_write_win(io::IOStream, kmesh::Array{F64,2})
+    # Extract parameters
+    nkpt, ndir = size(kmesh)
+
+    # Sanity check
+    @assert ndir == 3
+
+    # Write the block for k-points
+    println(io, "begin kpoints")
+    #
+    for k = 1:nkpt
+        @printf(io, "%12.8f%12.8f%12.8f\n", kmesh[k,:]...)
+    end
+    #
+    println(io, "end kpoints\n")
 end
