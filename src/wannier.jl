@@ -71,8 +71,20 @@ end
     w90_write_win(io::IOStream, kmesh::Array{F64,2})
 """
 function w90_write_win(io::IOStream, kmesh::Array{F64,2})
-    println("begin kpoints")
-    println("end kpoints")
+    # Extract parameters
+    nkpt, ndir = size(kmesh)
+
+    # Sanity check
+    @assert ndir == 3
+
+    # Write the block for k-points
+    println(io, "begin kpoints")
+    #
+    for k = 1:nkpt
+        @printf(io, "%16.8f%16.8f%16.8f", kmesh[k,:]...)
+    end
+    #
+    println(io, "end kpoints")
 end
 
 """
