@@ -69,6 +69,16 @@ function pw2wan_save()
 end
 
 """
+    w90_write_win(io::IOStream, ctrl::Dict{String,Any})
+
+Write control parameters into case.win.
+
+See also: [`wannier_init`](@ref).
+"""
+function w90_write_win(io::IOStream, ctrl::Dict{String,Any})
+end
+
+"""
     w90_write_win(io::IOStream, latt::Lattice)
 
 Write crystallography information into case.win.
