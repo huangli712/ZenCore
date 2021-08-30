@@ -86,7 +86,7 @@ function w90_write_win(io::IOStream, kmesh::Array{F64,2})
     println(io, "begin kpoints")
     #
     for k = 1:nkpt
-        @printf(io, "%16.8f%16.8f%16.8f\n", kmesh[k,:]...)
+        @printf(io, "%12.8f%12.8f%12.8f\n", kmesh[k,:]...)
     end
     #
     println(io, "end kpoints\n")
