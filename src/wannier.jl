@@ -89,7 +89,7 @@ function w90_write_win(io::IOStream, kmesh::Array{F64,2})
         @printf(io, "%16.8f%16.8f%16.8f\n", kmesh[k,:]...)
     end
     #
-    println(io, "end kpoints")
+    println(io, "end kpoints\n")
 end
 
 """
@@ -105,8 +105,8 @@ function w90_write_win(io::IOStream, latt::Lattice)
     for i = 1:natom
         @printf(io, "%4s%12.8f%12.8f%12.8f\n", latt.atoms[i], latt.coord[i,:]...)
     end
-    println(io, "end atoms_frac")
+    println(io, "end atoms_frac\n")
 
     println(io, "begin unit_cell_cart")
-    println(io, "end unit_cell_cart")
+    println(io, "end unit_cell_cart\n")
 end
