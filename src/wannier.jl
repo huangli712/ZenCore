@@ -110,7 +110,7 @@ function w90_write_win(io::IOStream, latt::Lattice)
 
     println(io, "begin unit_cell_cart")
     for i = 1:3
-        println(io, lvect...)
+        @printf(io, "%12.8f%12.8f%12.8f\n", lvect[i,:]...)
     end
     println(io, "end unit_cell_cart\n")
 end
