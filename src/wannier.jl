@@ -44,6 +44,7 @@ function wannier_init(D::Dict{Symbol,Any})
     case  = latt._case
 
     open("$case.win", "w") do fout
+        w90_write_win(fout, latt)
         w90_write_win(fout, kmesh)
     end
 end
@@ -97,4 +98,12 @@ end
 See also: [`Lattice`](@ref), [`wannier_init`](@ref).
 """
 function w90_write_win(io::IOStream, latt::Lattice)
+    # Extract parameters
+    natom = latt.natom
+
+    println(io, "begin atoms_frac")
+    println(io, "end atoms_frac")
+
+    println(io, "begin unit_cell_cart")
+    println(io, "end unit_cell_cart")
 end
