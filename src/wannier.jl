@@ -69,6 +69,10 @@ end
 
 """
     w90_write_win(io::IOStream, kmesh::Array{F64,2})
+
+Write the block for k-points into case.win.
+
+See also: [`wannier_init`](@ref).
 """
 function w90_write_win(io::IOStream, kmesh::Array{F64,2})
     # Extract parameters
@@ -81,7 +85,7 @@ function w90_write_win(io::IOStream, kmesh::Array{F64,2})
     println(io, "begin kpoints")
     #
     for k = 1:nkpt
-        @printf(io, "%16.8f%16.8f%16.8f", kmesh[k,:]...)
+        @printf(io, "%16.8f%16.8f%16.8f\n", kmesh[k,:]...)
     end
     #
     println(io, "end kpoints")
@@ -89,6 +93,8 @@ end
 
 """
     w90_write_win(io::IOStream, latt::Lattice)
+
+See also: [`Lattice`](@ref), [`wannier_init`](@ref).
 """
 function w90_write_win(io::IOStream, latt::Lattice)
 end
