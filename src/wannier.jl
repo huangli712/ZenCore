@@ -100,6 +100,7 @@ See also: [`Lattice`](@ref), [`wannier_init`](@ref).
 function w90_write_win(io::IOStream, latt::Lattice)
     # Extract parameters
     natom = latt.natom
+    lvect = latt.lvect * (latt.scale * 0.52918)
 
     println(io, "begin atoms_frac")
     for i = 1:natom
@@ -108,5 +109,8 @@ function w90_write_win(io::IOStream, latt::Lattice)
     println(io, "end atoms_frac\n")
 
     println(io, "begin unit_cell_cart")
+    for i = 1:3
+        println(io, lvect...)
+    end
     println(io, "end unit_cell_cart\n")
 end
