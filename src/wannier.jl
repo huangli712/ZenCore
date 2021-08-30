@@ -17,7 +17,7 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     println("Try to process the Kohn-Sham dataset")
     println("Current directory: ", pwd())
 
-    wannier_init()
+    wannier_init(D)
 
     wannier_exec()
     wannier_save()
@@ -34,7 +34,18 @@ end
 ### *Service Functions* : *Group A*
 =#
 
-function wannier_init()
+"""
+    wannier_init()
+"""
+function wannier_init(D::Dict{Symbol,Any})
+    latt  = D[:latt] 
+    kmesh = D[:kmesh]
+
+    case  = latt._case
+
+    open("$case.win", "w") do fout
+        w90_write_win(fout, kmesh)
+    end
 end
 
 function wannier_exec()
@@ -54,4 +65,9 @@ function pw2wan_exec()
 end
 
 function pw2wan_save()
+end
+
+function w90_write_win(io::IOStream, kmesh::Array{F64,2})
+    println("begin kpoints")
+    println("end kpoints")
 end
