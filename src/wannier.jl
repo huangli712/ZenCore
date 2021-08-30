@@ -74,13 +74,18 @@ function pw2wan_save()
 end
 
 """
-    w90_write_win(io::IOStream, ctrl::Dict{String,Any})
+    w90_write_win(io::IOStream, w90c::Dict{String,Any})
 
 Write control parameters into case.win.
 
 See also: [`wannier_init`](@ref).
 """
-function w90_write_win(io::IOStream, ctrl::Dict{String,Any})
+function w90_write_win(io::IOStream, w90c::Dict{String,Any})
+    for key in keys(w90c)
+        val = w90c[key]
+        println(io, "$key = $val")
+    end
+    println()
 end
 
 """
