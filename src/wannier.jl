@@ -67,7 +67,16 @@ end
 function pw2wan_save()
 end
 
+"""
+    w90_write_win(io::IOStream, kmesh::Array{F64,2})
+"""
 function w90_write_win(io::IOStream, kmesh::Array{F64,2})
     println("begin kpoints")
     println("end kpoints")
+end
+
+"""
+    w90_write_win(io::IOStream, latt::Lattice)
+"""
+function w90_write_win(io::IOStream, latt::Lattice)
 end
