@@ -102,6 +102,9 @@ function w90_write_win(io::IOStream, latt::Lattice)
     natom = latt.natom
 
     println(io, "begin atoms_frac")
+    for i = 1:natom
+        @printf(io, "%4s %12.8f %12.8f %12.8f", latt.atoms[i], latt.coord[i,:]...)
+    end
     println(io, "end atoms_frac")
 
     println(io, "begin unit_cell_cart")
