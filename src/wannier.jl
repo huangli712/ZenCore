@@ -100,17 +100,25 @@ See also: [`Lattice`](@ref), [`wannier_init`](@ref).
 function w90_write_win(io::IOStream, latt::Lattice)
     # Extract parameters
     natom = latt.natom
+
+    # Convert atomiclength (bohr) to angstrom
     lvect = latt.lvect * (latt.scale * 0.52918)
 
+    # Print atoms_frac block
     println(io, "begin atoms_frac")
+    #
     for i = 1:natom
         @printf(io, "%4s%12.8f%12.8f%12.8f\n", latt.atoms[i], latt.coord[i,:]...)
     end
+    #
     println(io, "end atoms_frac\n")
 
+    # Print unit_cell_cart block
     println(io, "begin unit_cell_cart")
+    #
     for i = 1:3
         @printf(io, "%12.8f%12.8f%12.8f\n", lvect[i,:]...)
     end
+    #
     println(io, "end unit_cell_cart\n")
 end
