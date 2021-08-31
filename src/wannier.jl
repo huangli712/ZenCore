@@ -41,7 +41,7 @@ function wannier_init(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     latt  = D[:latt] 
     kmesh = D[:kmesh]
 
-    w90c = Dict{Symbol,Any}()
+    w90c = Dict{String,Any}()
     num_wann = sum(map(x -> x.nband, ai))
     @assert num_wann > 0
     w90c["num_wann"] = num_wann
@@ -54,9 +54,15 @@ function wannier_init(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     end
 end
 
+"""
+    wannier_exec()
+"""
 function wannier_exec()
 end
 
+"""
+    wannier_save()
+"""
 function wannier_save()
 end
 
@@ -64,12 +70,21 @@ end
 ### *Service Functions* : *Group X*
 =#
 
+"""
+    pw2wan_init()
+"""
 function pw2wan_init()
 end
 
+"""
+    pw2wan_exec()
+"""
 function pw2wan_exec()
 end
 
+"""
+    pw2wan_save()
+"""
 function pw2wan_save()
 end
 
@@ -85,7 +100,7 @@ function w90_write_win(io::IOStream, w90c::Dict{String,Any})
         val = w90c[key]
         println(io, "$key = $val")
     end
-    println()
+    println(io)
 end
 
 """
