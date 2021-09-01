@@ -130,6 +130,10 @@ function w90_build_ctrl(latt::Lattice, enk::Array{F64,3})
     num_bands, _, _ = size(enk)
     w90c["num_bands"] = num_bands
 
+    #
+    window = get_d("window")
+    @show window
+
     return w90c
 end
 
