@@ -49,10 +49,11 @@ function wannier_init(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     enk = D[:enk]
 
     w90c = w90_build_ctrl(latt, enk)
-    w90_build_proj()
+    proj = w90_build_proj()
 
     open("w90.win", "w") do fout
         w90_write_win(fout, w90c)
+        w90_write_win(fout, proj)
         w90_write_win(fout, latt)
         w90_write_win(fout, kmesh)
     end
@@ -164,7 +165,14 @@ Try to make the projection block for the `w90.win` file.
 See also: [`w90_build_ctrl`](@ref).
 """
 function w90_build_proj()
-    println("here")
+    proj = String[]
+    sproj = get_d("sproj")
+    @assert length(sproj) ≥ 2
+    @assert sproj[1] in ("mlwf", "sawf")
+    for i = 2:length(sproj)
+        push!(proj, sproj[i])
+    end
+    return proj
 end
 
 """
@@ -190,6 +198,11 @@ Write projection block into w90.win.
 See also: [`wannier_init`](@ref).
 """
 function w90_write_win(io::IOStream, proj::Array{String,1})
+    println(io, "begin projections")
+    for i = 1:length(proj)
+        println(io, proj[i])
+    end
+    println(io, "end projections\n")
 end
 
 """
@@ -240,6 +253,8 @@ function w90_write_win(io::IOStream, kmesh::Array{F64,2})
     @assert ndir == 3
 
     # Write the block for k-points
+    ndiv = ceil(I64, nkpt^(1/3))
+    @printf(io, "mp_grid :%3i%3i%3i\n", ndiv, ndiv, ndiv)
     println(io, "begin kpoints")
     #
     for k = 1:nkpt
