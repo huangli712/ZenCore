@@ -158,8 +158,13 @@ end
 
 """
     w90_build_proj()
+
+Try to make the projection block for the `w90.win` file.
+
+See also: [`w90_build_ctrl`](@ref).
 """
 function w90_build_proj()
+    println("here")
 end
 
 """
