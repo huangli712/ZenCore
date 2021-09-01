@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/08/30
+# Last modified: 2021/09/01
 #
 
 #=
@@ -35,13 +35,23 @@ end
 =#
 
 """
-    wannier_init()
+    wannier_init(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
+
+Try to generate the `w90.win` file, which is the essential input for
+the `wannier90` code.
+
+See also: [`wannier_exec`](@ref), [`wannier_save`](@ref).
 """
 function wannier_init(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
+    # Extract key parameters and arrays
     latt  = D[:latt] 
     kmesh = D[:kmesh]
 
+    # Construct `w90c`, which contains the necessary constrol parameters
+    # for wannier90.
     w90c = Dict{String,Any}()
+    #
+    #
     num_wann = sum(map(x -> x.nband, ai))
     @assert num_wann > 0
     w90c["num_wann"] = num_wann
