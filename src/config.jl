@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/08/25
+# Last modified: 2021/09/01
 #
 
 #=
@@ -177,7 +177,7 @@ function chk_dict()
     @assert get_d("projtype") in ("plo", "wannier")
     @assert get_d("smear") in ("mp2", "mp1", "gauss", "tetra")
     @assert get_d("kmesh") in ("accurate", "medium", "coarse", "file")
-    @assert iseven( length( get_d("window") ) )
+    #@assert iseven( length( get_d("window") ) )
     #
     # Check dmft block
     @assert get_m("mode") in (1, 2)

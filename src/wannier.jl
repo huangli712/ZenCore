@@ -132,7 +132,12 @@ function w90_build_ctrl(latt::Lattice, enk::Array{F64,3})
 
     #
     window = get_d("window")
-    @show window
+    @assert length(window) >= 2
+    @assert window[1] in ("exc", "dis")
+    if window[1] == "exc"
+        w90c["exclude_bands"] = join(window[2:end], ", ")
+    else
+    end
 
     return w90c
 end
