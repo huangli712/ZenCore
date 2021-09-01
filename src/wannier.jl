@@ -137,6 +137,17 @@ function w90_build_ctrl(latt::Lattice, enk::Array{F64,3})
     if window[1] == "exc"
         w90c["exclude_bands"] = join(window[2:end], ", ")
     else
+        if length(window) == 3
+            w90c["dis_win_min"] = window[2]
+            w90c["dis_win_max"] = window[3]
+        elseif length(window) == 5
+            w90c["dis_win_min"] = window[2]
+            w90c["dis_win_max"] = window[3]
+            w90c["dis_froz_min"] = window[4]
+            w90c["dis_froz_max"] = window[5]
+        else
+            error("Wrong window.")
+        end
     end
 
     return w90c
