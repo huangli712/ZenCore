@@ -94,8 +94,11 @@ function pw2wan_save()
 end
 
 """
-    w90_build_ctrl(latt:Lattice)
+    w90_build_ctrl(latt:Lattice, enk::Array{F64,3})
 
+Try to make the control parameters for the `w90.win` file.
+
+See also: [`w90_build_proj`](@ref).
 """
 function w90_build_ctrl(latt::Lattice, enk::Array{F64,3})
     w90c = Dict{String,Any}()
