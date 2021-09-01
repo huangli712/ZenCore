@@ -46,8 +46,9 @@ function wannier_init(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     # Extract key parameters and arrays
     latt  = D[:latt] 
     kmesh = D[:kmesh]
+    enk = D[:enk]
 
-    w90c = w90_build_ctrl()
+    w90c = w90_build_ctrl(latt, enk)
     w90_build_proj()
 
     open("w90.win", "w") do fout
@@ -93,10 +94,10 @@ function pw2wan_save()
 end
 
 """
-    w90_build_ctrl()
+    w90_build_ctrl(latt:Lattice)
 
 """
-function w90_build_ctrl()
+function w90_build_ctrl(latt::Lattice, enk::Array{F64,3})
     w90c = Dict{String,Any}()
 
     orb_dict = Dict{String,I64}(
@@ -112,11 +113,22 @@ function w90_build_ctrl()
     @assert sproj[1] in ("mlwf", "sawf")
     num_wann = 0
     for i = 2:length(sproj)
-        str_orb = strip(split(sproj[i], ":")[2])
+        str_atm, str_orb = strip.(split(sproj[i], ":"))
+        num_atm = 0
+        for j = 1:latt.natom
+            if latt.atoms[j] == str_atm
+                num_atm = num_atm + 1
+            end
+        end
+        @assert num_atm >= 1
         num_orb = orb_dict[str_orb]
-        num_wann = num_wann + num_orb
+        num_wann = num_wann + num_orb * num_atm
     end
-    println(num_wann)
+    w90c["num_wann"] = num_wann
+
+    # Get number of bands, `num_bands`
+    num_bands, _, _ = size(enk)
+    w90c["num_bands"] = num_bands
 
     return w90c
 end
