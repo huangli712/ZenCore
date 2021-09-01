@@ -47,21 +47,14 @@ function wannier_init(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     latt  = D[:latt] 
     kmesh = D[:kmesh]
 
-    # Construct `w90c`, which contains the necessary constrol parameters
-    # for wannier90.
-    w90c = Dict{String,Any}()
-    #
-    #
-    num_wann = sum(map(x -> x.nband, ai))
-    @assert num_wann > 0
-    w90c["num_wann"] = num_wann
+    w90c = w90_build_win()
 
-    case  = latt._case
-    open("$case.win", "w") do fout
+    open("w90.win", "w") do fout
         w90_write_win(fout, w90c)
         w90_write_win(fout, latt)
         w90_write_win(fout, kmesh)
     end
+    sorry()
 end
 
 """
@@ -99,6 +92,18 @@ function pw2wan_save()
 end
 
 """
+    w90_build_win()
+
+"""
+function w90_build_win()
+    w90c = Dict{String,Any}()
+
+    # Get number of wanniers, `num_wann`
+
+    return w90c
+end
+
+"""
     w90_write_win(io::IOStream, w90c::Dict{String,Any})
 
 Write control parameters into case.win.
@@ -112,6 +117,7 @@ function w90_write_win(io::IOStream, w90c::Dict{String,Any})
     end
     println(io)
 end
+
 
 """
     w90_write_win(io::IOStream, latt::Lattice)
