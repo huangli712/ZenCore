@@ -47,7 +47,8 @@ function wannier_init(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     latt  = D[:latt] 
     kmesh = D[:kmesh]
 
-    w90c = w90_build_win()
+    w90c = w90_build_ctrl()
+    w90_build_proj()
 
     open("w90.win", "w") do fout
         w90_write_win(fout, w90c)
@@ -92,15 +93,35 @@ function pw2wan_save()
 end
 
 """
-    w90_build_win()
+    w90_build_ctrl()
 
 """
-function w90_build_win()
+function w90_build_ctrl()
     w90c = Dict{String,Any}()
 
+    shell_norb = Dict{String,I64}(
+                 "s" => 1,
+                 "p" => 3,
+                 "d" => 5,
+                 "f" => 7,
+             )
+
     # Get number of wanniers, `num_wann`
+    sproj = get_d("sproj")
+    @assert length(sproj) ≥ 2
+    @assert sproj[1] in ("mlwf", "sawf")
+    num_wann = 0
+    for i = 2:length(sproj)
+        str_orb = strip(split(sproj[i], ":")[2])
+    end
 
     return w90c
+end
+
+"""
+    w90_build_proj()
+"""
+function w90_build_proj()
 end
 
 """
