@@ -99,7 +99,7 @@ end
 function w90_build_ctrl()
     w90c = Dict{String,Any}()
 
-    shell_norb = Dict{String,I64}(
+    orb_dict = Dict{String,I64}(
                  "s" => 1,
                  "p" => 3,
                  "d" => 5,
@@ -113,7 +113,10 @@ function w90_build_ctrl()
     num_wann = 0
     for i = 2:length(sproj)
         str_orb = strip(split(sproj[i], ":")[2])
+        num_orb = orb_dict[str_orb]
+        num_wann = num_wann + num_orb
     end
+    println(num_wann)
 
     return w90c
 end
