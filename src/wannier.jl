@@ -20,11 +20,11 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     wannier_init(D)
     pw2wan_init(D)
 
-    #wannier_exec(op = "-pp")
-    #wannier_save()
+    wannier_exec(op = "-pp")
+    wannier_save()
 
-    #pw2wan_exec()
-    #pw2wan_save()
+    pw2wan_exec()
+    pw2wan_save()
 
     wannier_exec()
     wannier_save()
