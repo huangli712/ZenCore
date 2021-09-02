@@ -82,9 +82,9 @@ function wannier_init(D::Dict{Symbol,Any})
 end
 
 """
-    wannier_exec(;op::String = "")
+    wannier_exec(;op::String = "", seedname::String = "w90")
 """
-function wannier_exec(;op::String = "")
+function wannier_exec(;op::String = "", seedname::String = "w90")
     # Print the header
     println("Detect the runtime environment for wannier90")
 
@@ -98,8 +98,33 @@ function wannier_exec(;op::String = "")
     println("  > Executable program is available: ", basename(wannier90_exe))
 
     # Assemble command
-    wannier90_cmd = split("$wannier90_exe $op", " ")
+    wannier90_cmd = split("$wannier90_exe $op $seedname", " ")
     println("  > Assemble command: $(prod(x -> x * ' ', wannier90_cmd))")
+
+    # Print the header
+    println("Launch the computational engine wannier90")
+
+    # Create a task, but do not run it immediately
+    t = @task begin
+        run(pipeline(`$wannier90_cmd`))
+    end
+    println("  > Create a task")
+
+    # Launch it, the terminal output is redirected to `fout`.
+    # Note that the task runs asynchronously. It will not block
+    # the execution.
+    schedule(t)
+    println("  > Add the task to the scheduler's queue")
+    println("  > Waiting ...")
+
+    # To ensure that the task is executed
+    while true
+        sleep(2)
+        istaskstarted(t) && break
+    end
+
+    # Wait for the pwscf task to finish
+    wait(t)
 end
 
 """
