@@ -17,7 +17,7 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     println("Try to process the Kohn-Sham dataset")
     println("Current directory: ", pwd())
 
-    wannier_init(D, ai)
+    wannier_init(D)
 
     wannier_exec()
     wannier_save()
@@ -35,28 +35,49 @@ end
 =#
 
 """
-    wannier_init(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
+    wannier_init(D::Dict{Symbol,Any})
 
 Try to generate the `w90.win` file, which is the essential input for
-the `wannier90` code.
+the `wannier90` code. Here, we always use `w90` as the seedname.
 
 See also: [`wannier_exec`](@ref), [`wannier_save`](@ref).
 """
-function wannier_init(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
-    # Extract key parameters and arrays
+function wannier_init(D::Dict{Symbol,Any})
+    # Extract necessary data from D
     latt  = D[:latt] 
     kmesh = D[:kmesh]
     enk = D[:enk]
 
+    # Extract number of spin
+    _, _, nspin = size(enk)
+
+    # Try to prepare control parameters
     w90c = w90_build_ctrl(latt, enk)
+
+    # Try to prepare projections
     proj = w90_build_proj()
 
-    open("w90.win", "w") do fout
+    # Try to write w90.win
+    #
+    # Setup filename correctly. It depends on the spin.
+    fwin = "w90.win"
+    if nspin == 2
+        fwin = "w90up.win"
+    end
+    #
+    # Write seedname.win
+    open(fwin, "w") do fout
         w90_write_win(fout, w90c)
         w90_write_win(fout, proj)
         w90_write_win(fout, latt)
         w90_write_win(fout, kmesh)
     end
+    #
+    # Copy seedname.win if necessary
+    if nspin == 2
+        cp(fwin, "w90dn.win")
+    end
+
     sorry()
 end
 
