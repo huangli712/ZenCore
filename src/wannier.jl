@@ -98,7 +98,11 @@ function wannier_exec(;op::String = "", seedname::String = "w90")
     println("  > Executable program is available: ", basename(wannier90_exe))
 
     # Assemble command
-    wannier90_cmd = split("$wannier90_exe $op $seedname", " ")
+    if op == "-pp"
+        wannier90_cmd = split("$wannier90_exe $op $seedname", " ")
+    else
+        wannier90_cmd = split("$wannier90_exe $seedname", " ")
+    end
     println("  > Assemble command: $(prod(x -> x * ' ', wannier90_cmd))")
 
     # Print the header
