@@ -201,27 +201,28 @@ end
 """
 function pw2wan_exec()
     # Print the header
-    println("Detect the runtime environment for wannier90")
+    println("Detect the runtime environment for pw2wannier90")
 
-    # Get the home directory of wannier90
-    wannier90_home = query_dft("wannier90")
-    println("  > Home directory for wannier90: ", wannier90_home)
+    # Get the home directory of pw2wannier90
+    pwscf_home = query_dft("pwscf")
+    println("  > Home directory for pw2wannier90: ", pwscf_home)
 
-    # Select suitable wannier90 program
-    wannier90_exe = "$wannier90_home/wannier90.x"
-    @assert isfile(wannier90_exe)
-    println("  > Executable program is available: ", basename(wannier90_exe))
+    # Select suitable pw2wannier90 program
+    pwscf_exe = "$pwscf_home/pw2wannier90.x"
+    @assert isfile(pwscf_exe)
+    println("  > Executable program is available: ", basename(pwscf_exe))
 
     # Assemble command
-    wannier90_cmd = split("$wannier90_exe $op $seedname", " ")
-    println("  > Assemble command: $(prod(x -> x * ' ', wannier90_cmd))")
+    pwscf_cmd = split("$pwscf_exe", " ")
+    println("  > Assemble command: $(prod(x -> x * ' ', pwscf_cmd))")
 
     # Print the header
-    println("Launch the computational engine wannier90")
+    println("Launch the computational engine pw2wannier90")
 
     # Create a task, but do not run it immediately
+    finp = "SrVO3.pw2wan"
     t = @task begin
-        run(pipeline(`$wannier90_cmd`))
+        run(pipeline(`$wannier90_cmd`, stdin = finp))
     end
     println("  > Create a task")
 
