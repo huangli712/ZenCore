@@ -256,7 +256,7 @@ end
 """
     w90_write_win(io::IOStream, w90c::Dict{String,Any})
 
-Write control parameters into w90.win.
+Write control parameters into `w90.win`.
 
 See also: [`wannier_init`](@ref).
 """
@@ -271,7 +271,7 @@ end
 """
     w90_write_win(io::IOStream, proj::Array{String,1})
 
-Write projection block into w90.win.
+Write projection block into `w90.win`.
 
 See also: [`wannier_init`](@ref).
 """
@@ -286,7 +286,7 @@ end
 """
     w90_write_win(io::IOStream, latt::Lattice)
 
-Write crystallography information into w90.win.
+Write crystallography information into `w90.win`.
  
 See also: [`Lattice`](@ref), [`wannier_init`](@ref).
 """
@@ -319,7 +319,7 @@ end
 """
     w90_write_win(io::IOStream, kmesh::Array{F64,2})
 
-Write k-mesh block into w90.win.
+Write k-mesh block into `w90.win`.
 
 See also: [`wannier_init`](@ref).
 """
