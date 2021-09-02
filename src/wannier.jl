@@ -363,7 +363,7 @@ function w90_write_win(io::IOStream, latt::Lattice)
     natom = latt.natom
 
     # Convert atomiclength (bohr) to angstrom
-    lvect = latt.lvect * (latt.scale * 0.52918)
+    lvect = latt.lvect * (latt.scale * 0.529177249)
 
     # Print atoms_frac block
     println(io, "begin atoms_frac")
