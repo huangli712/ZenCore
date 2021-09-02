@@ -18,11 +18,11 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     println("Current directory: ", pwd())
 
     wannier_init(D)
+    pw2wan_init()
 
     wannier_exec()
     wannier_save()
 
-    pw2wan_init()
     pw2wan_exec()
     pw2wan_save()
 
@@ -101,6 +101,19 @@ end
     pw2wan_init()
 """
 function pw2wan_init()
+    name = "inputpp"
+    NLData = Dict{AbstractString,Any}()
+
+    case = get_c("case")
+    NLData["outdir"] = "'./'"
+    NLData["prefix"] = "'$case'"
+    NLData["seedname"] = "'w90'"
+    NLData["spin_component"] = "'none'"
+    NLData["write_mmn"] = ".true."
+    NLData["write_amn"] = ".true."
+    NLData["write_dmn"] = ".true."
+    PWN = PWNamelist(name, NLData)
+    println("here")
 end
 
 """
