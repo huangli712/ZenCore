@@ -20,7 +20,7 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     wannier_init(D)
     pw2wan_init(D)
 
-    wannier_exec()
+    wannier_exec(op = "-pp")
     wannier_save()
 
     pw2wan_exec()
@@ -82,9 +82,9 @@ function wannier_init(D::Dict{Symbol,Any})
 end
 
 """
-    wannier_exec()
+    wannier_exec(;op::String = "")
 """
-function wannier_exec()
+function wannier_exec(;op::String = "")
     # Print the header
     println("Detect the runtime environment for wannier90")
 
@@ -97,6 +97,9 @@ function wannier_exec()
     @assert isfile(wannier90_exe)
     println("  > Executable program is available: ", basename(wannier90_exe))
 
+    # Assemble command
+    wannier90_cmd = split("$wannier90_exe $op", " ")
+    println("  > Assemble command: $(prod(x -> x * ' ', wannier90_cmd))")
 end
 
 """
