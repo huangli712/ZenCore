@@ -126,10 +126,10 @@ function w90_build_ctrl(latt::Lattice, enk::Array{F64,3})
     # Create a dict, which will be returned.
     w90c = Dict{String,Any}()
 
-    # Generate a dict, which defines a mapping from orbital definition to
-    # number of orbitals.
+    # Generate a dict, which defines a mapping from orbital definition
+    # to number of orbitals.
     #
-    # Perhaps you have to extend to support your cases.
+    # Perhaps you have to extend it to support your cases.
     orb_dict = Dict{String,I64}(
                  "s"   => 1,
                  "l=0" => 1,
@@ -141,21 +141,34 @@ function w90_build_ctrl(latt::Lattice, enk::Array{F64,3})
                  "l=3" => 7,
              )
 
-    # Get number of wanniers, `num_wann`
+    # Get number of wanniers, `num_wann`.
+    #
+    # Step 1, get the string for projection.
     sproj = get_d("sproj")
     @assert length(sproj) ≥ 2
+    # The first element of sproj should specify the type of wannier
+    # function. Now only MLWF and SAWF are supported.
     @assert sproj[1] in ("mlwf", "sawf")
+    #
+    # Step 2, calculate num_wann
     num_wann = 0
+    # Go throught each element of sproj
     for i = 2:length(sproj)
+        # Extract atomic symbol and orbital specification
         str_atm, str_orb = strip.(split(sproj[i], ":"))
+        # We have to remove all white spaces in str_orb. It is necessary.
+        str_orb = replace(str_orb, " " => "")
+        # Find out how many atoms are there in the lattice.
         num_atm = 0
         for j = 1:latt.natom
             if latt.atoms[j] == str_atm
                 num_atm = num_atm + 1
             end
         end
-        @assert num_atm >= 1
+        @assert num_atm ≥ 1
+        # Extract the corresponding number of orbitals
         num_orb = orb_dict[str_orb]
+        # Update num_wann
         num_wann = num_wann + num_orb * num_atm
     end
     w90c["num_wann"] = num_wann
