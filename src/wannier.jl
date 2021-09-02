@@ -18,7 +18,7 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     println("Current directory: ", pwd())
 
     wannier_init(D)
-    pw2wan_init()
+    pw2wan_init(D)
 
     wannier_exec()
     wannier_save()
