@@ -98,13 +98,27 @@ end
 =#
 
 """
-    pw2wan_init()
+    pw2wan_init(D::Dict{Symbol,Any})
 """
-function pw2wan_init()
-    name = "inputpp"
-    NLData = Dict{AbstractString,Any}()
+function pw2wan_init(D::Dict{Symbol,Any})
+    # Extract necessary data from D
+    enk = D[:enk]
 
+    # Extract number of spin
+    _, _, nspin = size(enk)
+
+    # Extract case from configuration
     case = get_c("case")
+
+    # Try to create a PWNamelist object.
+    #
+    # Setup name of namelist
+    name = "inputpp"
+    #
+    # Create an empty dict
+    NLData = Dict{AbstractString,Any}()
+    #
+    # Update the dict
     NLData["outdir"] = "'./'"
     NLData["prefix"] = "'$case'"
     NLData["seedname"] = "'w90'"
@@ -112,8 +126,34 @@ function pw2wan_init()
     NLData["write_mmn"] = ".true."
     NLData["write_amn"] = ".true."
     NLData["write_dmn"] = ".true."
+    #
+    # Create PWNamelist
     PWN = PWNamelist(name, NLData)
-    println("here")
+
+    # Try to write case.pw2wan
+    # For spin unpolarized system
+    if nspin == 1
+        fwan = "$case.pw2wan"
+        open(fwan, "w") do fout
+            write(fout, PWN)
+        end
+    # For spin polarized system
+    else
+        # Spin up case
+        fwan = case * "up.pw2wan"
+        PWN["seedname"] = "'w90up'"
+        PWN["spin_component"] = "'up'"
+        open(fwan, "w") do fout
+            write(fout, PWN)
+        end
+        # Spin down case
+        fwan = case * "dn.pw2wan"
+        PWN["seedname"] = "'w90dn'"
+        PWN["spin_component"] = "'dn'"
+        open(fwan, "w") do fout
+            write(fout, PWN)
+        end
+    end
 end
 
 """
