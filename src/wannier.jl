@@ -79,8 +79,6 @@ function wannier_init(D::Dict{Symbol,Any})
     if nspin == 2
         cp(fwin, "w90dn.win")
     end
-
-    sorry()
 end
 
 """
