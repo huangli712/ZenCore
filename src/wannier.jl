@@ -206,6 +206,19 @@ function w90_build_ctrl(latt::Lattice, enk::Array{F64,3})
         end
     end
 
+    # Some additional but necessary parameters for wannier90
+    #
+    # We should write the hamiltonian
+    w90c["write_hr"] = ".true."
+    #
+    # We should write the transform matrix
+    w90c["write_u_matrices"] = ".true."
+    #
+    # Support symmetry-adapted wannier functions
+    if sproj[1] == "sawf"
+        w90c["site_symmetry"] = ".true."
+    end
+
     # Return the required object.
     return w90c
 end
