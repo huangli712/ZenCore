@@ -38,7 +38,9 @@ end
     wannier_init(D::Dict{Symbol,Any})
 
 Try to generate the `w90.win` file, which is the essential input for
-the `wannier90` code. Here, we always use `w90` as the seedname.
+the `wannier90` code. Here, we always use `w90` as the seedname. If
+the system is spin polarized, then the seednames will be `w90up` and
+`w90dn`, respectively.
 
 See also: [`wannier_exec`](@ref), [`wannier_save`](@ref).
 """
