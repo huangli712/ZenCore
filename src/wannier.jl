@@ -150,7 +150,7 @@ function w90_build_ctrl(latt::Lattice, enk::Array{F64,3})
     # function. Now only MLWF and SAWF are supported.
     @assert sproj[1] in ("mlwf", "sawf")
     #
-    # Step 2, calculate num_wann
+    # Step 2, calculate num_wann.
     num_wann = 0
     # Go throught each element of sproj
     for i = 2:length(sproj)
@@ -171,6 +171,8 @@ function w90_build_ctrl(latt::Lattice, enk::Array{F64,3})
         # Update num_wann
         num_wann = num_wann + num_orb * num_atm
     end
+    #
+    # Step 3, store num_wann in the dict.
     w90c["num_wann"] = num_wann
 
     # Get number of bands, `num_bands`
