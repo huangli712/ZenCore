@@ -175,30 +175,38 @@ function w90_build_ctrl(latt::Lattice, enk::Array{F64,3})
     # Step 3, store num_wann in the dict.
     w90c["num_wann"] = num_wann
 
-    # Get number of bands, `num_bands`
+    # Get number of bands, `num_bands`.
     num_bands, _, _ = size(enk)
     w90c["num_bands"] = num_bands
 
+    # Deal with the disentanglement setup
     #
+    # Step 1, get the string for disentanglement.
     window = get_d("window")
-    @assert length(window) >= 2
+    @assert length(window) ≥ 2
+    # The first element of window should specify the scheme for
+    # disentanglement. Now only the exclude_bands and disentanglement
+    # modes are supported.
     @assert window[1] in ("exc", "dis")
+    #
+    # Step 2, determine the disentanglement parameters and store them.
     if window[1] == "exc"
         w90c["exclude_bands"] = join(window[2:end], ", ")
     else
         if length(window) == 3
-            w90c["dis_win_min"] = window[2]
-            w90c["dis_win_max"] = window[3]
+            w90c["dis_win_min"]  = window[2]
+            w90c["dis_win_max"]  = window[3]
         elseif length(window) == 5
-            w90c["dis_win_min"] = window[2]
-            w90c["dis_win_max"] = window[3]
+            w90c["dis_win_min"]  = window[2]
+            w90c["dis_win_max"]  = window[3]
             w90c["dis_froz_min"] = window[4]
             w90c["dis_froz_max"] = window[5]
         else
-            error("Wrong window.")
+            error("Wrong window's definition.")
         end
     end
 
+    # Return the required object.
     return w90c
 end
 
