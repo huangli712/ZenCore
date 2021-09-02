@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/09/02
+# Last modified: 2021/09/03
 #
 
 #=
@@ -85,6 +85,12 @@ end
     wannier_exec()
 """
 function wannier_exec()
+    # Print the header
+    println("Detect the runtime environment for wannier90")
+
+    # Get the home directory of wannier90
+    wannier90_home = query_dft("wannier90")
+    println("  > Home directory for wannier90: ", wannier90_home)
 end
 
 """

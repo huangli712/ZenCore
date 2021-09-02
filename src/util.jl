@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/08/22
+# Last modified: 2021/09/03
 #
 
 #=
@@ -347,6 +347,14 @@ function query_dft(engine::String)
                 return ENV["PWSCF_HOME"]
             else
                 error("PWSCF_HOME is undefined")
+            end
+            break
+
+        @case "wannier90"
+            if haskey(ENV, "WANNIER90_HOME")
+                return ENV["WANNIER90_HOME"]
+            else
+                error("WANNIER90_HOME is undefined")
             end
             break
 
