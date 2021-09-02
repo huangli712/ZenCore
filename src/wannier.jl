@@ -216,13 +216,19 @@ function pw2wan_exec()
     pwscf_cmd = split("$pwscf_exe", " ")
     println("  > Assemble command: $(prod(x -> x * ' ', pwscf_cmd))")
 
+    # Determine suitable input and output files
+    case = get_c("case")
+    finp = "$case.pw2wan"
+    fout = "pw2wan.out"
+    println("  > Applying input file: $finp")
+    println("  > Applying output file: $fout")
+
     # Print the header
     println("Launch the computational engine pw2wannier90")
 
     # Create a task, but do not run it immediately
-    finp = "SrVO3.pw2wan"
     t = @task begin
-        run(pipeline(`$wannier90_cmd`, stdin = finp))
+        run(pipeline(`$pwscf_cmd`, stdin = finp, stdout = fout))
     end
     println("  > Create a task")
 
