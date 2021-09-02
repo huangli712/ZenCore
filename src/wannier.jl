@@ -91,6 +91,12 @@ function wannier_exec()
     # Get the home directory of wannier90
     wannier90_home = query_dft("wannier90")
     println("  > Home directory for wannier90: ", wannier90_home)
+
+    # Select suitable wannier90 program
+    wannier90_exe = "$wannier90_home/wannier90.x"
+    @assert isfile(wannier90_exe)
+    println("  > Executable program is available: ", basename(wannier90_exe))
+
 end
 
 """
