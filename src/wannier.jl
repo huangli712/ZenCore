@@ -123,13 +123,22 @@ Try to make the control parameters for the `w90.win` file.
 See also: [`w90_build_proj`](@ref).
 """
 function w90_build_ctrl(latt::Lattice, enk::Array{F64,3})
+    # Create a dict, which will be returned.
     w90c = Dict{String,Any}()
 
+    # Generate a dict, which defines a mapping from orbital definition to
+    # number of orbitals.
+    #
+    # Perhaps you have to extend to support your cases.
     orb_dict = Dict{String,I64}(
-                 "s" => 1,
-                 "p" => 3,
-                 "d" => 5,
-                 "f" => 7,
+                 "s"   => 1,
+                 "l=0" => 1,
+                 "p"   => 3,
+                 "l=1" => 3, 
+                 "d"   => 5,
+                 "l=2" => 5,
+                 "f"   => 7,
+                 "l=3" => 7,
              )
 
     # Get number of wanniers, `num_wann`
