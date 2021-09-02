@@ -231,13 +231,25 @@ Try to make the projection block for the `w90.win` file.
 See also: [`w90_build_ctrl`](@ref).
 """
 function w90_build_proj()
+    # Create a string array to store the definitions for projections
     proj = String[]
+
+    # Get the string for projection
     sproj = get_d("sproj")
+
+    # Check the length of sproj
     @assert length(sproj) ≥ 2
+
+    # The first element of sproj should specify the type of wannier
+    # function. Now only MLWF and SAWF are supported.
     @assert sproj[1] in ("mlwf", "sawf")
+
+    # Transfer sproj to proj
     for i = 2:length(sproj)
         push!(proj, sproj[i])
     end
+
+    # Return the desired array
     return proj
 end
 
