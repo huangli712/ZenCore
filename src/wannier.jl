@@ -78,13 +78,16 @@ function wannier_init(D::Dict{Symbol,Any}, sp::Bool = false)
 end
 
 """
-    wannier_exec(;op::String = "", seedname::String = "w90")
+    wannier_exec(sp::String = ""; op::String = "")
 """
-function wannier_exec(;op::String = "", seedname::String = "w90")
+function wannier_exec(sp::String = ""; op::String = "")
     # Print the header
     println("Detect the runtime environment for wannier90")
 
     # Get the home directory of wannier90
+    #
+    # We can not guarantee that the wannier90 code is always installed
+    # within the directory of pwscf.
     wannier90_home = query_dft("wannier90")
     println("  > Home directory for wannier90: ", wannier90_home)
 
@@ -94,6 +97,7 @@ function wannier_exec(;op::String = "", seedname::String = "w90")
     println("  > Executable program is available: ", basename(wannier90_exe))
 
     # Assemble command
+    seedname = "w90" * sp
     if op == "-pp"
         wannier90_cmd = split("$wannier90_exe $op $seedname", " ")
     else
@@ -101,12 +105,16 @@ function wannier_exec(;op::String = "", seedname::String = "w90")
     end
     println("  > Assemble command: $(prod(x -> x * ' ', wannier90_cmd))")
 
+    # Determine suitable output file
+    fout = "w90" * sp * ".out"
+    println("  > Applying output file: $fout")
+
     # Print the header
     println("Launch the computational engine wannier90")
 
     # Create a task, but do not run it immediately
     t = @task begin
-        run(pipeline(`$wannier90_cmd`))
+        run(pipeline(`$wannier90_cmd`, stdout = fout))
     end
     println("  > Create a task")
 
@@ -123,7 +131,7 @@ function wannier_exec(;op::String = "", seedname::String = "w90")
         istaskstarted(t) && break
     end
 
-    # Wait for the pwscf task to finish
+    # Wait for the wannier90 task to finish
     wait(t)
 end
 
