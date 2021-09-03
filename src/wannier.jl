@@ -38,7 +38,6 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         wannier_save(op = "-pp")
     end
     
-
     # W04: Execute pw2wannier90 to generate w90.amn, w90.mmn, etc.
     if sp
         pw2wan_exec(case, "up")
