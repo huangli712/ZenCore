@@ -383,7 +383,7 @@ function w90_build_proj()
     @assert length(sproj) ≥ 2
 
     # The first element of sproj should specify the type of wannier
-    # function. Now only MLWF and SAWF are supported.
+    # function. Now only the MLWF and SAWF modes are supported.
     @assert sproj[1] in ("mlwf", "sawf")
 
     # Transfer sproj to proj
@@ -405,8 +405,9 @@ See also: [`wannier_init`](@ref).
 function w90_write_win(io::IOStream, w90c::Dict{String,Any})
     for key in keys(w90c)
         val = w90c[key]
-        println(io, "$key = $val")
+        println(io, key, " = ", val)
     end
+    #
     println(io)
 end
 
@@ -419,9 +420,11 @@ See also: [`wannier_init`](@ref).
 """
 function w90_write_win(io::IOStream, proj::Array{String,1})
     println(io, "begin projections")
+    #
     for i = 1:length(proj)
         println(io, proj[i])
     end
+    #
     println(io, "end projections\n")
 end
 
@@ -437,6 +440,7 @@ function w90_write_win(io::IOStream, latt::Lattice)
     natom = latt.natom
 
     # Convert atomiclength (bohr) to angstrom
+    # 1 bohr = 0.529177249 angstrom
     lvect = latt.lvect * (latt.scale * 0.529177249)
 
     # Print atoms_frac block
