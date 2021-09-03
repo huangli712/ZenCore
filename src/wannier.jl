@@ -28,33 +28,34 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     pw2wan_init(case, sp)
 
     # W03: Execute wannier90 to generate w90.nnkp.
-    if sp
+    if sp # For spin-polarized system
         wannier_exec("up", op = "-pp")
         wannier_save("up", op = "-pp")
         wannier_exec("dn", op = "-pp")
         wannier_save("dn", op = "-pp")
-    else
+    else # For spin-unpolarized system
         wannier_exec(op = "-pp")
         wannier_save(op = "-pp")
     end
     
     # W04: Execute pw2wannier90 to generate w90.amn, w90.mmn, etc.
-    if sp
+    if sp # For spin-polarized system
         pw2wan_exec(case, "up")
+        pw2wan_save("up")
         pw2wan_exec(case, "dn")
-    else
+        pw2wan_save("dn")
+    else # For spin-unpolarized system
         pw2wan_exec(case)
+        pw2wan_save()
     end
-    #
-    pw2wan_save()
 
     # W05: Execute wannier90 again to generate wannier functions.
-    if sp
+    if sp # For spin-polarized system
         wannier_exec("up")
         wannier_save("up")
         wannier_exec("dn")
         wannier_save("dn")
-    else
+    else # For spin-unpolarized system
         wannier_exec()
         wannier_save()
     end
