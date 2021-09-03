@@ -256,13 +256,15 @@ function pw2wan_save()
 end
 
 """
-    w90_build_ctrl(latt:Lattice, enk::Array{F64,3})
+    w90_build_ctrl(latt:Lattice, nband::I64)
 
-Try to make the control parameters for the `w90.win` file.
+Try to make the control parameters for the `w90.win` file. The `latt`
+object represent the crystallography information, and `nband` is the
+number of Kohn-Sham states outputed by the dft code.
 
 See also: [`w90_build_proj`](@ref).
 """
-function w90_build_ctrl(latt::Lattice, enk::Array{F64,3})
+function w90_build_ctrl(latt::Lattice, nband::I64)
     # Create a dict, which will be returned.
     w90c = Dict{String,Any}()
 
@@ -287,7 +289,7 @@ function w90_build_ctrl(latt::Lattice, enk::Array{F64,3})
     sproj = get_d("sproj")
     @assert length(sproj) ≥ 2
     # The first element of sproj should specify the type of wannier
-    # function. Now only MLWF and SAWF are supported.
+    # function. Now only the MLWF and SAWF modes are supported.
     @assert sproj[1] in ("mlwf", "sawf")
     #
     # Step 2, calculate num_wann.
@@ -316,8 +318,8 @@ function w90_build_ctrl(latt::Lattice, enk::Array{F64,3})
     w90c["num_wann"] = num_wann
 
     # Get number of bands, `num_bands`.
-    num_bands, _, _ = size(enk)
-    w90c["num_bands"] = num_bands
+    @assert nband ≥ num_wann
+    w90c["num_bands"] = nband
 
     # Deal with the disentanglement setup
     #
