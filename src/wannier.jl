@@ -151,7 +151,9 @@ function wannier_exec(sp::String = ""; op::String = "")
     println("  > Assemble command: $(prod(x -> x * ' ', wannier90_cmd))")
 
     # Determine suitable output file
+    finp = "w90" * sp * ".win"
     fout = "w90" * sp * ".out"
+    println("  > Applying input file: $finp")
     println("  > Applying output file: $fout")
 
     # Print the header
