@@ -197,13 +197,20 @@ function pw2wan_init(D::Dict{Symbol,Any})
 end
 
 """
-    pw2wan_exec()
+    pw2wan_exec(case::String, sp::String = "")
+
+Execute the pw2wannier90 program, monitor the convergence progress, and
+output the relevant information. Here, `case` means the prefix for input
+files, and `sp` is `up` or `dn`.
+
+See also: [`pw2wan_init`](@ref), [`pw2wan_save`](@ref).
 """
-function pw2wan_exec()
+function pw2wan_exec(case::String, sp::String ="")
     # Print the header
     println("Detect the runtime environment for pw2wannier90")
 
     # Get the home directory of pw2wannier90
+    # It is actually the same with that of pwscf.
     pwscf_home = query_dft("pwscf")
     println("  > Home directory for pw2wannier90: ", pwscf_home)
 
@@ -217,8 +224,7 @@ function pw2wan_exec()
     println("  > Assemble command: $(prod(x -> x * ' ', pwscf_cmd))")
 
     # Determine suitable input and output files
-    case = get_c("case")
-    finp = "$case.pw2wan"
+    finp = case * sp * ".pw2wan"
     fout = "pw2wan.out"
     println("  > Applying input file: $finp")
     println("  > Applying output file: $fout")
@@ -245,7 +251,7 @@ function pw2wan_exec()
         istaskstarted(t) && break
     end
 
-    # Wait for the pwscf task to finish
+    # Wait for the pw2wannier90 task to finish
     wait(t)
 end
 
