@@ -17,34 +17,44 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     println("Try to process the Kohn-Sham dataset")
     println("Current directory: ", pwd())
 
+    # Extract key parameters
     case = get_c("case")
     sp = get_d("lspins")
 
+    # W01: Generate seedname.win.
     wannier_init(D, sp)
+
+    # W02: Generate case.pw2wan.
     pw2wan_init(case, sp)
 
+    # W03: Execute wannier90 to generate w90.nnkp.
     if sp
         wannier_exec("up", op = "-pp")
         wannier_exec("dn", op = "-pp")
     else
         wannier_exec(op = "-pp")
     end
+    #
     wannier_save()
 
+    # W04: Execute pw2wannier90 to generate w90.amn, w90.mmn, etc.
     if sp
         pw2wan_exec(case, "up")
         pw2wan_exec(case, "dn")
     else
         pw2wan_exec(case)
     end
+    #
     pw2wan_save()
 
+    # W05: Execute wannier90 again to generate wannier functions.
     if sp
         wannier_exec("up")
         wannier_exec("dn")
     else
         wannier_exec()
     end
+    #
     wannier_save()
 end
 
