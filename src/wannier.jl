@@ -354,20 +354,28 @@ function pw2wan_save(sp::String ="")
     # Print the header
     println("Finalize the computational task")
 
+    # Check the output files of pw2wannier90
+    #
+    # Determine filenames
     seedname = "w90" * sp
     famn = seedname * ".amn"
     fmmn = seedname * ".mmn"
     feig = seedname * ".eig"
     fdmn = seedname * ".dmn"
     fsym = seedname * ".sym"
-
+    #
+    # Determine list of files
     flist = [famn, fmmn, feig]
+    #
+    # If the symmetry-adapted wannier function mode is chosen, more
+    # output files are created.
     sproj = get_d("sproj")
     if sproj[1] == "sawf"
         push!(flist, fdmn)
         push!(flist, fsym)
     end
     #
+    # Check the availability of the output files
     for i in eachindex(flist)
         filename = flist[i]
         if isfile(filename)
