@@ -138,21 +138,20 @@ end
 =#
 
 """
-    pw2wan_init(D::Dict{Symbol,Any})
+    pw2wan_init(case::String, nspin::I64)
+
+Check the runtime environment of `pw2wannier90`, prepare necessary input
+files (`case.pw2wan`).
+
+See also: [`pw2wan_exec`](@ref), [`pw2wan_save`](@ref).
 """
-function pw2wan_init(D::Dict{Symbol,Any})
-    # Extract necessary data from D
-    enk = D[:enk]
-
-    # Extract number of spin
-    _, _, nspin = size(enk)
-
-    # Extract case from configuration
-    case = get_c("case")
+function pw2wan_init(case::String, nspin::I64)
+    # Sanity check
+    @assert nspin == 1 || nspin == 2
 
     # Try to create a PWNamelist object.
     #
-    # Setup name of namelist
+    # Setup name of namelist. It is always fixed.
     name = "inputpp"
     #
     # Create an empty dict
