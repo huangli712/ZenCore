@@ -21,7 +21,7 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     sp = get_d("lspins")
 
     wannier_init(D, sp)
-    pw2wan_init(D, sp)
+    pw2wan_init(case, sp)
 
     if sp
         wannier_exec("up", op = "-pp")
