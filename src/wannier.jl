@@ -300,6 +300,8 @@ function w90_build_ctrl(latt::Lattice, nband::I64)
         str_atm, str_orb = strip.(split(sproj[i], ":"))
         # We have to remove all white spaces in str_orb. It is necessary.
         str_orb = replace(str_orb, " " => "")
+        # Extract the corresponding number of orbitals
+        num_orb = orb_dict[str_orb]
         # Find out how many atoms are there in the lattice.
         num_atm = 0
         for j = 1:latt.natom
@@ -308,8 +310,6 @@ function w90_build_ctrl(latt::Lattice, nband::I64)
             end
         end
         @assert num_atm ≥ 1
-        # Extract the corresponding number of orbitals
-        num_orb = orb_dict[str_orb]
         # Update num_wann
         num_wann = num_wann + num_orb * num_atm
     end
