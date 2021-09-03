@@ -73,6 +73,9 @@ be `w90up` and `w90dn`, respectively.
 See also: [`wannier_exec`](@ref), [`wannier_save`](@ref).
 """
 function wannier_init(D::Dict{Symbol,Any}, sp::Bool = false)
+    # Print the header
+    println("Generate input files for wannier90")
+
     # Extract necessary data from D
     latt  = D[:latt] 
     kmesh = D[:kmesh]
@@ -102,10 +105,12 @@ function wannier_init(D::Dict{Symbol,Any}, sp::Bool = false)
         w90_write_win(fout, latt)
         w90_write_win(fout, kmesh)
     end
+    println("  > File $fwin is created")
     #
     # Copy seedname.win if necessary
     if sp # Spin polarized system
         cp(fwin, "w90dn.win")
+        println("  > File w90dn.win is created")
     end
 end
 
