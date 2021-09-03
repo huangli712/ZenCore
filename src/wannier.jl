@@ -209,7 +209,7 @@ function wannier_save(sp::String = ""; op::String = "")
             if isfile(filename)
                 println("  > File $filename is created")
             else
-                error("File $filename is nor created")
+                error("File $filename is not created")
             end
         end
     end
@@ -344,17 +344,38 @@ function pw2wan_exec(case::String, sp::String ="")
 end
 
 """
-    pw2wan_save()
+    pw2wan_save(sp::String ="")
 
 Backup the output files of pw2wannier90 if necessary.
 
 See also: [`pw2wan_init`](@ref), [`pw2wan_exec`](@ref).
 """
-function pw2wan_save()
+function pw2wan_save(sp::String ="")
     # Print the header
     println("Finalize the computational task")
 
-    println("  > Nothing to do with it")
+    seedname = "w90" * sp
+    famn = seedname * ".amn"
+    fmmn = seedname * ".mmn"
+    feig = seedname * ".eig"
+    fdmn = seedname * ".dmn"
+    fsym = seedname * ".sym"
+
+    flist = [famn, fmmn, feig]
+    sproj = get_d("sproj")
+    if sproj[1] == "sawf"
+        push!(flist, fdmn)
+        push!(flist, fsym)
+    end
+    #
+    for i in eachindex(flist)
+        filename = flist[i]
+        if isfile(filename)
+            println("  > File $filename is created")
+        else
+            error("File $filename is not created")
+        end
+    end
 end
 
 """
