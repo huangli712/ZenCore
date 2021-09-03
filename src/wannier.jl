@@ -257,8 +257,13 @@ end
 
 """
     pw2wan_save()
+
+Backup the output files of pw2wannier90 if necessary.
+
+See also: [`pw2wan_init`](@ref), [`pw2wan_exec`](@ref).
 """
 function pw2wan_save()
+    # Nothing to do
 end
 
 """
