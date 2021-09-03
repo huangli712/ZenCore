@@ -17,18 +17,34 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     println("Try to process the Kohn-Sham dataset")
     println("Current directory: ", pwd())
 
+    case = get_c("case")
     sp = get_d("lspins")
 
     wannier_init(D, sp)
     pw2wan_init(D, sp)
 
-    wannier_exec(op = "-pp")
+    if sp
+        wannier_exec("up", op = "-pp")
+        wannier_exec("dn", op = "-pp")
+    else
+        wannier_exec(op = "-pp")
+    end
     wannier_save()
 
-    pw2wan_exec()
+    if sp
+        pw2wan_exec(case, "up")
+        pw2wan_exec(case, "dn")
+    else
+        pw2wan_exec(case)
+    end
     pw2wan_save()
 
-    wannier_exec()
+    if sp
+        wannier_exec("up")
+        wannier_exec("dn")
+    else
+        wannier_exec()
+    end
     wannier_save()
 end
 
