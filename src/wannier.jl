@@ -79,6 +79,11 @@ end
 
 """
     wannier_exec(sp::String = ""; op::String = "")
+
+Execute the wannier90 program, monitor the convergence progress, and
+output the relevant information.
+
+See also: [`wannier_init`](@ref), [`wannier_save`](@ref).
 """
 function wannier_exec(sp::String = ""; op::String = "")
     # Print the header
