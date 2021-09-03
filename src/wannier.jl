@@ -178,17 +178,39 @@ function wannier_exec(sp::String = ""; op::String = "")
 end
 
 """
-    wannier_save()
+    wannier_save(sp::String = ""; op::String = "")
 
 Backup the output files of wannier90 if necessary.
 
 See also: [`wannier_init`](@ref), [`wannier_exec`](@ref).
 """
-function wannier_save()
+function wannier_save(sp::String = ""; op::String = "")
     # Print the header
     println("Finalize the computational task")
 
-    println("  > Nothing to do with it")
+    # Check the output files of wannier90
+    if op == "-pp"
+        fwan = "w90" * sp * ".nnkp"
+        if isfile(fwan)
+            println("  > File $fwan is created")
+        else
+            error("File $fwan is not created")
+        end
+    else
+        fhr = "w90" * sp * "_hr.dat"
+        fu = "w90" * sp * "_u.dat"
+        fudis = "w90" * sp * "_u_dis.dat"
+        #
+        flist = (fhr, fu, fudis)
+        for i in eachindex(flist)
+            filename = flist[i]
+            if isfilename(filename)
+                println("  > File $filename is created")
+            else
+                error("File $filename is nor created")
+            end
+        end
+    end
 end
 
 #=
