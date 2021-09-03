@@ -201,6 +201,9 @@ files (`case.pw2wan`).
 See also: [`pw2wan_exec`](@ref), [`pw2wan_save`](@ref).
 """
 function pw2wan_init(case::String, sp::Bool = false)
+    # Print the header
+    println("Generate input files for pw2wannier90")
+    
     # Try to create a PWNamelist object.
     #
     # Setup name of namelist. It is always fixed.
@@ -228,6 +231,8 @@ function pw2wan_init(case::String, sp::Bool = false)
         open(fwan, "w") do fout
             write(fout, PWN)
         end
+        #
+        println("  > File $fwan is created")
     # For spin polarized system
     else
         # Spin up case
@@ -237,6 +242,9 @@ function pw2wan_init(case::String, sp::Bool = false)
         open(fwan, "w") do fout
             write(fout, PWN)
         end
+        #
+        println("  > File $fwan is created")
+        #
         # Spin down case
         fwan = case * "dn.pw2wan"
         PWN["seedname"] = "'w90dn'"
@@ -244,6 +252,8 @@ function pw2wan_init(case::String, sp::Bool = false)
         open(fwan, "w") do fout
             write(fout, PWN)
         end
+        #
+        println("  > File $fwan is created")
     end
 end
 
