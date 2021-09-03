@@ -35,26 +35,22 @@ end
 =#
 
 """
-    wannier_init(D::Dict{Symbol,Any})
+    wannier_init(D::Dict{Symbol,Any}, sp::Bool = false)
 
 Try to generate the `w90.win` file, which is the essential input for
 the `wannier90` code. Here, we always use `w90` as the seedname. If
-the system is spin polarized, then the seednames will be `w90up` and
-`w90dn`, respectively.
+the system is spin polarized (`sp = true`), then the seednames will
+be `w90up` and `w90dn`, respectively.
 
 See also: [`wannier_exec`](@ref), [`wannier_save`](@ref).
 """
-function wannier_init(D::Dict{Symbol,Any})
+function wannier_init(D::Dict{Symbol,Any}, sp::Bool = false)
     # Extract necessary data from D
     latt  = D[:latt] 
     kmesh = D[:kmesh]
-    enk = D[:enk]
-
-    # Extract number of spin
-    _, _, nspin = size(enk)
 
     # Try to prepare control parameters
-    w90c = w90_build_ctrl(latt, enk)
+    w90c = w90_build_ctrl(latt, sp)
 
     # Try to prepare projections
     proj = w90_build_proj()
@@ -63,7 +59,7 @@ function wannier_init(D::Dict{Symbol,Any})
     #
     # Setup filename correctly. It depends on the spin.
     fwin = "w90.win"
-    if nspin == 2
+    if sp # Spin polarized system
         fwin = "w90up.win"
     end
     #
@@ -76,7 +72,7 @@ function wannier_init(D::Dict{Symbol,Any})
     end
     #
     # Copy seedname.win if necessary
-    if nspin == 2
+    if sp # Spin polarized system
         cp(fwin, "w90dn.win")
     end
 end
