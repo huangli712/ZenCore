@@ -17,8 +17,10 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     println("Try to process the Kohn-Sham dataset")
     println("Current directory: ", pwd())
 
-    wannier_init(D)
-    pw2wan_init(D)
+    sp = get_d("lspins")
+
+    wannier_init(D, sp)
+    pw2wan_init(D, sp)
 
     wannier_exec(op = "-pp")
     wannier_save()
@@ -160,17 +162,14 @@ end
 =#
 
 """
-    pw2wan_init(case::String, nspin::I64)
+    pw2wan_init(case::String, sp::Bool = false)
 
 Check the runtime environment of `pw2wannier90`, prepare necessary input
 files (`case.pw2wan`).
 
 See also: [`pw2wan_exec`](@ref), [`pw2wan_save`](@ref).
 """
-function pw2wan_init(case::String, nspin::I64)
-    # Sanity check
-    @assert nspin == 1 || nspin == 2
-
+function pw2wan_init(case::String, sp::Bool = false)
     # Try to create a PWNamelist object.
     #
     # Setup name of namelist. It is always fixed.
@@ -193,7 +192,7 @@ function pw2wan_init(case::String, nspin::I64)
 
     # Try to write case.pw2wan
     # For spin unpolarized system
-    if nspin == 1
+    if !sp
         fwan = "$case.pw2wan"
         open(fwan, "w") do fout
             write(fout, PWN)
