@@ -129,8 +129,13 @@ end
 
 """
     wannier_save()
+
+Backup the output files of wannier90 if necessary.
+
+See also: [`wannier_init`](@ref), [`wannier_exec`](@ref).
 """
 function wannier_save()
+    # Nothing to do
 end
 
 #=
