@@ -30,12 +30,14 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     # W03: Execute wannier90 to generate w90.nnkp.
     if sp
         wannier_exec("up", op = "-pp")
+        wannier_save("up", op = "-pp")
         wannier_exec("dn", op = "-pp")
+        wannier_save("dn", op = "-pp")
     else
         wannier_exec(op = "-pp")
+        wannier_save(op = "-pp")
     end
-    #
-    wannier_save()
+    
 
     # W04: Execute pw2wannier90 to generate w90.amn, w90.mmn, etc.
     if sp
@@ -198,13 +200,13 @@ function wannier_save(sp::String = ""; op::String = "")
         end
     else
         fhr = "w90" * sp * "_hr.dat"
-        fu = "w90" * sp * "_u.dat"
-        fudis = "w90" * sp * "_u_dis.dat"
+        fu = "w90" * sp * "_u.mat"
+        fudis = "w90" * sp * "_u_dis.mat"
         #
         flist = (fhr, fu, fudis)
         for i in eachindex(flist)
             filename = flist[i]
-            if isfilename(filename)
+            if isfile(filename)
                 println("  > File $filename is created")
             else
                 error("File $filename is nor created")
