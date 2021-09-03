@@ -52,12 +52,13 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     # W05: Execute wannier90 again to generate wannier functions.
     if sp
         wannier_exec("up")
+        wannier_save("up")
         wannier_exec("dn")
+        wannier_save("dn")
     else
         wannier_exec()
+        wannier_save()
     end
-    #
-    wannier_save()
 end
 
 #=
