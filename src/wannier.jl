@@ -48,9 +48,13 @@ function wannier_init(D::Dict{Symbol,Any}, sp::Bool = false)
     # Extract necessary data from D
     latt  = D[:latt] 
     kmesh = D[:kmesh]
+    enk   = D[:enk]
+
+    # Extract the nband parameter
+    nband, _, _ = size(enk)
 
     # Try to prepare control parameters
-    w90c = w90_build_ctrl(latt, sp)
+    w90c = w90_build_ctrl(latt, nband)
 
     # Try to prepare projections
     proj = w90_build_proj()
