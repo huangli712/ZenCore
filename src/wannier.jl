@@ -365,6 +365,15 @@ function w90_make_proj()
     return proj
 end
 
+function w90_make_map()
+end
+
+function w90_make_group()
+end
+
+function w90_make_window()
+end
+
 #=
 ### *Service Functions* : *Group C*
 =#
