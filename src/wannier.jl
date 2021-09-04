@@ -365,12 +365,21 @@ function w90_make_proj()
     return proj
 end
 
+"""
+    w90_make_map()
+"""
 function w90_make_map()
 end
 
+"""
+    w90_make_group()
+"""
 function w90_make_group()
 end
 
+"""
+    w90_make_window()
+"""
 function w90_make_window()
 end
 
@@ -378,18 +387,33 @@ end
 ### *Service Functions* : *Group C*
 =#
 
+"""
+    w90_read_amat()
+"""
 function w90_read_amat()
 end
 
+"""
+    w90_read_eigs()
+"""
 function w90_read_eigs()
 end
 
+"""
+    w90_read_hmat()
+"""
 function w90_read_hmat()
 end
 
+"""
+    w90_read_umat()
+"""
 function w90_read_umat() 
 end
 
+"""
+    w90_read_udis()
+"""
 function w90_read_udis()
 end
 
