@@ -91,10 +91,10 @@ function wannier_init(D::Dict{Symbol,Any}, sp::Bool = false)
     nband, _, _ = size(enk)
 
     # Try to prepare control parameters
-    w90c = w90_build_ctrl(latt, nband)
+    w90c = w90_make_ctrl(latt, nband)
 
     # Try to prepare projections
-    proj = w90_build_proj()
+    proj = w90_make_proj()
 
     # Try to write w90.win
     #
@@ -223,6 +223,247 @@ end
 
 #=
 ### *Service Functions* : *Group B*
+=#
+
+"""
+    w90_make_ctrl(latt:Lattice, nband::I64)
+
+Try to make the control parameters for the `w90.win` file. The `latt`
+object represent the crystallography information, and `nband` is the
+number of Kohn-Sham states outputed by the dft code.
+
+See also: [`w90_make_proj`](@ref).
+"""
+function w90_make_ctrl(latt::Lattice, nband::I64)
+    # Create a dict, which will be returned.
+    w90c = Dict{String,Any}()
+
+    # Generate a dict, which defines a mapping from orbital definition
+    # to number of orbitals.
+    #
+    # Perhaps you have to extend it to support your cases.
+    orb_dict = Dict{String,I64}(
+                 "s"   => 1,
+                 "l=0" => 1,
+                 "p"   => 3,
+                 "l=1" => 3, 
+                 "d"   => 5,
+                 "l=2" => 5,
+                 "f"   => 7,
+                 "l=3" => 7,
+             )
+
+    # Get number of wanniers, `num_wann`.
+    #
+    # Step 1, get the string for projection.
+    sproj = get_d("sproj")
+    @assert length(sproj) ≥ 2
+    # The first element of sproj should specify the type of wannier
+    # function. Now only the MLWF and SAWF modes are supported.
+    @assert sproj[1] in ("mlwf", "sawf")
+    #
+    # Step 2, calculate num_wann.
+    num_wann = 0
+    # Go throught each element of sproj
+    for i = 2:length(sproj)
+        # Extract atomic symbol and orbital specification
+        str_atm, str_orb = strip.(split(sproj[i], ":"))
+        # We have to remove all white spaces in str_orb. It is necessary.
+        str_orb = replace(str_orb, " " => "")
+        # Extract the corresponding number of orbitals
+        num_orb = orb_dict[str_orb]
+        # Find out how many atoms are there in the lattice.
+        num_atm = 0
+        for j = 1:latt.natom
+            if latt.atoms[j] == str_atm
+                num_atm = num_atm + 1
+            end
+        end
+        @assert num_atm ≥ 1
+        # Update num_wann
+        num_wann = num_wann + num_orb * num_atm
+    end
+    #
+    # Step 3, store num_wann in the dict.
+    w90c["num_wann"] = num_wann
+
+    # Get number of bands, `num_bands`.
+    @assert nband ≥ num_wann
+    w90c["num_bands"] = nband
+
+    # Deal with the disentanglement setup
+    #
+    # Step 1, get the string for disentanglement.
+    window = get_d("window")
+    @assert length(window) ≥ 2
+    # The first element of window should specify the scheme for
+    # disentanglement. Now only the exclude_bands and disentanglement
+    # modes are supported.
+    @assert window[1] in ("exc", "dis")
+    #
+    # Step 2, determine the disentanglement parameters and store them.
+    if window[1] == "exc"
+        w90c["exclude_bands"] = join(window[2:end], ", ")
+    else
+        if length(window) == 3
+            w90c["dis_win_min"]  = window[2]
+            w90c["dis_win_max"]  = window[3]
+        elseif length(window) == 5
+            w90c["dis_win_min"]  = window[2]
+            w90c["dis_win_max"]  = window[3]
+            w90c["dis_froz_min"] = window[4]
+            w90c["dis_froz_max"] = window[5]
+        else
+            error("Wrong window's definition.")
+        end
+    end
+
+    # Some additional but necessary parameters for wannier90
+    #
+    # We should write the hamiltonian
+    w90c["write_hr"] = ".true."
+    #
+    # We should write the transform matrix
+    w90c["write_u_matrices"] = ".true."
+    #
+    # Support symmetry-adapted wannier functions
+    if sproj[1] == "sawf"
+        w90c["site_symmetry"] = ".true."
+    end
+
+    # Return the required object.
+    return w90c
+end
+
+"""
+    w90_make_proj()
+
+Try to make the projection block for the `w90.win` file.
+
+See also: [`w90_make_ctrl`](@ref).
+"""
+function w90_make_proj()
+    # Create a string array to store the definitions for projections
+    proj = String[]
+
+    # Get the string for projection
+    sproj = get_d("sproj")
+
+    # Check the length of sproj
+    @assert length(sproj) ≥ 2
+
+    # The first element of sproj should specify the type of wannier
+    # function. Now only the MLWF and SAWF modes are supported.
+    @assert sproj[1] in ("mlwf", "sawf")
+
+    # Transfer sproj to proj
+    for i = 2:length(sproj)
+        push!(proj, sproj[i])
+    end
+
+    # Return the desired array
+    return proj
+end
+
+#=
+### *Service Functions* : *Group D*
+=#
+
+"""
+    w90_write_win(io::IOStream, w90c::Dict{String,Any})
+
+Write control parameters into `w90.win`.
+
+See also: [`wannier_init`](@ref).
+"""
+function w90_write_win(io::IOStream, w90c::Dict{String,Any})
+    for key in keys(w90c)
+        val = w90c[key]
+        println(io, key, " = ", val)
+    end
+    #
+    println(io)
+end
+
+"""
+    w90_write_win(io::IOStream, proj::Array{String,1})
+
+Write projection block into `w90.win`.
+
+See also: [`wannier_init`](@ref).
+"""
+function w90_write_win(io::IOStream, proj::Array{String,1})
+    println(io, "begin projections")
+    #
+    for i = 1:length(proj)
+        println(io, proj[i])
+    end
+    #
+    println(io, "end projections\n")
+end
+
+"""
+    w90_write_win(io::IOStream, latt::Lattice)
+
+Write crystallography information into `w90.win`.
+ 
+See also: [`Lattice`](@ref), [`wannier_init`](@ref).
+"""
+function w90_write_win(io::IOStream, latt::Lattice)
+    # Extract parameters
+    natom = latt.natom
+
+    # Convert atomiclength (bohr) to angstrom
+    # 1 bohr = 0.529177249 angstrom
+    lvect = latt.lvect * (latt.scale * 0.529177249)
+
+    # Print atoms_frac block
+    println(io, "begin atoms_frac")
+    #
+    for i = 1:natom
+        @printf(io, "%4s%12.8f%12.8f%12.8f\n", latt.atoms[i], latt.coord[i,:]...)
+    end
+    #
+    println(io, "end atoms_frac\n")
+
+    # Print unit_cell_cart block
+    println(io, "begin unit_cell_cart")
+    #
+    for i = 1:3
+        @printf(io, "%12.8f%12.8f%12.8f\n", lvect[i,:]...)
+    end
+    #
+    println(io, "end unit_cell_cart\n")
+end
+
+"""
+    w90_write_win(io::IOStream, kmesh::Array{F64,2})
+
+Write k-mesh block into `w90.win`.
+
+See also: [`wannier_init`](@ref).
+"""
+function w90_write_win(io::IOStream, kmesh::Array{F64,2})
+    # Extract parameters
+    nkpt, ndir = size(kmesh)
+
+    # Sanity check
+    @assert ndir == 3
+
+    # Write the block for k-points
+    ndiv = ceil(I64, nkpt^(1/3))
+    @printf(io, "mp_grid :%3i%3i%3i\n", ndiv, ndiv, ndiv)
+    println(io, "begin kpoints")
+    #
+    for k = 1:nkpt
+        @printf(io, "%12.8f%12.8f%12.8f\n", kmesh[k,:]...)
+    end
+    #
+    println(io, "end kpoints\n")
+end
+
+#=
+### *Service Functions* : *Group X*
 =#
 
 """
@@ -390,245 +631,4 @@ function pw2wan_save(sp::String = "")
             error("File $filename is not created")
         end
     end
-end
-
-#=
-### *Service Functions* : *Group C*
-=#
-
-"""
-    w90_build_ctrl(latt:Lattice, nband::I64)
-
-Try to make the control parameters for the `w90.win` file. The `latt`
-object represent the crystallography information, and `nband` is the
-number of Kohn-Sham states outputed by the dft code.
-
-See also: [`w90_build_proj`](@ref).
-"""
-function w90_build_ctrl(latt::Lattice, nband::I64)
-    # Create a dict, which will be returned.
-    w90c = Dict{String,Any}()
-
-    # Generate a dict, which defines a mapping from orbital definition
-    # to number of orbitals.
-    #
-    # Perhaps you have to extend it to support your cases.
-    orb_dict = Dict{String,I64}(
-                 "s"   => 1,
-                 "l=0" => 1,
-                 "p"   => 3,
-                 "l=1" => 3, 
-                 "d"   => 5,
-                 "l=2" => 5,
-                 "f"   => 7,
-                 "l=3" => 7,
-             )
-
-    # Get number of wanniers, `num_wann`.
-    #
-    # Step 1, get the string for projection.
-    sproj = get_d("sproj")
-    @assert length(sproj) ≥ 2
-    # The first element of sproj should specify the type of wannier
-    # function. Now only the MLWF and SAWF modes are supported.
-    @assert sproj[1] in ("mlwf", "sawf")
-    #
-    # Step 2, calculate num_wann.
-    num_wann = 0
-    # Go throught each element of sproj
-    for i = 2:length(sproj)
-        # Extract atomic symbol and orbital specification
-        str_atm, str_orb = strip.(split(sproj[i], ":"))
-        # We have to remove all white spaces in str_orb. It is necessary.
-        str_orb = replace(str_orb, " " => "")
-        # Extract the corresponding number of orbitals
-        num_orb = orb_dict[str_orb]
-        # Find out how many atoms are there in the lattice.
-        num_atm = 0
-        for j = 1:latt.natom
-            if latt.atoms[j] == str_atm
-                num_atm = num_atm + 1
-            end
-        end
-        @assert num_atm ≥ 1
-        # Update num_wann
-        num_wann = num_wann + num_orb * num_atm
-    end
-    #
-    # Step 3, store num_wann in the dict.
-    w90c["num_wann"] = num_wann
-
-    # Get number of bands, `num_bands`.
-    @assert nband ≥ num_wann
-    w90c["num_bands"] = nband
-
-    # Deal with the disentanglement setup
-    #
-    # Step 1, get the string for disentanglement.
-    window = get_d("window")
-    @assert length(window) ≥ 2
-    # The first element of window should specify the scheme for
-    # disentanglement. Now only the exclude_bands and disentanglement
-    # modes are supported.
-    @assert window[1] in ("exc", "dis")
-    #
-    # Step 2, determine the disentanglement parameters and store them.
-    if window[1] == "exc"
-        w90c["exclude_bands"] = join(window[2:end], ", ")
-    else
-        if length(window) == 3
-            w90c["dis_win_min"]  = window[2]
-            w90c["dis_win_max"]  = window[3]
-        elseif length(window) == 5
-            w90c["dis_win_min"]  = window[2]
-            w90c["dis_win_max"]  = window[3]
-            w90c["dis_froz_min"] = window[4]
-            w90c["dis_froz_max"] = window[5]
-        else
-            error("Wrong window's definition.")
-        end
-    end
-
-    # Some additional but necessary parameters for wannier90
-    #
-    # We should write the hamiltonian
-    w90c["write_hr"] = ".true."
-    #
-    # We should write the transform matrix
-    w90c["write_u_matrices"] = ".true."
-    #
-    # Support symmetry-adapted wannier functions
-    if sproj[1] == "sawf"
-        w90c["site_symmetry"] = ".true."
-    end
-
-    # Return the required object.
-    return w90c
-end
-
-"""
-    w90_build_proj()
-
-Try to make the projection block for the `w90.win` file.
-
-See also: [`w90_build_ctrl`](@ref).
-"""
-function w90_build_proj()
-    # Create a string array to store the definitions for projections
-    proj = String[]
-
-    # Get the string for projection
-    sproj = get_d("sproj")
-
-    # Check the length of sproj
-    @assert length(sproj) ≥ 2
-
-    # The first element of sproj should specify the type of wannier
-    # function. Now only the MLWF and SAWF modes are supported.
-    @assert sproj[1] in ("mlwf", "sawf")
-
-    # Transfer sproj to proj
-    for i = 2:length(sproj)
-        push!(proj, sproj[i])
-    end
-
-    # Return the desired array
-    return proj
-end
-
-#=
-### *Service Functions* : *Group D*
-=#
-
-"""
-    w90_write_win(io::IOStream, w90c::Dict{String,Any})
-
-Write control parameters into `w90.win`.
-
-See also: [`wannier_init`](@ref).
-"""
-function w90_write_win(io::IOStream, w90c::Dict{String,Any})
-    for key in keys(w90c)
-        val = w90c[key]
-        println(io, key, " = ", val)
-    end
-    #
-    println(io)
-end
-
-"""
-    w90_write_win(io::IOStream, proj::Array{String,1})
-
-Write projection block into `w90.win`.
-
-See also: [`wannier_init`](@ref).
-"""
-function w90_write_win(io::IOStream, proj::Array{String,1})
-    println(io, "begin projections")
-    #
-    for i = 1:length(proj)
-        println(io, proj[i])
-    end
-    #
-    println(io, "end projections\n")
-end
-
-"""
-    w90_write_win(io::IOStream, latt::Lattice)
-
-Write crystallography information into `w90.win`.
- 
-See also: [`Lattice`](@ref), [`wannier_init`](@ref).
-"""
-function w90_write_win(io::IOStream, latt::Lattice)
-    # Extract parameters
-    natom = latt.natom
-
-    # Convert atomiclength (bohr) to angstrom
-    # 1 bohr = 0.529177249 angstrom
-    lvect = latt.lvect * (latt.scale * 0.529177249)
-
-    # Print atoms_frac block
-    println(io, "begin atoms_frac")
-    #
-    for i = 1:natom
-        @printf(io, "%4s%12.8f%12.8f%12.8f\n", latt.atoms[i], latt.coord[i,:]...)
-    end
-    #
-    println(io, "end atoms_frac\n")
-
-    # Print unit_cell_cart block
-    println(io, "begin unit_cell_cart")
-    #
-    for i = 1:3
-        @printf(io, "%12.8f%12.8f%12.8f\n", lvect[i,:]...)
-    end
-    #
-    println(io, "end unit_cell_cart\n")
-end
-
-"""
-    w90_write_win(io::IOStream, kmesh::Array{F64,2})
-
-Write k-mesh block into `w90.win`.
-
-See also: [`wannier_init`](@ref).
-"""
-function w90_write_win(io::IOStream, kmesh::Array{F64,2})
-    # Extract parameters
-    nkpt, ndir = size(kmesh)
-
-    # Sanity check
-    @assert ndir == 3
-
-    # Write the block for k-points
-    ndiv = ceil(I64, nkpt^(1/3))
-    @printf(io, "mp_grid :%3i%3i%3i\n", ndiv, ndiv, ndiv)
-    println(io, "begin kpoints")
-    #
-    for k = 1:nkpt
-        @printf(io, "%12.8f%12.8f%12.8f\n", kmesh[k,:]...)
-    end
-    #
-    println(io, "end kpoints\n")
 end
