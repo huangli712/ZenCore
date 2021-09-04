@@ -4,13 +4,16 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/09/03
+# Last modified: 2021/09/04
 #
 
 #=
 ### *Driver Functions*
 =#
 
+"""
+    wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
+"""
 function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     # Print the header
     println("Adaptor : WANNIER")
@@ -219,7 +222,7 @@ function wannier_save(sp::String = ""; op::String = "")
 end
 
 #=
-### *Service Functions* : *Group X*
+### *Service Functions* : *Group B*
 =#
 
 """
@@ -296,7 +299,7 @@ files, and `sp` is `up` or `dn`.
 
 See also: [`pw2wan_init`](@ref), [`pw2wan_save`](@ref).
 """
-function pw2wan_exec(case::String, sp::String ="")
+function pw2wan_exec(case::String, sp::String = "")
     # Print the header
     println("Detect the runtime environment for pw2wannier90")
 
@@ -347,13 +350,13 @@ function pw2wan_exec(case::String, sp::String ="")
 end
 
 """
-    pw2wan_save(sp::String ="")
+    pw2wan_save(sp::String = "")
 
 Backup the output files of pw2wannier90 if necessary.
 
 See also: [`pw2wan_init`](@ref), [`pw2wan_exec`](@ref).
 """
-function pw2wan_save(sp::String ="")
+function pw2wan_save(sp::String = "")
     # Print the header
     println("Finalize the computational task")
 
@@ -388,6 +391,10 @@ function pw2wan_save(sp::String ="")
         end
     end
 end
+
+#=
+### *Service Functions* : *Group C*
+=#
 
 """
     w90_build_ctrl(latt:Lattice, nband::I64)
@@ -528,6 +535,10 @@ function w90_build_proj()
     # Return the desired array
     return proj
 end
+
+#=
+### *Service Functions* : *Group D*
+=#
 
 """
     w90_write_win(io::IOStream, w90c::Dict{String,Any})
