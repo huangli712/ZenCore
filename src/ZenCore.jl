@@ -596,6 +596,14 @@ wannier_exec    -> Execute wannier90 program.
 wannier_save    -> Backup wannier90's output files.
 w90_make_ctrl   -> Prepare control parameters for wannier90.
 w90_make_proj   -> Prepare projections for wannier90.
+w90_make_map    ->
+w90_make_group  ->
+w90_make_window ->
+w90_read_amat   ->
+w90_read_eigs   ->
+w90_read_hmat   ->
+w90_read_umat   ->
+w90_read_udis   ->
 w90_write_win   -> Write w90.win file.
 pw2wan_init     -> Prepare pw2wannier90's input files.
 pw2wan_exec     -> Execute pw2wannier90 program.

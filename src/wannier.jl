@@ -378,19 +378,19 @@ end
 ### *Service Functions* : *Group C*
 =#
 
+function w90_read_amat()
+end
+
 function w90_read_eigs()
 end
 
-function w90_read_amat()
+function w90_read_hmat()
 end
 
 function w90_read_umat() 
 end
 
 function w90_read_udis()
-end
-
-function w90_read_hmat()
 end
 
 #=
