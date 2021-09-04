@@ -623,6 +623,14 @@ export pw2wan_exec
 export pw2wan_save
 export w90_make_ctrl
 export w90_make_proj
+export w90_make_map
+export w90_make_group
+export w90_make_window
+export w90_read_amat
+export w90_read_eigs
+export w90_read_hmat
+export w90_read_umat
+export w90_read_udis
 export w90_write_win
 
 #=
