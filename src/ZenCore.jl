@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/08/30
+# Last modified: 2021/09/04
 #
 
 """
@@ -591,6 +591,15 @@ Tools for the maximally-localised Wannier function scheme (adaptor).
 
 ```text
 wannier_adaptor -> Adaptor support.
+wannier_init    ->
+wannier_exec    ->
+wannier_save    ->
+w90_make_ctrl   ->
+w90_make_proj   ->
+w90_write_win   ->
+pw2wan_init     ->
+pw2wan_exec     ->
+pw2wan_save     ->
 ```
 =#
 
@@ -604,6 +613,9 @@ export wannier_save
 export pw2wan_init
 export pw2wan_exec
 export pw2wan_save
+export w90_make_ctrl
+export w90_make_proj
+export w90_write_win
 
 #=
 ### *Includes And Exports* : *ir.jl*
