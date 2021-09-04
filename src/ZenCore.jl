@@ -591,15 +591,15 @@ Tools for the maximally-localised Wannier function scheme (adaptor).
 
 ```text
 wannier_adaptor -> Adaptor support.
-wannier_init    ->
-wannier_exec    ->
-wannier_save    ->
-w90_make_ctrl   ->
-w90_make_proj   ->
-w90_write_win   ->
-pw2wan_init     ->
-pw2wan_exec     ->
-pw2wan_save     ->
+wannier_init    -> Prepare wannier90's input files.
+wannier_exec    -> Execute wannier90 program.
+wannier_save    -> Backup wannier90's output files.
+w90_make_ctrl   -> Prepare control parameters for wannier90.
+w90_make_proj   -> Prepare projections for wannier90.
+w90_write_win   -> Write w90.win file.
+pw2wan_init     -> Prepare pw2wannier90's input files.
+pw2wan_exec     -> Execute pw2wannier90 program.
+pw2wan_save     -> Backup pw2wannier90's output files.
 ```
 =#
 
