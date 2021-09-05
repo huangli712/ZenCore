@@ -411,23 +411,35 @@ function w90_make_group(latt::Lattice, sp::String = "")
         start = start + 1
     end
 
+    # Try to build PrTrait struct. The raw information about projectors
+    # should be encapsulated in it.
+    #
+    # Define all possible specifications for projectors
     spec = ("s",
             "pz", "px", "py",
             "dz2", "dxz", "dyz", "dx2-y2", "dxy",
-            "fz3", "fxz2", "fyz2", "fz(x2-y2)", "fxyz", "fx(x2-3y2)", "fy(3x2-y2)")
+            "fz3", "fxz2", "fyz2", "fz(x2-y2)", "fxyz", "fx(x2-3y2)", "fy(3x2-y2)"
+    )
+    #
+    # Generate PrTrait struct one by one
     PT = PrTrait[]
     for i = 1:nproj
+        # Try to figure which site it is. We just compare the atomic
+        # coordinates in coord with those saved in latt.coord.
         site = -1
         for j = 1:latt.natom
             if latt.coord[j,1:3] == coord[i,1:3]
-                site = j
+                site = j # That is it
                 break
             end 
         end
+        # Sanity check
         @assert site > 0
+        # Get 𝑙, 𝑚, and desc.
         l = l_vec[i]
         m = m_vec[i]
         desc = spec[m + l*l]
+        # Save the PrTrait struct
         push!(PT, PrTrait(site, l, m, desc))
     end
 
