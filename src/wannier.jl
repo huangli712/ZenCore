@@ -379,8 +379,19 @@ function w90_make_group()
     lines = readlines(fnnkp)
     ind = findfirst(x -> contains(x, "begin projections"), lines)
     @assert ind > 0
-    nproj = parse(I64, lines[ind+1])
-    println(nproj)
+    start = ind + 1
+    nproj = parse(I64, lines[start])
+    coord = zeros(F64, nproj, 3)
+    l_vec = zeros(I64, nproj)
+    m_vec = zeros(I64, nproj)
+    for i = 1:nproj
+        start = start + 1
+        arr = line_to_array(lines[start])
+        coord[i, :] = parse.(F64, arr[1:3])
+        l_vec[i] = parse(I64, arr[4])
+        m_vec[i] = parse(I64, arr[5])
+        start = start + 1
+    end
 end
 
 """
