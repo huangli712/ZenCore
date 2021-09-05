@@ -413,6 +413,38 @@ function w90_make_group(latt::Lattice)
         push!(PT, PrTrait(site, l, m, desc))
     end
     println(PT)
+
+    # Try to split these projectors into groups.
+    #
+    # At first, we collect the tuple (site, l) for all projectors.
+    site_l = Tuple[]
+    for i in eachindex(PT)
+        push!(site_l, (PT[i].site, PT[i].l))
+    end
+    #
+    # Second, we figure out the unique (site, l) pairs. Here, we use the
+    # union! function, which is much more efficient than the unique! one.
+    union!(site_l)
+    #
+    # Third, we create a array of PrGroup struct (except for site and
+    # l, most of its member variables need to be corrected). Note
+    # that for a given PrGroup, the projectors indexed by PrGroup.Pr
+    # should share the same site and l.
+    PG = PrGroup[]
+    for i in eachindex(site_l)
+        push!(PG, PrGroup(site_l[i]...))
+    end
+    #
+    # Fourth, for each PrGroup, we scan all of the projectors to find
+    # out those with correct site and l; record their indices; and
+    # save them at PrGroup.Pr array.
+    for i in eachindex(PG)
+        site, l = PG[i].site, PG[i].l
+        PG[i].Pr = findall(x -> (x.site, x.l) == (site, l), PT)
+    end
+    #
+    # Finally, check correctness
+    @assert nproj == sum(x -> length(x.Pr), PG)
 end
 
 """
