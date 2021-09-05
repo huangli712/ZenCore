@@ -375,10 +375,12 @@ end
     w90_make_group()
 """
 function w90_make_group()
-    println("here")
     fnnkp = "w90.nnkp"
-    line = read(fnnkp, String)
-    println(line)
+    lines = readlines(fnnkp)
+    ind = findfirst(x -> contains(x, "begin projections"), lines)
+    @assert ind > 0
+    nproj = parse(I64, lines[ind+1])
+    println(nproj)
 end
 
 """
