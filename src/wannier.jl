@@ -445,6 +445,29 @@ function w90_make_group(latt::Lattice)
     #
     # Finally, check correctness
     @assert nproj == sum(x -> length(x.Pr), PG)
+
+    # Print some useful information to check
+    println("  > Number of projectors: ", nproj)
+    for i in eachindex(PT)
+        println("    [ PrTrait $i ]")
+        println("      site -> ", PT[i].site)
+        println("      l -> ", PT[i].l)
+        println("      m -> ", PT[i].m)
+        println("      desc -> ", PT[i].desc)
+    end
+    println("  > Number of groups: ", length(PG))
+    for i in eachindex(PG)
+        println("    [ PrGroup $i ]")
+        println("      site -> ", PG[i].site)
+        println("      l -> ", PG[i].l)
+        println("      corr -> ", PG[i].corr)
+        println("      shell -> ", PG[i].shell)
+        println("      Pr -> ", PG[i].Pr)
+    end
+
+    # Return the desired arrays
+    # Note: PG should be further setup at plo_group() function.
+    return PT, PG
 end
 
 """
