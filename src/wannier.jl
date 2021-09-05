@@ -372,9 +372,9 @@ function w90_make_map()
 end
 
 """
-    w90_make_group()
+    w90_make_group(latt::Lattice)
 """
-function w90_make_group()
+function w90_make_group(latt::Lattice)
     fnnkp = "w90.nnkp"
     lines = readlines(fnnkp)
     ind = findfirst(x -> contains(x, "begin projections"), lines)
@@ -387,11 +387,32 @@ function w90_make_group()
     for i = 1:nproj
         start = start + 1
         arr = line_to_array(lines[start])
-        coord[i, :] = parse.(F64, arr[1:3])
+        coord[i,:] = parse.(F64, arr[1:3])
         l_vec[i] = parse(I64, arr[4])
         m_vec[i] = parse(I64, arr[5])
         start = start + 1
     end
+
+    spec = ("s",
+            "pz", "px", "py",
+            "dz2", "dxz", "dyz", "dx2-y2", "dxy",
+            "fz3", "fxz2", "fyz2", "fz(x2-y2)", "fxyz", "fx(x2-3y2)", "fy(3x2-y2)")
+    PT = PrTrait[]
+    for i = 1:nproj
+        site = -1
+        for j = 1:latt.natom
+            if latt.coord[j,1:3] == coord[i,1:3]
+                site = j
+                break
+            end 
+        end
+        @assert site > 0
+        l = l_vec[i]
+        m = m_vec[i]
+        desc = spec[m + l*l]
+        push!(PT, PrTrait(site, l, m, desc))
+    end
+    println(PT)
 end
 
 """
