@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/09/04
+# Last modified: 2021/09/05
 #
 
 #=
@@ -375,6 +375,10 @@ end
     w90_make_group()
 """
 function w90_make_group()
+    println("here")
+    fnnkp = "w90.nnkp"
+    line = read(fnnkp, String)
+    println(line)
 end
 
 """
