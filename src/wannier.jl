@@ -384,15 +384,24 @@ used when the system is spin-polarized.
 See also: [`PrTrait`](@ref), [`PrGroup`](@ref).
 """
 function w90_make_group(latt::Lattice, sp::String = "")
-    fnnkp = "w90.nnkp"
+    # Read and parse the `w90.nnkp` file
+    #
+    # Build the filename
+    fnnkp = "w90" * sp * ".nnkp"
+    #
+    # Read it and figure out the projections block
     lines = readlines(fnnkp)
     ind = findfirst(x -> contains(x, "begin projections"), lines)
     @assert ind > 0
     start = ind + 1
-    nproj = parse(I64, lines[start])
-    coord = zeros(F64, nproj, 3)
-    l_vec = zeros(I64, nproj)
-    m_vec = zeros(I64, nproj)
+    #
+    # Create some arrays to store the projectors
+    nproj = parse(I64, lines[start]) # Number of projectors
+    coord = zeros(F64, nproj, 3)     # Atomic coordinates
+    l_vec = zeros(I64, nproj) # Quantum number 𝑙
+    m_vec = zeros(I64, nproj) # Quantum number 𝑚
+    #
+    # Parse the projectors
     for i = 1:nproj
         start = start + 1
         arr = line_to_array(lines[start])
