@@ -412,7 +412,6 @@ function w90_make_group(latt::Lattice)
         desc = spec[m + l*l]
         push!(PT, PrTrait(site, l, m, desc))
     end
-    println(PT)
 
     # Try to split these projectors into groups.
     #
