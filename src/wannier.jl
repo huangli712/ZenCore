@@ -372,9 +372,18 @@ function w90_make_map()
 end
 
 """
-    w90_make_group(latt::Lattice)
+    w90_make_group(latt::Lattice, sp::String = "")
+
+Try to read the `w90.nnkp` file, parse the `projections` block. Finally,
+it will return arrays of PrTrait and PrGroup objects, which contain the
+definitions of projectors. The argument `latt` is essential. It includes
+the atomic coordinates for all lattice sites, which are quite useful to
+distinguish these projectors. And the argument `sp` is optional. It is
+used when the system is spin-polarized.
+
+See also: [`PrTrait`](@ref), [`PrGroup`](@ref).
 """
-function w90_make_group(latt::Lattice)
+function w90_make_group(latt::Lattice, sp::String = "")
     fnnkp = "w90.nnkp"
     lines = readlines(fnnkp)
     ind = findfirst(x -> contains(x, "begin projections"), lines)
