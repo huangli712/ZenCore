@@ -633,13 +633,25 @@ function w90_read_hmat(sp::String = "")
     rdeg = zeros(I64, nrpt)
 
     # We use `start` to record the line index
-    start = 0
+    start = 3
 
     # Read the degeneracies
     # Determine how many lines are there for this block
     nrow = div(nrpt, 15)
     nrem = rem(nrpt, 15)
-    @show nrow, nrem
+    @assert nrow ≥ 1
+    for r = 1:nrow
+        start = start + 1
+        rs = (r - 1) * 15 + 1
+        re = (r - 1) * 15 + 15
+        rdeg[rs:re] = parse.(I64, line_to_array(lines[start]))
+    end
+    start = start + 1
+    rs = nrow * 15 + 1
+    re = nrpt
+    @show rs, re
+    rdeg[rs:re] = parse.(I64, line_to_array(lines[start]))
+    @show rdeg
 end
 
 """
