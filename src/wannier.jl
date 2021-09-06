@@ -567,6 +567,30 @@ Note that the eigenvalues from `nscf.out` are not accurate enough. We
 will use the data extracted from `w90.eig` instead.
 """
 function w90_read_eigs(sp::String = "")
+    feig = "w90" * sp * ".eig"
+    lines = readlines(feig)
+    @assert length(lines) ≥ 1
+
+    nband, nkpt = parse.(I64, line_to_array(lines[end])[1:2])
+
+    eigs = zeros(F64, nband, nkpt)
+
+    start = 0
+    for k = 1:nkpt
+        for b = 1:nband
+            start = start + 1
+
+            arr = line_to_array(lines[start])
+            _b, _k = parse.(I64, arr[1:2])
+            @assert _b == b
+            @assert _k == k
+            _v = parse(F64, arr[3])
+            eigs[b,k] = _v
+        end
+    end
+    @assert start = nkpt * nband
+
+    return eigs
 end
 
 """
