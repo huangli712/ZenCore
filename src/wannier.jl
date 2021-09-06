@@ -561,6 +561,10 @@ end
 
 """
     w90_read_eigs(sp::String = "")
+
+Try to read and parse the `w90.eig` file to get the band eigenvalues.
+Note that the eigenvalues from `nscf.out` are not accurate enough. We
+will use the data extracted from `w90.eig` instead.
 """
 function w90_read_eigs(sp::String = "")
 end
