@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/08/28
+# Last modified: 2021/09/06
 #
 
 #=
@@ -764,16 +764,19 @@ function pwscfio_eigen(f::String)
         # Read eigenvalues
         start = start + 3
         if nrow > 1 # nband > 8
-            for r = 1:nrow - 1
+            for r = 1:nrow
                 start = start + 1
                 bs = (r - 1) * 8 + 1
                 be = (r - 1) * 8 + 8
                 enk[bs:be,i,1] = parse.(F64, line_to_array(lines[start]))
             end # END OF R LOOP
-            start = start + 1
-            bs = (nrow - 1) * 8 + 1 
-            be = nband
-            enk[bs:be,i,1] = parse.(F64, line_to_array(lines[start]))
+            if nrem > 0
+                start = start + 1
+                bs = nrow * 8 + 1 
+                be = nband
+                @assert nrem == be - bs + 1
+                enk[bs:be,i,1] = parse.(F64, line_to_array(lines[start]))
+            end
         else
             @assert nrow == 1
             start = start + 1
@@ -783,16 +786,19 @@ function pwscfio_eigen(f::String)
         # Read occupations
         start = start + 2
         if nrow > 1 # nband > 8
-            for r = 1:nrow - 1
+            for r = 1:nrow
                 start = start + 1
                 bs = (r - 1) * 8 + 1
                 be = (r - 1) * 8 + 8
                 occupy[bs:be,i,1] = parse.(F64, line_to_array(lines[start]))
             end # END OF R LOOP
-            start = start + 1
-            bs = (nrow - 1) * 8 + 1 
-            be = nband
-            occupy[bs:be,i,1] = parse.(F64, line_to_array(lines[start]))
+            if nrem > 0
+                start = start + 1
+                bs = nrow * 8 + 1 
+                be = nband
+                @assert nrem == be - bs + 1
+                occupy[bs:be,i,1] = parse.(F64, line_to_array(lines[start]))
+            end
         else
             @assert nrow == 1
             start = start + 1
