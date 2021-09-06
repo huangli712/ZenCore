@@ -627,11 +627,19 @@ function w90_read_hmat(sp::String = "")
     nproj = parse(I64, lines[2]) # Number of wannier functions
     nrpt = parse(I64, lines[3])  # Number of Wigner-Seitz grid points
 
+    # Create arrays
+    hamr = zeros(C64, nproj, nproj, nrpt)
+    rvec = zeros(I64, nrpt, 3)
+    rdeg = zeros(I64, nrpt)
+
     # We use `start` to record the line index
     start = 0
 
     # Read the degeneracies
-    
+    # Determine how many lines are there for this block
+    nrow = div(nrpt, 15)
+    nrem = rem(nrpt, 15)
+    @show nrow, nrem
 end
 
 """
