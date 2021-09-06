@@ -588,7 +588,7 @@ function w90_read_eigs(sp::String = "")
             eigs[b,k] = _v
         end
     end
-    @assert start = nkpt * nband
+    @assert start == nkpt * nband
 
     return eigs
 end
