@@ -616,6 +616,17 @@ matrix in WF representation, the Wigner-Seitz grid points, and their
 weights (degeneracies).
 """
 function w90_read_hmat(sp::String = "")
+    # Build the filename
+    fhr = "w90" * sp * "_hr.dat"
+
+    # Read the `w90_hr.dat` file
+    lines = readlines(fhr)
+    @assert length(lines) ≥ 3
+
+    # Determine the key parameters
+    nproj = parse(I64, lines[2])
+    nrpt = parse(I64, lines[3])
+    @show nproj, nrpt
 end
 
 """
