@@ -628,9 +628,9 @@ function w90_read_hmat(sp::String = "")
     nrpt = parse(I64, lines[3])  # Number of Wigner-Seitz grid points
 
     # Create arrays
-    hamr = zeros(C64, nproj, nproj, nrpt)
-    rvec = zeros(I64, nrpt, 3)
-    rdeg = zeros(I64, nrpt)
+    hamr = zeros(C64, nproj, nproj, nrpt) # Hamiltonian matrix
+    rvec = zeros(I64, nrpt, 3) # Wigner-Seitz grids
+    rdeg = zeros(I64, nrpt)    # Degeneracies or weights
 
     # We use `start` to record the line index
     start = 3
@@ -663,12 +663,18 @@ function w90_read_hmat(sp::String = "")
     for r = 1:nrpt
         for i = 1:nproj
             for j = 1:nproj
+                # Increase the counter
                 start = start + 1
+                # Convert string to line
                 arr = line_to_array(lines[start])
+                # Get Wigner-Seitz grid
                 rvec[r,:] = parse.(I64, arr[1:3])
+                # Get indices of wannier functions
                 _j, _i = parse.(I64, arr[4:5])
+                # Sanity check
                 @assert _j == j
                 @assert _i == i
+                # Fill in the hamiltonian
                 _re, _im = parse.(F64, arr[6:7])
                 hamr[j,i,r] = _re + im * _im
             end # END OF J LOOP
