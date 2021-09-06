@@ -747,22 +747,22 @@ function w90_read_udis(sp::String = "")
     nkpt, nproj, nband = parse.(I64, line_to_array(lines[2]))
 
     # Create array
-    udis = zeros(C64, nproj, nband, nkpt)
+    udis = zeros(C64, nband, nproj, nkpt)
 
     # We use `start` to record the line index
     start = 2
 
-    # Try to read the u-matrix
+    # Try to read the udis-matrix
     for k = 1:nkpt
         # Increase the counter
         start = start + 2 # Skip one empty line and one 𝑘-point line
         for j = 1:nproj
-            for i = 1:nproj
+            for i = 1:nband
                 # Increase the counter
                 start = start + 1
                 # Parse the line and fill in the array
                 _re, _im = parse.(F64, line_to_array(lines[start]))
-                umat[i,j,k] = _re + im * _im
+                udis[i,j,k] = _re + im * _im
             end # END OF I LOOP
         end # END OF J LOOP
     end # END OF K LOOP
