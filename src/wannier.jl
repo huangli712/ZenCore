@@ -736,6 +736,39 @@ which gives the nproj dimension optimal subspace from the original
 bloch states.
 """
 function w90_read_udis(sp::String = "")
+    # Build the filename
+    fu = "w90" * sp * "_u_dis.mat"
+
+    # Read the `w90_u_dis.mat` file
+    lines = readlines(fu)
+    @assert length(lines) ≥ 3
+
+    # Determine the key parameters
+    nkpt, nproj, nband = parse.(I64, line_to_array(lines[2]))
+
+    # Create array
+    udis = zeros(C64, nproj, nband, nkpt)
+
+    # We use `start` to record the line index
+    start = 2
+
+    # Try to read the u-matrix
+    for k = 1:nkpt
+        # Increase the counter
+        start = start + 2 # Skip one empty line and one 𝑘-point line
+        for j = 1:nproj
+            for i = 1:nproj
+                # Increase the counter
+                start = start + 1
+                # Parse the line and fill in the array
+                _re, _im = parse.(F64, line_to_array(lines[start]))
+                umat[i,j,k] = _re + im * _im
+            end # END OF I LOOP
+        end # END OF J LOOP
+    end # END OF K LOOP
+
+    # Return the desired array
+    return udis
 end
 
 #=
