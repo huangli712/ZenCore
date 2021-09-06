@@ -702,7 +702,30 @@ function w90_read_umat(sp::String = "")
 
     # Determine the key parameters
     nkpt, nproj = parse.(I64, line_to_array(lines[2])[1:2])
-    @show nkpt, nproj
+
+    # Create array
+    umat = zeros(C64, nproj, nproj, nkpt)
+
+    # We use `start` to record the line index
+    start = 2
+
+    # Try to read the u-matrix
+    for k = 1:nkpt
+        # Increase the counter
+        start = start + 2 # Skip one empty line and one 𝑘-point line
+        for j = 1:nproj
+            for i = 1:nproj
+                # Increase the counter
+                start = start + 1
+                # Parse the line and fill in the array
+                _re, _im = parse.(F64, line_to_array(lines[start]))
+                umat[i,j,k] = _re + im * _im
+            end # END OF I LOOP
+        end # END OF J LOOP
+    end # END OF K LOOP
+
+    # Return the desired array
+    return umat
 end
 
 """
