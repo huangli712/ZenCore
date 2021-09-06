@@ -609,9 +609,13 @@ function w90_read_eigs(sp::String = "")
 end
 
 """
-    w90_read_hmat()
+    w90_read_hmat(sp::String = "")
+
+Try to read and parse the `w90_hr.dat` file, return the hamiltonian
+matrix in WF representation, the Wigner-Seitz grid points, and their
+weights (degeneracies).
 """
-function w90_read_hmat()
+function w90_read_hmat(sp::String = "")
 end
 
 """
