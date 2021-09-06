@@ -646,11 +646,13 @@ function w90_read_hmat(sp::String = "")
         re = (r - 1) * 15 + 15
         rdeg[rs:re] = parse.(I64, line_to_array(lines[start]))
     end
-    start = start + 1
-    rs = nrow * 15 + 1
-    re = nrpt
-    @show rs, re
-    rdeg[rs:re] = parse.(I64, line_to_array(lines[start]))
+    if nrem > 0
+        start = start + 1
+        rs = nrow * 15 + 1
+        re = nrpt
+        @assert nrem == re - rs + 1
+        rdeg[rs:re] = parse.(I64, line_to_array(lines[start]))
+    end
     @show rdeg
 end
 
