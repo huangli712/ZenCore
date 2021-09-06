@@ -512,14 +512,22 @@ end
 """
     w90_read_amat(sp::String = "")
 
-Try to read and parse the `w90.amn` file to get the ``A_{mn}``` matrix.
+Try to read and parse the `w90.amn` file to get the ``A_{mn}`` matrix,
+which represents the projection of the Bloch states onto trail localized
+orbitals.
 """
 function w90_read_amat(sp::String = "")
+    # Build the filename
     famn = "w90" * sp * ".amn"
+
+    # Read the `w90.amn` file
     lines = readlines(famn)
     @assert length(lines) ≥ 3
+
+    # Determine key parameters
     nband, nkpt, nproj = parse.(I64, line_to_array(lines[2]))
 
+    # Create an array for ``A_{mn}``
     Amn = zeros(C64, nproj, nband, nkpt)
 
     start = 2
