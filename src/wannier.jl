@@ -686,15 +686,21 @@ function w90_read_hmat(sp::String = "")
 end
 
 """
-    w90_read_umat()
+    w90_read_umat(sp::String = "")
+
+Try to read and parse the `w90_u.mat` file, return the u-matrix, which
+gives the unitary rotations from the optimal subspace to the optimally
+smooth states.
 """
-function w90_read_umat() 
+function w90_read_umat(sp::String = "") 
 end
 
 """
-    w90_read_udis()
+    w90_read_udis(sp::String = "")
+
+Try to read and parse the `w90_u_dis.mat` file.
 """
-function w90_read_udis()
+function w90_read_udis(sp::String = "")
 end
 
 #=
