@@ -530,25 +530,33 @@ function w90_read_amat(sp::String = "")
     # Create an array for ``A_{mn}``
     Amn = zeros(C64, nproj, nband, nkpt)
 
+    # We use `start` to record the line index
     start = 2
+
+    # Parse the data and fill in the Amn array
     for k = 1:nkpt
         for p = 1:nproj
             for b = 1:nband
+                # Increase the counter
                 start = start + 1
+                # Convert string to array
                 arr = line_to_array(lines[start])
+                # Determine indices for bands, projectors, and 𝑘-points
                 _b, _p, _k = parse.(I64, arr[1:3])
-                @show _b, _p, _k
-                @show b, p, k
+                # Sanity check
                 @assert _b == b
                 @assert _p == p
                 @assert _k == k
+                # Fill the array
                 _re, _im = parse.(F64, arr[4:5])
                 Amn[p,b,k] = _re + im*_im
-            end
-        end
-    end
-    @show start - 2, nband * nproj * nkpt
+            end # END OF B LOOP
+        end # END OF P LOOP
+    end  # END OF K LOOP
     @assert start - 2 == nband * nproj * nkpt
+
+    # Return the desired array
+    return Amn
 end
 
 """
