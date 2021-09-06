@@ -675,6 +675,8 @@ function w90_read_hmat(sp::String = "")
         end # END OF I LOOP
     end # END OF R LOOP
 
+    # Return the desired arrays
+    return rdeg, rvec, hamr
 end
 
 """
