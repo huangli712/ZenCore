@@ -510,15 +510,22 @@ end
 =#
 
 """
-    w90_read_amat()
+    w90_read_amat(sp::String = "")
+
+Try to read and parse the `w90.amn` file to get the ``A_{mn}``` matrix.
 """
-function w90_read_amat()
+function w90_read_amat(sp::String = "")
+    famn = "w90" * sp * ".amn"
+    lines = readlines(famn)
+    @assert length(lines) ≥ 3
+    nband, nkpt, nproj = parse.(I64, line_to_array(lines[2]))
+    @show nband, nkpt, nproj
 end
 
 """
-    w90_read_eigs()
+    w90_read_eigs(sp::String = "")
 """
-function w90_read_eigs()
+function w90_read_eigs(sp::String = "")
 end
 
 """
