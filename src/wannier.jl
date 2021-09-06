@@ -519,7 +519,25 @@ function w90_read_amat(sp::String = "")
     lines = readlines(famn)
     @assert length(lines) ≥ 3
     nband, nkpt, nproj = parse.(I64, line_to_array(lines[2]))
-    @show nband, nkpt, nproj
+
+    Amn = zeros(C64, nproj, nband, nkpt)
+
+    start = 2
+    for b = 1:nband
+        for p = 1:nproj
+            for k = 1:nkpt
+                start = start + 1
+                arr = line_to_array(lines[start])
+                _b, _p, _k = parse.(I64, arr[1:3])
+                @assert _b == b
+                @assert _p == p
+                @assert _k == k
+                _re, _im = parse.(F64, arr[4:5])
+                Amn[p,b,k] = _re + im*_im
+            end
+        end
+    end
+    @assert start == nband * nproj * nkpt - 2
 end
 
 """
