@@ -629,6 +629,9 @@ function w90_read_hmat(sp::String = "")
 
     # We use `start` to record the line index
     start = 0
+
+    # Read the degeneracies
+    
 end
 
 """
