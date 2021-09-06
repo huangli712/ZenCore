@@ -524,7 +524,7 @@ function w90_read_amat(sp::String = "")
     lines = readlines(famn)
     @assert length(lines) ≥ 3
 
-    # Determine key parameters
+    # Determine the key parameters
     nband, nkpt, nproj = parse.(I64, line_to_array(lines[2]))
 
     # Create an array for ``A_{mn}``
@@ -692,7 +692,17 @@ Try to read and parse the `w90_u.mat` file, return the u-matrix, which
 gives the unitary rotations from the optimal subspace to the optimally
 smooth states.
 """
-function w90_read_umat(sp::String = "") 
+function w90_read_umat(sp::String = "")
+    # Build the filename
+    fu = "w90" * sp * "_u.mat"
+
+    # Read the `w90_u.mat` file
+    lines = readlines(fu)
+    @assert length(lines) ≥ 3
+
+    # Determine the key parameters
+    nkpt, nproj = parse.(I64, line_to_array(lines[2])[1:2])
+    @show nkpt, nproj
 end
 
 """
