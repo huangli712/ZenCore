@@ -624,9 +624,11 @@ function w90_read_hmat(sp::String = "")
     @assert length(lines) ≥ 3
 
     # Determine the key parameters
-    nproj = parse(I64, lines[2])
-    nrpt = parse(I64, lines[3])
-    @show nproj, nrpt
+    nproj = parse(I64, lines[2]) # Number of wannier functions
+    nrpt = parse(I64, lines[3])  # Number of Wigner-Seitz grid points
+
+    # We use `start` to record the line index
+    start = 0
 end
 
 """
