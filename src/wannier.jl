@@ -547,12 +547,13 @@ function w90_read_amat(sp::String = "")
                 @assert _b == b
                 @assert _p == p
                 @assert _k == k
-                # Fill the array
+                # Fill in the array
                 _re, _im = parse.(F64, arr[4:5])
                 Amn[p,b,k] = _re + im*_im
             end # END OF B LOOP
         end # END OF P LOOP
     end  # END OF K LOOP
+    #
     @assert start - 2 == nband * nproj * nkpt
 
     # Return the desired array
@@ -567,29 +568,43 @@ Note that the eigenvalues from `nscf.out` are not accurate enough. We
 will use the data extracted from `w90.eig` instead.
 """
 function w90_read_eigs(sp::String = "")
+    # Build the filename
     feig = "w90" * sp * ".eig"
+
+    # Read the `w90.eig` file
     lines = readlines(feig)
     @assert length(lines) ≥ 1
 
+    # Determine the key parameters from the last line!
     nband, nkpt = parse.(I64, line_to_array(lines[end])[1:2])
 
+    # Create an array for ``E_{nk}``
     eigs = zeros(F64, nband, nkpt)
 
+    # We use `start` to record the line index
     start = 0
+
+    # Parse the data and fill in the eigs array
     for k = 1:nkpt
         for b = 1:nband
+            # Increase the counter
             start = start + 1
-
+            # Convert string to array
             arr = line_to_array(lines[start])
+            # Determine indices for bands and 𝑘-points
             _b, _k = parse.(I64, arr[1:2])
+            # Sanity check
             @assert _b == b
             @assert _k == k
+            # Fill in the array
             _v = parse(F64, arr[3])
             eigs[b,k] = _v
-        end
-    end
+        end # END OF B LOOP
+    end # END OF K LOOP
+    #
     @assert start == nkpt * nband
 
+    # Return the desired array
     return eigs
 end
 
