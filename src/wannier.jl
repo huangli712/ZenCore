@@ -523,12 +523,14 @@ function w90_read_amat(sp::String = "")
     Amn = zeros(C64, nproj, nband, nkpt)
 
     start = 2
-    for b = 1:nband
+    for k = 1:nkpt
         for p = 1:nproj
-            for k = 1:nkpt
+            for b = 1:nband
                 start = start + 1
                 arr = line_to_array(lines[start])
                 _b, _p, _k = parse.(I64, arr[1:3])
+                @show _b, _p, _k
+                @show b, p, k
                 @assert _b == b
                 @assert _p == p
                 @assert _k == k
@@ -537,7 +539,8 @@ function w90_read_amat(sp::String = "")
             end
         end
     end
-    @assert start == nband * nproj * nkpt - 2
+    @show start - 2, nband * nproj * nkpt
+    @assert start - 2 == nband * nproj * nkpt
 end
 
 """
