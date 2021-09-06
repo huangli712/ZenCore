@@ -731,7 +731,9 @@ end
 """
     w90_read_udis(sp::String = "")
 
-Try to read and parse the `w90_u_dis.mat` file.
+Try to read and parse the `w90_u_dis.mat` file. Return the udis-matrix,
+which gives the nproj dimension optimal subspace from the original
+bloch states.
 """
 function w90_read_udis(sp::String = "")
 end
