@@ -659,6 +659,21 @@ function w90_read_hmat(sp::String = "")
         rdeg[rs:re] = parse.(I64, line_to_array(lines[start]))
     end
 
+    # Try to read the hamiltonian
+    for r = 1:nrpt
+        for i = 1:nproj
+            for j = 1:nproj
+                start = start + 1
+                arr = line_to_array(lines[start])
+                rvec[r,:] = parse.(I64, arr[1:3])
+                _j, _i = parse.(I64, arr[4:5])
+                @assert _j == j
+                @assert _i == i
+                _re, _im = parse.(F64, arr[6:7])
+                hamr[j,i,r] = _re + im * _im
+            end # END OF J LOOP
+        end # END OF I LOOP
+    end # END OF R LOOP
 
 end
 
