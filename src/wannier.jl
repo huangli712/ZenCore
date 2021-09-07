@@ -752,7 +752,10 @@ end
 
 Try to read and parse the `w90_u_dis.mat` file. Return the udis-matrix,
 which gives the nproj dimension optimal subspace from the original
-bloch states.
+bloch states. Actually, it is the transform matrix for disentanglement.
+The argument `sp` denotes the spin component.
+
+See also: [`w90_read_udis`](@ref).
 """
 function w90_read_udis(sp::String = "")
     # Build the filename
