@@ -533,7 +533,7 @@ end
 
 Try to read and parse the `w90.amn` file to get the ``A_{mn}`` matrix,
 which represents the projection of the Bloch states onto trail localized
-orbitals.
+orbitals. The argument `sp` denotes the spin component.
 """
 function w90_read_amat(sp::String = "")
     # Build the filename
@@ -584,7 +584,8 @@ end
 
 Try to read and parse the `w90.eig` file to get the band eigenvalues.
 Note that the eigenvalues from `nscf.out` are not accurate enough. We
-will use the data extracted from `w90.eig` instead.
+will use the data extracted from `w90.eig` instead. The argument `sp`
+denotes the spin component.
 """
 function w90_read_eigs(sp::String = "")
     # Build the filename
@@ -632,7 +633,7 @@ end
 
 Try to read and parse the `w90_hr.dat` file, return the hamiltonian
 matrix in WF representation, the Wigner-Seitz grid points, and their
-weights (degeneracies).
+weights (degeneracies). The argument `sp` denotes the spin component.
 """
 function w90_read_hmat(sp::String = "")
     # Build the filename
@@ -662,6 +663,7 @@ function w90_read_hmat(sp::String = "")
     @assert nrow ≥ 1
     #
     # Read the first nrow lines
+    # There are 15 elements per line.
     for r = 1:nrow
         start = start + 1
         rs = (r - 1) * 15 + 1
@@ -695,7 +697,7 @@ function w90_read_hmat(sp::String = "")
                 @assert _i == i
                 # Fill in the hamiltonian
                 _re, _im = parse.(F64, arr[6:7])
-                hamr[j,i,r] = _re + im * _im
+                hamr[j, i, r] = _re + im * _im
             end # END OF J LOOP
         end # END OF I LOOP
     end # END OF R LOOP
@@ -740,7 +742,7 @@ function w90_read_umat(sp::String = "")
                 start = start + 1
                 # Parse the line and fill in the array
                 _re, _im = parse.(F64, line_to_array(lines[start]))
-                umat[i,j,k] = _re + im * _im
+                umat[i, j, k] = _re + im * _im
             end # END OF I LOOP
         end # END OF J LOOP
     end # END OF K LOOP
