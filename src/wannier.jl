@@ -330,6 +330,12 @@ function w90_make_ctrl(latt::Lattice, nband::I64)
     if sproj[1] == "sawf"
         w90c["site_symmetry"] = ".true."
     end
+    #
+    # Special treatment for spinors
+    if get_d("lspinorb")
+        w90c["num_wann"] = num_wann * 2
+        w90c["spinors"] = ".true."
+    end
 
     # Return the required object.
     return w90c
@@ -364,6 +370,10 @@ function w90_make_proj()
     # Return the desired array
     return proj
 end
+
+#=
+### *Service Functions* : *Group C*
+=#
 
 """
     w90_make_map()
@@ -525,7 +535,7 @@ function w90_make_window(PG::Array{PrGroup,1}, enk::Array{F64,2})
 end
 
 #=
-### *Service Functions* : *Group C*
+### *Service Functions* : *Group D*
 =#
 
 """
@@ -798,7 +808,7 @@ function w90_read_udis(sp::String = "")
 end
 
 #=
-### *Service Functions* : *Group D*
+### *Service Functions* : *Group E*
 =#
 
 """
