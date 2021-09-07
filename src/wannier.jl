@@ -806,7 +806,7 @@ function w90_write_win(io::IOStream, w90c::Dict{String,Any})
         val = w90c[key]
         println(io, key, " = ", val)
     end
-    #
+    # Add an empty line
     println(io)
 end
 
@@ -864,7 +864,7 @@ end
 """
     w90_write_win(io::IOStream, kmesh::Array{F64,2})
 
-Write k-mesh block into `w90.win`.
+Write 𝑘-mesh block into `w90.win`.
 
 See also: [`wannier_init`](@ref).
 """
@@ -877,6 +877,7 @@ function w90_write_win(io::IOStream, kmesh::Array{F64,2})
 
     # Write the block for k-points
     ndiv = ceil(I64, nkpt^(1/3))
+    #
     @printf(io, "mp_grid :%3i%3i%3i\n", ndiv, ndiv, ndiv)
     println(io, "begin kpoints")
     #
