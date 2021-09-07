@@ -502,9 +502,26 @@ function w90_make_group(latt::Lattice, sp::String = "")
 end
 
 """
-    w90_make_window()
+    w90_make_window(PG::Array{PrGroup,1}, enk::Array{F64,2})
 """
-function w90_make_window()
+function w90_make_window(PG::Array{PrGroup,1}, enk::Array{F64,2})
+    # Extract the key parameters
+    nband, nkpt = size(enk)
+ 
+    # Initialize an array of PrWindow struct
+    PW = PrWindow[]
+
+    for p in eachindex(PG)
+        bwin = (1, nband)
+
+        kwin = zeros(I64, nkpt, 1, 2)
+        fill!(view(kwin, :, :, 1), 1)
+        fill!(view(kwin, :, :, 1), nband)
+        push!(PW, PrWindow(kwin, bwin))
+
+        # Print some useful information
+        println("  > Create window $p: $bwin <--> ($(PW[p].bmin), $(PW[p].bmax))")
+    end # END OF P LOOP
 end
 
 #=
