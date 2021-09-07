@@ -709,7 +709,9 @@ end
 
 Try to read and parse the `w90_u.mat` file, return the u-matrix, which
 gives the unitary rotations from the optimal subspace to the optimally
-smooth states.
+smooth states. The argument `sp` denotes the spin component.
+
+See also: [`w90_read_udis`](@ref).
 """
 function w90_read_umat(sp::String = "")
     # Build the filename
