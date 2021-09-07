@@ -1018,7 +1018,8 @@ end
 """
     pw2wan_save(sp::String = "")
 
-Backup the output files of pw2wannier90 if necessary.
+Backup the output files of `pw2wannier90` if necessary. The argument `sp`
+specifies the spin component. It could be "", "up", or "dn".
 
 See also: [`pw2wan_init`](@ref), [`pw2wan_exec`](@ref).
 """
@@ -1030,6 +1031,7 @@ function pw2wan_save(sp::String = "")
     #
     # Determine filenames
     seedname = "w90" * sp
+    println("  > Seedname : $seedname")
     famn = seedname * ".amn"
     fmmn = seedname * ".mmn"
     feig = seedname * ".eig"
@@ -1040,7 +1042,7 @@ function pw2wan_save(sp::String = "")
     flist = [famn, fmmn, feig]
     #
     # If the symmetry-adapted wannier function mode is chosen, more
-    # output files are created.
+    # output files are created by pw2wannier90.
     sproj = get_d("sproj")
     if sproj[1] == "sawf"
         push!(flist, fdmn)
