@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/09/06
+# Last modified: 2021/09/07
 #
 
 #=
@@ -409,16 +409,13 @@ function pwscfc_input(it::IterInfo)
     # For spin-orbit coupling
     lspinorb = get_d("lspinorb")
     if lspinorb
+        delete!(SystemNL, "nspin")
         SystemNL["noncolin"] = ".true."
-        if lspins
-            SystemNL["nspin"] = 4
-        end
+        SystemNL["lspinorb"] = ".true."
     else
         SystemNL["noncolin"] = ".false."
+        SystemNL["lspinorb"] = ".false."
     end
-
-    # For optimized projectors
-    # SKIP
 
     # For local orbitals and projectors
     # SKIP
