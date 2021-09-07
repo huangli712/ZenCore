@@ -26,7 +26,7 @@ The following output files of the `pwscf` code are needed:
 Note in the input file of the `pwscf` code, the `verbosity` parameter
 must be set to 'high'.
 
-See also: [`plo_adaptor`](@ref), [`ir_adaptor`](@ref).
+See also: [`wannier_adaptor`](@ref), [`ir_adaptor`](@ref).
 """
 function pwscf_adaptor(D::Dict{Symbol,Any})
     # P01: Print the header

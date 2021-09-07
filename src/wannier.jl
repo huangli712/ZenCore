@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/09/07
+# Last modified: 2021/09/08
 #
 
 #=
@@ -13,6 +13,15 @@
 
 """
     wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
+
+Adaptor support. It will firstly launch wannier90 + pw2wannier90 codes to
+generate maximally localized wannier functions and related transformation
+matrix. Then it will read and parse the outputs, convert the data into
+IR format. The data contained in `D` dict will be modified.
+
+Be careful, now this adaptor only support `pwscf`.
+
+See also: [`pwscf_adaptor`](@ref), [`ir_adaptor`](@ref).
 """
 function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     # Print the header
@@ -21,44 +30,56 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     println("Current directory: ", pwd())
 
     # Extract key parameters
-    case = get_c("case")
-    sp = get_d("lspins")
+    case = get_c("case") # Prefix for pwscf
+    sp = get_d("lspins") # Is it a spin-polarized system
 
-    # W01: Generate seedname.win.
-    wannier_init(D, sp)
+    # Now this feature require pwscf as a dft engine
+    @assert get_d("engine") == "pwscf"
 
-    # W02: Generate case.pw2wan.
-    pw2wan_init(case, sp)
-
-    # W03: Execute wannier90 to generate w90.nnkp.
+    # W01: Execute wannier90 to generate w90.nnkp.
     if sp # For spin-polarized system
+        # Spin up
+        wannier_inir(D, "up")
         wannier_exec("up", op = "-pp")
         wannier_save("up", op = "-pp")
+        # Spin down
+        wannier_init(D, "dn")
         wannier_exec("dn", op = "-pp")
         wannier_save("dn", op = "-pp")
     else # For spin-unpolarized system
+        wannier_init(D)
         wannier_exec(op = "-pp")
         wannier_save(op = "-pp")
     end
     
-    # W04: Execute pw2wannier90 to generate w90.amn, w90.mmn, etc.
+    # W02: Execute pw2wannier90 to generate w90.amn, w90.mmn, etc.
     if sp # For spin-polarized system
+        # Spin up
+        pw2wan_init(case, "up")
         pw2wan_exec(case, "up")
         pw2wan_save("up")
+        # Spin down
+        pw2wan_init(case, "dn")
         pw2wan_exec(case, "dn")
         pw2wan_save("dn")
     else # For spin-unpolarized system
+        pw2wan_init(case)
         pw2wan_exec(case)
         pw2wan_save()
     end
 
-    # W05: Execute wannier90 again to generate wannier functions.
+    # W03: Execute wannier90 again to generate wannier functions.
     if sp # For spin-polarized system
+        # Spin up
+        wannier_init(D, "up")
         wannier_exec("up")
         wannier_save("up")
+        # Spin down
+        wannier_init(D, "dn")
         wannier_exec("dn")
         wannier_save("dn")
     else # For spin-unpolarized system
+        wannier_init(D)
         wannier_exec()
         wannier_save()
     end
@@ -116,7 +137,8 @@ end
     wannier_exec(sp::String = ""; op::String = "")
 
 Execute the wannier90 program, monitor the convergence progress, and
-output the relevant information.
+output the relevant information. The argument `sp` denotes the spin
+component, while `op` specifies the running mode for wannier90.
 
 See also: [`wannier_init`](@ref), [`wannier_save`](@ref).
 """
