@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/09/06
+# Last modified: 2021/09/07
 #
 
 #=
@@ -69,16 +69,16 @@ end
 =#
 
 """
-    wannier_init(D::Dict{Symbol,Any}, sp::Bool = false)
+    wannier_init(D::Dict{Symbol,Any}, sp::String = "")
 
 Try to generate the `w90.win` file, which is the essential input for
 the `wannier90` code. Here, we always use `w90` as the seedname. If
-the system is spin polarized (`sp = true`), then the seednames will
-be `w90up` and `w90dn`, respectively.
+the system is spin polarized (the argument `sp` is `up` or `dn`), then
+the seednames will be `w90up` and `w90dn`, respectively.
 
 See also: [`wannier_exec`](@ref), [`wannier_save`](@ref).
 """
-function wannier_init(D::Dict{Symbol,Any}, sp::Bool = false)
+function wannier_init(D::Dict{Symbol,Any}, sp::String = "")
     # Print the header
     println("Generate input files for wannier90")
 
@@ -99,10 +99,7 @@ function wannier_init(D::Dict{Symbol,Any}, sp::Bool = false)
     # Try to write w90.win
     #
     # Setup filename correctly. It depends on the spin.
-    fwin = "w90.win"
-    if sp # Spin polarized system
-        fwin = "w90up.win"
-    end
+    fwin = "w90" * sp * ".win"
     #
     # Write seedname.win
     open(fwin, "w") do fout
@@ -111,13 +108,8 @@ function wannier_init(D::Dict{Symbol,Any}, sp::Bool = false)
         w90_write_win(fout, latt)
         w90_write_win(fout, kmesh)
     end
-    println("  > File $fwin is created")
     #
-    # Copy seedname.win if necessary
-    if sp # Spin polarized system
-        cp(fwin, "w90dn.win")
-        println("  > File w90dn.win is created")
-    end
+    println("  > File $fwin is created")
 end
 
 """
@@ -344,7 +336,8 @@ end
 """
     w90_make_proj()
 
-Try to make the projection block for the `w90.win` file.
+Try to make the projection block for the `w90.win` file. We will not
+check the validness of these projections here.
 
 See also: [`w90_make_ctrl`](@ref).
 """
