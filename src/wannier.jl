@@ -892,14 +892,16 @@ end
 =#
 
 """
-    pw2wan_init(case::String, sp::Bool = false)
+    pw2wan_init(case::String, sp::String = "")
 
 Check the runtime environment of `pw2wannier90`, prepare necessary input
-files (`case.pw2wan`).
+files (`case.pw2wan`). The argument `case` means the prefix for `pwscf`,
+and `sp` determines the spin component which can be empty string, `up`,
+or `dn`.
 
 See also: [`pw2wan_exec`](@ref), [`pw2wan_save`](@ref).
 """
-function pw2wan_init(case::String, sp::Bool = false)
+function pw2wan_init(case::String, sp::String = "")
     # Print the header
     println("Generate input files for pw2wannier90")
     
@@ -914,46 +916,31 @@ function pw2wan_init(case::String, sp::Bool = false)
     # Update the dict
     NLData["outdir"] = "'./'"
     NLData["prefix"] = "'$case'"
-    NLData["seedname"] = "'w90'"
-    NLData["spin_component"] = "'none'"
+    if sp == ""
+        NLData["seedname"] = "'w90'"
+        NLData["spin_component"] = "'none'"
+    elseif sp == "up"
+        NLData["seedname"] = "'w90up'"
+        NLData["spin_component"] = "'up'"
+    elseif sp == "dn"
+        NLData["seedname"] = "'w90dn'"
+        NLData["spin_component"] = "'down'"
+    end
     NLData["write_mmn"] = ".true."
     NLData["write_amn"] = ".true."
     NLData["write_dmn"] = ".true."
+    NLData["write_unk"] = ".false."
     #
     # Create PWNamelist
     PWN = PWNamelist(name, NLData)
 
     # Try to write case.pw2wan
-    # For spin unpolarized system
-    if !sp
-        fwan = "$case.pw2wan"
-        open(fwan, "w") do fout
-            write(fout, PWN)
-        end
-        #
-        println("  > File $fwan is created")
-    # For spin polarized system
-    else
-        # Spin up case
-        fwan = case * "up.pw2wan"
-        PWN["seedname"] = "'w90up'"
-        PWN["spin_component"] = "'up'"
-        open(fwan, "w") do fout
-            write(fout, PWN)
-        end
-        #
-        println("  > File $fwan is created")
-        #
-        # Spin down case
-        fwan = case * "dn.pw2wan"
-        PWN["seedname"] = "'w90dn'"
-        PWN["spin_component"] = "'dn'"
-        open(fwan, "w") do fout
-            write(fout, PWN)
-        end
-        #
-        println("  > File $fwan is created")
+    fwan = case * sp * ".pw2wan"
+    open(fwan, "w") do fout
+        write(fout, PWN) # This write function is defined in pwscf.jl
     end
+    #
+    println("  > File $fwan is created")
 end
 
 """
@@ -1019,7 +1006,7 @@ end
     pw2wan_save(sp::String = "")
 
 Backup the output files of `pw2wannier90` if necessary. The argument `sp`
-specifies the spin component. It could be "", "up", or "dn".
+specifies the spin component. It could be empty string, `up`, or `dn`.
 
 See also: [`pw2wan_init`](@ref), [`pw2wan_exec`](@ref).
 """
