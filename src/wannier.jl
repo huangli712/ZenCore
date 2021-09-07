@@ -414,7 +414,9 @@ function w90_make_group(latt::Lattice, sp::String = "")
     # Try to build PrTrait struct. The raw information about projectors
     # should be encapsulated in it.
     #
-    # Define all possible specifications for projectors
+    # Define all possible specifications for projectors. Be careful, the
+    # orbital sequence is different from that defined in the constructor
+    # of PrTrait struct.
     spec = ("s",
             "pz", "px", "py",
             "dz2", "dxz", "dyz", "dx2-y2", "dxy",
