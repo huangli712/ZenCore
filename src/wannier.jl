@@ -52,7 +52,7 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         wannier_exec(op = "-pp")
         wannier_save(op = "-pp")
     end
-    
+
     # W02: Execute pw2wannier90 to generate w90.amn, w90.mmn, etc.
     if sp # For spin-polarized system
         # Spin up
@@ -118,7 +118,7 @@ function wannier_init(D::Dict{Symbol,Any}, sp::String = "")
     println("Generate input files for wannier90")
 
     # Extract necessary data from D
-    latt  = D[:latt] 
+    latt  = D[:latt]
     kmesh = D[:kmesh]
     enk   = D[:enk]
 
@@ -274,7 +274,7 @@ function w90_make_ctrl(latt::Lattice, nband::I64)
                  "s"   => 1,
                  "l=0" => 1,
                  "p"   => 3,
-                 "l=1" => 3, 
+                 "l=1" => 3,
                  "d"   => 5,
                  "l=2" => 5,
                  "f"   => 7,
@@ -472,7 +472,7 @@ function w90_make_group(latt::Lattice, sp::String = "")
             if latt.coord[j,1:3] == coord[i,1:3]
                 site = j # That is it
                 break
-            end 
+            end
         end
         # Sanity check
         @assert site > 0
@@ -546,7 +546,7 @@ end
 function w90_make_window(PG::Array{PrGroup,1}, enk::Array{F64,2})
     # Extract the key parameters
     nband, nkpt = size(enk)
- 
+
     # Initialize an array of PrWindow struct
     PW = PrWindow[]
 
@@ -877,7 +877,7 @@ end
     w90_write_win(io::IOStream, latt::Lattice)
 
 Write crystallography information into `w90.win`.
- 
+
 See also: [`Lattice`](@ref), [`wannier_init`](@ref).
 """
 function w90_write_win(io::IOStream, latt::Lattice)
@@ -951,7 +951,7 @@ See also: [`pw2wan_exec`](@ref), [`pw2wan_save`](@ref).
 function pw2wan_init(case::String, sp::String = "")
     # Print the header
     println("Generate input files for pw2wannier90")
-    
+
     # Try to create a PWNamelist object.
     #
     # Setup name of namelist. It is always fixed.

@@ -748,7 +748,7 @@ function pwscfio_eigen(f::String)
 
     # Read in the energy bands and the corresponding occupations
     #
-    # Determine the start of data block 
+    # Determine the start of data block
     start = findfirst(x -> contains(x, "End of band structure calculation"), lines)
     @assert start > 0
     #
@@ -769,7 +769,7 @@ function pwscfio_eigen(f::String)
             end # END OF R LOOP
             if nrem > 0
                 start = start + 1
-                bs = nrow * 8 + 1 
+                bs = nrow * 8 + 1
                 be = nband
                 @assert nrem == be - bs + 1
                 enk[bs:be,i,1] = parse.(F64, line_to_array(lines[start]))
@@ -791,7 +791,7 @@ function pwscfio_eigen(f::String)
             end # END OF R LOOP
             if nrem > 0
                 start = start + 1
-                bs = nrow * 8 + 1 
+                bs = nrow * 8 + 1
                 be = nband
                 @assert nrem == be - bs + 1
                 occupy[bs:be,i,1] = parse.(F64, line_to_array(lines[start]))
@@ -801,7 +801,7 @@ function pwscfio_eigen(f::String)
             start = start + 1
             occupy[:,i,1] = parse.(F64, line_to_array(lines[start]))
         end
-    end # END OF I LOOP 
+    end # END OF I LOOP
 
     # Print some useful information to check
     println("  > Number of DFT bands: ", nband)
@@ -1447,7 +1447,7 @@ const K_POINTS_AUTOMATIC_BLOCK = r"""
     (\d+) [ \t]+
     (\d+) [ \t]+
     (\d+) [ \t]+
-    (\d+) [ \t]+ 
+    (\d+) [ \t]+
     (\d+) [ \t]*
 \R?
 """imx
