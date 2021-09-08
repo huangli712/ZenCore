@@ -19,7 +19,7 @@ generate maximally localized wannier functions and related transformation
 matrix. Then it will read and parse the outputs, convert the data into
 IR format. The data contained in `D` dict will be modified.
 
-Be careful, now this adaptor only support `pwscf`.
+Be careful, now this adaptor only supports `pwscf`.
 
 See also: [`pwscf_adaptor`](@ref), [`ir_adaptor`](@ref).
 """
@@ -36,6 +36,7 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     # Now this feature require pwscf as a dft engine
     @assert get_d("engine") == "pwscf"
 
+#=
     # W01: Execute wannier90 to generate w90.nnkp.
     if sp # For spin-polarized system
         # Spin up
@@ -83,6 +84,19 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         wannier_exec()
         wannier_save()
     end
+=#
+
+    # Read accurate eigenvalues from w90.eig
+    if sp # For spin-polarized system
+        eigs_up = w90_read_eigs("up")
+        eigs_dn = w90_read_eigs("dn")
+    else # For spin-unpolarized system
+        eigs = w90_read_eigs()
+        nband, nkpt = size(eigs)
+        D[:enk] = reshape(eigs, (nband, nkpt, 1))
+    end
+    @show size(D[:enk])
+    sorry()
 end
 
 #=
@@ -1051,7 +1065,6 @@ function pw2wan_save(sp::String = "")
     #
     # Determine filenames
     seedname = "w90" * sp
-    println("  > Seedname : $seedname")
     famn = seedname * ".amn"
     fmmn = seedname * ".mmn"
     feig = seedname * ".eig"
