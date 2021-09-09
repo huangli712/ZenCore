@@ -107,6 +107,10 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         D[:enk] = reshape(eigs, (nband, nkpt, 1))
     end
     @show size(D[:enk])
+
+    if sp
+    else
+    end
     sorry()
 end
 
@@ -465,8 +469,8 @@ function w90_make_group(latt::Lattice, sp::String = "")
     # should be encapsulated in it.
     #
     # Define all possible specifications for projectors. Be careful, the
-    # orbital sequence is different from that defined in the constructor
-    # of PrTrait struct.
+    # following orbital sequence is different from that defined in the
+    # constructor of PrTrait struct.
     spec = ("s",
             "pz", "px", "py",
             "dz2", "dxz", "dyz", "dx2-y2", "dxy",
@@ -476,7 +480,7 @@ function w90_make_group(latt::Lattice, sp::String = "")
     # Generate PrTrait struct one by one
     PT = PrTrait[]
     for i = 1:nproj
-        # Try to figure which site it is. We just compare the atomic
+        # Try to figure out which site it is. We just compare the atomic
         # coordinates in coord with those saved in latt.coord.
         site = -1
         for j = 1:latt.natom
