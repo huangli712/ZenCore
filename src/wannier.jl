@@ -109,10 +109,10 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
 
     latt =D[:latt]
     if sp
-        D[:PT], D[:PG] = w90_make_group(latt, "up")
-        PT, PG = w90_make_group(latt, "dn")
-        append!(D[:PT], PT)
-        append!(D[:PG], PG)
+        PT_up, PG_up = w90_make_group(latt, "up")
+        PT_dn, PG_dn = w90_make_group(latt, "dn")
+        D[:PT] = hcat(PT_up, PT_dn)
+        D[:PG] = hcat(PG_up, PG_dn)
     else
         D[:PT], D[:PG] = w90_make_group(latt)
         @show typeof(D[:PT]), typeof(D[:PG])
@@ -583,6 +583,9 @@ function w90_make_window(PG::Array{PrGroup,1}, enk::Array{F64,2})
         # Print some useful information
         println("  > Create window $p: $bwin <--> ($(PW[p].bmin), $(PW[p].bmax))")
     end # END OF P LOOP
+
+    # Return the desired arrays
+    return PW
 end
 
 #=
