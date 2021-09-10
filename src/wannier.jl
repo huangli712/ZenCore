@@ -129,6 +129,7 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     end
 
     D[:MAP] = w90_make_map(D[:PG], ai)
+    w90_make_group(D[:MAP], D[:PG])
     sorry()
 end
 
@@ -664,6 +665,80 @@ function w90_make_group(latt::Lattice, sp::String = "")
     # Return the desired arrays
     # Note: PG should be further setup at plo_group() function.
     return PT, PG
+end
+
+"""
+    w90_make_group(MAP::Mapping, PG::Array{PrGroup,1})
+
+Use the information contained in the `Mapping` struct to further complete
+the `PrGroup` struct.
+
+See also: [`PIMP`](@ref), [`Mapping`](@ref), [`PrGroup`](@ref).
+"""
+function w90_make_group(MAP::Mapping, PG::Array{PrGroup,1})
+    # Print the header
+    println("Complete groups")
+
+    # Scan the groups of projectors, setup them one by one.
+    for g in eachindex(PG)
+        # Examine PrGroup, check number of projectors
+        @assert 2 * PG[g].l + 1 == length(PG[g].Pr)
+
+        # Extract the index of quantum impurity problem for the current
+        # group of projectors
+        s = MAP.g_imp[g]
+
+        # Yes, this group of projectors has a corresponding quantum
+        # impurity problem. We have to further modify it. If `s` is
+        # 0, it means that the group of projectors is non-correlated.
+        if s != 0
+            # Setup corr property
+            PG[g].corr = true
+            println("  > Turn group $g (site: $(PG[g].site)) into correlated")
+
+            # Setup shell property
+            # Later it will be used to generate `Tr`
+            PG[g].shell = get_i("shell")[s]
+            println("  > Treat group $g (site: $(PG[g].site)) as $(PG[g].shell) orbitals")
+        end
+
+        # Setup Tr array further
+        @cswitch PG[g].shell begin
+            @case "s"
+                PG[g].Tr = Matrix{ComplexF64}(I, 1, 1)
+                break
+
+            @case "p"
+                PG[g].Tr = Matrix{ComplexF64}(I, 3, 3)
+                break
+
+            @case "d"
+                PG[g].Tr = Matrix{ComplexF64}(I, 5, 5)
+                break
+
+            @case "f"
+                PG[g].Tr = Matrix{ComplexF64}(I, 7, 7)
+                break
+
+            @case "d_t2g"
+                PG[g].Tr = zeros(C64, 3, 5)
+                PG[g].Tr[1, 1] = 1.0 + 0.0im
+                PG[g].Tr[2, 2] = 1.0 + 0.0im
+                PG[g].Tr[3, 4] = 1.0 + 0.0im
+                break
+
+            @case "d_eg" # TO_BE_CHECK
+                PG[g].Tr = zeros(C64, 2, 5)
+                PG[g].Tr[1, 3] = 1.0 + 0.0im
+                PG[g].Tr[2, 5] = 1.0 + 0.0im
+                break
+
+            @default
+                sorry()
+                break
+        end
+        println("  > Build transformation matrix for group $g (site: $(PG[g].site))")
+    end # END OF G LOOP
 end
 
 """
