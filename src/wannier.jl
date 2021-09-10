@@ -128,6 +128,7 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         D[:PW] = PW
     end
 
+    D[:MAP] = w90_make_map(D[:PG], ai)
     sorry()
 end
 
