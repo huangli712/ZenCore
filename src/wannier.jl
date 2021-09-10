@@ -114,8 +114,14 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         D[:PT] = hcat(PT_up, PT_dn)
         D[:PG] = hcat(PG_up, PG_dn)
     else
-        D[:PT], D[:PG] = w90_make_group(latt)
-        @show typeof(D[:PT]), typeof(D[:PG])
+        PT, PG = w90_make_group(latt)
+        D[:PT] = PT
+        D[:PG] = PG
+    end
+
+    if sp
+    else
+        w90_make_window(PG, eigs)
     end
 
     sorry()
@@ -577,7 +583,7 @@ function w90_make_window(PG::Array{PrGroup,1}, enk::Array{F64,2})
 
         kwin = zeros(I64, nkpt, 1, 2)
         fill!(view(kwin, :, :, 1), 1)
-        fill!(view(kwin, :, :, 1), nband)
+        fill!(view(kwin, :, :, 2), nband)
         push!(PW, PrWindow(kwin, bwin))
 
         # Print some useful information
