@@ -121,7 +121,8 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
 
     if sp
     else
-        w90_make_window(PG, eigs)
+        PW = w90_make_window(PG, eigs)
+        D[:PW] = PW
     end
 
     sorry()
