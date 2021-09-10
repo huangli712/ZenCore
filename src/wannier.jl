@@ -437,9 +437,102 @@ end
 =#
 
 """
-    w90_make_map()
+    w90_make_map(PG::Array{PrGroup,1}, ai::Array{Impurity,1})
+
+Create connections / mappings between projectors (or band windows) and
+quantum impurity problems. Return a `Mapping` struct.
+
+See also: [`PrGroup`](@ref), [`PrWindow`](@ref), [`Mapping`](@ref).
 """
-function w90_make_map()
+function w90_make_map(PG::Array{PrGroup,1}, ai::Array{Impurity,1})
+    # Print the header
+    println("Establish mapping")
+
+    # Extract key parameters
+    #
+    # Here, `nsite` is the number of quantum impurity problems, `ngrp` is
+    # the number of groups for projectors, and `nwnd` is the number of
+    # band windows.
+    #
+    # In this code, we have to ensure `nwnd` is always equal to `ngrp`.
+    nsite = get_i("nsite")
+    ngrp = length(PG)
+    nwnd = ngrp
+
+    # Additional check for nsite
+    @assert nsite == length(ai)
+
+    # The lshell creates a mapping from shell (string) to l (integer).
+    # It is used to parse Impurity.shell to extract the `l` parameter.
+    lshell = Dict{String,I64}(
+                 "s"     => 0,
+                 "p"     => 1,
+                 "d"     => 2,
+                 "f"     => 3,
+                 "d_t2g" => 2, # Only a subset of d orbitals
+                 "d_eg"  => 2, # Only a subset of d orbitals
+             )
+
+    # Loop over each site (the quantum impurity problem) to gather some
+    # relevant information, such as `site` and `l`. We use an array of
+    # Tuple (site_l) to record them.
+    site_l = Tuple[]
+    for i = 1:nsite
+        # Determine site
+        sites = ai[i].sites
+
+        # Determine l and its specification
+        shell = ai[i].shell
+        l = get(lshell, shell, nothing)
+
+        # Push the data into site_l
+        push!(site_l, (sites, l, shell))
+    end
+    println("  > Figure out the traits of quantum impurity problems")
+
+    # Create the Mapping struct
+    Map = Mapping(nsite, ngrp, nwnd)
+
+    # Determine Map.i_grp (imp -> grp) and Map.g_imp (grp -> imp)
+    for i = 1:nsite
+        SL = site_l[i]
+        for g = 1:ngrp
+            if (PG[g].site, PG[g].l) == (SL[1], SL[2])
+                Map.i_grp[i] = g
+                Map.g_imp[g] = i
+            end
+        end
+    end
+
+    # Examine Map.i_grp
+    #
+    # For a given quantum impurity problem, we can always find out the
+    # corresponding group of projectors.
+    @assert all(x -> (0 < x ≤ ngrp), Map.i_grp)
+    #
+    println("  > Create quantum impurity problems -> groups (i_grp)")
+
+    # Examine Map.g_imp
+    #
+    # For a given group of projectors, if we fail to find out the
+    # corresponding quantum impurity problem, it must be non-correlated.
+    @assert all(x -> (0 ≤ x ≤ nsite), Map.g_imp)
+    #
+    println("  > Create groups -> quantum impurity problems (g_imp)")
+
+    # Setup Map.i_wnd and Map.w_imp
+    #
+    # They are actually copies of i_grp and g_imp
+    Map.i_wnd[:] = Map.i_grp[:]
+    #
+    println("  > Create quantum impurity problems -> windows (i_grp)")
+    #
+    Map.w_imp[:] = Map.g_imp[:]
+    #
+    println("  > Create windows -> quantum impurity problems (g_imp)")
+
+    # Return the desired struct
+    return Map
 end
 
 """
