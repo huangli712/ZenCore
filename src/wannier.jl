@@ -120,6 +120,9 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     end
 
     if sp
+        PW_up = w90_make_window(PT_up, eigs_up)
+        PW_dn = w90_make_window(PT_dn, eigs_dn)
+        D[:PW] = hcat(PW_up, PW_dn)
     else
         PW = w90_make_window(PG, eigs)
         D[:PW] = PW
