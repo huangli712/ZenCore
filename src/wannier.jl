@@ -109,10 +109,13 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
 
     latt =D[:latt]
     if sp
-        w90_make_group(latt, "up")
-        w90_make_group(latt, "dn")
+        D[:PT], D[:PG] = w90_make_group(latt, "up")
+        PT, PG = w90_make_group(latt, "dn")
+        append!(D[:PT], PT)
+        append!(D[:PG], PG)
     else
         D[:PT], D[:PG] = w90_make_group(latt)
+        @show typeof(D[:PT]), typeof(D[:PG])
     end
 
     sorry()
