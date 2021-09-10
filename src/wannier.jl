@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/09/08
+# Last modified: 2021/09/10
 #
 
 #=
@@ -100,17 +100,21 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         # Concatenate eigs_up and eigs_dn
         D[:enk] = cat(eigs_up, eigs_dn, dims = 3)
         # Sanity check
-        @assert size(D[:enk]) = (nband, nkpt, 2)
+        @assert size(D[:enk]) == (nband, nkpt, 2)
     else # For spin-unpolarized system
         eigs = w90_read_eigs()
         nband, nkpt = size(eigs)
         D[:enk] = reshape(eigs, (nband, nkpt, 1))
     end
-    @show size(D[:enk])
 
+    latt =D[:latt]
     if sp
+        w90_make_group(latt, "up")
+        w90_make_group(latt, "dn")
     else
+        D[:PT], D[:PG] = w90_make_group(latt)
     end
+
     sorry()
 end
 
