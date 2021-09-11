@@ -107,6 +107,14 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         D[:enk] = reshape(eigs, (nband, nkpt, 1))
     end
 
+    if sp
+        w90_read_umat("up")
+        w90_read_umat("dn")
+    else
+        w90_read_umat()
+    end
+    sorry()
+
     latt =D[:latt]
     if sp
         PT_up, PG_up = w90_make_group(latt, "up")
@@ -130,7 +138,6 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
 
     D[:MAP] = w90_make_map(D[:PG], ai)
     w90_make_group(D[:MAP], D[:PG])
-    sorry()
 end
 
 #=
