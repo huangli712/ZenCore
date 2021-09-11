@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/09/04
+# Last modified: 2021/09/11
 #
 
 """
@@ -604,6 +604,7 @@ w90_read_eigs   -> Read w90.eig file.
 w90_read_hmat   -> Read w90_hr.dat file.
 w90_read_umat   -> Read w90_u.mat file.
 w90_read_udis   -> Read w90_u_dis.mat file.
+w90_read_wout   -> Read w90.wout file.
 w90_write_win   -> Write w90.win file.
 pw2wan_init     -> Prepare pw2wannier90's input files.
 pw2wan_exec     -> Execute pw2wannier90 program.
@@ -618,9 +619,6 @@ export wannier_adaptor
 export wannier_init
 export wannier_exec
 export wannier_save
-export pw2wan_init
-export pw2wan_exec
-export pw2wan_save
 export w90_make_ctrl
 export w90_make_proj
 export w90_make_map
@@ -631,7 +629,11 @@ export w90_read_eigs
 export w90_read_hmat
 export w90_read_umat
 export w90_read_udis
+export w90_read_wout
 export w90_write_win
+export pw2wan_init
+export pw2wan_exec
+export pw2wan_save
 
 #=
 ### *Includes And Exports* : *ir.jl*

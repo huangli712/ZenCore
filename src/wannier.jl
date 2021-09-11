@@ -108,12 +108,19 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     end
 
     if sp
+        w90_read_wout("up")
+        w90_read_wout("dn")
+    else
+        w90_read_wout()
+    end
+    sorry()
+
+    if sp
         w90_read_umat("up")
         w90_read_umat("dn")
     else
         w90_read_umat()
     end
-    sorry()
 
     latt =D[:latt]
     if sp
@@ -1066,7 +1073,10 @@ function w90_read_udis(sp::String = "")
     #return udis
 end
 
-function w90_read_wout()
+"""
+    w90_read_wout(sp::String = "")
+"""
+function w90_read_wout(sp::String = "")
 end
 
 #=
