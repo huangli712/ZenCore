@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/09/10
+# Last modified: 2021/09/11
 #
 
 #=
@@ -383,7 +383,7 @@ function w90_make_ctrl(latt::Lattice, nband::I64)
             w90c["dis_froz_min"] = window[4]
             w90c["dis_froz_max"] = window[5]
         else
-            error("Wrong window's definition.")
+            error("Wrong window's definition")
         end
     end
 
@@ -774,6 +774,9 @@ function w90_make_window(PG::Array{PrGroup,1}, enk::Array{F64,2})
     return PW
 end
 
+function w90_make_window()
+end
+
 #=
 ### *Service Functions* : *Group D*
 =#
@@ -997,6 +1000,14 @@ function w90_read_umat(sp::String = "")
         end # END OF J LOOP
     end # END OF K LOOP
 
+    #for k = 1:nkpt
+    #    for j = 1:nproj
+    #        for i = 1:nproj
+    #            @show k, i, j, umat[i, j, k]
+    #        end
+    #    end
+    #end
+
     # Return the desired array
     return umat
 end
@@ -1038,13 +1049,24 @@ function w90_read_udis(sp::String = "")
                 start = start + 1
                 # Parse the line and fill in the array
                 _re, _im = parse.(F64, line_to_array(lines[start]))
-                udis[i,j,k] = _re + im * _im
+                udis[i, j, k] = _re + im * _im
             end # END OF I LOOP
         end # END OF J LOOP
     end # END OF K LOOP
 
+    for k = 1:nkpt
+        for j = 1:nproj
+            for i = 1:nband
+                @show k, i, j, udis[i, j, k]
+            end
+        end
+    end
+
     # Return the desired array
-    return udis
+    #return udis
+end
+
+function w90_read_wout()
 end
 
 #=
