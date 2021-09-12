@@ -108,10 +108,10 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     end
 
     if sp
-        w90_read_wout("up")
-        w90_read_wout("dn")
+        ewin_up = w90_read_wout("up")
+        ewin_dn = w90_read_wout("dn")
     else
-        w90_read_wout()
+        ewin = w90_read_wout()
     end
     sorry()
 
@@ -781,7 +781,11 @@ function w90_make_window(PG::Array{PrGroup,1}, enk::Array{F64,2})
     return PW
 end
 
-function w90_make_window()
+"""
+    w90_make_window
+"""
+function w90_make_window(ewin::Tuple{F64,F64}, enk::Array{F64,2})
+
 end
 
 #=
@@ -1077,6 +1081,21 @@ end
     w90_read_wout(sp::String = "")
 """
 function w90_read_wout(sp::String = "")
+    # Build the filename
+    fout = "w90" * sp * ".wout"
+
+    # Read the `w90.wout` file
+    lines = readlines(fout)
+    @assert length(lines) ≥ 3
+
+    filter!(x -> contains(x, "Outer:"), lines)
+    @assert length(lines) == 1
+
+    arr = line_to_array(lines[1])
+    wmin = parse(F64, arr[3])
+    wmax = parse(F64, arr[5])
+
+    return (wmin, wmax)
 end
 
 #=
