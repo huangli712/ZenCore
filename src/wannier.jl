@@ -806,7 +806,21 @@ function w90_make_chipsi(umat::Array{C64,3}, udis::Array{C64,3})
     nband, _nproj, _nkpt = size(udis)
     @assert nproj == _nproj
     @assert nkpt == _nkpt
-    
+
+    utmp = zeros(C64, nband, nproj)
+    proj = zeros(C64, nproj, nband, nkpt)
+
+    for k = 1:nkpt
+        for j = 1:nproj
+            for i = 1:nband
+                utmp[i,j] = zero(C64)
+                for m = 1:nproj
+                    utmp[i,j] = utmp[i,j] + udis[i,m,k] * umat[m,j,k]
+                end
+            end
+        end
+        proj[:,:,k] = utmp'
+    end
 end
 
 #=
