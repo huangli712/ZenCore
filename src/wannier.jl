@@ -36,6 +36,7 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     # Now this feature require pwscf as a dft engine
     @assert get_d("engine") == "pwscf"
 
+#=
     # W01: Execute wannier90 to generate w90.nnkp.
     if sp # For spin-polarized system
         # Spin up
@@ -83,6 +84,7 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         wannier_exec()
         wannier_save()
     end
+=#
 
     # Read energy window for disentanglement procedure from w90.wout
     if sp # For spin-polarized system
@@ -144,8 +146,20 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     if sp # For spin-polarized system
         proj_up = w90_make_chipsi(umat_up, udis_up)
         proj_dn = w90_make_chipsi(umat_dn, udis_dn)
+        # Sanity check
+        @assert size(proj_up) == size(proj_dn)
+        # Convert proj_up and proj_dn to 4D array (nproj, nband, nkpt, 1)
+        nproj, nband, nkpt = size(proj_up)
+        proj_up = reshape(proj_up, (nproj, nband, nkpt, 1))
+        proj_dn = reshape(proj_dn, (nproj, nband, nkpt, 1))
+        # Concatenate proj_up and proj_dn
+        D[:Fchipsi] = cat(proj_up, proj_dn, dims = 4)
+        # Sanity check
+        @assert size(D[:Fchipsi]) == (nproj, nband, nkpt, 2)
     else # For spin-unpolarized system
         proj = w90_make_chipsi(umat, udis)
+        nproj, nband, nkpt = size(proj)
+        D[:Fchipsi] = reshape(proj, (nproj, nband, nkpt, 1))
     end
 
     latt =D[:latt]
