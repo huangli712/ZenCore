@@ -1188,8 +1188,12 @@ disentanglement procedure. The argument `sp` denotes the spin component.
 See also: [`w90_make_window`](@ref).
 """
 function w90_read_wout(sp::String = "")
+    # Print the header
+    println("Extract energy window for disentanglement")
+
     # Build the filename
     fout = "w90" * sp * ".wout"
+    println("  > Open and read $fout")
 
     # Read the `w90.wout` file
     lines = readlines(fout)
@@ -1203,6 +1207,7 @@ function w90_read_wout(sp::String = "")
     arr = line_to_array(lines[1])
     wmin = parse(F64, arr[3])
     wmax = parse(F64, arr[5])
+    println("  > Energy window: ($wmin, $wmax) eV")
 
     # Return the desired energy window
     return (wmin, wmax)
