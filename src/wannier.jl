@@ -782,7 +782,7 @@ function w90_make_window(PG::Array{PrGroup,1}, enk::Array{F64,2})
 end
 
 """
-    w90_make_window
+    w90_make_window()
 """
 function w90_make_window(ewin::Tuple{F64,F64}, enk::Array{F64,2})
     nband, nkpt = size(enk)
@@ -806,6 +806,7 @@ function w90_make_chipsi(umat::Array{C64,3}, udis::Array{C64,3})
     nband, _nproj, _nkpt = size(udis)
     @assert nproj == _nproj
     @assert nkpt == _nkpt
+    @show nproj, nband, nkpt
 
     utmp = zeros(C64, nband, nproj)
     proj = zeros(C64, nproj, nband, nkpt)
@@ -820,6 +821,14 @@ function w90_make_chipsi(umat::Array{C64,3}, udis::Array{C64,3})
             end
         end
         proj[:,:,k] = utmp'
+    end
+
+    for k = 1:nkpt
+        for j = 1:nband
+            for i = 1:nproj
+                @show k, i, j, proj[i,j,k]
+            end
+        end
     end
 end
 
