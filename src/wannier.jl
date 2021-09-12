@@ -800,7 +800,7 @@ end
 """
     w90_make_chipsi()
 """
-function w90_make_chipsi(umat::Array{C64,3}, udis::Array{C64,3})
+function w90_make_chipsi(umat::Array{C64,3}, udis::Array{C64,3}, enk::Array{F64,2})
     # Extract key parameters
     nproj, _, nkpt = size(umat)
     nband, _nproj, _nkpt = size(udis)
@@ -823,11 +823,19 @@ function w90_make_chipsi(umat::Array{C64,3}, udis::Array{C64,3})
         proj[:,:,k] = utmp'
     end
 
-    for k = 1:nkpt
-        for j = 1:nband
-            for i = 1:nproj
-                @show k, i, j, proj[i,j,k]
-            end
+    #for k = 1:nkpt
+    #    for j = 1:nband
+    #        for i = 1:nproj
+    #            @show k, i, j, proj[i,j,k]
+    #        end
+    #    end
+    #end
+
+    Ham = proj[:,:,1] * Diagonal(enk[:,1]) * proj[:,:,1]'
+    println(size(Ham))
+    for i = 1:nproj
+        for j = 1:nproj
+            @show i, j, Ham[i,j]
         end
     end
 end
