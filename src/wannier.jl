@@ -36,11 +36,10 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     # Now this feature require pwscf as a dft engine
     @assert get_d("engine") == "pwscf"
 
-#=
     # W01: Execute wannier90 to generate w90.nnkp.
     if sp # For spin-polarized system
         # Spin up
-        wannier_inir(D, "up")
+        wannier_init(D, "up")
         wannier_exec("up", op = "-pp")
         wannier_save("up", op = "-pp")
         # Spin down
@@ -84,7 +83,16 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         wannier_exec()
         wannier_save()
     end
-=#
+
+    # Read energy window for disentanglement procedure from w90.wout
+    if sp # For spin-polarized system
+        # Spin up
+        ewin_up = w90_read_wout("up")
+        # Spin down
+        ewin_dn = w90_read_wout("dn")
+    else # For spin-unpolarized system
+        ewin = w90_read_wout()
+    end
 
     # Read accurate eigenvalues from w90.eig
     if sp # For spin-polarized system
@@ -105,15 +113,8 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         eigs = w90_read_eigs()
         nband, nkpt = size(eigs)
         D[:enk] = reshape(eigs, (nband, nkpt, 1))
+        @assert size(D[:enk]) == (nband, nkpt, 1)
     end
-
-    if sp
-        ewin_up = w90_read_wout("up")
-        ewin_dn = w90_read_wout("dn")
-    else
-        ewin = w90_read_wout()
-    end
-    sorry()
 
     if sp
         w90_read_umat("up")
