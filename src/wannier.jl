@@ -140,6 +140,14 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         udis = w90_read_udis(bwin)
     end
 
+    # Build projection matrix
+    if sp # For spin-polarized system
+        proj_up = w90_make_chipsi(umat_up, udis_up)
+        proj_dn = w90_make_chipsi(umat_dn, udis_dn)
+    else # For spin-unpolarized system
+        proj = w90_make_chipsi(umat, udis)
+    end
+
     latt =D[:latt]
     if sp
         PT_up, PG_up = w90_make_group(latt, "up")
@@ -820,7 +828,7 @@ end
 """
     w90_make_chipsi()
 """
-function w90_make_chipsi(umat::Array{C64,3}, udis::Array{C64,3}, enk::Array{F64,2})
+function w90_make_chipsi(umat::Array{C64,3}, udis::Array{C64,3})
     # Extract key parameters
     nproj, _, nkpt = size(umat)
     nband, _nproj, _nkpt = size(udis)
@@ -851,13 +859,15 @@ function w90_make_chipsi(umat::Array{C64,3}, udis::Array{C64,3}, enk::Array{F64,
     #    end
     #end
 
-    Ham = proj[:,:,1] * Diagonal(enk[:,1]) * proj[:,:,1]'
-    println(size(Ham))
-    for i = 1:nproj
-        for j = 1:nproj
-            @show i, j, Ham[i,j]
-        end
-    end
+    #Ham = proj[:,:,1] * Diagonal(enk[:,1]) * proj[:,:,1]'
+    #println(size(Ham))
+    #for i = 1:nproj
+    #    for j = 1:nproj
+    #        @show i, j, Ham[i,j]
+    #    end
+    #end
+
+    return proj
 end
 
 #=
