@@ -825,6 +825,9 @@ end
     w90_make_window()
 """
 function w90_make_window(ewin::Tuple{F64,F64}, enk::Array{F64,2})
+    # Print the header
+    println("Extract band window for disentanglement")
+
     nband, nkpt = size(enk)
     emin, emax = ewin
     bwin = zeros(I64, nkpt, 2)
@@ -835,6 +838,11 @@ function w90_make_window(ewin::Tuple{F64,F64}, enk::Array{F64,2})
         bwin[k,2] = bmax
         @assert nband ≥ bmax > bmin ≥ 1
     end
+
+    println("  > Number of k-points: ", nkpt)
+    println("  > Minimum band index: ", minimum(bwin[:,1]))
+    println("  > Maixmum band index: ", maximum(bwin[:,2]))
+    println("  > Shape of Array bwin: ", size(bwin))
 
     return bwin
 end
@@ -948,8 +956,12 @@ will use the data extracted from `w90.eig` instead. The argument `sp`
 denotes the spin component.
 """
 function w90_read_eigs(sp::String = "")
+    # Print the header
+    println("Refine band eigenvalues")
+
     # Build the filename
     feig = "w90" * sp * ".eig"
+    println("  > Open and read $feig")
 
     # Read the `w90.eig` file
     lines = readlines(feig)
@@ -983,6 +995,12 @@ function w90_read_eigs(sp::String = "")
     end # END OF K LOOP
     #
     @assert start == nkpt * nband
+
+    # Print some useful information to check
+    println("  > Number of DFT bands: ", nband)
+    println("  > Number of k-points: ", nkpt)
+    println("  > Spin orientation: ", sp)
+    println("  > Shape of Array enk: ", size(eigs))
 
     # Return the desired array
     return eigs
