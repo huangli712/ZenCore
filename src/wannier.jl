@@ -1033,7 +1033,7 @@ function w90_read_umat(sp::String = "")
 end
 
 """
-    w90_read_udis(sp::String = "")
+    w90_read_udis(bwin::Array{I64,2}, sp::String = "")
 
 Try to read and parse the `w90_u_dis.mat` file. Return the udis-matrix,
 which gives the nproj dimension optimal subspace from the original
@@ -1042,7 +1042,7 @@ The argument `sp` denotes the spin component.
 
 See also: [`w90_read_udis`](@ref).
 """
-function w90_read_udis(sp::String = "")
+function w90_read_udis(bwin::Array{I64,2}, sp::String = "")
     # Build the filename
     fu = "w90" * sp * "_u_dis.mat"
 
@@ -1054,6 +1054,7 @@ function w90_read_udis(sp::String = "")
     nkpt, nproj, nband = parse.(I64, line_to_array(lines[2]))
 
     # Create array
+    utmp = zeros(C64, nband, nproj)
     udis = zeros(C64, nband, nproj, nkpt)
 
     # We use `start` to record the line index
@@ -1069,21 +1070,26 @@ function w90_read_udis(sp::String = "")
                 start = start + 1
                 # Parse the line and fill in the array
                 _re, _im = parse.(F64, line_to_array(lines[start]))
-                udis[i, j, k] = _re + im * _im
+                utmp[i, j] = _re + im * _im
             end # END OF I LOOP
         end # END OF J LOOP
+
+        bs = bwin[k,1]
+        be = bwin[k,2]
+        nb = be - bs + 1
+        udis[bs:be, :, k] = utmp[1:nb, :]
     end # END OF K LOOP
 
-    for k = 1:nkpt
-        for j = 1:nproj
-            for i = 1:nband
-                @show k, i, j, udis[i, j, k]
-            end
-        end
-    end
+    #for k = 1:nkpt
+    #    for j = 1:nproj
+    #        for i = 1:nband
+    #            @show k, i, j, udis[i, j, k]
+    #        end
+    #    end
+    #end
 
     # Return the desired array
-    #return udis
+    return udis
 end
 
 """
