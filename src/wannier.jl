@@ -116,6 +116,14 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         @assert size(D[:enk]) == (nband, nkpt, 1)
     end
 
+    # Determine band window for disentanglement procedure
+    if sp # For spin-polarized system
+        bwin_up = w90_make_window(ewin_up, eigs_up)
+        bwin_dn = w90_make_window(ewin_dn, eigs_dn)
+    else # For spin-unpolarized system
+        bwin = w90_make_window(ewin, eigs)
+    end
+
     if sp
         w90_read_umat("up")
         w90_read_umat("dn")
@@ -794,7 +802,9 @@ function w90_make_window(ewin::Tuple{F64,F64}, enk::Array{F64,2})
         bmax = findfirst(x -> x > emax, enk[:,k]) - 1
         bwin[k,1] = bmin
         bwin[k,2] = bmax
+        @assert nband ≥ bmax > bmin ≥ 1
     end
+
     return bwin
 end
 
