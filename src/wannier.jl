@@ -124,11 +124,20 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         bwin = w90_make_window(ewin, eigs)
     end
 
-    if sp
-        w90_read_umat("up")
-        w90_read_umat("dn")
-    else
-        w90_read_umat()
+    # Read transform matrix from w90_u.mat
+    if sp # For spin-polarized system
+        umat_up = w90_read_umat("up")
+        umat_dn = w90_read_umat("dn")
+    else # For spin-unpolarized system
+        umat = w90_read_umat()
+    end
+
+    # Read disentanglement matrix from w90_u_dis.mat
+    if sp # For spin-polarized system
+        udis_up = w90_read_udis(bwin_up, "up")
+        udis_dn = w90_read_udis(bwin_dn, "dn")
+    else # For spin-unpolarized system
+        udis = w90_read_udis(bwin)
     end
 
     latt =D[:latt]
