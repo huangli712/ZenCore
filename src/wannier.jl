@@ -1181,6 +1181,11 @@ end
 
 """
     w90_read_wout(sp::String = "")
+
+Try to read and parse the `w90.wout` file. Return the energy window for
+disentanglement procedure. The argument `sp` denotes the spin component.
+
+See also: [`w90_make_window`](@ref).
 """
 function w90_read_wout(sp::String = "")
     # Build the filename
@@ -1190,13 +1195,16 @@ function w90_read_wout(sp::String = "")
     lines = readlines(fout)
     @assert length(lines) ≥ 3
 
+    # Locate the line
     filter!(x -> contains(x, "Outer:"), lines)
-    @assert length(lines) == 1
+    @assert length(lines) == 1 # It should contain only 1 line
 
+    # Extract the energy window
     arr = line_to_array(lines[1])
     wmin = parse(F64, arr[3])
     wmax = parse(F64, arr[5])
 
+    # Return the desired energy window
     return (wmin, wmax)
 end
 
