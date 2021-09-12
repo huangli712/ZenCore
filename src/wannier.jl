@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/09/11
+# Last modified: 2021/09/13
 #
 
 #=
@@ -795,6 +795,18 @@ function w90_make_window(ewin::Tuple{F64,F64}, enk::Array{F64,2})
         bwin[k,2] = bmax
     end
     return bwin
+end
+
+"""
+    w90_make_chipsi()
+"""
+function w90_make_chipsi(umat::Array{C64,3}, udis::Array{C64,3})
+    # Extract key parameters
+    nproj, _, nkpt = size(umat)
+    nband, _nproj, _nkpt = size(udis)
+    @assert nproj == _nproj
+    @assert nkpt == _nkpt
+    
 end
 
 #=

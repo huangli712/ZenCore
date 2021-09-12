@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/09/11
+# Last modified: 2021/09/12
 #
 
 """
@@ -599,6 +599,7 @@ w90_make_proj   -> Prepare projections for wannier90.
 w90_make_map    -> Create connection between WFs and impurity problems.
 w90_make_group  -> Create groups of WFs.
 w90_make_window -> Create band windows of WFs.
+w90_make_chipsi -> Build projections.
 w90_read_amat   -> Read w90.amn file.
 w90_read_eigs   -> Read w90.eig file.
 w90_read_hmat   -> Read w90_hr.dat file.
@@ -624,6 +625,7 @@ export w90_make_proj
 export w90_make_map
 export w90_make_group
 export w90_make_window
+export w90_make_chipsi
 export w90_read_amat
 export w90_read_eigs
 export w90_read_hmat
