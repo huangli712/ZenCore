@@ -785,7 +785,16 @@ end
     w90_make_window
 """
 function w90_make_window(ewin::Tuple{F64,F64}, enk::Array{F64,2})
-
+    nband, nkpt = size(enk)
+    emin, emax = ewin
+    bwin = zeros(I64, nkpt, 2)
+    for k = 1:nkpt
+        bmin = findfirst(x -> x > emin, enk[:,k])
+        bmax = findfirst(x -> x > emax, enk[:,k]) - 1
+        bwin[k,1] = bmin
+        bwin[k,2] = bmax
+    end
+    return bwin
 end
 
 #=
