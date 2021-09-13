@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/09/07
+# Last modified: 2021/09/14
 #
 
 #=
@@ -691,7 +691,7 @@ function pwscfio_kmesh(f::String)
     end
 
     # Normalize the weight
-    if get_d("lspins")
+    if !get_d("lspins")
         @. weight = weight / 2
     end
 
@@ -831,7 +831,7 @@ pwscfio_eigen() = pwscfio_eigen(pwd())
 """
     pwscfio_fermi(f::String, silent::Bool = true)
 
-Reading pwscf's `scf.out` file, return the fermi level. Here `f` means
+Reading pwscf's `nscf.out` file, return the fermi level. Here `f` means
 only the directory that contains `scf.out`.
 
 See also: [`irio_fermi`](@ref).
@@ -839,10 +839,10 @@ See also: [`irio_fermi`](@ref).
 function pwscfio_fermi(f::String, silent::Bool = true)
     # Print the header
     !silent && println("Parse fermi level")
-    !silent && println("  > Open and read scf.out")
+    !silent && println("  > Open and read nscf.out")
 
     # Try to figure out whether the scf.out file is valid
-    lines = readlines(joinpath(f, "scf.out"))
+    lines = readlines(joinpath(f, "nscf.out"))
     filter!(x -> contains(x, "Fermi energy"), lines)
     @assert length(lines) == 1
 
