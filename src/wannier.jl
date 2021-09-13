@@ -1299,6 +1299,8 @@ function w90_read_umat(sp::String = "")
     for k = 1:nkpt
         # Increase the counter
         start = start + 2 # Skip one empty line and one 𝑘-point line
+        #
+        # Parse the data
         for j = 1:nproj
             for i = 1:nproj
                 # Increase the counter
@@ -1324,11 +1326,12 @@ end
     w90_read_udis(bwin::Array{I64,2}, sp::String = "")
 
 Try to read and parse the `w90_u_dis.mat` file. Return the udis-matrix,
-which gives the nproj dimension optimal subspace from the original
+which gives the `nproj` dimension optimal subspace from the original
 bloch states. Actually, it is the transform matrix for disentanglement.
-The argument `sp` denotes the spin component.
+The argument `sp` denotes the spin component, the band window `bwin` is
+from `w90_make_window()` and `w90_read_wout()`.
 
-See also: [`w90_read_udis`](@ref).
+See also: [`w90_read_umat`](@ref).
 """
 function w90_read_udis(bwin::Array{I64,2}, sp::String = "")
     # Print the header
@@ -1356,6 +1359,8 @@ function w90_read_udis(bwin::Array{I64,2}, sp::String = "")
     for k = 1:nkpt
         # Increase the counter
         start = start + 2 # Skip one empty line and one 𝑘-point line
+        #
+        # Parse the data
         for j = 1:nproj
             for i = 1:nband
                 # Increase the counter
@@ -1365,16 +1370,18 @@ function w90_read_udis(bwin::Array{I64,2}, sp::String = "")
                 utmp[i, j] = _re + im * _im
             end # END OF I LOOP
         end # END OF J LOOP
-
+        #
+        # Shift the raw disentanglement matrix by the band window
         bs = bwin[k,1]
         be = bwin[k,2]
         nb = be - bs + 1
         udis[bs:be, :, k] = utmp[1:nb, :]
     end # END OF K LOOP
 
-    println("  > Number of k-points: ", nkpt)
+    # Print some useful information to check
     println("  > Number of DFT bands: ", nband)
     println("  > Number of wannier functions: ", nproj)
+    println("  > Number of k-points: ", nkpt)
     println("  > Spin orientation: ", sp)
     println("  > Shape of Array udis: ", size(udis))
 
