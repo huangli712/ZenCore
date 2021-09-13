@@ -963,9 +963,16 @@ function w90_make_window(ewin::Tuple{F64,F64}, enk::Array{F64,2})
     # Print the header
     println("Extract band window for disentanglement")
 
+    # Extract key parameters
     nband, nkpt = size(enk)
+
+    # Setup energy window
     emin, emax = ewin
+
+    # Create an array for momentum-dependent band window
     bwin = zeros(I64, nkpt, 2)
+
+    # Go through each k-point to figure out the band window
     for k = 1:nkpt
         bmin = findfirst(x -> x > emin, enk[:,k])
         bmax = findfirst(x -> x > emax, enk[:,k]) - 1
@@ -974,11 +981,13 @@ function w90_make_window(ewin::Tuple{F64,F64}, enk::Array{F64,2})
         @assert nband ≥ bmax > bmin ≥ 1
     end
 
+    # Print some useful information
     println("  > Number of k-points: ", nkpt)
     println("  > Minimum band index: ", minimum(bwin[:,1]))
     println("  > Maixmum band index: ", maximum(bwin[:,2]))
     println("  > Shape of Array bwin: ", size(bwin))
 
+    # Return the desired array
     return bwin
 end
 
