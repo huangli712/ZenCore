@@ -448,12 +448,13 @@ end
 
 Try to make the control parameters for the `w90.win` file. The `latt`
 object represent the crystallography information, and `nband` is the
-number of Kohn-Sham states outputed by the dft code.
+number of Kohn-Sham states outputed by the dft code. This function is
+called by `wannier_init()`.
 
 See also: [`w90_make_proj`](@ref).
 """
 function w90_make_ctrl(latt::Lattice, nband::I64)
-    # Create a dict, which will be returned.
+    # Create a dict to store the configurations, which will be returned.
     w90c = Dict{String,Any}()
 
     # Generate a dict, which defines a mapping from orbital definition
@@ -471,7 +472,7 @@ function w90_make_ctrl(latt::Lattice, nband::I64)
                  "l=3" => 7,
              )
 
-    # Get number of wanniers, `num_wann`.
+    # Get number of wannier functions, `num_wann`.
     #
     # Step 1, get the string for projection.
     sproj = get_d("sproj")
@@ -566,7 +567,8 @@ end
     w90_make_proj()
 
 Try to make the projection block for the `w90.win` file. We will not
-check the validness of these projections here.
+check the validness of these projections here. This function is called
+by the `wannier_init()`.
 
 See also: [`w90_make_ctrl`](@ref).
 """
@@ -828,14 +830,14 @@ function w90_make_group(latt::Lattice, sp::String = "")
     end
 
     # Return the desired arrays
-    # Note: PG should be further setup at plo_group() function.
+    # Note: PG will be further fixed at another w90_make_group() function.
     return PT, PG
 end
 
 """
     w90_make_group(MAP::Mapping, PG::Array{PrGroup,1})
 
-Use the information contained in the `Mapping` struct to further complete
+Use the information contained in the `Mapping` struct to further setup
 the `PrGroup` struct.
 
 See also: [`PIMP`](@ref), [`Mapping`](@ref), [`PrGroup`](@ref).
@@ -908,6 +910,12 @@ end
 
 """
     w90_make_window(PG::Array{PrGroup,1}, enk::Array{F64,2})
+
+Make band window to filter the Kohn-Sham eigenvalues. Actually, all of
+the Kohn-Sham eigenvalues are retained, so the band window is always
+`[1, nband]`. This function will return an array of `PrWindow` struct.
+
+See also: [`PrWindow`](@ref).
 """
 function w90_make_window(PG::Array{PrGroup,1}, enk::Array{F64,2})
     # Print the header
@@ -919,14 +927,19 @@ function w90_make_window(PG::Array{PrGroup,1}, enk::Array{F64,2})
     # Initialize an array of PrWindow struct
     PW = PrWindow[]
 
+    # Scan the groups of projectors, setup PrWindow for them.
     for p in eachindex(PG)
+        # Setup global band window
         bwin = (1, nband)
-
+        #
+        # Setup momentum-dependent band window
         kwin = zeros(I64, nkpt, 1, 2)
         fill!(view(kwin, :, :, 1), 1)
         fill!(view(kwin, :, :, 2), nband)
+        #
+        # Create the `PrWindow` struct, and push it into the PW array.
         push!(PW, PrWindow(kwin, bwin))
-
+        #
         # Print some useful information
         println("  > Create window $p: $bwin <--> ($(PW[p].bmin), $(PW[p].bmax))")
     end # END OF P LOOP
