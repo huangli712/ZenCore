@@ -145,7 +145,10 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
 
     # W07: Read transform matrix from w90_u.mat
     if sp # For spin-polarized system
+        # Spin up
         umat_up = w90_read_umat("up")
+        #
+        # Spin down
         umat_dn = w90_read_umat("dn")
     else # For spin-unpolarized system
         umat = w90_read_umat()
@@ -153,7 +156,10 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
 
     # W08: Read disentanglement matrix from w90_u_dis.mat
     if sp # For spin-polarized system
+        # Spin up
         udis_up = w90_read_udis(bwin_up, "up")
+        #
+        # Spin down
         udis_dn = w90_read_udis(bwin_dn, "dn")
     else # For spin-unpolarized system
         udis = w90_read_udis(bwin)
