@@ -360,21 +360,22 @@ function wannier_exec(sp::String = ""; op::String = "")
     wait(t)
 
     # Extract some relevant information
-    #
-    # For disentanglement
-    iters = readlines(fout)
-    filter!(x -> contains(x, " <-- DIS"), iters)
-    arr = line_to_array(iters[end])
-    niter = parse(I64, arr[1])
-    delta = parse(F64, arr[4])
-    println("  > Disentangled after $niter iterations (Δ = $delta)")
-    #
-    # For wannierization
-    filter!(x -> contains(x, " <-- CONV"), iters)
-    arr = line_to_array(iters[end])
-    niter = parse(I64, arr[1])
-    delta = parse(F64, arr[2])
-    println("  > Wannierized after $niter iterations (Δ = $delta)")
+    if op != "-pp"
+        # For disentanglement
+        iters = readlines(fout)
+        filter!(x -> contains(x, " <-- DIS"), iters)
+        arr = line_to_array(iters[end])
+        niter = parse(I64, arr[1])
+        delta = parse(F64, arr[4])
+        println("  > Disentangled after $niter iterations (Δ = $delta)")
+        #
+        # For wannierization
+        filter!(x -> contains(x, " <-- CONV"), iters)
+        arr = line_to_array(iters[end])
+        niter = parse(I64, arr[1])
+        delta = parse(F64, arr[2])
+        println("  > Wannierized after $niter iterations (Δ = $delta)")
+    end
 end
 
 """
