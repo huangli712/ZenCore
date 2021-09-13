@@ -162,28 +162,34 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         D[:Fchipsi] = reshape(proj, (nproj, nband, nkpt, 1))
     end
 
+    # Setup the PrTrait and PrGroup structs
     latt =D[:latt]
-    if sp
+    if sp # For spin-polarized system
         PT_up, PG_up = w90_make_group(latt, "up")
         PT_dn, PG_dn = w90_make_group(latt, "dn")
         D[:PT] = hcat(PT_up, PT_dn)
         D[:PG] = hcat(PG_up, PG_dn)
-    else
+    else # For spin-unpolarized system
         PT, PG = w90_make_group(latt)
         D[:PT] = PT
         D[:PG] = PG
     end
 
-    if sp
+    # Setup the band window for projectors
+    if sp # For spin-polarized system
         PW_up = w90_make_window(PT_up, eigs_up)
         PW_dn = w90_make_window(PT_dn, eigs_dn)
         D[:PW] = hcat(PW_up, PW_dn)
-    else
+    else # For spin-unpolarized system
         PW = w90_make_window(PG, eigs)
         D[:PW] = PW
     end
 
+    # Create connections/mappings between projectors (or band
+    # windows) and quantum impurity problems
     D[:MAP] = w90_make_map(D[:PG], ai)
+
+    # Setup the PrGroup strcut further
     w90_make_group(D[:MAP], D[:PG])
 end
 
@@ -1447,8 +1453,9 @@ end
 """
     pw2wan_save(sp::String = "")
 
-Backup the output files of `pw2wannier90` if necessary. The argument `sp`
-specifies the spin component. It could be empty string, `up`, or `dn`.
+Backup the output files of the `pw2wannier90` code if necessary. The
+argument `sp` specifies the spin component. It could be empty string,
+`up`, or `dn`.
 
 See also: [`pw2wan_init`](@ref), [`pw2wan_exec`](@ref).
 """
