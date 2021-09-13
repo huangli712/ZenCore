@@ -42,6 +42,7 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     # Now this feature require pwscf as a dft engine
     @assert get_d("engine") == "pwscf"
 
+#=
     # W01: Execute the wannier90 code to generate w90.nnkp
     if sp # For spin-polarized system
         # Spin up
@@ -93,6 +94,7 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         wannier_exec()
         wannier_save()
     end
+=#
 
     # W04: Read energy window (outer window) from w90.wout
     if sp # For spin-polarized system
@@ -213,8 +215,13 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
 
     # W11: Setup the band window for projectors
     if sp # For spin-polarized system
-        PW_up = w90_make_window(PT_up, eigs_up)
-        PW_dn = w90_make_window(PT_dn, eigs_dn)
+        # Spin up
+        PW_up = w90_make_window(PG_up, eigs_up)
+        #
+        # Spin down
+        PW_dn = w90_make_window(PG3_dn, eigs_dn)
+        #
+        # Concatenate PW_up and PW_dn
         D[:PW] = hcat(PW_up, PW_dn)
     else # For spin-unpolarized system
         PW = w90_make_window(PG, eigs)
