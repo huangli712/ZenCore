@@ -191,6 +191,14 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
 
     # Setup the PrGroup strcut further
     w90_make_group(D[:MAP], D[:PG])
+
+    # Are the projectors correct?
+    #
+    # We will try to calculate some physical quantitites, which
+    # will be written to external files or terminal for reference.
+    isinteractive() &&
+    isfile(query_case()*".test") &&
+    wannier_monitor(D)
 end
 
 #=

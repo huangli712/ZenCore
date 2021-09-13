@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/09/12
+# Last modified: 2021/09/13
 #
 
 """
@@ -594,6 +594,7 @@ wannier_adaptor -> Adaptor support.
 wannier_init    -> Prepare wannier90's input files.
 wannier_exec    -> Execute wannier90 program.
 wannier_save    -> Backup wannier90's output files.
+wannier_monitor -> Check the WFs and projections.
 w90_make_ctrl   -> Prepare control parameters for wannier90.
 w90_make_proj   -> Prepare projections for wannier90.
 w90_make_map    -> Create connection between WFs and impurity problems.
@@ -620,6 +621,7 @@ export wannier_adaptor
 export wannier_init
 export wannier_exec
 export wannier_save
+export wannier_monitor
 export w90_make_ctrl
 export w90_make_proj
 export w90_make_map
