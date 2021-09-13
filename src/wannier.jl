@@ -167,16 +167,22 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
 
     # W09: Build projection matrix
     if sp # For spin-polarized system
+        # Spin up
         proj_up = w90_make_chipsi(umat_up, udis_up)
-        proj_dn = w90_make_chipsi(umat_dn, udis_dn)
-        # Sanity check
-        @assert size(proj_up) == size(proj_dn)
-        # Convert proj_up and proj_dn to 4D array (nproj, nband, nkpt, 1)
         nproj, nband, nkpt = size(proj_up)
         proj_up = reshape(proj_up, (nproj, nband, nkpt, 1))
+        #
+        # Spin down
+        proj_dn = w90_make_chipsi(umat_dn, udis_dn)
+        nproj, nband, nkpt = size(proj_dn)
         proj_dn = reshape(proj_dn, (nproj, nband, nkpt, 1))
+        #
+        # Sanity check
+        @assert size(proj_up) == size(proj_dn)
+        #
         # Concatenate proj_up and proj_dn
         D[:Fchipsi] = cat(proj_up, proj_dn, dims = 4)
+        #
         # Sanity check
         @assert size(D[:Fchipsi]) == (nproj, nband, nkpt, 2)
     else # For spin-unpolarized system
@@ -188,9 +194,16 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     # W10: Setup the PrTrait and PrGroup structs
     latt =D[:latt]
     if sp # For spin-polarized system
+        # Spin up
         PT_up, PG_up = w90_make_group(latt, "up")
+        #
+        # Spin down
         PT_dn, PG_dn = w90_make_group(latt, "dn")
+        #
+        # Concatenate PT_up and PT_dn
         D[:PT] = hcat(PT_up, PT_dn)
+        #
+        # Concatenate PG_up and PG_dn
         D[:PG] = hcat(PG_up, PG_dn)
     else # For spin-unpolarized system
         PT, PG = w90_make_group(latt)
