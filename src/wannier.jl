@@ -1117,6 +1117,8 @@ Try to read and parse the `w90.eig` file to get the band eigenvalues.
 Note that the eigenvalues from `nscf.out` are not accurate enough. We
 will use the data extracted from `w90.eig` to update them. The argument
 `sp` denotes the spin component.
+
+See also: [`pwscfio_eigen`](@ref).
 """
 function w90_read_eigs(sp::String = "")
     # Print the header
@@ -1175,10 +1177,18 @@ end
 Try to read and parse the `w90_hr.dat` file, return the hamiltonian
 matrix in WF representation, the Wigner-Seitz grid points, and their
 weights (degeneracies). The argument `sp` denotes the spin component.
+The data return by this function can be used to validate the projection
+matrix further.
+
+See also: [`wannier_monitor`](@ref).
 """
 function w90_read_hmat(sp::String = "")
+    # Print the header
+    println("Parse hamiltonian in WF basis")
+
     # Build the filename
     fhr = "w90" * sp * "_hr.dat"
+    println("  > Open and read $fhr")
 
     # Read the `w90_hr.dat` file
     lines = readlines(fhr)
@@ -1242,6 +1252,14 @@ function w90_read_hmat(sp::String = "")
             end # END OF J LOOP
         end # END OF I LOOP
     end # END OF R LOOP
+
+    # Print some useful information to check
+    println("  > Number of projections: ", nproj)
+    println("  > Number of Wigner-Seitz points: ", nrpt)
+    println("  > Spin orientation: ", sp)
+    println("  > Shape of Array rdeg: ", size(rdeg))
+    println("  > Shape of Array rvec: ", size(rvec))
+    println("  > Shape of Array hamr: ", size(hamr))
 
     # Return the desired arrays
     return rdeg, rvec, hamr
