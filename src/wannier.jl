@@ -86,7 +86,7 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     end
 =#
 
-    # Read energy window for disentanglement procedure from w90.wout
+    # W04: Read energy window for disentanglement procedure from w90.wout
     if sp # For spin-polarized system
         # Spin up
         ewin_up = w90_read_wout("up")
@@ -96,7 +96,7 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         ewin = w90_read_wout()
     end
 
-    # Read accurate eigenvalues from w90.eig
+    # W05: Read accurate eigenvalues from w90.eig
     if sp # For spin-polarized system
         # Get eigenvalues for spin up and down components
         eigs_up = w90_read_eigs("up")
@@ -118,7 +118,7 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         @assert size(D[:enk]) == (nband, nkpt, 1)
     end
 
-    # Determine band window for disentanglement procedure
+    # W06: Determine band window for disentanglement procedure
     if sp # For spin-polarized system
         bwin_up = w90_make_window(ewin_up, eigs_up)
         bwin_dn = w90_make_window(ewin_dn, eigs_dn)
@@ -126,7 +126,7 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         bwin = w90_make_window(ewin, eigs)
     end
 
-    # Read transform matrix from w90_u.mat
+    # W07: Read transform matrix from w90_u.mat
     if sp # For spin-polarized system
         umat_up = w90_read_umat("up")
         umat_dn = w90_read_umat("dn")
@@ -134,7 +134,7 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         umat = w90_read_umat()
     end
 
-    # Read disentanglement matrix from w90_u_dis.mat
+    # W08: Read disentanglement matrix from w90_u_dis.mat
     if sp # For spin-polarized system
         udis_up = w90_read_udis(bwin_up, "up")
         udis_dn = w90_read_udis(bwin_dn, "dn")
@@ -142,7 +142,7 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         udis = w90_read_udis(bwin)
     end
 
-    # Build projection matrix
+    # W09: Build projection matrix
     if sp # For spin-polarized system
         proj_up = w90_make_chipsi(umat_up, udis_up)
         proj_dn = w90_make_chipsi(umat_dn, udis_dn)
@@ -162,7 +162,7 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         D[:Fchipsi] = reshape(proj, (nproj, nband, nkpt, 1))
     end
 
-    # Setup the PrTrait and PrGroup structs
+    # W10: Setup the PrTrait and PrGroup structs
     latt =D[:latt]
     if sp # For spin-polarized system
         PT_up, PG_up = w90_make_group(latt, "up")
@@ -175,7 +175,7 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         D[:PG] = PG
     end
 
-    # Setup the band window for projectors
+    # W11: Setup the band window for projectors
     if sp # For spin-polarized system
         PW_up = w90_make_window(PT_up, eigs_up)
         PW_dn = w90_make_window(PT_dn, eigs_dn)
@@ -185,11 +185,11 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         D[:PW] = PW
     end
 
-    # Create connections/mappings between projectors (or band
+    # W12: Create connections/mappings between projectors (or band
     # windows) and quantum impurity problems
     D[:MAP] = w90_make_map(D[:PG], ai)
 
-    # Setup the PrGroup strcut further
+    # W13: Setup the PrGroup strcut further
     w90_make_group(D[:MAP], D[:PG])
 
     # Are the projectors correct?
@@ -349,6 +349,12 @@ function wannier_save(sp::String = ""; op::String = "")
             end
         end
     end
+end
+
+"""
+    wannier_monitor(D::Dict{Symbol,Any})
+"""
+function wannier_monitor(D::Dict{Symbol,Any})
 end
 
 #=
