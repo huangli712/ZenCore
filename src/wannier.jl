@@ -330,7 +330,7 @@ function wannier_exec(sp::String = ""; op::String = "")
 
     # Determine suitable output file
     finp = "w90" * sp * ".win"
-    fout = "w90" * sp * ".out"
+    fout = "w90" * sp * ".wout"
     println("  > Applying input file: $finp")
     println("  > Applying output file: $fout")
 
@@ -370,6 +370,7 @@ function wannier_exec(sp::String = ""; op::String = "")
         println("  > Disentangled after $niter iterations (Δ = $delta)")
         #
         # For wannierization
+        iters = readlines(fout)
         filter!(x -> contains(x, " <-- CONV"), iters)
         arr = line_to_array(iters[end])
         niter = parse(I64, arr[1])
