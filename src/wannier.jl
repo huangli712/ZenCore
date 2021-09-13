@@ -17,7 +17,7 @@
 Adaptor support. It will firstly launch wannier90 + pw2wannier90 codes to
 generate maximally localized wannier functions and related transformation
 matrix. Then it will read and parse the outputs, convert the data into
-IR format. The data contained in `D` dict will be modified.
+IR format. The data contained in `D` dict will be updated.
 
 Be careful, now this adaptor only supports `pwscf`.
 
@@ -219,7 +219,7 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         PW_up = w90_make_window(PG_up, eigs_up)
         #
         # Spin down
-        PW_dn = w90_make_window(PG3_dn, eigs_dn)
+        PW_dn = w90_make_window(PG_dn, eigs_dn)
         #
         # Concatenate PW_up and PW_dn
         D[:PW] = hcat(PW_up, PW_dn)
@@ -263,6 +263,7 @@ function wannier_init(D::Dict{Symbol,Any}, sp::String = "")
     println("Generate input files for wannier90")
 
     # Extract necessary data from D
+    # These data are read in pwscf_adaptor()
     latt  = D[:latt]
     kmesh = D[:kmesh]
     enk   = D[:enk]
@@ -273,7 +274,7 @@ function wannier_init(D::Dict{Symbol,Any}, sp::String = "")
     # Try to prepare control parameters
     w90c = w90_make_ctrl(latt, nband)
 
-    # Try to prepare projections
+    # Try to define projections
     proj = w90_make_proj()
 
     # Try to write w90.win
@@ -297,7 +298,8 @@ end
 
 Execute the wannier90 program, monitor the convergence progress, and
 output the relevant information. The argument `sp` denotes the spin
-component, while `op` specifies the running mode for wannier90.
+component, while `op` specifies the running mode for wannier90. If
+`op == -pp`, the wannier90 code will try to generate the `w90.nnkp`.
 
 See also: [`wannier_init`](@ref), [`wannier_save`](@ref).
 """
@@ -319,11 +321,13 @@ function wannier_exec(sp::String = ""; op::String = "")
 
     # Assemble command
     seedname = "w90" * sp
-    if op == "-pp"
+    #
+    if op == "-pp" # As a preprocessor to generate w90.nnkp 
         wannier90_cmd = split("$wannier90_exe $op $seedname", " ")
-    else
+    else # Standard run to generate wannier function
         wannier90_cmd = split("$wannier90_exe $seedname", " ")
     end
+    #
     println("  > Assemble command: $(prod(x -> x * ' ', wannier90_cmd))")
 
     # Determine suitable output file
@@ -356,6 +360,7 @@ function wannier_exec(sp::String = ""; op::String = "")
 
     # Wait for the wannier90 task to finish
     wait(t)
+
 end
 
 """
