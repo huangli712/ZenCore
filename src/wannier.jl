@@ -1052,10 +1052,16 @@ end
 Try to read and parse the `w90.amn` file to get the ``A_{mn}`` matrix,
 which represents the projection of the Bloch states onto trail localized
 orbitals. The argument `sp` denotes the spin component.
+
+Note that this function has not been used so far.
 """
 function w90_read_amat(sp::String = "")
+    # Print the header
+    println("Parse trail projection")
+
     # Build the filename
     famn = "w90" * sp * ".amn"
+    println("  > Open and read $famn")
 
     # Read the `w90.amn` file
     lines = readlines(famn)
@@ -1093,6 +1099,13 @@ function w90_read_amat(sp::String = "")
     #
     @assert start - 2 == nband * nproj * nkpt
 
+    # Print some useful information to check
+    println("  > Number of wannier functions: ", nproj)
+    println("  > Number of DFT bands: ", nband)
+    println("  > Number of k-points: ", nkpt)
+    println("  > Spin orientation: ", sp)
+    println("  > Shape of Array Amn: ", size(Amn))
+
     # Return the desired array
     return Amn
 end
@@ -1102,8 +1115,8 @@ end
 
 Try to read and parse the `w90.eig` file to get the band eigenvalues.
 Note that the eigenvalues from `nscf.out` are not accurate enough. We
-will use the data extracted from `w90.eig` instead. The argument `sp`
-denotes the spin component.
+will use the data extracted from `w90.eig` to update them. The argument
+`sp` denotes the spin component.
 """
 function w90_read_eigs(sp::String = "")
     # Print the header
