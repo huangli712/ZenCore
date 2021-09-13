@@ -94,29 +94,35 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         wannier_save()
     end
 
-    # W04: Read energy window for disentanglement procedure from w90.wout
+    # W04: Read energy window (outer window) from w90.wout
     if sp # For spin-polarized system
         # Spin up
         ewin_up = w90_read_wout("up")
+        #
         # Spin down
         ewin_dn = w90_read_wout("dn")
     else # For spin-unpolarized system
         ewin = w90_read_wout()
     end
 
-    # W05: Read accurate eigenvalues from w90.eig
+    # W05: Read accurate band eigenvalues from w90.eig
     if sp # For spin-polarized system
-        # Get eigenvalues for spin up and down components
+        # Spin up
         eigs_up = w90_read_eigs("up")
-        eigs_dn = w90_read_eigs("dn")
-        # Sanity check
-        @assert size(eigs_up) == size(eigs_dn)
-        # Convert eigs_up and eigs_dn to 3D array (nband, nkpt, 1)
         nband, nkpt = size(eigs_up)
         eigs_up = reshape(eigs_up, (nband, nkpt, 1))
+        #
+        # Spin down
+        eigs_dn = w90_read_eigs("dn")
+        nband, nkpt = size(eigs_dn)
         eigs_dn = reshape(eigs_dn, (nband, nkpt, 1))
+        #
+        # Sanity check
+        @assert size(eigs_up) == size(eigs_dn)
+        #
         # Concatenate eigs_up and eigs_dn
         D[:enk] = cat(eigs_up, eigs_dn, dims = 3)
+        #
         # Sanity check
         @assert size(D[:enk]) == (nband, nkpt, 2)
     else # For spin-unpolarized system
