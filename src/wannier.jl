@@ -993,21 +993,33 @@ end
 
 """
     w90_make_chipsi(umat::Array{C64,3}, udis::Array{C64,3})
+
+Try to merge the transform matrix `umat` with the disentanglement matrix
+`udis` to construct the final projection matrix `chipsi`, which actually
+is the overlap matrix between the wannier functions and the Kohn-Sham
+wave functions.
+
+See also: [`w90_read_umat`](@ref), [`w90_read_udis`](@ref).
 """
 function w90_make_chipsi(umat::Array{C64,3}, udis::Array{C64,3})
     # Print the header
-    println("Generate projections")
+    println("Generate projection matrix")
 
     # Extract key parameters
-    nproj, _, nkpt = size(umat)
+    nproj, _, nkpt = size(umat) # (nproj, nproj, nkpt)
     nband, _nproj, _nkpt = size(udis)
+    #
+    # Sanity check
     @assert nproj == _nproj
     @assert nkpt == _nkpt
 
+    # Create arrays
     utmp = zeros(C64, nband, nproj)
-    proj = zeros(C64, nproj, nband, nkpt)
+    chipsi = zeros(C64, nproj, nband, nkpt)
 
+    # Go through each k-point
     for k = 1:nkpt
+        # Einstein summation
         for j = 1:nproj
             for i = 1:nband
                 utmp[i,j] = zero(C64)
@@ -1016,16 +1028,18 @@ function w90_make_chipsi(umat::Array{C64,3}, udis::Array{C64,3})
                 end
             end
         end
-        proj[:,:,k] = utmp'
+        # Calculate conjugate transpose
+        chipsi[:,:,k] = utmp'
     end
 
+    # Print some useful information
     println("  > Number of k-points: ", nkpt)
     println("  > Number of DFT bands: ", nband)
     println("  > Number of wannier functions: ", nproj)
-    println("  > Shape of Array proj: ", size(proj))
+    println("  > Shape of Array chipsi: ", size(chipsi))
 
     # Return the desired array
-    return proj
+    return chipsi
 end
 
 #=
