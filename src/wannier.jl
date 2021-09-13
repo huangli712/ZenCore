@@ -29,6 +29,12 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     println("Try to process the Kohn-Sham dataset")
     println("Current directory: ", pwd())
 
+    # Check the validity of the original dict
+    key_list = [:latt, :kmesh, :weight, :enk, :occupy, :fermi]
+    for k in key_list
+        @assert haskey(D, k)
+    end
+
     # Extract key parameters
     case = get_c("case") # Prefix for pwscf
     sp = get_d("lspins") # Is it a spin-polarized system
@@ -36,13 +42,13 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     # Now this feature require pwscf as a dft engine
     @assert get_d("engine") == "pwscf"
 
-#=
-    # W01: Execute wannier90 to generate w90.nnkp.
+    # W01: Execute the wannier90 code to generate w90.nnkp
     if sp # For spin-polarized system
         # Spin up
         wannier_init(D, "up")
         wannier_exec("up", op = "-pp")
         wannier_save("up", op = "-pp")
+        #
         # Spin down
         wannier_init(D, "dn")
         wannier_exec("dn", op = "-pp")
@@ -53,12 +59,14 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         wannier_save(op = "-pp")
     end
 
-    # W02: Execute pw2wannier90 to generate w90.amn, w90.mmn, etc.
+    # W02: Execute the pw2wannier90 code to generate necessary files for
+    # the wannier90 code
     if sp # For spin-polarized system
         # Spin up
         pw2wan_init(case, "up")
         pw2wan_exec(case, "up")
         pw2wan_save("up")
+        #
         # Spin down
         pw2wan_init(case, "dn")
         pw2wan_exec(case, "dn")
@@ -69,12 +77,13 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         pw2wan_save()
     end
 
-    # W03: Execute wannier90 again to generate wannier functions.
+    # W03: Execute the wannier90 code again to generate wannier functions
     if sp # For spin-polarized system
         # Spin up
         wannier_init(D, "up")
         wannier_exec("up")
         wannier_save("up")
+        #
         # Spin down
         wannier_init(D, "dn")
         wannier_exec("dn")
@@ -84,7 +93,6 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         wannier_exec()
         wannier_save()
     end
-=#
 
     # W04: Read energy window for disentanglement procedure from w90.wout
     if sp # For spin-polarized system
