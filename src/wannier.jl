@@ -667,10 +667,15 @@ used when the system is spin-polarized.
 See also: [`PrTrait`](@ref), [`PrGroup`](@ref).
 """
 function w90_make_group(latt::Lattice, sp::String = "")
+    # Print the header
+    println("Build groups")
+
     # Read and parse the `w90.nnkp` file
     #
     # Build the filename
     fnnkp = "w90" * sp * ".nnkp"
+    println("  > Open and read $fnnkp")
+    println("  > Spin orientation: ", sp)
     #
     # Read it and figure out the projections block
     lines = readlines(fnnkp)
@@ -769,6 +774,7 @@ function w90_make_group(latt::Lattice, sp::String = "")
         println("      m -> ", PT[i].m)
         println("      desc -> ", PT[i].desc)
     end
+    #
     println("  > Number of groups: ", length(PG))
     for i in eachindex(PG)
         println("    [ PrGroup $i ]")
@@ -862,6 +868,9 @@ end
     w90_make_window(PG::Array{PrGroup,1}, enk::Array{F64,2})
 """
 function w90_make_window(PG::Array{PrGroup,1}, enk::Array{F64,2})
+    # Print the header
+    println("Generate windows")
+
     # Extract the key parameters
     nband, nkpt = size(enk)
 
@@ -911,15 +920,17 @@ function w90_make_window(ewin::Tuple{F64,F64}, enk::Array{F64,2})
 end
 
 """
-    w90_make_chipsi()
+    w90_make_chipsi(umat::Array{C64,3}, udis::Array{C64,3})
 """
 function w90_make_chipsi(umat::Array{C64,3}, udis::Array{C64,3})
+    # Print the header
+    println("Generate projections")
+
     # Extract key parameters
     nproj, _, nkpt = size(umat)
     nband, _nproj, _nkpt = size(udis)
     @assert nproj == _nproj
     @assert nkpt == _nkpt
-    @show nproj, nband, nkpt
 
     utmp = zeros(C64, nband, nproj)
     proj = zeros(C64, nproj, nband, nkpt)
@@ -952,6 +963,12 @@ function w90_make_chipsi(umat::Array{C64,3}, udis::Array{C64,3})
     #    end
     #end
 
+    println("  > Number of k-points: ", nkpt)
+    println("  > Number of DFT bands: ", nband)
+    println("  > Number of wannier functions: ", nproj)
+    println("  > Shape of Array proj: ", size(proj))
+
+    # Return the desired array
     return proj
 end
 
@@ -1157,8 +1174,12 @@ smooth states. The argument `sp` denotes the spin component.
 See also: [`w90_read_udis`](@ref).
 """
 function w90_read_umat(sp::String = "")
+    # Print the header
+    println("Parse umat")
+
     # Build the filename
     fu = "w90" * sp * "_u.mat"
+    println("  > Open and read $fu")
 
     # Read the `w90_u.mat` file
     lines = readlines(fu)
@@ -1188,13 +1209,10 @@ function w90_read_umat(sp::String = "")
         end # END OF J LOOP
     end # END OF K LOOP
 
-    #for k = 1:nkpt
-    #    for j = 1:nproj
-    #        for i = 1:nproj
-    #            @show k, i, j, umat[i, j, k]
-    #        end
-    #    end
-    #end
+    println("  > Number of k-points: ", nkpt)
+    println("  > Number of wannier functions: ", nproj)
+    println("  > Spin orientation: ", sp)
+    println("  > Shape of Array umat: ", size(umat))
 
     # Return the desired array
     return umat
@@ -1211,11 +1229,15 @@ The argument `sp` denotes the spin component.
 See also: [`w90_read_udis`](@ref).
 """
 function w90_read_udis(bwin::Array{I64,2}, sp::String = "")
+    # Print the header
+    println("Parse udis")
+
     # Build the filename
-    fu = "w90" * sp * "_u_dis.mat"
+    fdis = "w90" * sp * "_u_dis.mat"
+    println("  > Open and read $fdis")
 
     # Read the `w90_u_dis.mat` file
-    lines = readlines(fu)
+    lines = readlines(fdis)
     @assert length(lines) ≥ 3
 
     # Determine the key parameters
@@ -1248,13 +1270,11 @@ function w90_read_udis(bwin::Array{I64,2}, sp::String = "")
         udis[bs:be, :, k] = utmp[1:nb, :]
     end # END OF K LOOP
 
-    #for k = 1:nkpt
-    #    for j = 1:nproj
-    #        for i = 1:nband
-    #            @show k, i, j, udis[i, j, k]
-    #        end
-    #    end
-    #end
+    println("  > Number of k-points: ", nkpt)
+    println("  > Number of DFT bands: ", nband)
+    println("  > Number of wannier functions: ", nproj)
+    println("  > Spin orientation: ", sp)
+    println("  > Shape of Array udis: ", size(udis))
 
     # Return the desired array
     return udis
@@ -1275,6 +1295,7 @@ function w90_read_wout(sp::String = "")
     # Build the filename
     fout = "w90" * sp * ".wout"
     println("  > Open and read $fout")
+    println("  > Spin orientation: ", sp)
 
     # Read the `w90.wout` file
     lines = readlines(fout)
