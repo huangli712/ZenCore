@@ -417,8 +417,26 @@ end
 
 """
     wannier_monitor(D::Dict{Symbol,Any})
+
+Try to check and examine whether the obtained wannier functions are
+correct and reasonable.
 """
 function wannier_monitor(D::Dict{Symbol,Any})
+    #for k = 1:nkpt
+    #    for j = 1:nband
+    #        for i = 1:nproj
+    #            @show k, i, j, proj[i,j,k]
+    #        end
+    #    end
+    #end
+
+    #Ham = proj[:,:,1] * Diagonal(enk[:,1]) * proj[:,:,1]'
+    #println(size(Ham))
+    #for i = 1:nproj
+    #    for j = 1:nproj
+    #        @show i, j, Ham[i,j]
+    #    end
+    #end
 end
 
 #=
@@ -970,22 +988,6 @@ function w90_make_chipsi(umat::Array{C64,3}, udis::Array{C64,3})
         end
         proj[:,:,k] = utmp'
     end
-
-    #for k = 1:nkpt
-    #    for j = 1:nband
-    #        for i = 1:nproj
-    #            @show k, i, j, proj[i,j,k]
-    #        end
-    #    end
-    #end
-
-    #Ham = proj[:,:,1] * Diagonal(enk[:,1]) * proj[:,:,1]'
-    #println(size(Ham))
-    #for i = 1:nproj
-    #    for j = 1:nproj
-    #        @show i, j, Ham[i,j]
-    #    end
-    #end
 
     println("  > Number of k-points: ", nkpt)
     println("  > Number of DFT bands: ", nband)
