@@ -382,7 +382,7 @@ end
 """
     wannier_save(sp::String = ""; op::String = "")
 
-Backup the output files of wannier90 if necessary.
+Backup and check the output files of wannier90 if necessary.
 
 See also: [`wannier_init`](@ref), [`wannier_exec`](@ref).
 """
@@ -392,18 +392,18 @@ function wannier_save(sp::String = ""; op::String = "")
 
     # Check the output files of wannier90
     if op == "-pp"
-        fwan = "w90" * sp * ".nnkp"
-        if isfile(fwan)
-            println("  > File $fwan is created")
+        fnnkp = "w90" * sp * ".nnkp"
+        if isfile(fnnkp)
+            println("  > File $fnnkp is created")
         else
-            error("File $fwan is not created")
+            error("File $fnnkp is not created")
         end
     else
         fhr = "w90" * sp * "_hr.dat"
         fu = "w90" * sp * "_u.mat"
-        fudis = "w90" * sp * "_u_dis.mat"
+        fdis = "w90" * sp * "_u_dis.mat"
         #
-        flist = (fhr, fu, fudis)
+        flist = (fhr, fu, fdis)
         for i in eachindex(flist)
             filename = flist[i]
             if isfile(filename)
@@ -519,6 +519,9 @@ function w90_make_ctrl(latt::Lattice, nband::I64)
     end
 
     # Some additional but necessary parameters for wannier90
+    #
+    # Acticate the convergence window
+    w90c["conv_window"] = 3
     #
     # We should write the hamiltonian
     w90c["write_hr"] = ".true."
