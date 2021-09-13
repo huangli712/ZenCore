@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/09/13
+# Last modified: 2021/09/14
 #
 
 #=
@@ -42,7 +42,6 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     # Now this feature require pwscf as a dft engine
     @assert get_d("engine") == "pwscf"
 
-#=
     # W01: Execute the wannier90 code to generate w90.nnkp
     if sp # For spin-polarized system
         # Spin up
@@ -94,7 +93,6 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         wannier_exec()
         wannier_save()
     end
-=#
 
     # W04: Read energy window (outer window) from w90.wout
     if sp # For spin-polarized system
