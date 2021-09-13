@@ -950,6 +950,13 @@ end
 
 """
     w90_make_window()
+
+During the disentanglement procedure, we can define an outer energy
+window to restrict the Kohn-Sham eigenvalues. This function will return
+the corresponding band window, which will be used to displace the
+disentanglement matrix.
+
+See also: [`w90_read_udis`](@ref).
 """
 function w90_make_window(ewin::Tuple{F64,F64}, enk::Array{F64,2})
     # Print the header
