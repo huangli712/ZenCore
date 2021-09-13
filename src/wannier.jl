@@ -1640,8 +1640,8 @@ end
 """
     pw2wan_save(sp::String = "")
 
-Backup the output files of the `pw2wannier90` code if necessary. The
-argument `sp` specifies the spin component. It could be empty string,
+Backup and check the output files of the `pw2wannier90` code if necessary.
+The argument `sp` specifies the spin component. It could be empty string,
 `up`, or `dn`.
 
 See also: [`pw2wan_init`](@ref), [`pw2wan_exec`](@ref).
