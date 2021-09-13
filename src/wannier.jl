@@ -1254,7 +1254,7 @@ function w90_read_hmat(sp::String = "")
     end # END OF R LOOP
 
     # Print some useful information to check
-    println("  > Number of projections: ", nproj)
+    println("  > Number of wannier functions: ", nproj)
     println("  > Number of Wigner-Seitz points: ", nrpt)
     println("  > Spin orientation: ", sp)
     println("  > Shape of Array rdeg: ", size(rdeg))
@@ -1310,8 +1310,9 @@ function w90_read_umat(sp::String = "")
         end # END OF J LOOP
     end # END OF K LOOP
 
-    println("  > Number of k-points: ", nkpt)
+    # Print some useful information to check
     println("  > Number of wannier functions: ", nproj)
+    println("  > Number of k-points: ", nkpt)
     println("  > Spin orientation: ", sp)
     println("  > Shape of Array umat: ", size(umat))
 
