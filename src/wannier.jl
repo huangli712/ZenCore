@@ -132,9 +132,12 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         @assert size(D[:enk]) == (nband, nkpt, 1)
     end
 
-    # W06: Determine band window for disentanglement procedure
+    # W06: Determine band window from energy window
     if sp # For spin-polarized system
+        # Spin up
         bwin_up = w90_make_window(ewin_up, eigs_up)
+        #
+        # Spin down
         bwin_dn = w90_make_window(ewin_dn, eigs_dn)
     else # For spin-unpolarized system
         bwin = w90_make_window(ewin, eigs)
