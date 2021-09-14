@@ -140,6 +140,8 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     end
     #
     # Calibrate the eigenvalues to force the fermi level to be zero
+    # Be careful, the original eigenvalues from pwscfio_eigen() have
+    # not been calibrated.
     @. D[:enk] = D[:enk] - D[:fermi]
 
     # W06: Determine band window from energy window
