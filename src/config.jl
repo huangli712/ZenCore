@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/09/01
+# Last modified: 2021/09/14
 #
 
 #=
@@ -205,6 +205,9 @@ function chk_dict()
         @assert get_d("projtype") == "plo"
     elseif get_d("engine") == "pwscf"
         @assert get_d("projtype") == "wannier"
+    end
+    if get_d("engine") == "pwscf"
+        @assert get_d("smear") != "tetra"
     end
     if get_d("lspinorb")
         @assert !get_d("lspins")
