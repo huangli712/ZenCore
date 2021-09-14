@@ -979,10 +979,20 @@ function w90_make_window(PG::Array{PrGroup,1}, enk::Array{F64,2})
         println("  > Create window $p: $bwin <--> ($(PW[p].bmin), $(PW[p].bmax))")
     end # END OF P LOOP
 
-    # Return the desired arrays
+    # Return the desired array
     return PW
 end
 
+"""
+    w90_make_window(PG::Array{PrGroup,1}, ewin::Tuple{F64,F64}, bwin::Array{I64,2})
+
+Make band window to filter the projections. Actually, only those relevant
+bands (which are restricted by the energy window `ewin` or the band window
+`bwin`) are retained. This function will return an array of `PrWindow`
+struct.
+
+See also: [`PrWindow`](@ref).
+"""
 function w90_make_window(PG::Array{PrGroup,1}, ewin::Tuple{F64,F64}, bwin::Array{I64,2})
     # Print the header
     println("Generate windows")
@@ -995,9 +1005,12 @@ function w90_make_window(PG::Array{PrGroup,1}, ewin::Tuple{F64,F64}, bwin::Array
 
     # Scan the groups of projectors, setup PrWindow for them.
     for p in eachindex(PG)
+        # Setup momentum-dependent band window
         kwin = zeros(I64, nkpt, 1, 2)
+        #
+        # We copy bwin to kwin directly
         @. kwin[:,1,:] = bwin
-
+        #
         # Create the `PrWindow` struct, and push it into the PW array.
         push!(PW, PrWindow(kwin, ewin))
         #
@@ -1005,7 +1018,7 @@ function w90_make_window(PG::Array{PrGroup,1}, ewin::Tuple{F64,F64}, bwin::Array
         println("  > Create window $p: $ewin <--> ($(PW[p].bmin), $(PW[p].bmax))")
     end # END OF P LOOP
 
-    # Return the desired arrays
+    # Return the desired array
     return PW
 end
 
