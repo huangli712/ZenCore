@@ -178,6 +178,8 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     end
 
     # W09: Build projection matrix
+    #
+    # D[:chipsi] will be created
     if sp # For spin-polarized system
         # Spin up
         proj_up = w90_make_chipsi(umat_up, udis_up)
@@ -193,17 +195,19 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         @assert size(proj_up) == size(proj_dn)
         #
         # Concatenate proj_up and proj_dn
-        D[:Fchipsi] = cat(proj_up, proj_dn, dims = 4)
+        D[:chipsi] = cat(proj_up, proj_dn, dims = 4)
         #
         # Sanity check
-        @assert size(D[:Fchipsi]) == (nproj, nband, nkpt, 2)
+        @assert size(D[:chipsi]) == (nproj, nband, nkpt, 2)
     else # For spin-unpolarized system
         proj = w90_make_chipsi(umat, udis)
         nproj, nband, nkpt = size(proj)
-        D[:Fchipsi] = reshape(proj, (nproj, nband, nkpt, 1))
+        D[:chipsi] = reshape(proj, (nproj, nband, nkpt, 1))
     end
 
     # W10: Setup the PrTrait and PrGroup structs
+    #
+    # D[:PT] and D[:PG] will be created
     latt =D[:latt]
     if sp # For spin-polarized system
         # Spin up
@@ -224,6 +228,8 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     end
 
     # W11: Setup the band window for projectors
+    #
+    # D[:PW] will be created
     if sp # For spin-polarized system
         # Spin up
         PW_up = w90_make_window(PG_up, eigs_up)
@@ -240,10 +246,19 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
 
     # W12: Create connections/mappings between projectors (or band
     # windows) and quantum impurity problems
+    #
+    # D[:MAP] will be created
     D[:MAP] = w90_make_map(D[:PG], ai)
 
     # W13: Setup the PrGroup strcut further
+    #
+    # D[:PG] will be updated
     w90_make_group(D[:MAP], D[:PG])
+
+    # W14: Transform the projectors
+    #
+    # D[:Fchipsi] will be created
+    D[:Fchipsi] = w90_make_chipsi(D[:PG], D[:chipsi])
 
     # Are the projectors correct?
     #
