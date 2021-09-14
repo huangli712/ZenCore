@@ -103,8 +103,13 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         #
         # Spin down
         ewin_dn = w90_read_wout("dn")
+        #
+        # Calibrate the energy window by the fermi level
+        ewin_up = ewin_up .- D[:fermi]
+        ewin_dn = ewin_dn .- D[:fermi]
     else # For spin-unpolarized system
         ewin = w90_read_wout()
+        ewin = ewin .- D[:fermi]
     end
 
     # W05: Read accurate band eigenvalues from w90.eig
@@ -133,6 +138,9 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         D[:enk] = reshape(eigs, (nband, nkpt, 1))
         @assert size(D[:enk]) == (nband, nkpt, 1)
     end
+    #
+    # Calibrate the eigenvalues to force the fermi level to be zero
+    @. D[:enk] = D[:enk] - D[:fermi]
 
     # W06: Determine band window from energy window
     if sp # For spin-polarized system
