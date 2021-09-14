@@ -229,20 +229,22 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         D[:PG] = PG
     end
 
-    # W11: Setup the band window for projectors
+    # W11: Setup the band window for projections
+    # If you do not want to filter the projections, please use another
+    # version of w90_make_window(), i.e, w90_make_window(PG, eigs). It
+    # is quite clear that the current version is much more efficient.
     #
     # D[:PW] will be created
     if sp # For spin-polarized system
         # Spin up
-        PW_up = w90_make_window(PG_up, eigs_up)
+        PW_up = w90_make_window(PG_up, ewin_up, bwin_up)
         #
         # Spin down
-        PW_dn = w90_make_window(PG_dn, eigs_dn)
+        PW_dn = w90_make_window(PG_dn, ewin_dn, bwin_dn)
         #
         # Concatenate PW_up and PW_dn
         D[:PW] = hcat(PW_up, PW_dn)
     else # For spin-unpolarized system
-        #PW = w90_make_window(PG, eigs)
         PW = w90_make_window(PG, ewin, bwin)
         D[:PW] = PW
     end
