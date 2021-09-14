@@ -259,8 +259,13 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
 
     # W14: Transform the projectors
     #
+    # D[:Rchipsi] will be created
+    D[:Rchipsi] = w90_make_chipsi(D[:PG], D[:chipsi])
+
+    # W15: Filter the projectors
+    #
     # D[:Fchipsi] will be created
-    D[:Fchipsi] = w90_make_chipsi(D[:PG], D[:chipsi])
+    D[:Fchipsi] = w90_make_chipsi(D[:PW], D[:Rchipsi])
 
     # Are the projectors correct?
     #
@@ -1124,6 +1129,61 @@ function w90_make_chipsi(PG::Array{PrGroup,1}, chipsi::Array{C64,4})
 
     # Return the desired array
     return Rchipsi
+end
+
+"""
+    w90_make_chipsi(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1}}
+
+Filter the projector matrix according to band window.
+
+See also: [`PrWindow`](@ref), [`plo_filter`](@ref).
+"""
+function w90_make_chipsi(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1})
+    # Print the header
+    println("Filter projectors")
+
+    # Initialize new array. It stores the filtered projectors.
+    # Now it is empty, but we will allocate memory for it later.
+    Fchipsi = Array{C64,4}[]
+
+    # Go through each PrWindow
+    for p in eachindex(PW)
+        # Extract some key parameters
+        ndim, nband, nkpt, nspin = size(chipsi[p])
+
+        # Create a temporary array F
+        F = zeros(C64, ndim, PW[p].nbnd, nkpt, nspin)
+        @assert nband ≥ PW[p].nbnd ≥ ndim
+
+        # Go through each spin and k-point
+        for s = 1:nspin
+            for k = 1:nkpt
+                # Select projectors which live in the given band window
+                # `ib1` and `ib2` are the boundaries.
+                ib1 = PW[p].kwin[k, s, 1]
+                ib2 = PW[p].kwin[k, s, 2]
+                @assert ib1 ≤ ib2
+
+                # `ib3` are total number of bands for given `s` and `k`
+                ib3 = ib2 - ib1 + 1
+
+                # Sanity check
+                @assert ib3 ≤ PW[p].nbnd
+
+                # We just copy data from chipsi[p] to F
+                F[:, 1:ib3, k, s] = chipsi[p][:, ib1:ib2, k, s]
+            end # END OF K LOOP
+        end # END OF S LOOP
+
+        # Push F into Fchipsi to save it
+        push!(Fchipsi, F)
+
+        # Print some useful information
+        println("  > Apply window $p: maximum number of bands -> $(PW[p].nbnd)")
+    end # END OF P LOOP
+
+    # Return the desired array
+    return Fchipsi
 end
 
 #=
