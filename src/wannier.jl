@@ -1054,6 +1054,61 @@ function w90_make_chipsi(umat::Array{C64,3}, udis::Array{C64,3})
     return chipsi
 end
 
+"""
+    w90_make_chipsi(PG::Array{PrGroup,1}, chipsi::Array{C64,4})
+
+Perform global rotations or transformations for the projectors. In
+this function, the projectors will be classified into different
+groups, and then they will be rotated group by group.
+
+See also: [`PrGroup`](@ref), [`plo_rotate`](@ref).
+"""
+function w90_make_chipsi(PG::Array{PrGroup,1}, chipsi::Array{C64,4})
+    # Print the header
+    println("Rotate projectors")
+
+    # Extract some key parameters from raw projector matrix
+    nproj, nband, nkpt, nspin = size(chipsi)
+    @assert nproj ≥ 1
+
+    # Initialize new array. It stores the rotated projectors.
+    # Now it is empty, but we will allocate memory for it later.
+    Rchipsi = Array{C64,4}[]
+
+    # Go through each PrGroup and perform the rotation
+    for i in eachindex(PG)
+        # Determine the range of original projectors
+        p1 = PG[i].Pr[1]
+        p2 = PG[i].Pr[end]
+
+        # Determine the number of projectors after rotation
+        ndim = size(PG[i].Tr)[1]
+        @assert size(PG[i].Tr)[2] == (p2 - p1 + 1)
+
+        # Create a temporary array R
+        R = zeros(C64, ndim, nband, nkpt, nspin)
+        @assert nband ≥ ndim
+
+        # Rotate chipsi by Tr, the results are stored at R.
+        for s = 1:nspin
+            for k = 1:nkpt
+                for b = 1:nband
+                    R[:, b, k, s] = PG[i].Tr * chipsi[p1:p2, b, k, s]
+                end # END OF B LOOP
+            end # END OF K LOOP
+        end # END OF S LOOP
+
+        # Push R into Rchipsi to save it
+        push!(Rchipsi, R)
+
+        # Print some useful information
+        println("  > Rotate group $i (site: $(PG[i].site)): number of local orbitals -> $ndim")
+    end # END OF I LOOP
+
+    # Return the desired array
+    return Rchipsi
+end
+
 #=
 ### *Service Functions* : *Group D*
 =#
