@@ -692,7 +692,7 @@ function pwscfio_kmesh(f::String)
 
     # Normalize the weight
     wsum = sum(weight)
-    @. weight = weight / wsum
+    @. weight = weight / wsum * nkpt
 
     # Print some useful information to check
     println("  > Number of k-points: ", nkpt)
