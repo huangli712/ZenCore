@@ -242,7 +242,8 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         # Concatenate PW_up and PW_dn
         D[:PW] = hcat(PW_up, PW_dn)
     else # For spin-unpolarized system
-        PW = w90_make_window(PG, eigs)
+        #PW = w90_make_window(PG, eigs)
+        PW = w90_make_window(PG, ewin, bwin)
         D[:PW] = PW
     end
 
@@ -976,6 +977,32 @@ function w90_make_window(PG::Array{PrGroup,1}, enk::Array{F64,2})
         #
         # Print some useful information
         println("  > Create window $p: $bwin <--> ($(PW[p].bmin), $(PW[p].bmax))")
+    end # END OF P LOOP
+
+    # Return the desired arrays
+    return PW
+end
+
+function w90_make_window(PG::Array{PrGroup,1}, ewin::Tuple{F64,F64}, bwin::Array{I64,2})
+    # Print the header
+    println("Generate windows")
+    
+    # Extract the key parameters
+    nkpt, _ = size(bwin)
+
+    # Initialize an array of PrWindow struct
+    PW = PrWindow[]
+
+    # Scan the groups of projectors, setup PrWindow for them.
+    for p in eachindex(PG)
+        kwin = zeros(I64, nkpt, 1, 2)
+        @. kwin[:,1,:] = bwin
+
+        # Create the `PrWindow` struct, and push it into the PW array.
+        push!(PW, PrWindow(kwin, ewin))
+        #
+        # Print some useful information
+        println("  > Create window $p: $ewin <--> ($(PW[p].bmin), $(PW[p].bmax))")
     end # END OF P LOOP
 
     # Return the desired arrays
