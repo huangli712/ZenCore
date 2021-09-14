@@ -113,6 +113,8 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     end
 
     # W05: Read accurate band eigenvalues from w90.eig
+    #
+    # D[:enk] will be updated
     if sp # For spin-polarized system
         # Spin up
         eigs_up = w90_read_eigs("up")
