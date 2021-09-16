@@ -402,6 +402,7 @@ function pwscfc_input(it::IterInfo)
     lspins = get_d("lspins")
     if lspins
         SystemNL["nspin"] = 2
+        SystemNL["starting_magnetization"] = 0.0
     else
         SystemNL["nspin"] = 1
     end
