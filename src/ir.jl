@@ -159,8 +159,11 @@ function irio_params(f::String, D::Dict{Symbol,Any})
     # Extract `nwnd`
     nwnd, = size(D[:PW])
     #
-    # Extract qbnd, maximum number of bands in all windows.
+    # Extract qbnd, maximum number of bands in local windows.
     qbnd = maximum( [ D[:PW][w].nbnd for w = 1:nwnd ] )
+    #
+    # Extract xbnd, maximum number of bands included in all windows.
+    xbnd = maximum(D[:PW].bmax) - minimum(D[:PW].bmin) + 1
 
     # D[:PW] and D[:PG] should have the same size
     @assert ngrp == nwnd
@@ -207,6 +210,7 @@ function irio_params(f::String, D::Dict{Symbol,Any})
         println(fout, "# Window:")
         println(fout, "nwnd  -> $nwnd")
         println(fout, "qbnd  -> $qbnd")
+        println(fout, "xbnd  -> $xbnd")
         println(fout)
 
         println(fout, "# Sigma:")
