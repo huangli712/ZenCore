@@ -163,7 +163,9 @@ function irio_params(f::String, D::Dict{Symbol,Any})
     qbnd = maximum( [ D[:PW][w].nbnd for w = 1:nwnd ] )
     #
     # Extract xbnd, maximum number of bands included in all windows.
-    xbnd = maximum(D[:PW].bmax) - minimum(D[:PW].bmin) + 1
+    _bmax = maximum( [ D[:PW][w].bmax for w = 1:nwnd ] )
+    _bmin = minimum( [ D[:PW][w].bmin for w = 1:nwnd ] )
+    xbnd = _bmax - _bmin + 1
 
     # D[:PW] and D[:PG] should have the same size
     @assert ngrp == nwnd
