@@ -802,13 +802,17 @@ function w90_make_group(latt::Lattice, sp::String = "")
                 break
             end
         end
+        #
         # Sanity check
         @assert site > 0
+        #
         # Get 𝑙, 𝑚, and desc.
         l = l_vec[i]
         m = m_vec[i]
         desc = spec[m + l*l]
+        #
         # Save the PrTrait struct
+        # Here we call the default constructor of PrTrait
         push!(PT, PrTrait(site, l, m, desc))
     end
 
