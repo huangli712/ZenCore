@@ -14,17 +14,17 @@
 """
     qe_adaptor(D::Dict{Symbol,Any})
 
-Adaptor support for the `pwscf` code. It will parse the output files of
-the `pwscf` code, extract the Kohn-Sham dataset, and then fulfill the
-`DFTData` dict (i.e `D`).
+Adaptor support for the `quantum espresso` (`pwscf` code). It will parse
+the output files of the `quantum espresso` code, extract the Kohn-Sham
+dataset, and then fulfill the `DFTData` dict (i.e `D`).
 
-The following output files of the `pwscf` code are needed:
+The following output files of the `quantum espresso` code are needed:
 
 * `scf.out`
 * `nscf.out`
 
-Note in the input file of the `pwscf` code, the `verbosity` parameter
-must be set to 'high'.
+Note in the input file of the `quantum espresso` code, the `verbosity`
+parameter must be set to 'high'.
 
 See also: [`wannier_adaptor`](@ref), [`ir_adaptor`](@ref).
 """
@@ -715,7 +715,7 @@ See also: [`qeio_tetra`](@ref), [`irio_kmesh`](@ref).
 qeio_kmesh() = qeio_kmesh(pwd())
 
 """
-    pwscfio_eigen(f::String)
+    qeio_eigen(f::String)
 
 Reading pwscf's `nscf.out` file, return energy band information. Here `f`
 means only the directory that contains `nscf.out`.
@@ -725,7 +725,7 @@ k-mesh. So we have to read eigenvalues from the `nscf.out` file.
 
 See also: [`irio_eigen`](@ref).
 """
-function pwscfio_eigen(f::String)
+function qeio_eigen(f::String)
     # Print the header
     println("Parse enk and occupy")
     println("  > Open and read nscf.out")
@@ -877,34 +877,34 @@ The following codes are internally used to parse the input files of
 =#
 
 """
-    PWInputEntry
+    QEInputEntry
 
 An abstract type representing an input component of `pwscf`. Note that
 all other input types (such as `PWCard` and `PWNamelist`) should subtype
 `PWInputEntry`.  It is used to build the internal type system.
 
-See also: [`PWCard`](@ref), [`PWNamelist`](@ref).
+See also: [`QECard`](@ref), [`QENamelist`](@ref).
 """
-abstract type PWInputEntry end
+abstract type QEInputEntry end
 
 """
-    PWCard
+    QECard
 
 Represent abstract cards in the input file of `pwscf`.  It is used to
 build the internal type system. The input file of `pwscf` consists of
-various cards and namelists, represented by `PWCard` and `PWNamelist`,
+various cards and namelists, represented by `QECard` and `QENamelist`,
 respectively.
 
-See also: [`PWNamelist`](@ref).
+See also: [`QENamelist`](@ref).
 """
-abstract type PWCard <: PWInputEntry end
+abstract type QECard <: QEInputEntry end
 
 """
     KPointsCard
 
 Represent abstract `K-POINTS` card in the input file of `pwscf`.
 """
-abstract type KPointsCard <: PWCard end
+abstract type KPointsCard <: QECard end
 
 #=
 ### *Customized Structs : K-Grids*
@@ -1133,9 +1133,9 @@ data structure.
           make your own modifications.
 * data -> A dict containing pairs of key and value.
 
-See also: [`PWCard`](@ref).
+See also: [`QECard`](@ref).
 """
-mutable struct PWNamelist <: PWInputEntry
+mutable struct QENamelist <: QEInputEntry
     name :: AbstractString
     data :: Dict{AbstractString,Any}
 end
@@ -1145,7 +1145,7 @@ end
 
 Return an entry (specified by `key`) in the namelist object (`pnl`).
 
-See also: [`PWNamelist`](@ref).
+See also: [`QENamelist`](@ref).
 """
 Base.getindex(pnl::PWNamelist, key::AbstractString) = pnl.data[key]
 
@@ -1154,7 +1154,7 @@ Base.getindex(pnl::PWNamelist, key::AbstractString) = pnl.data[key]
 
 Modify an entry (specified by `key`) in the namelist object (`pnl`).
 
-See also: [`PWNamelist`](@ref).
+See also: [`QENamelist`](@ref).
 """
 function Base.setindex!(pnl::PWNamelist, value, key::AbstractString)
     pnl.data[key] = value
@@ -1165,7 +1165,7 @@ end
 
 Remove an entry (specified by `key`) in the namelist object (`pnl`).
 
-See also: [`PWNamelist`](@ref).
+See also: [`QENamelist`](@ref).
 """
 function Base.delete!(pnl::PWNamelist, key::AbstractString)
     delete!(pnl.data, key)
