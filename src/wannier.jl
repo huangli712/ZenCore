@@ -898,6 +898,17 @@ function w90_make_group(latt::Lattice, sp::String = "")
 end
 
 """
+    w90_make_group(PGup::Array{PrGroup,1}, PGdn::Array{PrGroup,1})
+
+Try to compare `PGup` and `PGdn`. We have to make sure that they are
+completely the same.
+
+See also: [`PrGroup`](@ref).
+"""
+function w90_make_group(PGup::Array{PrGroup,1}, PGdn::Array{PrGroup,1})
+end
+
+"""
     w90_make_group(MAP::Mapping, PG::Array{PrGroup,1})
 
 Use the information contained in the `Mapping` struct to further setup
