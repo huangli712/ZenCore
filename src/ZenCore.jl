@@ -503,17 +503,17 @@ qeio_fermi   -> Read fermi level.
 #
 include("qe.jl")
 #
-export pwscf_adaptor
-export pwscf_init
-export pwscf_exec
-export pwscf_save
-export pwscfc_input
-export pwscfq_files
-export pwscfio_energy
-export pwscfio_lattice
-export pwscfio_kmesh
-export pwscfio_eigen
-export pwscfio_fermi
+export qe_adaptor
+export qe_init
+export qe_exec
+export qe_save
+export qec_input
+export qeq_files
+export qeio_energy
+export qeio_lattice
+export qeio_kmesh
+export qeio_eigen
+export qeio_fermi
 
 #=
 ### *Includes And Exports* : *plo.jl*
