@@ -307,7 +307,7 @@ is for the non-self-consistent calculation.
 The return values of this function are namelist (`control`) and card
 (`ATOMIC_SPECIES`), which will be used to check the pseudopotentials.
 
-See also: [`PWNamelist`](@ref), [`PWCard`](@ref).
+See also: [`QENamelist`](@ref), [`QECard`](@ref).
 """
 function qec_input(it::IterInfo)
     # Check the file status
