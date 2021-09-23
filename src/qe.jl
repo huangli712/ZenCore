@@ -35,39 +35,40 @@ function qe_adaptor(D::Dict{Symbol,Any})
     println("Current directory: ", pwd())
 
     # P02: Read in lattice structure
-    D[:latt] = pwscfio_lattice(pwd(), false)
+    D[:latt] = qeio_lattice(pwd(), false)
 
     # P03: Read in kmesh and the corresponding weights
-    D[:kmesh], D[:weight] = pwscfio_kmesh(pwd())
+    D[:kmesh], D[:weight] = qeio_kmesh(pwd())
 
     # P04: Read in band structure and the corresponding occupancies
-    D[:enk], D[:occupy] = pwscfio_eigen(pwd())
+    D[:enk], D[:occupy] = qeio_eigen(pwd())
 
     # V05: Read in fermi level
-    D[:fermi] = pwscfio_fermi(pwd(), false)
+    D[:fermi] = qeio_fermi(pwd(), false)
 end
 
 """
     qe_init(it::IterInfo)
 
-Check the runtime environment of `pwscf`, prepare necessary input files.
+Check the runtime environment of `quantum espresso` (`pwscf`), prepare
+necessary input files.
 
-See also: [`pwscf_exec`](@ref), [`pwscf_save`](@ref).
+See also: [`qe_exec`](@ref), [`qe_save`](@ref).
 """
 function qe_init(it::IterInfo)
     # Print the header
-    println("Engine : PWSCF")
+    println("Engine : QUANTUM ESPRESSO")
     println("Try to perform ab initio electronic structure calculation")
     println("Current directory: ", pwd())
-    println("Prepare necessary input files for pwscf")
+    println("Prepare necessary input files for quantum espresso")
 
     # Prepare essential input files
-    # Copy PWSCF.INP (It is used as a template.)
-    cp("../PWSCF.INP", joinpath(pwd(), "PWSCF.INP"), force = true)
-    println("  > File PWSCF.INP is ready")
+    # Copy QE.INP (It is used as a template.)
+    cp("../QE.INP", joinpath(pwd(), "QE.INP"), force = true)
+    println("  > File QE.INP is ready")
     #
     # Create the real input file, case.scf and case.nscf.
-    ControlNL, AtomicSpeciesBlock = pwscfc_input(it)
+    ControlNL, AtomicSpeciesBlock = qec_input(it)
     case = get_c("case")
     println("  > File $case.scf is ready")
     println("  > File $case.nscf is ready")
