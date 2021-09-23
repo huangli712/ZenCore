@@ -753,7 +753,7 @@ function qeio_eigen(f::String)
     # The `nscf.out` file contains `SPIN UP` and `SPIN DOWN` blocks if
     # the system is spin-polarized.
     ind = findall(x -> contains(x, " SPIN "), lines)
-    @assert length(ind) == 2 || length(ind) == 1
+    @assert length(ind) == 2 || length(ind) == 0
     if length(ind) == 2
         nspin = 2
     else
