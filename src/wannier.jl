@@ -42,6 +42,7 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     # Now this feature require quantum espresso as a dft engine
     @assert get_d("engine") == "qe"
 
+#=
     # W01: Execute the wannier90 code to generate w90.nnkp
     if sp # For spin-polarized system
         # Spin up
@@ -93,6 +94,7 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         wannier_exec()
         wannier_save()
     end
+=#
 
     # W04: Read energy window (outer window) from w90.wout
     if sp # For spin-polarized system
@@ -147,13 +149,14 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     # W06: Determine band window from energy window
     if sp # For spin-polarized system
         # Spin up
-        bwin_up = w90_make_window(ewin_up, eigs_up)
+        bwin_up = w90_make_window(ewin_up, eigs_up[:,:,1])
         #
         # Spin down
-        bwin_dn = w90_make_window(ewin_dn, eigs_dn)
+        bwin_dn = w90_make_window(ewin_dn, eigs_dn[:,:,1])
     else # For spin-unpolarized system
         bwin = w90_make_window(ewin, eigs)
     end
+    sorry()
 
     # W07: Read transform matrix from w90_u.mat
     if sp # For spin-polarized system
