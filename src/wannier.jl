@@ -748,10 +748,7 @@ function w90_make_trait(PTup::Array{PrTrait,1}, PTdn::Array{PrTrait,1})
     for t in eachindex(PTup)
         up = PTup[t]
         dn = PTdn[t]
-        @show t
-        @show up
-        @show dn
-        @show up == dn
+        @assert up == dn
     end
 end
 
