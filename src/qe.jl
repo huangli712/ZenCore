@@ -696,6 +696,7 @@ function qeio_kmesh(f::String)
     end
 
     # Normalize the weight
+    # We have to make sure the sum of weights is equal to nkpt.
     wsum = sum(weight)
     @. weight = weight / wsum * nkpt
 
@@ -748,8 +749,19 @@ function qeio_eigen(f::String)
     nband = parse(I64, line_to_array(lines[ind])[5])
 
     # Determine number of spins
-    nspin = 1 # Fixed me
-    @assert nspin == 1 || nspin == 2
+    #
+    # The `nscf.out` file contains `SPIN UP` and `SPIN DOWN` blocks if
+    # the system is spin-polarized.
+    ind = findall(x -> contains(x, " SPIN "), lines)
+    @assert length(ind) == 2 || length(ind) == 1
+    if length(ind) == 2
+        nspin = 2
+    else
+        nspin = 1
+    end
+
+    @show nkpt, nband, nspin
+    sorry()
 
     # Create arrays
     enk = zeros(F64, nband, nkpt, nspin)
