@@ -744,23 +744,6 @@ function w90_make_map(PG::Array{PrGroup,1}, ai::Array{Impurity,1})
 end
 
 """
-    w90_make_trait(PTup::Array{PrTrait,1}, PTdn::Array{PrTrait,1})
-
-Try to compare `PTup` and `PTdn`. We have to make sure that they are
-completely the same.
-
-See also: [`PrTrait`](@ref).
-"""
-function w90_make_trait(PTup::Array{PrTrait,1}, PTdn::Array{PrTrait,1})
-    @assert size(PTup) == size(PTdn)
-    for t in eachindex(PTup)
-        up = PTup[t]
-        dn = PTdn[t]
-        @assert up == dn
-    end
-end
-
-"""
     w90_make_group(latt::Lattice, sp::String = "")
 
 Try to read the `w90.nnkp` file, parse the `projections` block. Finally,
@@ -898,23 +881,6 @@ function w90_make_group(latt::Lattice, sp::String = "")
     # Return the desired arrays
     # Note: PG will be further fixed at another w90_make_group() function.
     return PT, PG
-end
-
-"""
-    w90_make_group(PGup::Array{PrGroup,1}, PGdn::Array{PrGroup,1})
-
-Try to compare `PGup` and `PGdn`. We have to make sure that they are
-completely the same.
-
-See also: [`PrGroup`](@ref).
-"""
-function w90_make_group(PGup::Array{PrGroup,1}, PGdn::Array{PrGroup,1})
-    @assert size(PGup) == size(PGdn)
-    for t in eachindex(PGup)
-        up = PGup[t]
-        dn = PGdn[t]
-        @assert up == dn
-    end
 end
 
 """
