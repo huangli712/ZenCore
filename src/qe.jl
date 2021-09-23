@@ -812,23 +812,23 @@ function qeio_eigen(f::String)
                     start = start + 1
                     bs = (r - 1) * 8 + 1
                     be = (r - 1) * 8 + 8
-                    occupy[bs:be,i,1] = parse.(F64, line_to_array(lines[start]))
+                    occupy[bs:be,k,s] = parse.(F64, line_to_array(lines[start]))
                 end # END OF R LOOP
                 if nrem > 0
                     start = start + 1
                     bs = nrow * 8 + 1
                     be = nband
                     @assert nrem == be - bs + 1
-                    occupy[bs:be,i,1] = parse.(F64, line_to_array(lines[start]))
+                    occupy[bs:be,k,s] = parse.(F64, line_to_array(lines[start]))
                 end
             else
                 @assert nrow == 1
                 start = start + 1
-                occupy[:,i,1] = parse.(F64, line_to_array(lines[start]))
+                occupy[:,k,s] = parse.(F64, line_to_array(lines[start]))
             end
-        end # END OF I LOOP
+        end # END OF K LOOP
         @show start
-    end
+    end # END OF S LOOP
     sorry()
 
     # Print some useful information to check
