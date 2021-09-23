@@ -771,8 +771,9 @@ function qeio_eigen(f::String)
     @assert start > 0
     #
     # Determine how many lines are there for each k-point
-    nrow = div(nband, 8)
-    nrem = rem(nband, 8)
+    elements_per_line = 8
+    nrow = div(nband, elements_per_line)
+    nrem = rem(nband, elements_per_line)
     #
     # Go through each spin
     for s = 1:nspin
@@ -785,16 +786,16 @@ function qeio_eigen(f::String)
         for k = 1:nkpt
             # Read eigenvalues
             start = start + 3
-            if nrow > 1 # nband > 8
+            if nrow > 1 # nband > elements_per_line
                 for r = 1:nrow
                     start = start + 1
-                    bs = (r - 1) * 8 + 1
-                    be = (r - 1) * 8 + 8
+                    bs = (r - 1) * elements_per_line + 1
+                    be = (r - 1) * elements_per_line + elements_per_line
                     enk[bs:be,k,s] = parse.(F64, line_to_array(lines[start]))
                 end # END OF R LOOP
                 if nrem > 0
                     start = start + 1
-                    bs = nrow * 8 + 1
+                    bs = nrow * elements_per_line + 1
                     be = nband
                     @assert nrem == be - bs + 1
                     enk[bs:be,k,s] = parse.(F64, line_to_array(lines[start]))
@@ -807,16 +808,16 @@ function qeio_eigen(f::String)
             #
             # Read occupations
             start = start + 2
-            if nrow > 1 # nband > 8
+            if nrow > 1 # nband > elements_per_line
                 for r = 1:nrow
                     start = start + 1
-                    bs = (r - 1) * 8 + 1
-                    be = (r - 1) * 8 + 8
+                    bs = (r - 1) * elements_per_line + 1
+                    be = (r - 1) * elements_per_line + elements_per_line
                     occupy[bs:be,k,s] = parse.(F64, line_to_array(lines[start]))
                 end # END OF R LOOP
                 if nrem > 0
                     start = start + 1
-                    bs = nrow * 8 + 1
+                    bs = nrow * elements_per_line + 1
                     be = nband
                     @assert nrem == be - bs + 1
                     occupy[bs:be,k,s] = parse.(F64, line_to_array(lines[start]))
