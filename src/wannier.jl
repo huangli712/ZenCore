@@ -907,6 +907,12 @@ completely the same.
 See also: [`PrGroup`](@ref).
 """
 function w90_make_group(PGup::Array{PrGroup,1}, PGdn::Array{PrGroup,1})
+    @assert size(PGup) == size(PGdn)
+    for t in eachindex(PGup)
+        up = PGup[t]
+        dn = PGdn[t]
+        @assert up == dn
+    end
 end
 
 """
