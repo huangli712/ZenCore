@@ -30,7 +30,7 @@ See also: [`wannier_adaptor`](@ref), [`ir_adaptor`](@ref).
 """
 function qe_adaptor(D::Dict{Symbol,Any})
     # P01: Print the header
-    println("Adaptor : PWSCF")
+    println("Adaptor : QUANTUM ESPRESSO")
     println("Try to extract the Kohn-Sham dataset")
     println("Current directory: ", pwd())
 
@@ -93,7 +93,7 @@ which input file should be used. If `scf == true`, then the input file is
 In order to execute this function correctly, you have to setup the
 following environment variables:
 
-* PWSCF_HOME
+* QE_HOME
 
 and make sure the file `MPI.toml` is available.
 
@@ -316,9 +316,9 @@ function qec_input(it::IterInfo)
 
     # Parse the namelists, control, system, and electrons.
     lines = readlines(finput)
-    ControlNL = parse(PWNamelist, lines, "control")
-    SystemNL = parse(PWNamelist, lines, "system")
-    ElectronsNL = parse(PWNamelist, lines, "electrons")
+    ControlNL = parse(QENamelist, lines, "control")
+    SystemNL = parse(QENamelist, lines, "system")
+    ElectronsNL = parse(QENamelist, lines, "electrons")
 
     # Parse the cards, ATOMIC_SPECIES, ATOMIC_POSITIONS, and K_POINTS.
     line = read(finput, String)
@@ -359,7 +359,7 @@ function qec_input(it::IterInfo)
 
     # For kmesh density
     #
-    # Note that if kmesh == "file", the original setup in PWSCF.INP is
+    # Note that if kmesh == "file", the original setup in QE.INP is
     # kept. In other words, KPointsBlock will not be changed.
     kmesh = get_d("kmesh")
     if isa(KPointsBlock,AutoKmeshCard)
@@ -1128,7 +1128,7 @@ AtomicPosition(x::AtomicSpecies, pos, if_pos) = AtomicPosition(x.atom, pos, if_p
 =#
 
 """
-    PWNamelist
+    QENamelist
 
 Represent a namelist in the input file of `quantum espresso` (`pwscf`),
 a basic Fortran data structure.
@@ -1148,33 +1148,33 @@ mutable struct QENamelist <: QEInputEntry
 end
 
 """
-    Base.getindex(pnl::PWNamelist, key::AbstractString)
+    Base.getindex(pnl::QENamelist, key::AbstractString)
 
 Return an entry (specified by `key`) in the namelist object (`pnl`).
 
 See also: [`QENamelist`](@ref).
 """
-Base.getindex(pnl::PWNamelist, key::AbstractString) = pnl.data[key]
+Base.getindex(pnl::QENamelist, key::AbstractString) = pnl.data[key]
 
 """
-    Base.setindex!(pnl::PWNamelist, value, key::AbstractString)
+    Base.setindex!(pnl::QENamelist, value, key::AbstractString)
 
 Modify an entry (specified by `key`) in the namelist object (`pnl`).
 
 See also: [`QENamelist`](@ref).
 """
-function Base.setindex!(pnl::PWNamelist, value, key::AbstractString)
+function Base.setindex!(pnl::QENamelist, value, key::AbstractString)
     pnl.data[key] = value
 end
 
 """
-    Base.delete!(pnl::PWNamelist, key::AbstractString)
+    Base.delete!(pnl::QENamelist, key::AbstractString)
 
 Remove an entry (specified by `key`) in the namelist object (`pnl`).
 
 See also: [`QENamelist`](@ref).
 """
-function Base.delete!(pnl::PWNamelist, key::AbstractString)
+function Base.delete!(pnl::QENamelist, key::AbstractString)
     delete!(pnl.data, key)
 end
 
@@ -1207,7 +1207,7 @@ Represent the `ATOMIC_POSITIONS` card in the input file of
 
 See also: [`AtomicPosition`](@ref).
 """
-struct AtomicPositionsCard <: PWCard
+struct AtomicPositionsCard <: QECard
     data   :: Vector{AtomicPosition}
     option :: String
 
@@ -1500,14 +1500,14 @@ const K_POINTS_SPECIAL_ITEM = r"""
 =#
 
 """
-    Base.parse(::Type{PWNamelist}, strs::Vector{String}, name::String)
+    Base.parse(::Type{QENamelist}, strs::Vector{String}, name::String)
 
-Parse the `PWNamelist` object. The name of the namelist is specified
+Parse the `QENamelist` object. The name of the namelist is specified
 by argument `name`.
 
-See also: [`PWNamelist`](@ref).
+See also: [`QENamelist`](@ref).
 """
-function Base.parse(::Type{PWNamelist}, strs::Vector{String}, name::String)
+function Base.parse(::Type{QENamelist}, strs::Vector{String}, name::String)
     # Try to parse `strs` to extract the data
     #
     # Prepare necessary data structures
@@ -1546,7 +1546,7 @@ function Base.parse(::Type{PWNamelist}, strs::Vector{String}, name::String)
         popfirst!(group_data)
     end
 
-    # Try to build a PWNamelist object
+    # Try to build a QENamelist object
     #
     # Prepare a dictionary, it will contain the namelist's data.
     NLData = Dict{AbstractString,Any}()
@@ -1568,21 +1568,21 @@ function Base.parse(::Type{PWNamelist}, strs::Vector{String}, name::String)
     end
 
     # Return the desired object
-    return PWNamelist(name, NLData)
+    return QENamelist(name, NLData)
 end
 
 """
     Base.parse(::Type{T}, str::AbstractString)
 
-Parse the `PWCard` object. Now we support the following cards:
+Parse the `QECard` object. Now we support the following cards:
 
 * `ATOMIC_SPECIES` (`AtomicSpeciesCard`)
 * `ATOMIC_POSITIONS` (`AtomicPositionsCard`)
 * `K_POINTS` (`AutoKmeshCard`, `GammaPointCard`, `SpecialKPointsCard`)
 
-See also: [`PWCard`](@ref).
+See also: [`QECard`](@ref).
 """
-function Base.parse(::Type{T}, str::AbstractString) where {T<:PWCard}
+function Base.parse(::Type{T}, str::AbstractString) where {T<:QECard}
     x = tryparse(T, str)
     if x === nothing
         error("cannot find card `$T`!")
@@ -1726,13 +1726,13 @@ end
 =#
 
 """
-    Base.write(io::IO, x::PWNamelist)
+    Base.write(io::IO, x::QENamelist)
 
-Write the `PWNamelist` object to `IOStream`.
+Write the `QENamelist` object to `IOStream`.
 
-See also: [`PWNamelist`](@ref).
+See also: [`QENamelist`](@ref).
 """
-function Base.write(io::IO, x::PWNamelist)
+function Base.write(io::IO, x::QENamelist)
     println(io, " &$(x.name)")
     for key in keys(x.data)
         println(io, "    $key = ", x.data[key], ",")
