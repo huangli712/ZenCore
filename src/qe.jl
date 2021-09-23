@@ -895,10 +895,10 @@ abstract type QEInputEntry end
 """
     QECard
 
-Represent abstract cards in the input file of `pwscf`.  It is used to
-build the internal type system. The input file of `pwscf` consists of
-various cards and namelists, represented by `QECard` and `QENamelist`,
-respectively.
+It represents abstract cards in the input file of `quantum espresso`
+(`pwscf`).  It is used to build the internal type system. The input
+file of `quantum espresso` (`pwscf`) consists of various cards and
+namelists, represented by `QECard` and `QENamelist`, respectively.
 
 See also: [`QENamelist`](@ref).
 """
@@ -907,7 +907,8 @@ abstract type QECard <: QEInputEntry end
 """
     KPointsCard
 
-Represent abstract `K-POINTS` card in the input file of `pwscf`.
+Represent an abstract card (`K-POINTS`) in the input file of
+`quantum espresso` (`pwscf`).
 """
 abstract type KPointsCard <: QECard end
 
@@ -1002,7 +1003,7 @@ end
     AtomicSpecies
 
 Represent each line of the `ATOMIC_SPECIES` card in the input file of
-`pwscf`.
+`quantum espresso` (`pwscf`).
 
 ### Members
 
@@ -1038,7 +1039,7 @@ end
     AtomicPosition
 
 Represent each line of the `ATOMIC_POSITIONS` card in the input file of
-`pwscf`.
+`quantum espresso` (`pwscf`).
 
 ### Members
 
@@ -1128,8 +1129,8 @@ AtomicPosition(x::AtomicSpecies, pos, if_pos) = AtomicPosition(x.atom, pos, if_p
 """
     PWNamelist
 
-Represent a namelist in the input file of `pwscf`, a basic Fortran
-data structure.
+Represent a namelist in the input file of `quantum espresso` (`pwscf`),
+a basic Fortran data structure.
 
 ### Members
 
