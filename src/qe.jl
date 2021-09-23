@@ -289,9 +289,9 @@ end
 """
     qec_input(it::IterInfo)
 
-It will parse the `PWSCF.INP` file at first. Actually, `PWSCF.INP` is
-a standard, but mini input file for `pwscf`. It only includes three
-namelists (namely `control`, `system`, and `electrons`) and three
+It will parse the `QE.INP` file at first.  The `QE.INP` is a standard,
+but mini input file for `quantum espresso` (`pwscf`). It only includes
+three namelists (namely `control`, `system`, and `electrons`) and three
 cards (namely `ATOMIC_SPECIES`, `ATOMIC_POSITIONS`, and `K_POINTS`).
 If you want to support more input entries, please make your own
 modifications here.
@@ -299,10 +299,10 @@ modifications here.
 Then this function will try to customize these namelists and cards
 according to the setup in `case.toml`.
 
-Finally, this function will generate the input files for `pwscf`. They
-are `case.scf` and `case.nscf`. As shown by their names, one file is
-for the self-consistent calculation, while another other one is for the
-non-self-consistent calculation.
+At last, it will try to generate the input files for `quantum espresso`
+(`pwscf`). They are `case.scf` and `case.nscf`. As shown by their names,
+one file is for the self-consistent calculation, while another other one
+is for the non-self-consistent calculation.
 
 The return values of this function are namelist (`control`) and card
 (`ATOMIC_SPECIES`), which will be used to check the pseudopotentials.
