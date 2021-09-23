@@ -83,12 +83,12 @@ function qe_init(it::IterInfo)
 end
 
 """
-    pwscf_exec(it::IterInfo, scf::Bool = true)
+    qe_exec(it::IterInfo, scf::Bool = true)
 
-Execute the pwscf program, monitor the convergence progress, and output
-the relevant information. The argument `scf` determines which input file
-should be used. If scf == true, then the input file is case.scf, or else
-it is case.nscf.
+Execute the `quantum espresso` (`pwscf`) program, monitor the convergence
+progress, and output the relevant information. The argument `scf` denotes
+which input file should be used. If `scf == true`, then the input file is
+`case.scf`, or else it is `case.nscf`.
 
 In order to execute this function correctly, you have to setup the
 following environment variables:
@@ -97,38 +97,38 @@ following environment variables:
 
 and make sure the file `MPI.toml` is available.
 
-See also: [`pwscf_init`](@ref), [`pwscf_save`](@ref).
+See also: [`qe_init`](@ref), [`qe_save`](@ref).
 """
 function qe_exec(it::IterInfo, scf::Bool = true)
     # Print the header
-    println("Detect the runtime environment for pwscf")
+    println("Detect the runtime environment for quantum espresso")
 
-    # Determine mpi prefix (whether the pwscf is executed sequentially)
+    # Determine mpi prefix (whether the code is executed sequentially)
     mpi_prefix = inp_toml("../MPI.toml", "dft", false)
     numproc = parse(I64, line_to_array(mpi_prefix)[3])
     println("  > Using $numproc processors (MPI)")
 
-    # Get the home directory of pwscf
-    dft_home = query_dft("pwscf")
-    println("  > Home directory for pwscf: ", dft_home)
+    # Get the home directory of quantum espresso
+    dft_home = query_dft("qe")
+    println("  > Home directory for quantum espresso: ", dft_home)
 
-    # Select suitable pwscf program
+    # Select suitable quantum espresso program
     # We use the same code pw.x for with or without spin-orbit coupling
     if get_d("lspinorb")
-        pwscf_exe = "$dft_home/pw.x"
+        qe_exe = "$dft_home/pw.x"
     else
-        pwscf_exe = "$dft_home/pw.x"
+        qe_exe = "$dft_home/pw.x"
     end
-    @assert isfile(pwscf_exe)
-    println("  > Executable program is available: ", basename(pwscf_exe))
+    @assert isfile(qe_exe)
+    println("  > Executable program is available: ", basename(qe_exe))
 
     # Assemble command
     if isnothing(mpi_prefix)
-        pwscf_cmd = pwscf_exe
+        qe_cmd = qe_exe
     else
-        pwscf_cmd = split("$mpi_prefix $pwscf_exe", " ")
+        qe_cmd = split("$mpi_prefix $qe_exe", " ")
     end
-    println("  > Assemble command: $(prod(x -> x * ' ', pwscf_cmd))")
+    println("  > Assemble command: $(prod(x -> x * ' ', qe_cmd))")
 
     # Determine suitable input and output files
     case = get_c("case")
