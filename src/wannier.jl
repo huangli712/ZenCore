@@ -221,12 +221,13 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         # Spin down
         PT_dn, PG_dn = w90_make_group(latt, "dn")
         #
-        # Concatenate PT_up and PT_dn
+        # Merge PT_up and PT_dn
         w90_make_trait(PT_up, PT_dn)
         D[:PT] = deepcopy(PT_up)
         #
-        # Concatenate PG_up and PG_dn
-        D[:PG] = hcat(PG_up, PG_dn)
+        # Merge PG_up and PG_dn
+        w90_make_group(PG_up, PG_dn)
+        D[:PG] = deepcopy(PG_up)
     else # For spin-unpolarized system
         PT, PG = w90_make_group(latt)
         D[:PT] = PT
