@@ -221,9 +221,9 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         # Spin down
         PT_dn, PG_dn = w90_make_group(latt, "dn")
         #
-        w90_make_trait(PT_up, PT_dn)
         # Concatenate PT_up and PT_dn
-        D[:PT] = hcat(PT_up, PT_dn)
+        w90_make_trait(PT_up, PT_dn)
+        D[:PT] = deepcopy(PT_up)
         #
         # Concatenate PG_up and PG_dn
         D[:PG] = hcat(PG_up, PG_dn)
