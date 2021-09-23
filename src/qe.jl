@@ -883,9 +883,10 @@ The following codes are internally used to parse the input files of
 """
     QEInputEntry
 
-An abstract type representing an input component of `pwscf`. Note that
-all other input types (such as `PWCard` and `PWNamelist`) should subtype
-`PWInputEntry`.  It is used to build the internal type system.
+An abstract type representing an input component of `quantum espresso`
+(`pwscf`). Note that all other input types (such as `QENamelist` and
+`QECard`) should subtype `QEInputEntry`.  It is used to build a internal
+type system.
 
 See also: [`QECard`](@ref), [`QENamelist`](@ref).
 """
