@@ -117,12 +117,12 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     # D[:enk] will be updated
     if sp # For spin-polarized system
         # Spin up
-        eigs_up = w90_read_eigs("up")
+        eigs_up = w90_read_eigs("up") .- D[:fermi]
         nband, nkpt = size(eigs_up)
         eigs_up = reshape(eigs_up, (nband, nkpt, 1))
         #
         # Spin down
-        eigs_dn = w90_read_eigs("dn")
+        eigs_dn = w90_read_eigs("dn") .- D[:fermi]
         nband, nkpt = size(eigs_dn)
         eigs_dn = reshape(eigs_dn, (nband, nkpt, 1))
         #
@@ -135,7 +135,7 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         # Sanity check
         @assert size(D[:enk]) == (nband, nkpt, 2)
     else # For spin-unpolarized system
-        eigs = w90_read_eigs()
+        eigs = w90_read_eigs() .- D[:fermi]
         nband, nkpt = size(eigs)
         D[:enk] = reshape(eigs, (nband, nkpt, 1))
         @assert size(D[:enk]) == (nband, nkpt, 1)
@@ -144,16 +144,22 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     # Calibrate the eigenvalues to force the fermi level to be zero
     # Be careful, the original eigenvalues from qeio_eigen() have
     # not been calibrated.
-    @. D[:enk] = D[:enk] - D[:fermi]
+    #
+    # The calibration has been done above.
+    #
+    # @. D[:enk] = D[:enk] - D[:fermi]
 
     # W06: Determine band window from energy window
     if sp # For spin-polarized system
         # Spin up
+        @show ewin_up, maximum(eigs_up)
         bwin_up = w90_make_window(ewin_up, eigs_up[:,:,1])
         #
         # Spin down
+        @show ewin_dn
         bwin_dn = w90_make_window(ewin_dn, eigs_dn[:,:,1])
     else # For spin-unpolarized system
+        @show ewin, maximum(eigs)
         bwin = w90_make_window(ewin, eigs)
     end
     sorry()
