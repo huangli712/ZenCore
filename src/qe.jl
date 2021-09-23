@@ -566,8 +566,8 @@ qeio_energy() = qeio_energy(pwd())
 """
     qeio_lattice(f::String, silent::Bool = true)
 
-Reading pwscf's `scf.out` file, return crystallography information.
-Here `f` means only the directory that contains `scf.out`.
+Reading quantum espresso's `scf.out` file, return crystallography
+information. Here `f` means only the directory that contains `scf.out`.
 
 See also: [`Lattice`](@ref), [`irio_lattice`](@ref).
 """
@@ -645,7 +645,8 @@ end
 """
     qeio_lattice()
 
-Reading pwscf's `scf.out` file, return crystallography information.
+Reading quantum espresso's `scf.out` file, return crystallography
+information.
 
 See also: [`Lattice`](@ref), [`irio_lattice`](@ref).
 """
@@ -654,8 +655,8 @@ qeio_lattice() = qeio_lattice(pwd())
 """
     qeio_kmesh(f::String)
 
-Reading pwscf's `nscf.out` file, return `kmesh` and `weight`. Here `f`
-means only the directory that contains `nscf.out`.
+Reading quantum espresso's `nscf.out` file, return `kmesh` and `weight`.
+Here `f` means only the directory that contains `nscf.out`.
 
 Note in `scf.out`, the k-mesh is not uniform. So we have to read k-mesh
 from the `nscf.out`. In addition, the verbosity parameter must be set to
@@ -710,7 +711,7 @@ end
 """
     qeio_kmesh()
 
-Reading pwscf's `nscf.out` file, return `kmesh` and `weight`.
+Reading quantum espresso's `nscf.out` file, return `kmesh` and `weight`.
 
 See also: [`qeio_tetra`](@ref), [`irio_kmesh`](@ref).
 """
@@ -719,8 +720,8 @@ qeio_kmesh() = qeio_kmesh(pwd())
 """
     qeio_eigen(f::String)
 
-Reading pwscf's `nscf.out` file, return energy band information. Here `f`
-means only the directory that contains `nscf.out`.
+Reading quantum espresso's `nscf.out` file, return energy band structure
+information. Here `f` means only the directory that contains `nscf.out`.
 
 Note that in `scf.out`, the eigenvalues may be not defined on the uniform
 k-mesh. So we have to read eigenvalues from the `nscf.out` file.
@@ -824,7 +825,8 @@ end
 """
     qeio_eigen()
 
-Reading pwscf's `nscf.out` file, return energy band information.
+Reading quantum espresso's `nscf.out` file, return energy band structure
+information.
 
 See also: [`irio_eigen`](@ref).
 """
@@ -833,8 +835,8 @@ qeio_eigen() = qeio_eigen(pwd())
 """
     qeio_fermi(f::String, silent::Bool = true)
 
-Reading pwscf's `nscf.out` file, return the fermi level. Here `f` means
-only the directory that contains `scf.out`.
+Reading quantum espresso's `nscf.out` file, return the fermi level. Here
+`f` means only the directory that contains `scf.out`.
 
 See also: [`irio_fermi`](@ref).
 """
@@ -861,7 +863,7 @@ end
 """
     qeio_fermi()
 
-Reading pwscf's `scf.out` file, return the fermi level.
+Reading quantum espresso's `scf.out` file, return the fermi level.
 
 See also: [`irio_fermi`](@ref).
 """
@@ -871,7 +873,7 @@ qeio_fermi() = qeio_fermi(pwd())
 *Remarks* :
 
 The following codes are internally used to parse the input files of
-`pwscf`. Please do not change them and export them.
+`quantum espresso` (`pwscf`). Please do not change them or export them.
 =#
 
 #=
