@@ -742,6 +742,11 @@ end
 
 """
     w90_make_trait(PTup::Array{PrTrait,1}, PTdn::Array{PrTrait,1})
+
+Try to compare `PTup` and `PTdn`. We have to make sure that they are
+completely the same.
+
+See also: [`PrTrait`](@ref).
 """
 function w90_make_trait(PTup::Array{PrTrait,1}, PTdn::Array{PrTrait,1})
     @assert size(PTup) == size(PTdn)
