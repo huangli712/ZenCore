@@ -487,9 +487,9 @@ lot of functions to deal with the quantum espresso (pwscf) related files.
 
 ```text
 qe_adaptor   -> Adaptor support.
-qe_init      -> Prepare pwscf's input files.
-qe_exec      -> Execute pwscf program.
-qe_save      -> Backup pwscf's output files.
+qe_init      -> Prepare quantum espresso's input files.
+qe_exec      -> Execute quantum espresso program.
+qe_save      -> Backup quantum espresso's output files.
 qec_input    -> Generate essential input file (case.scf or case.nscf).
 qeq_files    -> Check essential output files.
 qeio_energy  -> Read DFT total energy.
@@ -501,7 +501,7 @@ qeio_fermi   -> Read fermi level.
 =#
 
 #
-include("pwscf.jl")
+include("qe.jl")
 #
 export pwscf_adaptor
 export pwscf_init
