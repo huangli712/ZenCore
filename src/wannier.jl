@@ -152,17 +152,13 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     # W06: Determine band window from energy window
     if sp # For spin-polarized system
         # Spin up
-        @show ewin_up, maximum(eigs_up)
         bwin_up = w90_make_window(ewin_up, eigs_up[:,:,1])
         #
         # Spin down
-        @show ewin_dn
         bwin_dn = w90_make_window(ewin_dn, eigs_dn[:,:,1])
     else # For spin-unpolarized system
-        @show ewin, maximum(eigs)
         bwin = w90_make_window(ewin, eigs)
     end
-    sorry()
 
     # W07: Read transform matrix from w90_u.mat
     if sp # For spin-polarized system
@@ -185,6 +181,7 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     else # For spin-unpolarized system
         udis = w90_read_udis(bwin)
     end
+    sorry()
 
     # W09: Build projection matrix
     #
@@ -1361,7 +1358,7 @@ function w90_read_eigs(sp::String = "")
     # Print some useful information to check
     println("  > Number of DFT bands: ", nband)
     println("  > Number of k-points: ", nkpt)
-    println("  > Spin orientation: ", sp)
+    println("  > Spin orientation: ", sp == "" ? "none" : sp)
     println("  > Shape of Array enk: ", size(eigs))
 
     # Return the desired array
@@ -1512,7 +1509,7 @@ function w90_read_umat(sp::String = "")
     # Print some useful information to check
     println("  > Number of wannier functions: ", nproj)
     println("  > Number of k-points: ", nkpt)
-    println("  > Spin orientation: ", sp)
+    println("  > Spin orientation: ", sp == "" ? "none" : sp)
     println("  > Shape of Array umat: ", size(umat))
 
     # Return the desired array
@@ -1579,7 +1576,7 @@ function w90_read_udis(bwin::Array{I64,2}, sp::String = "")
     println("  > Number of DFT bands: ", nband)
     println("  > Number of wannier functions: ", nproj)
     println("  > Number of k-points: ", nkpt)
-    println("  > Spin orientation: ", sp)
+    println("  > Spin orientation: ", sp == "" ? "none" : sp)
     println("  > Shape of Array udis: ", size(udis))
 
     # Return the desired array
@@ -1601,7 +1598,7 @@ function w90_read_wout(sp::String = "")
     # Build the filename
     fout = "w90" * sp * ".wout"
     println("  > Open and read $fout")
-    println("  > Spin orientation: ", sp)
+    println("  > Spin orientation: ", sp == "" ? "none" : sp)
 
     # Read the `w90.wout` file
     lines = readlines(fout)
