@@ -1728,7 +1728,7 @@ function pw2wan_init(case::String, sp::String = "")
     # Print the header
     println("Generate input files for pw2wannier90")
 
-    # Try to create a PWNamelist object.
+    # Try to create a QENamelist object.
     #
     # Setup name of namelist. It is always fixed.
     name = "inputpp"
@@ -1754,13 +1754,13 @@ function pw2wan_init(case::String, sp::String = "")
     NLData["write_dmn"] = ".true."
     NLData["write_unk"] = ".false."
     #
-    # Create PWNamelist
-    PWN = PWNamelist(name, NLData)
+    # Create QENamelist
+    QEN = QENamelist(name, NLData)
 
     # Try to write case.pw2wan
     fwan = case * sp * ".pw2wan"
     open(fwan, "w") do fout
-        write(fout, PWN) # This write function is defined in qe.jl
+        write(fout, QEN) # This write function is defined in qe.jl
     end
     #
     println("  > File $fwan is created")
