@@ -143,11 +143,11 @@ function qe_exec(it::IterInfo, scf::Bool = true)
     println("  > Applying output file: $fout")
 
     # Print the header
-    println("Launch the computational engine pwscf")
+    println("Launch the computational engine quantum espresso")
 
     # Create a task, but do not run it immediately
     t = @task begin
-        run(pipeline(`$pwscf_cmd`, stdin = finp, stdout = fout))
+        run(pipeline(`$qe_cmd`, stdin = finp, stdout = fout))
     end
     println("  > Create a task")
 
@@ -229,7 +229,7 @@ function qe_exec(it::IterInfo, scf::Bool = true)
     # Keep the last output
     println()
 
-    # Wait for the pwscf task to finish
+    # Wait for the quantum espresso task to finish
     wait(t)
 
     # Extract how many iterations are executed
@@ -248,8 +248,9 @@ end
 """
     qe_save(it::IterInfo)
 
-Backup the output files of pwscf if necessary. Furthermore, the DFT fermi
-level in `IterInfo` struct is also updated (`IterInfo.μ₀`).
+Backup the output files of `quantum espresso` (`pwscf`) if necessary.
+Furthermore, the DFT fermi level in `IterInfo` struct is also updated
+(i.e. `IterInfo.μ₀`).
 
 See also: [`qe_init`](@ref), [`qe_exec`](@ref).
 """
@@ -272,12 +273,12 @@ function qe_save(it::IterInfo)
 
     # Anyway, the DFT fermi level is extracted from scf.out, and its
     # value will be saved at IterInfo.μ₀.
-    it.μ₀ = pwscfio_fermi(pwd())
+    it.μ₀ = qeio_fermi(pwd())
     println("  > Extract the fermi level from scf.out: $(it.μ₀) eV")
 
     # We also try to read the DFT band energy from scf.out, and its
     # value will be saved at IterInfo.et.
-    it.et.dft = pwscfio_energy(pwd())
+    it.et.dft = qeio_energy(pwd())
     println("  > Extract the DFT band energy from scf.out: $(it.et.dft) eV")
 end
 
