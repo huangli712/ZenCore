@@ -181,7 +181,6 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     else # For spin-unpolarized system
         udis = w90_read_udis(bwin)
     end
-    sorry()
 
     # W09: Build projection matrix
     #
@@ -232,6 +231,7 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         D[:PT] = PT
         D[:PG] = PG
     end
+    sorry()
 
     # W11: Setup the band window for projections
     # If you do not want to filter the projections, please use another
@@ -753,14 +753,14 @@ See also: [`PrTrait`](@ref), [`PrGroup`](@ref).
 """
 function w90_make_group(latt::Lattice, sp::String = "")
     # Print the header
-    println("Build groups")
+    println("Build traits and groups")
 
     # Read and parse the `w90.nnkp` file
     #
     # Build the filename
     fnnkp = "w90" * sp * ".nnkp"
     println("  > Open and read $fnnkp")
-    println("  > Spin orientation: ", sp)
+    println("  > Spin orientation: ", sp == "" ? "none" : sp)
     #
     # Read it and figure out the projections block
     lines = readlines(fnnkp)
