@@ -525,7 +525,8 @@ end
 """
     qeq_files()
 
-Check the essential output files by pwscf in the current directory.
+Check the essential output files by `quantum espresso` (`pwscf`) in the
+current directory.
 
 See also: [`adaptor_run`](@ref).
 """
@@ -1180,7 +1181,8 @@ end
 """
     AtomicSpeciesCard
 
-Represent the `ATOMIC_SPECIES` card in the input file of `pwscf`.
+Represent the `ATOMIC_SPECIES` card in the input file of
+`quantum espresso` (`pwscf`).
 
 ### Members
 
@@ -1188,14 +1190,15 @@ Represent the `ATOMIC_SPECIES` card in the input file of `pwscf`.
 
 See also: [`AtomicSpecies`](@ref).
 """
-struct AtomicSpeciesCard <: PWCard
+struct AtomicSpeciesCard <: QECard
     data :: Vector{AtomicSpecies}
 end
 
 """
     AtomicPositionsCard
 
-Represent the `ATOMIC_POSITIONS` card in the input file of `pwscf`.
+Represent the `ATOMIC_POSITIONS` card in the input file of
+`quantum espresso` (`pwscf`).
 
 ### Members
 
@@ -1222,8 +1225,8 @@ end
 """
     AutoKmeshCard
 
-Represent the `K_POINTS` card in the input file of `pwscf` (within
-the `automatic` mode).
+Represent the `K_POINTS` card in the input file of `quantum espresso`
+(`pwscf`) (be compatible with the `automatic` mode only).
 
 See also: [`KPointsCard`](@ref).
 """
@@ -1245,8 +1248,8 @@ end
 """
     GammaPointCard
 
-Represent the `K_POINTS` card in the input file of `pwscf` (within
-the `gamma` mode).
+Represent the `K_POINTS` card in the input file of `quantum espresso`
+(`pwscf`) (be compatible with the `gamma` mode).
 
 See also: [`KPointsCard`](@ref).
 """
@@ -1255,7 +1258,8 @@ struct GammaPointCard <: KPointsCard end
 """
     SpecialKPointsCard
 
-Represent the `K_POINTS` card in the input file of `pwscf`.
+Represent the `K_POINTS` card in the input file of `quantum espresso`
+(`pwscf`) (be compatible with the `tpiba` or `crystal` mode).
 
 ### Members
 
