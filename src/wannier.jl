@@ -233,9 +233,9 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         D[:PT] = PT
         D[:PG] = PG
     end
-    sorry()
 
     # W11: Setup the band window for projections
+    #
     # If you do not want to filter the projections, please use another
     # version of w90_make_window(), i.e, w90_make_window(PG, eigs). It
     # is quite clear that the current version is much more efficient.
@@ -248,12 +248,14 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         # Spin down
         PW_dn = w90_make_window(PG_dn, ewin_dn, bwin_dn)
         #
-        # Concatenate PW_up and PW_dn
-        D[:PW] = hcat(PW_up, PW_dn)
+        # Merge PW_up and PW_dn
+        @assert PW_up == PW_dn
+        D[:PW] = deepcopy(PW_up)
     else # For spin-unpolarized system
         PW = w90_make_window(PG, ewin, bwin)
-        D[:PW] = PW
+        D[:PW] = deepcopy(PW)
     end
+    sorry()
 
     # W12: Create connections/mappings between projectors (or band
     # windows) and quantum impurity problems
