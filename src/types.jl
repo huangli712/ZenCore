@@ -626,6 +626,22 @@ function ==(PT₁::PrTrait, PT₂::PrTrait)
 end
 
 """
+    ==(PG₁::PrGroup, PG₂::PrGroup)
+
+Compare two PrGroup objects.
+
+See also: [`PrGroup`](@ref).
+"""
+function ==(PG₁::PrGroup, PG₂::PrGroup)
+    PG₁.site  == PG₂.site  &&
+    PG₁.l     == PG₂.l     &&
+    PG₁.corr  == PG₂.corr  &&
+    PG₁.shell == PG₂.shell &&
+    PG₁.Pr    == PG₂.Pr    &&
+    PG₁.Tr    == PG₂.Tr
+end
+
+"""
     ==(PW₁::PrWindow, PW₂::PrWindow)
 
 Compare two PrWindow objects.
