@@ -538,8 +538,8 @@ qeq_files() = qeq_files(pwd())
 """
     qeio_energy(f::String)
 
-Reading pwscf's `scf.out` file, return DFT total energy, which will
-be used to determine the DFT + DMFT energy. Here `f` means only the
+Reading quantum espresso's `scf.out` file, return DFT total energy, which
+will be used to determine the DFT + DMFT energy. Here `f` means only the
 directory that contains `scf.out`.
 """
 function qeio_energy(f::String)
@@ -558,8 +558,8 @@ end
 """
     qeio_energy()
 
-Reading pwscf's `scf.out` file, return DFT total energy, which will
-be used to determine the DFT + DMFT energy.
+Reading quantum espresso's `scf.out` file, return DFT total energy, which
+will be used to determine the DFT + DMFT energy.
 """
 qeio_energy() = qeio_energy(pwd())
 
