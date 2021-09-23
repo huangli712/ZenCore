@@ -311,7 +311,7 @@ See also: [`QENamelist`](@ref), [`QECard`](@ref).
 """
 function qec_input(it::IterInfo)
     # Check the file status
-    finput = "PWSCF.INP"
+    finput = "QE.INP"
     @assert isfile(finput)
 
     # Parse the namelists, control, system, and electrons.
@@ -434,7 +434,7 @@ function qec_input(it::IterInfo)
     pseudo_dir = joinpath("..", pseudo_dir)
     ControlNL["pseudo_dir"] = "'$pseudo_dir'" # Add ' back
 
-    # Build input files for pwscf
+    # Build input files for quantum espresso
     #
     # Get case's name
     case = get_c("case")
@@ -510,8 +510,8 @@ end
 """
     qeq_files(f::String)
 
-Check the essential output files by pwscf. Here `f` means only the
-directory that contains the desired files.
+Check the essential output files by `quantum espresso` (`pwscf`). Here
+`f` means only the directory that contains the desired files.
 
 See also: [`adaptor_run`](@ref).
 """
