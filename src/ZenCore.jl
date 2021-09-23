@@ -17,7 +17,7 @@ correlated materials. Now this framework is under heavy development.
 
 Zen supports the following DFT backends:
 * `VASP`
-* `PWSCF` (Included in `QUANTUM ESPRESSO` package)
+* `QUANTUM ESPRESSO` (Actually only the `PWSCF` code)
 
 Zen supports the following schemes for defining local orbitals:
 * `PLO`
@@ -474,14 +474,14 @@ export vaspio_fermi
 export vaspio_charge
 
 #=
-### *Includes And Exports* : *pwscf.jl*
+### *Includes And Exports* : *qe.jl*
 =#
 
 #=
 *Summary* :
 
-Tools for the pwscf software package (adaptor). It provide a lot of
-functions to deal with the pwscf-related files.
+Tools for the quantum espresso software package (adaptor). It provide a
+lot of functions to deal with the quantum espresso related files.
 
 *Members* :
 
