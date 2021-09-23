@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/09/13
+# Last modified: 2021/09/23
 #
 
 """
@@ -17,7 +17,7 @@ correlated materials. Now this framework is under heavy development.
 
 Zen supports the following DFT backends:
 * `VASP`
-* `PWSCF` (Actually `QUANTUM ESPRESSO`)
+* `PWSCF` (Included in `QUANTUM ESPRESSO` package)
 
 Zen supports the following schemes for defining local orbitals:
 * `PLO`
