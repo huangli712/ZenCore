@@ -1035,9 +1035,9 @@ function adaptor_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
             @time_call vasp_adaptor(DFTData)
             break
 
-        @case "pwscf"
-            pwscfq_files()
-            @time_call pwscf_adaptor(DFTData)
+        @case "qe"
+            qeq_files()
+            @time_call qe_adaptor(DFTData)
             break
 
         @default
