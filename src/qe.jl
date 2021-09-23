@@ -760,9 +760,6 @@ function qeio_eigen(f::String)
         nspin = 1
     end
 
-    @show nkpt, nband, nspin
-    sorry()
-
     # Create arrays
     enk = zeros(F64, nband, nkpt, nspin)
     occupy = zeros(F64, nband, nkpt, nspin)
@@ -778,51 +775,58 @@ function qeio_eigen(f::String)
     nrem = rem(nband, 8)
     #
     # Go through each k-point
-    for i = 1:nkpt
-        # Read eigenvalues
-        start = start + 3
-        if nrow > 1 # nband > 8
-            for r = 1:nrow
-                start = start + 1
-                bs = (r - 1) * 8 + 1
-                be = (r - 1) * 8 + 8
-                enk[bs:be,i,1] = parse.(F64, line_to_array(lines[start]))
-            end # END OF R LOOP
-            if nrem > 0
-                start = start + 1
-                bs = nrow * 8 + 1
-                be = nband
-                @assert nrem == be - bs + 1
-                enk[bs:be,i,1] = parse.(F64, line_to_array(lines[start]))
-            end
-        else
-            @assert nrow == 1
-            start = start + 1
-            enk[:,i,1] = parse.(F64, line_to_array(lines[start]))
+    for s = 1:nspin
+        if nspin == 2
+            start = start + 3
         end
-        #
-        # Read occupations
-        start = start + 2
-        if nrow > 1 # nband > 8
-            for r = 1:nrow
+        for i = 1:nkpt
+            # Read eigenvalues
+            start = start + 3
+            if nrow > 1 # nband > 8
+                for r = 1:nrow
+                    start = start + 1
+                    bs = (r - 1) * 8 + 1
+                    be = (r - 1) * 8 + 8
+                    enk[bs:be,i,1] = parse.(F64, line_to_array(lines[start]))
+                end # END OF R LOOP
+                if nrem > 0
+                    start = start + 1
+                    bs = nrow * 8 + 1
+                    be = nband
+                    @assert nrem == be - bs + 1
+                    enk[bs:be,i,1] = parse.(F64, line_to_array(lines[start]))
+                end
+            else
+                @assert nrow == 1
                 start = start + 1
-                bs = (r - 1) * 8 + 1
-                be = (r - 1) * 8 + 8
-                occupy[bs:be,i,1] = parse.(F64, line_to_array(lines[start]))
-            end # END OF R LOOP
-            if nrem > 0
-                start = start + 1
-                bs = nrow * 8 + 1
-                be = nband
-                @assert nrem == be - bs + 1
-                occupy[bs:be,i,1] = parse.(F64, line_to_array(lines[start]))
+                enk[:,i,1] = parse.(F64, line_to_array(lines[start]))
             end
-        else
-            @assert nrow == 1
-            start = start + 1
-            occupy[:,i,1] = parse.(F64, line_to_array(lines[start]))
-        end
-    end # END OF I LOOP
+            #
+            # Read occupations
+            start = start + 2
+            if nrow > 1 # nband > 8
+                for r = 1:nrow
+                    start = start + 1
+                    bs = (r - 1) * 8 + 1
+                    be = (r - 1) * 8 + 8
+                    occupy[bs:be,i,1] = parse.(F64, line_to_array(lines[start]))
+                end # END OF R LOOP
+                if nrem > 0
+                    start = start + 1
+                    bs = nrow * 8 + 1
+                    be = nband
+                    @assert nrem == be - bs + 1
+                    occupy[bs:be,i,1] = parse.(F64, line_to_array(lines[start]))
+                end
+            else
+                @assert nrow == 1
+                start = start + 1
+                occupy[:,i,1] = parse.(F64, line_to_array(lines[start]))
+            end
+        end # END OF I LOOP
+        @show start
+    end
+    sorry()
 
     # Print some useful information to check
     println("  > Number of DFT bands: ", nband)
