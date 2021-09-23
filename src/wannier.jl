@@ -739,6 +739,9 @@ function w90_make_map(PG::Array{PrGroup,1}, ai::Array{Impurity,1})
     return Map
 end
 
+function w90_make_trait(PTup::Array{PrTrait,1}, PTdn::Array{PrTrait,1})
+end
+
 """
     w90_make_group(latt::Lattice, sp::String = "")
 

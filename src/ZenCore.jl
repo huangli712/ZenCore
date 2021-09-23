@@ -598,8 +598,9 @@ wannier_monitor -> Check the WFs and projections.
 w90_make_ctrl   -> Prepare control parameters for wannier90.
 w90_make_proj   -> Prepare projections for wannier90.
 w90_make_map    -> Create connection between WFs and impurity problems.
-w90_make_group  -> Create groups of WFs.
-w90_make_window -> Create band windows of WFs.
+w90_make_trait  -> Create and manipulate traits of WFs.
+w90_make_group  -> Create and manipulate groups of WFs.
+w90_make_window -> Create and manipulate band windows of WFs.
 w90_make_chipsi -> Build projections.
 w90_read_amat   -> Read w90.amn file.
 w90_read_eigs   -> Read w90.eig file.
@@ -625,6 +626,7 @@ export wannier_monitor
 export w90_make_ctrl
 export w90_make_proj
 export w90_make_map
+export w90_make_trait
 export w90_make_group
 export w90_make_window
 export w90_make_chipsi
