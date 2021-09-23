@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/09/23
+# Last modified: 2021/09/24
 #
 
 #=
@@ -221,6 +221,7 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         # Spin down
         PT_dn, PG_dn = w90_make_group(latt, "dn")
         #
+        w90_make_trait(PT_up, PT_dn)
         # Concatenate PT_up and PT_dn
         D[:PT] = hcat(PT_up, PT_dn)
         #
@@ -744,6 +745,14 @@ end
 """
 function w90_make_trait(PTup::Array{PrTrait,1}, PTdn::Array{PrTrait,1})
     @assert size(PTup) == size(PTdn)
+    for t in eachindex(PTup)
+        up = PTup[t]
+        dn = PTdn[t]
+        @show t
+        @show up
+        @show dn
+        @show up == dn
+    end
 end
 
 """

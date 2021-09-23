@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/09/05
+# Last modified: 2021/09/24
 #
 
 #=
@@ -610,6 +610,20 @@ end
 =#
 
 import Base.==
+
+"""
+    ==(PT₁::PrTrait, PT₂::PrTrait)
+
+Compare two PrTrait objects.
+
+See also: [`PrTrait`](@ref).
+"""
+function ==(PT₁::PrTrait, PT₂::PrTrait)
+    PT₁.site == PT₂.site &&
+    PT₁.l    == PT₂.l    &&
+    PT₁.m    == PT₂.m    &&
+    PT₁.desc == PT₂.desc
+end
 
 """
     ==(PW₁::PrWindow, PW₂::PrWindow)
