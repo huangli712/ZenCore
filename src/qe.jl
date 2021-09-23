@@ -774,12 +774,15 @@ function qeio_eigen(f::String)
     nrow = div(nband, 8)
     nrem = rem(nband, 8)
     #
-    # Go through each k-point
+    # Go through each spin
     for s = 1:nspin
+        # Skip `SPIN UP` and `SPIN DOWN` lines.
         if nspin == 2
             start = start + 3
         end
-        for i = 1:nkpt
+        #
+        # Go through each k-point
+        for k = 1:nkpt
             # Read eigenvalues
             start = start + 3
             if nrow > 1 # nband > 8
@@ -787,19 +790,19 @@ function qeio_eigen(f::String)
                     start = start + 1
                     bs = (r - 1) * 8 + 1
                     be = (r - 1) * 8 + 8
-                    enk[bs:be,i,1] = parse.(F64, line_to_array(lines[start]))
+                    enk[bs:be,k,s] = parse.(F64, line_to_array(lines[start]))
                 end # END OF R LOOP
                 if nrem > 0
                     start = start + 1
                     bs = nrow * 8 + 1
                     be = nband
                     @assert nrem == be - bs + 1
-                    enk[bs:be,i,1] = parse.(F64, line_to_array(lines[start]))
+                    enk[bs:be,k,s] = parse.(F64, line_to_array(lines[start]))
                 end
             else
                 @assert nrow == 1
                 start = start + 1
-                enk[:,i,1] = parse.(F64, line_to_array(lines[start]))
+                enk[:,k,s] = parse.(F64, line_to_array(lines[start]))
             end
             #
             # Read occupations
