@@ -481,22 +481,22 @@ export vaspio_charge
 *Summary* :
 
 Tools for the quantum espresso software package (adaptor). It provide a
-lot of functions to deal with the quantum espresso related files.
+lot of functions to deal with the quantum espresso (pwscf) related files.
 
 *Members* :
 
 ```text
-pwscf_adaptor   -> Adaptor support.
-pwscf_init      -> Prepare pwscf's input files.
-pwscf_exec      -> Execute pwscf program.
-pwscf_save      -> Backup pwscf's output files.
-pwscfc_input    -> Generate essential input file (case.scf or case.nscf).
-pwscfq_files    -> Check essential output files.
-pwscfio_energy  -> Read DFT total energy.
-pwscfio_lattice -> Read lattice information.
-pwscfio_kmesh   -> Read kmesh.
-pwscfio_eigen   -> Read eigenvalues.
-pwscfio_fermi   -> Read fermi level.
+qe_adaptor   -> Adaptor support.
+qe_init      -> Prepare pwscf's input files.
+qe_exec      -> Execute pwscf program.
+qe_save      -> Backup pwscf's output files.
+qec_input    -> Generate essential input file (case.scf or case.nscf).
+qeq_files    -> Check essential output files.
+qeio_energy  -> Read DFT total energy.
+qeio_lattice -> Read lattice information.
+qeio_kmesh   -> Read kmesh.
+qeio_eigen   -> Read eigenvalues.
+qeio_fermi   -> Read fermi level.
 ```
 =#
 
