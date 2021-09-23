@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/09/22
+# Last modified: 2021/09/23
 #
 
 #=
@@ -19,9 +19,9 @@ generate maximally localized wannier functions and related transformation
 matrix. Then it will read and parse the outputs, convert the data into
 IR format. The data contained in `D` dict will be updated.
 
-Be careful, now this adaptor only supports `pwscf`.
+Be careful, now this adaptor only supports `quantum espresso` (`pwscf`).
 
-See also: [`pwscf_adaptor`](@ref), [`ir_adaptor`](@ref).
+See also: [`qe_adaptor`](@ref), [`ir_adaptor`](@ref).
 """
 function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     # Print the header
@@ -36,11 +36,11 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     end
 
     # Extract key parameters
-    case = get_c("case") # Prefix for pwscf
+    case = get_c("case") # Prefix for quantum espresso
     sp = get_d("lspins") # Is it a spin-polarized system
 
-    # Now this feature require pwscf as a dft engine
-    @assert get_d("engine") == "pwscf"
+    # Now this feature require quantum espresso as a dft engine
+    @assert get_d("engine") == "qe"
 
     # W01: Execute the wannier90 code to generate w90.nnkp
     if sp # For spin-polarized system
@@ -140,7 +140,7 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     end
     #
     # Calibrate the eigenvalues to force the fermi level to be zero
-    # Be careful, the original eigenvalues from pwscfio_eigen() have
+    # Be careful, the original eigenvalues from qeio_eigen() have
     # not been calibrated.
     @. D[:enk] = D[:enk] - D[:fermi]
 
@@ -296,7 +296,7 @@ function wannier_init(D::Dict{Symbol,Any}, sp::String = "")
     println("Generate input files for wannier90")
 
     # Extract necessary data from D
-    # These data are read in pwscf_adaptor()
+    # These data are read in qe_adaptor()
     latt  = D[:latt]
     kmesh = D[:kmesh]
     enk   = D[:enk]
@@ -343,7 +343,7 @@ function wannier_exec(sp::String = ""; op::String = "")
     # Get the home directory of wannier90
     #
     # We can not guarantee that the wannier90 code is always installed
-    # within the directory of pwscf.
+    # within the directory of quantum espresso.
     wannier90_home = query_dft("wannier90")
     println("  > Home directory for wannier90: ", wannier90_home)
 
@@ -1306,7 +1306,7 @@ Note that the eigenvalues from `nscf.out` are not accurate enough. We
 will use the data extracted from `w90.eig` to update them. The argument
 `sp` denotes the spin component.
 
-See also: [`pwscfio_eigen`](@ref).
+See also: [`qeio_eigen`](@ref).
 """
 function w90_read_eigs(sp::String = "")
     # Print the header
@@ -1718,9 +1718,9 @@ end
     pw2wan_init(case::String, sp::String = "")
 
 Check the runtime environment of `pw2wannier90`, prepare necessary input
-files (`case.pw2wan`). The argument `case` means the prefix for `pwscf`,
-and `sp` determines the spin component which can be empty string, `up`,
-or `dn`.
+files (it is `case.pw2wan`). The argument `case` means the prefix for
+`quantum espresso`, and `sp` determines the spin component which can be
+empty string, `up`, or `dn`.
 
 See also: [`pw2wan_exec`](@ref), [`pw2wan_save`](@ref).
 """
@@ -1760,7 +1760,7 @@ function pw2wan_init(case::String, sp::String = "")
     # Try to write case.pw2wan
     fwan = case * sp * ".pw2wan"
     open(fwan, "w") do fout
-        write(fout, PWN) # This write function is defined in pwscf.jl
+        write(fout, PWN) # This write function is defined in qe.jl
     end
     #
     println("  > File $fwan is created")
