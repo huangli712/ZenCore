@@ -828,9 +828,7 @@ function qeio_eigen(f::String)
                 occupy[:,k,s] = parse.(F64, line_to_array(lines[start]))
             end
         end # END OF K LOOP
-        @show start
     end # END OF S LOOP
-    sorry()
 
     # Print some useful information to check
     println("  > Number of DFT bands: ", nband)
