@@ -1,10 +1,10 @@
 #
 # Project : Pansy
-# Source  : pwscf.jl
+# Source  : qe.jl
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/09/14
+# Last modified: 2021/09/23
 #
 
 #=
@@ -12,7 +12,7 @@
 =#
 
 """
-    pwscf_adaptor(D::Dict{Symbol,Any})
+    qe_adaptor(D::Dict{Symbol,Any})
 
 Adaptor support for the `pwscf` code. It will parse the output files of
 the `pwscf` code, extract the Kohn-Sham dataset, and then fulfill the
@@ -28,7 +28,7 @@ must be set to 'high'.
 
 See also: [`wannier_adaptor`](@ref), [`ir_adaptor`](@ref).
 """
-function pwscf_adaptor(D::Dict{Symbol,Any})
+function qe_adaptor(D::Dict{Symbol,Any})
     # P01: Print the header
     println("Adaptor : PWSCF")
     println("Try to extract the Kohn-Sham dataset")
@@ -48,13 +48,13 @@ function pwscf_adaptor(D::Dict{Symbol,Any})
 end
 
 """
-    pwscf_init(it::IterInfo)
+    qe_init(it::IterInfo)
 
 Check the runtime environment of `pwscf`, prepare necessary input files.
 
 See also: [`pwscf_exec`](@ref), [`pwscf_save`](@ref).
 """
-function pwscf_init(it::IterInfo)
+function qe_init(it::IterInfo)
     # Print the header
     println("Engine : PWSCF")
     println("Try to perform ab initio electronic structure calculation")
@@ -98,7 +98,7 @@ and make sure the file `MPI.toml` is available.
 
 See also: [`pwscf_init`](@ref), [`pwscf_save`](@ref).
 """
-function pwscf_exec(it::IterInfo, scf::Bool = true)
+function qe_exec(it::IterInfo, scf::Bool = true)
     # Print the header
     println("Detect the runtime environment for pwscf")
 
@@ -245,14 +245,14 @@ function pwscf_exec(it::IterInfo, scf::Bool = true)
 end
 
 """
-    pwscf_save(it::IterInfo)
+    qe_save(it::IterInfo)
 
 Backup the output files of pwscf if necessary. Furthermore, the DFT fermi
 level in `IterInfo` struct is also updated (`IterInfo.μ₀`).
 
-See also: [`pwscf_init`](@ref), [`pwscf_exec`](@ref).
+See also: [`qe_init`](@ref), [`qe_exec`](@ref).
 """
-function pwscf_save(it::IterInfo)
+function qe_save(it::IterInfo)
     # Print the header
     println("Finalize the computational task")
 
@@ -285,7 +285,7 @@ end
 =#
 
 """
-    pwscfc_input(it::IterInfo)
+    qec_input(it::IterInfo)
 
 It will parse the `PWSCF.INP` file at first. Actually, `PWSCF.INP` is
 a standard, but mini input file for `pwscf`. It only includes three
@@ -307,7 +307,7 @@ The return values of this function are namelist (`control`) and card
 
 See also: [`PWNamelist`](@ref), [`PWCard`](@ref).
 """
-function pwscfc_input(it::IterInfo)
+function qec_input(it::IterInfo)
     # Check the file status
     finput = "PWSCF.INP"
     @assert isfile(finput)
@@ -506,14 +506,14 @@ end
 =#
 
 """
-    pwscfq_files(f::String)
+    qeq_files(f::String)
 
 Check the essential output files by pwscf. Here `f` means only the
 directory that contains the desired files.
 
 See also: [`adaptor_run`](@ref).
 """
-function pwscfq_files(f::String)
+function qeq_files(f::String)
     fl = ["scf.out", "nscf.out"]
     for i in eachindex(fl)
         @assert isfile( joinpath(f, fl[i]) )
@@ -521,26 +521,26 @@ function pwscfq_files(f::String)
 end
 
 """
-    pwscfq_files()
+    qeq_files()
 
 Check the essential output files by pwscf in the current directory.
 
 See also: [`adaptor_run`](@ref).
 """
-pwscfq_files() = pwscfq_files(pwd())
+qeq_files() = qeq_files(pwd())
 
 #=
 ### *Service Functions* : *Group C*
 =#
 
 """
-    pwscfio_energy(f::String)
+    qeio_energy(f::String)
 
 Reading pwscf's `scf.out` file, return DFT total energy, which will
 be used to determine the DFT + DMFT energy. Here `f` means only the
 directory that contains `scf.out`.
 """
-function pwscfio_energy(f::String)
+function qeio_energy(f::String)
     # Try to figure out whether the scf.out file is valid
     lines = readlines(joinpath(f, "scf.out"))
     filter!(x -> contains(x, "!    total energy"), lines)
@@ -554,22 +554,22 @@ function pwscfio_energy(f::String)
 end
 
 """
-    pwscfio_energy()
+    qeio_energy()
 
 Reading pwscf's `scf.out` file, return DFT total energy, which will
 be used to determine the DFT + DMFT energy.
 """
-pwscfio_energy() = pwscfio_energy(pwd())
+qeio_energy() = qeio_energy(pwd())
 
 """
-    pwscfio_lattice(f::String, silent::Bool = true)
+    qeio_lattice(f::String, silent::Bool = true)
 
 Reading pwscf's `scf.out` file, return crystallography information.
 Here `f` means only the directory that contains `scf.out`.
 
 See also: [`Lattice`](@ref), [`irio_lattice`](@ref).
 """
-function pwscfio_lattice(f::String, silent::Bool = true)
+function qeio_lattice(f::String, silent::Bool = true)
     # Print the header
     !silent && println("Parse lattice")
     !silent && println("  > Open and read scf.out")
@@ -641,16 +641,16 @@ function pwscfio_lattice(f::String, silent::Bool = true)
 end
 
 """
-    pwscfio_lattice()
+    qeio_lattice()
 
 Reading pwscf's `scf.out` file, return crystallography information.
 
 See also: [`Lattice`](@ref), [`irio_lattice`](@ref).
 """
-pwscfio_lattice() = pwscfio_lattice(pwd())
+qeio_lattice() = qeio_lattice(pwd())
 
 """
-    pwscfio_kmesh(f::String)
+    qeio_kmesh(f::String)
 
 Reading pwscf's `nscf.out` file, return `kmesh` and `weight`. Here `f`
 means only the directory that contains `nscf.out`.
@@ -659,9 +659,9 @@ Note in `scf.out`, the k-mesh is not uniform. So we have to read k-mesh
 from the `nscf.out`. In addition, the verbosity parameter must be set to
 'high' in the input file.
 
-See also: [`pwscfio_tetra`](@ref), [`irio_kmesh`](@ref).
+See also: [`qeio_tetra`](@ref), [`irio_kmesh`](@ref).
 """
-function pwscfio_kmesh(f::String)
+function qeio_kmesh(f::String)
     # Print the header
     println("Parse kmesh and weight")
     println("  > Open and read nscf.out")
@@ -706,13 +706,13 @@ function pwscfio_kmesh(f::String)
 end
 
 """
-    pwscfio_kmesh()
+    qeio_kmesh()
 
 Reading pwscf's `nscf.out` file, return `kmesh` and `weight`.
 
-See also: [`pwscfio_tetra`](@ref), [`irio_kmesh`](@ref).
+See also: [`qeio_tetra`](@ref), [`irio_kmesh`](@ref).
 """
-pwscfio_kmesh() = pwscfio_kmesh(pwd())
+qeio_kmesh() = qeio_kmesh(pwd())
 
 """
     pwscfio_eigen(f::String)
@@ -820,23 +820,23 @@ function pwscfio_eigen(f::String)
 end
 
 """
-    pwscfio_eigen()
+    qeio_eigen()
 
 Reading pwscf's `nscf.out` file, return energy band information.
 
 See also: [`irio_eigen`](@ref).
 """
-pwscfio_eigen() = pwscfio_eigen(pwd())
+qeio_eigen() = qeio_eigen(pwd())
 
 """
-    pwscfio_fermi(f::String, silent::Bool = true)
+    qeio_fermi(f::String, silent::Bool = true)
 
 Reading pwscf's `nscf.out` file, return the fermi level. Here `f` means
 only the directory that contains `scf.out`.
 
 See also: [`irio_fermi`](@ref).
 """
-function pwscfio_fermi(f::String, silent::Bool = true)
+function qeio_fermi(f::String, silent::Bool = true)
     # Print the header
     !silent && println("Parse fermi level")
     !silent && println("  > Open and read nscf.out")
@@ -857,13 +857,13 @@ function pwscfio_fermi(f::String, silent::Bool = true)
 end
 
 """
-    pwscfio_fermi()
+    qeio_fermi()
 
 Reading pwscf's `scf.out` file, return the fermi level.
 
 See also: [`irio_fermi`](@ref).
 """
-pwscfio_fermi() = pwscfio_fermi(pwd())
+qeio_fermi() = qeio_fermi(pwd())
 
 #=
 *Remarks* :
