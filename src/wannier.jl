@@ -222,16 +222,16 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         PT_dn, PG_dn = w90_make_group(latt, "dn")
         #
         # Merge PT_up and PT_dn
-        w90_make_trait(PT_up, PT_dn)
+        @assert PT_up == PT_dn
         D[:PT] = deepcopy(PT_up)
         #
         # Merge PG_up and PG_dn
-        w90_make_group(PG_up, PG_dn)
+        @assert PG_up == PG_dn
         D[:PG] = deepcopy(PG_up)
     else # For spin-unpolarized system
         PT, PG = w90_make_group(latt)
-        D[:PT] = PT
-        D[:PG] = PG
+        D[:PT] = deepcopy(PT)
+        D[:PG] = deepcopy(PG)
     end
 
     # W11: Setup the band window for projections
