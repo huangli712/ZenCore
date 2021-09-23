@@ -1780,18 +1780,18 @@ function pw2wan_exec(case::String, sp::String = "")
     println("Detect the runtime environment for pw2wannier90")
 
     # Get the home directory of pw2wannier90
-    # It is actually the same with that of pwscf.
-    pwscf_home = query_dft("pwscf")
-    println("  > Home directory for pw2wannier90: ", pwscf_home)
+    # It is actually the same with that of quantum espresso.
+    qe_home = query_dft("qe")
+    println("  > Home directory for pw2wannier90: ", qe_home)
 
     # Select suitable pw2wannier90 program
-    pwscf_exe = "$pwscf_home/pw2wannier90.x"
-    @assert isfile(pwscf_exe)
-    println("  > Executable program is available: ", basename(pwscf_exe))
+    qe_exe = "$qe_home/pw2wannier90.x"
+    @assert isfile(qe_exe)
+    println("  > Executable program is available: ", basename(qe_exe))
 
     # Assemble command
-    pwscf_cmd = split("$pwscf_exe", " ")
-    println("  > Assemble command: $(prod(x -> x * ' ', pwscf_cmd))")
+    qe_cmd = split("$qe_exe", " ")
+    println("  > Assemble command: $(prod(x -> x * ' ', qe_cmd))")
 
     # Determine suitable input and output files
     finp = case * sp * ".pw2wan"
@@ -1804,7 +1804,7 @@ function pw2wan_exec(case::String, sp::String = "")
 
     # Create a task, but do not run it immediately
     t = @task begin
-        run(pipeline(`$pwscf_cmd`, stdin = finp, stdout = fout))
+        run(pipeline(`$qe_cmd`, stdin = finp, stdout = fout))
     end
     println("  > Create a task")
 
