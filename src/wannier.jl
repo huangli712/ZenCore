@@ -284,7 +284,41 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     wannier_monitor(D)
 end
 
-function pw2plo_adaptor()
+function qe4plo_adaptor(D::Dict{Symbol,Any})
+    # Print the header
+    println("Adaptor : QE4PLO")
+    println("Try to process the Kohn-Sham dataset")
+    println("Current directory: ", pwd())
+
+    # Check the validity of the original dict
+    key_list = [:latt, :kmesh, :weight, :enk, :occupy, :fermi]
+    for k in key_list
+        @assert haskey(D, k)
+    end
+
+    # Extract key parameters
+    case = get_c("case") # Prefix for quantum espresso
+    sp = get_d("lspins") # Is it a spin-polarized system
+
+    # Now this feature require quantum espresso as a dft engine
+    @assert get_d("engine") == "qe"
+
+    # W01: Execute the wannier90 code to generate w90.nnkp
+    if sp # For spin-polarized system
+        # Spin up
+        wannier_init(D, "up")
+        wannier_exec("up", op = "-pp")
+        wannier_save("up", op = "-pp")
+        #
+        # Spin down
+        wannier_init(D, "dn")
+        wannier_exec("dn", op = "-pp")
+        wannier_save("dn", op = "-pp")
+    else # For spin-unpolarized system
+        wannier_init(D)
+        wannier_exec(op = "-pp")
+        wannier_save(op = "-pp")
+    end
 end
 
 #=
