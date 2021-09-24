@@ -337,6 +337,44 @@ function qe4plo_adaptor(D::Dict{Symbol,Any})
         pw2wan_exec(case)
         pw2wan_save()
     end
+
+    # W05: Read accurate band eigenvalues from w90.eig
+    #
+    # D[:enk] will be updated
+    if sp # For spin-polarized system
+        # Spin up
+        eigs_up = w90_read_eigs("up") .- D[:fermi]
+        nband, nkpt = size(eigs_up)
+        eigs_up = reshape(eigs_up, (nband, nkpt, 1))
+        #
+        # Spin down
+        eigs_dn = w90_read_eigs("dn") .- D[:fermi]
+        nband, nkpt = size(eigs_dn)
+        eigs_dn = reshape(eigs_dn, (nband, nkpt, 1))
+        #
+        # Sanity check
+        @assert size(eigs_up) == size(eigs_dn)
+        #
+        # Concatenate eigs_up and eigs_dn
+        D[:enk] = cat(eigs_up, eigs_dn, dims = 3)
+        #
+        # Sanity check
+        @assert size(D[:enk]) == (nband, nkpt, 2)
+    else # For spin-unpolarized system
+        eigs = w90_read_eigs() .- D[:fermi]
+        nband, nkpt = size(eigs)
+        eigs = reshape(eigs, (nband, nkpt, 1))
+        D[:enk] = deepcopy(eigs)
+        @assert size(D[:enk]) == (nband, nkpt, 1)
+    end
+    #
+    # Calibrate the eigenvalues to force the fermi level to be zero
+    # Be careful, the original eigenvalues from qeio_eigen() have
+    # not been calibrated.
+    #
+    # The calibration has been done above.
+    #
+    # @. D[:enk] = D[:enk] - D[:fermi]
 end
 
 #=
