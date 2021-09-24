@@ -1437,7 +1437,7 @@ function w90_read_hmat(sp::String = "")
     # Print some useful information to check
     println("  > Number of wannier functions: ", nproj)
     println("  > Number of Wigner-Seitz points: ", nrpt)
-    println("  > Spin orientation: ", sp)
+    println("  > Spin orientation: ", sp == "" ? "none" : sp)
     println("  > Shape of Array rdeg: ", size(rdeg))
     println("  > Shape of Array rvec: ", size(rvec))
     println("  > Shape of Array hamr: ", size(hamr))
