@@ -137,7 +137,8 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     else # For spin-unpolarized system
         eigs = w90_read_eigs() .- D[:fermi]
         nband, nkpt = size(eigs)
-        D[:enk] = reshape(eigs, (nband, nkpt, 1))
+        eigs = reshape(eigs, (nband, nkpt, 1))
+        D[:enk] = deepcopy(eigs)
         @assert size(D[:enk]) == (nband, nkpt, 1)
     end
     #
@@ -960,7 +961,7 @@ function w90_make_group(MAP::Mapping, PG::Array{PrGroup,1})
 end
 
 """
-    w90_make_window(PG::Array{PrGroup,1}, enk::Array{F64,2})
+    w90_make_window(PG::Array{PrGroup,1}, enk::Array{F64,3})
 
 Make band window to filter the projections. Actually, all of the Kohn-Sham
 eigenvalues are retained, so the band window is always `[1, nband]`. This
@@ -968,12 +969,12 @@ function will return an array of `PrWindow` struct.
 
 See also: [`PrWindow`](@ref).
 """
-function w90_make_window(PG::Array{PrGroup,1}, enk::Array{F64,2})
+function w90_make_window(PG::Array{PrGroup,1}, enk::Array{F64,3})
     # Print the header
     println("Generate windows")
 
     # Extract the key parameters
-    nband, nkpt = size(enk)
+    nband, nkpt, _ = size(enk)
 
     # Initialize an array of PrWindow struct
     PW = PrWindow[]
