@@ -65,7 +65,7 @@ See also: [`plo_adaptor`](@ref), [`qe_adaptor`](@ref).
 """
 function qe_to_plo(D::Dict{Symbol,Any})
     # Check the validity of the original dict
-    key_list = [:latt, :enk, :fermi]
+    key_list = [:latt, :enk]
     for k in key_list
         @assert haskey(D, k)
     end
@@ -77,7 +77,7 @@ function qe_to_plo(D::Dict{Symbol,Any})
     # Now this feature require quantum espresso as a dft engine
     @assert get_d("engine") == "qe"
 
-    # W01: Execute the wannier90 code to generate w90.nnkp
+    # P01: Execute the wannier90 code to generate w90.nnkp
     if sp # For spin-polarized system
         # Spin up
         wannier_init(D, "up")
@@ -94,7 +94,7 @@ function qe_to_plo(D::Dict{Symbol,Any})
         wannier_save(op = "-pp")
     end
 
-    # W02: Execute the pw2wannier90 code to generate necessary files for
+    # P02: Execute the pw2wannier90 code to generate necessary files for
     # the wannier90 code
     if sp # For spin-polarized system
         # Spin up
@@ -112,17 +112,17 @@ function qe_to_plo(D::Dict{Symbol,Any})
         pw2wan_save()
     end
 
-    # W05: Read accurate band eigenvalues from w90.eig
+    # P03: Read accurate band eigenvalues from w90.eig
     #
     # D[:enk] will be updated
     if sp # For spin-polarized system
         # Spin up
-        eigs_up = w90_read_eigs("up") .- D[:fermi]
+        eigs_up = w90_read_eigs("up")
         nband, nkpt = size(eigs_up)
         eigs_up = reshape(eigs_up, (nband, nkpt, 1))
         #
         # Spin down
-        eigs_dn = w90_read_eigs("dn") .- D[:fermi]
+        eigs_dn = w90_read_eigs("dn")
         nband, nkpt = size(eigs_dn)
         eigs_dn = reshape(eigs_dn, (nband, nkpt, 1))
         #
@@ -135,22 +135,14 @@ function qe_to_plo(D::Dict{Symbol,Any})
         # Sanity check
         @assert size(D[:enk]) == (nband, nkpt, 2)
     else # For spin-unpolarized system
-        eigs = w90_read_eigs() .- D[:fermi]
+        eigs = w90_read_eigs()
         nband, nkpt = size(eigs)
         eigs = reshape(eigs, (nband, nkpt, 1))
         D[:enk] = deepcopy(eigs)
         @assert size(D[:enk]) == (nband, nkpt, 1)
     end
-    #
-    # Calibrate the eigenvalues to force the fermi level to be zero
-    # Be careful, the original eigenvalues from qeio_eigen() have
-    # not been calibrated.
-    #
-    # The calibration has been done above.
-    #
-    # @. D[:enk] = D[:enk] - D[:fermi]
 
-    # W10: Setup the PrTrait and PrGroup structs
+    # P05: Setup the PrTrait and PrGroup structs
     #
     # D[:PT] and D[:PG] will be created
     latt =D[:latt]
@@ -173,7 +165,6 @@ function qe_to_plo(D::Dict{Symbol,Any})
         D[:PT] = deepcopy(PT)
         D[:PG] = deepcopy(PG)
     end
-
 end
 
 """
