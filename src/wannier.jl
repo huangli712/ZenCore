@@ -364,7 +364,7 @@ function wannier_exec(sp::String = ""; op::String = "")
     # Assemble command
     seedname = "w90" * sp
     #
-    if op == "-pp" # As a preprocessor to generate w90.nnkp 
+    if op == "-pp" # As a preprocessor to generate w90.nnkp
         wannier90_cmd = split("$wannier90_exe $op $seedname", " ")
     else # Standard run to generate wannier function
         wannier90_cmd = split("$wannier90_exe $seedname", " ")
@@ -1009,7 +1009,7 @@ See also: [`PrWindow`](@ref).
 function w90_make_window(PG::Array{PrGroup,1}, ewin::Tuple{F64,F64}, bwin::Array{I64,2})
     # Print the header
     println("Generate windows")
-    
+
     # Extract the key parameters
     nkpt, _ = size(bwin)
 
