@@ -143,7 +143,9 @@ function qe_to_plo(D::Dict{Symbol,Any})
     end
 
     # P04
-    if sp
+    #
+    # D[:chipsi] will be created
+    if sp # For spin-polarized system
         # Spin up
         Aup = w90_read_amat("up")
         nproj, nband, nkpt = size(Aup)
@@ -162,7 +164,7 @@ function qe_to_plo(D::Dict{Symbol,Any})
         #
         # Sanity check
         @assert size(D[:chipsi]) = (nproj, nband, nkpt, nspin)
-    else
+    else # For spin-unpolarized system
     end
 
     # P05: Setup the PrTrait and PrGroup structs
