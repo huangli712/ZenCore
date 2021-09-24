@@ -145,7 +145,7 @@ See also: [`plo_adaptor`](@ref), [`qe_adaptor`](@ref).
 """
 function qe_to_plo(D::Dict{Symbol,Any})
     # Check the validity of the original dict
-    key_list = [:latt, :kmesh, :enk]
+    key_list = [:latt, :kmesh, :enk, :fermi]
     for k in key_list
         @assert haskey(D, k)
     end
@@ -196,6 +196,7 @@ function qe_to_plo(D::Dict{Symbol,Any})
     # P03: Read accurate band eigenvalues from w90.eig
     #
     # D[:enk] will be updated
+    # Be careful, the eigenvalues will be calibrated in plo_fermi().
     if sp # For spin-polarized system
         # Spin up
         eigs_up = w90_read_eigs("up")
