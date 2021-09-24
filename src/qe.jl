@@ -163,7 +163,7 @@ function qe_to_plo(D::Dict{Symbol,Any})
         D[:chipsi] = cat(Aup, Adn, dims = 4)
         #
         # Sanity check
-        @assert size(D[:chipsi]) = (nproj, nband, nkpt, nspin)
+        @assert size(D[:chipsi]) == (nproj, nband, nkpt, nspin)
     else # For spin-unpolarized system
         Amn = w90_read_amat()
         nproj, nband, nkpt = size(Amn)
