@@ -150,13 +150,13 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     #
     # @. D[:enk] = D[:enk] - D[:fermi]
 
-    # W06: Determine band window from energy window
+    # W06: Deduce band window from energy window
     if sp # For spin-polarized system
         # Spin up
-        bwin_up = w90_find_bwin(ewin_up, eigs_up[:,:,1])
+        bwin_up = w90_find_bwin(ewin_up, eigs_up)
         #
         # Spin down
-        bwin_dn = w90_find_bwin(ewin_dn, eigs_dn[:,:,1])
+        bwin_dn = w90_find_bwin(ewin_dn, eigs_dn)
     else # For spin-unpolarized system
         bwin = w90_find_bwin(ewin, eigs)
     end
@@ -1240,22 +1240,25 @@ function w90_make_chipsi(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1})
 end
 
 """
-    w90_find_bwin(ewin::Tuple{F64,F64}, enk::Array{F64,2})
+    w90_find_bwin(ewin::Tuple{F64,F64}, enk::Array{F64,3})
 
 During the disentanglement procedure, we can define an outer energy
 window to restrict the Kohn-Sham eigenvalues. This function will return
 the corresponding band window, which will be used to displace the
 disentanglement matrix. Here, `ewin` is the outer energy window which
-is extracted from `w90.wout`, and `enk` is the Kohn-Sham eigenvalues. 
+is extracted from `w90.wout`, and `enk` is the Kohn-Sham eigenvalues.
+
+This function works for spin-unpolarized case only.
 
 See also: [`w90_read_udis`](@ref), [`w90_read_wout`](@ref).
 """
-function w90_find_bwin(ewin::Tuple{F64,F64}, enk::Array{F64,2})
+function w90_find_bwin(ewin::Tuple{F64,F64}, enk::Array{F64,3})
     # Print the header
     println("Extract band window for disentanglement")
 
     # Extract key parameters
-    nband, nkpt = size(enk)
+    nband, nkpt, nspin = size(enk)
+    @assert nspin == 1
 
     # Setup energy window
     emin, emax = ewin
