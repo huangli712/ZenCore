@@ -284,14 +284,11 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     wannier_monitor(D)
 end
 
-function qe4plo_adaptor(D::Dict{Symbol,Any})
-    # Print the header
-    println("Adaptor : QE4PLO")
-    println("Try to process the Kohn-Sham dataset")
-    println("Current directory: ", pwd())
-
+"""
+"""
+function qe_to_plo(D::Dict{Symbol,Any})
     # Check the validity of the original dict
-    key_list = [:latt, :kmesh, :weight, :enk, :occupy, :fermi]
+    key_list = [:latt, :enk, :fermi]
     for k in key_list
         @assert haskey(D, k)
     end
@@ -399,6 +396,7 @@ function qe4plo_adaptor(D::Dict{Symbol,Any})
         D[:PT] = deepcopy(PT)
         D[:PG] = deepcopy(PG)
     end
+
 end
 
 #=
