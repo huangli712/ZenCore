@@ -142,7 +142,7 @@ function qe_to_plo(D::Dict{Symbol,Any})
         @assert size(D[:enk]) == (nband, nkpt, 1)
     end
 
-    # P04
+    # P04: Read projected local orbitals from w90.amn
     #
     # D[:chipsi] will be created
     if sp # For spin-polarized system
@@ -165,6 +165,11 @@ function qe_to_plo(D::Dict{Symbol,Any})
         # Sanity check
         @assert size(D[:chipsi]) = (nproj, nband, nkpt, nspin)
     else # For spin-unpolarized system
+        Amn = w90_read_amat()
+        nproj, nband, nkpt = size(Amn)
+        Amn = reshape(Amn, (nproj, nband, nkpt, 1))
+        D[:chipsi] = deepcopy(Amn)
+        @assert size(D[:chipsi]) == (nproj, nband, nkpt, 1)
     end
 
     # P05: Setup the PrTrait and PrGroup structs

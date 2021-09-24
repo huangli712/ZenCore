@@ -1344,7 +1344,7 @@ function w90_read_amat(sp::String = "")
     println("  > Number of wannier functions: ", nproj)
     println("  > Number of DFT bands: ", nband)
     println("  > Number of k-points: ", nkpt)
-    println("  > Spin orientation: ", sp)
+    println("  > Spin orientation: ", sp == "" ? "none" : sp)
     println("  > Shape of Array Amn: ", size(Amn))
 
     # Return the desired array
