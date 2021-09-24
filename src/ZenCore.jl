@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/09/23
+# Last modified: 2021/09/24
 #
 
 """
@@ -598,7 +598,6 @@ wannier_monitor -> Check the WFs and projections.
 w90_make_ctrl   -> Prepare control parameters for wannier90.
 w90_make_proj   -> Prepare projections for wannier90.
 w90_make_map    -> Create connection between WFs and impurity problems.
-w90_make_trait  -> Create and manipulate traits of WFs.
 w90_make_group  -> Create and manipulate groups of WFs.
 w90_make_window -> Create and manipulate band windows of WFs.
 w90_make_chipsi -> Build projections.
@@ -626,7 +625,6 @@ export wannier_monitor
 export w90_make_ctrl
 export w90_make_proj
 export w90_make_map
-export w90_make_trait
 export w90_make_group
 export w90_make_window
 export w90_make_chipsi

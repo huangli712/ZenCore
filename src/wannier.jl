@@ -251,11 +251,13 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         # Merge PW_up and PW_dn
         @assert PW_up == PW_dn
         D[:PW] = deepcopy(PW_up)
+        A = cat(PW_up[1].kwin, PW_dn[1].kwin, dims = 2)
+        @show size(A)
+        sorry()
     else # For spin-unpolarized system
         PW = w90_make_window(PG, ewin, bwin)
         D[:PW] = deepcopy(PW)
     end
-    sorry()
 
     # W12: Create connections/mappings between projectors (or band
     # windows) and quantum impurity problems
@@ -1037,7 +1039,7 @@ function w90_make_window(PG::Array{PrGroup,1}, ewin::Tuple{F64,F64}, bwin::Array
 end
 
 """
-    w90_make_window(ewin::Tuple{F64,F64}, enk::Array{F64,2})
+    w90_find_bwin(ewin::Tuple{F64,F64}, enk::Array{F64,2})
 
 During the disentanglement procedure, we can define an outer energy
 window to restrict the Kohn-Sham eigenvalues. This function will return
@@ -1047,7 +1049,7 @@ is extracted from `w90.wout`, and `enk` is the Kohn-Sham eigenvalues.
 
 See also: [`w90_read_udis`](@ref), [`w90_read_wout`](@ref).
 """
-function w90_make_window(ewin::Tuple{F64,F64}, enk::Array{F64,2})
+function w90_find_bwin(ewin::Tuple{F64,F64}, enk::Array{F64,2})
     # Print the header
     println("Extract band window for disentanglement")
 
@@ -1204,6 +1206,7 @@ function w90_make_chipsi(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1})
     for p in eachindex(PW)
         # Extract some key parameters
         ndim, nband, nkpt, nspin = size(chipsi[p])
+        @show size(PW[p].kwin)
 
         # Create a temporary array F
         F = zeros(C64, ndim, PW[p].nbnd, nkpt, nspin)
