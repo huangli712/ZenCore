@@ -375,6 +375,30 @@ function qe4plo_adaptor(D::Dict{Symbol,Any})
     # The calibration has been done above.
     #
     # @. D[:enk] = D[:enk] - D[:fermi]
+
+    # W10: Setup the PrTrait and PrGroup structs
+    #
+    # D[:PT] and D[:PG] will be created
+    latt =D[:latt]
+    if sp # For spin-polarized system
+        # Spin up
+        PT_up, PG_up = w90_make_group(latt, "up")
+        #
+        # Spin down
+        PT_dn, PG_dn = w90_make_group(latt, "dn")
+        #
+        # Merge PT_up and PT_dn
+        @assert PT_up == PT_dn
+        D[:PT] = deepcopy(PT_up)
+        #
+        # Merge PG_up and PG_dn
+        @assert PG_up == PG_dn
+        D[:PG] = deepcopy(PG_up)
+    else # For spin-unpolarized system
+        PT, PG = w90_make_group(latt)
+        D[:PT] = deepcopy(PT)
+        D[:PG] = deepcopy(PG)
+    end
 end
 
 #=
