@@ -152,12 +152,12 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     # W06: Determine band window from energy window
     if sp # For spin-polarized system
         # Spin up
-        bwin_up = w90_make_window(ewin_up, eigs_up[:,:,1])
+        bwin_up = w90_find_bwin(ewin_up, eigs_up[:,:,1])
         #
         # Spin down
-        bwin_dn = w90_make_window(ewin_dn, eigs_dn[:,:,1])
+        bwin_dn = w90_find_bwin(ewin_dn, eigs_dn[:,:,1])
     else # For spin-unpolarized system
-        bwin = w90_make_window(ewin, eigs)
+        bwin = w90_find_bwin(ewin, eigs)
     end
 
     # W07: Read transform matrix from w90_u.mat
