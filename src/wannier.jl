@@ -14,10 +14,9 @@
 """
     wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
 
-Adaptor support. It will firstly launch wannier90 + pw2wannier90 codes to
-generate maximally localized wannier functions and related transformation
-matrix. Then it will read and parse the outputs, convert the data into
-IR format. The data contained in `D` dict will be updated.
+Adaptor support. It will read and parse the outputs of the `wannier90`
+code, convert the data into IR format. The data contained in `D` dict
+will be updated.
 
 Be careful, now this adaptor only supports `quantum espresso` (`pwscf`).
 
