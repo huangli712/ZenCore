@@ -284,6 +284,9 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     wannier_monitor(D)
 end
 
+function pw2plo_adaptor()
+end
+
 #=
 ### *Service Functions* : *Group A*
 =#
