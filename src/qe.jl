@@ -55,6 +55,9 @@ Postprocess outputs of the `quantum espresso` (`pwscf` code), call the
 orbitals (which are not maximally-localized wannier functions). The key
 data are fed into the `DFTData` dict (i.e `D`).
 
+Most of the functions used in the `qe_to_plo()` function are implemented
+in another file (`wannier.jl`).
+
 See also: [`plo_adaptor`](@ref), [`qe_adaptor`](@ref).
 """
 function qe_to_plo(D::Dict{Symbol,Any})
