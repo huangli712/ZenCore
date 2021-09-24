@@ -74,7 +74,8 @@ function qe_to_wan(D::Dict{Symbol,Any})
     sp = get_d("lspins") # Is it a spin-polarized system
 
     # Now this feature require quantum espresso as a dft engine
-    @assert get_d("engine") == "qe" && get_d("projtype") == "wannier"
+    @assert get_d("engine") == "qe" &&
+            get_d("projtype") == "wannier"
 
     # W01: Execute the wannier90 code to generate w90.nnkp
     if sp # For spin-polarized system
@@ -93,8 +94,8 @@ function qe_to_wan(D::Dict{Symbol,Any})
         wannier_save(op = "-pp")
     end
 
-    # W02: Execute the pw2wannier90 code to generate necessary files for
-    # the wannier90 code
+    # W02: Execute the pw2wannier90 code to generate necessary files
+    # for the wannier90 code
     if sp # For spin-polarized system
         # Spin up
         pw2wan_init(case, "up")
