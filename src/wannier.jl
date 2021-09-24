@@ -1036,21 +1036,46 @@ function w90_make_window(PG::Array{PrGroup,1}, ewin::Tuple{F64,F64}, bwin::Array
     return PW
 end
 
+"""
+    w90_make_window(PWup::Array{PrWindow,1}, PWdn::Array{PrWindow,1})
+
+Try to merge two arrays of `PrWindow` struct and generate a new one.
+Actually, the new array is similar to the olds. We only modify one of
+its members, `kwin`.
+
+See also: [`PrWindow`](@ref).
+"""
 function w90_make_window(PWup::Array{PrWindow,1}, PWdn::Array{PrWindow,1})
+    # Sanity check
+    #
+    # The two arrays must be the same. The comparison of two PrWindow
+    # structs are defined in types.jl.
     @assert PWup == PWdn
 
+    # Create an empty array for PrWindow struct
     PW = PrWindow[]
 
+    # Go through old array of PrWindow struct
     for p in eachindex(PWup)
+        # Extract `kwin`
         kwin1 = PWup[p].kwin
         kwin2 = PWdn[p].kwin
+        #
+        # Check `kwin`, its dimension for spin orientation must be 1
         @assert size(kwin1, 2) == 1
         @assert size(kwin2, 2) == 1
+        #
+        # Merge two `kwin`
         kwin = cat(kwin1, kwin2, dims = 2)
+        #
+        # Extract `bwin`
         bwin  = PWup[p].bwin
+        #
+        # Create new PrWindow and push it into PW
         push!(PW, PrWindow(kwin, bwin))
     end
 
+    # Return the desired array
     return PW
 end
 
