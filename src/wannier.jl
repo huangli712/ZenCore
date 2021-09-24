@@ -251,7 +251,6 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         #
         # Merge PW_up and PW_dn
         D[:PW] = w90_make_window(PW_up, PW_dn)
-        sorry()
     else # For spin-unpolarized system
         PW = w90_make_window(PG, ewin, bwin)
         D[:PW] = deepcopy(PW)
@@ -1204,7 +1203,6 @@ function w90_make_chipsi(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1})
     for p in eachindex(PW)
         # Extract some key parameters
         ndim, nband, nkpt, nspin = size(chipsi[p])
-        @show size(PW[p].kwin)
 
         # Create a temporary array F
         F = zeros(C64, ndim, PW[p].nbnd, nkpt, nspin)
