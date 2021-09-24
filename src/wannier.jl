@@ -500,9 +500,13 @@ function w90_make_ctrl(latt::Lattice, nband::I64, fermi::F64)
     #
     # Step 1, get the setup for disentanglement.
     window = get_d("window")
+    @assert window isa Vector{F64}
     @assert length(window) ≥ 2
     #
-    # Step 2, determine the disentanglement parameters and store them.
+    # Step 2, calibrate the energy window by the fermi level
+    window = window .+ fermi
+    #
+    # Step 3, determine the disentanglement parameters and store them.
     if length(window) == 2
         w90c["dis_win_min"]  = window[1]
         w90c["dis_win_max"]  = window[2]
