@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/09/23
+# Last modified: 2021/09/24
 #
 
 #=
@@ -29,22 +29,25 @@ parameter must be set to 'high'.
 See also: [`wannier_adaptor`](@ref), [`ir_adaptor`](@ref).
 """
 function qe_adaptor(D::Dict{Symbol,Any})
-    # P01: Print the header
+    # Q01: Print the header
     println("Adaptor : QUANTUM ESPRESSO")
     println("Try to extract the Kohn-Sham dataset")
     println("Current directory: ", pwd())
 
-    # P02: Read in lattice structure
+    # Q02: Read in lattice structure
     D[:latt] = qeio_lattice(pwd(), false)
 
-    # P03: Read in kmesh and the corresponding weights
+    # Q03: Read in kmesh and the corresponding weights
     D[:kmesh], D[:weight] = qeio_kmesh(pwd())
 
-    # P04: Read in band structure and the corresponding occupancies
+    # Q04: Read in band structure and the corresponding occupancies
     D[:enk], D[:occupy] = qeio_eigen(pwd())
 
-    # V05: Read in fermi level
+    # Q05: Read in fermi level
     D[:fermi] = qeio_fermi(pwd(), false)
+
+    # Q06: Generate projected local orbitals for the QE + PLO mode
+    get_d("projtype") == "plo" && qe_to_plo(D)
 end
 
 """
