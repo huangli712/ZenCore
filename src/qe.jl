@@ -53,9 +53,18 @@ function qe_adaptor(D::Dict{Symbol,Any})
     get_d("projtype") == "plo" && qe_to_plo(D)
 end
 
+"""
+    qe_to_wan(D::Dict{Symbol,Any})
+
+Try to call the `wannier90` and `pw2wannier90` codes to generate the
+maximally-localized wannier functions. the `DFTData` dict (i.e `D`)
+will not be modified.
+
+See also: [`wannier_adaptor`](@ref).
+"""
 function qe_to_wan(D::Dict{Symbol,Any})
     # Check the validity of the original dict
-    key_list = [:latt, :kmesh, :weight, :enk, :occupy, :fermi]
+    key_list = [:latt, :kmesh, :enk]
     for k in key_list
         @assert haskey(D, k)
     end
@@ -65,7 +74,7 @@ function qe_to_wan(D::Dict{Symbol,Any})
     sp = get_d("lspins") # Is it a spin-polarized system
 
     # Now this feature require quantum espresso as a dft engine
-    @assert get_d("engine") == "qe"
+    @assert get_d("engine") == "qe" && get_d("projtype") == "wannier"
 
     # W01: Execute the wannier90 code to generate w90.nnkp
     if sp # For spin-polarized system
