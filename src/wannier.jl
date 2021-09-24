@@ -250,10 +250,7 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         PW_dn = w90_make_window(PG_dn, ewin_dn, bwin_dn)
         #
         # Merge PW_up and PW_dn
-        @assert PW_up == PW_dn
-        D[:PW] = deepcopy(PW_up)
-        A = cat(PW_up[1].kwin, PW_dn[1].kwin, dims = 2)
-        @show size(A)
+        D[:PW] = w90_make_window(PW_up, PW_dn)
         sorry()
     else # For spin-unpolarized system
         PW = w90_make_window(PG, ewin, bwin)
@@ -1036,6 +1033,24 @@ function w90_make_window(PG::Array{PrGroup,1}, ewin::Tuple{F64,F64}, bwin::Array
     end # END OF P LOOP
 
     # Return the desired array
+    return PW
+end
+
+function w90_make_window(PWup::Array{PrWindow,1}, PWdn::Array{PrWindow,1})
+    @assert PWup == PWdn
+
+    PW = PrWindow[]
+
+    for p in eachindex(PWup)
+        kwin1 = PWup[p].kwin
+        kwin2 = PWdn[p].kwin
+        @assert size(kwin1, 2) == 1
+        @assert size(kwin2, 2) == 1
+        kwin = cat(kwin1, kwin2, dims = 2)
+        bwin  = PWup[p].bwin
+        push!(PW, PrWindow(kwin, bwin))
+    end
+
     return PW
 end
 
