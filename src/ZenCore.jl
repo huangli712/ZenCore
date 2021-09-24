@@ -596,11 +596,12 @@ wannier_exec    -> Execute wannier90 program.
 wannier_save    -> Backup wannier90's output files.
 wannier_monitor -> Check the WFs and projections.
 w90_make_ctrl   -> Prepare control parameters for wannier90.
-w90_make_proj   -> Prepare projections for wannier90.
+w90_make_proj   -> Define projections for wannier90.
 w90_make_map    -> Create connection between WFs and impurity problems.
 w90_make_group  -> Create and manipulate groups of WFs.
 w90_make_window -> Create and manipulate band windows of WFs.
 w90_make_chipsi -> Build projections.
+w90_find_bwin   -> Figure out the band window for disentanglement.
 w90_read_amat   -> Read w90.amn file.
 w90_read_eigs   -> Read w90.eig file.
 w90_read_hmat   -> Read w90_hr.dat file.
@@ -628,6 +629,7 @@ export w90_make_map
 export w90_make_group
 export w90_make_window
 export w90_make_chipsi
+export w90_find_bwin
 export w90_read_amat
 export w90_read_eigs
 export w90_read_hmat
