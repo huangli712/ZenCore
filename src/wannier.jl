@@ -319,6 +319,24 @@ function qe4plo_adaptor(D::Dict{Symbol,Any})
         wannier_exec(op = "-pp")
         wannier_save(op = "-pp")
     end
+
+    # W02: Execute the pw2wannier90 code to generate necessary files for
+    # the wannier90 code
+    if sp # For spin-polarized system
+        # Spin up
+        pw2wan_init(case, "up")
+        pw2wan_exec(case, "up")
+        pw2wan_save("up")
+        #
+        # Spin down
+        pw2wan_init(case, "dn")
+        pw2wan_exec(case, "dn")
+        pw2wan_save("dn")
+    else # For spin-unpolarized system
+        pw2wan_init(case)
+        pw2wan_exec(case)
+        pw2wan_save()
+    end
 end
 
 #=
