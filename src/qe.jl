@@ -48,6 +48,14 @@ function qe_adaptor(D::Dict{Symbol,Any})
 end
 
 """
+    qe_to_plo(D::Dict{Symbol,Any})
+
+Postprocess outputs of the `quantum espresso` (`pwscf` code), call the
+`wannier90` and `pw2wannier90` codes to generate the projected local
+orbitals (which are not maximally-localized wannier functions). The key
+data are fed into the `DFTData` dict (i.e `D`).
+
+See also: [`plo_adaptor`](@ref), [`qe_adaptor`](@ref).
 """
 function qe_to_plo(D::Dict{Symbol,Any})
     # Check the validity of the original dict
