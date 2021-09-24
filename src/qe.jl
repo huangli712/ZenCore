@@ -142,6 +142,29 @@ function qe_to_plo(D::Dict{Symbol,Any})
         @assert size(D[:enk]) == (nband, nkpt, 1)
     end
 
+    # P04
+    if sp
+        # Spin up
+        Aup = w90_read_amat("up")
+        nproj, nband, nkpt = size(Aup)
+        Aup = reshape(Aup, (nproj, nband, nkpt, 1))
+        #
+        # Spin down
+        Adn = w90_read_amat("dn")
+        nproj, nband, nkpt = size(Adn)
+        Adn = reshape(Adn, (nproj, nband, nkpt, 1))
+        #
+        # Sanity check
+        @assert size(Aup) == size(Adn)
+        #
+        # Concatenate Aup and Adn
+        D[:chipsi] = cat(Aup, Adn, dims = 4)
+        #
+        # Sanity check
+        @assert size(D[:chipsi]) = (nproj, nband, nkpt, nspin)
+    else
+    end
+
     # P05: Setup the PrTrait and PrGroup structs
     #
     # D[:PT] and D[:PG] will be created
