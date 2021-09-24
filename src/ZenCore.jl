@@ -505,6 +505,7 @@ qeio_fermi   -> Read fermi level.
 include("qe.jl")
 #
 export qe_adaptor
+export qe_to_plo
 export qe_init
 export qe_exec
 export qe_save
