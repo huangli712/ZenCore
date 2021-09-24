@@ -30,7 +30,7 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     println("Current directory: ", pwd())
 
     # Check the validity of the original dict
-    key_list = [:latt, :kmesh, :weight, :enk, :occupy, :fermi]
+    key_list = [:latt, :enk, :fermi]
     for k in key_list
         @assert haskey(D, k)
     end
@@ -156,7 +156,7 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     # W10: Setup the PrTrait and PrGroup structs
     #
     # D[:PT] and D[:PG] will be created
-    latt =D[:latt]
+    latt = D[:latt]
     if sp # For spin-polarized system
         # Spin up
         PT_up, PG_up = w90_make_group(latt, "up")
