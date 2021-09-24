@@ -250,12 +250,13 @@ function wannier_init(D::Dict{Symbol,Any}, sp::String = "")
     latt  = D[:latt]
     kmesh = D[:kmesh]
     enk   = D[:enk]
+    fermi = D[:fermi]
 
     # Extract the nband parameter
     nband, _, _ = size(enk)
 
     # Try to prepare control parameters
-    w90c = w90_make_ctrl(latt, nband)
+    w90c = w90_make_ctrl(latt, nband, fermi)
 
     # Try to define projections
     proj = w90_make_proj()
@@ -429,16 +430,16 @@ end
 =#
 
 """
-    w90_make_ctrl(latt:Lattice, nband::I64)
+    w90_make_ctrl(latt:Lattice, nband::I64, fermi::F64)
 
 Try to make the control parameters for the `w90.win` file. The `latt`
 object represent the crystallography information, and `nband` is the
-number of Kohn-Sham states outputed by the dft code. This function is
-called by `wannier_init()`.
+number of Kohn-Sham states outputed by the dft code, `fermi` is the
+fermi level. This function is called by `wannier_init()`.
 
 See also: [`w90_make_proj`](@ref).
 """
-function w90_make_ctrl(latt::Lattice, nband::I64)
+function w90_make_ctrl(latt::Lattice, nband::I64, fermi::F64)
     # Create a dict to store the configurations, which will be returned.
     w90c = Dict{String,Any}()
 
@@ -497,29 +498,21 @@ function w90_make_ctrl(latt::Lattice, nband::I64)
 
     # Deal with the disentanglement setup
     #
-    # Step 1, get the string for disentanglement.
+    # Step 1, get the setup for disentanglement.
     window = get_d("window")
     @assert length(window) ≥ 2
-    # The first element of window should specify the scheme for
-    # disentanglement. Now only the exclude_bands and disentanglement
-    # modes are supported.
-    @assert window[1] in ("exc", "dis")
     #
     # Step 2, determine the disentanglement parameters and store them.
-    if window[1] == "exc"
-        w90c["exclude_bands"] = join(window[2:end], ", ")
+    if length(window) == 2
+        w90c["dis_win_min"]  = window[1]
+        w90c["dis_win_max"]  = window[2]
+    elseif length(window) == 4
+        w90c["dis_win_min"]  = window[1]
+        w90c["dis_win_max"]  = window[2]
+        w90c["dis_froz_min"] = window[3]
+        w90c["dis_froz_max"] = window[4]
     else
-        if length(window) == 3
-            w90c["dis_win_min"]  = window[2]
-            w90c["dis_win_max"]  = window[3]
-        elseif length(window) == 5
-            w90c["dis_win_min"]  = window[2]
-            w90c["dis_win_max"]  = window[3]
-            w90c["dis_froz_min"] = window[4]
-            w90c["dis_froz_max"] = window[5]
-        else
-            error("Wrong window's definition")
-        end
+        error("Wrong window's definition")
     end
 
     # Some additional but necessary parameters for wannier90
