@@ -47,7 +47,7 @@ function qe_adaptor(D::Dict{Symbol,Any})
     D[:fermi] = qeio_fermi(pwd(), false)
 
     # Q06: Generate MLWFs for the QE + WANNIER mode
-    get_d("projtype") == "wannier" && qe_to_plo(D)
+    get_d("projtype") == "wannier" && qe_to_wan(D)
 
     # Q06: Generate projected local orbitals for the QE + PLO mode
     get_d("projtype") == "plo" && qe_to_plo(D)
@@ -64,7 +64,7 @@ See also: [`wannier_adaptor`](@ref).
 """
 function qe_to_wan(D::Dict{Symbol,Any})
     # Check the validity of the original dict
-    key_list = [:latt, :kmesh, :enk]
+    key_list = [:latt, :kmesh, :enk, :fermi]
     for k in key_list
         @assert haskey(D, k)
     end
