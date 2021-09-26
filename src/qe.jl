@@ -47,10 +47,10 @@ function qe_adaptor(D::Dict{Symbol,Any})
     D[:fermi] = qeio_fermi(pwd(), false)
 
     # Q06: Generate MLWFs for the QE + WANNIER mode
-    get_d("projtype") == "wannier" && qe_to_wan(D)
+    #get_d("projtype") == "wannier" && qe_to_wan(D)
 
     # Q06: Generate projected local orbitals for the QE + PLO mode
-    get_d("projtype") == "plo" && qe_to_plo(D)
+    #get_d("projtype") == "plo" && qe_to_plo(D)
 end
 
 """

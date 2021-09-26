@@ -408,21 +408,17 @@ Try to check and examine whether the obtained wannier functions are
 correct and reasonable.
 """
 function wannier_monitor(D::Dict{Symbol,Any})
-    #for k = 1:nkpt
-    #    for j = 1:nband
-    #        for i = 1:nproj
-    #            @show k, i, j, proj[i,j,k]
-    #        end
-    #    end
-    #end
+    # Calculate and output overlap matrix
+    ovlp = calc_ovlp(D[:PW], D[:Fchipsi], D[:weight])
+    view_ovlp(D[:PG], ovlp)
 
-    #Ham = proj[:,:,1] * Diagonal(enk[:,1]) * proj[:,:,1]'
-    #println(size(Ham))
-    #for i = 1:nproj
-    #    for j = 1:nproj
-    #        @show i, j, Ham[i,j]
-    #    end
-    #end
+    # Calculate and output density matrix
+    dm = calc_dm(D[:PW], D[:Fchipsi], D[:weight], D[:occupy])
+    view_dm(D[:PG], dm)
+    
+    # Calculate and output local hamiltonian
+    hamk = calc_hamk(D[:PW], D[:Fchipsi], D[:weight], D[:enk])
+    view_hamk(D[:PG], hamk)
 end
 
 #=
