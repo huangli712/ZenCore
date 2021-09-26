@@ -594,7 +594,7 @@ end
 Generate some key physical quantities by using the projectors and the
 Kohn-Sham band structures. It is used for debug only.
 
-See also: [`plo_adaptor`](@ref).
+See also: [`plo_adaptor`](@ref), [`wannier_monitor`](@ref).
 """
 function plo_monitor(D::Dict{Symbol,Any})
     if haskey(D, :MAP)

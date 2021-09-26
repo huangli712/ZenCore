@@ -406,6 +406,8 @@ end
 
 Try to check and examine whether the obtained wannier functions are
 correct and reasonable.
+
+See also: [`wannier_adaptor`](@ref), [`plo_monitor`](@ref).
 """
 function wannier_monitor(D::Dict{Symbol,Any})
     # Calculate and output overlap matrix
