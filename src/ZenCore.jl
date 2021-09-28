@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/09/27
+# Last modified: 2021/09/28
 #
 
 """
@@ -944,6 +944,8 @@ end
 This function would be executed immediately after the module is loaded
 at runtime for the first time.
 """
-__init__() = _precompile()
+__init__() = begin
+    isinteractive() && _precompile()
+end
 
 end # END OF MODULE
