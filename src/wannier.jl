@@ -1175,6 +1175,12 @@ function w90_make_chipsi(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1})
     return Fchipsi
 end
 
+function w90_make_hamr()
+end
+
+function w90_make_hamk()
+end
+
 """
     w90_find_bwin(ewin::Tuple{F64,F64}, enk::Array{F64,3})
 
