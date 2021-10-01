@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/01
+# Last modified: 2021/10/02
 #
 
 """
@@ -66,7 +66,7 @@ v1.6. So please upgrade your julia environment if it is outdated. We
 need this package to parse the configuration file (which is written in
 the TOML format).
 
-*About Distributed*:
+*About Distributed* :
 
 The ZenCore runs sequentially. But it can launch the other components,
 such as quantum impurity solvers, parallelly.
@@ -361,12 +361,12 @@ go          -> Dispatcher for DFT + DMFT calculations.
 final       -> Finalize the DFT + DMFT calculations.
 cycle1      -> Perform DFT + DMFT calculations (one-shot mode).
 cycle2      -> Perform DFT + DMFT calculations (fully self-consistent mode).
-cycle3      -> Execute DFT engine only (for testing purpose).
-cycle4      -> Execute DMFT engine only (for testing purpose).
-cycle5      -> Execute quantum impurity solvers only (for testing purpose).
-cycle6      -> Execute Kohn-Sham adaptor only (for testing purpose).
-cycle7      -> Execute self-energy engine only (for testing purpose).
-cycle8      -> Execute mixer engine only (for testing purpose).
+try_dft     -> Execute DFT engine only (for testing purpose).
+try_dmft    -> Execute DMFT engine only (for testing purpose).
+try_solver  -> Execute quantum impurity solvers only (for testing purpose).
+try_adaptor -> Execute Kohn-Sham adaptor only (for testing purpose).
+try_sigma   -> Execute self-energy engine only (for testing purpose).
+try_mixer   -> Execute mixer engine only (for testing purpose).
 monitor     -> Monitor the DFT + DMFT calculations.
 suspend     -> Suspend the DFT engine.
 suicide     -> Kill the DFT engine.
@@ -396,12 +396,12 @@ export go
 export final
 export cycle1
 export cycle2
-export cycle3
-export cycle4
-export cycle5
-export cycle6
-export cycle7
-export cycle8
+export try_dft
+export try_dmft
+export try_solver
+export try_adaptor
+export try_sigma
+export try_mixer
 export monitor
 export suspend
 export suicide
@@ -887,7 +887,7 @@ mixer_delta -> Mix hybridization functions.
 mixer_eimpx -> Mix local impurity levels.
 mixer_gcorr -> Mix correction of density matrix Γ.
 amix        -> Return the mixing parameter.
-distance    -> Calculate the difference /distance between two arrays.
+distance    -> Calculate the difference / distance between two arrays.
 ```
 =#
 
@@ -960,7 +960,7 @@ end
     __init__()
 
 This function would be executed immediately after the module is loaded
-at runtime for the first time.
+at runtime for the first time. It works at the REPL mode only.
 """
 __init__() = begin
     isinteractive() && _precompile()
