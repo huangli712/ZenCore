@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/01
+# Last modified: 2021/10/02
 #
 
 #=
@@ -32,8 +32,8 @@ Dictionary for configuration parameters: case summary.
 
 See also: [`PDFT`](@ref), [`PDMFT`](@ref), [`PIMP`](@ref), [`PSOLVER`](@ref).
 """
-const PCASE = Dict{String,Array{Any,1}}(
-    "case"     => [missing, 1, :String, "System's name"]
+const PCASE  = Dict{String,Array{Any,1}}(
+    "case"     => [missing, 1, :String, "System's name or seedname"]
 )
 
 """
@@ -43,12 +43,13 @@ Dictionary for configuration parameters: density functional theory calculations.
 
 See also: [`PCASE`](@ref), [`PDMFT`](@ref), [`PIMP`](@ref), [`PSOLVER`](@ref).
 """
-const PDFT  = Dict{String,Array{Any,1}}(
+const PDFT   = Dict{String,Array{Any,1}}(
     "engine"   => [missing, 1, :String, "Engine for density functional theory calculations"],
     "projtype" => [missing, 1, :String, "Types of projectors"],
     "smear"    => [missing, 1, :String, "Scheme for smearing"],
     "kmesh"    => [missing, 1, :String, "K-mesh for brillouin zone sampling / integration"],
     "magmom"   => [missing, 0, :String, "Initial magnetic moments"],
+    "ncycle"   => [missing, 1, :I64   , "Number of dft iterations per dft + dmft cycle"],           
     "lsymm"    => [missing, 1, :Bool  , "The symmetry is turned on or off"],
     "lspins"   => [missing, 1, :Bool  , "The spin orientations are polarized or not"],
     "lspinorb" => [missing, 1, :Bool  , "The spin-orbit coupling is considered or not"],
@@ -64,10 +65,10 @@ Dictionary for configuration parameters: dynamical mean-field theory calculation
 
 See also: [`PCASE`](@ref), [`PDFT`](@ref), [`PIMP`](@ref), [`PSOLVER`](@ref).
 """
-const PDMFT = Dict{String,Array{Any,1}}(
+const PDMFT  = Dict{String,Array{Any,1}}(
     "mode"     => [missing, 1, :I64   , "Scheme of dynamical mean-field theory calculations"],
     "axis"     => [missing, 1, :I64   , "Imaginary-time axis or real-frequency axis"],
-    "niter"    => [missing, 1, :Array , "Maximum number of all kinds of iterations"],
+    "niter"    => [missing, 1, :I64   , "Maximum number of dft + dmft iterations"],
     "nmesh"    => [missing, 1, :I64   , "Number of frequency points"],
     "dcount"   => [missing, 1, :String, "Scheme of double counting term"],
     "beta"     => [missing, 1, :F64   , "Inverse system temperature"],
@@ -86,7 +87,7 @@ Dictionary for configuration parameters: quantum impurity problems.
 
 See also: [`PCASE`](@ref), [`PDFT`](@ref), [`PDMFT`](@ref), [`PSOLVER`](@ref).
 """
-const PIMP  = Dict{String,Array{Any,1}}(
+const PIMP   = Dict{String,Array{Any,1}}(
     "nsite"    => [missing, 1, :I64   , "Number of (correlated) impurity sites"],
     "atoms"    => [missing, 1, :Array , "Chemical symbols of impurity atoms"],
     "equiv"    => [missing, 1, :Array , "Equivalency of quantum impurity atoms"],
@@ -107,6 +108,7 @@ See also: [`PCASE`](@ref), [`PDFT`](@ref), [`PDMFT`](@ref), [`PIMP`](@ref).
 """
 const PSOLVER= Dict{String,Array{Any,1}}(
     "engine"   => [missing, 1, :String, "Name of quantum impurity solver"],
+    "ncycle"   => [missing, 1, :I64   , "Number of solver iterations per dft + dmft cycle"],
     "params"   => [missing, 1, :Array , "Extra parameter sets of quantum impurity solver"],
 )
 
