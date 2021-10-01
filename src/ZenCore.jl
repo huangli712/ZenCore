@@ -59,12 +59,17 @@ module ZenCore
 =#
 
 #=
-*About TOML.jl* :
+*About TOML* :
 
 The TOML.jl package is included in the standard library of julia since
 v1.6. So please upgrade your julia environment if it is outdated. We
 need this package to parse the configuration file (which is written in
 the TOML format).
+
+*About Distributed*:
+
+The ZenCore runs sequentially. But it can launch the other components,
+such as quantum impurity solvers, parallelly.
 
 *About libm* :
 
