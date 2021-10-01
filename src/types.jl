@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/09/24
+# Last modified: 2021/10/01
 #
 
 #=
@@ -52,7 +52,6 @@ const PDFT  = Dict{String,Array{Any,1}}(
     "lsymm"    => [missing, 1, :Bool  , "The symmetry is turned on or off"],
     "lspins"   => [missing, 1, :Bool  , "The spin orientations are polarized or not"],
     "lspinorb" => [missing, 1, :Bool  , "The spin-orbit coupling is considered or not"],
-    "loptim"   => [missing, 1, :Bool  , "The generated projectors are optimized or not"],
     "lproj"    => [missing, 1, :Bool  , "The projectors are generated or not"],
     "sproj"    => [missing, 1, :Array , "Specifications for generating projectors"],
     "window"   => [missing, 1, :Array , "Band / energy window for normalizing projectors"],
