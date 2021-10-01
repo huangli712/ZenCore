@@ -505,8 +505,8 @@ lot of functions to deal with the quantum espresso (pwscf) related files.
 
 ```text
 qe_adaptor   -> Adaptor support.
-qe_to_wan    -> Adaptor support.
-qe_to_plo    -> Adaptor support.
+qe_to_wan    -> Adaptor support (interface between qe and wannier).
+qe_to_plo    -> Adaptor support (interface between qe and plo).
 qe_init      -> Prepare quantum espresso's input files.
 qe_exec      -> Execute quantum espresso program.
 qe_save      -> Backup quantum espresso's output files.
