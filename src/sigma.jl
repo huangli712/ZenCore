@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/09/24
+# Last modified: 2021/10/02
 #
 
 #=
@@ -77,6 +77,7 @@ function sigma_reset(ai::Array{Impurity,1}, with_init_dc::Bool = true)
             sigdc, _ = cal_dc_fll(ai[i].upara, ai[i].jpara, ai[i].occup)
 
             # Go through spins, meshes, and bands, setup elements of S.
+            # Only the diagonal elements in orbital space is filled.
             for s = 1:nspin
                 for m = 1:nmesh
                     for b = 1:nband
@@ -312,7 +313,9 @@ function sigma_gather(it::IterInfo, ai::Array{Impurity,1})
     println("Write self-energy functions")
     write_sigma(fmesh, SA, ai)
 
-    # Backup the self-energy functions
+    # Backup the self-energy functions. This operation is necessary
+    # because we have to mix the self-energy functions for the two
+    # successive runs.
     fsig = "dmft1/sigma.bare"
     cp(fsig, "$fsig.$(it.I₃).$(it.I₁)", force = true)
 end
