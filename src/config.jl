@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/09/24
+# Last modified: 2021/10/02
 #
 
 #=
@@ -177,24 +177,25 @@ function chk_dict()
     @assert get_d("projtype") in ("plo", "wannier")
     @assert get_d("smear") in ("mp2", "mp1", "gauss", "tetra")
     @assert get_d("kmesh") in ("accurate", "medium", "coarse", "file")
-    #@assert iseven( length( get_d("window") ) )
+    @assert get_d("ncycle") ≥ 1
     #
     # Check dmft block
     @assert get_m("mode") in (1, 2)
     @assert get_m("axis") in (1, 2)
-    @assert all(x -> x ≥ 1, get_m("niter"))
+    @assert get_m("niter") ≥ 1
     @assert get_m("nmesh") > 0
     @assert get_m("dcount") in ("fll1", "fll2", "amf", "held", "exact")
     @assert get_m("beta") ≥ 0.0
-    @assert 0.0 ≤ get_m("mixer") ≤ 1.0
+    @assert 1.0 ≥ get_m("mixer") ≥ 0.0
     #
     # Check impurity block
-    @assert 1 ≤ get_i("nsite") ≤ 99
+    @assert 99 ≥ get_i("nsite") ≥ 1
     @assert all(x -> x in ("s", "p", "d", "f", "d_t2g", "d_eg"), get_i("shell"))
     @assert all(x -> x in ("ising", "full"), get_i("ising"))
     #
     # Check solver block
     @assert get_s("engine") in ("ct_hyb1", "ct_hyb2", "hub1", "norg")
+    @assert get_s("ncycle") ≥ 1
     #
     # Please add more assertion statements here
 
