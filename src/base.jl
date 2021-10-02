@@ -521,14 +521,14 @@ function try_adaptor()
 end
 
 """
-    cycle7(task::String = "reset")
+    try_sigma(task::String = "reset")
 
 Perform calculations using self-energy engine only. The users can execute
 it in the REPL mode to see whether the self-energy engine works properly.
 
 See also: [`cycle1`](@ref), [`cycle2`](@ref).
 """
-function cycle7(task::String = "reset")
+function try_sigma(task::String = "reset")
     # C-2: Create IterInfo struct
     it = IterInfo()
 
