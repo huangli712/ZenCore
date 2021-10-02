@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/09/23
+# Last modified: 2021/10/02
 #
 
 #=
@@ -166,6 +166,7 @@ function irio_params(f::String, D::Dict{Symbol,Any})
     _bmax = maximum( [ D[:PW][w].bmax for w = 1:nwnd ] )
     _bmin = minimum( [ D[:PW][w].bmin for w = 1:nwnd ] )
     xbnd = _bmax - _bmin + 1
+    @assert xbnd ≥ qbnd
 
     # D[:PW] and D[:PG] should have the same size
     @assert ngrp == nwnd
@@ -298,8 +299,10 @@ function irio_groups(f::String, PG::Array{PrGroup,1})
 
         # Write each PrGroup
         ngrp = length(PG)
+        #
         println(fout, "ngrp  -> $ngrp")
         println(fout)
+        #
         for p in eachindex(PG)
             println(fout, "# PrGroup : $p")
             println(fout, "site  -> $(PG[p].site)")
@@ -333,21 +336,26 @@ function irio_windows(f::String, PW::Array{PrWindow,1})
 
         # Write each PrWindow
         nwnd = length(PW)
+        #
         println(fout, "nwnd  -> $nwnd")
         println(fout)
+        #
         for p in eachindex(PW)
             println(fout, "# PrWindow: $p")
             println(fout, "bmin  -> $(PW[p].bmin)")
             println(fout, "bmax  -> $(PW[p].bmax)")
             println(fout, "nbnd  -> $(PW[p].nbnd)")
             println(fout, "kwin  ->")
+            #
             nkpt, nspin, ndir = size(PW[p].kwin)
             @assert ndir == 2 # For lower and upper boundaries
+            #
             for s = 1:nspin
                 for k = 1:nkpt
                     @printf(fout, "%8i %8i %8i %8i\n", k, s, PW[p].kwin[k, s, :]...)
                 end
             end
+            #
             println(fout)
         end # END OF P LOOP
     end # END OF IOSTREAM
