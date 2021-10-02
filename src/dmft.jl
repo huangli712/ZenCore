@@ -59,7 +59,8 @@ function dmft_init(it::IterInfo, task::I64)
             cp(file_src, file_dst, force = true)
             println("  > File $x is ready")
         end,
-    union(fir1, fir2) )
+        union(fir1, fir2)
+    )
 
     # Extract key parameters, which should be written into the `dmft.in`.
     axis = get_m("axis")

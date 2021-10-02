@@ -199,7 +199,8 @@ function s_qmc1_save(it::IterInfo, imp::Impurity)
             file_dst = "$x.$(it.I₃).$(it.I₁)"
             cp(file_src, file_dst, force = true)
         end,
-    union(fout, fgrn, fhyb, fsgm, faux) )
+        union(fout, fgrn, fhyb, fsgm, faux)
+    )
     println("  > Save the key output files")
 
     # Update the `occup` field in `imp` (Impurity struct)
@@ -215,7 +216,7 @@ end
 
 Backup output files of the CT-HYB₁ quantum impurity solver. We just copy
 selected output files from impurity.1 to impurity.2. Be careful, now we
-already in directory `impurity.2`.
+are already in directory `impurity.2`.
 
 This quantum impurity solver is from the `iQIST` software package.
 
@@ -252,7 +253,8 @@ function s_qmc1_copy(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
             file_dst = "$x"
             cp(file_src, file_dst, force = true)
         end,
-    union(fout, fgrn, fhyb, fsgm, faux) )
+        union(fout, fgrn, fhyb, fsgm, faux)
+    )
     println("  > Copy the key output files")
 
     # Update the `occup` field in `imp` (Impurity struct)
@@ -316,7 +318,7 @@ end
 
 Backup output files of the CT-HYB₂ quantum impurity solver. We just copy
 selected output files from impurity.1 to impurity.2. Be careful, now we
-already in directory `impurity.2`.
+are already in directory `impurity.2`.
 
 This quantum impurity solver is from the `iQIST` software package.
 
@@ -373,7 +375,7 @@ end
 
 Backup output files of the HIA quantum impurity solver. We just copy
 selected output files from impurity.1 to impurity.2. Be careful, now we
-already in directory `impurity.2`.
+are already in directory `impurity.2`.
 
 See also: [`s_hub1_init`](@ref), [`s_hub1_exec`](@ref).
 """
@@ -428,7 +430,7 @@ end
 
 Backup output files of the NORG quantum impurity solver. We just copy
 selected output files from impurity.1 to impurity.2. Be careful, now we
-already in directory `impurity.2`.
+are already in directory `impurity.2`.
 
 See also: [`s_norg_init`](@ref), [`s_norg_exec`](@ref).
 """
@@ -680,12 +682,7 @@ end
     ctqmc_nimpx(imp::Impurity)
 
 Parse the `solver.nmat.dat` file to extract the impurity occupancy. Then
-the field `occup` in Impurity struct will be updated.
-
-In this function, only the total impurity occupancy of the current site
-is return. However, sometimes we need to known the spin-up and spin-down
-components. Later, we will expand the Impurity struct and this function
-to fulfill this requirement.
+the fields `nup`, `ndown`, and `occup` in Impurity struct will be updated.
 
 See also: [`Impurity`](@ref), [`GetNimpx`](@ref).
 """
