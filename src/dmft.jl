@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/09/27
+# Last modified: 2021/10/02
 #
 
 #=
@@ -15,7 +15,10 @@
     dmft_init(it::IterInfo, task::I64)
 
 Initialize the dynamical mean-field theory engine. Prepare the necessary
-files, and generate the configuration file.
+files, and generate the configuration file. No matter what the value of
+argument `task` is, the required input files for the DMFT engine is the
+same. If `task = 1`, it means one-shot mode. If `task = 2`, it denotes
+charge self-consistent mode.
 
 See also: [`dmft_exec`](@ref), [`dmft_save`](@ref).
 """
