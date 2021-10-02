@@ -16,6 +16,7 @@
 
 Provides a C-like switch statement with the *falling through* behavior.
 This implementation was borrowed from the following github repository:
+
 * https://github.com/Gnimuc/CSyntax.jl
 
 ### Examples
@@ -463,6 +464,7 @@ function welcome()
     @pcs "ZZZZZZZZZZZZ EEEEEEEEEEEE N          N | "  green "Powered by the julia programming language\n" magenta
     @pcs "                                       |\n" green
     println()
+    #
     flush(stdout)
 end
 
@@ -483,6 +485,7 @@ function overview()
     println("Dirs : ", pwd())
     println("Task : ", query_args())
     println()
+    #
     flush(stdout)
 end
 
@@ -495,6 +498,7 @@ function goodbye()
     println(  red("╔═╗┌─┐┌┐┌"), magenta("╔═╗┌─┐┬─┐┌─┐"))
     println(green("╔═╝├┤ │││"), magenta("║  │ │├┬┘├┤ "))
     println( blue("╚═╝└─┘┘└┘"), magenta("╚═╝└─┘┴└─└─┘"))
+    #
     flush(stdout)
 end
 
@@ -516,6 +520,7 @@ function prompt(msg::String)
     print(green("ZEN > "))
     print(magenta(msg))
     println()
+    #
     flush(stdout)
 end
 
@@ -529,6 +534,7 @@ function prompt(msg1::String, msg2::String)
     print(light_red(msg1))
     print(magenta(msg2))
     println()
+    #
     flush(stdout)
 end
 
@@ -541,6 +547,7 @@ to log the key events during DFT + DMFT iterations.
 function prompt(io::IOStream, msg::String)
     date = Dates.format(now(), "yyyy-mm-dd / HH:MM:SS")
     println(io, "$date  $msg")
+    #
     flush(io)
 end
 
@@ -600,6 +607,7 @@ We call the `erf()` function defined in the mathematical library `libm`
 or `openlibm` directly, instead of implementing it again by ourselves.
 For more details about `libm` and `openlibm`, please visit the following
 websites:
+
 * https://openlibm.org
 * https://github.com/JuliaMath/openlibm
 * https://sourceware.org/newlib/libm.html
@@ -607,6 +615,7 @@ websites:
 *Remarks 3* :
 
 This below implementation is taken from the `SpecialFunctions.jl`. See:
+
 * https://github.com/JuliaMath/SpecialFunctions.jl
 
 *Remarks 4* :
