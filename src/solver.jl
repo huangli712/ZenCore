@@ -369,7 +369,7 @@ function s_hub1_save(it::IterInfo)
 end
 
 """
-    s_hub1_save(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
+    s_hub1_copy(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
 
 Backup output files of the HIA quantum impurity solver. We just copy
 selected output files from impurity.1 to impurity.2. Be careful, now we
@@ -377,7 +377,7 @@ already in directory `impurity.2`.
 
 See also: [`s_hub1_init`](@ref), [`s_hub1_exec`](@ref).
 """
-function s_hub1_save(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
+function s_hub1_copy(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
     sorry()
 end
 
@@ -424,7 +424,7 @@ function s_norg_save(it::IterInfo)
 end
 
 """
-    s_norg_save(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
+    s_norg_copy(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
 
 Backup output files of the NORG quantum impurity solver. We just copy
 selected output files from impurity.1 to impurity.2. Be careful, now we
@@ -432,7 +432,7 @@ already in directory `impurity.2`.
 
 See also: [`s_norg_init`](@ref), [`s_norg_exec`](@ref).
 """
-function s_norg_save(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
+function s_norg_copy(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
     sorry()
 end
 
