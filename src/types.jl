@@ -440,7 +440,7 @@ function IterInfo()
 
     # Initialize key fields
     #
-    # sc = 0 means in preparation mode,
+    # sc = 0 means in preparation stage,
     # sc = 1 means one-shot DFT + DMFT calculations,
     # sc = 2 means fully self-consistent DFT + DMFT calculations.
     I  = 0
