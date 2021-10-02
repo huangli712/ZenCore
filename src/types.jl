@@ -161,12 +161,12 @@ Mutable struct. Record the DFT + DMFT iteration information.
 
 ### Members
 
-* I₁ -> Number of iterations between `dmft1` and quantum impurity solver.
-* I₂ -> Number of iterations between `dmft2` and DFT engine.
+* I₁ -> Number of cycles between `dmft1` and quantum impurity solver.
+* I₂ -> Number of cycles between `dmft2` and DFT engine.
 * I₃ -> Number of DFT + DMFT iterations.
-* I₄ -> Counter for all internal iteration.
-* M₁ -> Maximum allowed number of iterations (between `dmft1` and solver).
-* M₂ -> Maximum allowed number of iterations (between `dmft2` and DFT).
+* I₄ -> Counter for all the internal cycles.
+* M₁ -> Maximum allowed number of cycles (between `dmft1` and solver).
+* M₂ -> Maximum allowed number of cycles (between `dmft2` and DFT).
 * M₃ -> Maximum allowed number of DFT + DMFT iterations.
 * sc -> Self-consistent mode.
 * μ₀ -> Fermi level obtained by DFT engine.
@@ -196,10 +196,10 @@ mutable struct IterInfo
     μ₀ :: F64
     μ₁ :: F64
     μ₂ :: F64
-    dc :: Vector{F64}
+    dc :: Vector{F64} # dc is site-dependent
     n₁ :: F64
     n₂ :: F64
-    nf :: Vector{F64}
+    nf :: Vector{F64} # nf is site-dependent
     et :: Energy
     ep :: Energy
     cc :: Bool
@@ -244,15 +244,15 @@ end
 """
     Mapping
 
-Mutable struct. Mapping between quantum impurity problems and groups
-of projectors (or band windows).
+Mutable struct. It denotes a mapping between quantum impurity problems
+and groups of projectors (or windows of Kohn-Sham states).
 
 ### Members
 
 * i_grp -> Mapping from quntum impurity problems to groups of projectors.
-* i_wnd -> Mapping from quantum impurity problems to DFT band windows.
+* i_wnd -> Mapping from quantum impurity problems to windows of Kohn-Sham states.
 * g_imp -> Mapping from groups of projectors to quantum impurity problems.
-* w_imp -> Mapping from DFT band windows to quantum impurity problems.
+* w_imp -> Mapping from windows of Kohn-Sham states to quantum impurity problems.
 
 See also: [`Impurity`](@ref), [`PrGroup`](@ref), [`PrWindow`](@ref).
 """
