@@ -440,8 +440,8 @@ function IterInfo()
 
     # Initialize key fields
     #
-    # sc = 0 means in preparation stage,
-    # sc = 1 means one-shot DFT + DMFT calculations,
+    # sc = 0 means in preparation stage;
+    # sc = 1 means one-shot DFT + DMFT calculations;
     # sc = 2 means fully self-consistent DFT + DMFT calculations.
     I  = 0
     M₁ = _M₁
@@ -493,8 +493,7 @@ Outer constructor for Mapping struct.
 """
 function Mapping(nsite::I64, ngrp::I64, nwnd::I64)
     # Sanity check
-    @assert ngrp ≥ nsite
-    @assert nwnd == ngrp
+    @assert nwnd == ngrp ≥ nsite
 
     # Initialize the arrays
     i_grp = zeros(I64, nsite)
@@ -853,7 +852,7 @@ end
 
 Implement the calculation of total DFT + DMFT energy. The `Energy` struct
 does not really contains the `total` field. This function will implement
-it by overriding the Base.getproperty() function.
+`et.total` by overriding the Base.getproperty() function.
 
 See also: [`Energy`](@ref).
 """
