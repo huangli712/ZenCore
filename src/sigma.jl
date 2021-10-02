@@ -200,7 +200,7 @@ function sigma_dcount(it::IterInfo, ai::Array{Impurity,1}, reset_dc::Bool = fals
         println("  > Using the $scheme scheme: Σdc = $sigup (spin up)")
         println("  > Using the $scheme scheme: Σdc = $sigdn (spin down)")
         println("  > Using the $scheme scheme: Edc = $edc eV")
-        println("  > Shape of Array Σdc: $i -> ", size(DC))
+        println("  > Shape of Array Σdc: [$i] -> ", size(DC))
 
         # Special treatment for the first iteration
         if reset_dc && ( it.I₃ ≤ 1 && it.I₁ ≤ 1 )
@@ -505,11 +505,11 @@ end
 \end{equation}
 ```
 
-where the averaged interaction ``U_{\text{av}}`` reads
+where the averaged interaction ``\bar{U}`` reads
 
 ```math
 \begin{equation}
-U_{\text{av}} = \frac{U + (M - 1)(2U - 5J)}{2M - 1}.
+\bar{U} = \frac{U + (M - 1)(2U - 5J)}{2M - 1}.
 \end{equation}
 ```
 
@@ -519,7 +519,7 @@ The energy due to double counting reads
 
 ```math
 \begin{equation}
-E_{\text{dc}} = \frac{U}{2} N (N - 1).
+E_{\text{dc}} = \frac{\bar{U}}{2} N (N - 1).
 \end{equation}
 ```
 =#
@@ -642,7 +642,7 @@ function read_sigma(ai::Array{Impurity,1}, fsig::String = "dmft1/sigma.bare")
     println("  > Read self-energy functions from: $fsig")
     println("  > Shape of Array ω: ", size(fmesh))
     for t in eachindex(SA)
-        println("  > Shape of Array Σ: $t -> ", size(SA[t]))
+        println("  > Shape of Array Σ: [$t] -> ", size(SA[t]))
     end
 
     # Return the desired arrays
@@ -720,7 +720,7 @@ function read_sigdc(ai::Array{Impurity,1}, fsig::String = "dmft1/sigma.dc")
     # Print some useful information
     println("  > Read double counting terms from: $fsig")
     for t in eachindex(DCA)
-        println("  > Shape of Array Σdc: $t -> ", size(DCA[t]))
+        println("  > Shape of Array Σdc: [$t] -> ", size(DCA[t]))
     end
 
     # Return the desire array
