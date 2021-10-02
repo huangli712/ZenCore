@@ -957,19 +957,19 @@ function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, force::Bool
             # to the current Impurity 𝑖.
             @cswitch engine begin
                 @case "ct_hyb1"
-                    s_qmc1_save(it, ai[found], imp)
+                    s_qmc1_copy(it, ai[found], imp)
                     break
 
                 @case "ct_hyb2"
-                    s_qmc2_save(it, ai[found], imp)
+                    s_qmc2_copy(it, ai[found], imp)
                     break
 
                 @case "hub1"
-                    s_hub1_save(it, ai[found], imp)
+                    s_hub1_copy(it, ai[found], imp)
                     break
 
                 @case "norg"
-                    s_norg_save(it, ai[found], imp)
+                    s_norg_copy(it, ai[found], imp)
                     break
 
                 @default

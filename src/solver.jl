@@ -211,7 +211,7 @@ function s_qmc1_save(it::IterInfo, imp::Impurity)
 end
 
 """
-    s_qmc1_save(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
+    s_qmc1_copy(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
 
 Backup output files of the CT-HYB₁ quantum impurity solver. We just copy
 selected output files from impurity.1 to impurity.2. Be careful, now we
@@ -221,7 +221,7 @@ This quantum impurity solver is from the `iQIST` software package.
 
 See also: [`s_qmc1_init`](@ref), [`s_qmc1_exec`](@ref).
 """
-function s_qmc1_save(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
+function s_qmc1_copy(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
     # Print the header
     println("Transfer results from impurity $(imp₁.index) to $(imp₂.index)")
 
