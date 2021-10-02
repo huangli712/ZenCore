@@ -399,6 +399,9 @@ function Logger(case::String = "case")
     log = open("$case.log", "a")
     cycle = open("$case.cycle", "a")
 
+    # Sanity check
+    @assert isopen(log) && isopen(cycle)
+
     # Call the default constructor
     Logger(log, cycle)
 end
@@ -409,6 +412,7 @@ end
 Outer constructor for Energy struct.
 """
 function Energy()
+    # Set the decomposition of energy to zero
     dft  = 0.0
     dmft = 0.0
     corr = 0.0
@@ -424,11 +428,15 @@ end
 Outer constructor for IterInfo struct.
 """
 function IterInfo()
-    # Extract the parameter `nsite` and `niter`
+    # Extract the parameter `nsite`
     nsite = get_i("nsite")
-    _M₃, _M₁, _M₂ = get_m("niter")
     @assert nsite ≥ 1
-    @assert _M₃ ≥ 1 && _M₁ ≥ 1 && _M₂ ≥ 1
+
+    # Extract the parameters `niter` and `ncycle`
+    _M₁ = get_d("ncycle")
+    _M₂ = get_s("ncycle")
+    _M₃ = get_m("niter")
+    @assert _M₁ ≥ 1 && _M₂ ≥ 1 && _M₃ ≥ 1
 
     # Initialize key fields
     #
