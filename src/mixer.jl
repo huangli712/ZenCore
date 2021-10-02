@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/07/19
+# Last modified: 2021/10/02
 #
 
 """
@@ -51,9 +51,9 @@ function mixer_sigma(it::IterInfo, ai::Array{Impurity,1})
 
     # Read in the self-energy functions (previous and current)
     println("Read self-energy functions")
-    fcurr, Scurr = read_sigma(ai, fcurr)
-    fprev, Sprev = read_sigma(ai, fprev)
-    @assert size(Scurr) == size(Sprev) && size(fcurr) == size(fprev)
+    Mcurr, Scurr = read_sigma(ai, fcurr)
+    Mprev, Sprev = read_sigma(ai, fprev)
+    @assert size(Scurr) == size(Sprev) && size(Mcurr) == size(Mprev)
 
     # Mix the self-energy functions using linear mixing algorithm
     println("Mix self-energy functions from two successive iterations")
@@ -63,7 +63,7 @@ function mixer_sigma(it::IterInfo, ai::Array{Impurity,1})
 
     # Write the new self-energy functions into `dmft1/sigma.bare`
     println("Write self-energy functions")
-    write_sigma(fcurr, Snew, ai)
+    write_sigma(Mcurr, Snew, ai)
 
     # Check the convergence condition
     println("Evaluate the convergence condition for self-energy functions")
