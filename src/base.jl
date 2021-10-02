@@ -487,14 +487,14 @@ function try_solver()
 end
 
 """
-    cycle6()
+    try_adaptor()
 
 Perform calculations using Kohn-Sham adaptor only. The users can execute
 it in the REPL mode to see whether the Kohn-Sham adaptor works properly.
 
 See also: [`cycle1`](@ref), [`cycle2`](@ref).
 """
-function cycle6()
+function try_adaptor()
     # C-2: Create IterInfo struct
     it = IterInfo()
 
