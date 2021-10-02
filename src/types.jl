@@ -328,7 +328,10 @@ end
 """
     PrGroup
 
-Mutable struct. Essential information of group of projectors.
+Mutable struct. It defines a group of projectors. There are quite a lot
+of local projectors. We always gather, reorganize, and split them into
+various groups according to their labels (such as site and 𝑙). Each group
+is connected with a quantum impurity problem.
 
 ### Members
 
@@ -359,7 +362,7 @@ end
 """
     PrWindow
 
-Mutable struct. Define the band window for a given group of projectors.
+Mutable struct. It defines a window for the Kohn-Sham states (DFT bands).
 
 ### Members
 
