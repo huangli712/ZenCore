@@ -266,7 +266,7 @@ end
 """
     Impurity
 
-Mutable struct. Essential information of quantum impurity problem.
+Mutable struct. It includes key information of quantum impurity problems.
 
 ### Members
 
