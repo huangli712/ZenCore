@@ -363,6 +363,7 @@ end
     PrWindow
 
 Mutable struct. It defines a window for the Kohn-Sham states (DFT bands).
+Each window is connected with a quantum impurity problem.
 
 ### Members
 
@@ -371,8 +372,8 @@ Mutable struct. It defines a window for the Kohn-Sham states (DFT bands).
 * nbnd -> Maximum number of bands in the current window (≡ `bmax - bmin + 1`).
 * kwin -> Momentum-dependent and spin-dependent band window.
 * bwin -> Tuple. It is the band window or energy window, which is used
-          to filter the Kohn-Sham band structure. The mesh for calculating
-          density of states is also deduced from `bwin`.
+          to filter the Kohn-Sham states (i.e DFT bands). The mesh for
+          calculating density of states is also deduced from `bwin`.
 
 See also: [`PrTrait`](@ref), [`PrGroup`](@ref), [`Mapping`](@ref), [`Impurity`](@ref).
 """
