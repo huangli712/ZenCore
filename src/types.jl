@@ -307,7 +307,7 @@ end
 """
     PrTrait
 
-Mutable struct. Essential information of a given projector.
+Mutable struct. It defines a local orbital projection (a projector).
 
 ### Members
 
