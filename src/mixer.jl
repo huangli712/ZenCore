@@ -13,7 +13,7 @@
 Try to mix the self-energy functions Σ and then use the mixed values
 to update the `dmft1/sigma.bare` file.
 
-See also: [`mixer_core`](@ref).
+See also: [`mixer_core`](@ref), [`amix`](@ref).
 """
 function mixer_sigma(it::IterInfo, ai::Array{Impurity,1})
     # Print the header
@@ -78,7 +78,7 @@ end
 Try to mix the hybridization functions Δ and then use the mixed values
 to update the `dmft1/dmft.delta` file.
 
-See also: [`mixer_core`](@ref).
+See also: [`mixer_core`](@ref), [`amix`](@ref).
 """
 function mixer_delta(it::IterInfo, ai::Array{Impurity,1})
     # Print the header
@@ -137,7 +137,7 @@ end
 Try to mix the local impurity levels εᵢ and then use the mixed value
 to update the `dmft1/dmft.eimpx` file.
 
-See also: [`mixer_core`](@ref).
+See also: [`mixer_core`](@ref), [`amix`](@ref).
 """
 function mixer_eimpx(it::IterInfo, ai::Array{Impurity,1})
     # Print the header
@@ -235,6 +235,7 @@ function mixer_gcorr(it::IterInfo)
     _cycle, _prev = prev_it(it, 2)
     @assert cycle ≥ _cycle ≥ 1
     @assert _prev ≥ 1
+    #
     println("Determine previous and current objects")
     println("  > Curr: (I₃, I₂) -> ($cycle, $curr)")
     println("  > Prev: (I₃, I₂) -> ($_cycle, $_prev)")
