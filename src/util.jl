@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/09/23
+# Last modified: 2021/10/02
 #
 
 #=
@@ -78,9 +78,9 @@ This macro is a variation of the standard `@elapsed` macro.
 macro time_call(ex)
     quote
         while false; end
-        local t0 = time_ns()
+        local t₀ = time_ns()
         $(esc(ex))
-        δt = (time_ns() - t0) / 1e9
+        δt = (time_ns() - t₀) / 1e9
         println("Report: Total elapsed time $(δt) s\n")
         flush(stdout)
     end
@@ -91,7 +91,7 @@ end
 
 Try to print colorful strings. Here `x` is a combination of strings and
 colors. Its format likes `string1 color1 string2 color2 (repeat)`. For
-the supported colors, please check the dict `COLORS`.
+the supported colors, please check the global dict `COLORS`.
 
 ### Examples
 ```julia-repl
@@ -125,6 +125,7 @@ macro pcs(x...)
             print(eval(color)(str))
         end
     end
+
     return :( $(esc(ex)) )
 end
 
@@ -226,7 +227,7 @@ automatically. Do not worry about them.
 For `quantum espresso` (`pwscf`), the essential input files include:
 
 * QE.INP
-* Pseudopotential files.
+* Pseudopotential files
 
 As for the other files, they should be generated automatically. Do
 not worry about them.

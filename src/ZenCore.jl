@@ -147,6 +147,7 @@ query_args    -> Query program's arguments.
 query_case    -> Query case (job's name).
 query_inps    -> Query input files.
 query_stop    -> Query case.stop file.
+query_test    -> Query case.test file.
 query_home    -> Query home directory of Zen framework.
 query_core    -> Query home directory of ZenCore (where is ZenCore.jl).
 query_dft     -> Query home directory of DFT engine.
@@ -176,6 +177,7 @@ export query_args
 export query_case
 export query_inps
 export query_stop
+export query_test
 export query_home
 export query_core
 export query_dft
