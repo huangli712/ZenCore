@@ -792,7 +792,7 @@ function write_sigma(fmesh::Array{F64,1}, SA::Array{Array{C64,4},1}, ai::Array{I
     println("  > Write self-energy functions into: dmft1/sigma.bare")
     println("  > Shape of Array ω: ", size(fmesh))
     for t in eachindex(SA)
-        println("  > Shape of Array Σ: $t -> ", size(SA[t]))
+        println("  > Shape of Array Σ: [$t] -> ", size(SA[t]))
     end
 
     # Copy sigma.bare to the dmft2 directory
@@ -802,7 +802,7 @@ function write_sigma(fmesh::Array{F64,1}, SA::Array{Array{C64,4},1}, ai::Array{I
     println("  > Write self-energy functions into: dmft2/sigma.bare")
     println("  > Shape of Array ω: ", size(fmesh))
     for t in eachindex(SA)
-        println("  > Shape of Array Σ: $t -> ", size(SA[t]))
+        println("  > Shape of Array Σ: [$t] -> ", size(SA[t]))
     end
 end
 
@@ -861,7 +861,7 @@ function write_sigdc(DCA::Array{Array{F64,3},1}, ai::Array{Impurity,1})
     # Print some useful information
     println("  > Write double counting terms into: dmft1/sigma.dc")
     for t in eachindex(DCA)
-        println("  > Shape of Array Σdc: $t -> ", size(DCA[t]))
+        println("  > Shape of Array Σdc: [$t] -> ", size(DCA[t]))
     end
 
     # Copy sigma.dc to the dmft2 directory
@@ -870,6 +870,6 @@ function write_sigdc(DCA::Array{Array{F64,3},1}, ai::Array{Impurity,1})
     # Print some useful information
     println("  > Write double counting terms into: dmft2/sigma.dc")
     for t in eachindex(DCA)
-        println("  > Shape of Array Σdc: $t -> ", size(DCA[t]))
+        println("  > Shape of Array Σdc: [$t] -> ", size(DCA[t]))
     end
 end
