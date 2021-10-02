@@ -772,12 +772,15 @@ s_qmc1_copy  -> Transfer calculated results between two impurity problems.
 s_qmc2_init  -> Prepare input files for the CT-HYB₂ impurity solver.
 s_qmc2_exec  -> Execute the CT-HYB₂ impurity solver.
 s_qmc2_save  -> Backup output files for the CT-HYB₂ impurity solver.
+s_qmc2_copy  -> Transfer calculated results between two impurity problems.
 s_hub1_init  -> Prepare input files for the HIA impurity solver.
 s_hub1_exec  -> Execute the HIA impurity solver.
 s_hub1_save  -> Backup output files for the HIA impurity solver.
+s_hub1_copy  -> Transfer calculated results between two impurity problems.
 s_norg_init  -> Prepare input files for the NORG impurity solver.
 s_norg_exec  -> Execute the NORG impurity solver.
 s_norg_save  -> Backup output files for the NORG impurity solver.
+s_norg_copy  -> Transfer calculated results between two impurity problems.
 ctqmc_setup  -> Prepare configuration parameters for CT-QMC impurity solver.
 ctqmc_atomx  -> Prepare configuration parameters for atomic problem solver.
 ctqmc_delta  -> Prepare hybridization function for CT-QMC impurity solver.
