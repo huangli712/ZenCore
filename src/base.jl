@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/09/27
+# Last modified: 2021/10/03
 #
 
 #=
@@ -31,8 +31,8 @@ end
     go()
 
 Dispatcher for DFT + DMFT calculations. Note that it can not call the
-`cycle3()`-`cycle8()` functions. These functions are designed only for
-testing purpose.
+`try_dft()`-`try_mixer()` functions. These functions are designed only
+for testing purpose.
 
 See also: [`ready`](@ref).
 """
@@ -386,7 +386,7 @@ function cycle2()
 end
 
 """
-    cycle3()
+    try_dft()
 
 Perform DFT calculations only. If there are something wrong, then you
 have chance to adjust the DFT input files manually (for example, you
@@ -394,7 +394,7 @@ can modify `vaspc_incar()/vasp.jl` by yourself).
 
 See also: [`cycle1`](@ref), [`cycle2`](@ref).
 """
-function cycle3()
+function try_dft()
     # C-2: Create IterInfo struct
     it = IterInfo()
 
