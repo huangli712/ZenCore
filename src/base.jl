@@ -555,7 +555,7 @@ function try_sigma(task::String = "reset")
 end
 
 """
-    cycle8(task::String = "sigma")
+    try_mixer(task::String = "sigma")
 
 Perform calculations using mixer engine only. The users can execute
 it in the REPL mode to see whether the mixer engine works properly.
@@ -565,7 +565,7 @@ the predefined parameters in step `C01`.
 
 See also: [`cycle1`](@ref), [`cycle2`](@ref).
 """
-function cycle8(task::String = "sigma")
+function try_mixer(task::String = "sigma")
     # C-2: Create IterInfo struct
     it = IterInfo()
 
