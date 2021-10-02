@@ -320,6 +320,7 @@ function cat_d()
     println("    smear    -> ", str_d("smear"))
     println("    kmesh    -> ", str_d("kmesh"))
     println("    magmom   -> ", str_d("magmom"))
+    println("    ncycle   -> ", str_d("ncycle"))
     println("    lsymm    -> ", str_d("lsymm"))
     println("    lspins   -> ", str_d("lspins"))
     println("    lspinorb -> ", str_d("lspinorb"))
@@ -337,7 +338,6 @@ Print the configuration parameters to stdout: for PDMFT dict.
 See also: [`get_m`](@ref), [`str_m`](@ref).
 """
 function cat_m()
-    # See comments above cat_d()
     println("    mode     -> ", str_m("mode"))
     println("    axis     -> ", str_m("axis"))
     println("    niter    -> ", str_m("niter"))
@@ -360,7 +360,6 @@ Print the configuration parameters to stdout: for PIMP dict.
 See also: [`get_i`](@ref), [`str_i`](@ref).
 """
 function cat_i()
-    # See comments above cat_d()
     println("    nsite    -> ", str_i("nsite"))
     println("    atoms    -> ", str_i("atoms"))
     println("    equiv    -> ", str_i("equiv"))
@@ -380,8 +379,8 @@ Print the configuration parameters to stdout: for PSOLVER dict.
 See also: [`get_s`](@ref), [`str_s`](@ref).
 """
 function cat_s()
-    # See comments above cat_d()
     println("    engine   -> ", str_s("engine"))
+    println("    ncycle   -> ", str_s("ncycle"))
     println("    params   -> ", str_s("params"))
 end
 
