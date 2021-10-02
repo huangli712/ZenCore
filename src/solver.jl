@@ -155,7 +155,7 @@ function s_qmc1_exec(it::IterInfo)
     println("  > Finished after $(length(lines)) Monte Carlo sampling blocks")
 
     # Extract perturbation expansion order information
-    println("Statistics about diagrammatic quantum Monte Carlo algorithm")
+    println("Report From CT-HYB₁ Quantum Impurity Solver")
     lines = readlines("solver.out")
     start = findlast(x -> contains(x, ">>> iter:"), lines) + 1
     finish = start + 21
