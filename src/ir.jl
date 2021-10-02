@@ -517,7 +517,7 @@ function irio_eigen(f::String, enk::Array{F64,3}, occupy::Array{F64,3})
     nband, nkpt, nspin = size(enk)
 
     # Extract some key parameters
-    _nband, _nkpt, _nspin = size(enk)
+    _nband, _nkpt, _nspin = size(occupy)
 
     # Sanity check
     @assert nband == _nband && nkpt == _nkpt && nspin == _nspin
