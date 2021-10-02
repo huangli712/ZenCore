@@ -421,14 +421,14 @@ function try_dft()
 end
 
 """
-    cycle4(task::I64)
+    try_dmft(task::I64)
 
 Perform DMFT calculations only. The users can execute it in the REPL mode
 to see whether the DMFT engine works properly.
 
 See also: [`cycle1`](@ref), [`cycle2`](@ref).
 """
-function cycle4(task::I64)
+function try_dmft(task::I64)
     # C-2: Create IterInfo struct
     it = IterInfo()
 
