@@ -452,7 +452,7 @@ function try_dmft(task::I64)
 end
 
 """
-    cycle5()
+    try_solver()
 
 Perform calculations using quantum impurity solvers only. The users can
 execute it in the REPL mode to see whether the quantum impurity solvers
@@ -460,7 +460,7 @@ work properly.
 
 See also: [`cycle1`](@ref), [`cycle2`](@ref).
 """
-function cycle5()
+function try_solver()
     # C-2: Create IterInfo struct
     it = IterInfo()
 
