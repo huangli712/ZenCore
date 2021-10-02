@@ -73,7 +73,7 @@ function qe_to_wan(D::Dict{Symbol,Any})
     case = get_c("case") # Prefix for quantum espresso
     sp = get_d("lspins") # Is it a spin-polarized system
 
-    # Now this feature require quantum espresso as a dft engine
+    # Now this feature require quantum espresso as a DFT engine
     @assert get_d("engine") == "qe" &&
             get_d("projtype") == "wannier"
 
@@ -154,7 +154,7 @@ function qe_to_plo(D::Dict{Symbol,Any})
     case = get_c("case") # Prefix for quantum espresso
     sp = get_d("lspins") # Is it a spin-polarized system
 
-    # Now this feature require quantum espresso as a dft engine
+    # Now this feature require quantum espresso as a DFT engine
     @assert get_d("engine") == "qe" &&
             get_d("projtype") == "plo"
 

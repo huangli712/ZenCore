@@ -49,7 +49,7 @@ const PDFT   = Dict{String,Array{Any,1}}(
     "smear"    => [missing, 1, :String, "Scheme for smearing"],
     "kmesh"    => [missing, 1, :String, "K-mesh for brillouin zone sampling / integration"],
     "magmom"   => [missing, 0, :String, "Initial magnetic moments"],
-    "ncycle"   => [missing, 1, :I64   , "Number of dft iterations per dft + dmft cycle"],           
+    "ncycle"   => [missing, 1, :I64   , "Number of DFT iterations per DFT + DMFT cycle"],           
     "lsymm"    => [missing, 1, :Bool  , "The symmetry is turned on or off"],
     "lspins"   => [missing, 1, :Bool  , "The spin orientations are polarized or not"],
     "lspinorb" => [missing, 1, :Bool  , "The spin-orbit coupling is considered or not"],
@@ -68,7 +68,7 @@ See also: [`PCASE`](@ref), [`PDFT`](@ref), [`PIMP`](@ref), [`PSOLVER`](@ref).
 const PDMFT  = Dict{String,Array{Any,1}}(
     "mode"     => [missing, 1, :I64   , "Scheme of dynamical mean-field theory calculations"],
     "axis"     => [missing, 1, :I64   , "Imaginary-time axis or real-frequency axis"],
-    "niter"    => [missing, 1, :I64   , "Maximum number of dft + dmft iterations"],
+    "niter"    => [missing, 1, :I64   , "Maximum allowed number of DFT + DMFT iterations"],
     "nmesh"    => [missing, 1, :I64   , "Number of frequency points"],
     "dcount"   => [missing, 1, :String, "Scheme of double counting term"],
     "beta"     => [missing, 1, :F64   , "Inverse system temperature"],
@@ -108,7 +108,7 @@ See also: [`PCASE`](@ref), [`PDFT`](@ref), [`PDMFT`](@ref), [`PIMP`](@ref).
 """
 const PSOLVER= Dict{String,Array{Any,1}}(
     "engine"   => [missing, 1, :String, "Name of quantum impurity solver"],
-    "ncycle"   => [missing, 1, :I64   , "Number of solver iterations per dft + dmft cycle"],
+    "ncycle"   => [missing, 1, :I64   , "Number of solver iterations per DFT + DMFT cycle"],
     "params"   => [missing, 1, :Array , "Extra parameter sets of quantum impurity solver"],
 )
 

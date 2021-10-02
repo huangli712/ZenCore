@@ -432,7 +432,7 @@ end
 
 Try to make the control parameters for the `w90.win` file. The `latt`
 object represent the crystallography information, and `nband` is the
-number of Kohn-Sham states outputed by the dft code, `fermi` is the
+number of Kohn-Sham states outputed by the DFT code, `fermi` is the
 fermi level. This function is called by `wannier_init()`.
 
 See also: [`w90_make_proj`](@ref).
