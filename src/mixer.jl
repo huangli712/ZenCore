@@ -116,9 +116,9 @@ function mixer_delta(it::IterInfo, ai::Array{Impurity,1})
 
     # Read in the hybridization functions (previous and current)
     println("Read hybridization functions")
-    fcurr, Dcurr = read_delta(ai, fcurr)
-    fprev, Dprev = read_delta(ai, fprev)
-    @assert size(Dcurr) == size(Dprev) && size(fcurr) == size(fprev)
+    Mcurr, Dcurr = read_delta(ai, fcurr)
+    Mprev, Dprev = read_delta(ai, fprev)
+    @assert size(Dcurr) == size(Dprev) && size(Mcurr) == size(Mprev)
 
     # Mix the hybridization functions using linear mixing algorithm
     println("Mix hybridization functions from two successive iterations")
@@ -128,7 +128,7 @@ function mixer_delta(it::IterInfo, ai::Array{Impurity,1})
 
     # Write the new hybridization functions into `dmft1/dmft.delta`
     println("Write hybridization functions")
-    write_delta(fcurr, Dnew, ai, "dmft1/dmft.delta")
+    write_delta(Mcurr, Dnew, ai, "dmft1/dmft.delta")
 end
 
 """
