@@ -86,13 +86,13 @@ function sigma_reset(ai::Array{Impurity,1}, with_init_dc::Bool = true)
                 end # END OF M LOOP
             end # END OF S LOOP
             #
-            println("  > Initial value: $i -> ", sigdc)
+            println("  > Initial value: [$i] -> ", sigdc)
         end
 
         # Push S into SA to save it
         push!(SA, S)
         #
-        println("  > Shape of Array Σ: $i -> ", size(S))
+        println("  > Shape of Array Σ: [$i] -> ", size(S))
     end # END OF I LOOP
 
     # Write self-energy functions and the corresponding frequency mesh
