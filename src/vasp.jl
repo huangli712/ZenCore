@@ -521,32 +521,43 @@ See also: [`write_gcorr`](@ref), [`read_gcorr`](@ref).
 function vaspc_gcorr(kwin::Array{I64,3}, gcorr::Array{C64,4})
     # Extract the dimensional parameters
     _, xbnd, nkpt, nspin = size(gcorr)
-    @assert nspin == 1 # Current limitation
+    @assert nspin in (1,2) # Current limitation
 
     # Determine filename for correction for density matrix
     fgcorr = "GAMMA"
 
     # Write the data
     open(fgcorr, "w") do fout
+        # Print the header. It seems it is in old format.
+        # Please check the fileio.F/READGAMMA_HEAD() subroutine in
+        # vasp's source code for more details.
         @printf(fout, " %i  -1  ! Number of k-points, default number of bands \n", nkpt)
-        # Go through each 𝑘-point
-        for k = 1:nkpt
-            # Determine the band window
-            bs = kwin[k,1,1]
-            be = kwin[k,1,2]
-            cbnd = be - bs + 1
-            @assert cbnd ≤ xbnd
-            @printf(fout, " %i  %i  %i\n", k, bs, be)
 
-            # Go through each band
-            for p = 1:cbnd
-                for q = 1:cbnd
-                    z = gcorr[p,q,k,1]
-                    @printf(fout, " %.14f  %.14f", real(z), imag(z))
+        # Go through each spin
+        for s = 1:nspin
+            # Go through each 𝑘-point
+            for k = 1:nkpt
+                # Determine the band window
+                bs = kwin[k,s,1] # Start of band window
+                be = kwin[k,s,2] # End of band window
+                cbnd = be - bs + 1
+
+                # Sanity check
+                @assert cbnd ≤ xbnd
+
+                # Write the band window
+                @printf(fout, " %i  %i  %i\n", k, bs, be)
+
+                # Go through each band
+                for p = 1:cbnd
+                    for q = 1:cbnd
+                        z = gcorr[p,q,k,1]
+                        @printf(fout, " %.14f  %.14f", real(z), imag(z))
+                    end
+                    println(fout) # Create a new line
                 end
-                println(fout)
-            end
-        end # END OF K LOOP
+            end # END OF K LOOP
+        end # END OF S LOOP 
     end # END OF IOSTREAM
 
     # Print message to the screen
