@@ -535,11 +535,12 @@ according to the setup in `case.toml`.
 
 At last, it will try to generate the input files for `quantum espresso`
 (`pwscf`). They are `case.scf` and `case.nscf`. As shown by their names,
-one file is for the self-consistent calculation, while another other one
-is for the non-self-consistent calculation.
+one file is for the self-consistent calculation, while another one is
+for the non-self-consistent calculation.
 
 The return values of this function are namelist (`control`) and card
-(`ATOMIC_SPECIES`), which will be used to check the pseudopotentials.
+(`ATOMIC_SPECIES`), which will be used to check the pseudopotentials
+within the `qe_init()` function.
 
 See also: [`QENamelist`](@ref), [`QECard`](@ref).
 """
