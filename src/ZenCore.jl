@@ -153,6 +153,10 @@ query_core    -> Query home directory of ZenCore (where is ZenCore.jl).
 query_dft     -> Query home directory of DFT engine.
 query_dmft    -> Query home directory of DMFT engine.
 query_solver  -> Query home directory of quantum impurity solvers.
+is_vasp       -> Test whether the DFT backend is the vasp code.
+is_qe         -> Test whether the DFT backend is the quantum espresso code.
+is_plo        -> Test whether the projector is the projected local orbitals.
+is_wannier    -> Test whether the projector is the wannier functions.
 welcome       -> Print welcome message.
 overview      -> Print runtime information of ZenCore.
 goodbye       -> Say goodbye.
@@ -183,6 +187,10 @@ export query_core
 export query_dft
 export query_dmft
 export query_solver
+export is_vasp
+export is_qe
+export is_plo
+export is_wannier
 export welcome
 export overview
 export goodbye
