@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/09/26
+# Last modified: 2021/10/03
 #
 
 #=
@@ -47,10 +47,10 @@ function qe_adaptor(D::Dict{Symbol,Any})
     D[:fermi] = qeio_fermi(pwd(), false)
 
     # Q06: Generate MLWFs for the QE + WANNIER mode
-    get_d("projtype") == "wannier" && qe_to_wan(D)
+    is_wannier() && qe_to_wan(D)
 
     # Q06: Generate projected local orbitals for the QE + PLO mode
-    get_d("projtype") == "plo" && qe_to_plo(D)
+    is_plo() && qe_to_plo(D)
 end
 
 """
@@ -74,8 +74,7 @@ function qe_to_wan(D::Dict{Symbol,Any})
     sp = get_d("lspins") # Is it a spin-polarized system
 
     # Now this feature require quantum espresso as a DFT engine
-    @assert get_d("engine") == "qe" &&
-            get_d("projtype") == "wannier"
+    @assert is_qe() && is_wannier()
 
     # W01: Execute the wannier90 code to generate w90.nnkp
     if sp # For spin-polarized system
@@ -155,8 +154,7 @@ function qe_to_plo(D::Dict{Symbol,Any})
     sp = get_d("lspins") # Is it a spin-polarized system
 
     # Now this feature require quantum espresso as a DFT engine
-    @assert get_d("engine") == "qe" &&
-            get_d("projtype") == "plo"
+    @assert is_qe() && is_plo()
 
     # P01: Execute the wannier90 code to generate w90.nnkp
     if sp # For spin-polarized system

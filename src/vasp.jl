@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/09/23
+# Last modified: 2021/10/03
 #
 
 #=
@@ -18,7 +18,8 @@ Adaptor support for vasp code. It will parse the output files of vasp
 code, extract the Kohn-Sham dataset,  and then fulfill the `DFTData`
 dict (i.e `D`).
 
-The following vasp's output files are needed:
+The following vasp's output files must be presented:
+
 * `POSCAR`
 * `IBZKPT`
 * `EIGENVAL`
