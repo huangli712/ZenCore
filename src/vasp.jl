@@ -1144,7 +1144,7 @@ function vaspio_lattice(f::String, silent::Bool = true)
     natom = sum(numbers)
 
     # Now all the parameters are ready, we would like to create
-    # `Lattice` struct here.
+    # a `Lattice` struct here.
     latt = Lattice(_case, scale, nsort, natom)
 
     # Update latt using the available data
