@@ -466,6 +466,13 @@ function is_qe()
     get_d("engine") == "qe"
 end
 
+"""
+    is_plo()
+
+Test whether the projector is the projected local orbitals.
+
+See also: [`is_plo`](@ref).
+"""
 function is_plo()
     get_d("projtype") == "plo"
 end
