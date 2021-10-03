@@ -993,7 +993,7 @@ function solver_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, force::Bool
         # Well, now we would like to extract the DMFT energy.
         edmft = GetEnergy(imp)
         it.et.dmft = it.et.dmft + edmft
-        println("  > DMFT interaction energy: $i -> $edmft eV")
+        println("  > DMFT interaction energy: [$i] -> $edmft eV")
     end # END OF I LOOP
 
     # Monitor the status
@@ -1008,9 +1008,10 @@ the adaptor, to check whether the essential files exist. (2) Parse the
 Kohn-Sham data output by the DFT engine, try to preprocess them, and
 then transform them into IR format. (3) Backup the files by adaptor.
 
-For the first task, only the vasp adaptor is supported. While for the
-second task, only the PLO adaptor is supported. If you want to support
-more adaptors, please adapt this function.
+For the first task, both the `vasp` and `qe` adaptors are supported.
+While for the second task, both the `plo` and `wannier` adaptors are
+supported. If you want to support more adaptors, please adapt this
+function by yourself.
 
 See also: [`dft_run`](@ref), [`dmft_run`](@ref), [`solver_run`](@ref).
 """
