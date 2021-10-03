@@ -444,10 +444,24 @@ function query_solver(engine::String)
     end
 end
 
+"""
+    is_vasp()
+
+Test whether the DFT backend is the `vasp` code.
+
+See also: [`is_qe`](@ref).
+"""
 function is_vasp()
     get_d("engine") == "vasp"
 end
 
+"""
+    is_qe()
+
+Test whether the DFT backend is the `quantum espresso` (`pwscf`) code.
+
+See also: [`is_vasp`](@ref).
+"""
 function is_qe()
     get_d("engine") == "qe"
 end
