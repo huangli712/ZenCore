@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/09/26
+# Last modified: 2021/10/03
 #
 
 #=
@@ -368,7 +368,9 @@ end
 """
     wannier_save(sp::String = ""; op::String = "")
 
-Backup and check the output files of wannier90 if necessary.
+Backup and check the output files of wannier90 if necessary. Actually,
+there are no files that need to be stored. We just check whether they
+have been created correctly.
 
 See also: [`wannier_init`](@ref), [`wannier_exec`](@ref).
 """
