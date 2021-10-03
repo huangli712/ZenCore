@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/03
+# Last modified: 2021/10/04
 #
 
 #=
@@ -550,7 +550,7 @@ end
 
 Try to make the projection block for the `w90.win` file. We will not
 check the validness of these projections here. This function is called
-by the `wannier_init()`.
+by the `wannier_init()` function.
 
 See also: [`w90_make_ctrl`](@ref).
 """
@@ -585,7 +585,8 @@ end
     w90_make_map(PG::Array{PrGroup,1}, ai::Array{Impurity,1})
 
 Create connections / mappings between projectors (or band windows) and
-quantum impurity problems. Return a `Mapping` struct.
+quantum impurity problems. Return a `Mapping` struct. This function is
+just a copy of the `plo_map()` function.
 
 See also: [`PrGroup`](@ref), [`PrWindow`](@ref), [`Mapping`](@ref).
 """
@@ -763,6 +764,8 @@ function w90_make_group(latt::Lattice, sp::String = "")
         push!(PT, PrTrait(site, l, m, desc))
     end
 
+    # The following codes are borrowed from vaspio_projs().
+
     # Try to split these projectors into groups.
     #
     # At first, we collect the tuple (site, l) for all projectors.
@@ -824,7 +827,8 @@ end
     w90_make_group(MAP::Mapping, PG::Array{PrGroup,1})
 
 Use the information contained in the `Mapping` struct to further setup
-the `PrGroup` struct.
+the `PrGroup` struct. This function is just a copy of the `plo_group()`
+function.
 
 See also: [`PIMP`](@ref), [`Mapping`](@ref), [`PrGroup`](@ref).
 """
@@ -875,15 +879,32 @@ function w90_make_group(MAP::Mapping, PG::Array{PrGroup,1})
 
             @case "d_t2g"
                 PG[g].Tr = zeros(C64, 3, 5)
-                PG[g].Tr[1, 1] = 1.0 + 0.0im
-                PG[g].Tr[2, 2] = 1.0 + 0.0im
-                PG[g].Tr[3, 4] = 1.0 + 0.0im
+                # For vasp
+                is_vasp() && begin
+                    PG[g].Tr[1, 1] = 1.0 + 0.0im
+                    PG[g].Tr[2, 2] = 1.0 + 0.0im
+                    PG[g].Tr[3, 4] = 1.0 + 0.0im
+                end
+                # For quantum espresso + wannier90
+                is_qe() && begin
+                    PG[g].Tr[1, 1] = 1.0 + 0.0im # WRONG
+                    PG[g].Tr[2, 2] = 1.0 + 0.0im # WRONG
+                    PG[g].Tr[3, 4] = 1.0 + 0.0im # WRONG
+                end
                 break
 
             @case "d_eg" # TO_BE_CHECK
                 PG[g].Tr = zeros(C64, 2, 5)
-                PG[g].Tr[1, 3] = 1.0 + 0.0im
-                PG[g].Tr[2, 5] = 1.0 + 0.0im
+                # For vasp
+                is_vasp() && begin
+                    PG[g].Tr[1, 3] = 1.0 + 0.0im
+                    PG[g].Tr[2, 5] = 1.0 + 0.0im
+                end
+                # For quantum espresso + wannier90
+                is_qe() && begin
+                    PG[g].Tr[1, 3] = 1.0 + 0.0im # WRONG
+                    PG[g].Tr[2, 5] = 1.0 + 0.0im # WRONG
+                end
                 break
 
             @default
