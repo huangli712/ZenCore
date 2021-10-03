@@ -71,7 +71,7 @@ function qe_to_wan(D::Dict{Symbol,Any})
 
     # Extract key parameters
     case = get_c("case") # Prefix for quantum espresso
-    sp = get_d("lspins") # Is it a spin-polarized system
+    sp = get_d("lspins") # Is it a spin-polarized system?
 
     # Now this feature require quantum espresso as a DFT engine
     @assert is_qe() && is_wannier()
@@ -151,7 +151,7 @@ function qe_to_plo(D::Dict{Symbol,Any})
 
     # Extract key parameters
     case = get_c("case") # Prefix for quantum espresso
-    sp = get_d("lspins") # Is it a spin-polarized system
+    sp = get_d("lspins") # Is it a spin-polarized system?
 
     # Now this feature require quantum espresso as a DFT engine
     @assert is_qe() && is_plo()
@@ -190,6 +190,9 @@ function qe_to_plo(D::Dict{Symbol,Any})
         pw2wan_exec(case)
         pw2wan_save()
     end
+
+    # This is enough. We do not really need the wannier functions. The
+    # case.amn file is what we need.
 
     # P03: Read accurate band eigenvalues from w90.eig
     #
