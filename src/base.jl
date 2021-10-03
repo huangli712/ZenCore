@@ -143,7 +143,7 @@ function cycle1()
     @time_call dft_run(it, lr)
 
     # C02: Perform DFT calculation (for the second time)
-    get_d("loptim") && @time_call dft_run(it, lr)
+    is_vasp() && @time_call dft_run(it, lr)
 
     # C03: To bridge the gap between DFT engine and DMFT engine by adaptor
     adaptor_run(it, lr, ai)
