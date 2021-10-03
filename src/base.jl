@@ -243,10 +243,10 @@ function cycle2()
     prompt("Initialization")
     it.sc = 0 # In preparation mode
 
-    # C01: Perform DFT calculation (for the first time)
+    # C01: Perform DFT calculation
     @time_call dft_run(it, lr)
 
-    # C02: Perform DFT calculation (for the second time)
+    # C02: Perform DFT calculation again (for the vasp code only)
     get_d("loptim") && @time_call dft_run(it, lr)
 
     # C03: To bridge the gap between DFT engine and DMFT engine by adaptor
