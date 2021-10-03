@@ -14,8 +14,8 @@
 """
     ready()
 
-Examine whether all the conditions, including input files and working
-directories, for DFT + DMFT calculations are ready.
+Examine whether all the conditions (including input files and working
+directories) for DFT + DMFT calculations are ready.
 
 See also: [`go`](@ref).
 """
@@ -31,8 +31,8 @@ end
     go()
 
 Dispatcher for DFT + DMFT calculations. Note that it can not call the
-`try_dft()`-`try_mixer()` functions. These functions are designed only
-for testing purpose.
+`try_dft()`-`try_mixer()` series functions. These functions are designed
+only for testing purpose.
 
 See also: [`ready`](@ref).
 """
@@ -79,19 +79,21 @@ end
 
 *Remarks 1* :
 
-We would like to perform two successive DFT runs if `get_d("loptim")` is
-true. The purpose of the first DFT run is to evaluate the fermi level.
-Then an energy window is determined. We will use this window to generate
-optimal projectors in the second DFT run.
+If the DFT backend is the `vasp` code, we would like to carry out two
+successive DFT runs. The purpose of the first DFT run is to evaluate
+the fermi level. Then an energy window is determined. We will use this
+window to generate optimal projectors in the second DFT run.
 
-On the other hand, if `get_d("loptim")` is false, only the first DFT run
-is enough.
+If the DFT backend is the `quantum espresso` (`pwscf`) code, we also
+carry out two successive DFT runs. The first runs is used to generate
+converged charge density, while the second runs is to produce accurate
+Kohn-Sham states at given 𝑘-mesh.
 
 *Remarks 2* :
 
-We want better *optimal projectors*.
+We want better *optimal projectors* for the `vasp` code.
 
-In the previous DFT run, `initial` fermi level = 0 -> `wrong` energy
+In the first DFT run, `initial` fermi level = 0 -> `wrong` energy
 window -> `wrong` optimial projectors. But at this point, the fermi
 level is updated, so we have to generate the optimal projectors
 again within this new window by doing addition DFT calculation.
@@ -103,8 +105,8 @@ tetrahedra data, eigenvalues, raw projectors, and fermi level, etc. At
 first, the adaptor will read in these data from the output files of DFT
 engine. And then it will process the raw projectors (such as parsing,
 labeling, grouping, filtering, and rotatation). Finally, the adaptor will
-write down the processed data to some specified files using the `IR`
-format.
+write down the processed data to some specified files using the internal
+`IR` format.
 
 *Remarks 4* :
 
