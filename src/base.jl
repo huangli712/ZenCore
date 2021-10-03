@@ -139,10 +139,10 @@ function cycle1()
     prompt("Initialization")
     it.sc = 0 # In preparation mode
 
-    # C01: Perform DFT calculation (for the first time)
+    # C01: Perform DFT calculation
     @time_call dft_run(it, lr)
 
-    # C02: Perform DFT calculation (for the second time)
+    # C02: Perform DFT calculation again (for the vasp code only)
     is_vasp() && @time_call dft_run(it, lr)
 
     # C03: To bridge the gap between DFT engine and DMFT engine by adaptor
@@ -223,7 +223,7 @@ end
     cycle2()
 
 Perform fully self-consistent DFT + DMFT calculations. The self-consistency
-is achieved at both DFT and DMFT levels. This function doesn't work so far.
+is achieved at both DFT and DMFT levels.
 
 See also: [`cycle1`](@ref), [`go`](@ref).
 """
