@@ -888,7 +888,7 @@ qeio_lattice() = qeio_lattice(pwd())
 Reading quantum espresso's `nscf.out` file, return `kmesh` and `weight`.
 Here `f` means only the directory that contains `nscf.out`.
 
-Note in `scf.out`, the k-mesh is not uniform. So we have to read k-mesh
+Note in `scf.out`, the 𝑘-mesh is not uniform. So we have to read k-mesh
 from the `nscf.out`. In addition, the verbosity parameter must be set to
 'high' in the input file.
 
@@ -955,7 +955,10 @@ Reading quantum espresso's `nscf.out` file, return energy band structure
 information. Here `f` means only the directory that contains `nscf.out`.
 
 Note that in `scf.out`, the eigenvalues may be not defined on the uniform
-k-mesh. So we have to read eigenvalues from the `nscf.out` file.
+𝑘-mesh. So we have to read eigenvalues from the `nscf.out` file.
+
+Note that the eigenvalues read from `nscf.out` is somewhat coarse. They
+should be updated by the values read from `case.eig`.
 
 See also: [`irio_eigen`](@ref).
 """
