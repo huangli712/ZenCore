@@ -223,7 +223,8 @@ end
     cycle2()
 
 Perform fully self-consistent DFT + DMFT calculations. The self-consistency
-is achieved at both DFT and DMFT levels.
+is achieved at both DFT and DMFT levels. So far this function only supports
+the `vasp` + `plo` mode.
 
 See also: [`cycle1`](@ref), [`go`](@ref).
 """
@@ -264,7 +265,7 @@ function cycle2()
     # Print the cycle info
     show_it(it, lr)
 
-    # C05: Start the self-consistent engine
+    # C05: Launch the self-consistent engine
     dft_run(it, lr)
 
     # Wait the DFT engine to finish its job and sleep
