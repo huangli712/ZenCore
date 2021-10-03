@@ -724,10 +724,8 @@ vaspio_nband() = vaspio_nband(pwd())
     vaspio_valence(f::String)
 
 Reading vasp's `POTCAR` file, return `ZVAL`. Here `f` means only the
-directory that contains `POTCAR`.
-
-The information about `ZVAL` will be used to determine `NBANDS` in the
-`INCAR` file.
+directory that contains `POTCAR`. The information about `ZVAL` will
+be used to determine `NBANDS` in the `INCAR` file.
 
 See also: [`vaspc_incar`](@ref), [`vaspio_nband`](@ref).
 """
@@ -754,10 +752,8 @@ end
 """
     vaspio_valence()
 
-Reading vasp's `POTCAR` file, return `ZVAL`.
-
-The information about `ZVAL` will be used to determine `NBANDS` in the
-`INCAR` file.
+Reading vasp's `POTCAR` file, return `ZVAL`. The information about
+`ZVAL` will be used to determine `NBANDS` in the `INCAR` file.
 
 See also: [`vaspc_incar`](@ref), [`vaspio_nband`](@ref).
 """
