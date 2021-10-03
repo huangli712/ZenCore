@@ -1784,13 +1784,13 @@ function pw2wan_init(case::String, sp::String = "")
     NLData["write_dmn"] = ".true."
     NLData["write_unk"] = ".false."
     #
-    # Create QENamelist
-    QEN = QENamelist(name, NLData)
+    # Create a QENamelist
+    QNL = QENamelist(name, NLData)
 
     # Try to write case.pw2wan
     fwan = case * sp * ".pw2wan"
     open(fwan, "w") do fout
-        write(fout, QEN) # This write function is defined in qe.jl
+        write(fout, QNL) # This write function is defined in qe.jl
     end
     #
     println("  > File $fwan is created")
