@@ -531,6 +531,7 @@ end
 
 Perform calculations using self-energy engine only. The users can execute
 it in the REPL mode to see whether the self-energy engine works properly.
+The argument `task` can be `reset`, `dcount`, `gather`, and `split`.
 
 See also: [`cycle1`](@ref), [`cycle2`](@ref).
 """
