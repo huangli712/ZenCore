@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/02
+# Last modified: 2021/10/03
 #
 
 #=
@@ -324,7 +324,6 @@ function cat_d()
     println("    lsymm    -> ", str_d("lsymm"))
     println("    lspins   -> ", str_d("lspins"))
     println("    lspinorb -> ", str_d("lspinorb"))
-    println("    loptim   -> ", str_d("loptim"))
     println("    lproj    -> ", str_d("lproj"))
     println("    sproj    -> ", str_d("sproj"))
     println("    window   -> ", str_d("window"))

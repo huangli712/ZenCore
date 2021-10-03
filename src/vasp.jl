@@ -440,16 +440,13 @@ function vaspc_incar(fermi::F64, sc_mode::I64)
 
     # For optimized projectors
     ewidth = 4.0 # A magic number
-    loptim = get_d("loptim")
-    if !isa(loptim, Missing)
-        if loptim
-            write(ios, "LORBIT   = 14 \n")
-            emin = fermi - ewidth
-            write(ios, "EMIN     = $emin \n")
-            emax = fermi + ewidth
-            write(ios, "EMAX     = $emax \n")
-        end
-    end
+    write(ios, "LORBIT   = 14 \n")
+    #
+    emin = fermi - ewidth
+    write(ios, "EMIN     = $emin \n")
+    #
+    emax = fermi + ewidth
+    write(ios, "EMAX     = $emax \n")
 
     # For local orbitals and projectors
     lproj = get_d("lproj")
