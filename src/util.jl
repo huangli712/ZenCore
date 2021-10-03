@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/02
+# Last modified: 2021/10/03
 #
 
 #=
@@ -445,15 +445,19 @@ function query_solver(engine::String)
 end
 
 function is_vasp()
+    get_d("engine") == "vasp"
 end
 
 function is_qe()
+    get_d("engine") == "qe"
 end
 
 function is_plo()
+    get_d("projtype") == "plo"
 end
 
 function is_wannier()
+    get_d("projtype") == "wannier"
 end
 
 #=
