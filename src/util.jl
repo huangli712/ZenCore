@@ -444,6 +444,18 @@ function query_solver(engine::String)
     end
 end
 
+function is_vasp()
+end
+
+function is_qe()
+end
+
+function is_plo()
+end
+
+function is_wannier()
+end
+
 #=
 ### *Colorful Outputs*
 =#
