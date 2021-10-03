@@ -294,8 +294,16 @@ function plo_group(MAP::Mapping, PG::Array{PrGroup,1})
 
             @case "d_eg" # TO_BE_CHECK
                 PG[g].Tr = zeros(C64, 2, 5)
-                PG[g].Tr[1, 3] = 1.0 + 0.0im
-                PG[g].Tr[2, 5] = 1.0 + 0.0im
+                # For vasp
+                is_vasp() && begin
+                    PG[g].Tr[1, 3] = 1.0 + 0.0im
+                    PG[g].Tr[2, 5] = 1.0 + 0.0im
+                end
+                # For quantum espresso + wannier90
+                is_qe() && begin
+                    PG[g].Tr[1, 3] = 1.0 + 0.0im # WRONG
+                    PG[g].Tr[2, 5] = 1.0 + 0.0im # WRONG
+                end
                 break
 
             @default
