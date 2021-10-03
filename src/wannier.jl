@@ -1149,7 +1149,8 @@ end
 """
     w90_make_chipsi(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1}}
 
-Filter the projector matrix according to band window.
+Filter the projector matrix according to band window. This function is
+just a copy of the `plo_filter()` function.
 
 See also: [`PrWindow`](@ref), [`plo_filter`](@ref).
 """
