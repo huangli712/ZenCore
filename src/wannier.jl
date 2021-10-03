@@ -1095,7 +1095,8 @@ end
 
 Perform global rotations or transformations for the projectors. In
 this function, the projectors will be classified into different
-groups, and then they will be rotated group by group.
+groups, and then they will be rotated group by group. This function
+is just a copy of the `plo_rotate()` function.
 
 See also: [`PrGroup`](@ref), [`plo_rotate`](@ref).
 """
