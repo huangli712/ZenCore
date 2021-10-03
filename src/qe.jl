@@ -1226,23 +1226,25 @@ struct MonkhorstPackGrid
         @assert length(mesh) == 3
         @assert length(shift) == 3
         @assert all(mesh .≥ 1)
+        #
         if eltype(shift) != Bool
             shift = Bool.(shift)
         end
+        #
         return new(mesh, shift)
     end
 end
 
 """
-    MonkhorstPackGrid(k1::I64, k2::I64, k3::I64, s1::I64, s2::I64, s3::I64)
+    MonkhorstPackGrid(k₁::I64, k₂::I64, k₃::I64, s₁::I64, s₂::I64, s₃::I64)
 
 Constructor for `MonkhorstPackGrid`.
 
 See also: [`ReciprocalPoint`](@ref).
 """
-function MonkhorstPackGrid(k1::I64, k2::I64, k3::I64, s1::I64, s2::I64, s3::I64)
-    k = [k1, k2, k3]
-    s = [s1, s2, s3]
+function MonkhorstPackGrid(k₁::I64, k₂::I64, k₃::I64, s₁::I64, s₂::I64, s₃::I64)
+    k = [k₁, k₂, k₃]
+    s = [s₁, s₂, s₃]
     return MonkhorstPackGrid(k, s)
 end
 
@@ -1398,34 +1400,34 @@ mutable struct QENamelist <: QEInputEntry
 end
 
 """
-    Base.getindex(pnl::QENamelist, key::AbstractString)
+    Base.getindex(qnl::QENamelist, key::AbstractString)
 
-Return an entry (specified by `key`) in the namelist object (`pnl`).
-
-See also: [`QENamelist`](@ref).
-"""
-Base.getindex(pnl::QENamelist, key::AbstractString) = pnl.data[key]
-
-"""
-    Base.setindex!(pnl::QENamelist, value, key::AbstractString)
-
-Modify an entry (specified by `key`) in the namelist object (`pnl`).
+Return an entry (specified by `key`) in the namelist object (`qnl`).
 
 See also: [`QENamelist`](@ref).
 """
-function Base.setindex!(pnl::QENamelist, value, key::AbstractString)
-    pnl.data[key] = value
+Base.getindex(qnl::QENamelist, key::AbstractString) = qnl.data[key]
+
+"""
+    Base.setindex!(qnl::QENamelist, value, key::AbstractString)
+
+Modify an entry (specified by `key`) in the namelist object (`qnl`).
+
+See also: [`QENamelist`](@ref).
+"""
+function Base.setindex!(qnl::QENamelist, value, key::AbstractString)
+    qnl.data[key] = value
 end
 
 """
-    Base.delete!(pnl::QENamelist, key::AbstractString)
+    Base.delete!(qnl::QENamelist, key::AbstractString)
 
-Remove an entry (specified by `key`) in the namelist object (`pnl`).
+Remove an entry (specified by `key`) in the namelist object (`qnl`).
 
 See also: [`QENamelist`](@ref).
 """
-function Base.delete!(pnl::QENamelist, key::AbstractString)
-    delete!(pnl.data, key)
+function Base.delete!(qnl::QENamelist, key::AbstractString)
+    delete!(qnl.data, key)
 end
 
 """
