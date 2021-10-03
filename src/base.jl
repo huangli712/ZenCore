@@ -1480,9 +1480,9 @@ function show_it(it::IterInfo, lr::Logger)
         for t = 1:nsite
             print(lr.cycle, "Vdc$t        ")
         end
-        print(lr.cycle, "Ndmft1      Ndmft2      ")
+        print(lr.cycle, "Nd1         Nd2         ")
         for t = 1:nsite
-            print(lr.cycle, "Nimp$t       ")
+            print(lr.cycle, "Ni[$t]       ")
         end
         print(lr.cycle, "Etot        ")
         println(lr.cycle, "C(C)    C(E)    C(S)")
