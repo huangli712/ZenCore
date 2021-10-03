@@ -549,13 +549,13 @@ function qec_input(it::IterInfo)
     finput = "QE.INP"
     @assert isfile(finput)
 
-    # Parse the namelists, control, system, and electrons.
+    # Parse three namelists, control, system, and electrons.
     lines = readlines(finput)
     ControlNL = parse(QENamelist, lines, "control")
     SystemNL = parse(QENamelist, lines, "system")
     ElectronsNL = parse(QENamelist, lines, "electrons")
 
-    # Parse the cards, ATOMIC_SPECIES, ATOMIC_POSITIONS, and K_POINTS.
+    # Parse three cards, ATOMIC_SPECIES, ATOMIC_POSITIONS, and K_POINTS.
     line = read(finput, String)
     AtomicSpeciesBlock = parse(AtomicSpeciesCard, line)
     AtomicPositionsBlock = parse(AtomicPositionsCard, line)
@@ -639,7 +639,7 @@ function qec_input(it::IterInfo)
     lspins = get_d("lspins")
     if lspins
         SystemNL["nspin"] = 2
-        SystemNL["starting_magnetization"] = 0.0
+        @assert haskey(SystemNL, "starting_magnetization")
     else
         SystemNL["nspin"] = 1
     end
@@ -654,12 +654,6 @@ function qec_input(it::IterInfo)
         SystemNL["noncolin"] = ".false."
         SystemNL["lspinorb"] = ".false."
     end
-
-    # For local orbitals and projectors
-    # SKIP
-
-    # For number of bands
-    # SKIP
 
     # Special treatment for verbosity
     ControlNL["verbosity"] = "'high'"
@@ -733,8 +727,8 @@ function qec_input(it::IterInfo)
         write(fout, KPointsBlock)
     end
 
-    # Return the namelist and the card, which will be used to check
-    # whether the pseudopotential files are ready.
+    # Return the namelist (control) and the card (ATOMIC_SPECIES), which
+    # will be used to check whether the pseudopotential files are ready.
     return ControlNL, AtomicSpeciesBlock
 end
 
