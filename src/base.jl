@@ -567,7 +567,7 @@ end
 Perform calculations using mixer engine only. The users can execute
 it in the REPL mode to see whether the mixer engine works properly.
 
-In order to run this function correctly, sometimes users should modify
+In order to run this function correctly, users should try to modify
 the predefined parameters in step `C01`.
 
 See also: [`cycle1`](@ref), [`cycle2`](@ref).
@@ -634,17 +634,17 @@ function monitor(force_exit::Bool = false)
 end
 
 """
-    suspend(second::I64)
+    suspend(second::I64 = 1)
 
 Suspend the current process to wait the DFT engine. This function is
 useful for charge fully self-consistent DFT + DMFT calculations.
 
-Now this function only supports the vasp code. We have to improve it
+Now this function only supports the `vasp` code. We have to improve it
 to support more DFT engines.
 
 See also: [`dft_run`](@ref).
 """
-function suspend(second::I64)
+function suspend(second::I64 = 1)
     # Check second
     if second ≤ 0
         second = 5
@@ -674,7 +674,7 @@ end
 """
     suicide(it::IterInfo)
 
-Kill the DFT engine abnormally.
+Kill the DFT engine abnormally. Now it supports the `vasp` code only.
 
 See also: [`dft_run`](@ref).
 """
@@ -794,6 +794,7 @@ the runtime environment for the DMFT engine. (2) Launch the DMFT engine.
 (3) Backup the output files by DMFT engine for next iterations.
 
 The argument `task` is used to specify running mode of the DMFT code.
+Its value can be 1 or 2.
 
 See also: [`adaptor_run`](@ref), [`dft_run`](@ref), [`solver_run`](@ref).
 """
@@ -841,7 +842,7 @@ the quantum impurity solver. (3) Backup output files by quantum impurity
 solver for next iterations.
 
 If `force = true`, then we will try to solve all of the quantum impurity
-problems explicitly, irrespective of their symmetries.
+problems explicitly, irrespective of their equivalences.
 
 Now only the `ct_hyb1`, `ct_hyb2`, `hub1`, and `norg` quantum impurity
 solvers are supported. If you want to support the other quantum impurity
