@@ -1371,6 +1371,7 @@ end
 
 Modify the internal counters in `IterInfo` struct. This function is
 used in the fully charge self-consistent DFT + DMFT calculations only.
+The argument `c` denotes the counter `it.I`, and `v` is the value.
 
 See also: [`IterInfo`](@ref), [`zero_it`](@ref).
 """
