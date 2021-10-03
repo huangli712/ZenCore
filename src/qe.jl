@@ -319,7 +319,7 @@ end
     qe_exec(it::IterInfo, scf::Bool = true)
 
 Execute the `quantum espresso` (`pwscf`) program, monitor the convergence
-progress, and output the relevant information. The argument `scf` denotes
+progress, and output the relevant information. The argument `scf` controls
 which input file should be used. If `scf == true`, then the input file is
 `case.scf`, or else it is `case.nscf`.
 
@@ -365,9 +365,10 @@ function qe_exec(it::IterInfo, scf::Bool = true)
 
     # Determine suitable input and output files
     case = get_c("case")
-    finp = "$case.scf"
-    fout = "scf.out"
-    if !scf
+    if scf
+        finp = "$case.scf"
+        fout = "scf.out"
+    else
         finp = "$case.nscf"
         fout = "nscf.out"
     end
