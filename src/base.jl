@@ -1543,6 +1543,7 @@ function show_it(mode::String, iter::I64, max_iter::I64)
     @assert mode in ("dmft1", "dmft2", "dft")
     @assert iter ≥ 1
     @assert max_iter ≥ iter
+    #
     print("Mode : [ $mode ], ")
     print("Requested Iteration : [ $max_iter ], ")
     println("Finished Iteration: [ $iter ]. \n")
