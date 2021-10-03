@@ -288,7 +288,7 @@ function vasp_back()
 
     # Create a vasp.lock file to wake up the vasp
     println("Reactivate the vasp engine (vasp.lock)")
-    vaspc_lock("create")
+    vaspc_lock()
 end
 
 """
@@ -304,7 +304,7 @@ function vasp_stop()
     vaspc_stopcar()
 
     # Maybe vasp.lock is necessary.
-    vaspc_lock("create", "dft")
+    vaspc_lock("dft")
 
     # Sleep until the STOPCAR is deleted automatically, which means
     # that the vasp process is termined completely.
@@ -583,7 +583,7 @@ function vaspc_stopcar()
 end
 
 """
-    vaspc_lock(action::String, dir::String = ".")
+    vaspc_lock(dir::String = ".")
 
 Create the `vasp.lock` file. This file is relevant for `ICHARG = 5`.
 The vasp program runs only when the `vasp.lock` file is present in the
@@ -592,8 +592,7 @@ can specify it via argument `dir`.
 
 See also: [`vaspq_lock`](@ref).
 """
-function vaspc_lock(action::String, dir::String = ".")
-    @assert startswith(action, "c") || startswith(action, "C")
+function vaspc_lock(dir::String = ".")
     touch(joinpath(dir, "vasp.lock"))
 end
 
