@@ -1202,9 +1202,15 @@ function w90_make_chipsi(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1})
     return Fchipsi
 end
 
+"""
+    w90_make_hamr()
+"""
 function w90_make_hamr()
 end
 
+"""
+    w90_make_hamk()
+"""
 function w90_make_hamk()
 end
 
@@ -1237,8 +1243,8 @@ function w90_find_bwin(ewin::Tuple{F64,F64}, enk::Array{F64,3})
 
     # Go through each k-point to figure out the band window
     for k = 1:nkpt
-        bmin = findfirst(x -> x > emin, enk[:,k])
-        bmax = findfirst(x -> x > emax, enk[:,k]) - 1
+        bmin = findfirst(x -> x > emin, enk[:,k,1])
+        bmax = findfirst(x -> x > emax, enk[:,k,1]) - 1
         bwin[k,1] = bmin
         bwin[k,2] = bmax
         @assert nband ≥ bmax > bmin ≥ 1
