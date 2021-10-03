@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/09/24
+# Last modified: 2021/10/03
 #
 
 #=
@@ -215,7 +215,8 @@ end
 #=
 *Remarks* :
 
-Until now, the `PG` array was only created in `vasp.jl/vaspio_projs()`.
+Until now, the `PG` array were only created in `vasp.jl/vaspio_projs()`
+and `wannier.jl/w90_make_group()`.
 
 In this function, `corr`, `shell`,  and `Tr` which are members of
 `PrGroup` struct will be modified according to users' configuration,
