@@ -1397,7 +1397,7 @@ end
 """
     zero_it(it::IterInfo)
 
-Reset the counters in the `IterInfo` struct.
+Reset some (not all) counters in the `IterInfo` struct.
 
 See also: [`IterInfo`](@ref), [`incr_it`](@ref).
 """
@@ -1424,7 +1424,8 @@ end
     prev_it(it::IterInfo, c::I64)
 
 Return the iteration information for previous DFT + DMFT step. This
-function is suitable for fully self-consistent calculation mode.
+function is suitable for fully self-consistent calculation mode. Here
+the argument `c` denotes the counter `it.I`
 
 See also: [`mixer_core`](@ref), [`incr_it`](@ref).
 """
@@ -1440,7 +1441,7 @@ function prev_it(it::IterInfo, c::I64)
         return newlist[ind - 1]
     else
         # Special treatment for vasp code
-        trueM₂ = ( get_d("engine") == "vasp" ? 1 : it.M₂ )
+        trueM₂ = ( is_vasp() ? 1 : it.M₂ )
         list = [(i3,i2) for i2 = 1:trueM₂, i3 = 1:it.M₃]
         newlist = reshape(list, trueM₂ * it.M₃)
         ind = findfirst(x -> x == (it.I₃, it.I₂), newlist)
