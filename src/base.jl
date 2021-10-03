@@ -1167,7 +1167,8 @@ end
     mixer_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::String = "sigma")
 
 Simple driver for the mixer. It will try to mix the self-energy functions
-or hybridization functions and generate a new one.
+(or hybridization functions, local impurity levels, density matrix) and
+generate a new one.
 
 Now it supports four tasks: `sigma`, `delta`, `eimpx`, `gcorr`. It
 won't change the current directory.
@@ -1241,19 +1242,24 @@ difference between two successive DFT + DMFT iterations.
 See also: [`Energy`](@ref), [`IterInfo`](@ref).
 """
 function energy_core(it::IterInfo)
+    # Try to print the header
     if it.sc == 1
         println("The DFT + DMFT Energy At Cycle [$(it.I₁) / $(it.M₃)]")
     else
         println("The DFT + DMFT Energy At Cycle [$(it.I₃) / $(it.M₃)]")
     end
-    println(repeat("==", 36))
     #
+    println(repeat("==", 36))
+
+    # For the first iteration
     if it.I₃ == 1
         println("  > E[DFT]   : $(it.et.dft) eV")
         println("  > E[DMFT]  : $(it.et.dmft) eV")
         println("  > E[CORR]  : $(it.et.corr) eV")
         println("  > E[DC]    : $(it.et.dc) eV")
         println("  > E[TOTAL] : $(it.et.total) eV")
+    #
+    # For the second and later iterations
     else
         # Calculate error bar
         err_dft = abs((it.et.dft - it.ep.dft) / it.et.dft) * 100
@@ -1274,7 +1280,8 @@ function energy_core(it::IterInfo)
         it.ce = ( dist < get_m("ec") )
         println("  > Calculated ΔE(TOTAL) = $dist ( convergence is $(it.ce) )")
     end
-    #
+
+    # Try to print the footer
     println(repeat("==", 36), "\n")
 
     # Update it.ep with it.et
