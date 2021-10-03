@@ -1539,7 +1539,8 @@ end
 """
     SpecialPointsCard(nkx::I64, nky::I64, nkz::I64, option::String)
 
-Constructor for `SpecialPointsCard`.
+Constructor for `SpecialPointsCard`. This function is insprired by the
+`kmesh.pl` tool as included in the `wannier90` package.
 
 See also: [`KPointsCard`](@ref).
 """
