@@ -1074,11 +1074,11 @@ function w90_make_chipsi(umat::Array{C64,3}, udis::Array{C64,3})
                 for m = 1:nproj
                     utmp[i,j] = utmp[i,j] + udis[i,m,k] * umat[m,j,k]
                 end
-            end
-        end
+            end # END OF I LOOP
+        end # END OF J LOOP
         # Calculate conjugate transpose
         chipsi[:,:,k] = utmp'
-    end
+    end # END OF K LOOP
 
     # Print some useful information
     println("  > Number of k-points: ", nkpt)
