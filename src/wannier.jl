@@ -940,6 +940,7 @@ function w90_make_window(PG::Array{PrGroup,1}, enk::Array{F64,3})
         bwin = (1, nband)
         #
         # Setup momentum-dependent band window
+        # Be careful, here we assume nspin = 1.
         kwin = zeros(I64, nkpt, 1, 2)
         fill!(view(kwin, :, :, 1), 1)
         fill!(view(kwin, :, :, 2), nband)
@@ -978,6 +979,7 @@ function w90_make_window(PG::Array{PrGroup,1}, ewin::Tuple{F64,F64}, bwin::Array
     # Scan the groups of projectors, setup PrWindow for them.
     for p in eachindex(PG)
         # Setup momentum-dependent band window
+        # Be careful, here we assume nspin = 1.
         kwin = zeros(I64, nkpt, 1, 2)
         #
         # We copy bwin to kwin directly
