@@ -633,7 +633,16 @@ directory that contains the desired files.
 See also: [`adaptor_run`](@ref).
 """
 function vaspq_files(f::String)
-    fl = ["POSCAR", "IBZKPT", "EIGENVAL", "LOCPROJ", "DOSCAR", "CHGCAR"]
+    # Define file list
+    fl = ["POSCAR",
+          "IBZKPT",
+          "EIGENVAL",
+          "LOCPROJ",
+          "DOSCAR",
+          "CHGCAR",
+          "OSZICAR"]
+    
+    # Check them one by one
     for i in eachindex(fl)
         @assert isfile( joinpath(f, fl[i]) )
     end
