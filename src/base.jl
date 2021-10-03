@@ -1117,7 +1117,7 @@ end
     sigma_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1}, task::String = "reset")
 
 Simple driver for functions for processing the self-energy functions
-and hybridization functions.
+and hybridization functions (and local impurity levels).
 
 Now it supports four tasks: `reset`, `dcount`, `split`, `gather`. It
 won't change the current directory.
