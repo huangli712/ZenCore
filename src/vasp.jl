@@ -25,6 +25,7 @@ The following vasp's output files must be presented:
 * `EIGENVAL`
 * `LOCPROJ`
 * `DOSCAR`
+* `OSZICAR`
 
 See also: [`plo_adaptor`](@ref), [`ir_adaptor`](@ref).
 """
@@ -230,7 +231,8 @@ end
     vasp_save(it::IterInfo)
 
 Backup the output files of vasp if necessary. Furthermore, the DFT fermi
-level in `IterInfo` struct is also updated (`IterInfo.μ₀`).
+level and the DFT band energy in `IterInfo` struct will also be updated
+(i.e `IterInfo.μ₀` and `IterInfo.et.dft`).
 
 See also: [`vasp_init`](@ref), [`vasp_exec`](@ref).
 """
@@ -268,12 +270,15 @@ end
     vasp_back()
 
 Reactivate the vasp engine to continue the charge self-consistent
-DFT + DMFT calculation.
+DFT + DMFT calculation. It will prepare the file `GAMMA`, and try
+to create a lock file (`vasp.lock`). Then the vasp engine will wake
+up and continue to work automatically.
 
 See also: [`vasp_stop`](@ref).
 """
 function vasp_back()
-    # Read in the correction for density matrix
+    # Read in the correction for density matrix which is produced by
+    # the dmft1 code (Dyson).
     println("Read correction for density matrix")
     _, kwin, gcorr = read_gcorr("../dmft2/dmft.gcorr")
 
@@ -281,7 +286,7 @@ function vasp_back()
     println("Write correction for density matrix")
     vaspc_gcorr(kwin, gcorr)
 
-    # Create vasp.lock file to wake up the vasp
+    # Create a vasp.lock file to wake up the vasp
     println("Reactivate the vasp engine (vasp.lock)")
     vaspc_lock("create")
 end
