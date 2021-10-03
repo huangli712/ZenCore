@@ -404,11 +404,11 @@ function try_dft()
     # C-1: Create Logger struct
     lr = Logger(query_case())
 
-    # C01: Perform DFT calculation (for the first time)
+    # C01: Perform DFT calculation
     @time_call dft_run(it, lr)
 
-    # C02: Perform DFT calculation (for the second time)
-    get_d("loptim") && @time_call dft_run(it, lr)
+    # C02: Perform DFT calculation again (for the vasp code only)
+    is_vasp() && @time_call dft_run(it, lr)
 
     # C98: Close Logger.log
     if isopen(lr.log)
