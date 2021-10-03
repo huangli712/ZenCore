@@ -427,7 +427,10 @@ end
     try_dmft(task::I64)
 
 Perform DMFT calculations only. The users can execute it in the REPL mode
-to see whether the DMFT engine works properly.
+to see whether the DMFT engine works properly. If `task = 1`, it means to
+generate a new hybridization function for quantum impurity solver. On the
+other hand, it `task = 2`, it means to generate a DMFT correction for the
+density matrix, which will be used by the DFT engine.
 
 See also: [`cycle1`](@ref), [`cycle2`](@ref).
 """
