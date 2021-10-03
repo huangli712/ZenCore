@@ -477,6 +477,13 @@ function is_plo()
     get_d("projtype") == "plo"
 end
 
+"""
+    is_wannier()
+
+Test whether the projector is the wannier functions.
+
+See also: [`is_wannier`](@ref).
+"""
 function is_wannier()
     get_d("projtype") == "wannier"
 end
