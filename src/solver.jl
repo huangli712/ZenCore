@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/02
+# Last modified: 2021/10/05
 #
 
 #=
@@ -158,7 +158,7 @@ function s_qmc1_exec(it::IterInfo)
     println("Report From CT-HYB₁ Quantum Impurity Solver")
     lines = readlines("solver.out")
     start = findlast(x -> contains(x, ">>> iter:"), lines) + 1
-    finish = start + 21
+    finish = start + 20
     foreach(x -> println(x), lines[start:finish])
 end
 
