@@ -1011,6 +1011,7 @@ Display the Impurity struct that need to be solved.
 function CatImpurity(imp::Impurity)
     println()
     println(blue("[ Impurity $(imp.index) ]"))
+    println(repeat("=", 20))
     println("  atoms : ", imp.atoms)
     println("  sites : ", imp.sites)
     println("  equiv : ", imp.equiv)
@@ -1024,4 +1025,5 @@ function CatImpurity(imp::Impurity)
     println("  lpara : ", imp.lpara)
     println("  beta  : ", imp.beta)
     println("  nband : ", imp.nband)
+    println(repeat("=", 20))
 end
