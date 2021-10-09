@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/03
+# Last modified: 2021/10/10
 #
 
 #=
@@ -1398,6 +1398,16 @@ mutable struct QENamelist <: QEInputEntry
     name :: AbstractString
     data :: Dict{AbstractString,Any}
 end
+
+"""
+    Base.haskey(qnl::QENamelist, key::AbstractString)
+
+Examine the existence of an entry (specified by `key`) in the namelist
+object (`qnl`).
+
+See also: [`QENamelist`](@ref).
+"""
+Base.haskey(qnl::QENamelist, key::AbstractString) = haskey(qnl.data, key)
 
 """
     Base.getindex(qnl::QENamelist, key::AbstractString)
