@@ -624,7 +624,11 @@ function qec_input(it::IterInfo)
     # For magnetic moment
     magmom = get_d("magmom")
     if !isa(magmom, Missing)
-        SystemNL["starting_magnetization"] = magmom
+        moment = parse.(F64, line_to_array(magmom))
+        @assert length(moment) == parse(I64, SystemNL["ntyp"])
+        for i in eachindex(moment)
+            SystemNL["starting_magnetization($i)"] = moment[i]
+        end
     end
 
     # For symmetry
@@ -639,7 +643,7 @@ function qec_input(it::IterInfo)
     lspins = get_d("lspins")
     if lspins
         SystemNL["nspin"] = 2
-        @assert haskey(SystemNL, "starting_magnetization")
+        @assert haskey(SystemNL, "starting_magnetization(1)")
     else
         SystemNL["nspin"] = 1
     end
