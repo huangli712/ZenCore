@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/04
+# Last modified: 2021/10/09
 #
 
 #=
@@ -957,7 +957,9 @@ function w90_make_window(PG::Array{PrGroup,1}, enk::Array{F64,3})
 end
 
 """
-    w90_make_window(PG::Array{PrGroup,1}, ewin::Tuple{F64,F64}, bwin::Array{I64,2})
+    w90_make_window(PG::Array{PrGroup,1},
+                    ewin::Tuple{F64,F64},
+                    bwin::Array{I64,2})
 
 Make band window to filter the projections. Actually, only those relevant
 bands (which are restricted by the energy window `ewin` or the band window
@@ -966,7 +968,9 @@ struct.
 
 See also: [`PrWindow`](@ref).
 """
-function w90_make_window(PG::Array{PrGroup,1}, ewin::Tuple{F64,F64}, bwin::Array{I64,2})
+function w90_make_window(PG::Array{PrGroup,1},
+                         ewin::Tuple{F64,F64},
+                         bwin::Array{I64,2})
     # Print the header
     println("Generate windows")
 

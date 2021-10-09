@@ -925,13 +925,17 @@ function calc_ovlp(chipsi::Array{C64,4}, weight::Array{F64,1})
 end
 
 """
-    calc_ovlp(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1}, weight::Array{F64,1})
+    calc_ovlp(PW::Array{PrWindow,1},
+              chipsi::Array{Array{C64,4},1},
+              weight::Array{F64,1})
 
 Calculate the overlap matrix out of projectors. For normalized projectors only.
 
 See also: [`view_ovlp`](@ref), [`PrWindow`](@ref).
 """
-function calc_ovlp(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1}, weight::Array{F64,1})
+function calc_ovlp(PW::Array{PrWindow,1},
+                   chipsi::Array{Array{C64,4},1},
+                   weight::Array{F64,1})
     # Create an empty array. Next we will fill it.
     ovlp = Array{F64,3}[]
 

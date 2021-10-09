@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/02
+# Last modified: 2021/10/09
 #
 
 #=
@@ -506,13 +506,17 @@ function Mapping(nsite::I64, ngrp::I64, nwnd::I64)
 end
 
 """
-    Impurity(index::I64, ...)
+    Impurity(index::I64, atoms::String, sites::I64,
+             equiv::I64, shell::String, ising::String,
+             occup::F64, upara::F64, jpara::F64, lpara::F64,
+             beta::F64)
 
 Outer constructor for Impurity struct.
 """
 function Impurity(index::I64, atoms::String, sites::I64,
                   equiv::I64, shell::String, ising::String,
-                  occup::F64, upara::F64, jpara::F64, lpara::F64, beta::F64)
+                  occup::F64, upara::F64, jpara::F64, lpara::F64,
+                  beta::F64)
     # Define the mapping between `shell` and number of orbitals
     shell_to_dim = Dict{String,I64}(
                  "s"     => 1,
