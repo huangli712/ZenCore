@@ -419,7 +419,7 @@ function wannier_monitor(D::Dict{Symbol,Any})
     # Calculate and output density matrix
     dm = calc_dm(D[:PW], D[:Fchipsi], D[:weight], D[:occupy])
     view_dm(D[:PG], dm)
-    
+
     # Calculate and output local hamiltonian
     hamk = calc_hamk(D[:PW], D[:Fchipsi], D[:weight], D[:enk])
     view_hamk(D[:PG], hamk)
