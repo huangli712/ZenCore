@@ -1543,9 +1543,9 @@ function vaspio_projs(f::String)
     println("  > Number of projectors: ", nproj)
     for i in eachindex(PT)
         if nproj ≥ 10
-            @printf("    [ PrTrait %2i ]", i)
+            @printf("    [ Trait %2i ]", i)
         else
-            @printf("    [ PrTrait %1i ]", i)
+            @printf("    [ Trait %1i ]", i)
         end
         print("  site -> ", PT[i].site)
         print("  l -> ", PT[i].l)
@@ -1554,7 +1554,7 @@ function vaspio_projs(f::String)
     end
     println("  > Number of groups: ", length(PG))
     for i in eachindex(PG)
-        print("    [ PrGroup $i ]")
+        print("    [ Group $i ]")
         print("  site -> ", PG[i].site)
         print("  l -> ", PG[i].l)
         print("  corr -> ", PG[i].corr)
