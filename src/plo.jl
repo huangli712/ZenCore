@@ -250,12 +250,12 @@ function plo_group(MAP::Mapping, PG::Array{PrGroup,1})
         if s != 0
             # Setup corr property
             PG[g].corr = true
-            println("  > Treat group $g (site: $(PG[g].site)) as correlated")
+            println("  > Treat group [$g] as correlated")
 
             # Setup shell property
             # Later it will be used to generate `Tr`
             PG[g].shell = get_i("shell")[s]
-            println("  > Treat group $g (site: $(PG[g].site)) as $(PG[g].shell) orbitals")
+            println("  > Treat group [$g] as $(PG[g].shell) orbitals")
         end
 
         # Setup Tr array further
@@ -310,7 +310,7 @@ function plo_group(MAP::Mapping, PG::Array{PrGroup,1})
                 sorry()
                 break
         end
-        println("  > Build transformation matrix for group $g (site: $(PG[g].site))")
+        println("  > Build transformation matrix for group [$g]")
     end # END OF G LOOP
 
     # Print the summary
@@ -451,6 +451,7 @@ function plo_window(PG::Array{PrGroup,1}, enk::Array{F64,3})
         print("    [ PrWindow $i ]")
         print("  bmin -> ", PW[i].bmin)
         print("  bmax -> ", PW[i].bmax)
+        print("  nbnd -> ", PW[i].nbnd)
         println("  bwin -> ", PW[i].bwin)
     end
 
