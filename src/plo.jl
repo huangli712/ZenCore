@@ -312,6 +312,17 @@ function plo_group(MAP::Mapping, PG::Array{PrGroup,1})
         end
         println("  > Build transformation matrix for group $g (site: $(PG[g].site))")
     end # END OF G LOOP
+
+    # Print the summary
+    println("  > Summary of groups:")
+    for i in eachindex(PG)
+        print("    [ PrGroup $i ]")
+        print("  site -> ", PG[i].site)
+        print("  l -> ", PG[i].l)
+        print("  corr -> ", PG[i].corr)
+        print("  shell -> ", PG[i].shell)
+        println("  Pr -> ", PG[i].Pr)
+    end
 end
 
 #=
