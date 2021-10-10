@@ -445,6 +445,15 @@ function plo_window(PG::Array{PrGroup,1}, enk::Array{F64,3})
 
 =#
 
+    # Print the summary
+    println("  > Summary of windows:")
+    for i in eachindex(PW)
+        print("    [ PrWindow $i ]")
+        print("  bmin -> ", PW[i].bmin)
+        print("  bmax -> ", PW[i].bmax)
+        println("  bwin -> ", PW[i].bwin)
+    end
+
     # Return the desired array
     return PW
 end
