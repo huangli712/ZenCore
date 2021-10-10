@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/09
+# Last modified: 2021/10/10
 #
 
 #=
@@ -250,7 +250,7 @@ function plo_group(MAP::Mapping, PG::Array{PrGroup,1})
         if s != 0
             # Setup corr property
             PG[g].corr = true
-            println("  > Turn group $g (site: $(PG[g].site)) into correlated")
+            println("  > Treat group $g (site: $(PG[g].site)) as correlated")
 
             # Setup shell property
             # Later it will be used to generate `Tr`
