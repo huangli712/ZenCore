@@ -401,6 +401,9 @@ function plo_window(PG::Array{PrGroup,1}, enk::Array{F64,3})
         println("  > Create window $p: $bwin <--> ($(PW[p].bmin), $(PW[p].bmax))")
     end # END OF P LOOP
 
+#=
+    THIS LIMITATION HAS BEEN REMOVED.
+
     # Well, now CW contains all the windows for correlated groups of
     # projectors. In Zen, we assume that all of the correlated groups of
     # projectors must share the same energy / band windows. In other
@@ -439,6 +442,8 @@ function plo_window(PG::Array{PrGroup,1}, enk::Array{F64,3})
         @assert PW₁ == PW₂
     end
     println("  > Verify windows for correlated groups")
+
+=#
 
     # Return the desired array
     return PW
