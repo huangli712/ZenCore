@@ -316,7 +316,7 @@ function plo_group(MAP::Mapping, PG::Array{PrGroup,1})
     # Print the summary
     println("  > Summary of groups:")
     for i in eachindex(PG)
-        print("    [ PrGroup $i ]")
+        print("    [ Group $i ]")
         print("  site -> ", PG[i].site)
         print("  l -> ", PG[i].l)
         print("  corr -> ", PG[i].corr)
@@ -398,7 +398,7 @@ function plo_window(PG::Array{PrGroup,1}, enk::Array{F64,3})
         push!(PW, PrWindow(kwin, bwin))
 
         # Print some useful information
-        println("  > Create window $p: $bwin <--> ($(PW[p].bmin), $(PW[p].bmax))")
+        println("  > Create window [$p]")
     end # END OF P LOOP
 
 #=
