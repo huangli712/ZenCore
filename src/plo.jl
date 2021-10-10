@@ -513,7 +513,7 @@ function plo_rotate(PG::Array{PrGroup,1}, chipsi::Array{C64,4})
         push!(Rchipsi, R)
 
         # Print some useful information
-        println("  > Rotate group $i (site: $(PG[i].site)): number of local orbitals -> $ndim")
+        println("  > Rotate group [$i]: number of correlated bands -> $ndim")
     end # END OF I LOOP
 
     # Return the desired array
@@ -584,7 +584,7 @@ function plo_filter(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1})
         push!(Fchipsi, F)
 
         # Print some useful information
-        println("  > Apply window $p: maximum number of bands -> $(PW[p].nbnd)")
+        println("  > Filter group [$p]: number of Kohn-Sham states -> $(PW[p].nbnd)")
     end # END OF P LOOP
 
     # Return the desired array
@@ -628,7 +628,7 @@ function plo_orthog(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1})
 
     # Print some useful information
     for p in eachindex(chipsi)
-        println("  > Final shape of Array chipsi (group $p): $(size(chipsi[p]))")
+        println("  > Final shape of chipsi ⟨χ|ψ⟩ (group [$p]): $(size(chipsi[p]))")
     end
 end
 
