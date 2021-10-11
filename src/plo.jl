@@ -1100,20 +1100,29 @@ function calc_level(PW::Array{PrWindow,1},
         # Create a temporary array
         E = zeros(C64, ndim, ndim, nspin)
 
-        # Build 
+        # Build effective atomic level for given PrWindow
         for s = 1:nspin
             for k = 1:nkpt
+                # Get weight
                 wght = weight[k] / nkpt
+
+                # Determine band window
                 bs = PW[p].kwin[k,s,1]
                 be = PW[p].kwin[k,s,2]
+
+                # Determine number of Kohn-Sham states in this window
                 cbnd = be - bs + 1
+
+                # Extract eigenvalues and projectors
                 eigs = enk[bs:be, k, s]
                 A = view(chipsi[p], 1:ndim, 1:cbnd, k, s)
-                E[:, :, s] = E[:, :, s] + (A * Diagonal(eigs) * A') * wght
-            end
-        end
 
-        # Push H into hamk to save it
+                # Add up the contribution to the effective atomic level
+                E[:, :, s] = E[:, :, s] + (A * Diagonal(eigs) * A') * wght
+            end # END OF K LOOP
+        end # END OF S LOOP
+
+        # Push E into level to save it
         push!(level, E)
     end # END OF P LOOP
 
