@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/10
+# Last modified: 2021/10/12
 #
 
 #=
@@ -1075,21 +1075,21 @@ function calc_dm(PW::Array{PrWindow,1},
 end
 
 """
-    calc_hamk(PW::Array{PrWindow,1},
-              chipsi::Array{Array{C64,4},1},
-              weight::Array{F64,1},
-              enk::Array{F64,3})
+    calc_level(PW::Array{PrWindow,1},
+               chipsi::Array{Array{C64,4},1},
+               weight::Array{F64,1},
+               enk::Array{F64,3})
 
-Try to build the local hamiltonian. For normalized projectors only.
+Try to build the effective atomic level. For normalized projectors only.
 
-See also: [`view_hamk`](@ref), [`PrWindow`](@ref).
+See also: [`view_level`](@ref), [`PrWindow`](@ref).
 """
-function calc_hamk(PW::Array{PrWindow,1},
-                   chipsi::Array{Array{C64,4},1},
-                   weight::Array{F64,1},
-                   enk::Array{F64,3})
+function calc_level(PW::Array{PrWindow,1},
+                    chipsi::Array{Array{C64,4},1},
+                    weight::Array{F64,1},
+                    enk::Array{F64,3})
     # Create an empty array. Next we will fill it.
-    hamk = Array{C64,3}[]
+    level = Array{C64,3}[]
 
     # Go through each PrWindow / PrGroup
     for p in eachindex(PW)
@@ -1098,24 +1098,27 @@ function calc_hamk(PW::Array{PrWindow,1},
         @assert nbnd == PW[p].nbnd
 
         # Create a temporary array
-        H = zeros(C64, ndim, ndim, nspin)
+        E = zeros(C64, ndim, ndim, nspin)
 
-        # Build hamiltonian array
+        # Build 
         for s = 1:nspin
             for k = 1:nkpt
                 wght = weight[k] / nkpt
-                eigs = enk[PW[p].bmin:PW[p].bmax, k, s]
-                A = view(chipsi[p], :, :, k, s)
-                H[:, :, s] = H[:, :, s] + (A * Diagonal(eigs) * A') * wght
+                bs = PW[p].kwin[k,s,1]
+                be = PW[p].kwin[k,s,2]
+                cbnd = be - bs + 1
+                eigs = enk[bs:be, k, s]
+                A = view(chipsi[p], 1:ndim, 1:cbnd, k, s)
+                E[:, :, s] = E[:, :, s] + (A * Diagonal(eigs) * A') * wght
             end
-        end # END OF S LOOP
+        end
 
         # Push H into hamk to save it
-        push!(hamk, H)
+        push!(level, E)
     end # END OF P LOOP
 
     # Return the desired array
-    return hamk
+    return level
 end
 
 #=
