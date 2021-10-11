@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/02
+# Last modified: 2021/10/12
 #
 
 """
@@ -575,10 +575,12 @@ try_blk2    -> Orthogonalize / normalize the projectors with each other.
 try_diag    -> Orthogonalizes a projector defined by a rectangular matrix.
 calc_ovlp   -> Calculate overlap matrix.
 calc_dm     -> Calculate density matrix.
+calc_level  -> Calculate effective atomic level.
 calc_hamk   -> Calculate local hamiltonian or full hamiltonian.
 calc_dos    -> Calculate density of states.
 view_ovlp   -> Show overlap matrix for debug.
 view_dm     -> Show density matrix for debug.
+view_level  -> Show effective atomic level for debug.
 view_hamk   -> Show local hamiltonian for debug.
 view_dos    -> Show density of states for debug.
 ```
@@ -603,10 +605,12 @@ export try_blk2
 export try_diag
 export calc_ovlp
 export calc_dm
+export calc_level
 export calc_hamk
 export calc_dos
 export view_ovlp
 export view_dm
+export view_level
 export view_hamk
 export view_dos
 
