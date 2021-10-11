@@ -462,7 +462,10 @@ function vaspc_incar(fermi::F64, sc_mode::I64)
 
     # For number of bands
     nbands = vaspio_nband(pwd())
-    if nbands ≤ 10 # Special treatment for Ce
+    #
+    # Special treatment for Ce. For Ce, the default nbands is 10, which
+    # is too small. Another solution is to modify vaspio_nband().
+    if nbands ≤ 10
         nbands = nbands + 8
     end
     write(ios, "NBANDS   = $nbands \n")
