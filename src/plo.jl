@@ -1387,22 +1387,22 @@ function view_dm(PG::Array{PrGroup,1}, dm::Array{Array{F64,3},1})
 end
 
 """
-    view_hamk(PG::Array{PrGroup,1}, hamk::Array{Array{C64,3},1})
+    view_level(PG::Array{PrGroup,1}, level::Array{Array{C64,3},1})
 
-Output the local hamiltonian to screen. For normalized projectors only.
+Output the effective atomic level to screen. For normalized projectors only.
 
-See also: [`calc_hamk`](@ref), [`PrGroup`](@ref).
+See also: [`calc_level`](@ref), [`PrGroup`](@ref).
 """
-function view_hamk(PG::Array{PrGroup,1}, hamk::Array{Array{C64,3},1})
+function view_level(PG::Array{PrGroup,1}, level::Array{Array{C64,3},1})
     # Print the header
-    println("<- Local Hamiltonian ->")
+    println("<- Effective Atomic Level ->")
 
     # Go through each PrGroup
     for p in eachindex(PG)
         println("Site -> $(PG[p].site) L -> $(PG[p].l) Shell -> $(PG[p].shell)")
 
         # Extract some key parameters
-        _, ndim, nspin = size(hamk[p])
+        _, ndim, nspin = size(level[p])
 
         # Output the data
         for s = 1:nspin
@@ -1411,14 +1411,14 @@ function view_hamk(PG::Array{PrGroup,1}, hamk::Array{Array{C64,3},1})
             # Real parts
             println("Re:")
             for q = 1:ndim
-                foreach(x -> @printf("%12.7f", x), real(hamk[p][q, 1:ndim, s]))
+                foreach(x -> @printf("%12.7f", x), real(level[p][q, 1:ndim, s]))
                 println()
             end
 
             # Imag parts
             println("Im:")
             for q = 1:ndim
-                foreach(x -> @printf("%12.7f", x), imag(hamk[p][q, 1:ndim, s]))
+                foreach(x -> @printf("%12.7f", x), imag(level[p][q, 1:ndim, s]))
                 println()
             end
         end # END OF S LOOP
