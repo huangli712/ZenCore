@@ -650,9 +650,9 @@ function plo_monitor(D::Dict{Symbol,Any})
         dm = calc_dm(D[:PW], D[:Fchipsi], D[:weight], D[:occupy])
         view_dm(D[:PG], dm)
 
-        # Calculate and output local hamiltonian
-        hamk = calc_hamk(D[:PW], D[:Fchipsi], D[:weight], D[:enk])
-        view_hamk(D[:PG], hamk)
+        # Calculate and output effective atomic level
+        level = calc_level(D[:PW], D[:Fchipsi], D[:weight], D[:enk])
+        view_level(D[:PG], level)
 
         # Calculate and output full hamiltonian
         hamk = calc_hamk(D[:PW], D[:Fchipsi], D[:enk])
