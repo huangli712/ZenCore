@@ -1187,8 +1187,12 @@ function calc_hamk(PW::Array{PrWindow,1},
             end # END OF K LOOP
         end # END OF S LOOP
 
+        # Push H into hamk to save it
+        push!(hamk, H)
+    end # END OF P LOOP
+
     # Return the desired array
-    return H
+    return hamk
 end
 
 """
