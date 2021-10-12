@@ -642,6 +642,9 @@ See also: [`plo_adaptor`](@ref), [`wannier_monitor`](@ref).
 """
 function plo_monitor(D::Dict{Symbol,Any})
     if haskey(D, :MAP)
+        # If D[:MAP] is ready, it means that D[:PW] is created and the
+        # projectors are normalized and orthogonalized.
+
         # Calculate and output overlap matrix
         ovlp = calc_ovlp(D[:PW], D[:Fchipsi], D[:weight])
         view_ovlp(D[:PG], ovlp)
@@ -664,6 +667,9 @@ function plo_monitor(D::Dict{Symbol,Any})
             view_dos(mesh, dos)
         end
     else
+        # If D[:MAP] is not ready, it means that the projectors have not
+        # been postprocessed.
+
         # Calculate and output overlap matrix
         ovlp = calc_ovlp(D[:chipsi], D[:weight])
         view_ovlp(ovlp)
