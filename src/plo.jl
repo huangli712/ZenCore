@@ -1144,13 +1144,6 @@ function calc_level(PW::Array{PrWindow,1},
     return level
 end
 
-#=
-*Remarks* :
-
-We assume that the energy / band windows for all of the projectors are
-the same. In other words, `PW` only has an unique PrWindow object.
-=#
-
 """
     calc_hamk(PW::Array{PrWindow,1},
               chipsi::Array{Array{C64,4},1},
