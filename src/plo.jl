@@ -945,7 +945,7 @@ function calc_ovlp(chipsi::Array{C64,4}, weight::Array{F64,1})
             wght = weight[k] / nkpt
             A = view(chipsi, :, :, k, s)
             ovlp[:, :, s] = ovlp[:, :, s] + real(A * A') * wght
-        end
+        end # END OF K LOOP
     end # END OF S LOOP
 
     # Return the desired array
@@ -982,7 +982,7 @@ function calc_ovlp(PW::Array{PrWindow,1},
                 wght = weight[k] / nkpt
                 A = view(chipsi[p], :, :, k, s)
                 V[:, :, s] = V[:, :, s] + real(A * A') * wght
-            end
+            end # END OF K LOOP
         end # END OF S LOOP
 
         # Push V into ovlp to save it
