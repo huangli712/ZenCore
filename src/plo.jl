@@ -1420,45 +1420,49 @@ end
 #=
 *Remarks* :
 
-The data file `hamk.chk` is used to debug. It should not be read by the
-DMFT engine. That is the reason why we name this function as `view_hamk`
-and put it in plo.jl.
+The data file `hamk.chk.i` is used to debug. It should not be read by
+the DMFT engine. That is the reason why we name this function as
+`view_hamk()` and put it in plo.jl.
 =#
 
 """
-    view_hamk(hamk::Array{C64,4})
+    view_hamk(hamk::Array{Array{C64,4},1})
 
-Output the full hamiltonian to `hamk.chk`. For normalized projectors only.
+Output the full hamiltonian to `hamk.chk.i`. For normalized projectors only.
 
 See also: [`calc_hamk`](@ref).
 """
-function view_hamk(hamk::Array{C64,4})
-    # Extract some key parameters
-    nproj, _, nkpt, nspin = size(hamk)
+function view_hamk(hamk::Array{Array{C64,4},1})
+    for g in eachindex(hamk)
+        # Extract some key parameters
+        nproj, _, nkpt, nspin = size(hamk[g])
 
-    # Output the data
-    open("hamk.chk", "w") do fout
-        # Write the header
-        println(fout, "# File: hamk.chk")
-        println(fout, "# Data: hamk[nproj,nproj,nkpt,nspin]")
-        println(fout)
-        println(fout, "nproj -> $nproj")
-        println(fout, "nkpt  -> $nkpt")
-        println(fout, "nspin -> $nspin")
-        println(fout)
+        # Output the data
+        open("hamk.chk.$g", "w") do fout
+            # Write the header
+            println(fout, "# File: hamk.chk.$g")
+            println(fout, "# Data: hamk[nproj,nproj,nkpt,nspin]")
+            println(fout)
+            println(fout, "group -> $g")
+            println(fout, "nproj -> $nproj")
+            println(fout, "nkpt  -> $nkpt")
+            println(fout, "nspin -> $nspin")
+            println(fout)
 
-        # Write the body
-        for s = 1:nspin
-            for k = 1:nkpt
-                for b = 1:nproj
-                    for p = 1:nproj
-                        z = hamk[p, b, k, s]
-                        @printf(fout, "%16.12f %16.12f\n", real(z), imag(z))
+            # Write the body
+            for s = 1:nspin
+                for k = 1:nkpt
+                    for q = 1:nproj
+                        for p = 1:nproj
+                            z = hamk[g][p, q, k, s]
+                            @printf(fout, "%16.12f %16.12f\n", real(z), imag(z))
+                        end
                     end
-                end
-            end # END OF K LOOP
-        end # END OF S LOOP
-    end # END OF IOSTREAM
+                end # END OF K LOOP
+            end # END OF S LOOP
+        end # END OF IOSTREAM
+
+    end # END OF G LOOP
 end
 
 """
