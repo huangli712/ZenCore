@@ -1159,34 +1159,33 @@ function calc_hamk(PW::Array{PrWindow,1},
     # Create an empty array. Next we will fill it.
     hamk = Array{C64,4}[]
 
-    
-    # Create a array for the hamiltonian
-    H = zeros(C64, max_proj, max_proj, nkpt, nspin)
+    # Go through each PrWindow / PrGroup
+    for p in eachindex(PW)
+        # Extract some key parameters
+        ndim, nbnd, nkpt, nspin = size(chipsi[p])
+        @assert nbnd == PW[p].nbnd
 
-    # Loop over spins and k-points
-    for s = 1:nspin
-        for k = 1:nkpt
-            # Determine band indices
-            ib1 = PW[1].kwin[k, s, 1]
-            ib2 = PW[1].kwin[k, s, 2]
+        # Create an array for the hamiltonian
+        H = zeros(C64, ndim, ndim, nkpt, nspin)
 
-            # Determine band window
-            ib3 = ib2 - ib1 + 1
+        # Loop over spins and k-points
+        for s = 1:nspin
+            for k = 1:nkpt
+                # Determine band window
+                bs = PW[p].kwin[k,s,1]
+                be = PW[p].kwin[k,s,2]
 
-            # Sanity check
-            @assert max_band ≥ ib3
+                # Determine number of Kohn-Sham states in this window
+                cbnd = be - bs + 1
 
-            # Try to combine all of the groups of projectors
-            for p in eachindex(PW)
-                M[block[p][1]:block[p][2], 1:ib3] = chipsi[p][:, 1:ib3, k, s]
-            end
+                # Extract eigenvalues and projectors
+                eigs = enk[bs:be, k, s]
+                A = view(chipsi[p], 1:ndim, 1:cbnd, k, s)
 
-            # Build hamiltonian array
-            eigs = enk[ib1:ib2, k, s]
-            A = view(M, :, 1:ib3)
-            H[:, :, k, s] = H[:, :, k, s] + (A * Diagonal(eigs) * A')
-        end # END OF K LOOP
-    end # END OF S LOOP
+                # Build the hamiltonian
+                H[:, :, k, s] = A * Diagonal(eigs) * A'
+            end # END OF K LOOP
+        end # END OF S LOOP
 
     # Return the desired array
     return H
