@@ -1156,28 +1156,10 @@ See also: [`view_hamk`](@ref), [`PrWindow`](@ref).
 function calc_hamk(PW::Array{PrWindow,1},
                    chipsi::Array{Array{C64,4},1},
                    enk::Array{F64,3})
-    # Extract some key parameters
-    nkpt = size(chipsi[1], 3)
-    nspin = size(chipsi[1], 4)
+    # Create an empty array. Next we will fill it.
+    hamk = Array{C64,4}[]
 
-    # Determine number of projectors contained in each group.
-    # The `ndims` is a array.
-    dims = map(x -> size(x, 1), chipsi)
-
-    # The `block` is used to store the first index and the last
-    # index for each group of projectors.
-    block = Tuple[]
-    start = 0
-    for i in eachindex(dims)
-        push!(block, (start + 1, start + dims[i]))
-        start = start + dims[i]
-    end
-
-    # Create a temporary array
-    max_proj = sum(dims)
-    max_band = PW[1].nbnd
-    M = zeros(C64, max_proj, max_band)
-
+    
     # Create a array for the hamiltonian
     H = zeros(C64, max_proj, max_proj, nkpt, nspin)
 
