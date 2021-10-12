@@ -1022,7 +1022,7 @@ function calc_dm(chipsi::Array{C64,4},
             occs = occupy[:, k, s]
             A = view(chipsi, :, :, k, s)
             dm[:, :, s] = dm[:, :, s] + real(A * Diagonal(occs) * A') * wght
-        end
+        end # END OF K LOOP
     end # END OF S LOOP
 
     # Return the desired array
@@ -1058,14 +1058,26 @@ function calc_dm(PW::Array{PrWindow,1},
         # Create a temporary array
         M = zeros(F64, ndim, ndim, nspin)
 
-        # Build density matrix array
+        # Build density matrix array for given PrWindow
         for s = 1:nspin
             for k = 1:nkpt
+                # Get weight (scaled by spin factor)
                 wght = weight[k] / nkpt * sf
-                occs = occupy[PW[p].bmin:PW[p].bmax, k, s]
-                A = view(chipsi[p], :, :, k, s)
+
+                # Determine band window
+                bs = PW[p].kwin[k,s,1]
+                be = PW[p].kwin[k,s,2]
+
+                # Determine number of Kohn-Sham states in this window
+                cbnd = be - bs + 1
+
+                # Extract occupation and projectors
+                occs = occupy[bs:be, k, s]
+                A = view(chipsi[p], 1:ndim, 1:cbnd, k, s)
+
+                # Add up the contribution to the density matrix
                 M[:, :, s] = M[:, :, s] + real(A * Diagonal(occs) * A') * wght
-            end
+            end # END OF K LOOP
         end # END OF S LOOP
 
         # Push M into dm to save it
