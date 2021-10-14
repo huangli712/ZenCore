@@ -79,6 +79,22 @@ function solver_sigma(::NORGSolver, imp::Impurity)
     sorry()
 end
 
+function solver_nimpx(::CTHYB₁Solver, imp::Impurity)
+    return ctqmc_nimpx(imp)
+end
+
+function solver_nimpx(::CTHYB₂Solver, imp::Impurity)
+    return ctqmc_nimpx(imp)
+end
+
+function solver_nimpx(::HIASolver, imp::Impurity)
+    sorry()
+end
+
+function solver_nimpx(::NORGSolver, imp::Impurity)
+    sorry()
+end
+
 #=
 ### *CT-HYB₁ Quantum Impurity Solver*
 =#
