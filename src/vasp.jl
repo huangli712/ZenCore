@@ -888,17 +888,12 @@ function vaspio_procar(f::String)
             end
         end
 
-        @cswitch lc begin
-            @case 1
-                soc = false
-                break
-
-            @case 4
-                soc = true
-                break
-
-            @default
-                error("Something wrong in PROCAR")
+        if lc == 1
+            soc = false
+        elseif lc == 4
+            soc = true
+        else
+            error("Something wrong in PROCAR")
         end
     end
     seekstart(fin) # Rewind the stream
