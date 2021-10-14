@@ -120,17 +120,21 @@ abstract type AbstractEngine end
 struct NullEngine <: AbstractEngine end
 struct VASPEngine <: AbstractEngine end
 struct QEEngine   <: AbstractEngine end
+_engine_ = NullEngine()
 
 abstract type AbstractAdaptor end
 struct NullAdaptor    <: AbstractAdaptor end
 struct PLOAdaptor     <: AbstractAdaptor end
 struct WANNIERAdaptor <: AbstractAdaptor end
+_adaptor_ = NullAdaptor()
 
 abstract type AbstractSolver end
+struct NullSolver   <: AbstractSolver end
 struct CTHYB₁Solver <: AbstractSolver end
 struct CTHYB₂Solver <: AbstractSolver end
 struct HIASolver    <: AbstractSolver end
 struct NORGSolver   <: AbstractSolver end
+_solver_ = NullSolver()
 
 #=
 ### *Customized Structs*
