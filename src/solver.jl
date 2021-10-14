@@ -80,11 +80,11 @@ function solver_sigma(::NORGSolver, imp::Impurity)
 end
 
 function solver_nimpx(::CTHYB₁Solver, imp::Impurity)
-    return ctqmc_nimpx(imp)
+    ctqmc_nimpx(imp)
 end
 
 function solver_nimpx(::CTHYB₂Solver, imp::Impurity)
-    return ctqmc_nimpx(imp)
+    ctqmc_nimpx(imp)
 end
 
 function solver_nimpx(::HIASolver, imp::Impurity)
@@ -96,11 +96,11 @@ function solver_nimpx(::NORGSolver, imp::Impurity)
 end
 
 function solver_edmft(::CTHYB₁Solver)
-    return ctqmc_nimpx(imp)
+    return ctqmc_edmft()
 end
 
 function solver_edmft(::CTHYB₂Solver)
-    return ctqmc_nimpx(imp)
+    return ctqmc_edmft()
 end
 
 function solver_edmft(::HIASolver)
@@ -824,13 +824,13 @@ function ctqmc_nimpx(imp::Impurity)
 end
 
 """
-    ctqmc_energy()
+    ctqmc_edmft()
 
 Parse the `solver.paux.dat` file to extract the interaction energy.
 
 See also: [`GetEnergy`](@ref).
 """
-function ctqmc_energy()
+function ctqmc_edmft()
     # File name for DMFT energy
     fene = "solver.paux.dat"
 
