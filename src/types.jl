@@ -146,7 +146,7 @@ struct VASPEngine <: AbstractEngine end
 """
     QEEngine
 
-It represents a Quantum Espresso (actually the PWSCF code) engine, which
+It represents a QUANTUM ESPRESSO (actually the PWSCF code) engine, which
 is used to perform DFT calculations.
 
 See also: [`VASPEngine`](@ref).
@@ -678,6 +678,7 @@ end
 
 Please go to the following webpage for more details about the original
 specifications of projectors in the `vasp` code:
+
 * https://www.vasp.at/wiki/index.php/LOCPROJ
 
 May need to be fixed for the other DFT codes.
@@ -820,8 +821,12 @@ function Base.show(io::IO, logger::Logger)
     @assert isopen(logger.log) && isopen(logger.cycle)
 
     println(io, "Logger struct")
+    println(repeat("=", 20))
+    #
     println(io, "log   : ", logger.log)
     println(io, "cycle : ", logger.cycle)
+    #
+    println(repeat("=", 20))
 end
 
 """
@@ -834,11 +839,15 @@ See also: [`Energy`](@ref).
 """
 function Base.show(io::IO, ene::Energy)
     println(io, "Energy struct")
+    println(repeat("=", 20))
+    #
     println(io, "dft   : ", ene.dft)
     println(io, "dmft  : ", ene.dmft)
     println(io, "corr  : ", ene.corr)
     println(io, "dc    : ", ene.dc)
     println(io, "total : ", ene.total)
+    #
+    println(repeat("=", 20))
 end
 
 """
@@ -850,6 +859,8 @@ See also: [`IterInfo`](@ref).
 """
 function Base.show(io::IO, it::IterInfo)
     println(io, "IterInfo struct")
+    println(repeat("=", 20))
+    #
     println(io, "I₁ : ", it.I₁)
     println(io, "I₂ : ", it.I₂)
     println(io, "I₃ : ", it.I₃)
@@ -870,6 +881,8 @@ function Base.show(io::IO, it::IterInfo)
     println(io, "cc : ", it.cc)
     println(io, "ce : ", it.ce)
     println(io, "cs : ", it.cs)
+    #
+    println(repeat("=", 20))
 end
 
 """
@@ -881,6 +894,8 @@ See also: [`Lattice`](@ref).
 """
 function Base.show(io::IO, latt::Lattice)
     println(io, "Lattice struct")
+    println(repeat("=", 20))
+    #
     println(io, "_case : ", latt._case)
     println(io, "scale : ", latt.scale)
     println(io, "lvect : ", latt.lvect)
@@ -889,6 +904,8 @@ function Base.show(io::IO, latt::Lattice)
     println(io, "sorts : ", latt.sorts)
     println(io, "atoms : ", latt.atoms)
     println(io, "coord : ", latt.coord)
+    #
+    println(repeat("=", 20))
 end
 
 """
@@ -900,10 +917,14 @@ See also: [`Mapping`](@ref).
 """
 function Base.show(io::IO, map::Mapping)
     println(io, "Mapping struct")
+    println(repeat("=", 20))
+    #
     println(io, "i_grp : ", map.i_grp)
     println(io, "i_wnd : ", map.i_wnd)
     println(io, "g_imp : ", map.g_imp)
     println(io, "w_imp : ", map.w_imp)
+    #
+    println(repeat("=", 20))
 end
 
 """
@@ -915,6 +936,8 @@ See also: [`Impurity`](@ref).
 """
 function Base.show(io::IO, imp::Impurity)
     println(io, "Impurity struct")
+    println(repeat("=", 20))
+    #
     println(io, "index : ", imp.index)
     println(io, "atoms : ", imp.atoms)
     println(io, "sites : ", imp.sites)
@@ -929,6 +952,8 @@ function Base.show(io::IO, imp::Impurity)
     println(io, "lpara : ", imp.lpara)
     println(io, "beta  : ", imp.beta)
     println(io, "nband : ", imp.nband)
+    #
+    println(repeat("=", 20))
 end
 
 """
@@ -940,10 +965,14 @@ See also: [`PrTrait`](@ref).
 """
 function Base.show(io::IO, PT::PrTrait)
     println(io, "PrTrait struct")
+    println(repeat("=", 20))
+    #
     println(io, "site : ", PT.site)
     println(io, "l    : ", PT.l)
     println(io, "m    : ", PT.m)
     println(io, "desc : ", PT.desc)
+    #
+    println(repeat("=", 20))
 end
 
 """
@@ -955,12 +984,16 @@ See also: [`PrGroup`](@ref).
 """
 function Base.show(io::IO, PG::PrGroup)
     println(io, "PrGroup struct")
+    println(repeat("=", 20))
+    #
     println(io, "site  : ", PG.site)
     println(io, "l     : ", PG.l)
     println(io, "corr  : ", PG.corr)
     println(io, "shell : ", PG.shell)
     println(io, "Pr    : ", PG.Pr)
     println(io, "Tr    : ", PG.Tr)
+    #
+    println(repeat("=", 20))
 end
 
 """
@@ -972,11 +1005,15 @@ See also: [`PrWindow`](@ref).
 """
 function Base.show(io::IO, PW::PrWindow)
     println(io, "PrWindow struct")
+    println(repeat("=", 20))
+    #
     println(io, "bmin : ", PW.bmin)
     println(io, "bmax : ", PW.bmax)
     println(io, "nbnd : ", PW.nbnd)
     println(io, "kwin : ", PW.kwin)
     println(io, "bwin : ", PW.bwin)
+    #
+    println(repeat("=", 20))
 end
 
 #=
