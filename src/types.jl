@@ -132,7 +132,7 @@ replaced by the realistic engine.
 
 See also: [`_engine_`](@ref).
 """
-struct NullEngine <: AbstractEngine end
+struct NullEngine    <: AbstractEngine end
 
 """
     VASPEngine
@@ -141,7 +141,7 @@ It represents a VASP engine, which is used to perform DFT calculations.
 
 See also: [`QEEngine`](@ref).
 """
-struct VASPEngine <: AbstractEngine end
+struct VASPEngine    <: AbstractEngine end
 
 """
     QEEngine
@@ -151,15 +151,15 @@ is used to perform DFT calculations.
 
 See also: [`VASPEngine`](@ref).
 """
-struct QEEngine   <: AbstractEngine end
+struct QEEngine      <: AbstractEngine end
 
 """
-    WANNEngine
+    WANNIEREngine
 
 It represents a WANNIER90 engine, which is used to generate the maximally
 localized wannier functions.
 """
-struct WANNEngine <: AbstractEngine end
+struct WANNIEREngine <: AbstractEngine end
 
 "Set up the default density functional theory calculation engine."
 _engine_ = NullEngine()
