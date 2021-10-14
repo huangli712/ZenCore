@@ -305,7 +305,7 @@ function wannier_exec(sp::String = ""; op::String = "")
     #
     # We can not guarantee that the wannier90 code is always installed
     # within the directory of quantum espresso.
-    wannier90_home = query_dft("wannier90")
+    wannier90_home = query_dft(WANNIEREngine())
     println("  > Home directory for wannier90: ", wannier90_home)
 
     # Select suitable wannier90 program
@@ -1825,7 +1825,7 @@ function pw2wan_exec(case::String, sp::String = "")
 
     # Get the home directory of pw2wannier90
     # It is actually the same with that of quantum espresso.
-    qe_home = query_dft("qe")
+    qe_home = query_dft(_engine_)
     println("  > Home directory for pw2wannier90: ", qe_home)
 
     # Select suitable pw2wannier90 program

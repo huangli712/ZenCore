@@ -144,7 +144,7 @@ function vasp_exec(it::IterInfo)
     println("  > Using $numproc processors (MPI)")
 
     # Get the home directory of vasp
-    dft_home = query_dft("vasp")
+    dft_home = query_dft(_engine_)
     println("  > Home directory for vasp: ", dft_home)
 
     # Select suitable vasp program

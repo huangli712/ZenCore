@@ -358,7 +358,7 @@ function qe_exec(it::IterInfo, scf::Bool = true)
     println("  > Using $numproc processors (MPI)")
 
     # Get the home directory of quantum espresso
-    dft_home = query_dft("qe")
+    dft_home = query_dft(_engine_)
     println("  > Home directory for quantum espresso: ", dft_home)
 
     # Select suitable quantum espresso program
