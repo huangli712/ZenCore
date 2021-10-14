@@ -209,6 +209,12 @@ struct NORGSolver   <: AbstractSolver end
 "Set up the default quantum impurity solver."
 _solver_ = NullSolver()
 
+"""
+    AbstractAdaptor
+
+An abstract type representing the DFT-DMFT adaptor. It is used to build
+the internal type system.
+"""
 abstract type AbstractAdaptor end
 struct NullAdaptor    <: AbstractAdaptor end
 struct PLOAdaptor     <: AbstractAdaptor end
