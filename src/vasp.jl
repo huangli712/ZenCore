@@ -17,6 +17,11 @@ function dft_call(::VASPEngine, it::IterInfo)
     vasp_save(it)
 end
 
+function dft_adaptor(::VASPEngine, D::Dict{Symbol,Any})
+    vaspq_files()
+    @time_call vasp_adaptor(DFTData)
+end
+
 #=
 ### *Driver Functions*
 =#
