@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/12
+# Last modified: 2021/10/14
 #
 
 """
@@ -27,7 +27,7 @@ Zen supports the following schemes for defining local orbitals:
 
 Zen supports the following quantum impurity solvers:
 
-* `CT-HYB`
+* `CTHYB`
 * `HIA`
 * `NORG`
 
@@ -253,20 +253,23 @@ parameters or represent some essential data structures.
 *Members* :
 
 ```text
-PCASE    -> Dict for case.
-PDFT     -> Dict for DFT engine.
-PDMFT    -> Dict for DMFT engine.
-PIMP     -> Dict for quantum impurity problems.
-PSOLVER  -> Dict for quantum impurity solvers.
-Logger   -> Struct for logger.
-Energy   -> Struct for total DFT + DMFT energy.
-IterInfo -> Struct for DFT + DMFT iteration information.
-Lattice  -> Struct for crystallography information.
-Mapping  -> Struct for mapping between impurity problems and projectors.
-Impurity -> Struct for quantum impurity problems.
-PrTrait  -> Struct for projectors.
-PrGroup  -> Struct for groups of projectors.
-PrWindow -> Struct for band window.
+PCASE     -> Dict for case.
+PDFT      -> Dict for DFT engine.
+PDMFT     -> Dict for DMFT engine.
+PIMP      -> Dict for quantum impurity problems.
+PSOLVER   -> Dict for quantum impurity solvers.
+_engine_  -> The present DFT engine.
+_solver_  -> The present quantum impurity solver.
+_adaptor_ -> The present DFT-DMFT adaptor.
+Logger    -> Struct for logger.
+Energy    -> Struct for total DFT + DMFT energy.
+IterInfo  -> Struct for DFT + DMFT iteration information.
+Lattice   -> Struct for crystallography information.
+Mapping   -> Struct for mapping between impurity problems and projectors.
+Impurity  -> Struct for quantum impurity problems.
+PrTrait   -> Struct for projectors.
+PrGroup   -> Struct for groups of projectors.
+PrWindow  -> Struct for band window.
 ```
 =#
 
@@ -278,6 +281,9 @@ export PDFT
 export PDMFT
 export PIMP
 export PSOLVER
+export _engine_
+export _solver_
+export _adaptor_
 export Logger
 export Energy
 export IterInfo
