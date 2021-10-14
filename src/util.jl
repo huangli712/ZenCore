@@ -402,7 +402,12 @@ not a valid quantum impurity solver.
 =#
 
 """
-    query_solver(engine::String)
+    query_solver(::NullSolver)
+    query_solver(::CTHYB₁Solver)
+    query_solver(::CTHYB₂Solver)
+    query_solver(::HIASolver)
+    query_solver(::NORGSolver)
+    query_solver(::ATOMSolver)
 
 Query the home directories of various quantum impurity solvers.
 
