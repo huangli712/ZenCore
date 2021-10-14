@@ -144,8 +144,8 @@ struct VASPEngine <: AbstractEngine end
 """
     QEEngine
 
-It represents a Quantum Espresso engine, which is used to perform DFT
-calculations.
+It represents a Quantum Espresso (actually the PWSCF code) engine, which
+is used to perform DFT calculations.
 
 See also: [`VASPEngine`](@ref).
 """
