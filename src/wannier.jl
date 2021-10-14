@@ -14,7 +14,7 @@
 function adaptor_call(::WANNIERAdaptor,
                       D::Dict{Symbol,Any},
                       ai::Array{Impurity,1})
-    @time_call wannier_adaptor(D, ai)
+    wannier_adaptor(D, ai)
 end
 
 #=

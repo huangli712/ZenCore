@@ -19,7 +19,7 @@ end
 
 function adaptor_call(::VASPEngine, D::Dict{Symbol,Any})
     vaspq_files()
-    @time_call vasp_adaptor(DFTData)
+    vasp_adaptor(DFTData)
 end
 
 #=

@@ -14,7 +14,7 @@
 function adaptor_call(::PLOAdaptor,
                       D::Dict{Symbol,Any},
                       ai::Array{Impurity,1})
-    @time_call plo_adaptor(D, ai)
+    plo_adaptor(D, ai)
 end
 
 #=

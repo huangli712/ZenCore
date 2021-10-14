@@ -1012,7 +1012,7 @@ function adaptor_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
     engine = get_d("engine")
     prompt("Adaptor", cntr_it(it))
     prompt(lr.log, "adaptor::$engine")
-    adaptor_call(_engine_, DFTData)
+    @time_call adaptor_call(_engine_, DFTData)
 
     #
     # A2: Process the original Kohn-Sham data
@@ -1032,17 +1032,7 @@ function adaptor_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
     projtype = get_d("projtype")
     prompt("Adaptor", cntr_it(it))
     prompt(lr.log, "adaptor::$projtype")
-    @cswitch projtype begin
-        # For projected local orbital scheme
-        @case "plo"
-            @time_call plo_adaptor(DFTData, ai)
-            break
-
-        # For maximally localized wannier function scheme
-        @case "wannier"
-            @time_call wannier_adaptor(DFTData, ai)
-            break
-    end
+    @time_call adaptor_call(_adaptor_, DFTData, ai)
 
     #
     # A3: Output the processed Kohn-Sham data

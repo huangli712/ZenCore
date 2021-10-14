@@ -20,7 +20,7 @@ end
 
 function adaptor_call(::QEEngine, D::Dict{Symbol,Any})
     qeq_files()
-    @time_call qe_adaptor(DFTData)
+    qe_adaptor(DFTData)
 end
 
 #=
