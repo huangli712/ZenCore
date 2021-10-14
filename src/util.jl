@@ -358,26 +358,20 @@ function query_dft(::VASPEngine)
         error("VASP_HOME is undefined")
     end
 end
-
-        @case "qe"
-            if haskey(ENV, "QE_HOME")
-                return ENV["QE_HOME"]
-            else
-                error("QE_HOME is undefined")
-            end
-            break
-
-        @case "wannier90"
-            if haskey(ENV, "WAN90_HOME")
-                return ENV["WAN90_HOME"]
-            else
-                error("WAN90_HOME is undefined")
-            end
-            break
-
-        @default
-            sorry()
-            break
+#
+function query_dft(::QEEngine)
+    if haskey(ENV, "QE_HOME")
+        return ENV["QE_HOME"]
+    else
+        error("QE_HOME is undefined")
+    end
+end
+#
+function query_dft(::WANNIEREngine)
+    if haskey(ENV, "WAN90_HOME")
+        return ENV["WAN90_HOME"]
+    else
+        error("WAN90_HOME is undefined")
     end
 end
 
