@@ -746,7 +746,7 @@ end
 Check the essential output files by `quantum espresso` (`pwscf`). Here
 `f` means only the directory that contains the desired files.
 
-See also: [`adaptor_run`](@ref).
+See also: [`adaptor_core`](@ref).
 """
 function qeq_files(f::String)
     fl = ["scf.out", "nscf.out"]
@@ -761,7 +761,7 @@ end
 Check the essential output files by `quantum espresso` (`pwscf`) in the
 current directory.
 
-See also: [`adaptor_run`](@ref).
+See also: [`adaptor_core`](@ref).
 """
 qeq_files() = qeq_files(pwd())
 
