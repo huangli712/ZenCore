@@ -153,7 +153,7 @@ See also: [`VASPEngine`](@ref).
 """
 struct QEEngine   <: AbstractEngine end
 
-"Set up the default DFT engine."
+"Set up the default density functional theory calculation engine."
 _engine_ = NullEngine()
 
 """
@@ -205,6 +205,8 @@ struct HIASolver    <: AbstractSolver end
 It represents a quantum impurity solver based on the NORG algorithm.
 """
 struct NORGSolver   <: AbstractSolver end
+
+"Set up the default quantum impurity solver."
 _solver_ = NullSolver()
 
 abstract type AbstractAdaptor end
