@@ -450,6 +450,7 @@ functions to deal with the vasp-related files.
 *Members* :
 
 ```text
+dft_run        -> Execute vasp program.
 vasp_adaptor   -> Adaptor support.
 vasp_init      -> Prepare vasp's input files.
 vasp_exec      -> Execute vasp program.
@@ -481,6 +482,7 @@ vaspio_charge  -> Read charge density.
 #
 include("vasp.jl")
 #
+export dft_run
 export vasp_adaptor
 export vasp_init
 export vasp_exec
@@ -520,6 +522,7 @@ lot of functions to deal with the quantum espresso (pwscf) related files.
 *Members* :
 
 ```text
+dft_run      -> Execute quantum espresso program.
 qe_adaptor   -> Adaptor support.
 qe_to_wan    -> Adaptor support (interface between qe and wannier).
 qe_to_plo    -> Adaptor support (interface between qe and plo).
@@ -539,6 +542,7 @@ qeio_fermi   -> Read fermi level.
 #
 include("qe.jl")
 #
+export dft_run
 export qe_adaptor
 export qe_to_wan
 export qe_to_plo
