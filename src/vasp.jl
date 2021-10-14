@@ -870,17 +870,12 @@ function vaspio_procar(f::String)
             end
         end
 
-        @cswitch lc begin
-            @case 3
-                soc = false
-                break
-
-            @case 6
-                soc = true
-                break
-
-            @default
-                error("Something wrong in PROCAR")
+        if lc == 3
+            soc = false
+        elseif ls == 6
+            soc = true
+        else
+            error("Something wrong in PROCAR")
         end
     else # natom > 1
         lc = 0
