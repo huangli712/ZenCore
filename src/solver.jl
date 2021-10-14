@@ -95,6 +95,22 @@ function solver_nimpx(::NORGSolver, imp::Impurity)
     sorry()
 end
 
+function solver_edmft(::CTHYB₁Solver, imp::Impurity)
+    return ctqmc_nimpx(imp)
+end
+
+function solver_edmft(::CTHYB₂Solver, imp::Impurity)
+    return ctqmc_nimpx(imp)
+end
+
+function solver_edmft(::HIASolver, imp::Impurity)
+    sorry()
+end
+
+function solver_edmft(::NORGSolver, imp::Impurity)
+    sorry()
+end
+
 #=
 ### *CT-HYB₁ Quantum Impurity Solver*
 =#
@@ -934,10 +950,6 @@ function GetEnergy(imp::Impurity)
             break
 
         @case "norg"
-            sorry()
-            break
-
-        @default
             sorry()
             break
     end
