@@ -4,8 +4,19 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/10
+# Last modified: 2021/10/14
 #
+
+#=
+### *Driver Functions*
+=#
+
+function dft_run(::QEEngine, it::IterInfo)
+    qe_init(it)
+    qe_exec(it, true)  # Self-consistent calculation
+    qe_exec(it, false) # Non-self-consistent calculation
+    qe_save(it)
+end
 
 #=
 ### *Driver Functions*

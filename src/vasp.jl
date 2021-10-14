@@ -4,8 +4,18 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/10
+# Last modified: 2021/10/14
 #
+
+#=
+### *Driver Functions*
+=#
+
+function dft_run(::VASPEngine, it::IterInfo)
+    vasp_init(it)
+    vasp_exec(it)
+    vasp_save(it)
+end
 
 #=
 ### *Driver Functions*

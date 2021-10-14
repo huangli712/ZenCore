@@ -95,11 +95,6 @@ function go()
         @case 2
             cycle2()
             break
-
-        # To be implemented
-        @default
-            sorry()
-            break
     end
 end
 
@@ -795,10 +790,6 @@ function dft_core(it::IterInfo, lr::Logger, sc::Bool = false)
                 qe_exec(it, true)  # Self-consistent calculation
                 qe_exec(it, false) # Non-self-consistent calculation
                 qe_save(it)
-                break
-
-            @default
-                sorry()
                 break
         end
     else
