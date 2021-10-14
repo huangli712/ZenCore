@@ -35,6 +35,13 @@ function solver_call(::NORGSolver, it::IterInfo)
     s_norg_save(it)
 end
 
+function solver_copy(::CTHYB₁Solver,
+                     it::IterInfo,
+                     imp₁::Impurity,
+                     imp₂::Impurity)
+    s_qmc1_copy(it, imp₁, imp₂)
+end
+
 #=
 ### *CT-HYB₁ Quantum Impurity Solver*
 =#

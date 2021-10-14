@@ -977,10 +977,6 @@ function solver_core(it::IterInfo,
                 @case "norg"
                     s_norg_copy(it, ai[found], imp)
                     break
-
-                @default
-                    sorry()
-                    break
             end
 
             # Enter the parent directory
