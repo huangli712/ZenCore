@@ -182,6 +182,14 @@ It represents a quantum impurity solver based on the CT-HYB₁ algorithm.
 See also: [`CTHYB₂Solver`](@ref).
 """
 struct CTHYB₁Solver <: AbstractSolver end
+
+"""
+    CTHYB₂Solver
+
+It represents a quantum impurity solver based on the CT-HYB₁ algorithm.
+
+See also: [`CTHYB₂Solver`](@ref).
+"""
 struct CTHYB₂Solver <: AbstractSolver end
 struct HIASolver    <: AbstractSolver end
 struct NORGSolver   <: AbstractSolver end
