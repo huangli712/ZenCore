@@ -372,35 +372,35 @@ includes some functions to watch and manipulate the IterInfo struct.
 *Members* :
 
 ```text
-ready       -> Prepare runtime environment for DFT + DMFT calculations.
-go          -> Dispatcher for DFT + DMFT calculations.
-final       -> Finalize the DFT + DMFT calculations.
-cycle1      -> Perform DFT + DMFT calculations (one-shot mode).
-cycle2      -> Perform DFT + DMFT calculations (fully self-consistent mode).
-try_dft     -> Execute DFT engine only (for testing purpose).
-try_dmft    -> Execute DMFT engine only (for testing purpose).
-try_solver  -> Execute quantum impurity solvers only (for testing purpose).
-try_adaptor -> Execute Kohn-Sham adaptor only (for testing purpose).
-try_sigma   -> Execute self-energy engine only (for testing purpose).
-try_mixer   -> Execute mixer engine only (for testing purpose).
-monitor     -> Monitor the DFT + DMFT calculations.
-suspend     -> Suspend the DFT engine.
-suicide     -> Kill the DFT engine.
-dft_core    -> Driver for DFT engine.
-dmft_core   -> Driver for DMFT engine.
-solver_core -> Driver for quantum impurity solvers.
-adaptor_run -> Driver for Kohn-Sham adaptor.
-sigma_core  -> Driver for self-energy engine.
-mixer_core  -> Driver for mixer engine.
-energy_core -> Driver for treating DFT + DMFT energy.
-build_trees -> Make working directories.
-clear_trees -> Remove working directories.
-incr_it     -> Increase the counters in the IterInfo struct.
-zero_it     -> Reset the counters in the IterInfo struct.
-prev_it     -> Return the previous iteration information.
-cntr_it     -> Return the counters in the IterInfo struct.
-show_it     -> Print the iteration information.
-conv_it     -> Check whether the convergence flags are achieved.
+ready        -> Prepare runtime environment for DFT + DMFT calculations.
+go           -> Dispatcher for DFT + DMFT calculations.
+final        -> Finalize the DFT + DMFT calculations.
+cycle1       -> Perform DFT + DMFT calculations (one-shot mode).
+cycle2       -> Perform DFT + DMFT calculations (fully self-consistent mode).
+try_dft      -> Execute DFT engine only (for testing purpose).
+try_dmft     -> Execute DMFT engine only (for testing purpose).
+try_solver   -> Execute quantum impurity solvers only (for testing purpose).
+try_adaptor  -> Execute Kohn-Sham adaptor only (for testing purpose).
+try_sigma    -> Execute self-energy engine only (for testing purpose).
+try_mixer    -> Execute mixer engine only (for testing purpose).
+monitor      -> Monitor the DFT + DMFT calculations.
+suspend      -> Suspend the DFT engine.
+suicide      -> Kill the DFT engine.
+dft_core     -> Driver for DFT engine.
+dmft_core    -> Driver for DMFT engine.
+solver_core  -> Driver for quantum impurity solvers.
+adaptor_core -> Driver for Kohn-Sham adaptor.
+sigma_core   -> Driver for self-energy engine.
+mixer_core   -> Driver for mixer engine.
+energy_core  -> Driver for treating DFT + DMFT energy.
+build_trees  -> Make working directories.
+clear_trees  -> Remove working directories.
+incr_it      -> Increase the counters in the IterInfo struct.
+zero_it      -> Reset the counters in the IterInfo struct.
+prev_it      -> Return the previous iteration information.
+cntr_it      -> Return the counters in the IterInfo struct.
+show_it      -> Print the iteration information.
+conv_it      -> Check whether the convergence flags are achieved.
 ```
 =#
 
@@ -424,7 +424,7 @@ export suicide
 export dft_core
 export dmft_core
 export solver_core
-export adaptor_run
+export adaptor_core
 export sigma_core
 export mixer_core
 export energy_core
