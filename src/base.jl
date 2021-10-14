@@ -1042,10 +1042,6 @@ function adaptor_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
         @case "wannier"
             @time_call wannier_adaptor(DFTData, ai)
             break
-
-        @default
-            sorry()
-            break
     end
 
     #
