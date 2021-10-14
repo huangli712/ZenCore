@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/08
+# Last modified: 2021/10/15
 #
 
 #=
@@ -61,6 +61,22 @@ function solver_copy(::NORGSolver,
                      imp₁::Impurity,
                      imp₂::Impurity)
     s_norg_copy(it, imp₁, imp₂)
+end
+
+function solver_sigma(::CTHYB₁Solver, imp::Impurity)
+    return ctqmc_sigma(imp)
+end
+
+function solver_sigma(::CTHYB₂Solver, imp::Impurity)
+    return ctqmc_sigma(imp)
+end
+
+function solver_sigma(::HIASolver, imp::Impurity)
+    sorry()
+end
+
+function solver_sigma(::NORGSolver, imp::Impurity)
+    sorry()
 end
 
 #=
