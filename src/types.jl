@@ -150,8 +150,12 @@ is used to perform DFT calculations.
 See also: [`VASPEngine`](@ref).
 """
 struct QEEngine   <: AbstractEngine end
+
+"Set up the default DFT engine."
 _engine_ = NullEngine()
 
+"""
+"""
 abstract type AbstractSolver end
 struct NullSolver   <: AbstractSolver end
 struct CTHYB₁Solver <: AbstractSolver end
