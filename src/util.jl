@@ -446,10 +446,16 @@ function query_solver(::HIASolver)
         joinpath(query_home(), "src/solver/hub1")
     end
 end
-
-            @case "norg"
-                solver_dir = joinpath(query_home(), "src/solver/norg")
-                break
+#
+function query_solver(::NORGSolver)
+    # We have to setup the environment variable ZEN_SOLVER
+    if haskey(ENV, "ZEN_SOLVER")
+        ENV["ZEN_SOLVER"]
+    # For develop stage only
+    else
+        joinpath(query_home(), "src/solver/norg")
+    end
+end
 
             @case "atomic"
                 solver_dir = joinpath(query_home(), "src/solver/atomic")
