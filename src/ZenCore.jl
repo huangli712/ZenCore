@@ -451,6 +451,7 @@ functions to deal with the vasp-related files.
 
 ```text
 dft_call       -> Execute vasp program.
+adaptor_call   -> Execute DFT-DMFT adaptor.
 vasp_adaptor   -> Adaptor support.
 vasp_init      -> Prepare vasp's input files.
 vasp_exec      -> Execute vasp program.
@@ -483,6 +484,7 @@ vaspio_charge  -> Read charge density.
 include("vasp.jl")
 #
 export dft_call
+export adaptor_call
 export vasp_adaptor
 export vasp_init
 export vasp_exec
@@ -523,6 +525,7 @@ lot of functions to deal with the quantum espresso (pwscf) related files.
 
 ```text
 dft_call     -> Execute quantum espresso program.
+adaptor_call -> Execute DFT-DMFT adaptor.
 qe_adaptor   -> Adaptor support.
 qe_to_wan    -> Adaptor support (interface between qe and wannier).
 qe_to_plo    -> Adaptor support (interface between qe and plo).
@@ -543,6 +546,7 @@ qeio_fermi   -> Read fermi level.
 include("qe.jl")
 #
 export dft_call
+export adaptor_call
 export qe_adaptor
 export qe_to_wan
 export qe_to_plo
@@ -569,36 +573,38 @@ Tools for the projection on localized orbitals scheme (adaptor).
 *Members*:
 
 ```text
-plo_adaptor -> Adaptor support.
-plo_map     -> Create connection between projectors and impurity problems.
-plo_fermi   -> Calibrate Kohn-Sham eigenvalues with respect to fermi level.
-plo_group   -> Setup groups of projectors.
-plo_window  -> Setup band windows of projectors.
-plo_rotate  -> Rotate the projectors.
-plo_filter  -> Extract the projectors within a given energy window.
-plo_orthog  -> Orthogonalize / normalize the projectors.
-plo_monitor -> Generate some physical quantities using the projectors.
-get_win1    -> Evaluate band window.
-get_win2    -> Evaluate energy window.
-try_blk1    -> Orthogonalize / normalize the projectors group by group.
-try_blk2    -> Orthogonalize / normalize the projectors with each other.
-try_diag    -> Orthogonalizes a projector defined by a rectangular matrix.
-calc_ovlp   -> Calculate overlap matrix.
-calc_dm     -> Calculate density matrix.
-calc_level  -> Calculate effective atomic level.
-calc_hamk   -> Calculate local hamiltonian or full hamiltonian.
-calc_dos    -> Calculate density of states.
-view_ovlp   -> Show overlap matrix for debug.
-view_dm     -> Show density matrix for debug.
-view_level  -> Show effective atomic level for debug.
-view_hamk   -> Show local hamiltonian for debug.
-view_dos    -> Show density of states for debug.
+adaptor_call -> Execute DFT-DMFT adaptor.
+plo_adaptor  -> Adaptor support.
+plo_map      -> Create connection between projectors and impurity problems.
+plo_fermi    -> Calibrate Kohn-Sham eigenvalues with respect to fermi level.
+plo_group    -> Setup groups of projectors.
+plo_window   -> Setup band windows of projectors.
+plo_rotate   -> Rotate the projectors.
+plo_filter   -> Extract the projectors within a given energy window.
+plo_orthog   -> Orthogonalize / normalize the projectors.
+plo_monitor  -> Generate some physical quantities using the projectors.
+get_win1     -> Evaluate band window.
+get_win2     -> Evaluate energy window.
+try_blk1     -> Orthogonalize / normalize the projectors group by group.
+try_blk2     -> Orthogonalize / normalize the projectors with each other.
+try_diag     -> Orthogonalizes a projector defined by a rectangular matrix.
+calc_ovlp    -> Calculate overlap matrix.
+calc_dm      -> Calculate density matrix.
+calc_level   -> Calculate effective atomic level.
+calc_hamk    -> Calculate local hamiltonian or full hamiltonian.
+calc_dos     -> Calculate density of states.
+view_ovlp    -> Show overlap matrix for debug.
+view_dm      -> Show density matrix for debug.
+view_level   -> Show effective atomic level for debug.
+view_hamk    -> Show local hamiltonian for debug.
+view_dos     -> Show density of states for debug.
 ```
 =#
 
 #
 include("plo.jl")
 #
+export adaptor_call
 export plo_adaptor
 export plo_map
 export plo_fermi
@@ -636,6 +642,7 @@ Tools for the maximally-localised Wannier function scheme (adaptor).
 *Members*:
 
 ```text
+adaptor_call    -> Execute DFT-DMFT adaptor.
 wannier_adaptor -> Adaptor support.
 wannier_init    -> Prepare wannier90's input files.
 wannier_exec    -> Execute wannier90 program.
@@ -664,6 +671,7 @@ pw2wan_save     -> Backup pw2wannier90's output files.
 #
 include("wannier.jl")
 #
+export adaptor_call
 export wannier_adaptor
 export wannier_init
 export wannier_exec
