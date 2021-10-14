@@ -42,6 +42,27 @@ function solver_copy(::CTHYB₁Solver,
     s_qmc1_copy(it, imp₁, imp₂)
 end
 
+function solver_copy(::CTHYB₂Solver,
+                     it::IterInfo,
+                     imp₁::Impurity,
+                     imp₂::Impurity)
+    s_qmc2_copy(it, imp₁, imp₂)
+end
+
+function solver_copy(::HIASolver,
+                     it::IterInfo,
+                     imp₁::Impurity,
+                     imp₂::Impurity)
+    s_hub1_copy(it, imp₁, imp₂)
+end
+
+function solver_copy(::NORGSolver,
+                     it::IterInfo,
+                     imp₁::Impurity,
+                     imp₂::Impurity)
+    s_norg_copy(it, imp₁, imp₂)
+end
+
 #=
 ### *CT-HYB₁ Quantum Impurity Solver*
 =#
