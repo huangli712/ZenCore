@@ -129,6 +129,8 @@ abstract type AbstractEngine end
 
 It represents a null DFT engine. It is the default engine and will be
 replaced by the realistic engine.
+
+See also: [`_engine_`](@ref).
 """
 struct NullEngine <: AbstractEngine end
 
@@ -155,8 +157,21 @@ struct QEEngine   <: AbstractEngine end
 _engine_ = NullEngine()
 
 """
+    AbstractSolver
+
+An abstract type representing the quantum impurity solver. It is used to
+build the internal type system.
 """
 abstract type AbstractSolver end
+
+"""
+    NullSolver
+
+It represents a null quantum impurity solver. It is the default solver
+and will be replaced by the realistic solver.
+
+See also: [`_solver_`](@ref).
+"""
 struct NullSolver   <: AbstractSolver end
 struct CTHYB₁Solver <: AbstractSolver end
 struct CTHYB₂Solver <: AbstractSolver end
