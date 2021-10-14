@@ -20,6 +20,7 @@ directories) for DFT + DMFT calculations are ready.
 See also: [`go`](@ref).
 """
 function ready()
+    # R1: Setup _engine_, the DFT engine.
     engine = get_d("engine")
     @cswitch engine begin
         @case "vasp"
@@ -35,6 +36,7 @@ function ready()
             break
     end
 
+    # R2: Setup _solver_, the quentum impurity solver.
     solver = get_s("engine")
     @cswitch solver begin
         @case "ct_hyb1"
@@ -58,6 +60,7 @@ function ready()
             break
     end
 
+    # R3: Setup _adaptor_, the DFT-DMFT adaptor.
     adaptor = get_d("projtype")
     @cswitch adaptor begin
         @case "plo"
@@ -73,10 +76,10 @@ function ready()
             break
     end
 
-    # R1: Check the input files
+    # R4: Check the input files
     query_inps(get_d("engine"))
 
-    # R2: Prepare the working directories
+    # R5: Prepare the working directories
     build_trees()
 
     sorry()
