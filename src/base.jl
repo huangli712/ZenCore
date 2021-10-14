@@ -1105,10 +1105,6 @@ function sigma_core(it::IterInfo,
         @case "gather"
             sigma_gather(it, ai)
             break
-
-        @default
-            sorry()
-            break
     end
 
     # Monitor the status
@@ -1179,10 +1175,6 @@ function mixer_core(it::IterInfo,
         # Try to mix the density matrix
         @case "gcorr"
             mixer_gcorr(it)
-            break
-
-        @default
-            sorry()
             break
     end
 
