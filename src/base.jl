@@ -140,10 +140,10 @@ function cycle1()
     it.sc = 0 # In preparation mode
 
     # C01: Perform DFT calculation
-    @time_call dft_run(it, lr)
+    @time_call dft_core(it, lr)
 
     # C02: Perform DFT calculation again (for the vasp code only)
-    is_vasp() && @time_call dft_run(it, lr)
+    is_vasp() && @time_call dft_core(it, lr)
 
     # C03: To bridge the gap between DFT engine and DMFT engine by adaptor
     adaptor_run(it, lr, ai)
@@ -245,10 +245,10 @@ function cycle2()
     it.sc = 0 # In preparation mode
 
     # C01: Perform DFT calculation
-    @time_call dft_run(it, lr)
+    @time_call dft_core(it, lr)
 
     # C02: Perform DFT calculation again (for the vasp code only)
-    is_vasp() && @time_call dft_run(it, lr)
+    is_vasp() && @time_call dft_core(it, lr)
 
     # C03: To bridge the gap between DFT engine and DMFT engine by adaptor
     adaptor_run(it, lr, ai)
@@ -266,7 +266,7 @@ function cycle2()
     show_it(it, lr)
 
     # C05: Launch the self-consistent engine
-    dft_run(it, lr)
+    dft_core(it, lr)
 
     # Wait the DFT engine to finish its job and sleep
     suspend(4) # Apply a larger time interval
@@ -354,7 +354,7 @@ function cycle2()
             incr_it(it, 2, iter2)
 
             # C17: Reactivate the DFT engine
-            dft_run(it, lr, true)
+            dft_core(it, lr, true)
 
             # Print the cycle info
             show_it(it, lr)
@@ -405,10 +405,10 @@ function try_dft()
     lr = Logger(query_case())
 
     # C01: Perform DFT calculation
-    @time_call dft_run(it, lr)
+    @time_call dft_core(it, lr)
 
     # C02: Perform DFT calculation again (for the vasp code only)
-    is_vasp() && @time_call dft_run(it, lr)
+    is_vasp() && @time_call dft_core(it, lr)
 
     # C98: Close Logger.log
     if isopen(lr.log)
@@ -642,7 +642,7 @@ useful for charge fully self-consistent DFT + DMFT calculations.
 Now this function only supports the `vasp` code. We have to improve it
 to support more DFT engines.
 
-See also: [`dft_run`](@ref).
+See also: [`dft_core`](@ref).
 """
 function suspend(second::I64 = 1)
     # Check second
@@ -676,7 +676,7 @@ end
 
 Kill the DFT engine abnormally. Now it supports the `vasp` code only.
 
-See also: [`dft_run`](@ref).
+See also: [`dft_core`](@ref).
 """
 function suicide(it::IterInfo)
     # Stop it! Only for self-consistent DFT + DMFT iterations.
@@ -709,7 +709,7 @@ end
 =#
 
 """
-    dft_run(it::IterInfo, lr::Logger, sc::Bool = false)
+    dft_core(it::IterInfo, lr::Logger, sc::Bool = false)
 
 Simple driver for DFT engine. It performs three tasks: (1) Examine
 the runtime environment for the DFT engine. (2) Launch the DFT engine.
@@ -724,7 +724,7 @@ want to support more DFT engines, this function must be adapted.
 
 See also: [`adaptor_run`](@ref), [`dmft_run`](@ref), [`solver_run`](@ref).
 """
-function dft_run(it::IterInfo, lr::Logger, sc::Bool = false)
+function dft_core(it::IterInfo, lr::Logger, sc::Bool = false)
     # Determine the chosen engine
     engine = get_d("engine")
 
@@ -796,7 +796,7 @@ the runtime environment for the DMFT engine. (2) Launch the DMFT engine.
 The argument `task` is used to specify running mode of the DMFT code.
 Its value can be 1 or 2.
 
-See also: [`adaptor_run`](@ref), [`dft_run`](@ref), [`solver_run`](@ref).
+See also: [`adaptor_run`](@ref), [`dft_core`](@ref), [`solver_run`](@ref).
 """
 function dmft_run(it::IterInfo, lr::Logger, task::I64)
     # Examine the argument `task`
@@ -851,7 +851,7 @@ Now only the `ct_hyb1`, `ct_hyb2`, `hub1`, and `norg` quantum impurity
 solvers are supported. If you want to support the other quantum impurity
 solvers, this function must be adapted.
 
-See also: [`adaptor_run`](@ref), [`dft_run`](@ref), [`dmft_run`](@ref).
+See also: [`adaptor_run`](@ref), [`dft_core`](@ref), [`dmft_run`](@ref).
 """
 function solver_run(it::IterInfo,
                     lr::Logger,
@@ -1019,7 +1019,7 @@ While for the second task, both the `plo` and `wannier` adaptors are
 supported. If you want to support more adaptors, please adapt this
 function by yourself.
 
-See also: [`dft_run`](@ref), [`dmft_run`](@ref), [`solver_run`](@ref).
+See also: [`dft_core`](@ref), [`dmft_run`](@ref), [`solver_run`](@ref).
 """
 function adaptor_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
     # Enter dft directory
