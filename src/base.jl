@@ -30,10 +30,6 @@ function ready()
         @case "qe"
             global _engine_ = QEEngine()
             break
-        
-        @default
-            sorry()
-            break
     end
 
     # R2: Setup _solver_, the quentum impurity solver.
@@ -54,10 +50,6 @@ function ready()
         @case "norg"
             global _solver_ = NORGSolver()
             break
-
-        @default
-            sorry()
-            break
     end
 
     # R3: Setup _adaptor_, the DFT-DMFT adaptor.
@@ -70,19 +62,13 @@ function ready()
         @case "wannier"
             global _adaptor_ = WANNIERAdaptor() 
             break
-        
-        @default
-            sorry()
-            break
     end
 
     # R4: Check the input files
-    query_inps(get_d("engine"))
+    query_inps(_engine_)
 
     # R5: Prepare the working directories
     build_trees()
-
-    sorry()
 end
 
 """
