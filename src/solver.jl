@@ -841,34 +841,9 @@ function GetSigma(imp::Impurity)
     # the current directory.
     cd("impurity.$index")
 
-    # Determine the chosen solver
-    engine = get_s("engine")
-
     # Activate the corresponding `solver_sigma()` functions for various
     # quantum impurity solvers
-    fmesh = nothing
-    sigma = nothing
-    @cswitch engine begin
-        @case "ct_hyb1"
-            fmesh, sigma = ctqmc_sigma(imp)
-            break
-
-        @case "ct_hyb2"
-            fmesh, sigma = ctqmc_sigma(imp)
-            break
-
-        @case "hub1"
-            sorry()
-            break
-
-        @case "norg"
-            sorry()
-            break
-
-        @default
-            sorry()
-            break
-    end
+    fmesh, sigma = solver_sigma(_solver_, imp)
 
     # Enter the parent directory
     cd("..")
