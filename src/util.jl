@@ -456,16 +456,14 @@ function query_solver(::NORGSolver)
         joinpath(query_home(), "src/solver/norg")
     end
 end
-
-            @case "atomic"
-                solver_dir = joinpath(query_home(), "src/solver/atomic")
-                break
-
-            @default
-                sorry()
-                break
-        end
-        solver_dir
+#
+function query_solver(::ATOMSolver)
+    # We have to setup the environment variable ZEN_SOLVER
+    if haskey(ENV, "ZEN_SOLVER")
+        ENV["ZEN_SOLVER"]
+    # For develop stage only
+    else
+        joinpath(query_home(), "src/solver/atomic")
     end
 end
 
