@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/09
+# Last modified: 2021/10/14
 #
 
 #=
@@ -111,6 +111,17 @@ const PSOLVER= Dict{String,Array{Any,1}}(
     "ncycle"   => [missing, 1, :I64   , "Number of solver iterations per DFT + DMFT cycle"],
     "params"   => [missing, 1, :Array , "Extra parameter sets of quantum impurity solver"],
 )
+
+#=
+### *Customized Structs*
+=#
+
+abstract type AbstractEngine end
+struct NullEngine <: AbstractEngine end
+struct VaspEngine <: AbstractEngine end
+struct QEEngine   <: AbstractEngine end
+
+
 
 #=
 ### *Customized Structs*
