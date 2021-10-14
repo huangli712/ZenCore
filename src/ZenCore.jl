@@ -787,7 +787,7 @@ CT-HYB₂, HIA, and NORG quantum impurity solvers are supported.
 *Members* :
 
 ```text
-solver_run   -> Execute the quantum impurity solver.
+solver_call  -> Execute the quantum impurity solver.
 s_qmc1_init  -> Prepare input files for the CT-HYB₁ impurity solver.
 s_qmc1_exec  -> Execute the CT-HYB₁ impurity solver.
 s_qmc1_save  -> Backup output files for the CT-HYB₁ impurity solver.
@@ -823,7 +823,7 @@ CatImpurity  -> Display Impurity struct that need to be solved.
 #
 include("solver.jl")
 #
-export solver_run
+export solver_call
 export s_qmc1_init
 export s_qmc1_exec
 export s_qmc1_save

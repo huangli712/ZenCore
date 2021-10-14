@@ -11,25 +11,25 @@
 ### *Driver Functions*
 =#
 
-function solver_run(::CTHYB₁Solver, it::IterInfo, imp::Impurity)
+function solver_call(::CTHYB₁Solver, it::IterInfo, imp::Impurity)
     s_qmc1_init(it, imp)
     s_qmc1_exec(it)
     s_qmc1_save(it, imp)
 end
 
-function solver_run(::CTHYB₂Solver, it::IterInfo)
+function solver_call(::CTHYB₂Solver, it::IterInfo)
     s_qmc2_init(it)
     s_qmc2_exec(it)
     s_qmc2_save(it)
 end
 
-function solver_run(::HIASolver, it::IterInfo)
+function solver_call(::HIASolver, it::IterInfo)
     s_hub1_init(it)
     s_hub1_exec(it)
     s_hub1_save(it)
 end
 
-function solver_run(::NORGSolver, it::IterInfo)
+function solver_call(::NORGSolver, it::IterInfo)
     s_norg_init(it)
     s_norg_exec(it)
     s_norg_save(it)
