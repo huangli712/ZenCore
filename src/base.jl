@@ -1012,22 +1012,7 @@ function adaptor_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
     engine = get_d("engine")
     prompt("Adaptor", cntr_it(it))
     prompt(lr.log, "adaptor::$engine")
-    @cswitch engine begin
-        # For vasp
-        @case "vasp"
-            vaspq_files()
-            @time_call vasp_adaptor(DFTData)
-            break
-
-        @case "qe"
-            qeq_files()
-            @time_call qe_adaptor(DFTData)
-            break
-
-        @default
-            sorry()
-            break
-    end
+    dft_adaptor(_engine_, DFTData)
 
     #
     # A2: Process the original Kohn-Sham data
