@@ -386,7 +386,7 @@ try_mixer   -> Execute mixer engine only (for testing purpose).
 monitor     -> Monitor the DFT + DMFT calculations.
 suspend     -> Suspend the DFT engine.
 suicide     -> Kill the DFT engine.
-dft_run     -> Driver for DFT engine.
+dft_core    -> Driver for DFT engine.
 dmft_run    -> Driver for DMFT engine.
 solver_run  -> Driver for quantum impurity solvers.
 adaptor_run -> Driver for Kohn-Sham adaptor.
@@ -421,7 +421,7 @@ export try_mixer
 export monitor
 export suspend
 export suicide
-export dft_run
+export dft_core
 export dmft_run
 export solver_run
 export adaptor_run
