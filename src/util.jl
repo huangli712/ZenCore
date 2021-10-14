@@ -337,22 +337,27 @@ function query_core()
 end
 
 """
-    query_dft(engine::String)
+    query_dft(::NullEngine)
+    query_dft(::VASPEngine)
+    query_dft(::QEEngine)
+    query_dft(::WANNIEREngine)
 
 Query the home directory of the chosen DFT engine.
 
 See also: [`query_dmft`](@ref), [`query_solver`](@ref).
 """
-function query_dft(engine::String)
-    @cswitch engine begin
-        # We have to setup the environment variable VASP_HOME
-        @case "vasp"
-            if haskey(ENV, "VASP_HOME")
-                return ENV["VASP_HOME"]
-            else
-                error("VASP_HOME is undefined")
-            end
-            break
+function query_dft(::NullEngine)
+    sorry()
+end
+#
+function query_dft(::VASPEngine)
+    # We have to setup the environment variable VASP_HOME
+    if haskey(ENV, "VASP_HOME")
+        return ENV["VASP_HOME"]
+    else
+        error("VASP_HOME is undefined")
+    end
+end
 
         @case "qe"
             if haskey(ENV, "QE_HOME")
