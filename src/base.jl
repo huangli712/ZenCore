@@ -776,22 +776,7 @@ function dft_core(it::IterInfo, lr::Logger, sc::Bool = false)
 
     # Activate the chosen DFT engine
     if !sc
-        @cswitch engine begin
-            # For vasp
-            @case "vasp"
-                vasp_init(it)
-                vasp_exec(it)
-                vasp_save(it)
-                break
-
-            # For quantum espresso (pwscf)
-            @case "qe"
-                qe_init(it)
-                qe_exec(it, true)  # Self-consistent calculation
-                qe_exec(it, false) # Non-self-consistent calculation
-                qe_save(it)
-                break
-        end
+        dft_run(_engine_, it)
     else
         @cswitch engine begin
             # For vasp
