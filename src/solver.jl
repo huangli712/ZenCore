@@ -922,7 +922,7 @@ Extract interaction energy (i.e potential energy) from the output files
 of various quantum impurity solvers. The input Impurity struct won't be
 modified. The working directory of this function must be the root folder.
 
-See also: [`Impurity`](@ref), [`ctqmc_energy`](@ref).
+See also: [`Impurity`](@ref), [`ctqmc_edmft`](@ref).
 """
 function GetEdmft(imp::Impurity)
     # Get the index for current quantum impurity problem

@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/14
+# Last modified: 2021/10/15
 #
 
 """
@@ -862,7 +862,7 @@ export ctqmc_delta
 export ctqmc_eimpx
 export ctqmc_sigma
 export ctqmc_nimpx
-export ctqmc_energy
+export ctqmc_edmft
 export GetSigma
 export GetNimpx
 export GetEdmft
