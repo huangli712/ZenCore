@@ -1012,7 +1012,7 @@ function adaptor_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
     engine = get_d("engine")
     prompt("Adaptor", cntr_it(it))
     prompt(lr.log, "adaptor::$engine")
-    dft_adaptor(_engine_, DFTData)
+    adaptor_call(_engine_, DFTData)
 
     #
     # A2: Process the original Kohn-Sham data

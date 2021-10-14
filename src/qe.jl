@@ -18,7 +18,7 @@ function dft_call(::QEEngine, it::IterInfo)
     qe_save(it)
 end
 
-function dft_adaptor(::QEEngine, D::Dict{Symbol,Any})
+function adaptor_call(::QEEngine, D::Dict{Symbol,Any})
     qeq_files()
     @time_call qe_adaptor(DFTData)
 end
