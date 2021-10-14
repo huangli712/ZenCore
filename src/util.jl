@@ -360,6 +360,7 @@ function query_dft(::VASPEngine)
 end
 #
 function query_dft(::QEEngine)
+    # We have to setup the environment variable QE_HOME
     if haskey(ENV, "QE_HOME")
         return ENV["QE_HOME"]
     else
@@ -368,6 +369,7 @@ function query_dft(::QEEngine)
 end
 #
 function query_dft(::WANNIEREngine)
+    # We have to setup the environment variable WAN90_HOME
     if haskey(ENV, "WAN90_HOME")
         return ENV["WAN90_HOME"]
     else
