@@ -931,28 +931,9 @@ function GetEdmft(imp::Impurity)
     # Change the directory
     cd("impurity.$index")
 
-    # Determine the chosen solver
-    engine = get_s("engine")
-
-    # Activate the corresponding solver_energy() functions for various
+    # Activate the corresponding solver_edmft() functions for various
     # quantum impurity solvers
-    @cswitch engine begin
-        @case "ct_hyb1"
-            epot = ctqmc_energy()
-            break
-
-        @case "ct_hyb2"
-            epot = ctqmc_energy()
-            break
-
-        @case "hub1"
-            sorry()
-            break
-
-        @case "norg"
-            sorry()
-            break
-    end
+    solver_edmft(_solver_)
 
     # Enter the parent directory
     cd("..")
