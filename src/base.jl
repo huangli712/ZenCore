@@ -20,8 +20,8 @@ directories) for DFT + DMFT calculations are ready.
 See also: [`go`](@ref).
 """
 function ready()
-    engine = get_d("engine")
-    @cswitch engine begin
+    dft = get_d("engine")
+    @cswitch dft begin
         @case "vasp"
             global _engine_ = VASPEngine()
             break
@@ -35,16 +35,24 @@ function ready()
             break
     end
 
-    engine = get_d("engine")
-    @cswitch engine begin
-        @case "vasp"
-            global _engine_ = VASPEngine()
+    solver = get_s("engine")
+    @cswitch solver begin
+        @case "ct_hyb1"
+            global _solver_ = CTHYB₁Solver()
             break
 
-        @case "qe"
-            global _engine_ = QEEngine()
+        @case "ct_hyb2"
+            global _solver_ = CTHYB₂Solver()
             break
         
+        @case "hub1"
+            global _solver_ = HIASolver()
+            break
+
+        @case "norg"
+            global _solver_ = NORGSolver()
+            break
+
         @default
             sorry()
             break
