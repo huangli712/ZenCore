@@ -11,7 +11,7 @@
 ### *Driver Functions*
 =#
 
-function dft_run(::QEEngine, it::IterInfo)
+function dft_call(::QEEngine, it::IterInfo)
     qe_init(it)
     qe_exec(it, true)  # Self-consistent calculation
     qe_exec(it, false) # Non-self-consistent calculation

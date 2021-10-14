@@ -776,7 +776,7 @@ function dft_core(it::IterInfo, lr::Logger, sc::Bool = false)
 
     # Activate the chosen DFT engine
     if !sc
-        dft_run(_engine_, it)
+        dft_call(_engine_, it)
     else
         @cswitch engine begin
             # For vasp

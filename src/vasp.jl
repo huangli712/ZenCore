@@ -11,7 +11,7 @@
 ### *Driver Functions*
 =#
 
-function dft_run(::VASPEngine, it::IterInfo)
+function dft_call(::VASPEngine, it::IterInfo)
     vasp_init(it)
     vasp_exec(it)
     vasp_save(it)
