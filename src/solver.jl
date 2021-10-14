@@ -126,7 +126,7 @@ function s_qmc1_exec(it::IterInfo)
     println("  > Using $numproc processors (MPI)")
 
     # Get the home directory of quantum impurity solver
-    solver_home = query_solver("ct_hyb1")
+    solver_home = query_solver(_solver_)
     println("  > Home directory for solver: ", solver_home)
 
     # Select suitable solver program
