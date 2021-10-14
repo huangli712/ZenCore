@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/09
+# Last modified: 2021/10/14
 #
 
 #=
@@ -173,7 +173,7 @@ function cycle1()
         @time_call sigma_core(it, lr, ai, "dcount")
 
         # C06: Perform DMFT calculation with `task` = 1
-        @time_call dmft_run(it, lr, 1)
+        @time_call dmft_core(it, lr, 1)
 
         # C07: Mix the hybridization functions
         @time_call mixer_core(it, lr, ai, "delta")
@@ -302,7 +302,7 @@ function cycle2()
             @time_call sigma_core(it, lr, ai, "dcount")
 
             # C08: Perform DMFT calculation with `task` = 1
-            @time_call dmft_run(it, lr, 1)
+            @time_call dmft_core(it, lr, 1)
 
             # C09: Mix the hybridization functions
             @time_call mixer_core(it, lr, ai, "delta")
@@ -336,7 +336,7 @@ function cycle2()
             incr_it(it, 2, 1)
 
             # C15: Perform DMFT calculation with `task` = 2
-            @time_call dmft_run(it, lr, 2) # Generate correction for density matrix
+            @time_call dmft_core(it, lr, 2) # Generate correction for density matrix
 
             # C16: Mix the correction for density matrix
             @time_call mixer_core(it, lr, ai, "gcorr")
@@ -442,7 +442,7 @@ function try_dmft(task::I64)
     lr = Logger(query_case())
 
     # C01: Execuate the DMFT engine
-    @time_call dmft_run(it, lr, task)
+    @time_call dmft_core(it, lr, task)
 
     # C98: Close Logger.log
     if isopen(lr.log)
@@ -722,7 +722,7 @@ calculations.
 Now only the `vasp` and `quantum espresso` codes are supported. If you
 want to support more DFT engines, this function must be adapted.
 
-See also: [`adaptor_run`](@ref), [`dmft_run`](@ref), [`solver_run`](@ref).
+See also: [`adaptor_run`](@ref), [`dmft_core`](@ref), [`solver_run`](@ref).
 """
 function dft_core(it::IterInfo, lr::Logger, sc::Bool = false)
     # Determine the chosen engine
@@ -787,7 +787,7 @@ function dft_core(it::IterInfo, lr::Logger, sc::Bool = false)
 end
 
 """
-    dmft_run(it::IterInfo, lr::Logger, task::I64)
+    dmft_core(it::IterInfo, lr::Logger, task::I64)
 
 Simple driver for DMFT engine. It performs three tasks: (1) Examine
 the runtime environment for the DMFT engine. (2) Launch the DMFT engine.
@@ -798,7 +798,7 @@ Its value can be 1 or 2.
 
 See also: [`adaptor_run`](@ref), [`dft_core`](@ref), [`solver_run`](@ref).
 """
-function dmft_run(it::IterInfo, lr::Logger, task::I64)
+function dmft_core(it::IterInfo, lr::Logger, task::I64)
     # Examine the argument `task`
     @assert task == 1 || task == 2
 
@@ -851,7 +851,7 @@ Now only the `ct_hyb1`, `ct_hyb2`, `hub1`, and `norg` quantum impurity
 solvers are supported. If you want to support the other quantum impurity
 solvers, this function must be adapted.
 
-See also: [`adaptor_run`](@ref), [`dft_core`](@ref), [`dmft_run`](@ref).
+See also: [`adaptor_run`](@ref), [`dft_core`](@ref), [`dmft_core`](@ref).
 """
 function solver_run(it::IterInfo,
                     lr::Logger,
@@ -1019,7 +1019,7 @@ While for the second task, both the `plo` and `wannier` adaptors are
 supported. If you want to support more adaptors, please adapt this
 function by yourself.
 
-See also: [`dft_core`](@ref), [`dmft_run`](@ref), [`solver_run`](@ref).
+See also: [`dft_core`](@ref), [`dmft_core`](@ref), [`solver_run`](@ref).
 """
 function adaptor_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
     # Enter dft directory

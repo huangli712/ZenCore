@@ -387,7 +387,7 @@ monitor     -> Monitor the DFT + DMFT calculations.
 suspend     -> Suspend the DFT engine.
 suicide     -> Kill the DFT engine.
 dft_core    -> Driver for DFT engine.
-dmft_run    -> Driver for DMFT engine.
+dmft_core   -> Driver for DMFT engine.
 solver_run  -> Driver for quantum impurity solvers.
 adaptor_run -> Driver for Kohn-Sham adaptor.
 sigma_core  -> Driver for self-energy engine.
@@ -422,7 +422,7 @@ export monitor
 export suspend
 export suicide
 export dft_core
-export dmft_run
+export dmft_core
 export solver_run
 export adaptor_run
 export sigma_core
