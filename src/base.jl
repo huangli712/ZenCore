@@ -146,7 +146,7 @@ function cycle1()
     is_vasp() && @time_call dft_core(it, lr)
 
     # C03: To bridge the gap between DFT engine and DMFT engine by adaptor
-    adaptor_run(it, lr, ai)
+    adaptor_core(it, lr, ai)
 
     # C04: Prepare default self-energy functions
     @time_call sigma_core(it, lr, ai, "reset")
@@ -251,7 +251,7 @@ function cycle2()
     is_vasp() && @time_call dft_core(it, lr)
 
     # C03: To bridge the gap between DFT engine and DMFT engine by adaptor
-    adaptor_run(it, lr, ai)
+    adaptor_core(it, lr, ai)
 
     # C04: Prepare default self-energy functions
     @time_call sigma_core(it, lr, ai, "reset")
@@ -287,7 +287,7 @@ function cycle2()
         begin
 
             # C06: Apply the adaptor to extract new Kohn-Sham dataset
-            adaptor_run(it, lr, ai)
+            adaptor_core(it, lr, ai)
 
         end
 
@@ -511,7 +511,7 @@ function try_adaptor()
     ai = GetImpurity()
 
     # C01: Execute the Kohn-Sham adaptor
-    adaptor_run(it, lr, ai)
+    adaptor_core(it, lr, ai)
 
     # C98: Close Logger.log
     if isopen(lr.log)
@@ -722,7 +722,7 @@ calculations.
 Now only the `vasp` and `quantum espresso` codes are supported. If you
 want to support more DFT engines, this function must be adapted.
 
-See also: [`adaptor_run`](@ref), [`dmft_core`](@ref), [`solver_core`](@ref).
+See also: [`adaptor_core`](@ref), [`dmft_core`](@ref), [`solver_core`](@ref).
 """
 function dft_core(it::IterInfo, lr::Logger, sc::Bool = false)
     # Determine the chosen engine
@@ -796,7 +796,7 @@ the runtime environment for the DMFT engine. (2) Launch the DMFT engine.
 The argument `task` is used to specify running mode of the DMFT code.
 Its value can be 1 or 2.
 
-See also: [`adaptor_run`](@ref), [`dft_core`](@ref), [`solver_core`](@ref).
+See also: [`adaptor_core`](@ref), [`dft_core`](@ref), [`solver_core`](@ref).
 """
 function dmft_core(it::IterInfo, lr::Logger, task::I64)
     # Examine the argument `task`
@@ -851,7 +851,7 @@ Now only the `ct_hyb1`, `ct_hyb2`, `hub1`, and `norg` quantum impurity
 solvers are supported. If you want to support the other quantum impurity
 solvers, this function must be adapted.
 
-See also: [`adaptor_run`](@ref), [`dft_core`](@ref), [`dmft_core`](@ref).
+See also: [`adaptor_core`](@ref), [`dft_core`](@ref), [`dmft_core`](@ref).
 """
 function solver_core(it::IterInfo,
                      lr::Logger,
@@ -1007,7 +1007,7 @@ function solver_core(it::IterInfo,
 end
 
 """
-    adaptor_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
+    adaptor_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
 
 Simple driver for the adaptor. It performs three tasks: (1) Initialize
 the adaptor, to check whether the essential files exist. (2) Parse the
@@ -1021,7 +1021,7 @@ function by yourself.
 
 See also: [`dft_core`](@ref), [`dmft_core`](@ref), [`solver_core`](@ref).
 """
-function adaptor_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
+function adaptor_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
     # Enter dft directory
     cd("dft")
 
