@@ -118,10 +118,19 @@ const PSOLVER= Dict{String,Array{Any,1}}(
 
 abstract type AbstractEngine end
 struct NullEngine <: AbstractEngine end
-struct VaspEngine <: AbstractEngine end
+struct VASPEngine <: AbstractEngine end
 struct QEEngine   <: AbstractEngine end
 
+abstract type AbstractAdaptor end
+struct NullAdaptor    <: AbstractAdaptor end
+struct PLOAdaptor     <: AbstractAdaptor end
+struct WANNIERAdaptor <: AbstractAdaptor end
 
+abstract type AbstractSolver end
+struct CTHYB₁Solver <: AbstractSolver end
+struct CTHYB₂Solver <: AbstractSolver end
+struct HIASolver    <: AbstractSolver end
+struct NORGSolver   <: AbstractSolver end
 
 #=
 ### *Customized Structs*
