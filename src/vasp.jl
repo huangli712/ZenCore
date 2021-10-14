@@ -19,7 +19,7 @@ end
 
 function adaptor_call(::VASPEngine, D::Dict{Symbol,Any})
     vaspq_files()
-    vasp_adaptor(DFTData)
+    vasp_adaptor(D)
 end
 
 #=

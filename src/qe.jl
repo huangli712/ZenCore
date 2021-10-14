@@ -20,7 +20,7 @@ end
 
 function adaptor_call(::QEEngine, D::Dict{Symbol,Any})
     qeq_files()
-    qe_adaptor(DFTData)
+    qe_adaptor(D)
 end
 
 #=
