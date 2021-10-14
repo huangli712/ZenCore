@@ -35,6 +35,21 @@ function ready()
             break
     end
 
+    engine = get_d("engine")
+    @cswitch engine begin
+        @case "vasp"
+            global _engine_ = VASPEngine()
+            break
+
+        @case "qe"
+            global _engine_ = QEEngine()
+            break
+        
+        @default
+            sorry()
+            break
+    end
+
     # R1: Check the input files
     query_inps(get_d("engine"))
 
