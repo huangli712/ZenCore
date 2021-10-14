@@ -154,12 +154,12 @@ See also: [`VASPEngine`](@ref).
 struct QEEngine   <: AbstractEngine end
 
 """
-    WANEngine
+    WANNEngine
 
 It represents a WANNIER90 engine, which is used to generate the maximally
 localized wannier functions.
 """
-struct WANEngine  <: AbstractEngine end
+struct WANNEngine <: AbstractEngine end
 
 "Set up the default density functional theory calculation engine."
 _engine_ = NullEngine()
