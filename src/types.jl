@@ -188,7 +188,7 @@ struct CTHYB₁Solver <: AbstractSolver end
 
 It represents a quantum impurity solver based on the CT-HYB₂ algorithm.
 
-See also: [`CTHYB₂Solver`](@ref).
+See also: [`CTHYB₁Solver`](@ref).
 """
 struct CTHYB₂Solver <: AbstractSolver end
 
@@ -216,9 +216,32 @@ An abstract type representing the DFT-DMFT adaptor. It is used to build
 the internal type system.
 """
 abstract type AbstractAdaptor end
+
+"""
+    NullAdaptor
+
+It represents a null DFT-DMFT adaptor. It is the default adaptor and will
+be replaced by the realistic adaptor.
+
+See also: [`_adaptor_`](@ref).
+"""
 struct NullAdaptor    <: AbstractAdaptor end
+
+"""
+    PLOAdaptor
+
+It represents a DFT-DMFT adaptor based on the projected local orbitals.
+"""
 struct PLOAdaptor     <: AbstractAdaptor end
+
+"""
+    PLOAdaptor
+
+It represents a DFT-DMFT adaptor based on the wannier functions.
+"""
 struct WANNIERAdaptor <: AbstractAdaptor end
+
+"Set up the default DFT-DMFT adaptor."
 _adaptor_ = NullAdaptor()
 
 #=
