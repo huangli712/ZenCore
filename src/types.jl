@@ -214,6 +214,13 @@ It represents a quantum impurity solver based on the NORG algorithm.
 """
 struct NORGSolver   <: AbstractSolver end
 
+"""
+    ATOMSolver
+
+It represents a solver for atomic eigenvalue problems.
+"""
+struct ATOMSolver   <: AbstractSolver end
+
 "Set up the default quantum impurity solver."
 _solver_ = NullSolver()
 
