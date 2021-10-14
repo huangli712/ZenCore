@@ -11,7 +11,9 @@
 ### *Driver Functions*
 =#
 
-function adaptor_call(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
+function adaptor_call(::PLOAdaptor,
+                      D::Dict{Symbol,Any},
+                      ai::Array{Impurity,1})
     @time_call plo_adaptor(D, ai)
 end
 
