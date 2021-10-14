@@ -953,10 +953,6 @@ function solver_core(it::IterInfo,
                     s_norg_exec(it)
                     s_norg_save(it)
                     break
-
-                @default
-                    sorry()
-                    break
             end
 
             # Enter the parent directory
