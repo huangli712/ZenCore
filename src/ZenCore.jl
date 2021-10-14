@@ -798,6 +798,7 @@ CT-HYB₂, HIA, and NORG quantum impurity solvers are supported.
 solver_call  -> Execute the quantum impurity solver.
 solver_copy  -> Transfer calculated results between two impurity problems.
 solver_sigma -> Parse the self-energy functions.
+solver_nimpx -> Parse the impurity occupancy.
 s_qmc1_init  -> Prepare input files for the CT-HYB₁ impurity solver.
 s_qmc1_exec  -> Execute the CT-HYB₁ impurity solver.
 s_qmc1_save  -> Backup output files for the CT-HYB₁ impurity solver.
@@ -836,6 +837,7 @@ include("solver.jl")
 export solver_call
 export solver_copy
 export solver_sigma
+export solver_nimpx
 export s_qmc1_init
 export s_qmc1_exec
 export s_qmc1_save
