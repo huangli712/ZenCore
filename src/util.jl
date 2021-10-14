@@ -436,10 +436,16 @@ function query_solver(::CTHYB₂Solver)
         joinpath(query_home(), "src/solver/ct_hyb2")
     end
 end
-
-            @case "hub1"
-                solver_dir = joinpath(query_home(), "src/solver/hub1")
-                break
+#
+function query_solver(::HIASolver)
+    # We have to setup the environment variable ZEN_SOLVER
+    if haskey(ENV, "ZEN_SOLVER")
+        ENV["ZEN_SOLVER"]
+    # For develop stage only
+    else
+        joinpath(query_home(), "src/solver/hub1")
+    end
+end
 
             @case "norg"
                 solver_dir = joinpath(query_home(), "src/solver/norg")
