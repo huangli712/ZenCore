@@ -4,8 +4,16 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/12
+# Last modified: 2021/10/14
 #
+
+#=
+### *Driver Functions*
+=#
+
+function adaptor_call(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
+    @time_call plo_adaptor(D, ai)
+end
 
 #=
 ### *Driver Functions*

@@ -4,8 +4,18 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/09
+# Last modified: 2021/10/14
 #
+
+#=
+### *Driver Functions*
+=#
+
+function adaptor_call(::WANNIERAdaptor,
+                      D::Dict{Symbol,Any},
+                      ai::Array{Impurity,1})
+    @time_call wannier_adaptor(D, ai)
+end
 
 #=
 ### *Driver Functions*
