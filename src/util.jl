@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/03
+# Last modified: 2021/10/14
 #
 
 #=
@@ -235,7 +235,9 @@ not worry about them.
 =#
 
 """
-    query_inps(engine::String)
+    query_inps(::NullEngine)
+    query_inps(::VASPEngine)
+    query_inps(::QEEngine)
 
 Check whether the essential input files exist. This function is designed
 for the DFT engine only. The input files for the DMFT engine, quantum
@@ -245,23 +247,19 @@ about that.
 
 See also: [`query_case`](@ref).
 """
-function query_inps(engine::String)
-    @cswitch engine begin
-        @case "vasp"
-            if !isfile("POSCAR") || !isfile("POTCAR")
-                error("Please provide both POSCAR and POTCAR files")
-            end
-            break
-
-        @case "qe"
-            if !isfile("QE.INP")
-                error("Please provide the QE.INP file")
-            end
-            break
-
-        @default
-            sorry()
-            break
+function query_inps(::NullEngine)
+    sorry()
+end
+#
+function query_inps(::VASPEngine)
+    if !isfile("POSCAR") || !isfile("POTCAR")
+        error("Please provide both POSCAR and POTCAR files")
+    end
+end
+#
+function query_inps(::QEEngine)
+    if !isfile("QE.INP")
+        error("Please provide the QE.INP file")
     end
 end
 
