@@ -799,6 +799,7 @@ solver_call  -> Execute the quantum impurity solver.
 solver_copy  -> Transfer calculated results between two impurity problems.
 solver_sigma -> Parse the self-energy functions.
 solver_nimpx -> Parse the impurity occupancy.
+solver_edmft -> Parse the interaction energy (potential energy).
 s_qmc1_init  -> Prepare input files for the CT-HYB₁ impurity solver.
 s_qmc1_exec  -> Execute the CT-HYB₁ impurity solver.
 s_qmc1_save  -> Backup output files for the CT-HYB₁ impurity solver.
@@ -821,10 +822,10 @@ ctqmc_delta  -> Prepare hybridization function for CT-QMC impurity solver.
 ctqmc_eimpx  -> Prepare local impurity levels for CT-QMC impurity solver.
 ctqmc_sigma  -> Return self-energy function by CT-QMC impurity solver.
 ctqmc_nimpx  -> Return impurity occupancy by CT-QMC impurity solver.
-ctqmc_energy -> Return interaction energy by CT-QMC impurity solver.
+ctqmc_edmft  -> Return interaction energy by CT-QMC impurity solver.
 GetSigma     -> Parse the self-energy functions.
 GetNimpx     -> Parse the impurity occupancy.
-GetEnergy    -> Parse the interaction energy (potential energy).
+GetEdmft     -> Parse the interaction energy (potential energy).
 GetSymmetry  -> Analyze orbital degeneracy via local impurity levels.
 GetImpurity  -> Build Impurity struct according to configuration file.
 CatImpurity  -> Display Impurity struct that need to be solved.
@@ -838,6 +839,7 @@ export solver_call
 export solver_copy
 export solver_sigma
 export solver_nimpx
+export solver_edmft
 export s_qmc1_init
 export s_qmc1_exec
 export s_qmc1_save
