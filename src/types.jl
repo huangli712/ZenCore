@@ -173,6 +173,14 @@ and will be replaced by the realistic solver.
 See also: [`_solver_`](@ref).
 """
 struct NullSolver   <: AbstractSolver end
+
+"""
+    CTHYB₁Solver
+
+It represents a quantum impurity solver based on the CT-HYB₁ algorithm.
+
+See also: [`CTHYB₂Solver`](@ref).
+"""
 struct CTHYB₁Solver <: AbstractSolver end
 struct CTHYB₂Solver <: AbstractSolver end
 struct HIASolver    <: AbstractSolver end
