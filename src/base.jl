@@ -20,8 +20,8 @@ directories) for DFT + DMFT calculations are ready.
 See also: [`go`](@ref).
 """
 function ready()
-    dft = get_d("engine")
-    @cswitch dft begin
+    engine = get_d("engine")
+    @cswitch engine begin
         @case "vasp"
             global _engine_ = VASPEngine()
             break
@@ -53,6 +53,21 @@ function ready()
             global _solver_ = NORGSolver()
             break
 
+        @default
+            sorry()
+            break
+    end
+
+    adaptor = get_d("projtype")
+    @cswitch adaptor begin
+        @case "plo"
+            global _adaptor_ = PLOAdaptor()
+            break
+
+        @case "wannier"
+            global _adaptor_ = WANNIERAdaptor() 
+            break
+        
         @default
             sorry()
             break
