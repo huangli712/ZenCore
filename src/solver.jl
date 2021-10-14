@@ -828,7 +828,7 @@ end
 
 Parse the `solver.paux.dat` file to extract the interaction energy.
 
-See also: [`GetEnergy`](@ref).
+See also: [`GetEdmft`](@ref).
 """
 function ctqmc_edmft()
     # File name for DMFT energy
@@ -916,7 +916,7 @@ function GetNimpx(imp::Impurity)
 end
 
 """
-    GetEnergy(imp::Impurity)
+    GetEdmft(imp::Impurity)
 
 Extract interaction energy (i.e potential energy) from the output files
 of various quantum impurity solvers. The input Impurity struct won't be
@@ -924,7 +924,7 @@ modified. The working directory of this function must be the root folder.
 
 See also: [`Impurity`](@ref), [`ctqmc_energy`](@ref).
 """
-function GetEnergy(imp::Impurity)
+function GetEdmft(imp::Impurity)
     # Get the index for current quantum impurity problem
     index = imp.index
 

@@ -865,7 +865,7 @@ export ctqmc_nimpx
 export ctqmc_energy
 export GetSigma
 export GetNimpx
-export GetEnergy
+export GetEdmft
 export GetSymmetry
 export GetImpurity
 export CatImpurity
