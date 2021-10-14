@@ -198,6 +198,12 @@ struct CTHYB₂Solver <: AbstractSolver end
 It represents a quantum impurity solver based on the HIA algorithm.
 """
 struct HIASolver    <: AbstractSolver end
+
+"""
+    NORGSolver
+
+It represents a quantum impurity solver based on the NORG algorithm.
+"""
 struct NORGSolver   <: AbstractSolver end
 _solver_ = NullSolver()
 
