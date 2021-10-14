@@ -388,7 +388,7 @@ suspend     -> Suspend the DFT engine.
 suicide     -> Kill the DFT engine.
 dft_core    -> Driver for DFT engine.
 dmft_core   -> Driver for DMFT engine.
-solver_run  -> Driver for quantum impurity solvers.
+solver_core -> Driver for quantum impurity solvers.
 adaptor_run -> Driver for Kohn-Sham adaptor.
 sigma_core  -> Driver for self-energy engine.
 mixer_core  -> Driver for mixer engine.
@@ -423,7 +423,7 @@ export suspend
 export suicide
 export dft_core
 export dmft_core
-export solver_run
+export solver_core
 export adaptor_run
 export sigma_core
 export mixer_core

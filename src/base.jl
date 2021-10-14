@@ -185,7 +185,7 @@ function cycle1()
         @time_call sigma_core(it, lr, ai, "split")
 
         # C10: Solve the quantum impurity problems
-        @time_call solver_run(it, lr, ai)
+        @time_call solver_core(it, lr, ai)
 
         # C11: Gather and combine the impurity self-functions
         @time_call sigma_core(it, lr, ai, "gather")
@@ -314,7 +314,7 @@ function cycle2()
             @time_call sigma_core(it, lr, ai, "split")
 
             # C12: Solve the quantum impurity problems
-            @time_call solver_run(it, lr, ai)
+            @time_call solver_core(it, lr, ai)
 
             # C13: Gather and combine the impurity self-functions
             @time_call sigma_core(it, lr, ai, "gather")
@@ -477,7 +477,7 @@ function try_solver()
     ai = GetImpurity()
 
     # C01: Execuate the quantum impurity solvers
-    @time_call solver_run(it, lr, ai)
+    @time_call solver_core(it, lr, ai)
 
     # C98: Close Logger.log
     if isopen(lr.log)
@@ -722,7 +722,7 @@ calculations.
 Now only the `vasp` and `quantum espresso` codes are supported. If you
 want to support more DFT engines, this function must be adapted.
 
-See also: [`adaptor_run`](@ref), [`dmft_core`](@ref), [`solver_run`](@ref).
+See also: [`adaptor_run`](@ref), [`dmft_core`](@ref), [`solver_core`](@ref).
 """
 function dft_core(it::IterInfo, lr::Logger, sc::Bool = false)
     # Determine the chosen engine
@@ -796,7 +796,7 @@ the runtime environment for the DMFT engine. (2) Launch the DMFT engine.
 The argument `task` is used to specify running mode of the DMFT code.
 Its value can be 1 or 2.
 
-See also: [`adaptor_run`](@ref), [`dft_core`](@ref), [`solver_run`](@ref).
+See also: [`adaptor_run`](@ref), [`dft_core`](@ref), [`solver_core`](@ref).
 """
 function dmft_core(it::IterInfo, lr::Logger, task::I64)
     # Examine the argument `task`
@@ -834,10 +834,10 @@ function dmft_core(it::IterInfo, lr::Logger, task::I64)
 end
 
 """
-    solver_run(it::IterInfo,
-               lr::Logger,
-               ai::Array{Impurity,1},
-               force::Bool = false)
+    solver_core(it::IterInfo,
+                lr::Logger,
+                ai::Array{Impurity,1},
+                force::Bool = false)
 
 Simple driver for quantum impurity solvers. It performs three tasks: (1)
 Examine the runtime environment for quantum impurity solver. (2) Launch
@@ -853,10 +853,10 @@ solvers, this function must be adapted.
 
 See also: [`adaptor_run`](@ref), [`dft_core`](@ref), [`dmft_core`](@ref).
 """
-function solver_run(it::IterInfo,
-                    lr::Logger,
-                    ai::Array{Impurity,1},
-                    force::Bool = false)
+function solver_core(it::IterInfo,
+                     lr::Logger,
+                     ai::Array{Impurity,1},
+                     force::Bool = false)
     # Sanity check
     @assert length(ai) == get_i("nsite")
 
@@ -1019,7 +1019,7 @@ While for the second task, both the `plo` and `wannier` adaptors are
 supported. If you want to support more adaptors, please adapt this
 function by yourself.
 
-See also: [`dft_core`](@ref), [`dmft_core`](@ref), [`solver_run`](@ref).
+See also: [`dft_core`](@ref), [`dmft_core`](@ref), [`solver_core`](@ref).
 """
 function adaptor_run(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
     # Enter dft directory
