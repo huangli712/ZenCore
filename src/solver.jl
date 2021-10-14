@@ -95,19 +95,19 @@ function solver_nimpx(::NORGSolver, imp::Impurity)
     sorry()
 end
 
-function solver_edmft(::CTHYB₁Solver, imp::Impurity)
+function solver_edmft(::CTHYB₁Solver)
     return ctqmc_nimpx(imp)
 end
 
-function solver_edmft(::CTHYB₂Solver, imp::Impurity)
+function solver_edmft(::CTHYB₂Solver)
     return ctqmc_nimpx(imp)
 end
 
-function solver_edmft(::HIASolver, imp::Impurity)
+function solver_edmft(::HIASolver)
     sorry()
 end
 
-function solver_edmft(::NORGSolver, imp::Impurity)
+function solver_edmft(::NORGSolver)
     sorry()
 end
 
