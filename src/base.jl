@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/14
+# Last modified: 2021/10/15
 #
 
 #=
@@ -966,7 +966,7 @@ function solver_core(it::IterInfo,
         end
 
         # Well, now we would like to extract the DMFT energy.
-        edmft = GetEnergy(imp)
+        edmft = GetEdmft(imp)
         it.et.dmft = it.et.dmft + edmft
         println("  > DMFT interaction energy: [$i] -> $edmft eV")
     end # END OF I LOOP
