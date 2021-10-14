@@ -116,17 +116,41 @@ const PSOLVER= Dict{String,Array{Any,1}}(
 ### *Customized Structs*
 =#
 
+"""
+    AbstractEngine
+
+An abstract type representing the DFT engine. It is used to build the
+internal type system.
+"""
 abstract type AbstractEngine end
+
+"""
+    NullEngine
+
+It represents a null DFT engine. It is the default engine and will be
+replaced by the realistic engine.
+"""
 struct NullEngine <: AbstractEngine end
+
+"""
+    VASPEngine
+
+It represents a VASP engine, which is used to perform DFT calculations.
+
+See also: [`QEEngine`](@ref).
+"""
 struct VASPEngine <: AbstractEngine end
+
+"""
+    QEEngine
+
+It represents a Quantum Espresso engine, which is used to perform DFT
+calculations.
+
+See also: [`VASPEngine`](@ref).
+"""
 struct QEEngine   <: AbstractEngine end
 _engine_ = NullEngine()
-
-abstract type AbstractAdaptor end
-struct NullAdaptor    <: AbstractAdaptor end
-struct PLOAdaptor     <: AbstractAdaptor end
-struct WANNIERAdaptor <: AbstractAdaptor end
-_adaptor_ = NullAdaptor()
 
 abstract type AbstractSolver end
 struct NullSolver   <: AbstractSolver end
@@ -135,6 +159,12 @@ struct CTHYB₂Solver <: AbstractSolver end
 struct HIASolver    <: AbstractSolver end
 struct NORGSolver   <: AbstractSolver end
 _solver_ = NullSolver()
+
+abstract type AbstractAdaptor end
+struct NullAdaptor    <: AbstractAdaptor end
+struct PLOAdaptor     <: AbstractAdaptor end
+struct WANNIERAdaptor <: AbstractAdaptor end
+_adaptor_ = NullAdaptor()
 
 #=
 ### *Customized Structs*
