@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/14
+# Last modified: 2021/10/15
 #
 
 #=
@@ -715,27 +715,10 @@ function qec_input(it::IterInfo)
         # So we have to use the smearing algorithm to calculate the
         # occupations.
         SystemNL["occupations"] = "'smearing'"
-        @cswitch kmesh begin
-            @case "accurate"
-                KPointsBlock = SpecialPointsCard(10)
-                break
-
-            @case "medium"
-                KPointsBlock = SpecialPointsCard(08)
-                break
-
-            @case "coarse"
-                KPointsBlock = SpecialPointsCard(06)
-                break
-
-            @case "file"
-                @assert isa(KPointsBlock, SpecialPointsCard)
-                break
-
-            @default # Very coarse kmesh
-                KPointsBlock = SpecialPointsCard(04)
-                break
-        end
+        kmesh == "accurate" && KPointsBlock = SpecialPointsCard(10)
+        kmesh == "medium"   && KPointsBlock = SpecialPointsCard(08)
+        kmesh == "coarse"   && KPointsBlock = SpecialPointsCard(06)
+        kmesh == "file"     && @assert isa(KPointsBlock, SpecialPointsCard)
     end
     #
     open(fnscf, "w") do fout
