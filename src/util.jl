@@ -657,6 +657,11 @@ end
 
 @inline function str_to_struct(str::AbstractString, postfix::AbstractString)
     fstr = replace(uppercase(str), "_" => "") * postfix
+    for i in 0:9
+        if contains(fstr, string(i))
+            fstr = replace(fstr, string(i) => subscript(i))
+        end
+    end
     sym = Symbol(fstr)
     @eval engine = ($sym)()
     return engine
