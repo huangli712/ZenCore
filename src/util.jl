@@ -655,6 +655,13 @@ See also: [`vaspio_projs`](@ref).
     return parse(F64, _re) + parse(F64, _im) * im
 end
 
+@inline function str_to_engine(str::AbstractString)
+    ustr = uppercase(str)
+    sym = Symbol(ustr)
+    @eval engine = ($sym)()
+    return engine
+end
+
 #=
 ### *Mathematical Functions*
 =#
