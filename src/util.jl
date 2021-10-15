@@ -655,7 +655,7 @@ See also: [`vaspio_projs`](@ref).
     return parse(F64, _re) + parse(F64, _im) * im
 end
 
-@inline function str_to_engine(str::AbstractString)
+@inline function str_to_struct(str::AbstractString, postfix::AbstractString)
     ustr = uppercase(str)
     sym = Symbol(ustr)
     @eval engine = ($sym)()

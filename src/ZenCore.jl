@@ -218,6 +218,7 @@ sorry         -> Say sorry.
 prompt        -> Print some messages or logs to the output devices.
 line_to_array -> Convert a line to a string array.
 line_to_cmplx -> Convert a line to a cmplx number.
+str_to_struct ->
 erf           -> Gauss error function.
 subscript     -> Convert a number to subscript.
 ```
@@ -252,6 +253,7 @@ export sorry
 export prompt
 export line_to_array
 export line_to_cmplx
+export str_to_struct
 export erf
 export subscript
 
