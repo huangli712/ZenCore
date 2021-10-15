@@ -454,6 +454,7 @@ functions to deal with the vasp-related files.
 ```text
 dft_call       -> Execute vasp program.
 dft_stop       ->
+dft_resume     ->
 adaptor_call   -> Execute DFT-DMFT adaptor.
 vasp_adaptor   -> Adaptor support.
 vasp_init      -> Prepare vasp's input files.
@@ -488,6 +489,7 @@ include("vasp.jl")
 #
 export dft_call
 export dft_stop
+export dft_resume
 export adaptor_call
 export vasp_adaptor
 export vasp_init
