@@ -608,9 +608,15 @@ function qec_input(it::IterInfo)
     kmesh = get_d("kmesh")
     if isa(KPointsBlock,AutoKmeshCard)
         shift = copy(KPointsBlock.data.shift)
-        kmesh == "accurate" && KPointsBlock = AutoKmeshCard([10, 10, 10], shift)
-        kmesh == "medium"   && KPointsBlock = AutoKmeshCard([08, 08, 08], shift)
-        kmesh == "coarse"   && KPointsBlock = AutoKmeshCard([06, 06, 06], shift)
+        kmesh == "accurate" && begin
+            KPointsBlock = AutoKmeshCard([10, 10, 10], shift)
+        end
+        kmesh == "medium"   && begin
+            KPointsBlock = AutoKmeshCard([08, 08, 08], shift)
+        end
+        kmesh == "coarse"   && begin
+            KPointsBlock = AutoKmeshCard([06, 06, 06], shift)
+        end
     end
 
     # For magnetic moment
