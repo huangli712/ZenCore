@@ -259,6 +259,16 @@ struct WANNIERAdaptor <: AbstractAdaptor end
 "Set up the default DFT-DMFT adaptor."
 _adaptor_ = NullAdaptor()
 
+abstract type AbstractSigmaMode end
+struct NullSigmaMode <: AbstractSigmaMode end
+
+abstract type AbstractMixer end
+struct NullMixer <: AbstractMixer end
+struct ΣMixer <: AbstractMixer end
+struct ΔMixer <: AbstractMixer end
+struct EMixer <: AbstractMixer end
+struct ΓMixer <: AbstractMixer end
+
 #=
 ### *Customized Structs*
 =#
