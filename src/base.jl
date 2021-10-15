@@ -22,6 +22,7 @@ See also: [`go`](@ref).
 function ready()
     # R1: Setup _engine_, the DFT engine.
     engine = get_d("engine")
+    #=
     @cswitch engine begin
         @case "vasp"
             global _engine_ = VASPEngine()
@@ -31,6 +32,9 @@ function ready()
             global _engine_ = QEEngine()
             break
     end
+    =#
+    global _engine_ = str_to_struct(engine, "Engine")
+    @show _engine_
 
     # R2: Setup _solver_, the quentum impurity solver.
     solver = get_s("engine")
