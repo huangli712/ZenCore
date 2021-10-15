@@ -1104,27 +1104,7 @@ function mixer_core(it::IterInfo,
     end
 
     # Launch suitable subroutine
-    @cswitch task begin
-        # Try to mix the self-energy functions
-        @case "sigma"
-            mixer_sigma(it, ai)
-            break
-
-        # Try to mix the hybridization functions
-        @case "delta"
-            mixer_delta(it, ai)
-            break
-
-        # Try to mix the local impurity levels
-        @case "eimpx"
-            mixer_eimpx(it, ai)
-            break
-
-        # Try to mix the density matrix
-        @case "gcorr"
-            mixer_gcorr(it)
-            break
-    end
+    mixer_call(str_to_struct(task, "Mixer"), it, ai)
 
     # Monitor the status
     monitor(true)
