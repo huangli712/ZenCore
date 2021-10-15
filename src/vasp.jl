@@ -21,6 +21,19 @@ function dft_stop(::VASPEngine)
     vasp_stop()
 end
 
+function dft_resume(::VASPEngine)
+    # Reactivate the DFT engine
+    @time_call vasp_back()
+
+    # Wait the DFT engine to finish its job and sleep
+    suspend(2)
+
+    # Get the DFT energy
+    edft = vaspio_energy()
+
+    return edft
+end
+
 function adaptor_call(::VASPEngine, D::Dict{Symbol,Any})
     vaspq_files()
     vasp_adaptor(D)
