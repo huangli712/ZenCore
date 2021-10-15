@@ -402,26 +402,9 @@ function vaspc_incar(fermi::F64, sc_mode::I64)
     # If kmesh == "file", then vaspc_kpoints() will be used to generate
     # the KPOINTS file.
     kmesh = get_d("kmesh")
-    @cswitch kmesh begin
-        @case "accurate"
-            write(ios, "KSPACING = 0.1 \n")
-            break
-
-        @case "medium"
-            write(ios, "KSPACING = 0.2 \n")
-            break
-
-        @case "coarse"
-            write(ios, "KSPACING = 0.4 \n")
-            break
-
-        @case "file"
-            break
-
-        @default # Very coarse kmesh
-            write(ios, "KSPACING = 0.5 \n")
-            break
-    end
+    kmesh == "accurate" && write(ios, "KSPACING = 0.1 \n")
+    kmesh == "medium"   && write(ios, "KSPACING = 0.2 \n")
+    kmesh == "coarse"   && write(ios, "KSPACING = 0.4 \n")
 
     # For magnetic moment
     magmom = get_d("magmom")
