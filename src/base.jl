@@ -737,25 +737,8 @@ function dft_core(it::IterInfo, lr::Logger, sc::Bool = false)
     if !sc
         dft_call(_engine_, it)
     else
-        @cswitch engine begin
-            # For vasp
-            @case "vasp"
-                # Reactivate the DFT engine
-                @time_call vasp_back()
-                #
-                # Wait the DFT engine to finish its job and sleep
-                suspend(2)
-                #
-                # Get the DFT energy
-                edft = vaspio_energy()
-                break
-
-            @default
-                sorry()
-                break
-        end
         # Save DFT energy for the current DFT + DMFT iteration
-        it.et.dft = edft
+        it.et.dft = dft_resume(_engine_)
     end
 
     # Enter the parent directory
