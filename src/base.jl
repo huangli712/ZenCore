@@ -691,16 +691,7 @@ function suicide(it::IterInfo)
         engine = get_d("engine")
         #
         println("Try to kill the $engine app. Please waiting...")
-        @cswitch engine begin
-            # For vasp
-            @case "vasp"
-                vasp_stop()
-                break
-
-            @default
-                sorry()
-                break
-        end
+        dft_stop(_engine_)
     end
 
     # Print the footer
