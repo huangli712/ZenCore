@@ -936,6 +936,7 @@ matrix ``\Gamma``.
 *Members* :
 
 ```text
+mixer_call  ->
 mixer_sigma -> Mix self-energy functions.
 mixer_delta -> Mix hybridization functions.
 mixer_eimpx -> Mix local impurity levels.
@@ -948,6 +949,7 @@ distance    -> Calculate the difference / distance between two arrays.
 #
 include("mixer.jl")
 #
+export mixer_call
 export mixer_sigma
 export mixer_delta
 export mixer_eimpx
