@@ -177,10 +177,10 @@ function cycle1()
         @time_call dmft_core(it, lr, 1)
 
         # C07: Mix the hybridization functions
-        @time_call mixer_core(it, lr, ai, "delta")
+        @time_call mixer_core(it, lr, ai, "Δ")
 
         # C08: Mix the local impurity levels
-        @time_call mixer_core(it, lr, ai, "eimpx")
+        @time_call mixer_core(it, lr, ai, "E")
 
         # C09: Split and distribute the hybridization functions
         @time_call sigma_core(it, lr, ai, "split")
@@ -306,10 +306,10 @@ function cycle2()
             @time_call dmft_core(it, lr, 1)
 
             # C09: Mix the hybridization functions
-            @time_call mixer_core(it, lr, ai, "delta")
+            @time_call mixer_core(it, lr, ai, "Δ")
 
             # C10: Mix the local impurity levels
-            @time_call mixer_core(it, lr, ai, "eimpx")
+            @time_call mixer_core(it, lr, ai, "E")
 
             # C11: Split and distribute the hybridization functions
             @time_call sigma_core(it, lr, ai, "split")
@@ -321,7 +321,7 @@ function cycle2()
             @time_call sigma_core(it, lr, ai, "gather")
 
             # C14: Mix the impurity self-energy functions
-            @time_call mixer_core(it, lr, ai, "sigma")
+            @time_call mixer_core(it, lr, ai, "Σ")
 
             # Print the cycle info
             show_it(it, lr)
@@ -340,7 +340,7 @@ function cycle2()
             @time_call dmft_core(it, lr, 2) # Generate correction for density matrix
 
             # C16: Mix the correction for density matrix
-            @time_call mixer_core(it, lr, ai, "gcorr")
+            @time_call mixer_core(it, lr, ai, "Γ")
 
             # Print the cycle info
             show_it("dmft2", 1, 1)
@@ -563,7 +563,7 @@ function try_sigma(task::String = "reset")
 end
 
 """
-    try_mixer(task::String = "sigma")
+    try_mixer(task::String = "Σ")
 
 Perform calculations using mixer engine only. The users can execute
 it in the REPL mode to see whether the mixer engine works properly.
@@ -573,7 +573,7 @@ the predefined parameters in step `C01`.
 
 See also: [`cycle1`](@ref), [`cycle2`](@ref).
 """
-function try_mixer(task::String = "sigma")
+function try_mixer(task::String = "Σ")
     # C-2: Create IterInfo struct
     it = IterInfo()
 
