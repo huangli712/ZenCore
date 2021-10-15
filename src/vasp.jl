@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/14
+# Last modified: 2021/10/15
 #
 
 #=
@@ -15,6 +15,10 @@ function dft_call(::VASPEngine, it::IterInfo)
     vasp_init(it)
     vasp_exec(it)
     vasp_save(it)
+end
+
+function dft_stop(::VASPEngine)
+    vasp_stop()
 end
 
 function adaptor_call(::VASPEngine, D::Dict{Symbol,Any})
