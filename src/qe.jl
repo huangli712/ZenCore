@@ -581,31 +581,24 @@ function qec_input(it::IterInfo)
     #
     # For smearing
     smear = get_d("smear")
-    @cswitch smear begin
-        @case "mp2"
-            SystemNL["occupations"] = "'smearing'"
-            SystemNL["smearing"] = "'m-p'"
-            break
-
-        @case "mp1"
-            SystemNL["occupations"] = "'smearing'"
-            SystemNL["smearing"] = "'m-p'"
-            break
-
-        @case "gauss"
-            SystemNL["occupations"] = "'smearing'"
-            SystemNL["smearing"] = "'gauss'"
-            break
-
-        @case "tetra"
-            SystemNL["occupations"] = "'tetrahedra'"
-            delete!(SystemNL, "smearing")
-            break
-
-        @default
-            SystemNL["occupations"] = "'smearing'"
-            SystemNL["smearing"] = "'gauss'"
-            break
+    smear == "mp2"   && begin
+        SystemNL["occupations"] = "'smearing'"
+        SystemNL["smearing"] = "'m-p'"
+    end
+    #
+    smear == "mp1"   && begin
+        SystemNL["occupations"] = "'smearing'"
+        SystemNL["smearing"] = "'m-p'"
+    end
+    #
+    smear == "gauss" && begin
+        SystemNL["occupations"] = "'smearing'"
+        SystemNL["smearing"] = "'gauss'"
+    end
+    #
+    smear == "tetra" && begin    
+        SystemNL["occupations"] = "'tetrahedra'"
+        delete!(SystemNL, "smearing")
     end
 
     # For kmesh density
