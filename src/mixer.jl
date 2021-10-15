@@ -4,8 +4,16 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/02
+# Last modified: 2021/10/15
 #
+
+#=
+### *Driver Functions*
+=#
+
+#=
+### *Driver Functions*
+=#
 
 """
     mixer_sigma(it::IterInfo, ai::Array{Impurity,1})
@@ -295,6 +303,10 @@ function mixer_gcorr(it::IterInfo)
     it.cc = ( dist < get_m("cc") )
     println("  > Averaged ΔΓ = $dist ( convergence is $(it.cc) )")
 end
+
+#=
+### *Service Functions*
+=#
 
 """
     amix(it::IterInfo)
