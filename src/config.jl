@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/03
+# Last modified: 2021/10/15
 #
 
 #=
@@ -194,7 +194,7 @@ function chk_dict()
     @assert all(x -> x in ("ising", "full"), get_i("ising"))
     #
     # Check solver block
-    @assert get_s("engine") in ("ct_hyb1", "ct_hyb2", "hub1", "norg")
+    @assert get_s("engine") in ("ct_hyb1", "ct_hyb2", "hia", "norg")
     @assert get_s("ncycle") ≥ 1
     #
     # Please add more assertion statements here

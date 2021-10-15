@@ -656,8 +656,8 @@ See also: [`vaspio_projs`](@ref).
 end
 
 @inline function str_to_struct(str::AbstractString, postfix::AbstractString)
-    ustr = uppercase(str)
-    sym = Symbol(ustr)
+    fstr = replace(uppercase(str), "_" => "") * postfix
+    sym = Symbol(fstr)
     @eval engine = ($sym)()
     return engine
 end

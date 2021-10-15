@@ -185,7 +185,7 @@ struct NullSolver   <: AbstractSolver end
 """
     CTHYB₁Solver
 
-It represents a quantum impurity solver based on the CT-HYB₁ algorithm.
+It represents a quantum impurity solver based on the CTHYB₁ algorithm.
 
 See also: [`CTHYB₂Solver`](@ref).
 """
@@ -194,7 +194,7 @@ struct CTHYB₁Solver <: AbstractSolver end
 """
     CTHYB₂Solver
 
-It represents a quantum impurity solver based on the CT-HYB₂ algorithm.
+It represents a quantum impurity solver based on the CTHYB₂ algorithm.
 
 See also: [`CTHYB₁Solver`](@ref).
 """

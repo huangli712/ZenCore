@@ -791,8 +791,8 @@ export write_gcorr
 #=
 *Summary* :
 
-Wrapper for various quantum impurity solvers. Now only the CT-HYB₁,
-CT-HYB₂, HIA, and NORG quantum impurity solvers are supported.
+Wrapper for various quantum impurity solvers. Now only the CTHYB₁,
+CTHYB₂, HIA, and NORG quantum impurity solvers are supported.
 
 *Members* :
 
@@ -802,13 +802,13 @@ solver_copy  -> Transfer calculated results between two impurity problems.
 solver_sigma -> Parse the self-energy functions.
 solver_nimpx -> Parse the impurity occupancy.
 solver_edmft -> Parse the interaction energy (potential energy).
-s_qmc1_init  -> Prepare input files for the CT-HYB₁ impurity solver.
-s_qmc1_exec  -> Execute the CT-HYB₁ impurity solver.
-s_qmc1_save  -> Backup output files for the CT-HYB₁ impurity solver.
+s_qmc1_init  -> Prepare input files for the CTHYB₁ impurity solver.
+s_qmc1_exec  -> Execute the CTHYB₁ impurity solver.
+s_qmc1_save  -> Backup output files for the CTHYB₁ impurity solver.
 s_qmc1_copy  -> Transfer calculated results between two impurity problems.
-s_qmc2_init  -> Prepare input files for the CT-HYB₂ impurity solver.
-s_qmc2_exec  -> Execute the CT-HYB₂ impurity solver.
-s_qmc2_save  -> Backup output files for the CT-HYB₂ impurity solver.
+s_qmc2_init  -> Prepare input files for the CTHYB₂ impurity solver.
+s_qmc2_exec  -> Execute the CTHYB₂ impurity solver.
+s_qmc2_save  -> Backup output files for the CTHYB₂ impurity solver.
 s_qmc2_copy  -> Transfer calculated results between two impurity problems.
 s_hub1_init  -> Prepare input files for the HIA impurity solver.
 s_hub1_exec  -> Execute the HIA impurity solver.

@@ -112,13 +112,13 @@ function solver_edmft(::NORGSolver)
 end
 
 #=
-### *CT-HYB₁ Quantum Impurity Solver*
+### *CTHYB₁ Quantum Impurity Solver*
 =#
 
 """
     s_qmc1_init(it::IterInfo, imp::Impurity)
 
-Check runtime environment of the CT-HYB₁ quantum impurity solver. Prepare
+Check runtime environment of the CTHYB₁ quantum impurity solver. Prepare
 the necessary input files.
 
 This quantum impurity solver is from the `iQIST` software package.
@@ -127,7 +127,7 @@ See also: [`s_qmc1_exec`](@ref), [`s_qmc1_save`](@ref).
 """
 function s_qmc1_init(it::IterInfo, imp::Impurity)
     # Print the header
-    println("Engine : CT-HYB₁")
+    println("Engine : CTHYB₁")
     println("Try to solve the quantum impurity problem: [$(imp.index)]")
     println("Current directory: ", pwd())
     println("Prepare necessary input files for solver")
@@ -158,7 +158,7 @@ end
 """
     s_qmc1_exec(it::IterInfo)
 
-Launch the CT-HYB₁ quantum impurity solver.
+Launch the CTHYB₁ quantum impurity solver.
 
 This quantum impurity solver is from the `iQIST` software package.
 
@@ -259,7 +259,7 @@ function s_qmc1_exec(it::IterInfo)
     println("  > Finished after $(length(lines)) Monte Carlo sampling blocks")
 
     # Extract perturbation expansion order information
-    println("Report From CT-HYB₁ Quantum Impurity Solver")
+    println("Report From CTHYB₁ Quantum Impurity Solver")
     lines = readlines("solver.out")
     start = findlast(x -> contains(x, ">>> iter:"), lines) + 1
     finish = start + 20
@@ -271,7 +271,7 @@ end
 """
     s_qmc1_save(it::IterInfo, imp::Impurity)
 
-Backup output files of the CT-HYB₁ quantum impurity solver.
+Backup output files of the CTHYB₁ quantum impurity solver.
 
 This quantum impurity solver is from the `iQIST` software package.
 
@@ -320,7 +320,7 @@ end
 """
     s_qmc1_copy(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
 
-Backup output files of the CT-HYB₁ quantum impurity solver. We just copy
+Backup output files of the CTHYB₁ quantum impurity solver. We just copy
 selected output files from impurity.1 to impurity.2. Be careful, now we
 are already in directory `impurity.2`.
 
@@ -372,13 +372,13 @@ function s_qmc1_copy(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
 end
 
 #=
-### *CT-HYB₂ Quantum Impurity Solver*
+### *CTHYB₂ Quantum Impurity Solver*
 =#
 
 """
     s_qmc2_init(it::IterInfo)
 
-Check runtime environment of the CT-HYB₂ quantum impurity solver. Prepare
+Check runtime environment of the CTHYB₂ quantum impurity solver. Prepare
 the necessary input files.
 
 This quantum impurity solver is from the `iQIST` software package.
@@ -392,7 +392,7 @@ end
 """
     s_qmc2_exec(it::IterInfo)
 
-Launch the CT-HYB₂ quantum impurity solver.
+Launch the CTHYB₂ quantum impurity solver.
 
 This quantum impurity solver is from the `iQIST` software package.
 
@@ -400,7 +400,7 @@ See also: [`s_qmc2_init`](@ref), [`s_qmc2_save`](@ref).
 """
 function s_qmc2_exec(it::IterInfo)
     # Print the header
-    println("Engine : CT-HYB₂")
+    println("Engine : CTHYB₂")
 
     # Print the footer for a better visualization
     println()
@@ -409,7 +409,7 @@ end
 """
     s_qmc2_save(it::IterInfo)
 
-Backup output files of the CT-HYB₂ quantum impurity solver.
+Backup output files of the CTHYB₂ quantum impurity solver.
 
 This quantum impurity solver is from the `iQIST` software package.
 
@@ -422,7 +422,7 @@ end
 """
     s_qmc2_copy(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
 
-Backup output files of the CT-HYB₂ quantum impurity solver. We just copy
+Backup output files of the CTHYB₂ quantum impurity solver. We just copy
 selected output files from impurity.1 to impurity.2. Be careful, now we
 are already in directory `impurity.2`.
 
