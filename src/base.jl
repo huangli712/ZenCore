@@ -30,15 +30,7 @@ function ready()
 
     # R3: Setup _adaptor_, the DFT-DMFT adaptor.
     adaptor = get_d("projtype")
-    @cswitch adaptor begin
-        @case "plo"
-            global _adaptor_ = PLOAdaptor()
-            break
-
-        @case "wannier"
-            global _adaptor_ = WANNIERAdaptor() 
-            break
-    end
+    global _adaptor_ = str_to_struct(adaptor, "Adaptor")
 
     # R4: Check the input files
     query_inps(_engine_)
