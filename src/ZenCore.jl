@@ -887,6 +887,7 @@ levels ``\epsilon_i``, instead of the self-energy functions.
 *Members* :
 
 ```text
+sigma_call   ->
 sigma_reset  -> Create initial self-energy functions.
 sigma_dcount -> Calculate double counting terms.
 sigma_split  -> Split the hybridization functions and local impurity levels.
@@ -905,6 +906,7 @@ write_sigdc  -> Write dmft1/sigma.dc file.
 #
 include("sigma.jl")
 #
+export sigma_call
 export sigma_reset
 export sigma_dcount
 export sigma_split
