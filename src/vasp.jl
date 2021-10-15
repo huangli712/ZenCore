@@ -392,27 +392,10 @@ function vaspc_incar(fermi::F64, sc_mode::I64)
     #
     # For smearing
     smear = get_d("smear")
-    @cswitch smear begin
-        @case "mp2"
-            write(ios, "ISMEAR   = 2 \n")
-            break
-
-        @case "mp1"
-            write(ios, "ISMEAR   = 1 \n")
-            break
-
-        @case "gauss"
-            write(ios, "ISMEAR   = 0 \n")
-            break
-
-        @case "tetra"
-            write(ios, "ISMEAR   =-5 \n")
-            break
-
-        @default
-            write(ios, "ISMEAR   = 2 \n")
-            break
-    end
+    smear == "mp2"   && write(ios, "ISMEAR   = 2 \n")
+    smear == "mp1"   && write(ios, "ISMEAR   = 1 \n")
+    smear == "gauss" && write(ios, "ISMEAR   = 0 \n")
+    smear == "tetra" && write(ios, "ISMEAR   =-5 \n")
 
     # For kmesh density
     #
