@@ -933,7 +933,7 @@ function GetEdmft(imp::Impurity)
 
     # Activate the corresponding solver_edmft() functions for various
     # quantum impurity solvers
-    solver_edmft(_solver_)
+    epot = solver_edmft(_solver_)
 
     # Enter the parent directory
     cd("..")
