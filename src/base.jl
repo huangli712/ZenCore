@@ -1069,17 +1069,17 @@ Simple driver for the mixer. It will try to mix the self-energy functions
 (or hybridization functions, local impurity levels, density matrix) and
 generate a new one.
 
-Now it supports four tasks: `sigma`, `delta`, `eimpx`, `gcorr`. It
-won't change the current directory.
+Now it supports four tasks: `Σ`, `Δ`, `E`, `Γ`. It won't change the
+current directory.
 
 See also: [`sigma_core`](@ref).
 """
 function mixer_core(it::IterInfo,
                     lr::Logger,
                     ai::Array{Impurity,1},
-                    task::String = "sigma")
+                    task::String = "Σ")
     # Check the given task
-    @assert task in ("sigma", "delta", "eimpx", "gcorr")
+    @assert task in ("Σ", "Δ", "E", "Γ")
 
     # Print the log
     prompt("Mixer", cntr_it(it))
@@ -1091,12 +1091,12 @@ function mixer_core(it::IterInfo,
             return
         end
     else
-        if task in ("sigma", "delta", "eimpx")
+        if task in ("Σ", "Δ", "E")
             if it.I₃ == 1 && it.I₁ == 1
                 return
             end
         else
-            @assert task == "gcorr"
+            @assert task == "Γ"
             if it.I₃ == 1 && it.I₂ == 1
                 return
             end
