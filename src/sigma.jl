@@ -11,6 +11,30 @@
 ### *Driver Functions*
 =#
 
+# Generate default self-energy functions and store them
+function sigma_call(::RESETMode, it::IterInfo, ai::Array{Impurity,1})
+    sigma_reset(ai)
+end
+
+# Calculate the double counting terms and store them
+function sigma_call(::DCOUNTMode, it::IterInfo, ai::Array{Impurity,1})
+    sigma_dcount(it, ai)
+end
+
+# Split the hybridization functions and store them
+function sigma_call(::SPLITMode, it::IterInfo, ai::Array{Impurity,1})
+    sigma_split(ai)
+end
+
+# Collect impurity self-energy functions and combine them
+function sigma_call(::GATHERMode, it::IterInfo, ai::Array{Impurity,1})
+    sigma_gather(it, ai)
+end
+
+#=
+### *Driver Functions*
+=#
+
 """
     sigma_reset(ai::Array{Impurity,1}, with_init_dc::Bool = true)
 
