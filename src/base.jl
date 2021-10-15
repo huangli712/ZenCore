@@ -1053,27 +1053,7 @@ function sigma_core(it::IterInfo,
     prompt(lr.log, "sigma::$task")
 
     # Launch suitable subroutine
-    @cswitch task begin
-        # Generate default self-energy functions and store them
-        @case "reset"
-            sigma_reset(ai)
-            break
-
-        # Calculate the double counting terms and store them
-        @case "dcount"
-            sigma_dcount(it, ai)
-            break
-
-        # Split the hybridization functions and store them
-        @case "split"
-            sigma_split(ai)
-            break
-
-        # Collect impurity self-energy functions and combine them
-        @case "gather"
-            sigma_gather(it, ai)
-            break
-    end
+    sigma_call(str_to_struct(task, "Mode"), it, ai)
 
     # Monitor the status
     monitor(true)
