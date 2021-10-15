@@ -766,20 +766,12 @@ function dmft_core(it::IterInfo, lr::Logger, task::I64)
     cd("dmft$task")
 
     # Activate the chosen DMFT engine
-    @cswitch task begin
-        # Solve the DMFT self-consistent equation
-        @case 1
-            dmft_init(it, 1)
-            dmft_exec(it, 1)
-            dmft_save(it, 1)
-            break
-
-        # Generate DMFT correction for DFT charge density
-        @case 2
-            dmft_init(it, 2)
-            dmft_exec(it, 2)
-            dmft_save(it, 2)
-            break
+    # Solve the DMFT self-consistent equation
+    # Generate DMFT correction for DFT charge density
+    begin
+        dmft_init(it, task)
+        dmft_exec(it, task)
+        dmft_save(it, task)
     end
 
     # Enter the parent directory
