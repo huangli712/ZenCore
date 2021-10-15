@@ -697,10 +697,21 @@ function qec_input(it::IterInfo)
         # So we have to use the smearing algorithm to calculate the
         # occupations.
         SystemNL["occupations"] = "'smearing'"
-        kmesh == "accurate" && KPointsBlock = SpecialPointsCard(10)
-        kmesh == "medium"   && KPointsBlock = SpecialPointsCard(08)
-        kmesh == "coarse"   && KPointsBlock = SpecialPointsCard(06)
-        kmesh == "file"     && @assert isa(KPointsBlock, SpecialPointsCard)
+        kmesh == "accurate" && begin
+            KPointsBlock = SpecialPointsCard(10)
+        end
+        #
+        kmesh == "medium"   && begin
+            KPointsBlock = SpecialPointsCard(08)
+        end
+        #
+        kmesh == "coarse"   && begin
+            KPointsBlock = SpecialPointsCard(06)
+        end
+        #
+        kmesh == "file"     && begin
+            @assert isa(KPointsBlock, SpecialPointsCard)
+        end
     end
     #
     open(fnscf, "w") do fout
