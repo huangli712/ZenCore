@@ -22,39 +22,11 @@ See also: [`go`](@ref).
 function ready()
     # R1: Setup _engine_, the DFT engine.
     engine = get_d("engine")
-    #=
-    @cswitch engine begin
-        @case "vasp"
-            global _engine_ = VASPEngine()
-            break
-
-        @case "qe"
-            global _engine_ = QEEngine()
-            break
-    end
-    =#
     global _engine_ = str_to_struct(engine, "Engine")
-    @show _engine_
 
     # R2: Setup _solver_, the quentum impurity solver.
     solver = get_s("engine")
-    @cswitch solver begin
-        @case "ct_hyb1"
-            global _solver_ = CTHYB₁Solver()
-            break
-
-        @case "ct_hyb2"
-            global _solver_ = CTHYB₂Solver()
-            break
-        
-        @case "hub1"
-            global _solver_ = HIASolver()
-            break
-
-        @case "norg"
-            global _solver_ = NORGSolver()
-            break
-    end
+    global _solver_ = str_to_struct(solver, "Solver")
 
     # R3: Setup _adaptor_, the DFT-DMFT adaptor.
     adaptor = get_d("projtype")
