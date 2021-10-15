@@ -11,6 +11,26 @@
 ### *Driver Functions*
 =#
 
+# Try to mix the self-energy functions
+function mixer_call(::ΣMixer, it::IterInfo, ai::Array{Impurity,1})
+    mixer_sigma(it, ai)
+end
+
+# Try to mix the hybridization functions
+function mixer_call(::ΔMixer, it::IterInfo, ai::Array{Impurity,1})
+    mixer_delta(it, ai)
+end
+
+# Try to mix the local impurity levels
+function mixer_call(::EMixer, it::IterInfo, ai::Array{Impurity,1})
+    mixer_eimpx(it, ai)
+end
+
+# Try to mix the density matrix
+function mixer_call(::ΓMixer, it::IterInfo, ai::Array{Impurity,1})
+    mixer_gcorr(it)
+end
+
 #=
 ### *Driver Functions*
 =#
