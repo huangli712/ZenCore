@@ -53,17 +53,11 @@ function go()
     mode = get_m("mode")
 
     # Choose suitable computational driver
-    @cswitch mode begin
-        # One-shot DFT + DMFT calculations
-        @case 1
-            cycle1()
-            break
+    # One-shot DFT + DMFT calculations
+    mode == 1 && cycle1()
 
-        # Fully self-consistent DFT + DMFT calculations
-        @case 2
-            cycle2()
-            break
-    end
+    # Fully self-consistent DFT + DMFT calculations
+    mode == 2 && cycle2()
 end
 
 """
