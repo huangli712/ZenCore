@@ -345,44 +345,22 @@ function query_core()
 end
 
 """
-    query_dft(::NullEngine)
-    query_dft(::VASPEngine)
-    query_dft(::QEEngine)
-    query_dft(::WANNIEREngine)
+    query_dft(ae::AbstractEngine)
 
 Query the home directory of the chosen DFT engine. It supports vasp,
-quantum espresso, and wannier90.
+quantum espresso, and wannier90 by now.
 
 See also: [`query_dmft`](@ref), [`query_solver`](@ref).
 """
-function query_dft(::NullEngine)
-    sorry()
-end
-#
-function query_dft(::VASPEngine)
-    # For vasp, we have to setup the environment variable VASP_HOME.
-    if haskey(ENV, "VASP_HOME")
-        return ENV["VASP_HOME"]
+function query_dft(ae::AbstractEngine)
+    # Build valid name for environment variable
+    var = uppercase(nameof(ae)) * "_HOME"
+
+    # Query the environment variable
+    if haskey(ENV, var)
+        return ENV[var]
     else
-        error("VASP_HOME is undefined")
-    end
-end
-#
-function query_dft(::QEEngine)
-    # For qe, we have to setup the environment variable QE_HOME.
-    if haskey(ENV, "QE_HOME")
-        return ENV["QE_HOME"]
-    else
-        error("QE_HOME is undefined")
-    end
-end
-#
-function query_dft(::WANNIEREngine)
-    # For wannier90, we have to setup the environment variable WAN90_HOME.
-    if haskey(ENV, "WAN90_HOME")
-        return ENV["WAN90_HOME"]
-    else
-        error("WAN90_HOME is undefined")
+        error("$var is undefined")
     end
 end
 
