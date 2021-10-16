@@ -304,7 +304,7 @@ In the `ZenCore` package, the following environment variables matter:
 * ZEN_SOLVER
 * VASP_HOME (If we are using `vasp` as our DFT backend)
 * QE_HOME (If we are using `quantum espresso` as our DFT backend)
-* W90_HOME (If we are using `wannier90` to generate projectors)
+* WAN90_HOME (If we are using `wannier90` to generate projectors)
 
 Please setup them in your `.bashrc` (Lniux) or `.profile` (macOS) files.
 =#
@@ -350,7 +350,8 @@ end
     query_dft(::QEEngine)
     query_dft(::WANNIEREngine)
 
-Query the home directory of the chosen DFT engine.
+Query the home directory of the chosen DFT engine. It supports vasp,
+quantum espresso, and wannier90.
 
 See also: [`query_dmft`](@ref), [`query_solver`](@ref).
 """
@@ -359,7 +360,7 @@ function query_dft(::NullEngine)
 end
 #
 function query_dft(::VASPEngine)
-    # We have to setup the environment variable VASP_HOME
+    # For vasp, we have to setup the environment variable VASP_HOME.
     if haskey(ENV, "VASP_HOME")
         return ENV["VASP_HOME"]
     else
@@ -368,7 +369,7 @@ function query_dft(::VASPEngine)
 end
 #
 function query_dft(::QEEngine)
-    # We have to setup the environment variable QE_HOME
+    # For qe, we have to setup the environment variable QE_HOME.
     if haskey(ENV, "QE_HOME")
         return ENV["QE_HOME"]
     else
@@ -377,7 +378,7 @@ function query_dft(::QEEngine)
 end
 #
 function query_dft(::WANNIEREngine)
-    # We have to setup the environment variable WAN90_HOME
+    # For wannier90, we have to setup the environment variable WAN90_HOME.
     if haskey(ENV, "WAN90_HOME")
         return ENV["WAN90_HOME"]
     else
@@ -410,68 +411,19 @@ not a valid quantum impurity solver.
 =#
 
 """
-    query_solver(::NullSolver)
-    query_solver(::CTHYB₁Solver)
-    query_solver(::CTHYB₂Solver)
-    query_solver(::HIASolver)
-    query_solver(::NORGSolver)
-    query_solver(::ATOMSolver)
+    query_solver(st::T) where {T <: AbstractSolver}
 
 Query the home directories of various quantum impurity solvers.
 
 See also: [`query_dft`](@ref), [`query_dmft`](@ref).
 """
-function query_solver(::NullSolver)
-    sorry()
-end
-#
-function query_solver(::CTHYB₁Solver)
+function query_solver(st::T) where {T <: AbstractSolver}
     # We have to setup the environment variable ZEN_SOLVER
     if haskey(ENV, "ZEN_SOLVER")
         ENV["ZEN_SOLVER"]
     # For develop stage only
     else
-        joinpath(query_home(), "src/solver/ct_hyb1")
-    end
-end
-#
-function query_solver(::CTHYB₂Solver)
-    # We have to setup the environment variable ZEN_SOLVER
-    if haskey(ENV, "ZEN_SOLVER")
-        ENV["ZEN_SOLVER"]
-    # For develop stage only
-    else
-        joinpath(query_home(), "src/solver/ct_hyb2")
-    end
-end
-#
-function query_solver(::HIASolver)
-    # We have to setup the environment variable ZEN_SOLVER
-    if haskey(ENV, "ZEN_SOLVER")
-        ENV["ZEN_SOLVER"]
-    # For develop stage only
-    else
-        joinpath(query_home(), "src/solver/hub1")
-    end
-end
-#
-function query_solver(::NORGSolver)
-    # We have to setup the environment variable ZEN_SOLVER
-    if haskey(ENV, "ZEN_SOLVER")
-        ENV["ZEN_SOLVER"]
-    # For develop stage only
-    else
-        joinpath(query_home(), "src/solver/norg")
-    end
-end
-#
-function query_solver(::ATOMSolver)
-    # We have to setup the environment variable ZEN_SOLVER
-    if haskey(ENV, "ZEN_SOLVER")
-        ENV["ZEN_SOLVER"]
-    # For develop stage only
-    else
-        joinpath(query_home(), "src/solver/atomic")
+        joinpath(query_home(), "src/solver/" * nameof(st))
     end
 end
 
