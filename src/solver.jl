@@ -72,7 +72,7 @@ end
     solver_copy(::ATOMSolver, it::IterInfo, imp₁::Impurity, imp₂::Impurity)
 
 Try to solve a quantum impurity problem by copying solution from another
-quantum impurity problem. It acts as a dispatcher.
+equivalent quantum impurity problem. It acts as a dispatcher.
 
 See also: [`_solver_`](@ref).
 """
