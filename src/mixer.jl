@@ -53,7 +53,7 @@ end
 Try to mix the self-energy functions Σ and then use the mixed values
 to update the `dmft1/sigma.bare` file.
 
-See also: [`mixer_core`](@ref), [`amix`](@ref).
+See also: [`mixer_core`](@ref), [`amix`](@ref), [`distance`](@ref).
 """
 function mixer_sigma(it::IterInfo, ai::Array{Impurity,1})
     # Print the header
@@ -256,7 +256,7 @@ Try to mix the correction for density matrix Γ and then use the mixed value
 to update the `dmft2/dmft.gcorr` file. Here we use the Kerker algorithm,
 instead of the linear mixing algorithm.
 
-See also: [`mixer_core`](@ref).
+See also: [`mixer_core`](@ref), [`distance`](@ref).
 """
 function mixer_gcorr(it::IterInfo)
     # Print the header
