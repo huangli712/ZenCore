@@ -368,7 +368,7 @@ end
 """
     s_qmc1_copy(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
 
-Backup output files of the CTHYB₁ quantum impurity solver. We just copy
+Duplicate output files of the CTHYB₁ quantum impurity solver. We just copy
 selected output files from impurity.1 to impurity.2. Be careful, now we
 are already in directory `impurity.2`.
 
@@ -447,11 +447,7 @@ This quantum impurity solver is from the `iQIST` software package.
 See also: [`s_qmc2_init`](@ref), [`s_qmc2_save`](@ref).
 """
 function s_qmc2_exec(it::IterInfo)
-    # Print the header
-    println("Engine : CTHYB₂")
-
-    # Print the footer for a better visualization
-    println()
+    sorry()
 end
 
 """
@@ -470,7 +466,7 @@ end
 """
     s_qmc2_copy(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
 
-Backup output files of the CTHYB₂ quantum impurity solver. We just copy
+Duplicate output files of the CTHYB₂ quantum impurity solver. We just copy
 selected output files from impurity.1 to impurity.2. Be careful, now we
 are already in directory `impurity.2`.
 
@@ -483,7 +479,7 @@ function s_qmc2_copy(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
 end
 
 #=
-### *HUB-I Quantum Impurity Solver*
+### *HIA Quantum Impurity Solver*
 =#
 
 """
@@ -506,11 +502,7 @@ Launch the HIA quantum impurity solver.
 See also: [`s_hub1_init`](@ref), [`s_hub1_save`](@ref).
 """
 function s_hub1_exec(it::IterInfo)
-    # Print the header
-    println("Engine : HIA")
-
-    # Print the footer for a better visualization
-    println()
+    sorry()
 end
 
 """
@@ -527,7 +519,7 @@ end
 """
     s_hub1_copy(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
 
-Backup output files of the HIA quantum impurity solver. We just copy
+Duplicate output files of the HIA quantum impurity solver. We just copy
 selected output files from impurity.1 to impurity.2. Be careful, now we
 are already in directory `impurity.2`.
 
@@ -561,11 +553,7 @@ Launch the NORG quantum impurity solver.
 See also: [`s_norg_init`](@ref), [`s_norg_save`](@ref).
 """
 function s_norg_exec(it::IterInfo)
-    # Print the header
-    println("Engine : NORG")
-
-    # Print the footer for a better visualization
-    println()
+    sorry()
 end
 
 """
@@ -582,7 +570,7 @@ end
 """
     s_norg_copy(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
 
-Backup output files of the NORG quantum impurity solver. We just copy
+Duplicate output files of the NORG quantum impurity solver. We just copy
 selected output files from impurity.1 to impurity.2. Be careful, now we
 are already in directory `impurity.2`.
 
