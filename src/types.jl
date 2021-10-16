@@ -235,6 +235,14 @@ struct ATOMSolver   <: AbstractSolver end
 "Set up the default quantum impurity solver."
 _solver_ = NullSolver()
 
+"Get name of quantum impurity solver."
+Base.nameof(::NullSolver) = "null"
+Base.nameof(::CTHYB₁Solver) = "ct_hyb1"
+Base.nameof(::CTHYB₂Solver) = "ct_hyb2"
+Base.nameof(::HIASolver) = "hia"
+Base.nameof(::NORGSolver) = "norg"
+Base.nameof(::ATOMSolver) = "atomic"
+
 #=
 ### *Customized Structs* : *Adaptor*
 =#
