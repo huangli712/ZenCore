@@ -140,6 +140,17 @@ solver_nimpx(::NORGSolver, imp::Impurity) = sorry()
 solver_nimpx(::ATOMSolver, imp::Impurity) = sorry()
 
 """
+    solver_edmft(::NULLSolver)
+    solver_edmft(::CTHYB₁Solver)
+    solver_edmft(::CTHYB₂Solver)
+    solver_edmft(::HIASolver)
+    solver_edmft(::NORGSolver)
+    solver_edmft(::ATOMSolver)
+
+Try to extract interaction energy from the output data of quantum
+impurity solver. It acts as a dispatcher.
+
+See also: [`_solver_`](@ref).
 """
 solver_edmft(::NULLSolver) = sorry()
 solver_edmft(::CTHYB₁Solver) = ctqmc_edmft()
