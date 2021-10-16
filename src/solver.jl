@@ -120,6 +120,17 @@ solver_sigma(::NORGSolver, imp::Impurity) = sorry()
 solver_sigma(::ATOMSolver, imp::Impurity) = sorry()
 
 """
+    solver_nimpx(::NULLSolver, imp::Impurity)
+    solver_nimpx(::CTHYB₁Solver, imp::Impurity)
+    solver_nimpx(::CTHYB₂Solver, imp::Impurity)
+    solver_nimpx(::HIASolver, imp::Impurity)
+    solver_nimpx(::NORGSolver, imp::Impurity)
+    solver_nimpx(::ATOMSolver, imp::Impurity)
+
+Try to extract impurity occupancy from the output data of quantum
+impurity solver. It acts as a dispatcher.
+
+See also: [`_solver_`](@ref).
 """
 solver_nimpx(::NULLSolver, imp::Impurity) = sorry()
 solver_nimpx(::CTHYB₁Solver, imp::Impurity) = ctqmc_nimpx(imp)
