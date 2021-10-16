@@ -426,7 +426,7 @@ end
 
 Test whether the projector is the projected local orbitals.
 
-See also: [`is_plo`](@ref).
+See also: [`is_wannier`](@ref).
 """
 function is_plo()
     get_d("projtype") == "plo"
@@ -437,7 +437,7 @@ end
 
 Test whether the projector is the wannier functions.
 
-See also: [`is_wannier`](@ref).
+See also: [`is_plo`](@ref).
 """
 function is_wannier()
     get_d("projtype") == "wannier"
