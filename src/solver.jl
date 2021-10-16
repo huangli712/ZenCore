@@ -99,7 +99,19 @@ solver_copy(::ATOMSolver, it::IterInfo, imp₁::Impurity, imp₂::Impurity) =
     # For atomic eigenvalues solver
     sorry()
 
+"""
+    solver_sigma(::NULLSolver, imp::Impurity)
+    solver_sigma(::CTHYB₁Solver, imp::Impurity)
+    solver_sigma(::CTHYB₂Solver, imp::Impurity)
+    solver_sigma(::HIASolver, imp::Impurity)
+    solver_sigma(::NORGSolver, imp::Impurity)
+    solver_sigma(::ATOMSolver, imp::Impurity)
 
+Try to extract self-energy function from the output data of quantum
+impurity solver. It acts as a dispatcher.
+
+See also: [`_solver_`](@ref).
+"""
 solver_sigma(::NULLSolver, imp::Impurity) = sorry()
 solver_sigma(::CTHYB₁Solver, imp::Impurity) = ctqmc_sigma(imp)
 solver_sigma(::CTHYB₂Solver, imp::Impurity) = ctqmc_sigma(imp)
@@ -107,6 +119,8 @@ solver_sigma(::HIASolver, imp::Impurity) = sorry()
 solver_sigma(::NORGSolver, imp::Impurity) = sorry()
 solver_sigma(::ATOMSolver, imp::Impurity) = sorry()
 
+"""
+"""
 solver_nimpx(::NULLSolver, imp::Impurity) = sorry()
 solver_nimpx(::CTHYB₁Solver, imp::Impurity) = ctqmc_nimpx(imp)
 solver_nimpx(::CTHYB₂Solver, imp::Impurity) = ctqmc_nimpx(imp)
@@ -114,6 +128,8 @@ solver_nimpx(::HIASolver, imp::Impurity) = sorry()
 solver_nimpx(::NORGSolver, imp::Impurity) = sorry()
 solver_nimpx(::ATOMSolver, imp::Impurity) = sorry()
 
+"""
+"""
 solver_edmft(::NULLSolver) = sorry()
 solver_edmft(::CTHYB₁Solver) = ctqmc_edmft()
 solver_edmft(::CTHYB₂Solver) = ctqmc_edmft()
