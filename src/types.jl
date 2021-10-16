@@ -175,7 +175,7 @@ _engine_ = NullEngine()
 Base.nameof(::NullEngine) = "null"
 Base.nameof(::VASPEngine) = "vasp"
 Base.nameof(::QEEngine) = "qe"
-Base.nameof(::WANNIEREngine) = "wannier90"
+Base.nameof(::WANNIEREngine) = "wan90"
 
 #=
 ### *Customized Structs* : *Quantum Impurity Solver*
