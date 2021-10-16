@@ -21,7 +21,7 @@
 Try to apply various operations on the self-energy functions Σ and the
 hybridization functions Δ (or impurity levels ϵ).
 
-See also: [`AbstractMode`](@ref).
+See also: [`_mode_`](@ref).
 """
 function sigma_call(::NullMode, it::IterInfo, ai::Array{Impurity,1})
     sorry()    

@@ -22,7 +22,7 @@ Try to mix various functions during the iterations, including self-energy
 functions Σ, hybridization functions Δ, effective impurity levels E, and
 correction for density matrix Γ. It acts as a dispatcher.
 
-See also: [`ΣMixer`](@ref), [`ΔMixer`](@ref), [`EMixer`](@ref), [`ΓMixer`](@ref).
+See also: [`_mixer_`](@ref).
 """
 function mixer_call(::NullMixer, it::IterInfo, ai::Array{Impurity,1})
     sorry()
