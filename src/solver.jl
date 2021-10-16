@@ -71,10 +71,17 @@ end
 
 See also: [`_solver_`](@ref).
 """
-solver_copy(::CTHYB₁Solver, it::IterInfo, imp₁::Impurity, imp₂::Impurity) = s_qmc1_copy(it, imp₁, imp₂)
-solver_copy(::CTHYB₂Solver, it::IterInfo, imp₁::Impurity, imp₂::Impurity) = s_qmc2_copy(it, imp₁, imp₂)
-solver_copy(::HIASolver, it::IterInfo, imp₁::Impurity, imp₂::Impurity) = s_hub1_copy(it, imp₁, imp₂)
-solver_copy(::NORGSolver, it::IterInfo, imp₁::Impurity, imp₂::Impurity) = s_norg_copy(it, imp₁, imp₂)
+solver_copy(::CTHYB₁Solver, it::IterInfo, imp₁::Impurity, imp₂::Impurity) =
+    s_qmc1_copy(it, imp₁, imp₂)
+#
+solver_copy(::CTHYB₂Solver, it::IterInfo, imp₁::Impurity, imp₂::Impurity) = 
+    s_qmc2_copy(it, imp₁, imp₂)
+#
+solver_copy(::HIASolver, it::IterInfo, imp₁::Impurity, imp₂::Impurity) = 
+    s_hub1_copy(it, imp₁, imp₂)
+#
+solver_copy(::NORGSolver, it::IterInfo, imp₁::Impurity, imp₂::Impurity) = 
+    s_norg_copy(it, imp₁, imp₂)
 
 solver_sigma(::CTHYB₁Solver, imp::Impurity) = ctqmc_sigma(imp)
 solver_sigma(::CTHYB₂Solver, imp::Impurity) = ctqmc_sigma(imp)
