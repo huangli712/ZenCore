@@ -63,33 +63,18 @@ function solver_call(::ATOMSolver, it::IterInfo, imp::Impurity)
     sorry()
 end
 
-function solver_copy(::CTHYB₁Solver,
-                     it::IterInfo,
-                     imp₁::Impurity,
-                     imp₂::Impurity)
-    s_qmc1_copy(it, imp₁, imp₂)
-end
+"""
+    solver_copy(::CTHYB₁Solver, it::IterInfo, imp₁::Impurity, imp₂::Impurity)
+    solver_copy(::CTHYB₂Solver, it::IterInfo, imp₁::Impurity, imp₂::Impurity)
+    solver_copy(::HIASolver, it::IterInfo, imp₁::Impurity, imp₂::Impurity)
+    solver_copy(::NORGSolver, it::IterInfo, imp₁::Impurity, imp₂::Impurity)
 
-function solver_copy(::CTHYB₂Solver,
-                     it::IterInfo,
-                     imp₁::Impurity,
-                     imp₂::Impurity)
-    s_qmc2_copy(it, imp₁, imp₂)
-end
-
-function solver_copy(::HIASolver,
-                     it::IterInfo,
-                     imp₁::Impurity,
-                     imp₂::Impurity)
-    s_hub1_copy(it, imp₁, imp₂)
-end
-
-function solver_copy(::NORGSolver,
-                     it::IterInfo,
-                     imp₁::Impurity,
-                     imp₂::Impurity)
-    s_norg_copy(it, imp₁, imp₂)
-end
+See also: [`_solver_`](@ref).
+"""
+solver_copy(::CTHYB₁Solver, it::IterInfo, imp₁::Impurity, imp₂::Impurity) = s_qmc1_copy(it, imp₁, imp₂)
+solver_copy(::CTHYB₂Solver, it::IterInfo, imp₁::Impurity, imp₂::Impurity) = s_qmc2_copy(it, imp₁, imp₂)
+solver_copy(::HIASolver, it::IterInfo, imp₁::Impurity, imp₂::Impurity) = s_hub1_copy(it, imp₁, imp₂)
+solver_copy(::NORGSolver, it::IterInfo, imp₁::Impurity, imp₂::Impurity) = s_norg_copy(it, imp₁, imp₂)
 
 solver_sigma(::CTHYB₁Solver, imp::Impurity) = ctqmc_sigma(imp)
 solver_sigma(::CTHYB₂Solver, imp::Impurity) = ctqmc_sigma(imp)
@@ -101,10 +86,10 @@ solver_nimpx(::CTHYB₂Solver, imp::Impurity) = ctqmc_nimpx(imp)
 solver_nimpx(::HIASolver, imp::Impurity) = sorry()
 solver_nimpx(::NORGSolver, imp::Impurity) = sorry()
 
-function solver_edmft(::CTHYB₁Solver) = ctqmc_edmft()
-function solver_edmft(::CTHYB₂Solver) = ctqmc_edmft()
-function solver_edmft(::HIASolver) = sorry()
-function solver_edmft(::NORGSolver) = sorry()
+solver_edmft(::CTHYB₁Solver) = ctqmc_edmft()
+solver_edmft(::CTHYB₂Solver) = ctqmc_edmft()
+solver_edmft(::HIASolver) = sorry()
+solver_edmft(::NORGSolver) = sorry()
 
 #=
 ### *CTHYB₁ Quantum Impurity Solver*
