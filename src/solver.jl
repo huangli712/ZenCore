@@ -4,35 +4,50 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/15
+# Last modified: 2021/10/16
 #
 
 #=
-### *Driver Functions*
+### *Multiple Dispatchers*
 =#
 
+"""
+solver_call(::CTHYB₁Solver, it::IterInfo, imp::Impurity)
+solver_call(::CTHYB₂Solver, it::IterInfo, imp::Impurity)
+solver_call(::HIASolver, it::IterInfo, imp::Impurity)
+solver_call(::NORGSolver, it::IterInfo, imp::Impurity)
+solver_call(::ATOMSolver, it::IterInfo, imp::Impurity)
+"""
+function solver_call(::NullSolver, it::IterInfo, imp::Impurity)
+    sorry()
+end
+#
 function solver_call(::CTHYB₁Solver, it::IterInfo, imp::Impurity)
     s_qmc1_init(it, imp)
     s_qmc1_exec(it)
     s_qmc1_save(it, imp)
 end
-
-function solver_call(::CTHYB₂Solver, it::IterInfo)
+#
+function solver_call(::CTHYB₂Solver, it::IterInfo, imp::Impurity)
     s_qmc2_init(it)
     s_qmc2_exec(it)
     s_qmc2_save(it)
 end
-
-function solver_call(::HIASolver, it::IterInfo)
+#
+function solver_call(::HIASolver, it::IterInfo, imp::Impurity)
     s_hub1_init(it)
     s_hub1_exec(it)
     s_hub1_save(it)
 end
-
-function solver_call(::NORGSolver, it::IterInfo)
+#
+function solver_call(::NORGSolver, it::IterInfo, imp::Impurity)
     s_norg_init(it)
     s_norg_exec(it)
     s_norg_save(it)
+end
+#
+function solver_call(::ATOMSolver, it::IterInfo, imp::Impurity)
+    sorry()
 end
 
 function solver_copy(::CTHYB₁Solver,
