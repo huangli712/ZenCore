@@ -412,6 +412,13 @@ struct ΓMixer    <: AbstractMixer end
 "Set up the default mixer."
 _mixer_ = NullMixer()
 
+"Get name of mixer."
+Base.nameof(::NullMixer) = "null"
+Base.nameof(::ΣMixer) = "Σ"
+Base.nameof(::ΔMixer) = "Δ"
+Base.nameof(::EMixer) = "E"
+Base.nameof(::ΓMixer) = "Γ"
+
 #=
 ### *Customized Structs*
 =#
