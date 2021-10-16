@@ -137,6 +137,7 @@ parameters or represent some essential data structures.
 *Members* :
 
 ```text
+DType     -> Customized type.
 PCASE     -> Dict for case.
 PDFT      -> Dict for DFT engine.
 PDMFT     -> Dict for DMFT engine.
@@ -162,6 +163,7 @@ PrWindow  -> Struct for band window.
 #
 include("types.jl")
 #
+export DType
 export PCASE
 export PDFT
 export PDMFT
