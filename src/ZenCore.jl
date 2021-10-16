@@ -226,7 +226,7 @@ line_to_array -> Convert a line to a string array.
 line_to_cmplx -> Convert a line to a cmplx number.
 erf           -> Gauss error function.
 subscript     -> Convert a number to subscript.
-str_to_struct -> Convert a string to a instance of specified struct.
+str_to_struct -> Convert a string to an instance of specified struct.
 ```
 =#
 

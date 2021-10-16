@@ -648,6 +648,11 @@ function subscript(num::I64)
     return SUB[num + 1]
 end
 
+"""
+    str_to_struct(str::AbstractString, postfix::AbstractString)
+
+Convert a string (`str`) to an instance of struct.
+"""
 @inline function str_to_struct(str::AbstractString, postfix::AbstractString)
     fstr = replace(uppercase(str), "_" => "") * postfix
     for i in 0:9
