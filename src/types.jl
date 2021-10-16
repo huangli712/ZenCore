@@ -132,14 +132,14 @@ internal type system.
 abstract type AbstractEngine end
 
 """
-    NullEngine
+    NULLEngine
 
 It represents a null DFT engine. It is the default engine and will be
 replaced by the realistic engine.
 
 See also: [`_engine_`](@ref).
 """
-struct NullEngine    <: AbstractEngine end
+struct NULLEngine    <: AbstractEngine end
 
 """
     VASPEngine
@@ -169,10 +169,10 @@ localized wannier functions.
 struct WANNIEREngine <: AbstractEngine end
 
 "Set up the default density functional theory calculation engine."
-_engine_ = NullEngine()
+_engine_ = NULLEngine()
 
 "Get name of density functional theory calculation engine."
-Base.nameof(::NullEngine) = "null"
+Base.nameof(::NULLEngine) = "null"
 Base.nameof(::VASPEngine) = "vasp"
 Base.nameof(::QEEngine) = "qe"
 Base.nameof(::WANNIEREngine) = "wan90"
@@ -190,14 +190,14 @@ build the internal type system.
 abstract type AbstractSolver end
 
 """
-    NullSolver
+    NULLSolver
 
 It represents a null quantum impurity solver. It is the default solver
 and will be replaced by the realistic solver.
 
 See also: [`_solver_`](@ref).
 """
-struct NullSolver   <: AbstractSolver end
+struct NULLSolver   <: AbstractSolver end
 
 """
     CTHYB₁Solver
@@ -239,10 +239,10 @@ It represents a solver for atomic eigenvalue problems.
 struct ATOMSolver   <: AbstractSolver end
 
 "Set up the default quantum impurity solver."
-_solver_ = NullSolver()
+_solver_ = NULLSolver()
 
 "Get name of quantum impurity solver."
-Base.nameof(::NullSolver) = "null"
+Base.nameof(::NULLSolver) = "null"
 Base.nameof(::CTHYB₁Solver) = "ct_hyb1"
 Base.nameof(::CTHYB₂Solver) = "ct_hyb2"
 Base.nameof(::HIASolver) = "hia"
@@ -262,14 +262,14 @@ the internal type system.
 abstract type AbstractAdaptor end
 
 """
-    NullAdaptor
+    NULLAdaptor
 
 It represents a null DFT-DMFT adaptor. It is the default adaptor and will
 be replaced by the realistic adaptor.
 
 See also: [`_adaptor_`](@ref).
 """
-struct NullAdaptor    <: AbstractAdaptor end
+struct NULLAdaptor    <: AbstractAdaptor end
 
 """
     PLOAdaptor
@@ -291,10 +291,10 @@ See also: [`PLOAdaptor`](@ref).
 struct WANNIERAdaptor <: AbstractAdaptor end
 
 "Set up the default DFT-DMFT adaptor."
-_adaptor_ = NullAdaptor()
+_adaptor_ = NULLAdaptor()
 
 "Get name of DFT-DMFT adaptor."
-Base.nameof(::NullAdaptor) = "null"
+Base.nameof(::NULLAdaptor) = "null"
 Base.nameof(::PLOAdaptor) = "plo"
 Base.nameof(::WANNIERAdaptor) = "wannier"
 
@@ -311,14 +311,14 @@ functions. It is used to build the internal type system.
 abstract type AbstractMode end
 
 """
-    NullMode
+    NULLMode
 
 It represents a null operation. It is the default operation and will
 be replaced by the realistic operation.
 
 See also: [`_mode_`](@ref).
 """
-struct NullMode   <: AbstractMode end
+struct NULLMode   <: AbstractMode end
 
 """
     RESETMode
@@ -349,10 +349,10 @@ It represents a gather operation for gathering the self-energy functions.
 struct GATHERMode <: AbstractMode end
 
 "Set up the default operation."
-_mode_ = NullMode()
+_mode_ = NULLMode()
 
 "Get name of operation."
-Base.nameof(::NullMode) = "null"
+Base.nameof(::NULLMode) = "null"
 Base.nameof(::RESETMode) = "reset"
 Base.nameof(::DCOUNTMode) = "dcount"
 Base.nameof(::SPLITMode) = "split"
@@ -372,14 +372,14 @@ hybridization function Δ, effective impurity level ϵ, and density matrix
 abstract type AbstractMixer end
 
 """
-    NullMixer
+    NULLMixer
 
 It represents a null mixer. It is the default mixer and will be replaced
 by the realistic mixer.
 
 See also: [`_mixer_`](@ref).
 """
-struct NullMixer <: AbstractMixer end
+struct NULLMixer <: AbstractMixer end
 
 """
     ΣMixer
@@ -410,10 +410,10 @@ It represents a mixer for density matrix Γ.
 struct ΓMixer    <: AbstractMixer end
 
 "Set up the default mixer."
-_mixer_ = NullMixer()
+_mixer_ = NULLMixer()
 
 "Get name of mixer."
-Base.nameof(::NullMixer) = "null"
+Base.nameof(::NULLMixer) = "null"
 Base.nameof(::ΣMixer) = "Σ"
 Base.nameof(::ΔMixer) = "Δ"
 Base.nameof(::EMixer) = "E"

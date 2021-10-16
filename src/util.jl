@@ -235,7 +235,7 @@ not worry about them.
 =#
 
 """
-    query_inps(::NullEngine)
+    query_inps(::NULLEngine)
     query_inps(::VASPEngine)
     query_inps(::QEEngine)
     query_inps(::WANNIEREngine)
@@ -248,7 +248,7 @@ of them. Do not worry about that.
 
 See also: [`query_case`](@ref).
 """
-function query_inps(::NullEngine)
+function query_inps(::NULLEngine)
     sorry()
 end
 #

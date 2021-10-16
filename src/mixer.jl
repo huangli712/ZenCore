@@ -12,7 +12,7 @@
 =#
 
 """
-    mixer_call(::NullMixer, it::IterInfo, ai::Array{Impurity,1})
+    mixer_call(::NULLMixer, it::IterInfo, ai::Array{Impurity,1})
     mixer_call(::ΣMixer, it::IterInfo, ai::Array{Impurity,1})
     mixer_call(::ΔMixer, it::IterInfo, ai::Array{Impurity,1})
     mixer_call(::EMixer, it::IterInfo, ai::Array{Impurity,1})
@@ -24,7 +24,7 @@ correction for density matrix Γ. It acts as a dispatcher.
 
 See also: [`_mixer_`](@ref).
 """
-function mixer_call(::NullMixer, it::IterInfo, ai::Array{Impurity,1})
+function mixer_call(::NULLMixer, it::IterInfo, ai::Array{Impurity,1})
     sorry()
 end
 #

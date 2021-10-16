@@ -12,7 +12,7 @@
 =#
 
 """
-    sigma_call(::NullMode, it::IterInfo, ai::Array{Impurity,1})
+    sigma_call(::NULLMode, it::IterInfo, ai::Array{Impurity,1})
     sigma_call(::RESETMode, it::IterInfo, ai::Array{Impurity,1})
     sigma_call(::DCOUNTMode, it::IterInfo, ai::Array{Impurity,1})
     sigma_call(::SPLITMode, it::IterInfo, ai::Array{Impurity,1})
@@ -23,7 +23,7 @@ hybridization functions Δ (or impurity levels ϵ).
 
 See also: [`_mode_`](@ref).
 """
-function sigma_call(::NullMode, it::IterInfo, ai::Array{Impurity,1})
+function sigma_call(::NULLMode, it::IterInfo, ai::Array{Impurity,1})
     sorry()    
 end
 #
