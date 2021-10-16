@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/14
+# Last modified: 2021/10/16
 #
 
 #=
@@ -265,6 +265,7 @@ struct RESETMode  <: AbstractMode end
 struct DCOUNTMode <: AbstractMode end
 struct SPLITMode  <: AbstractMode end
 struct GATHERMode <: AbstractMode end
+_mode_ = NullMode()
 
 abstract type AbstractMixer end
 struct NullMixer <: AbstractMixer end
@@ -272,6 +273,7 @@ struct ΣMixer    <: AbstractMixer end
 struct ΔMixer    <: AbstractMixer end
 struct EMixer    <: AbstractMixer end
 struct ΓMixer    <: AbstractMixer end
+_mixer_ = NullMixer()
 
 #=
 ### *Customized Structs*

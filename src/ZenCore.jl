@@ -145,6 +145,8 @@ PSOLVER   -> Dict for quantum impurity solvers.
 _engine_  -> The present DFT engine.
 _solver_  -> The present quantum impurity solver.
 _adaptor_ -> The present DFT-DMFT adaptor.
+_mode_    -> The present operation for Σ and Δ.
+_mixer_   -> The present mixer.
 Logger    -> Struct for logger.
 Energy    -> Struct for total DFT + DMFT energy.
 IterInfo  -> Struct for DFT + DMFT iteration information.
@@ -168,6 +170,8 @@ export PSOLVER
 export _engine_
 export _solver_
 export _adaptor_
+export _mode_
+export _mixer_
 export Logger
 export Energy
 export IterInfo
