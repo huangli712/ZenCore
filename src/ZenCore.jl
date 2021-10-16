@@ -450,16 +450,16 @@ export conv_it
 #=
 *Summary* :
 
-Tools for the vasp software package (adaptor). It provide a lot of
+Tools for the vasp software package (adaptor). It provides a lot of
 functions to deal with the vasp-related files.
 
 *Members* :
 
 ```text
-dft_call       -> Execute vasp program.
-dft_stop       ->
-dft_resume     ->
-adaptor_call   -> Execute DFT-DMFT adaptor.
+adaptor_call   -> Launch the DFT adaptor (for vasp program).
+dft_call       -> Carry full DFT calculations (for vasp program).
+dft_stop       -> Stop DFT calculations (for vasp program).
+dft_resume     -> Resume DFT calculations (for vasp program).
 vasp_adaptor   -> Adaptor support.
 vasp_init      -> Prepare vasp's input files.
 vasp_exec      -> Execute vasp program.
@@ -491,10 +491,10 @@ vaspio_charge  -> Read charge density.
 #
 include("vasp.jl")
 #
+export adaptor_call
 export dft_call
 export dft_stop
 export dft_resume
-export adaptor_call
 export vasp_adaptor
 export vasp_init
 export vasp_exec
@@ -528,14 +528,16 @@ export vaspio_charge
 #=
 *Summary* :
 
-Tools for the quantum espresso software package (adaptor). It provide a
+Tools for the quantum espresso software package (adaptor). It provides a
 lot of functions to deal with the quantum espresso (pwscf) related files.
 
 *Members* :
 
 ```text
-dft_call     -> Execute quantum espresso program.
-adaptor_call -> Execute DFT-DMFT adaptor.
+adaptor_call -> Launch the DFT adaptor (for quantum espresso program).
+dft_call     -> Carry full DFT calculations (for quantum espresso program).
+dft_stop     -> Stop DFT calculations (for quantum espresso program).
+dft_resume   -> Resume DFT calculations (for quantum espresso program).
 qe_adaptor   -> Adaptor support.
 qe_to_wan    -> Adaptor support (interface between qe and wannier).
 qe_to_plo    -> Adaptor support (interface between qe and plo).
@@ -555,8 +557,10 @@ qeio_fermi   -> Read fermi level.
 #
 include("qe.jl")
 #
-export dft_call
 export adaptor_call
+export dft_call
+export dft_stop
+export dft_resume
 export qe_adaptor
 export qe_to_wan
 export qe_to_plo
