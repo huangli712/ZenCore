@@ -4,30 +4,36 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/15
+# Last modified: 2021/10/16
 #
 
 #=
-### *Driver Functions*
+### *Multiple Dispatchers*
 =#
 
-# Try to mix the self-energy functions
+"""
+    mixer_call(::ΣMixer, it::IterInfo, ai::Array{Impurity,1})
+    mixer_call(::ΔMixer, it::IterInfo, ai::Array{Impurity,1})
+    mixer_call(::EMixer, it::IterInfo, ai::Array{Impurity,1})
+    mixer_call(::ΓMixer, it::IterInfo, ai::Array{Impurity,1})
+"""
 function mixer_call(::ΣMixer, it::IterInfo, ai::Array{Impurity,1})
+    # Try to mix the self-energy functions.
     mixer_sigma(it, ai)
 end
-
-# Try to mix the hybridization functions
+#
 function mixer_call(::ΔMixer, it::IterInfo, ai::Array{Impurity,1})
+    # Try to mix the hybridization functions.
     mixer_delta(it, ai)
 end
-
-# Try to mix the local impurity levels
+#
 function mixer_call(::EMixer, it::IterInfo, ai::Array{Impurity,1})
+    # Try to mix the local impurity levels.
     mixer_eimpx(it, ai)
 end
-
-# Try to mix the density matrix
+#
 function mixer_call(::ΓMixer, it::IterInfo, ai::Array{Impurity,1})
+    # Try to mix the density matrix.
     mixer_gcorr(it)
 end
 
