@@ -899,7 +899,7 @@ levels ``\epsilon_i``, instead of the self-energy functions.
 *Members* :
 
 ```text
-sigma_call   ->
+sigma_call   -> Apply various operations to self-energy functions.
 sigma_reset  -> Create initial self-energy functions.
 sigma_dcount -> Calculate double counting terms.
 sigma_split  -> Split the hybridization functions and local impurity levels.
@@ -948,7 +948,7 @@ matrix ``\Gamma``.
 *Members* :
 
 ```text
-mixer_call  ->
+mixer_call  -> Try to mix various functions.
 mixer_sigma -> Mix self-energy functions.
 mixer_delta -> Mix hybridization functions.
 mixer_eimpx -> Mix local impurity levels.
