@@ -403,27 +403,20 @@ function query_dmft()
     end
 end
 
-#=
-*Remarks* :
-
-The `atomic` code is considered as a preprocessor of `ct_hyb2`, it is
-not a valid quantum impurity solver.
-=#
-
 """
-    query_solver(st::T) where {T <: AbstractSolver}
+    query_solver(as::AbstractSolver)
 
 Query the home directories of various quantum impurity solvers.
 
 See also: [`query_dft`](@ref), [`query_dmft`](@ref).
 """
-function query_solver(st::T) where {T <: AbstractSolver}
+function query_solver(as::AbstractSolver)
     # We have to setup the environment variable ZEN_SOLVER
     if haskey(ENV, "ZEN_SOLVER")
         ENV["ZEN_SOLVER"]
     # For develop stage only
     else
-        joinpath(query_home(), "src/solver/" * nameof(st))
+        joinpath(query_home(), "src/solver/" * nameof(as))
     end
 end
 
