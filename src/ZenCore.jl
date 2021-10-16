@@ -222,7 +222,7 @@ sorry         -> Say sorry.
 prompt        -> Print some messages or logs to the output devices.
 line_to_array -> Convert a line to a string array.
 line_to_cmplx -> Convert a line to a cmplx number.
-str_to_struct ->
+str_to_struct -> Convert a string to a instance of specified struct.
 erf           -> Gauss error function.
 subscript     -> Convert a number to subscript.
 ```
