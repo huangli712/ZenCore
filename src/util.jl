@@ -664,15 +664,23 @@ ZenCore.HIASolver()
 ```
 """
 @inline function str_to_struct(str::AbstractString, postfix::AbstractString)
+    # Assemble the name of the struct
     fstr = replace(uppercase(str), "_" => "") * postfix
+
+    # Perhaps `fstr` contains some numbers, such as CTHYB1Solver. 
+    # Replace number with its subscript's form
     for i in 0:9
         if contains(fstr, string(i))
             fstr = replace(fstr, string(i) => subscript(i))
         end
     end
+
+    # Generate an instance
     sym = Symbol(fstr)
-    @eval engine = ($sym)()
-    return engine
+    @eval machine = ($sym)()
+
+    # Return the desired value
+    return machine
 end
 
 #=
