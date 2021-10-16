@@ -351,6 +351,13 @@ struct GATHERMode <: AbstractMode end
 "Set up the default operation."
 _mode_ = NullMode()
 
+"Get name of operation."
+Base.nameof(::NullMode) = "null"
+Base.nameof(::RESETMode) = "reset"
+Base.nameof(::DCOUNTMode) = "dcount"
+Base.nameof(::SPLITMode) = "split"
+Base.nameof(::GATHERMode) = "gather"
+
 #=
 ### *Customized Structs* : *Mixer Engine*
 =#
