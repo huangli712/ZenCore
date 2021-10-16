@@ -934,7 +934,7 @@ must be the root folder.
 
 The argument `imp` may be modified in this function.
 
-See also: [`Impurity`](@ref), [`ctqmc_nimpx`](@ref).
+See also: [`Impurity`](@ref), [`solver_nimpx`](@ref).
 """
 function GetNimpx(imp::Impurity)
     # Get the index for current quantum impurity problem
@@ -961,7 +961,7 @@ Extract interaction energy (i.e potential energy) from the output files
 of various quantum impurity solvers. The input Impurity struct won't be
 modified. The working directory of this function must be the root folder.
 
-See also: [`Impurity`](@ref), [`ctqmc_edmft`](@ref).
+See also: [`Impurity`](@ref), [`solver_edmft`](@ref).
 """
 function GetEdmft(imp::Impurity)
     # Get the index for current quantum impurity problem
