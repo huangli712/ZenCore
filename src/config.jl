@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/15
+# Last modified: 2021/10/16
 #
 
 #=
@@ -216,7 +216,7 @@ function chk_dict()
     end
     #
     # Check solver block
-    if get_s("engine") in ("ct_hyb1", "ct_hyb2", "hub1")
+    if get_s("engine") in ("ct_hyb1", "ct_hyb2", "hia")
         @assert get_m("axis") == 1 # Imaginary axis
     elseif get_s("engine") in ("norg",)
         @assert get_m("axis") == 2 # Real axis
@@ -246,7 +246,7 @@ function exhibit()
     cat_m()
 
     # E4: Show dict PIMP
-    println("  > Parameters : Quantum Impurity Atoms")
+    println("  > Parameters : Quantum Impurity Models")
     cat_i()
 
     # E5: Show dict PSOLVER
