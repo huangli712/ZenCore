@@ -294,6 +294,9 @@ abstract type AbstractMode end
 """
     NullMode
 
+It represents a null operation. It is the default operation and will
+be replaced by the realistic operation.
+
 See also: [`_mode_`](@ref).
 """
 struct NullMode   <: AbstractMode end
