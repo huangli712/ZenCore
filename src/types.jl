@@ -329,19 +329,61 @@ It represents a gather operation for gathering the self-energy functions.
 """
 struct GATHERMode <: AbstractMode end
 
-"Set up the default operation on self-energy functions etc."
+"Set up the default operation."
 _mode_ = NullMode()
 
 #=
 ### *Customized Structs* : *Mixer Engine*
 =#
 
+"""
+    AbstractMixer
+
+An abstract type representing various mixers for self-energy functions Σ,
+hybridization function Δ, effective impurity level ϵ, and density matrix
+Γ. It is used to build the internal type system.
+"""
 abstract type AbstractMixer end
+
+"""
+    NullMixer
+
+It represents a null mixer. It is the default mixer and will be replaced
+by the realistic mixer.
+
+See also: [`_mixer_`](@ref).
+"""
 struct NullMixer <: AbstractMixer end
+
+"""
+    ΣMixer
+
+It represents a mixer for self-energy function Σ.
+"""
 struct ΣMixer    <: AbstractMixer end
+
+"""
+    ΔMixer
+
+It represents a mixer for hybridization function Δ.
+"""
 struct ΔMixer    <: AbstractMixer end
+
+"""
+    EMixer
+
+It represents a mixer for effective impurity level ϵ.
+"""
 struct EMixer    <: AbstractMixer end
+
+"""
+    ΓMixer
+
+It represents a mixer for density matrix Γ.
+"""
 struct ΓMixer    <: AbstractMixer end
+
+"Set up the default mixer."
 _mixer_ = NullMixer()
 
 #=
