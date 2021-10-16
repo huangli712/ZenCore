@@ -22,7 +22,7 @@
 Try to solve the quantum impurity problems by using various quantum
 impurity solvers. It acts as a dispatcher. Now it supports `CTHYB₁`
 (`ct_hyb1`), `CTHYB₂` (`ct_hyb2`), `HIA` (`hia`), `NORG` (`norg`),
-and `ATOM` (`atomic`) solver.
+and `ATOM` (`atomic`) solvers.
 
 See also: [`_solver_`](@ref).
 """
@@ -31,12 +31,14 @@ function solver_call(::NullSolver, it::IterInfo, imp::Impurity)
 end
 #
 function solver_call(::CTHYB₁Solver, it::IterInfo, imp::Impurity)
+    # For CTHYB₁ quantum impurity solver
     s_qmc1_init(it, imp)
     s_qmc1_exec(it)
     s_qmc1_save(it, imp)
 end
 #
 function solver_call(::CTHYB₂Solver, it::IterInfo, imp::Impurity)
+    # For CTHYB₂ quantum impurity solver
     s_qmc2_init(it)
     s_qmc2_exec(it)
     s_qmc2_save(it)
