@@ -71,7 +71,7 @@ end
     solver_copy(::NORGSolver, it::IterInfo, imp₁::Impurity, imp₂::Impurity)
     solver_copy(::ATOMSolver, it::IterInfo, imp₁::Impurity, imp₂::Impurity)
 
-Try to solve quantum impurity problem by copying solution from another
+Try to solve a quantum impurity problem by copying solution from another
 quantum impurity problem. It acts as a dispatcher.
 
 See also: [`_solver_`](@ref).
@@ -100,20 +100,26 @@ solver_copy(::ATOMSolver, it::IterInfo, imp₁::Impurity, imp₂::Impurity) =
     sorry()
 
 
+solver_sigma(::NullSolver, imp::Impurity) = sorry()
 solver_sigma(::CTHYB₁Solver, imp::Impurity) = ctqmc_sigma(imp)
 solver_sigma(::CTHYB₂Solver, imp::Impurity) = ctqmc_sigma(imp)
 solver_sigma(::HIASolver, imp::Impurity) = sorry()
 solver_sigma(::NORGSolver, imp::Impurity) = sorry()
+solver_sigma(::ATOMSolver, imp::Impurity) = sorry()
 
+solver_nimpx(::NullSolver, imp::Impurity) = sorry()
 solver_nimpx(::CTHYB₁Solver, imp::Impurity) = ctqmc_nimpx(imp)
 solver_nimpx(::CTHYB₂Solver, imp::Impurity) = ctqmc_nimpx(imp)
 solver_nimpx(::HIASolver, imp::Impurity) = sorry()
 solver_nimpx(::NORGSolver, imp::Impurity) = sorry()
+solver_nimpx(::ATOMSolver, imp::Impurity) = sorry()
 
+solver_edmft(::NullSolver) = sorry()
 solver_edmft(::CTHYB₁Solver) = ctqmc_edmft()
 solver_edmft(::CTHYB₂Solver) = ctqmc_edmft()
 solver_edmft(::HIASolver) = sorry()
 solver_edmft(::NORGSolver) = sorry()
+solver_edmft(::ATOMSolver) = sorry()
 
 #=
 ### *CTHYB₁ Quantum Impurity Solver*
