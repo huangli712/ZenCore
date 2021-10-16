@@ -23,6 +23,10 @@ correction for density matrix Γ. It acts as a dispatcher.
 
 See also: [`ΣMixer`](@ref), [`ΔMixer`](@ref), [`EMixer`](@ref), [`ΓMixer`](@ref).
 """
+function mixer_call(::NullMixer, it::IterInfo, ai::Array{Impurity,1})
+    sorry()
+end
+#
 function mixer_call(::ΣMixer, it::IterInfo, ai::Array{Impurity,1})
     # Try to mix the self-energy functions Σ.
     mixer_sigma(it, ai)

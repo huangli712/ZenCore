@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/14
+# Last modified: 2021/10/16
 #
 
 #=
@@ -238,12 +238,13 @@ not worry about them.
     query_inps(::NullEngine)
     query_inps(::VASPEngine)
     query_inps(::QEEngine)
+    query_inps(::WANNIEREngine)
 
-Check whether the essential input files exist. This function is designed
-for the DFT engine only. The input files for the DMFT engine, quantum
-impurity solver, and Kohn-Sham adaptor will be generated automatically
-by default. The `ZenCore` package will take care of them. Do not worry
-about that.
+Check whether the essential input files exist. It acts as a dispatcher.
+This function is designed for the DFT engine only. The input files for
+the DMFT engine, quantum impurity solver, and Kohn-Sham adaptor will be
+generated automatically by default. The `ZenCore` package will take care
+of them. Do not worry about that.
 
 See also: [`query_case`](@ref).
 """
@@ -252,15 +253,22 @@ function query_inps(::NullEngine)
 end
 #
 function query_inps(::VASPEngine)
+    # For vasp code.
     if !isfile("POSCAR") || !isfile("POTCAR")
         error("Please provide both POSCAR and POTCAR files")
     end
 end
 #
 function query_inps(::QEEngine)
+    # For quantum espresso code.
     if !isfile("QE.INP")
         error("Please provide the QE.INP file")
     end
+end
+#
+function query_inps(::WANNIEREngine)
+    # For wannier90 code.
+    sorry()
 end
 
 """
