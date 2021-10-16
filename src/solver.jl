@@ -900,7 +900,7 @@ impurity solvers. The data will be combined in the `sigma_gather()`
 function. Then they will be fed back to the DMFT engine. The working
 directory of this function must be the root folder.
 
-See also: [`Impurity`](@ref), [`ctqmc_sigma`](@ref).
+See also: [`Impurity`](@ref), [`solver_sigma`](@ref).
 """
 function GetSigma(imp::Impurity)
     # Get the index for current quantum impurity problem
