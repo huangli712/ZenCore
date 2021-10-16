@@ -293,6 +293,11 @@ struct WANNIERAdaptor <: AbstractAdaptor end
 "Set up the default DFT-DMFT adaptor."
 _adaptor_ = NullAdaptor()
 
+"Get name of DFT-DMFT adaptor."
+Base.nameof(::NullAdaptor) = "null"
+Base.nameof(::PLOAdaptor) = "plo"
+Base.nameof(::WANNIERAdaptor) = "wannier"
+
 #=
 ### *Customized Structs* : *Sigma Engine*
 =#
