@@ -587,18 +587,6 @@ See also: [`vaspio_projs`](@ref).
     return parse(F64, _re) + parse(F64, _im) * im
 end
 
-@inline function str_to_struct(str::AbstractString, postfix::AbstractString)
-    fstr = replace(uppercase(str), "_" => "") * postfix
-    for i in 0:9
-        if contains(fstr, string(i))
-            fstr = replace(fstr, string(i) => subscript(i))
-        end
-    end
-    sym = Symbol(fstr)
-    @eval engine = ($sym)()
-    return engine
-end
-
 #=
 ### *Mathematical Functions*
 =#
@@ -658,6 +646,18 @@ function subscript(num::I64)
     @assert 0 ≤ num ≤ 9
     SUB = ["\u2080" "\u2081" "\u2082" "\u2083" "\u2084" "\u2085" "\u2086" "\u2087" "\u2088" "\u2089"]
     return SUB[num + 1]
+end
+
+@inline function str_to_struct(str::AbstractString, postfix::AbstractString)
+    fstr = replace(uppercase(str), "_" => "") * postfix
+    for i in 0:9
+        if contains(fstr, string(i))
+            fstr = replace(fstr, string(i) => subscript(i))
+        end
+    end
+    sym = Symbol(fstr)
+    @eval engine = ($sym)()
+    return engine
 end
 
 #=
