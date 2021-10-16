@@ -171,6 +171,12 @@ struct WANNIEREngine <: AbstractEngine end
 "Set up the default density functional theory calculation engine."
 _engine_ = NullEngine()
 
+"Get name of density functional theory calculation engine."
+Base.nameof(::NullEngine) = "null"
+Base.nameof(::VASPEngine) = "vasp"
+Base.nameof(::QEEngine) = "qe"
+Base.nameof(::WANNIEREngine) = "wannier90"
+
 #=
 ### *Customized Structs* : *Quantum Impurity Solver*
 =#
