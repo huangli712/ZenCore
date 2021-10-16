@@ -300,10 +300,36 @@ be replaced by the realistic operation.
 See also: [`_mode_`](@ref).
 """
 struct NullMode   <: AbstractMode end
+
+"""
+    RESETMode
+
+It represents a reset operation for resetting the self-energy functions.
+"""
 struct RESETMode  <: AbstractMode end
+
+"""
+    DCOUNTMode
+
+It represents a dcount operation for creating the double counting terms.
+"""
 struct DCOUNTMode <: AbstractMode end
+
+"""
+    SPLITMode
+
+It represents a split operation for splitting the hybridization functions.
+"""
 struct SPLITMode  <: AbstractMode end
+
+"""
+    GATHERMode
+
+It represents a gather operation for gathering the self-energy functions.
+"""
 struct GATHERMode <: AbstractMode end
+
+"Set up the default operation on self-energy functions etc."
 _mode_ = NullMode()
 
 #=
