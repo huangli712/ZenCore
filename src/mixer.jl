@@ -16,24 +16,30 @@
     mixer_call(::ΔMixer, it::IterInfo, ai::Array{Impurity,1})
     mixer_call(::EMixer, it::IterInfo, ai::Array{Impurity,1})
     mixer_call(::ΓMixer, it::IterInfo, ai::Array{Impurity,1})
+
+Try to mix various functions during the iterations, including self-energy
+functions Σ, hybridization functions Δ, effective impurity levels E, and
+correction for density matrix Γ. It acts as a dispatcher.
+
+See also: [`ΣMixer`](@ref), [`ΔMixer`](@ref), [`EMixer`](@ref), [`ΓMixer`](@ref).
 """
 function mixer_call(::ΣMixer, it::IterInfo, ai::Array{Impurity,1})
-    # Try to mix the self-energy functions.
+    # Try to mix the self-energy functions Σ.
     mixer_sigma(it, ai)
 end
 #
 function mixer_call(::ΔMixer, it::IterInfo, ai::Array{Impurity,1})
-    # Try to mix the hybridization functions.
+    # Try to mix the hybridization functions Δ.
     mixer_delta(it, ai)
 end
 #
 function mixer_call(::EMixer, it::IterInfo, ai::Array{Impurity,1})
-    # Try to mix the local impurity levels.
+    # Try to mix the local impurity levels E.
     mixer_eimpx(it, ai)
 end
 #
 function mixer_call(::ΓMixer, it::IterInfo, ai::Array{Impurity,1})
-    # Try to mix the density matrix.
+    # Try to mix the correction for density matrix Γ.
     mixer_gcorr(it)
 end
 
