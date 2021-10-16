@@ -347,7 +347,7 @@ end
 """
     query_dft(ae::AbstractEngine)
 
-Query the home directory of the chosen DFT engine. It supports vasp,
+Query the home directory of the chosen DFT backend. It supports vasp,
 quantum espresso, and wannier90 by now.
 
 See also: [`query_dmft`](@ref), [`query_solver`](@ref).
@@ -384,7 +384,8 @@ end
 """
     query_solver(as::AbstractSolver)
 
-Query the home directories of various quantum impurity solvers.
+Query the home directories of various quantum impurity solvers. Now it
+supports CTHYB₁, CTHYB₂, HIA, and NORG.
 
 See also: [`query_dft`](@ref), [`query_dmft`](@ref).
 """
