@@ -64,13 +64,21 @@ function solver_call(::ATOMSolver, it::IterInfo, imp::Impurity)
 end
 
 """
+    solver_copy(::NullSolver, it::IterInfo, imp₁::Impurity, imp₂::Impurity)
     solver_copy(::CTHYB₁Solver, it::IterInfo, imp₁::Impurity, imp₂::Impurity)
     solver_copy(::CTHYB₂Solver, it::IterInfo, imp₁::Impurity, imp₂::Impurity)
     solver_copy(::HIASolver, it::IterInfo, imp₁::Impurity, imp₂::Impurity)
     solver_copy(::NORGSolver, it::IterInfo, imp₁::Impurity, imp₂::Impurity)
+    solver_copy(::ATOMSolver, it::IterInfo, imp₁::Impurity, imp₂::Impurity)
+
+Try to solve quantum impurity problem by copying solution from another
+quantum impurity problem. It acts as a dispatcher.
 
 See also: [`_solver_`](@ref).
 """
+solver_copy(::NullSolver, it::IterInfo, imp₁::Impurity, imp₂::Impurity) =
+    sorry()
+#
 solver_copy(::CTHYB₁Solver, it::IterInfo, imp₁::Impurity, imp₂::Impurity) =
     s_qmc1_copy(it, imp₁, imp₂)
 #
@@ -82,6 +90,10 @@ solver_copy(::HIASolver, it::IterInfo, imp₁::Impurity, imp₂::Impurity) =
 #
 solver_copy(::NORGSolver, it::IterInfo, imp₁::Impurity, imp₂::Impurity) = 
     s_norg_copy(it, imp₁, imp₂)
+#
+solver_copy(::ATOMSolver, it::IterInfo, imp₁::Impurity, imp₂::Impurity) =
+    sorry()
+
 
 solver_sigma(::CTHYB₁Solver, imp::Impurity) = ctqmc_sigma(imp)
 solver_sigma(::CTHYB₂Solver, imp::Impurity) = ctqmc_sigma(imp)
