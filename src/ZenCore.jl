@@ -23,7 +23,7 @@ Zen supports the following DFT backends:
 Zen supports the following schemes for defining local orbitals:
 
 * `PLO`
-* `WANNIER` (Need support from the `Wannier90` code)
+* `WANNIER` (Need support from the `wannier90` code)
 
 Zen supports the following quantum impurity solvers:
 

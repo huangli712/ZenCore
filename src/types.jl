@@ -120,7 +120,7 @@ const PSOLVER= Dict{String,Array{Any,1}}(
 )
 
 #=
-### *Customized Structs*
+### *Customized Structs* : *DFT Engine*
 =#
 
 """
@@ -144,7 +144,7 @@ struct NullEngine    <: AbstractEngine end
 """
     VASPEngine
 
-It represents a VASP engine, which is used to perform DFT calculations.
+It represents a vasp engine, which is used to perform DFT calculations.
 
 See also: [`QEEngine`](@ref).
 """
@@ -153,7 +153,7 @@ struct VASPEngine    <: AbstractEngine end
 """
     QEEngine
 
-It represents a QUANTUM ESPRESSO (actually the PWSCF code) engine, which
+It represents a quantum espresso (actually the PWSCF code) engine, which
 is used to perform DFT calculations.
 
 See also: [`VASPEngine`](@ref).
@@ -163,13 +163,17 @@ struct QEEngine      <: AbstractEngine end
 """
     WANNIEREngine
 
-It represents a WANNIER90 engine, which is used to generate the maximally
+It represents a wannier90 engine, which is used to generate the maximally
 localized wannier functions.
 """
 struct WANNIEREngine <: AbstractEngine end
 
 "Set up the default density functional theory calculation engine."
 _engine_ = NullEngine()
+
+#=
+### *Customized Structs* : *Quantum Impurity Solver*
+=#
 
 """
     AbstractSolver
@@ -231,6 +235,10 @@ struct ATOMSolver   <: AbstractSolver end
 "Set up the default quantum impurity solver."
 _solver_ = NullSolver()
 
+#=
+### *Customized Structs* : *Adaptor*
+=#
+
 """
     AbstractAdaptor
 
@@ -253,18 +261,27 @@ struct NullAdaptor    <: AbstractAdaptor end
     PLOAdaptor
 
 It represents a DFT-DMFT adaptor based on the projected local orbitals.
+
+See also: [`WANNIERAdaptor`](@ref).
 """
 struct PLOAdaptor     <: AbstractAdaptor end
 
 """
     PLOAdaptor
 
-It represents a DFT-DMFT adaptor based on the wannier functions.
+It represents a DFT-DMFT adaptor based on the maximally localized
+wannier functions.
+
+See also: [`PLOAdaptor`](@ref).
 """
 struct WANNIERAdaptor <: AbstractAdaptor end
 
 "Set up the default DFT-DMFT adaptor."
 _adaptor_ = NullAdaptor()
+
+#=
+### *Customized Structs* : *Adaptor*
+=#
 
 abstract type AbstractMode end
 struct NullMode   <: AbstractMode end
@@ -273,6 +290,10 @@ struct DCOUNTMode <: AbstractMode end
 struct SPLITMode  <: AbstractMode end
 struct GATHERMode <: AbstractMode end
 _mode_ = NullMode()
+
+#=
+### *Customized Structs* : *Mixer*
+=#
 
 abstract type AbstractMixer end
 struct NullMixer <: AbstractMixer end
