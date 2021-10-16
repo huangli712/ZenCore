@@ -813,6 +813,9 @@ CTHYB₂, HIA, and NORG quantum impurity solvers are supported.
 ```text
 solver_call  -> Try to solve the quantum impurity problem with a solver.
 solver_copy  -> Duplicate solution of the quantum impurity problem.
+solver_sigma -> Return the self-energy functions (only dispatcher).
+solver_nimpx -> Return the impurity occupancy (only dispatcher).
+solver_edmft -> Return the interaction energy (only dispatcher).
 s_qmc1_init  -> Prepare input files for the CTHYB₁ impurity solver.
 s_qmc1_exec  -> Execute the CTHYB₁ impurity solver.
 s_qmc1_save  -> Backup output files for the CTHYB₁ impurity solver.
@@ -833,15 +836,12 @@ ctqmc_setup  -> Prepare configuration parameters for CTHYB impurity solver.
 ctqmc_atomx  -> Prepare configuration parameters for atomic problem solver.
 ctqmc_delta  -> Prepare hybridization function for CTHYB impurity solver.
 ctqmc_eimpx  -> Prepare local impurity levels for CTHYB impurity solver.
-GetSigma     -> Return the self-energy functions.
-GetNimpx     -> Return the impurity occupancy.
-GetEdmft     -> Return the interaction energy (potential energy).
-solver_sigma -> Return the self-energy functions (only dispatcher).
-solver_nimpx -> Return the impurity occupancy (only dispatcher).
-solver_edmft -> Return the interaction energy (only dispatcher).
 ctqmc_sigma  -> Return self-energy function by CTHYB impurity solver.
 ctqmc_nimpx  -> Return impurity occupancy by CTHYB impurity solver.
 ctqmc_edmft  -> Return interaction energy by CTHYB impurity solver.
+GetSigma     -> Return the self-energy functions.
+GetNimpx     -> Return the impurity occupancy.
+GetEdmft     -> Return the interaction energy (potential energy).
 GetSymmetry  -> Analyze orbital degeneracy via local impurity levels.
 GetImpurity  -> Build Impurity struct according to configuration file.
 CatImpurity  -> Display Impurity struct that need to be solved.
@@ -853,6 +853,9 @@ include("solver.jl")
 #
 export solver_call
 export solver_copy
+export solver_sigma
+export solver_nimpx
+export solver_edmft
 export s_qmc1_init
 export s_qmc1_exec
 export s_qmc1_save
@@ -873,15 +876,12 @@ export ctqmc_setup
 export ctqmc_atomx
 export ctqmc_delta
 export ctqmc_eimpx
-export GetSigma
-export GetNimpx
-export GetEdmft
-export solver_sigma
-export solver_nimpx
-export solver_edmft
 export ctqmc_sigma
 export ctqmc_nimpx
 export ctqmc_edmft
+export GetSigma
+export GetNimpx
+export GetEdmft
 export GetSymmetry
 export GetImpurity
 export CatImpurity
