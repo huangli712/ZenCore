@@ -91,50 +91,30 @@ function solver_copy(::NORGSolver,
     s_norg_copy(it, imp₁, imp₂)
 end
 
-function solver_sigma(::CTHYB₁Solver, imp::Impurity)
-    return ctqmc_sigma(imp)
-end
+solver_sigma(::CTHYB₁Solver, imp::Impurity) = ctqmc_sigma(imp)
+solver_sigma(::CTHYB₂Solver, imp::Impurity) = ctqmc_sigma(imp)
+solver_sigma(::HIASolver, imp::Impurity) = sorry()
+solver_sigma(::NORGSolver, imp::Impurity) = sorry()
 
-function solver_sigma(::CTHYB₂Solver, imp::Impurity)
-    return ctqmc_sigma(imp)
-end
-
-function solver_sigma(::HIASolver, imp::Impurity)
-    sorry()
-end
-
-function solver_sigma(::NORGSolver, imp::Impurity)
-    sorry()
-end
-
-function solver_nimpx(::CTHYB₁Solver, imp::Impurity)
-    ctqmc_nimpx(imp)
-end
-
+solver_nimpx(::CTHYB₁Solver, imp::Impurity) = ctqmc_nimpx(imp)
 function solver_nimpx(::CTHYB₂Solver, imp::Impurity)
     ctqmc_nimpx(imp)
 end
-
 function solver_nimpx(::HIASolver, imp::Impurity)
     sorry()
 end
-
 function solver_nimpx(::NORGSolver, imp::Impurity)
     sorry()
 end
-
 function solver_edmft(::CTHYB₁Solver)
     return ctqmc_edmft()
 end
-
 function solver_edmft(::CTHYB₂Solver)
     return ctqmc_edmft()
 end
-
 function solver_edmft(::HIASolver)
     sorry()
 end
-
 function solver_edmft(::NORGSolver)
     sorry()
 end
