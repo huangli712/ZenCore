@@ -97,27 +97,14 @@ solver_sigma(::HIASolver, imp::Impurity) = sorry()
 solver_sigma(::NORGSolver, imp::Impurity) = sorry()
 
 solver_nimpx(::CTHYB₁Solver, imp::Impurity) = ctqmc_nimpx(imp)
-function solver_nimpx(::CTHYB₂Solver, imp::Impurity)
-    ctqmc_nimpx(imp)
-end
-function solver_nimpx(::HIASolver, imp::Impurity)
-    sorry()
-end
-function solver_nimpx(::NORGSolver, imp::Impurity)
-    sorry()
-end
-function solver_edmft(::CTHYB₁Solver)
-    return ctqmc_edmft()
-end
-function solver_edmft(::CTHYB₂Solver)
-    return ctqmc_edmft()
-end
-function solver_edmft(::HIASolver)
-    sorry()
-end
-function solver_edmft(::NORGSolver)
-    sorry()
-end
+solver_nimpx(::CTHYB₂Solver, imp::Impurity) = ctqmc_nimpx(imp)
+solver_nimpx(::HIASolver, imp::Impurity) = sorry()
+solver_nimpx(::NORGSolver, imp::Impurity) = sorry()
+
+function solver_edmft(::CTHYB₁Solver) = ctqmc_edmft()
+function solver_edmft(::CTHYB₂Solver) = ctqmc_edmft()
+function solver_edmft(::HIASolver) = sorry()
+function solver_edmft(::NORGSolver) = sorry()
 
 #=
 ### *CTHYB₁ Quantum Impurity Solver*
