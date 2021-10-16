@@ -12,7 +12,7 @@
 =#
 
 """
-    solver_call(::NullSolver, it::IterInfo, imp::Impurity)
+    solver_call(::NULLSolver, it::IterInfo, imp::Impurity)
     solver_call(::CTHYB₁Solver, it::IterInfo, imp::Impurity)
     solver_call(::CTHYB₂Solver, it::IterInfo, imp::Impurity)
     solver_call(::HIASolver, it::IterInfo, imp::Impurity)
@@ -26,7 +26,7 @@ and `ATOM` (`atomic`) solvers.
 
 See also: [`_solver_`](@ref).
 """
-function solver_call(::NullSolver, it::IterInfo, imp::Impurity)
+function solver_call(::NULLSolver, it::IterInfo, imp::Impurity)
     sorry()
 end
 #
@@ -64,7 +64,7 @@ function solver_call(::ATOMSolver, it::IterInfo, imp::Impurity)
 end
 
 """
-    solver_copy(::NullSolver, it::IterInfo, imp₁::Impurity, imp₂::Impurity)
+    solver_copy(::NULLSolver, it::IterInfo, imp₁::Impurity, imp₂::Impurity)
     solver_copy(::CTHYB₁Solver, it::IterInfo, imp₁::Impurity, imp₂::Impurity)
     solver_copy(::CTHYB₂Solver, it::IterInfo, imp₁::Impurity, imp₂::Impurity)
     solver_copy(::HIASolver, it::IterInfo, imp₁::Impurity, imp₂::Impurity)
@@ -76,7 +76,7 @@ quantum impurity problem. It acts as a dispatcher.
 
 See also: [`_solver_`](@ref).
 """
-solver_copy(::NullSolver, it::IterInfo, imp₁::Impurity, imp₂::Impurity) =
+solver_copy(::NULLSolver, it::IterInfo, imp₁::Impurity, imp₂::Impurity) =
     sorry()
 #
 solver_copy(::CTHYB₁Solver, it::IterInfo, imp₁::Impurity, imp₂::Impurity) =
@@ -100,21 +100,21 @@ solver_copy(::ATOMSolver, it::IterInfo, imp₁::Impurity, imp₂::Impurity) =
     sorry()
 
 
-solver_sigma(::NullSolver, imp::Impurity) = sorry()
+solver_sigma(::NULLSolver, imp::Impurity) = sorry()
 solver_sigma(::CTHYB₁Solver, imp::Impurity) = ctqmc_sigma(imp)
 solver_sigma(::CTHYB₂Solver, imp::Impurity) = ctqmc_sigma(imp)
 solver_sigma(::HIASolver, imp::Impurity) = sorry()
 solver_sigma(::NORGSolver, imp::Impurity) = sorry()
 solver_sigma(::ATOMSolver, imp::Impurity) = sorry()
 
-solver_nimpx(::NullSolver, imp::Impurity) = sorry()
+solver_nimpx(::NULLSolver, imp::Impurity) = sorry()
 solver_nimpx(::CTHYB₁Solver, imp::Impurity) = ctqmc_nimpx(imp)
 solver_nimpx(::CTHYB₂Solver, imp::Impurity) = ctqmc_nimpx(imp)
 solver_nimpx(::HIASolver, imp::Impurity) = sorry()
 solver_nimpx(::NORGSolver, imp::Impurity) = sorry()
 solver_nimpx(::ATOMSolver, imp::Impurity) = sorry()
 
-solver_edmft(::NullSolver) = sorry()
+solver_edmft(::NULLSolver) = sorry()
 solver_edmft(::CTHYB₁Solver) = ctqmc_edmft()
 solver_edmft(::CTHYB₂Solver) = ctqmc_edmft()
 solver_edmft(::HIASolver) = sorry()
