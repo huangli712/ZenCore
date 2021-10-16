@@ -1081,6 +1081,8 @@ end
     CatImpurity(imp::Impurity)
 
 Display the Impurity struct that need to be solved.
+
+See also: [`Impurity`](@ref).
 """
 function CatImpurity(imp::Impurity)
     println()
