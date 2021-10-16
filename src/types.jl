@@ -280,10 +280,22 @@ struct WANNIERAdaptor <: AbstractAdaptor end
 _adaptor_ = NullAdaptor()
 
 #=
-### *Customized Structs* : *Adaptor*
+### *Customized Structs* : *Sigma Engine*
 =#
 
+"""
+    AbstractMode
+
+An abstract type representing various operations on the self-energy
+functions. It is used to build the internal type system.
+"""
 abstract type AbstractMode end
+
+"""
+    NullMode
+
+See also: [`_mode_`](@ref).
+"""
 struct NullMode   <: AbstractMode end
 struct RESETMode  <: AbstractMode end
 struct DCOUNTMode <: AbstractMode end
@@ -292,7 +304,7 @@ struct GATHERMode <: AbstractMode end
 _mode_ = NullMode()
 
 #=
-### *Customized Structs* : *Mixer*
+### *Customized Structs* : *Mixer Engine*
 =#
 
 abstract type AbstractMixer end
