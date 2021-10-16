@@ -287,7 +287,7 @@ end
 
 Query whether the `case.test` file exists.
 
-See also: [`query_test`](@ref).
+See also: [`query_case`](@ref).
 """
 function query_test()
     isfile(query_case() * ".test")
@@ -302,8 +302,8 @@ In the `ZenCore` package, the following environment variables matter:
 * ZEN_CORE
 * ZEN_DMFT
 * ZEN_SOLVER
-* VASP_HOME (If we are using `vasp` as our DFT engine)
-* QE_HOME (If we are using `quantum espresso` as our DFT engine)
+* VASP_HOME (If we are using `vasp` as our DFT backend)
+* QE_HOME (If we are using `quantum espresso` as our DFT backend)
 * W90_HOME (If we are using `wannier90` to generate projectors)
 
 Please setup them in your `.bashrc` (Lniux) or `.profile` (macOS) files.
