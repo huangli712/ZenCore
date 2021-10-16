@@ -45,18 +45,21 @@ function solver_call(::CTHYB₂Solver, it::IterInfo, imp::Impurity)
 end
 #
 function solver_call(::HIASolver, it::IterInfo, imp::Impurity)
+    # For HIA quantum impurity solver
     s_hub1_init(it)
     s_hub1_exec(it)
     s_hub1_save(it)
 end
 #
 function solver_call(::NORGSolver, it::IterInfo, imp::Impurity)
+    # For NORG quantum impurity solver
     s_norg_init(it)
     s_norg_exec(it)
     s_norg_save(it)
 end
 #
 function solver_call(::ATOMSolver, it::IterInfo, imp::Impurity)
+    # For atomic eigenvalues solver
     sorry()
 end
 
