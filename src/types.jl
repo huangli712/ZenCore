@@ -8,6 +8,13 @@
 #
 
 #=
+### *Customized Types*
+=#
+
+"Customized type. It is used to define the following dicts."
+const DType = Union{Missing,I64,Symbol,String}
+
+#=
 ### *Customized Dictionaries*
 =#
 
