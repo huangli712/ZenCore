@@ -651,7 +651,17 @@ end
 """
     str_to_struct(str::AbstractString, postfix::AbstractString)
 
-Convert a string (`str`) to an instance of struct.
+Convert a string (`str`) to an instance of struct. Here `postfix` could
+be `Engine`, `Solver`, `Adaptor`, `Mode`, and `Mixer`.
+
+### Examples
+```julia-repl
+julia> str_to_struct("vasp", "Engine")
+ZenCore.VASPEngine()
+
+julia> str_to_struct("hia", "Solver")
+ZenCore.HIASolver()
+```
 """
 @inline function str_to_struct(str::AbstractString, postfix::AbstractString)
     fstr = replace(uppercase(str), "_" => "") * postfix
