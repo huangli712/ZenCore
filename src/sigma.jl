@@ -4,13 +4,16 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/09
+# Last modified: 2021/10/16
 #
 
 #=
-### *Driver Functions*
+### *Multiple Dispatchers*
 =#
 
+"""
+    sigma_call(::RESETMode, it::IterInfo, ai::Array{Impurity,1})
+"""
 # Generate default self-energy functions and store them
 function sigma_call(::RESETMode, it::IterInfo, ai::Array{Impurity,1})
     sigma_reset(ai)
