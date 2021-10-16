@@ -12,6 +12,7 @@
 =#
 
 """
+    mixer_call(::NullMixer, it::IterInfo, ai::Array{Impurity,1})
     mixer_call(::ΣMixer, it::IterInfo, ai::Array{Impurity,1})
     mixer_call(::ΔMixer, it::IterInfo, ai::Array{Impurity,1})
     mixer_call(::EMixer, it::IterInfo, ai::Array{Impurity,1})

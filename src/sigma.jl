@@ -12,25 +12,38 @@
 =#
 
 """
+    sigma_call(::NullMode, it::IterInfo, ai::Array{Impurity,1})
     sigma_call(::RESETMode, it::IterInfo, ai::Array{Impurity,1})
+    sigma_call(::DCOUNTMode, it::IterInfo, ai::Array{Impurity,1})
+    sigma_call(::SPLITMode, it::IterInfo, ai::Array{Impurity,1})
+    sigma_call(::GATHERMode, it::IterInfo, ai::Array{Impurity,1})
+
+Try to apply various operations on the self-energy functions Σ and the
+hybridization functions Δ.
+
+See also: [`AbstractMode`](@ref).
 """
-# Generate default self-energy functions and store them
+function sigma_call(::NullMode, it::IterInfo, ai::Array{Impurity,1})
+    sorry()    
+end
+#
 function sigma_call(::RESETMode, it::IterInfo, ai::Array{Impurity,1})
+    # Generate default self-energy functions and store them
     sigma_reset(ai)
 end
-
-# Calculate the double counting terms and store them
+#
 function sigma_call(::DCOUNTMode, it::IterInfo, ai::Array{Impurity,1})
+    # Calculate the double counting terms and store them
     sigma_dcount(it, ai)
 end
-
-# Split the hybridization functions and store them
+#
 function sigma_call(::SPLITMode, it::IterInfo, ai::Array{Impurity,1})
+    # Split the hybridization functions and store them
     sigma_split(ai)
 end
-
-# Collect impurity self-energy functions and combine them
+#
 function sigma_call(::GATHERMode, it::IterInfo, ai::Array{Impurity,1})
+    # Collect impurity self-energy functions and combine them
     sigma_gather(it, ai)
 end
 
