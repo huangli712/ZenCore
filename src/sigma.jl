@@ -19,7 +19,7 @@
     sigma_call(::GATHERMode, it::IterInfo, ai::Array{Impurity,1})
 
 Try to apply various operations on the self-energy functions Σ and the
-hybridization functions Δ.
+hybridization functions Δ (or impurity levels ϵ).
 
 See also: [`AbstractMode`](@ref).
 """
@@ -273,8 +273,8 @@ end
 """
     sigma_split(ai::Array{Impurity,1})
 
-Split the hybridization functions (and local impurity levels) and then
-distribute them into the `impurity.i` folder.
+Split the hybridization functions Δ (and local impurity levels ϵ) and
+then distribute them into the `impurity.i` folder.
 
 See also: [`sigma_gather`](@ref).
 """
@@ -468,7 +468,6 @@ and
 ```
 
 In the following codes, we implement a slightly different version:
-
 
 ```math
 \begin{equation}
