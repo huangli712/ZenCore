@@ -453,8 +453,8 @@ end
 
 Try to make the control parameters for the `w90.win` file. The `latt`
 object represent the crystallography information, and `nband` is the
-number of Kohn-Sham states outputed by the DFT code, `fermi` is the
-fermi level. This function is called by `wannier_init()`.
+total number of Kohn-Sham states outputed by the DFT code, `fermi` is
+the fermi level. This function is called by `wannier_init()`.
 
 See also: [`w90_make_proj`](@ref).
 """
@@ -509,6 +509,7 @@ function w90_make_ctrl(latt::Lattice, nband::I64, fermi::F64)
     end
     #
     # Step 3, store num_wann in the dict.
+    # Perhaps we should consider exclude_bands here.
     w90c["num_wann"] = num_wann
 
     # Get number of bands, `num_bands`.
