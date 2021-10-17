@@ -109,7 +109,7 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         @assert size(D[:enk]) == (nband, nkpt, 1)
     end
 
-    # W03: Deduce band window from energy window
+    # W03: Determine band window from energy window
     if sp # For spin-polarized system
         # Spin up
         bwin_up = w90_find_bwin(ewin_up, eigs_up)
@@ -120,7 +120,7 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         bwin = w90_find_bwin(ewin, eigs)
     end
 
-    # W04: Read transform matrix from w90_u.mat
+    # W04: Read unitary transformation matrix from w90_u.mat
     if sp # For spin-polarized system
         # Spin up
         umat_up = w90_read_umat("up")
@@ -131,7 +131,7 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         umat = w90_read_umat()
     end
 
-    # W05: Read disentanglement matrix from w90_u_dis.mat
+    # W05: Read disentanglement transformation matrix from w90_u_dis.mat
     if sp # For spin-polarized system
         # Spin up
         udis_up = w90_read_udis(bwin_up, "up")
