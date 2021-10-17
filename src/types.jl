@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/16
+# Last modified: 2021/10/18
 #
 
 #=
@@ -740,8 +740,8 @@ function IterInfo()
     @assert nsite ≥ 1
 
     # Extract the parameters `niter` and `ncycle`
-    _M₁ = get_d("ncycle")
-    _M₂ = get_s("ncycle")
+    _M₁ = get_s("ncycle")
+    _M₂ = get_d("ncycle")
     _M₃ = get_m("niter")
     @assert _M₁ ≥ 1 && _M₂ ≥ 1 && _M₃ ≥ 1
 
