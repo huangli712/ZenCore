@@ -1321,7 +1321,7 @@ function view_ovlp(ovlp::Array{F64,3})
         println(fn, "Spin: $s")
         for p = 1:nproj
             foreach(x -> @printf(fn, "%12.7f", x), ovlp[p, :, s])
-            println()
+            println(fn)
         end
     end # END OF S LOOP
 
@@ -1337,25 +1337,31 @@ Output the overlap matrix to screen. For normalized projectors only.
 See also: [`calc_ovlp`](@ref), [`PrGroup`](@ref).
 """
 function view_ovlp(PG::Array{PrGroup,1}, ovlp::Array{Array{F64,3},1})
+    # Open IOStream
+    fn = open("ovlp.chk", "a")
+
     # Print the header
-    println("<- Overlap Matrix ->")
+    println(fn, "<- Overlap Matrix ->")
 
     # Go through each PrGroup
     for p in eachindex(PG)
-        println("Site -> $(PG[p].site) L -> $(PG[p].l) Shell -> $(PG[p].shell)")
+        println(fn, "Site -> $(PG[p].site) L -> $(PG[p].l) Shell -> $(PG[p].shell)")
 
         # Extract some key parameters
         _, ndim, nspin = size(ovlp[p])
 
         # Output the data
         for s = 1:nspin
-            println("Spin: $s")
+            println(fn, "Spin: $s")
             for q = 1:ndim
-                foreach(x -> @printf("%12.7f", x), ovlp[p][q, 1:ndim, s])
-                println()
+                foreach(x -> @printf(fn, "%12.7f", x), ovlp[p][q, 1:ndim, s])
+                println(fn)
             end
         end # END OF S LOOP
     end # END OF P LOOP
+
+    # Close IOStream
+    close(fn)
 end
 
 """
