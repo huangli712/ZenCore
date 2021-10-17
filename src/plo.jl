@@ -948,7 +948,8 @@ end
 """
     calc_ovlp(chipsi::Array{C64,4}, weight::Array{F64,1})
 
-Calculate the overlap matrix out of projectors. For raw projectors only.
+Calculate the overlap matrix out of projectors.
+For raw projectors only.
 
 See also: [`view_ovlp`](@ref).
 """
@@ -978,7 +979,8 @@ end
               chipsi::Array{Array{C64,4},1},
               weight::Array{F64,1})
 
-Calculate the overlap matrix out of projectors. For normalized projectors only.
+Calculate the overlap matrix out of projectors.
+For normalized projectors only.
 
 See also: [`view_ovlp`](@ref), [`PrWindow`](@ref).
 """
@@ -1019,7 +1021,8 @@ end
             weight::Array{F64,1},
             occupy::Array{F64,3})
 
-Calculate the density matrix out of projectors. For raw projectors only.
+Calculate the density matrix out of projectors.
+For raw projectors only.
 
 See also: [`view_dm`](@ref).
 """
@@ -1056,7 +1059,8 @@ end
             weight::Array{F64,1},
             occupy::Array{F64,3})
 
-Calculate the density matrix out of projectors. For normalized projectors only.
+Calculate the density matrix out of projectors.
+For normalized projectors only.
 
 See also: [`view_dm`](@ref), [`PrWindow`](@ref).
 """
@@ -1115,7 +1119,8 @@ end
                weight::Array{F64,1},
                enk::Array{F64,3})
 
-Try to build the effective atomic level. For normalized projectors only.
+Try to build the effective atomic level.
+For normalized projectors only.
 
 See also: [`view_level`](@ref), [`PrWindow`](@ref).
 """
@@ -1170,7 +1175,8 @@ end
               chipsi::Array{Array{C64,4},1},
               enk::Array{F64,3})
 
-Try to build the full hamiltonian. For normalized projectors only.
+Try to build the full hamiltonian matrix (momentum-dependent).
+For normalized projectors only.
 
 See also: [`view_hamk`](@ref), [`PrWindow`](@ref).
 """
@@ -1301,20 +1307,26 @@ Output the overlap matrix to screen. For raw projectors only.
 See also: [`calc_ovlp`](@ref).
 """
 function view_ovlp(ovlp::Array{F64,3})
+    # Open IOStream
+    fn = open("ovlp.chk", "a")
+
     # Print the header
-    println("<- Overlap Matrix ->")
+    println(fn, "<- Overlap Matrix ->")
 
     # Extract some key parameters
     _, nproj, nspin = size(ovlp)
 
     # Output the data
     for s = 1:nspin
-        println("Spin: $s")
+        println(fn, "Spin: $s")
         for p = 1:nproj
-            foreach(x -> @printf("%12.7f", x), ovlp[p, :, s])
+            foreach(x -> @printf(fn, "%12.7f", x), ovlp[p, :, s])
             println()
         end
     end # END OF S LOOP
+
+    # Close IOStream
+    close(fn)
 end
 
 """
