@@ -215,7 +215,7 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         D[:PW] = deepcopy(PW)
     end
 
-    # W09: Create connections/mappings between projectors (or band
+    # W09: Create connections / mappings between projectors (or band
     # windows) and quantum impurity problems
     #
     # D[:MAP] will be created
