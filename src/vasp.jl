@@ -1546,6 +1546,7 @@ function vaspio_projs(f::String)
         print("  m -> ", PT[i].m)
         println("  desc -> ", PT[i].desc)
     end
+    #
     println("  > Number of groups: ", length(PG))
     for i in eachindex(PG)
         print("    [ Group $i ]")

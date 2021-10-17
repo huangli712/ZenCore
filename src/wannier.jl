@@ -821,21 +821,25 @@ function w90_make_group(latt::Lattice, sp::String = "")
     # Print some useful information to check
     println("  > Number of projectors: ", nproj)
     for i in eachindex(PT)
-        println("    [ PrTrait $i ]")
-        println("      site -> ", PT[i].site)
-        println("      l -> ", PT[i].l)
-        println("      m -> ", PT[i].m)
-        println("      desc -> ", PT[i].desc)
+        if nproj ≥ 10
+            @printf("    [ Trait %2i ]", i)
+        else
+            @printf("    [ Trait %1i ]", i)
+        end
+        print("  site -> ", PT[i].site)
+        print("  l -> ", PT[i].l)
+        print("  m -> ", PT[i].m)
+        println("  desc -> ", PT[i].desc)
     end
     #
     println("  > Number of groups: ", length(PG))
     for i in eachindex(PG)
-        println("    [ PrGroup $i ]")
-        println("      site -> ", PG[i].site)
-        println("      l -> ", PG[i].l)
-        println("      corr -> ", PG[i].corr)
-        println("      shell -> ", PG[i].shell)
-        println("      Pr -> ", PG[i].Pr)
+        print("    [ Group $i ]")
+        print("  site -> ", PG[i].site)
+        print("  l -> ", PG[i].l)
+        print("  corr -> ", PG[i].corr)
+        print("  shell -> ", PG[i].shell)
+        println("  Pr -> ", PG[i].Pr)
     end
 
     # Return the desired arrays
