@@ -197,14 +197,14 @@ function vasp_exec(it::IterInfo)
     println("  > Using $numproc processors (MPI)")
 
     # Get the home directory of vasp
-    dft_home = query_dft(_engine_)
-    println("  > Home directory for vasp: ", dft_home)
+    vasp_home = query_dft(_engine_)
+    println("  > Home directory for vasp: ", vasp_home)
 
     # Select suitable vasp program
     if get_d("lspinorb")
-        vasp_exe = "$dft_home/vasp_ncl"
+        vasp_exe = "$vasp_home/vasp_ncl"
     else
-        vasp_exe = "$dft_home/vasp_std"
+        vasp_exe = "$vasp_home/vasp_std"
     end
     @assert isfile(vasp_exe)
     println("  > Executable program is available: ", basename(vasp_exe))
