@@ -4,13 +4,21 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/15
+# Last modified: 2021/10/17
 #
 
 #=
-### *Driver Functions*
+### *Multiple Dispatchers*
 =#
 
+"""
+    dft_call(::QEEngine, it::IterInfo)
+
+Try to carry out full DFT calculation with the `qe` code. It is only a
+dispatcher. Similar function is defined in `vasp.jl` as well.
+
+See also: [`_engine_`](@ref).
+"""
 function dft_call(::QEEngine, it::IterInfo)
     qe_init(it)
     qe_exec(it, true)  # Self-consistent calculation
