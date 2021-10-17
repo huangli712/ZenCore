@@ -4,13 +4,23 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/14
+# Last modified: 2021/10/17
 #
 
 #=
-### *Driver Functions*
+### *Multiple Dispatchers*
 =#
 
+"""
+    adaptor_call(::WANNIERAdaptor,
+                 D::Dict{Symbol,Any},
+                 ai::Array{Impurity,1})
+
+It is a dispatcher for the DFT-DMFT adaptor. It calls `wannier_adaptor()`
+function to deal with the outputs of `wannier90` code and generate key
+dataset for the DMFT engine. Note that similar functions are also defined
+in `vasp.jl`, `qe.jl`, and `plo.jl`.
+"""
 function adaptor_call(::WANNIERAdaptor,
                       D::Dict{Symbol,Any},
                       ai::Array{Impurity,1})
