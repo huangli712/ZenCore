@@ -313,24 +313,24 @@ function wannier_exec(sp::String = ""; op::String = "")
     #
     # We can not guarantee that the wannier90 code is always installed
     # within the directory of quantum espresso.
-    wannier90_home = query_dft(WANNIEREngine())
-    println("  > Home directory for wannier90: ", wannier90_home)
+    wan90_home = query_dft(WANNIEREngine())
+    println("  > Home directory for wannier90: ", wan90_home)
 
     # Select suitable wannier90 program
-    wannier90_exe = "$wannier90_home/wannier90.x"
-    @assert isfile(wannier90_exe)
-    println("  > Executable program is available: ", basename(wannier90_exe))
+    wan90_exe = "$wan90_home/wannier90.x"
+    @assert isfile(wan90_exe)
+    println("  > Executable program is available: ", basename(wan90_exe))
 
     # Assemble command
     seedname = "w90" * sp
     #
     if op == "-pp" # As a preprocessor to generate w90.nnkp
-        wannier90_cmd = split("$wannier90_exe $op $seedname", " ")
+        wan90_cmd = split("$wan90_exe $op $seedname", " ")
     else # Standard run to generate wannier function
-        wannier90_cmd = split("$wannier90_exe $seedname", " ")
+        wan90_cmd = split("$wan90_exe $seedname", " ")
     end
     #
-    println("  > Assemble command: $(prod(x -> x * ' ', wannier90_cmd))")
+    println("  > Assemble command: $(prod(x -> x * ' ', wan90_cmd))")
 
     # Determine suitable output file
     finp = "w90" * sp * ".win"
@@ -343,7 +343,7 @@ function wannier_exec(sp::String = ""; op::String = "")
 
     # Create a task, but do not run it immediately
     t = @task begin
-        run(pipeline(`$wannier90_cmd`, stdout = fout))
+        run(pipeline(`$wan90_cmd`, stdout = fout))
     end
     println("  > Create a task")
 
