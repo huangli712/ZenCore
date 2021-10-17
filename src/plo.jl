@@ -452,7 +452,6 @@ function plo_window(PG::Array{PrGroup,1}, enk::Array{F64,3})
         @assert PW₁ == PW₂
     end
     println("  > Verify windows for correlated groups")
-
 =#
 
     # Print the summary

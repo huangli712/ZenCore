@@ -984,8 +984,18 @@ function w90_make_window(PG::Array{PrGroup,1}, enk::Array{F64,3})
         push!(PW, PrWindow(kwin, bwin))
         #
         # Print some useful information
-        println("  > Create window $p: $bwin <--> ($(PW[p].bmin), $(PW[p].bmax))")
+        println("  > Create window [$p]")
     end # END OF P LOOP
+
+    # Print the summary
+    println("  > Summary of windows:")
+    for i in eachindex(PW)
+        print("    [ Window $i ]")
+        print("  bmin -> ", PW[i].bmin)
+        print("  bmax -> ", PW[i].bmax)
+        print("  nbnd -> ", PW[i].nbnd)
+        println("  bwin -> ", PW[i].bwin)
+    end
 
     # Return the desired array
     return PW
