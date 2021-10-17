@@ -1066,6 +1066,9 @@ its members, `kwin`.
 See also: [`PrWindow`](@ref).
 """
 function w90_make_window(PWup::Array{PrWindow,1}, PWdn::Array{PrWindow,1})
+    # Print the header
+    println("Combine windows")
+
     # Sanity check
     #
     # The two arrays must be the same. The comparison of two PrWindow
@@ -1081,7 +1084,8 @@ function w90_make_window(PWup::Array{PrWindow,1}, PWdn::Array{PrWindow,1})
         kwin1 = PWup[p].kwin
         kwin2 = PWdn[p].kwin
         #
-        # Check `kwin`, its dimension for spin orientation must be 1
+        # Check `kwin`, its dimension for spin orientation must be 1.
+        # Please see the above `w90_make_window()`.
         @assert size(kwin1, 2) == 1
         @assert size(kwin2, 2) == 1
         #
@@ -1093,6 +1097,19 @@ function w90_make_window(PWup::Array{PrWindow,1}, PWdn::Array{PrWindow,1})
         #
         # Create new PrWindow and push it into PW
         push!(PW, PrWindow(kwin, bwin))
+        #
+        # Print some useful information
+        println("  > Combine window [$p]")
+    end
+
+    # Print the summary
+    println("  > Summary of windows:")
+    for i in eachindex(PW)
+        print("    [ Window $i ]")
+        print("  bmin -> ", PW[i].bmin)
+        print("  bmax -> ", PW[i].bmax)
+        print("  nbnd -> ", PW[i].nbnd)
+        println("  bwin -> ", PW[i].bwin)
     end
 
     # Return the desired array
