@@ -425,7 +425,8 @@ end
     wannier_monitor(D::Dict{Symbol,Any})
 
 Try to check and examine whether the obtained wannier functions are
-correct and reasonable.
+correct and reasonable. Be careful, the calc_ovlp(), calc_dm(), and
+calc_level() functions are defined in plo.jl.
 
 See also: [`wannier_adaptor`](@ref), [`plo_monitor`](@ref).
 """
