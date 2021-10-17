@@ -60,6 +60,16 @@ function dft_resume(::VASPEngine)
     return edft
 end
 
+"""
+    adaptor_call(::VASPEngine, D::Dict{Symbol,Any})
+
+It is a dispatcher for the DFT-DMFT adaptor. It calls `vasp_adaptor()`
+function to deal with the outputs of the DFT backend (such as vasp) and
+generate key dataset for the next level adaptor (`PLOAdaptor`). Note
+that similar function is also defined in `qe.jl`.
+
+See also: [`vasp_adaptor`](@ref).
+"""
 function adaptor_call(::VASPEngine, D::Dict{Symbol,Any})
     vaspq_files()
     vasp_adaptor(D)
