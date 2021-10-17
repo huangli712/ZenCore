@@ -25,6 +25,15 @@ function dft_call(::VASPEngine, it::IterInfo)
     vasp_save(it)
 end
 
+"""
+    dft_stop(::VASPEngine)
+
+Try to terminate DFT calculation and kill running process of the DFT
+backend. It supports the `vasp` code. It is only a dispatcher. Similar
+function is defined in `qe.jl` as well.
+
+See also: [`_engine_`](@ref).
+"""
 function dft_stop(::VASPEngine)
     vasp_stop()
 end
