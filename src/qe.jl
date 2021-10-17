@@ -403,15 +403,15 @@ function qe_exec(it::IterInfo, scf::Bool = true)
     println("  > Using $numproc processors (MPI)")
 
     # Get the home directory of quantum espresso
-    dft_home = query_dft(_engine_)
-    println("  > Home directory for quantum espresso: ", dft_home)
+    qe_home = query_dft(_engine_)
+    println("  > Home directory for quantum espresso: ", qe_home)
 
     # Select suitable quantum espresso program
     # We use the same code pw.x for with or without spin-orbit coupling
     if get_d("lspinorb")
-        qe_exe = "$dft_home/pw.x"
+        qe_exe = "$qe_home/pw.x"
     else
-        qe_exe = "$dft_home/pw.x"
+        qe_exe = "$qe_home/pw.x"
     end
     @assert isfile(qe_exe)
     println("  > Executable program is available: ", basename(qe_exe))
