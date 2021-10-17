@@ -1128,7 +1128,7 @@ See also: [`w90_read_umat`](@ref), [`w90_read_udis`](@ref).
 """
 function w90_make_chipsi(umat::Array{C64,3}, udis::Array{C64,3})
     # Print the header
-    println("Generate projection matrix")
+    println("Generate raw projection matrix")
 
     # Extract key parameters
     nproj, _, nkpt = size(umat) # (nproj, nproj, nkpt)
@@ -1216,7 +1216,7 @@ function w90_make_chipsi(PG::Array{PrGroup,1}, chipsi::Array{C64,4})
         push!(Rchipsi, R)
 
         # Print some useful information
-        println("  > Rotate group $i (site: $(PG[i].site)): number of local orbitals -> $ndim")
+        println("  > Rotate group [$i]: number of correlated bands -> $ndim")
     end # END OF I LOOP
 
     # Return the desired array
