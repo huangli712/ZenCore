@@ -35,30 +35,21 @@ function is defined in `vasp.jl` as well.
 
 See also: [`_engine_`](@ref).
 """
-function dft_stop(::VASPEngine)
+function dft_stop(::QEEngine)
     sorry()
 end
 
 """
-    dft_resume(::VASPEngine)
+    dft_resume(::QEEngine)
 
 Try to wake up the DFT backend and resume the DFT calculation. It only
-supports the `vasp` code. It is only a dispatcher. Similar function is
-defined in `qe.jl` as well.
+supports the `qe` code. It is only a dispatcher. Similar function is
+defined in `vasp.jl` as well.
 
 See also: [`_engine_`](@ref).
 """
-function dft_resume(::VASPEngine)
-    # Reactivate the DFT engine
-    @time_call vasp_back()
-
-    # Wait the DFT engine to finish its job and sleep
-    suspend(2)
-
-    # Get the DFT energy
-    edft = vaspio_energy()
-
-    return edft
+function dft_resume(::QEEngine)
+    sorry()
 end
 
 function adaptor_call(::QEEngine, D::Dict{Symbol,Any})
