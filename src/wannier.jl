@@ -1280,18 +1280,6 @@ function w90_make_chipsi(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1})
 end
 
 """
-    w90_make_hamr()
-"""
-function w90_make_hamr()
-end
-
-"""
-    w90_make_hamk()
-"""
-function w90_make_hamk()
-end
-
-"""
     w90_find_bwin(ewin::Tuple{F64,F64}, enk::Array{F64,3})
 
 During the disentanglement procedure, we can define an outer energy
