@@ -1386,6 +1386,9 @@ function view_dm(dm::Array{F64,3})
             println()
         end
     end # END OF S LOOP
+
+    # Close IOStream
+    close(fn)
 end
 
 """
@@ -1415,6 +1418,9 @@ function view_dm(PG::Array{PrGroup,1}, dm::Array{Array{F64,3},1})
             end
         end # END OF S LOOP
     end # END OF P LOOP
+
+    # Close IOStream
+    close(fn)
 end
 
 """
@@ -1454,6 +1460,9 @@ function view_level(PG::Array{PrGroup,1}, level::Array{Array{C64,3},1})
             end
         end # END OF S LOOP
     end # END OF P LOOP
+
+    # Close IOStream
+    close(fn)
 end
 
 #=
