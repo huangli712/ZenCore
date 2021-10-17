@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/16
+# Last modified: 2021/10/17
 #
 
 """
@@ -459,7 +459,7 @@ functions to deal with the vasp-related files.
 
 ```text
 adaptor_call   -> Launch the DFT adaptor (for vasp program).
-dft_call       -> Carry full DFT calculations (for vasp program).
+dft_call       -> Carry out full DFT calculations (for vasp program).
 dft_stop       -> Stop DFT calculations (for vasp program).
 dft_resume     -> Resume DFT calculations (for vasp program).
 vasp_adaptor   -> Adaptor support.
@@ -537,7 +537,7 @@ lot of functions to deal with the quantum espresso (pwscf) related files.
 
 ```text
 adaptor_call -> Launch the DFT adaptor (for quantum espresso program).
-dft_call     -> Carry full DFT calculations (for quantum espresso program).
+dft_call     -> Carry out full DFT calculations (for quantum espresso program).
 dft_stop     -> Stop DFT calculations (for quantum espresso program).
 dft_resume   -> Resume DFT calculations (for quantum espresso program).
 qe_adaptor   -> Adaptor support.
