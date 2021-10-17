@@ -1365,14 +1365,18 @@ function w90_read_amat(sp::String = "")
             for b = 1:nband
                 # Increase the counter
                 start = start + 1
+                #
                 # Convert string to array
                 arr = line_to_array(lines[start])
+
                 # Determine indices for bands, projectors, and 𝑘-points
                 _b, _p, _k = parse.(I64, arr[1:3])
+                #
                 # Sanity check
                 @assert _b == b
                 @assert _p == p
                 @assert _k == k
+
                 # Fill in the array
                 _re, _im = parse.(F64, arr[4:5])
                 Amn[p,b,k] = _re + im*_im
@@ -1429,13 +1433,17 @@ function w90_read_eigs(sp::String = "")
         for b = 1:nband
             # Increase the counter
             start = start + 1
+            #
             # Convert string to array
             arr = line_to_array(lines[start])
+
             # Determine indices for bands and 𝑘-points
             _b, _k = parse.(I64, arr[1:2])
+            #
             # Sanity check
             @assert _b == b
             @assert _k == k
+
             # Fill in the array
             _v = parse(F64, arr[3])
             eigs[b,k] = _v
@@ -1520,15 +1528,20 @@ function w90_read_hmat(sp::String = "")
             for j = 1:nproj
                 # Increase the counter
                 start = start + 1
+                #
                 # Convert string to line
                 arr = line_to_array(lines[start])
+
                 # Get Wigner-Seitz grid
                 rvec[r,:] = parse.(I64, arr[1:3])
+
                 # Get indices of wannier functions
                 _j, _i = parse.(I64, arr[4:5])
+                #
                 # Sanity check
                 @assert _j == j
                 @assert _i == i
+
                 # Fill in the hamiltonian
                 _re, _im = parse.(F64, arr[6:7])
                 hamr[j, i, r] = _re + im * _im
@@ -1588,6 +1601,7 @@ function w90_read_umat(sp::String = "")
             for i = 1:nproj
                 # Increase the counter
                 start = start + 1
+                #
                 # Parse the line and fill in the array
                 _re, _im = parse.(F64, line_to_array(lines[start]))
                 umat[i, j, k] = _re + im * _im
@@ -1648,6 +1662,7 @@ function w90_read_udis(bwin::Array{I64,2}, sp::String = "")
             for i = 1:nband
                 # Increase the counter
                 start = start + 1
+                #
                 # Parse the line and fill in the array
                 _re, _im = parse.(F64, line_to_array(lines[start]))
                 utmp[i, j] = _re + im * _im
