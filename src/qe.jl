@@ -258,6 +258,7 @@ function qe_to_plo(D::Dict{Symbol,Any})
     #
     # D[:enk] will be updated
     # Be careful, the eigenvalues will be calibrated in plo_fermi().
+    # This is different from what we see in wannier_adaptor().
     if sp # For spin-polarized system
         # Spin up
         eigs_up = w90_read_eigs("up")
