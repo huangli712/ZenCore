@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/15
+# Last modified: 2021/10/17
 #
 
 #=
@@ -20,7 +20,7 @@ directories) for DFT + DMFT calculations are ready.
 See also: [`go`](@ref).
 """
 function ready()
-    # R1: Setup _engine_, the DFT engine.
+    # R1: Setup _engine_, the DFT backend.
     engine = get_d("engine")
     global _engine_ = str_to_struct(engine, "Engine")
 
@@ -567,6 +567,7 @@ end
 
 Perform calculations using mixer engine only. The users can execute
 it in the REPL mode to see whether the mixer engine works properly.
+The argument `task` can be `Σ`, `Δ`, `E`, and `Γ`.
 
 In order to run this function correctly, users should try to modify
 the predefined parameters in step `C01`.
@@ -843,6 +844,7 @@ function solver_core(it::IterInfo,
 
         # The present quantum impurity problem need to be solved
         if to_be_solved[i] || force
+
             # Print the header
             println(green("It is interesting. Let us play with it.\n"))
 
@@ -863,6 +865,7 @@ function solver_core(it::IterInfo,
             cd("..")
 
         else
+
             # Print the header
             println(red("Mmm, it is not my job..."))
 
@@ -937,7 +940,7 @@ function adaptor_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
     # Choose suitable driver function according to DFT engine. The
     # Kohn-Sham data will be stored in the DFTData dict.
     #
-    engine = get_d("engine")
+    engine = nameof(_engine_)
     prompt("Adaptor", cntr_it(it))
     prompt(lr.log, "adaptor::$engine")
     @time_call adaptor_call(_engine_, DFTData)
@@ -957,7 +960,7 @@ function adaptor_core(it::IterInfo, lr::Logger, ai::Array{Impurity,1})
     # activated if you are in the REPL mode and there is a `case.test`
     # file in the present directory (i.e, the `dft` folder).
     #
-    projtype = get_d("projtype")
+    projtype = nameof(_adaptor_)
     prompt("Adaptor", cntr_it(it))
     prompt(lr.log, "adaptor::$projtype")
     @time_call adaptor_call(_adaptor_, DFTData, ai)
@@ -994,7 +997,7 @@ end
                task::String = "reset")
 
 Simple driver for functions for processing the self-energy functions
-and hybridization functions (and local impurity levels).
+Σ and hybridization functions Δ (and local impurity levels ϵ).
 
 Now it supports four tasks: `reset`, `dcount`, `split`, `gather`. It
 won't change the current directory.
@@ -1023,11 +1026,11 @@ end
     mixer_core(it::IterInfo,
                lr::Logger,
                ai::Array{Impurity,1},
-               task::String = "sigma")
+               task::String = "Σ")
 
 Simple driver for the mixer. It will try to mix the self-energy functions
-(or hybridization functions, local impurity levels, density matrix) and
-generate a new one.
+Σ (or hybridization functions Δ, local impurity levels ϵ, density matrix
+Γ) and generate a new one.
 
 Now it supports four tasks: `Σ`, `Δ`, `E`, `Γ`. It won't change the
 current directory.
@@ -1198,9 +1201,11 @@ See also: [`IterInfo`](@ref), [`zero_it`](@ref).
 """
 function incr_it(it::IterInfo)
     @assert it.sc == 1
+    #
     it.I₃ = 1
     it.I₁ = it.I₁ + 1
     it.I₄ = it.I₄ + 1
+    #
     @assert it.I₁ ≤ it.M₃
 end
 
