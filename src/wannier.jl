@@ -875,12 +875,12 @@ function w90_make_group(MAP::Mapping, PG::Array{PrGroup,1})
         if s != 0
             # Setup corr property
             PG[g].corr = true
-            println("  > Turn group $g (site: $(PG[g].site)) into correlated")
+            println("  > Treat group [$g] as correlated")
 
             # Setup shell property
             # Later it will be used to generate `Tr`
             PG[g].shell = get_i("shell")[s]
-            println("  > Treat group $g (site: $(PG[g].site)) as $(PG[g].shell) orbitals")
+            println("  > Treat group [$g] as $(PG[g].shell) orbitals")
         end
 
         # Setup Tr array further
@@ -935,8 +935,19 @@ function w90_make_group(MAP::Mapping, PG::Array{PrGroup,1})
                 sorry()
                 break
         end
-        println("  > Build transformation matrix for group $g (site: $(PG[g].site))")
+        println("  > Build transformation matrix for group [$g]")
     end # END OF G LOOP
+
+    # Print the summary
+    println("  > Summary of groups:")
+    for i in eachindex(PG)
+        print("    [ Group $i ]")
+        print("  site -> ", PG[i].site)
+        print("  l -> ", PG[i].l)
+        print("  corr -> ", PG[i].corr)
+        print("  shell -> ", PG[i].shell)
+        println("  Pr -> ", PG[i].Pr)
+    end
 end
 
 """
