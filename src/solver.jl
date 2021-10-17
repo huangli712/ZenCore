@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/16
+# Last modified: 2021/10/17
 #
 
 #=
@@ -83,15 +83,15 @@ solver_copy(::CTHYB₁Solver, it::IterInfo, imp₁::Impurity, imp₂::Impurity) 
     # For CTHYB₁ quantum impurity solver
     s_qmc1_copy(it, imp₁, imp₂)
 #
-solver_copy(::CTHYB₂Solver, it::IterInfo, imp₁::Impurity, imp₂::Impurity) = 
+solver_copy(::CTHYB₂Solver, it::IterInfo, imp₁::Impurity, imp₂::Impurity) =
     # For CTHYB₂ quantum impurity solver
     s_qmc2_copy(it, imp₁, imp₂)
 #
-solver_copy(::HIASolver, it::IterInfo, imp₁::Impurity, imp₂::Impurity) = 
+solver_copy(::HIASolver, it::IterInfo, imp₁::Impurity, imp₂::Impurity) =
     # For HIA quantum impurity solver
     s_hub1_copy(it, imp₁, imp₂)
 #
-solver_copy(::NORGSolver, it::IterInfo, imp₁::Impurity, imp₂::Impurity) = 
+solver_copy(::NORGSolver, it::IterInfo, imp₁::Impurity, imp₂::Impurity) =
     # For NORG quantum impurity solver
     s_norg_copy(it, imp₁, imp₂)
 #

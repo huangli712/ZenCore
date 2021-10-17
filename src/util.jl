@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/16
+# Last modified: 2021/10/17
 #
 
 #=
@@ -667,8 +667,8 @@ ZenCore.HIASolver()
     # Assemble the name of the struct
     fstr = replace(uppercase(str), "_" => "") * postfix
 
-    # Perhaps `fstr` contains some numbers, such as CTHYB1Solver. 
-    # Replace number with its subscript's form
+    # Perhaps `fstr` contains some numbers, such as CTHYB1Solver.
+    # Replace number with its subscript's form (CTHYB₁Solver)
     for i in 0:9
         if contains(fstr, string(i))
             fstr = replace(fstr, string(i) => subscript(i))

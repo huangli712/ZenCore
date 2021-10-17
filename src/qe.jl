@@ -641,7 +641,7 @@ function qec_input(it::IterInfo)
         SystemNL["smearing"] = "'gauss'"
     end
     #
-    smear == "tetra" && begin    
+    smear == "tetra" && begin
         SystemNL["occupations"] = "'tetrahedra'"
         delete!(SystemNL, "smearing")
     end

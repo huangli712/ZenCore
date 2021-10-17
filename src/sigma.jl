@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/16
+# Last modified: 2021/10/17
 #
 
 #=
@@ -24,7 +24,7 @@ hybridization functions Δ (or impurity levels ϵ).
 See also: [`_mode_`](@ref).
 """
 function sigma_call(::NULLMode, it::IterInfo, ai::Array{Impurity,1})
-    sorry()    
+    sorry()
 end
 #
 function sigma_call(::RESETMode, it::IterInfo, ai::Array{Impurity,1})
