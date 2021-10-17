@@ -52,6 +52,16 @@ function dft_resume(::QEEngine)
     sorry()
 end
 
+"""
+    adaptor_call(::QEEngine, D::Dict{Symbol,Any})
+
+It is a dispatcher for the DFT-DMFT adaptor. It calls `qe_adaptor()`
+function to deal with the outputs of the DFT backend (such as qe) and
+generate key dataset for the next level adaptor (`WANNIERAdaptor`). Note
+that similar function is also defined in `vasp.jl`.
+
+See also: [`qe_adaptor`](@ref).
+"""
 function adaptor_call(::QEEngine, D::Dict{Symbol,Any})
     qeq_files()
     qe_adaptor(D)
