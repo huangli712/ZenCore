@@ -18,8 +18,10 @@
 
 It is a dispatcher for the DFT-DMFT adaptor. It calls `wannier_adaptor()`
 function to deal with the outputs of `wannier90` code and generate key
-dataset for the DMFT engine. Note that similar functions are also defined
+dataset for the IR adaptor. Note that similar functions are also defined
 in `vasp.jl`, `qe.jl`, and `plo.jl`.
+
+See also: [`wannier_adaptor`](@ref).
 """
 function adaptor_call(::WANNIERAdaptor,
                       D::Dict{Symbol,Any},
