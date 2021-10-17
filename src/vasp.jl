@@ -38,6 +38,15 @@ function dft_stop(::VASPEngine)
     vasp_stop()
 end
 
+"""
+    dft_resume(::VASPEngine)
+
+Try to wake up the DFT backend and resume the DFT calculation. It only
+supports the `vasp` code. It is only a dispatcher. Similar function is
+defined in `qe.jl` as well.
+
+See also: [`_engine_`](@ref).
+"""
 function dft_resume(::VASPEngine)
     # Reactivate the DFT engine
     @time_call vasp_back()
