@@ -1009,7 +1009,8 @@ end
 Make band window to filter the projections. Actually, only those relevant
 bands (which are restricted by the energy window `ewin` or the band window
 `bwin`) are retained. This function will return an array of `PrWindow`
-struct.
+struct. Be careful, `ewin` must be consistent with `bwin` (please check
+`w90_find_bwin()` for more details).
 
 See also: [`PrWindow`](@ref).
 """
@@ -1038,8 +1039,18 @@ function w90_make_window(PG::Array{PrGroup,1},
         push!(PW, PrWindow(kwin, ewin))
         #
         # Print some useful information
-        println("  > Create window $p: $ewin <--> ($(PW[p].bmin), $(PW[p].bmax))")
+        println("  > Create window [$p]")
     end # END OF P LOOP
+
+    # Print the summary
+    println("  > Summary of windows:")
+    for i in eachindex(PW)
+        print("    [ Window $i ]")
+        print("  bmin -> ", PW[i].bmin)
+        print("  bmax -> ", PW[i].bmax)
+        print("  nbnd -> ", PW[i].nbnd)
+        println("  bwin -> ", PW[i].bwin)
+    end
 
     # Return the desired array
     return PW
