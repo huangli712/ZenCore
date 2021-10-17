@@ -1272,7 +1272,7 @@ function w90_make_chipsi(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1})
         push!(Fchipsi, F)
 
         # Print some useful information
-        println("  > Apply window $p: maximum number of bands -> $(PW[p].nbnd)")
+        println("  > Filter group [$p]: number of Kohn-Sham states -> $(PW[p].nbnd)")
     end # END OF P LOOP
 
     # Return the desired array
