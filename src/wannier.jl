@@ -77,7 +77,11 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
 
     # W02: Read accurate band eigenvalues from w90.eig
     #
-    # D[:enk] will be updated
+    # D[:enk] will be updated.
+    #
+    # We have to calibrate the eigenvalues and force the fermi level to
+    # be zero. Be careful, the original eigenvalues from `qeio_eigen()`
+    # have not been calibrated.
     if sp # For spin-polarized system
         # Spin up
         eigs_up = w90_read_eigs("up") .- D[:fermi]
@@ -104,14 +108,6 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         D[:enk] = deepcopy(eigs)
         @assert size(D[:enk]) == (nband, nkpt, 1)
     end
-    #
-    # Calibrate the eigenvalues to force the fermi level to be zero
-    # Be careful, the original eigenvalues from qeio_eigen() have
-    # not been calibrated.
-    #
-    # The calibration has been done above.
-    #
-    # @. D[:enk] = D[:enk] - D[:fermi]
 
     # W03: Deduce band window from energy window
     if sp # For spin-polarized system
