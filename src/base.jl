@@ -204,7 +204,7 @@ function cycle1()
         @time_call sigma_core(it, lr, ai, "gather")
 
         # C12: Mix the impurity self-energy functions
-        @time_call mixer_core(it, lr, ai, "sigma")
+        @time_call mixer_core(it, lr, ai, "Σ")
 
         # C18: Check the convergence for total energy
         energy_core(it)
