@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/17
+# Last modified: 2021/10/18
 #
 
 #=
@@ -20,23 +20,35 @@ directories) for DFT + DMFT calculations are ready.
 See also: [`go`](@ref).
 """
 function ready()
+    # Print the header
+    prompt("Ready")
+
     # R1: Setup _engine_, the DFT backend.
     engine = get_d("engine")
     global _engine_ = str_to_struct(engine, "Engine")
+    println("DFT backend: ", nameof(_engine_))
 
     # R2: Setup _solver_, the quentum impurity solver.
     solver = get_s("engine")
     global _solver_ = str_to_struct(solver, "Solver")
+    println("Quantum impurity solver: ", nameof(_solver_))
 
     # R3: Setup _adaptor_, the DFT-DMFT adaptor.
     adaptor = get_d("projtype")
     global _adaptor_ = str_to_struct(adaptor, "Adaptor")
+    println("Projection scheme: ", nameof(_adaptor_))
 
     # R4: Check the input files
     query_inps(_engine_)
+    println("Input files: ready")
 
     # R5: Prepare the working directories
     build_trees()
+    println("Build directories: ready")
+
+    # Print the footer
+    println()
+    flush(stdout)
 end
 
 """
