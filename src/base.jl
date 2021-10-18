@@ -26,17 +26,17 @@ function ready()
     # R1: Setup _engine_, the DFT backend.
     engine = get_d("engine")
     global _engine_ = str_to_struct(engine, "Engine")
-    println("DFT backend: ", nameof(_engine_))
+    println("DFT backend: $engine -> $(typeof(_engine_))")
 
     # R2: Setup _solver_, the quentum impurity solver.
     solver = get_s("engine")
     global _solver_ = str_to_struct(solver, "Solver")
-    println("Quantum impurity solver: ", nameof(_solver_))
+    println("Quantum impurity solver: $solver -> $(typeof(_solver_))")
 
     # R3: Setup _adaptor_, the DFT-DMFT adaptor.
     adaptor = get_d("projtype")
     global _adaptor_ = str_to_struct(adaptor, "Adaptor")
-    println("Projection scheme: ", nameof(_adaptor_))
+    println("Projection scheme: $adaptor -> $(typeof(_adaptor_))")
 
     # R4: Check the input files
     query_inps(_engine_)
