@@ -12,14 +12,14 @@
 =#
 
 """
-    ready()
+    ready(mkdir::Bool = true)
 
 Examine whether all the conditions (including input files and working
 directories) for DFT + DMFT calculations are ready.
 
 See also: [`go`](@ref).
 """
-function ready()
+function ready(mkdir::Bool = true)
     # Print the header
     prompt("Ready")
 
@@ -43,8 +43,10 @@ function ready()
     println("Input files: ready")
 
     # R5: Prepare the working directories
-    build_trees()
-    println("Build directories: ready")
+    mkdir && begin
+        build_trees()
+        println("Build directories: ready")
+    end
 
     # Print the footer
     println()
