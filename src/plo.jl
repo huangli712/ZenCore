@@ -142,45 +142,38 @@ function try_calc_window(PG::Array{PrGroup,1}, chipsi::Array{C64,4}, enk::Array{
 
     if auto
     else
-            # Scan the groups of projectors, setup PrWindow for them.
-    for p in eachindex(PG)
-        # Determine bwin. Don't forget it is a Tuple. bwin = (emin, emax).
-        if nwin == 1
-            # All `PrGroup` shares the same window
-            bwin = (window[1], window[2])
-        else
-            # Each `PrGroup` has it own window
-            bwin = (window[2*p-1], window[2*p])
-        end
+        # Scan the groups of projectors, setup PrWindow for them.
+        for p in eachindex(PG)
+            # Determine bwin. Don't forget it is a Tuple. bwin = (emin, emax).
+            if nwin == 1
+                # All `PrGroup` shares the same window
+                bwin = (window[1], window[2])
+            else
+                # Each `PrGroup` has it own window
+                bwin = (window[2*p-1], window[2*p])
+            end
 
-        # Record the current window if the corresponding group of
-        # projectors is correlated. Later it will be used to analyze
-        # the correctness of band window.
-        if PG[p].corr
-            push!(CW, bwin)
-        end
+            # Examine `bwin` further. Its elements should obey the order. This
+            # window must be defined by band indices (they are integers) or
+            # energies (two float numbers).
+            @assert bwin[2] > bwin[1]
+            @assert typeof(bwin[1]) == typeof(bwin[2])
+            @assert bwin[1] isa Integer || bwin[1] isa AbstractFloat
 
-        # Examine `bwin` further. Its elements should obey the order. This
-        # window must be defined by band indices (they are integers) or
-        # energies (two float numbers).
-        @assert bwin[2] > bwin[1]
-        @assert typeof(bwin[1]) == typeof(bwin[2])
-        @assert bwin[1] isa Integer || bwin[1] isa AbstractFloat
+            # The `bwin` is only the global window. But we actually need a
+            # momentum-dependent and spin-dependent window. This is `kwin`.
+            if bwin[1] isa Integer
+                kwin = get_win1(enk, bwin)
+            else
+                kwin = get_win2(enk, bwin)
+            end
 
-        # The `bwin` is only the global window. But we actually need a
-        # momentum-dependent and spin-dependent window. This is `kwin`.
-        if bwin[1] isa Integer
-            kwin = get_win1(enk, bwin)
-        else
-            kwin = get_win2(enk, bwin)
-        end
+            # Create the `PrWindow` struct, and push it into the PW array.
+            push!(PW, PrWindow(kwin, bwin))
 
-        # Create the `PrWindow` struct, and push it into the PW array.
-        push!(PW, PrWindow(kwin, bwin))
-
-        # Print some useful information
-        println("  > Create window [$p]")
-    end # END OF P LOOP
+            # Print some useful information
+            println("  > Create window [$p]")
+        end # END OF P LOOP
     end
 
     #=
@@ -196,8 +189,22 @@ function try_calc_window(PG::Array{PrGroup,1}, chipsi::Array{C64,4}, enk::Array{
         end
     end
     =#
+
     cd("..")
     sorry()
+
+    # Print the summary
+    println("  > Summary of windows:")
+    for i in eachindex(PW)
+        print("    [ Window $i ]")
+        print("  bmin -> ", PW[i].bmin)
+        print("  bmax -> ", PW[i].bmax)
+        print("  nbnd -> ", PW[i].nbnd)
+        println("  bwin -> ", PW[i].bwin)
+    end
+
+    # Return the desired array
+    return PW
 end
 
 #=
