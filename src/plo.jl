@@ -141,6 +141,11 @@ function try_calc_window(PG::Array{PrGroup,1}, chipsi::Array{Array{C64,4},1}, en
     PW = PrWindow[]
 
     if auto
+        # Scan the groups of projectors, setup PrWindow for them.
+        for p in eachindex(PG)
+            # Print some useful information
+            println("  > Create window [$p]")
+        end # END OF P LOOP
     else
         # Scan the groups of projectors, setup PrWindow for them.
         for p in eachindex(PG)
