@@ -141,6 +141,20 @@ function try_calc_window(PG::Array{PrGroup,1}, chipsi::Array{C64,4}, enk::Array{
     PW = PrWindow[]
 
     if auto
+            #=
+    # Extract some key parameters
+    nproj, nband, nkpt, nspin = size(chipsi)
+    @assert nband ≥ nproj
+    
+    for s = 1:nspin
+        for k = 1:nkpt
+            A = view(chipsi, :, :, k, s)
+            P = diag(real(A' * A))
+            @show k, s, P[16:25]
+        end
+    end
+    =#
+
     else
         # Scan the groups of projectors, setup PrWindow for them.
         for p in eachindex(PG)
@@ -175,20 +189,6 @@ function try_calc_window(PG::Array{PrGroup,1}, chipsi::Array{C64,4}, enk::Array{
             println("  > Create window [$p]")
         end # END OF P LOOP
     end
-
-    #=
-    # Extract some key parameters
-    nproj, nband, nkpt, nspin = size(chipsi)
-    @assert nband ≥ nproj
-    
-    for s = 1:nspin
-        for k = 1:nkpt
-            A = view(chipsi, :, :, k, s)
-            P = diag(real(A' * A))
-            @show k, s, P[16:25]
-        end
-    end
-    =#
 
     cd("..")
     sorry()
