@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/17
+# Last modified: 2021/10/19
 #
 
 #=
@@ -82,15 +82,17 @@ function plo_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     # D[:PG] will be updated
     plo_group(D[:MAP], D[:PG])
 
-    # P04: Setup the band / energy window for projectors
-    #
-    # D[:PW] will be created
-    D[:PW] = plo_window(D[:PG], D[:enk])
-
-    # P05: Transform the projectors
+    # P04: Transform the projectors
     #
     # D[:Rchipsi] will be created
     D[:Rchipsi] = plo_rotate(D[:PG], D[:chipsi])
+
+    # P05: Setup the band / energy window for projectors
+    #
+    # D[:PW] will be created
+    ### D[:PW] = plo_window(D[:PG], D[:enk])
+
+    try_calc_window(D[:PG], D[:chipsi], D[:enk], D[:weight])
 
     # P06: Filter the projectors
     #
@@ -116,6 +118,86 @@ function plo_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     isinteractive() &&
     isfile(query_case()*".test") &&
     plo_monitor(D)
+end
+
+function try_calc_window(PG::Array{PrGroup,1}, chipsi::Array{C64,4}, enk::Array{F64,3}, weight::Array{F64,1})
+    # Print the header
+    println("Generate windows")
+
+    # Preprocess the input. Get how many windows there are.
+    window = get_d("window")
+    if length(window) == 1 && window[1] == "auto"
+        auto = true
+        println("  > The windows will be determined automatically")
+    else
+        auto = false
+        nwin = convert(I64, length(window) / 2)
+        # Sanity check
+        @assert nwin == 1 || nwin == length(PG)
+        println("  > Number of recognized windows: $nwin")
+    end
+
+    # Initialize an array of PrWindow struct
+    PW = PrWindow[]
+
+    if auto
+    else
+            # Scan the groups of projectors, setup PrWindow for them.
+    for p in eachindex(PG)
+        # Determine bwin. Don't forget it is a Tuple. bwin = (emin, emax).
+        if nwin == 1
+            # All `PrGroup` shares the same window
+            bwin = (window[1], window[2])
+        else
+            # Each `PrGroup` has it own window
+            bwin = (window[2*p-1], window[2*p])
+        end
+
+        # Record the current window if the corresponding group of
+        # projectors is correlated. Later it will be used to analyze
+        # the correctness of band window.
+        if PG[p].corr
+            push!(CW, bwin)
+        end
+
+        # Examine `bwin` further. Its elements should obey the order. This
+        # window must be defined by band indices (they are integers) or
+        # energies (two float numbers).
+        @assert bwin[2] > bwin[1]
+        @assert typeof(bwin[1]) == typeof(bwin[2])
+        @assert bwin[1] isa Integer || bwin[1] isa AbstractFloat
+
+        # The `bwin` is only the global window. But we actually need a
+        # momentum-dependent and spin-dependent window. This is `kwin`.
+        if bwin[1] isa Integer
+            kwin = get_win1(enk, bwin)
+        else
+            kwin = get_win2(enk, bwin)
+        end
+
+        # Create the `PrWindow` struct, and push it into the PW array.
+        push!(PW, PrWindow(kwin, bwin))
+
+        # Print some useful information
+        println("  > Create window [$p]")
+    end # END OF P LOOP
+    end
+
+    #=
+    # Extract some key parameters
+    nproj, nband, nkpt, nspin = size(chipsi)
+    @assert nband ≥ nproj
+    
+    for s = 1:nspin
+        for k = 1:nkpt
+            A = view(chipsi, :, :, k, s)
+            P = diag(real(A' * A))
+            @show k, s, P[16:25]
+        end
+    end
+    =#
+    cd("..")
+    sorry()
 end
 
 #=
