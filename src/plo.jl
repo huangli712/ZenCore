@@ -90,9 +90,7 @@ function plo_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     # P05: Setup the band / energy window for projectors
     #
     # D[:PW] will be created
-    ### D[:PW] = plo_window(D[:PG], D[:enk])
-
-    D[:PW] = try_calc_window(D[:PG], D[:Rchipsi], D[:enk], D[:weight])
+    D[:PW] = plo_window(D[:PG], D[:Rchipsi], D[:enk])
 
     # P06: Filter the projectors
     #
@@ -352,6 +350,67 @@ end
 #=
 *Remarks* :
 
+`PG[i].Tr` must be a matrix. Its size must be `(ndim, p2 - p1 + 1)`.
+=#
+
+"""
+    plo_rotate(PG::Array{PrGroup,1}, chipsi::Array{C64,4})
+
+Perform global rotations or transformations for the projectors. In
+this function, the projectors will be classified into different
+groups, and then they will be rotated group by group.
+
+See also: [`PrGroup`](@ref), [`plo_filter`](@ref), [`plo_orthog`](@ref).
+"""
+function plo_rotate(PG::Array{PrGroup,1}, chipsi::Array{C64,4})
+    # Print the header
+    println("Rotate projectors")
+
+    # Extract some key parameters from raw projector matrix
+    nproj, nband, nkpt, nspin = size(chipsi)
+    @assert nproj ≥ 1
+
+    # Initialize new array. It stores the rotated projectors.
+    # Now it is empty, but we will allocate memory for it later.
+    Rchipsi = Array{C64,4}[]
+
+    # Go through each PrGroup and perform the rotation
+    for i in eachindex(PG)
+        # Determine the range of original projectors
+        p1 = PG[i].Pr[1]
+        p2 = PG[i].Pr[end]
+
+        # Determine the number of projectors after rotation
+        ndim = size(PG[i].Tr)[1]
+        @assert size(PG[i].Tr)[2] == (p2 - p1 + 1)
+
+        # Create a temporary array R
+        R = zeros(C64, ndim, nband, nkpt, nspin)
+        @assert nband ≥ ndim
+
+        # Rotate chipsi by Tr, the results are stored at R.
+        for s = 1:nspin
+            for k = 1:nkpt
+                for b = 1:nband
+                    R[:, b, k, s] = PG[i].Tr * chipsi[p1:p2, b, k, s]
+                end # END OF B LOOP
+            end # END OF K LOOP
+        end # END OF S LOOP
+
+        # Push R into Rchipsi to save it
+        push!(Rchipsi, R)
+
+        # Print some useful information
+        println("  > Rotate group [$i]: number of correlated bands -> $ndim")
+    end # END OF I LOOP
+
+    # Return the desired array
+    return Rchipsi
+end
+
+#=
+*Remarks* :
+
 Here, `window` means energy window or band window. When nwin is 1, it
 means that all `PrGroup` share the same window. When nwin is equal to
 length(PG), it means that each `PrGroup` should have its own window.
@@ -444,67 +503,6 @@ function plo_window(PG::Array{PrGroup,1}, chipsi::Array{Array{C64,4},1}, enk::Ar
 
     # Return the desired array
     return PW
-end
-
-#=
-*Remarks* :
-
-`PG[i].Tr` must be a matrix. Its size must be `(ndim, p2 - p1 + 1)`.
-=#
-
-"""
-    plo_rotate(PG::Array{PrGroup,1}, chipsi::Array{C64,4})
-
-Perform global rotations or transformations for the projectors. In
-this function, the projectors will be classified into different
-groups, and then they will be rotated group by group.
-
-See also: [`PrGroup`](@ref), [`plo_filter`](@ref), [`plo_orthog`](@ref).
-"""
-function plo_rotate(PG::Array{PrGroup,1}, chipsi::Array{C64,4})
-    # Print the header
-    println("Rotate projectors")
-
-    # Extract some key parameters from raw projector matrix
-    nproj, nband, nkpt, nspin = size(chipsi)
-    @assert nproj ≥ 1
-
-    # Initialize new array. It stores the rotated projectors.
-    # Now it is empty, but we will allocate memory for it later.
-    Rchipsi = Array{C64,4}[]
-
-    # Go through each PrGroup and perform the rotation
-    for i in eachindex(PG)
-        # Determine the range of original projectors
-        p1 = PG[i].Pr[1]
-        p2 = PG[i].Pr[end]
-
-        # Determine the number of projectors after rotation
-        ndim = size(PG[i].Tr)[1]
-        @assert size(PG[i].Tr)[2] == (p2 - p1 + 1)
-
-        # Create a temporary array R
-        R = zeros(C64, ndim, nband, nkpt, nspin)
-        @assert nband ≥ ndim
-
-        # Rotate chipsi by Tr, the results are stored at R.
-        for s = 1:nspin
-            for k = 1:nkpt
-                for b = 1:nband
-                    R[:, b, k, s] = PG[i].Tr * chipsi[p1:p2, b, k, s]
-                end # END OF B LOOP
-            end # END OF K LOOP
-        end # END OF S LOOP
-
-        # Push R into Rchipsi to save it
-        push!(Rchipsi, R)
-
-        # Print some useful information
-        println("  > Rotate group [$i]: number of correlated bands -> $ndim")
-    end # END OF I LOOP
-
-    # Return the desired array
-    return Rchipsi
 end
 
 #=
