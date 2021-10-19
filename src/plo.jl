@@ -366,7 +366,7 @@ Calibrate the band window to filter the Kohn-Sham eigenvalues.
 
 See also: [`PrWindow`](@ref), [`get_win1`](@ref), [`get_win2`](@ref).
 """
-function try_calc_window(PG::Array{PrGroup,1}, chipsi::Array{Array{C64,4},1}, enk::Array{F64,3}, weight::Array{F64,1})
+function plo_window(PG::Array{PrGroup,1}, chipsi::Array{Array{C64,4},1}, enk::Array{F64,3})
     # Print the header
     println("Generate windows")
 
@@ -389,7 +389,7 @@ function try_calc_window(PG::Array{PrGroup,1}, chipsi::Array{Array{C64,4},1}, en
     if auto
         # Scan the groups of projectors, setup PrWindow for them.
         for p in eachindex(PG)
-            kwin, bwin = get_win3(chipsi[p], weight)
+            kwin, bwin = get_win3(chipsi[p])
 
             # Create the `PrWindow` struct, and push it into the PW array.
             push!(PW, PrWindow(kwin, bwin))
@@ -765,7 +765,7 @@ function get_win2(enk::Array{F64,3}, bwin::Tuple{F64,F64})
     return kwin
 end
 
-function get_win3(chipsi::Array{C64,4}, weight::Array{F64,1})
+function get_win3(chipsi::Array{C64,4})
     # Extract some key parameters
     nproj, nband, nkpt, nspin = size(chipsi)
     @assert nband ≥ nproj
