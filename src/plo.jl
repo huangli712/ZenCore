@@ -92,7 +92,7 @@ function plo_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     # D[:PW] will be created
     ### D[:PW] = plo_window(D[:PG], D[:enk])
 
-    try_calc_window(D[:PG], D[:Rchipsi], D[:enk], D[:weight])
+    D[:PW] = try_calc_window(D[:PG], D[:Rchipsi], D[:enk], D[:weight])
 
     # P06: Filter the projectors
     #
@@ -145,6 +145,9 @@ function try_calc_window(PG::Array{PrGroup,1}, chipsi::Array{Array{C64,4},1}, en
         for p in eachindex(PG)
             kwin, bwin = get_win3(chipsi[p], weight)
 
+            # Create the `PrWindow` struct, and push it into the PW array.
+            push!(PW, PrWindow(kwin, bwin))
+
             # Print some useful information
             println("  > Create window [$p]")
         end # END OF P LOOP
@@ -182,9 +185,6 @@ function try_calc_window(PG::Array{PrGroup,1}, chipsi::Array{Array{C64,4},1}, en
             println("  > Create window [$p]")
         end # END OF P LOOP
     end
-
-    cd("..")
-    sorry()
 
     # Print the summary
     println("  > Summary of windows:")
@@ -226,20 +226,16 @@ function get_win3(chipsi::Array{C64,4}, weight::Array{F64,1})
                 be = nproj + bs - 1
             end
 
-            if P[be + 1] / minimum(P[bs:be]) > 0.1
-                println("be = $be + 1 ", P[be + 1], " ", minimum(P[bs:be]))
-            end
-            if P[bs - 1] / minimum(P[bs:be]) > 0.1
-                println("bs = $bs - 1 ", P[bs - 1],  " ",minimum(P[bs:be]))
-            end
+            @assert P[bs - 1] < 0.1
+            @assert P[be + 1] < 0.1
 
             kwin[k,s,1] = bs
             kwin[k,s,2] = be
-            @show k, s, bs, be, P[bs:be + 1]
         end
     end
 
-    return 1, 2
+    bwin = ( minimum(kwin[:,:,1]), maximum(kwin[:,:,2]) )
+    return kwin, bwin
 end
 
 #=
