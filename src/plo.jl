@@ -92,7 +92,7 @@ function plo_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     # D[:PW] will be created
     ### D[:PW] = plo_window(D[:PG], D[:enk])
 
-    try_calc_window(D[:PG], D[:chipsi], D[:enk], D[:weight])
+    try_calc_window(D[:PG], D[:Rchipsi], D[:enk], D[:weight])
 
     # P06: Filter the projectors
     #
@@ -120,7 +120,7 @@ function plo_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     plo_monitor(D)
 end
 
-function try_calc_window(PG::Array{PrGroup,1}, chipsi::Array{C64,4}, enk::Array{F64,3}, weight::Array{F64,1})
+function try_calc_window(PG::Array{PrGroup,1}, chipsi::Array{Array{C64,4},1}, enk::Array{F64,3}, weight::Array{F64,1})
     # Print the header
     println("Generate windows")
 
@@ -141,20 +141,6 @@ function try_calc_window(PG::Array{PrGroup,1}, chipsi::Array{C64,4}, enk::Array{
     PW = PrWindow[]
 
     if auto
-            #=
-    # Extract some key parameters
-    nproj, nband, nkpt, nspin = size(chipsi)
-    @assert nband ≥ nproj
-    
-    for s = 1:nspin
-        for k = 1:nkpt
-            A = view(chipsi, :, :, k, s)
-            P = diag(real(A' * A))
-            @show k, s, P[16:25]
-        end
-    end
-    =#
-
     else
         # Scan the groups of projectors, setup PrWindow for them.
         for p in eachindex(PG)
