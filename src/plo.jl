@@ -200,7 +200,46 @@ function try_calc_window(PG::Array{PrGroup,1}, chipsi::Array{Array{C64,4},1}, en
     return PW
 end
 
-function get_win3(chipsi::Array{Array{C64,4},1}, weight::Array{F64,1})
+function get_win3(chipsi::Array{C64,4}, weight::Array{F64,1})
+    # Extract some key parameters
+    nproj, nband, nkpt, nspin = size(chipsi)
+    @assert nband ≥ nproj
+
+    # Create array `kwin`, which is used to record the band window
+    # for each k-point and each spin.
+    kwin = zeros(I64, nkpt, nspin, 2)
+
+    for s = 1:nspin
+        for k = 1:nkpt
+            A = view(chipsi, :, :, k, s)
+            P = diag(real(A' * A))
+            @assert length(P) == nband
+            blist = []
+            for b = 1:nband
+                if P[b] ≥ 0.5
+                    push!(blist, b)
+                end
+            end
+            bs = minimum(blist)
+            be = maximum(blist)
+            if be - bs + 1 < nproj
+                be = nproj + bs - 1
+            end
+
+            if P[be + 1] / minimum(P[bs:be]) > 0.1
+                println("be = $be + 1 ", P[be + 1], " ", minimum(P[bs:be]))
+            end
+            if P[bs - 1] / minimum(P[bs:be]) > 0.1
+                println("bs = $bs - 1 ", P[bs - 1],  " ",minimum(P[bs:be]))
+            end
+
+            kwin[k,s,1] = bs
+            kwin[k,s,2] = be
+            @show k, s, bs, be, P[bs:be + 1]
+        end
+    end
+
+    return 1, 2
 end
 
 #=
