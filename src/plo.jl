@@ -500,7 +500,7 @@ function plo_window(PG::Array{PrGroup,1}, chipsi::Array{Array{C64,4},1}, enk::Ar
         print("  nbnd -> ", PW[i].nbnd)
         println("  bwin -> ", PW[i].bwin)
     end
-
+    sorry()
     # Return the desired array
     return PW
 end
@@ -772,33 +772,33 @@ function get_win3(chipsi::Array{C64,4})
     # for each k-point and each spin.
     kwin = zeros(I64, nkpt, nspin, 2)
 
+    PS = zeros(F64, nband)
     for s = 1:nspin
         for k = 1:nkpt
             A = view(chipsi, :, :, k, s)
             P = diag(real(A' * A))
             @assert length(P) == nband
-            blist = []
-            for b = 1:nband
-                if P[b] ≥ 0.10
-                    push!(blist, b)
-                end
-            end
-            @show k, s, P, blist
-            bs = minimum(blist)
-            be = maximum(blist)
-            if be - bs + 1 < nproj
-                be = nproj + bs - 1
-            end
-
-            @assert P[bs - 1] < 0.1
-            @assert P[be + 1] < 0.1
-
-            kwin[k,s,1] = bs
-            kwin[k,s,2] = be
+            @. PS = PS + P
         end
     end
+    @. PS = PS / (nkpt * nspin)
 
-    bwin = ( minimum(kwin[:,:,1]), maximum(kwin[:,:,2]) )
+    max = maximum(PS)
+    blist = []
+    for b = 1:nband
+        if PS[b] ≥ max / 2.0
+            push!(blist, b)
+        end
+    end
+    bs = minimum(blist)
+    be = maximum(blist)
+    @show bs, be
+
+    # Fill `kwin` with global band boundaries
+    fill!(view(kwin, :, :, 1), bs)
+    fill!(view(kwin, :, :, 2), be)
+    
+    bwin = (bs, be)
     return kwin, bwin
 end
 
