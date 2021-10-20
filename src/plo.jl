@@ -809,20 +809,22 @@ function get_win3(chipsi::Array{C64,4})
     #
     # Figure the boundary of the band window
     sort!(blist)
-    bs = blist[1]
-    be = blist[end]
-    @show bs, be
+    bmin = blist[1]
+    bmax = blist[end]
+    #
+    # Sanity check
+    @assert bmax > bmin
+    @assert bmax - bmin + 1 ≥ nproj
 
     # Create array `kwin`, which is used to record the band window
     # for each k-point and each spin.
     kwin = zeros(I64, nkpt, nspin, 2)
 
     # Fill `kwin` with global band boundaries
-    fill!(view(kwin, :, :, 1), bs)
-    fill!(view(kwin, :, :, 2), be)
-    
-    bwin = (bs, be)
-    return kwin, bwin
+    fill!(view(kwin, :, :, 1), bmin)
+    fill!(view(kwin, :, :, 2), bmax)
+
+    return kwin, (bmin, bmax)
 end
 
 #=
