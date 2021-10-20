@@ -597,22 +597,19 @@ function plo_orthog(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1})
     # Print the header
     println("Normalize projectors")
 
-#=
     # Preprocess the input. Get how many windows there are.
     window = get_d("window")
-    nwin = convert(I64, length(window) / 2)
-
-    # Sanity check
-    @assert nwin == 1 || nwin == length(PW)
-=#
-
-    window = get_d("window")
-    if length(window) == 1 && window[1] == "auto"
-        nwin = length(PW)
+    nwin = 0 # Number of windows
+    if length(window) == 1
+        if window[1] == "auto"
+            nwin = length(PW)
+        else
+            sorry()
+        end
     else
         nwin = convert(I64, length(window) / 2)
     end
-
+    #
     # Sanity check
     @assert nwin == 1 || nwin == length(PW)
 
