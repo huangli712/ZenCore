@@ -779,10 +779,11 @@ function get_win3(chipsi::Array{C64,4})
             @assert length(P) == nband
             blist = []
             for b = 1:nband
-                if P[b] ≥ 0.5
+                if P[b] ≥ 0.10
                     push!(blist, b)
                 end
             end
+            @show k, s, P, blist
             bs = minimum(blist)
             be = maximum(blist)
             if be - bs + 1 < nproj
