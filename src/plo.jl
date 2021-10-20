@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/19
+# Last modified: 2021/10/20
 #
 
 #=
@@ -431,23 +431,33 @@ function plo_window(PG::Array{PrGroup,1}, chipsi::Array{Array{C64,4},1}, enk::Ar
 
     # Preprocess the input. Get how many windows there are.
     window = get_d("window")
-    if length(window) == 1 && window[1] == "auto"
-        auto = true
-        println("  > The windows will be determined automatically")
+    auto = false # Determine windows automatically?
+    if length(window) == 1
+        if window[1] == "auto"
+            auto = true
+            println("  > The windows will be determined automatically")
+        else
+            sorry()
+        end
     else
-        auto = false
+        # Get number of user-defined windows
         nwin = convert(I64, length(window) / 2)
+        #
         # Sanity check
         @assert nwin == 1 || nwin == length(PG)
+        #
+        # Print message
         println("  > Number of recognized windows: $nwin")
     end
 
     # Initialize an array of PrWindow struct
     PW = PrWindow[]
 
+    # Determine windows automatically?
     if auto
         # Scan the groups of projectors, setup PrWindow for them.
         for p in eachindex(PG)
+            # Apply smart algorithm. Warning! Sometimes it doesn't work.
             kwin, bwin = get_win3(chipsi[p])
 
             # Create the `PrWindow` struct, and push it into the PW array.
@@ -500,7 +510,7 @@ function plo_window(PG::Array{PrGroup,1}, chipsi::Array{Array{C64,4},1}, enk::Ar
         print("  nbnd -> ", PW[i].nbnd)
         println("  bwin -> ", PW[i].bwin)
     end
-    sorry()
+
     # Return the desired array
     return PW
 end
@@ -831,7 +841,7 @@ end
 *Remarks* :
 
 We assume that the energy / band windows for all of the projectors are
-the same. In other words, `PW` only has an unique PrWindow object.
+the same. In other words, `PW` only has an `unique` PrWindow object.
 =#
 
 """
