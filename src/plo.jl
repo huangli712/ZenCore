@@ -783,26 +783,34 @@ function get_win3(chipsi::Array{C64,4})
     nproj, nband, nkpt, nspin = size(chipsi)
     @assert nband ≥ nproj
 
+    # Try to calculate the projectibility
     PS = zeros(F64, nband)
     for s = 1:nspin
         for k = 1:nkpt
             A = view(chipsi, :, :, k, s)
-            P = diag(real(A' * A))
-            @assert length(P) == nband
+            P = diag(real(A' * A)) # Only the diagonal elements matter
             @. PS = PS + P
-        end
-    end
+        end # END OF K LOOP
+    end # END OF S LOOP
+    #
+    # Normalize the projectibility
     @. PS = PS / (nkpt * nspin)
 
-    max = maximum(PS)
+    # Try to filter the projectibility and find out who matters
+    #
+    # blist is used to save the selected bands
     blist = []
+    max = maximum(PS)
     for b = 1:nband
-        if PS[b] ≥ max / 2.0
+        if PS[b] ≥ max / 2.0 # <- A magic number, can be changed.
             push!(blist, b)
         end
     end
-    bs = minimum(blist)
-    be = maximum(blist)
+    #
+    # Figure the boundary of the band window
+    sort!(blist)
+    bs = blist[1]
+    be = blist[end]
     @show bs, be
 
     # Create array `kwin`, which is used to record the band window
