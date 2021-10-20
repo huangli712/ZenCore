@@ -763,14 +763,25 @@ function get_win2(enk::Array{F64,3}, bwin::Tuple{F64,F64})
     return kwin
 end
 
+"""
+    get_win3(chipsi::Array{C64,4})
+
+Return momentum- and spin-dependent band window (case 3). This function
+implement a smart algorithm to determine the band window. It does not
+need any external parameters. This algorithm is quite simple. First, it
+uses the projection matrix (`chipsi`) to calculate the 𝑘- and σ-dependent
+projectibility. Then it calculates the effective projectibility by using
+𝑘-summation. Next, it filters the projectibility to figure out which bands
+have large contributions. At last, the band window is composed of these
+selected bands. Note that the obtained band window is actually momentum-
+and spin-independent.
+
+See also: [`plo_window`](@ref).
+"""
 function get_win3(chipsi::Array{C64,4})
     # Extract some key parameters
     nproj, nband, nkpt, nspin = size(chipsi)
     @assert nband ≥ nproj
-
-    # Create array `kwin`, which is used to record the band window
-    # for each k-point and each spin.
-    kwin = zeros(I64, nkpt, nspin, 2)
 
     PS = zeros(F64, nband)
     for s = 1:nspin
@@ -793,6 +804,10 @@ function get_win3(chipsi::Array{C64,4})
     bs = minimum(blist)
     be = maximum(blist)
     @show bs, be
+
+    # Create array `kwin`, which is used to record the band window
+    # for each k-point and each spin.
+    kwin = zeros(I64, nkpt, nspin, 2)
 
     # Fill `kwin` with global band boundaries
     fill!(view(kwin, :, :, 1), bs)
