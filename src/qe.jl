@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/22
+# Last modified: 2021/10/25
 #
 
 #=
@@ -1559,7 +1559,7 @@ See also: [`KPointsCard`](@ref).
 struct GammaPointCard <: KPointsCard end
 
 """
-    SpecialKPointsCard
+    SpecialPointsCard
 
 Represent the `K_POINTS` card in the input file of `quantum espresso`
 (`pwscf`) (be compatible with the `tpiba` or `crystal` mode).
@@ -1882,7 +1882,7 @@ Parse the `QECard` object. Now we support the following cards:
 
 * `ATOMIC_SPECIES` (`AtomicSpeciesCard`)
 * `ATOMIC_POSITIONS` (`AtomicPositionsCard`)
-* `K_POINTS` (`AutoKmeshCard`, `GammaPointCard`, `SpecialKPointsCard`)
+* `K_POINTS` (`AutoKmeshCard`, `GammaPointCard`, `SpecialPointsCard`)
 
 See also: [`QECard`](@ref).
 """
