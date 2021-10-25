@@ -148,26 +148,26 @@ PDMFT           -> Dict for DMFT engine.
 PIMP            -> Dict for quantum impurity problems.
 PSOLVER         -> Dict for quantum impurity solvers.
 #
-AbstractEngine  ->
-NULLEngine      ->
-VASPEngine      ->
-QEEngine        ->
-WANNIEREngine   ->
+AbstractEngine  -> Abstract DFT engine.
+NULLEngine      -> Null DFT engine.
+VASPEngine      -> vasp.
+QEEngine        -> quantum espresso. 
+WANNIEREngine   -> wannier90.
 _engine_        -> The present DFT engine.
 #
-AbstractSolver  ->
-NULLSolver      ->
-CTHYB₁Solver    ->
-CTHYB₂Solver    ->
-HIASolver       ->
-NORGSolver      ->
-ATOMSolver      ->
+AbstractSolver  -> Abstract quantum impurity solver.
+NULLSolver      -> Null quantum impurity solver.
+CTHYB₁Solver    -> CT-HYB₁ quantum impurity solver.
+CTHYB₂Solver    -> CT-HYB₂ quantum impurity solver.
+HIASolver       -> HIA quantum impurity solver.
+NORGSolver      -> NORG quantum impurity solver.
+ATOMSolver      -> atomic eigenvalue problem solver.
 _solver_        -> The present quantum impurity solver.
 #
-AbstractAdaptor ->
-NULLAdaptor     ->
-PLOAdaptor      ->
-WANNIERAdaptor  ->
+AbstractAdaptor -> Abstract DFT-DMFT adaptor.
+NULLAdaptor     -> Null DFT-DMFT adaptor.
+PLOAdaptor      -> PLO adaptor.
+WANNIERAdaptor  -> WANNIER adaptor.
 _adaptor_       -> The present DFT-DMFT adaptor.
 #
 AbstractMode    ->
