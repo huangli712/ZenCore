@@ -530,10 +530,10 @@ functions to deal with the vasp-related files.
 *Members* :
 
 ```text
-adaptor_call   -> Launch the DFT adaptor (for vasp program).
-dft_call       -> Carry out full DFT calculations (for vasp program).
-dft_stop       -> Stop DFT calculations (for vasp program).
-dft_resume     -> Resume DFT calculations (for vasp program).
+adaptor_call   -> Launch the DFT adaptor (for vasp).
+dft_call       -> Carry out full DFT calculations (for vasp).
+dft_stop       -> Stop DFT calculations (for vasp).
+dft_resume     -> Resume DFT calculations (for vasp).
 #
 vasp_adaptor   -> Adaptor support.
 vasp_init      -> Prepare vasp's input files.
@@ -614,36 +614,41 @@ lot of functions to deal with the quantum espresso (pwscf) related files.
 *Members* :
 
 ```text
-adaptor_call -> Launch the DFT adaptor (for quantum espresso program).
-dft_call     -> Carry out full DFT calculations (for quantum espresso program).
-dft_stop     -> Stop DFT calculations (for quantum espresso program).
-dft_resume   -> Resume DFT calculations (for quantum espresso program).
-qe_adaptor   -> Adaptor support.
-qe_to_wan    -> Adaptor support (interface between qe and wannier).
-qe_to_plo    -> Adaptor support (interface between qe and plo).
-qe_init      -> Prepare quantum espresso's input files.
-qe_exec      -> Execute quantum espresso program.
-qe_save      -> Backup quantum espresso's output files.
-qec_input    -> Generate essential input file (case.scf or case.nscf).
-qeq_files    -> Check essential output files.
-qeio_energy  -> Read DFT total energy.
-qeio_lattice -> Read lattice information.
-qeio_kmesh   -> Read kmesh.
-qeio_eigen   -> Read eigenvalues.
-qeio_fermi   -> Read fermi level.
-ReciprocalPoint
-MonkhorstPackGrid
-AtomicSpecies -> Represent atomic species.
-AtomicPosition -> Represent atomic positions.
-QEInputEntry ->
-QENamelist -> Represent the namelists in quantum espresso's input file.
-QECard -> Represent the abstract input cards for quantum espresso.
-KPointsCard -> Represent the abstract K_POINTS block.
-AtomicSpeciesCard -> Represent the ATOMIC_SPECIES block.
+adaptor_call        -> Launch the DFT adaptor (for quantum espresso).
+dft_call            -> Carry out full DFT calculations (for quantum espresso).
+dft_stop            -> Stop DFT calculations (for quantum espresso.
+dft_resume          -> Resume DFT calculations (for quantum espresso).
+#
+qe_adaptor          -> Adaptor support.
+qe_to_wan           -> Adaptor support (interface between qe and wannier).
+qe_to_plo           -> Adaptor support (interface between qe and plo).
+qe_init             -> Prepare quantum espresso's input files.
+qe_exec             -> Execute quantum espresso program.
+qe_save             -> Backup quantum espresso's output files.
+#
+qec_input           -> Generate essential input file (case.scf or case.nscf).
+qeq_files           -> Check essential output files.
+#
+qeio_energy         -> Read DFT total energy.
+qeio_lattice        -> Read lattice information.
+qeio_kmesh          -> Read kmesh.
+qeio_eigen          -> Read eigenvalues.
+qeio_fermi          -> Read fermi level.
+#
+ReciprocalPoint     ->
+MonkhorstPackGrid   ->
+AtomicSpecies       -> Represent atomic species.
+AtomicPosition      -> Represent atomic positions.
+#
+QEInputEntry        ->
+QENamelist          -> Represent the namelists in quantum espresso's input file.
+QECard              -> Represent the abstract input cards for quantum espresso.
+KPointsCard         -> Represent the abstract K_POINTS block.
+AtomicSpeciesCard   -> Represent the ATOMIC_SPECIES block.
 AtomicPositionsCard -> Represent the ATOMIC_POSITIONS block.
-AutoKmeshCard -> Represent the K_POINTS block.
-GammaPointCard -> Represent the K_POINTS block.
-SpecialPointsCard -> Represent the K_POINTS block.
+AutoKmeshCard       -> Represent the K_POINTS block.
+GammaPointCard      -> Represent the K_POINTS block.
+SpecialPointsCard   -> Represent the K_POINTS block.
 ```
 =#
 
