@@ -1254,7 +1254,7 @@ function MonkhorstPackGrid(k₁::I64, k₂::I64, k₃::I64, s₁::I64, s₂::I64
 end
 
 #=
-### *Customized Structs : Basic Entries*
+### *Customized Structs : Basic Elements*
 =#
 
 """
@@ -1397,7 +1397,11 @@ See also: [`QECard`](@ref), [`QENamelist`](@ref).
 abstract type QEInputEntry end
 
 #=
-### *Customized Structs : Input Blocks*
+### *Customized Structs : Abstract Types*
+=#
+
+#=
+### *Customized Structs : Namelist*
 =#
 
 """
@@ -1461,6 +1465,10 @@ function Base.delete!(qnl::QENamelist, key::AbstractString)
     delete!(qnl.data, key)
 end
 
+#=
+### *Customized Structs : Abstract Types*
+=#
+
 """
     QECard
 
@@ -1472,6 +1480,18 @@ namelists, represented by `QECard` and `QENamelist`, respectively.
 See also: [`QENamelist`](@ref).
 """
 abstract type QECard <: QEInputEntry end
+
+"""
+    KPointsCard
+
+Represent an abstract card (`K-POINTS`) in the input file of
+`quantum espresso` (`pwscf`).
+"""
+abstract type KPointsCard <: QECard end
+
+#=
+### *Customized Structs : Cards*
+=#
 
 """
     AtomicSpeciesCard
@@ -1516,14 +1536,6 @@ struct AtomicPositionsCard <: QECard
         return new(data, option)
     end
 end
-
-"""
-    KPointsCard
-
-Represent an abstract card (`K-POINTS`) in the input file of
-`quantum espresso` (`pwscf`).
-"""
-abstract type KPointsCard <: QECard end
 
 """
     AutoKmeshCard
