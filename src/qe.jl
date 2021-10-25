@@ -1165,44 +1165,8 @@ qeio_fermi() = qeio_fermi(pwd())
 *Remarks* :
 
 The following codes are internally used to parse the input files of
-`quantum espresso` (`pwscf`). Please do not change them or export them.
+`quantum espresso` (`pwscf`). Please do not change them.
 =#
-
-#=
-### *Customized Structs : Abstract Types*
-=#
-
-"""
-    QEInputEntry
-
-An abstract type representing an input component of `quantum espresso`
-(`pwscf`). Note that all other input types (such as `QENamelist` and
-`QECard`) should subtype `QEInputEntry`.  It is used to build a internal
-type system.
-
-See also: [`QECard`](@ref), [`QENamelist`](@ref).
-"""
-abstract type QEInputEntry end
-
-"""
-    QECard
-
-It represents abstract cards in the input file of `quantum espresso`
-(`pwscf`).  It is used to build the internal type system. The input
-file of `quantum espresso` (`pwscf`) consists of various cards and
-namelists, represented by `QECard` and `QENamelist`, respectively.
-
-See also: [`QENamelist`](@ref).
-"""
-abstract type QECard <: QEInputEntry end
-
-"""
-    KPointsCard
-
-Represent an abstract card (`K-POINTS`) in the input file of
-`quantum espresso` (`pwscf`).
-"""
-abstract type KPointsCard <: QECard end
 
 #=
 ### *Customized Structs : K-Grids*
@@ -1415,6 +1379,42 @@ AtomicPosition("S", [0.5, 0.28867513, 1.974192764], Bool[1, 1, 1])
 See also: [`AtomicPositionsCard`](@ref).
 """
 AtomicPosition(x::AtomicSpecies, pos, if_pos) = AtomicPosition(x.atom, pos, if_pos)
+
+#=
+### *Customized Structs : Abstract Types*
+=#
+
+"""
+    QEInputEntry
+
+An abstract type representing an input component of `quantum espresso`
+(`pwscf`). Note that all other input types (such as `QENamelist` and
+`QECard`) should subtype `QEInputEntry`.  It is used to build a internal
+type system.
+
+See also: [`QECard`](@ref), [`QENamelist`](@ref).
+"""
+abstract type QEInputEntry end
+
+"""
+    QECard
+
+It represents abstract cards in the input file of `quantum espresso`
+(`pwscf`).  It is used to build the internal type system. The input
+file of `quantum espresso` (`pwscf`) consists of various cards and
+namelists, represented by `QECard` and `QENamelist`, respectively.
+
+See also: [`QENamelist`](@ref).
+"""
+abstract type QECard <: QEInputEntry end
+
+"""
+    KPointsCard
+
+Represent an abstract card (`K-POINTS`) in the input file of
+`quantum espresso` (`pwscf`).
+"""
+abstract type KPointsCard <: QECard end
 
 #=
 ### *Customized Structs : Input Blocks*

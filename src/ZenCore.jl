@@ -554,6 +554,8 @@ qeio_kmesh   -> Read kmesh.
 qeio_eigen   -> Read eigenvalues.
 qeio_fermi   -> Read fermi level.
 QENamelist -> Represent the namelists in quantum espresso's input file.
+AtomicSpeciesCard -> Represent the ATOMIC_SPECIES block.
+AtomicPositionsCard -> Represent the ATOMIC_POSITIONS block.
 AutoKmeshCard -> Represent the K_POINTS block.
 GammaPointCard -> Represent the K_POINTS block.
 SpecialPointsCard -> Represent the K_POINTS block.
@@ -581,6 +583,8 @@ export qeio_kmesh
 export qeio_eigen
 export qeio_fermi
 export QENamelist
+export AtomicSpeciesCard
+export AtomicPositionsCard
 export AutoKmeshCard
 export GammaPointCard
 export SpecialPointsCard
