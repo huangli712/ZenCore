@@ -1254,7 +1254,7 @@ function MonkhorstPackGrid(k₁::I64, k₂::I64, k₃::I64, s₁::I64, s₂::I64
 end
 
 #=
-### *Customized Structs : Basic Elements*
+### *Customized Structs : Elements*
 =#
 
 """
@@ -1395,10 +1395,6 @@ type system.
 See also: [`QECard`](@ref), [`QENamelist`](@ref).
 """
 abstract type QEInputEntry end
-
-#=
-### *Customized Structs : Abstract Types*
-=#
 
 #=
 ### *Customized Structs : Namelist*
