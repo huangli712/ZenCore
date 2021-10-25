@@ -149,6 +149,13 @@ VASPEngine
 QEEngine
 WANNIEREngine
 _engine_  -> The present DFT engine.
+AbstractSolver
+NULLSolver
+CTHYB₁Solver
+CTHYB₂Solver
+HIASolver
+NORGSolver
+ATOMSolver
 _solver_  -> The present quantum impurity solver.
 WANNIERAdaptor ->
 _adaptor_ -> The present DFT-DMFT adaptor.
@@ -181,6 +188,13 @@ export VASPEngine
 export QEEngine
 export WANNIEREngine
 export _engine_
+export AbstractSolver
+export NULLSolver
+export CTHYB₁Solver
+export CTHYB₂Solver
+export HIASolver
+export NORGSolver
+export ATOMSolver
 export _solver_
 export WANNIERAdaptor
 export _adaptor_
