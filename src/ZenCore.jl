@@ -162,6 +162,12 @@ NULLAdaptor
 PLOAdaptor
 WANNIERAdaptor
 _adaptor_ -> The present DFT-DMFT adaptor.
+AbstractMode
+NULLMode
+RESETMode
+DCOUNTMode
+SPLITMode
+GATHERMode
 _mode_    -> The present operation for Σ and Δ.
 _mixer_   -> The present mixer.
 Logger    -> Struct for logger.
@@ -204,6 +210,12 @@ export NULLAdaptor
 export PLOAdaptor
 export WANNIERAdaptor
 export _adaptor_
+export AbstractMode
+export NULLMode
+export RESETMode
+export DCOUNTMode
+export SPLITMode
+export GATHERMode
 export _mode_
 export _mixer_
 export Logger
