@@ -143,7 +143,11 @@ PDFT      -> Dict for DFT engine.
 PDMFT     -> Dict for DMFT engine.
 PIMP      -> Dict for quantum impurity problems.
 PSOLVER   -> Dict for quantum impurity solvers.
+AbstractEngine
+NULLEngine
 VASPEngine
+QEEngine
+WANNIEREngine
 _engine_  -> The present DFT engine.
 _solver_  -> The present quantum impurity solver.
 WANNIERAdaptor ->
@@ -171,7 +175,11 @@ export PDFT
 export PDMFT
 export PIMP
 export PSOLVER
+export AbstractEngine
+export NULLEngine
 export VASPEngine
+export QEEngine
+export WANNIEREngine
 export _engine_
 export _solver_
 export WANNIERAdaptor
