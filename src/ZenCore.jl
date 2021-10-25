@@ -157,7 +157,10 @@ HIASolver
 NORGSolver
 ATOMSolver
 _solver_  -> The present quantum impurity solver.
-WANNIERAdaptor ->
+AbstractAdaptor
+NULLAdaptor
+PLOAdaptor
+WANNIERAdaptor
 _adaptor_ -> The present DFT-DMFT adaptor.
 _mode_    -> The present operation for Σ and Δ.
 _mixer_   -> The present mixer.
@@ -196,6 +199,9 @@ export HIASolver
 export NORGSolver
 export ATOMSolver
 export _solver_
+export AbstractAdaptor
+export NULLAdaptor
+export PLOAdaptor
 export WANNIERAdaptor
 export _adaptor_
 export _mode_
