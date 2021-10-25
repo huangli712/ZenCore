@@ -178,12 +178,12 @@ SPLITMode       -> Split Δ and ϵ.
 GATHERMode      -> Gather Σ.
 _mode_          -> The present operation for Σ and Δ.
 #
-AbstractMixer   ->
-NULLMixer       ->
-ΣMixer          ->
-ΔMixer          ->
-EMixer          ->
-ΓMixer          ->
+AbstractMixer   -> Abstract mixer.
+NULLMixer       -> Null mixer.
+ΣMixer          -> Mixer for Σ.
+ΔMixer          -> Mixer for Δ.
+EMixer          -> Mixer for E.
+ΓMixer          -> Mixer for Γ.
 _mixer_         -> The present mixer.
 #
 Logger          -> Struct for logger.
