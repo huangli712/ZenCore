@@ -534,12 +534,14 @@ adaptor_call   -> Launch the DFT adaptor (for vasp program).
 dft_call       -> Carry out full DFT calculations (for vasp program).
 dft_stop       -> Stop DFT calculations (for vasp program).
 dft_resume     -> Resume DFT calculations (for vasp program).
+#
 vasp_adaptor   -> Adaptor support.
 vasp_init      -> Prepare vasp's input files.
 vasp_exec      -> Execute vasp program.
 vasp_save      -> Backup vasp's output files.
 vasp_back      -> Reactivate the vasp program to continue calculation.
 vasp_stop      -> Stop vasp program.
+#
 vaspc_incar    -> Generate essential input file (INCAR).
 vaspc_kpoints  -> Generate essential input file (KPOINTS).
 vaspc_gcorr    -> Generate essential input file (GAMMA).
@@ -548,6 +550,7 @@ vaspc_lock     -> Create the vasp.lock file.
 vaspq_stopcar  -> Check the STOPCAR file.
 vaspq_lock     -> Check the vasp.lock file.
 vaspq_files    -> Check essential output files.
+#
 vaspio_nband   -> Determine number of bands.
 vaspio_valence -> Read number of valence electrons for each sort.
 vaspio_energy  -> Read DFT total energy.
@@ -569,12 +572,14 @@ export adaptor_call
 export dft_call
 export dft_stop
 export dft_resume
+#
 export vasp_adaptor
 export vasp_init
 export vasp_exec
 export vasp_save
 export vasp_back
 export vasp_stop
+#
 export vaspc_incar
 export vaspc_kpoints
 export vaspc_gcorr
@@ -583,6 +588,7 @@ export vaspc_lock
 export vaspq_stopcar
 export vaspq_lock
 export vaspq_files
+#
 export vaspio_nband
 export vaspio_valence
 export vaspio_energy
