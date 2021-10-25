@@ -169,6 +169,12 @@ DCOUNTMode
 SPLITMode
 GATHERMode
 _mode_    -> The present operation for Σ and Δ.
+AbstractMixer
+NULLMixer
+ΣMixer
+ΔMixer
+EMixer
+ΓMixer
 _mixer_   -> The present mixer.
 Logger    -> Struct for logger.
 Energy    -> Struct for total DFT + DMFT energy.
@@ -217,6 +223,12 @@ export DCOUNTMode
 export SPLITMode
 export GATHERMode
 export _mode_
+export AbstractMixer
+export NULLMixer
+export ΣMixer
+export ΔMixer
+export EMixer
+export ΓMixer
 export _mixer_
 export Logger
 export Energy
