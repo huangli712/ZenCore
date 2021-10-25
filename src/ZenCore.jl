@@ -635,14 +635,14 @@ qeio_kmesh          -> Read kmesh.
 qeio_eigen          -> Read eigenvalues.
 qeio_fermi          -> Read fermi level.
 #
-ReciprocalPoint     ->
-MonkhorstPackGrid   ->
+ReciprocalPoint     -> Represent single 𝑘-point.
+MonkhorstPackGrid   -> Represent Monkhorst-Pack 𝑘-grid.
 AtomicSpecies       -> Represent atomic species.
 AtomicPosition      -> Represent atomic positions.
 #
-QEInputEntry        ->
-QENamelist          -> Represent the namelists in quantum espresso's input file.
-QECard              -> Represent the abstract input cards for quantum espresso.
+QEInputEntry        -> Abstract input entry for quantum espresso.
+QENamelist          -> Represent the namelists in qe's input file.
+QECard              -> Represent the abstract input cards for qe.
 KPointsCard         -> Represent the abstract K_POINTS block.
 AtomicSpeciesCard   -> Represent the ATOMIC_SPECIES block.
 AtomicPositionsCard -> Represent the ATOMIC_POSITIONS block.
