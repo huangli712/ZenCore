@@ -143,8 +143,10 @@ PDFT      -> Dict for DFT engine.
 PDMFT     -> Dict for DMFT engine.
 PIMP      -> Dict for quantum impurity problems.
 PSOLVER   -> Dict for quantum impurity solvers.
+VASPEngine
 _engine_  -> The present DFT engine.
 _solver_  -> The present quantum impurity solver.
+WANNIERAdaptor ->
 _adaptor_ -> The present DFT-DMFT adaptor.
 _mode_    -> The present operation for Σ and Δ.
 _mixer_   -> The present mixer.
@@ -169,8 +171,10 @@ export PDFT
 export PDMFT
 export PIMP
 export PSOLVER
+export VASPEngine
 export _engine_
 export _solver_
+export WANNIERAdaptor
 export _adaptor_
 export _mode_
 export _mixer_
