@@ -170,12 +170,12 @@ PLOAdaptor      -> PLO adaptor.
 WANNIERAdaptor  -> WANNIER adaptor.
 _adaptor_       -> The present DFT-DMFT adaptor.
 #
-AbstractMode    ->
-NULLMode        ->
-RESETMode       ->
-DCOUNTMode      ->
-SPLITMode       ->
-GATHERMode      ->
+AbstractMode    -> Abstract running mode for sigma engine.
+NULLMode        -> Null mode.
+RESETMode       -> Reset Σ.
+DCOUNTMode      -> Calculate Σdc.
+SPLITMode       -> Split Δ and ϵ.
+GATHERMode      -> Gather Σ.
 _mode_          -> The present operation for Σ and Δ.
 #
 AbstractMixer   ->
