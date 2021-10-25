@@ -74,8 +74,8 @@ such as quantum impurity solvers, parallelly.
 *About libm* :
 
 Here we import `libm` explicitly to provide a callable interface for
-the `erf()` function. Please see `util.jl/erf()` for more details. We
-usually need this to calculate the electronic density of states.
+the `erf()` function. Please see `erf()` in `util.jl` for more details.
+We usually need this to calculate the electronic density of states.
 =#
 
 using TOML
@@ -102,10 +102,12 @@ F32, F64    -> Numerical types (Float).
 C32, C64    -> Numerical types (Complex).
 R32, R64    -> Numerical types (Union of Integer and Float).
 N32, N64    -> Numerical types (Union of Integer, Float, and Complex).
+#
 __LIBNAME__ -> Name of this julia package.
 __VERSION__ -> Version of this julia package.
 __RELEASE__ -> Released date of this julia package.
 __AUTHORS__ -> Authors of this julia package.
+#
 authors     -> Print the authors of ZenCore to screen.
 ```
 =#
@@ -118,10 +120,12 @@ export F32, F64
 export C32, C64
 export R32, R64
 export N32, N64
+#
 export __LIBNAME__
 export __VERSION__
 export __RELEASE__
 export __AUTHORS__
+#
 export authors
 
 #=
