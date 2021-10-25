@@ -68,7 +68,7 @@ function to deal with the outputs of the DFT backend (such as vasp) and
 generate key dataset for the next level adaptor (`PLOAdaptor`). Note
 that similar function is also defined in `qe.jl`.
 
-See also: [`vasp_adaptor`](@ref).
+See also: [`vasp_adaptor`](@ref), [`vaspq_files`](@ref).
 """
 function adaptor_call(::VASPEngine, D::Dict{Symbol,Any})
     vaspq_files()
