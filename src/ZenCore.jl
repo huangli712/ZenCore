@@ -553,6 +553,8 @@ qeio_lattice -> Read lattice information.
 qeio_kmesh   -> Read kmesh.
 qeio_eigen   -> Read eigenvalues.
 qeio_fermi   -> Read fermi level.
+AtomicSpecies -> Represent atomic species.
+AtomicPosition -> Represent atomic positions.
 QENamelist -> Represent the namelists in quantum espresso's input file.
 QECard -> Represent the abstract input cards for quantum espresso.
 KPointsCard -> Represent the abstract K_POINTS block.
@@ -584,6 +586,8 @@ export qeio_lattice
 export qeio_kmesh
 export qeio_eigen
 export qeio_fermi
+export AtomicSpecies
+export AtomicPosition
 export QENamelist
 export QECard
 export KPointsCard
