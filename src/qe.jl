@@ -1396,26 +1396,6 @@ See also: [`QECard`](@ref), [`QENamelist`](@ref).
 """
 abstract type QEInputEntry end
 
-"""
-    QECard
-
-It represents abstract cards in the input file of `quantum espresso`
-(`pwscf`).  It is used to build the internal type system. The input
-file of `quantum espresso` (`pwscf`) consists of various cards and
-namelists, represented by `QECard` and `QENamelist`, respectively.
-
-See also: [`QENamelist`](@ref).
-"""
-abstract type QECard <: QEInputEntry end
-
-"""
-    KPointsCard
-
-Represent an abstract card (`K-POINTS`) in the input file of
-`quantum espresso` (`pwscf`).
-"""
-abstract type KPointsCard <: QECard end
-
 #=
 ### *Customized Structs : Input Blocks*
 =#
@@ -1482,6 +1462,18 @@ function Base.delete!(qnl::QENamelist, key::AbstractString)
 end
 
 """
+    QECard
+
+It represents abstract cards in the input file of `quantum espresso`
+(`pwscf`).  It is used to build the internal type system. The input
+file of `quantum espresso` (`pwscf`) consists of various cards and
+namelists, represented by `QECard` and `QENamelist`, respectively.
+
+See also: [`QENamelist`](@ref).
+"""
+abstract type QECard <: QEInputEntry end
+
+"""
     AtomicSpeciesCard
 
 Represent the `ATOMIC_SPECIES` card in the input file of
@@ -1524,6 +1516,14 @@ struct AtomicPositionsCard <: QECard
         return new(data, option)
     end
 end
+
+"""
+    KPointsCard
+
+Represent an abstract card (`K-POINTS`) in the input file of
+`quantum espresso` (`pwscf`).
+"""
+abstract type KPointsCard <: QECard end
 
 """
     AutoKmeshCard
