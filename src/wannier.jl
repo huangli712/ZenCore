@@ -1282,7 +1282,14 @@ end
 function w90_make_hamr()
 end
 
-function w90_make_hamk()
+"""
+    w90_make_hamk()
+"""
+function w90_make_hamk(kvec::Array{F64,2},
+                       rdeg::Array{I64,1},
+                       rvec::Array{I64,2},
+                       hamr::Array{C64,3})
+
 end
 
 """
