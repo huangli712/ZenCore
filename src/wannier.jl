@@ -1328,6 +1328,26 @@ function w90_make_hamk(kvec::Array{F64,2},
 end
 
 """
+    w90_diag_hamk()
+"""
+function w90_diag_hamk(hamk::Array{C64,3})
+    # Get parameters
+    nband, _, nkpt = size(hamk)
+
+    eigs = zeros(F64, nband, nkpt)
+    evec = zeros(C64, nband, nband, nkpt)
+
+    for k = 1:nkpt
+        A = view(hamk, :, :, k)
+        E = eigen(A)
+        @. eigs[:,k] = E.values
+        @. evec[:,:,k] = E.vectors
+    end
+
+    return eigs, evec
+end
+
+"""
     w90_find_bwin(ewin::Tuple{F64,F64}, enk::Array{F64,3})
 
 During the disentanglement procedure, we can define an outer energy
