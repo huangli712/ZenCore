@@ -789,7 +789,7 @@ w90_make_chipsi -> Build projections.
 w90_find_bwin   -> Figure out the band window for disentanglement.
 w90_read_amat   -> Read w90.amn file.
 w90_read_eigs   -> Read w90.eig file.
-w90_read_hmat   -> Read w90_hr.dat file.
+w90_read_hmar   -> Read w90_hr.dat file.
 w90_read_umat   -> Read w90_u.mat file.
 w90_read_udis   -> Read w90_u_dis.mat file.
 w90_read_wout   -> Read w90.wout file.
@@ -818,7 +818,7 @@ export w90_make_chipsi
 export w90_find_bwin
 export w90_read_amat
 export w90_read_eigs
-export w90_read_hmat
+export w90_read_hmar
 export w90_read_umat
 export w90_read_udis
 export w90_read_wout
