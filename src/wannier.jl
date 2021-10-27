@@ -2048,7 +2048,12 @@ function w90_diag_hamk(hamk::Array{C64,3})
 
     return eigs, evec
 end
+
+function test_w90()
+end
+
 export w90_make_hamr
 export w90_make_hamk
 export w90_diag_hamk
+export test_w90
 
