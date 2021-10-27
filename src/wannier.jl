@@ -2049,9 +2049,46 @@ function w90_diag_hamk(hamk::Array{C64,3})
     return eigs, evec
 end
 
+function w90_make_path(kstart::Array{F64,2}, kend::Array{F64,2})
+    # Get parameters
+    ndir, _ = size(kstart)
+    @assert size(kstart) == size(kend)
+    ndiv = 100
+
+    kdist = zeros(F64, ndir)
+    kstep = zeros(F64, ndir)
+    kpath = zeros(F64, ndir * ndiv + 1, 3)
+    xpath = zeros(F64, ndir * ndiv + 1)
+
+    for i = 1:ndir
+        kaux = ( kstart[i,1] - kend[i,1] )^2 +
+               ( kstart[i,2] - kend[i,2] )^2 +
+               ( kstart[i,3] - kend[i,3] )^2
+        kdist[i] = sqrt(kaux)
+    end
+    kstep = cumsum(kdist)
+    kstep = kstep .- kstep[1]
+
+    for i = 1:ndir
+        ks = kstart[i,:]
+        ke = kend[i,:]
+        kd = ( ke - ks ) / ndiv
+        for j = 1:ndiv
+            kpath[(i - 1) * ndiv + j, :] = ks + kd * (j - 1)
+            xpath[(i - 1) * ndiv + j] = kstep[i] + kdist[i] * (j - 1) / ndiv
+        end
+    end
+
+    kpath[end,:] = kend[end,:]
+    xpath[end] = sum(kdist)
+
+    return kpath, xpath
+end
+
 function test_w90()
 end
 
+export w90_make_path
 export w90_make_hamr
 export w90_make_hamk
 export w90_diag_hamk
