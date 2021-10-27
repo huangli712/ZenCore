@@ -1289,7 +1289,21 @@ function w90_make_hamk(kvec::Array{F64,2},
                        rdeg::Array{I64,1},
                        rvec::Array{I64,2},
                        hamr::Array{C64,3})
+    # Get parameters
+    nband, _, nrpt = size(hamr)
+    nkpt, _ = size(kvec)
 
+    hamk = zeros(C64, nband, nband, nkpt)
+
+    for k = 1:nkpt
+        for r = 1:nrpt
+            rdotk = 2.0 * π * dot(kvec[k,:], rvec[r,:])
+            fac = exp(rdotk * im) / rdeg[r]
+            hamk[:,:,k] = hamk[:,:,k] + fac * hamr[:,:,r]
+        end
+    end
+
+    return hamk
 end
 
 """
