@@ -1280,74 +1280,6 @@ function w90_make_chipsi(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1})
 end
 
 """
-    w90_make_hamr()
-"""
-function w90_make_hamr(kvec::Array{F64,2},
-                       rdeg::Array{I64,1},
-                       rvec::Array{I64,2},
-                       hamk::Array{C64,3})
-    # Get parameters
-    nband, _, nkpt = size(hamk)
-    nrpt, _ = size(rvec)
-
-    hamr = zeros(C64, nband, nband, nrpt)
-
-    for r = 1:nrpt
-        for k = 1:nkpt
-            rdotk = 2.0 * π * dot(kvec[k,:], rvec[r,:])
-            ratio = exp(-rdotk * im) / nkpt
-            hamr[:,:,r] = hamr[:,:,r] + ratio * hamk[:,:,k]
-        end
-    end
-
-    return hamr
-end
-
-"""
-    w90_make_hamk()
-"""
-function w90_make_hamk(kvec::Array{F64,2},
-                       rdeg::Array{I64,1},
-                       rvec::Array{I64,2},
-                       hamr::Array{C64,3})
-    # Get parameters
-    nband, _, nrpt = size(hamr)
-    nkpt, _ = size(kvec)
-
-    hamk = zeros(C64, nband, nband, nkpt)
-
-    for k = 1:nkpt
-        for r = 1:nrpt
-            rdotk = 2.0 * π * dot(kvec[k,:], rvec[r,:])
-            ratio = exp(+rdotk * im) / rdeg[r]
-            hamk[:,:,k] = hamk[:,:,k] + ratio * hamr[:,:,r]
-        end
-    end
-
-    return hamk
-end
-
-"""
-    w90_diag_hamk()
-"""
-function w90_diag_hamk(hamk::Array{C64,3})
-    # Get parameters
-    nband, _, nkpt = size(hamk)
-
-    eigs = zeros(F64, nband, nkpt)
-    evec = zeros(C64, nband, nband, nkpt)
-
-    for k = 1:nkpt
-        A = view(hamk, :, :, k)
-        E = eigen(A)
-        @. eigs[:,k] = E.values
-        @. evec[:,:,k] = E.vectors
-    end
-
-    return eigs, evec
-end
-
-"""
     w90_find_bwin(ewin::Tuple{F64,F64}, enk::Array{F64,3})
 
 During the disentanglement procedure, we can define an outer energy
@@ -2048,3 +1980,75 @@ function pw2wan_save(sp::String = "")
         end
     end
 end
+
+"""
+    w90_make_hamr()
+"""
+function w90_make_hamr(kvec::Array{F64,2},
+                       rdeg::Array{I64,1},
+                       rvec::Array{I64,2},
+                       hamk::Array{C64,3})
+    # Get parameters
+    nband, _, nkpt = size(hamk)
+    nrpt, _ = size(rvec)
+
+    hamr = zeros(C64, nband, nband, nrpt)
+
+    for r = 1:nrpt
+        for k = 1:nkpt
+            rdotk = 2.0 * π * dot(kvec[k,:], rvec[r,:])
+            ratio = exp(-rdotk * im) / nkpt
+            hamr[:,:,r] = hamr[:,:,r] + ratio * hamk[:,:,k]
+        end
+    end
+
+    return hamr
+end
+
+"""
+    w90_make_hamk()
+"""
+function w90_make_hamk(kvec::Array{F64,2},
+                       rdeg::Array{I64,1},
+                       rvec::Array{I64,2},
+                       hamr::Array{C64,3})
+    # Get parameters
+    nband, _, nrpt = size(hamr)
+    nkpt, _ = size(kvec)
+
+    hamk = zeros(C64, nband, nband, nkpt)
+
+    for k = 1:nkpt
+        for r = 1:nrpt
+            rdotk = 2.0 * π * dot(kvec[k,:], rvec[r,:])
+            ratio = exp(+rdotk * im) / rdeg[r]
+            hamk[:,:,k] = hamk[:,:,k] + ratio * hamr[:,:,r]
+        end
+    end
+
+    return hamk
+end
+
+"""
+    w90_diag_hamk()
+"""
+function w90_diag_hamk(hamk::Array{C64,3})
+    # Get parameters
+    nband, _, nkpt = size(hamk)
+
+    eigs = zeros(F64, nband, nkpt)
+    evec = zeros(C64, nband, nband, nkpt)
+
+    for k = 1:nkpt
+        A = view(hamk, :, :, k)
+        E = eigen(A)
+        @. eigs[:,k] = E.values
+        @. evec[:,:,k] = E.vectors
+    end
+
+    return eigs, evec
+end
+export w90_make_hamr
+export w90_make_hamk
+export w90_diag_hamk
+
