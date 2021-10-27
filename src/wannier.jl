@@ -1279,7 +1279,28 @@ function w90_make_chipsi(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1})
     return Fchipsi
 end
 
-function w90_make_hamr()
+"""
+    w90_make_hamr()
+"""
+function w90_make_hamr(kvec::Array{F64,2},
+                       rdeg::Array{I64,1},
+                       rvec::Array{I64,2},
+                       hamk::Array{C64,3})
+    # Get parameters
+    nband, _, nkpt = size(hamk)
+    nrpt, _ = size(rvec)
+
+    hamr = zeros(C64, nband, nband, nrpt)
+
+    for r = 1:nrpt
+        for k = 1:nkpt
+            rdotk = 2.0 * π * dot(kvec[k,:], rvec[r,:])
+            ratio = exp(-rdotk * im) / nkpt
+            hamr[:,:,r] = hamr[:,:,r] + ratio * hamk[:,:,k]
+        end
+    end
+
+    return hamr
 end
 
 """
@@ -1298,8 +1319,8 @@ function w90_make_hamk(kvec::Array{F64,2},
     for k = 1:nkpt
         for r = 1:nrpt
             rdotk = 2.0 * π * dot(kvec[k,:], rvec[r,:])
-            fac = exp(rdotk * im) / rdeg[r]
-            hamk[:,:,k] = hamk[:,:,k] + fac * hamr[:,:,r]
+            ratio = exp(+rdotk * im) / rdeg[r]
+            hamk[:,:,k] = hamk[:,:,k] + ratio * hamr[:,:,r]
         end
     end
 
