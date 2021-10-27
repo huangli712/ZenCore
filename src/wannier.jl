@@ -1476,7 +1476,7 @@ function w90_read_eigs(sp::String = "")
 end
 
 """
-    w90_read_hmar(sp::String = "")
+    w90_read_hamr(sp::String = "")
 
 Try to read and parse the `w90_hr.dat` file, return the hamiltonian
 matrix in WF representation, the Wigner-Seitz grid points, and their
@@ -1486,7 +1486,7 @@ matrix further.
 
 See also: [`wannier_monitor`](@ref).
 """
-function w90_read_hmar(sp::String = "")
+function w90_read_hamr(sp::String = "")
     # Print the header
     println("Parse hamiltonian in WF basis")
 
