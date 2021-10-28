@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/27
+# Last modified: 2021/10/28
 #
 
 #=
@@ -1463,7 +1463,7 @@ function w90_read_eigs(sp::String = "")
 end
 
 """
-    w90_read_hamr(sp::String = "")
+    w90_read_hamr(f::String, sp::String = "")
 
 Try to read and parse the `w90_hr.dat` file, return the hamiltonian
 matrix in WF representation, the Wigner-Seitz grid points, and their
@@ -1473,12 +1473,12 @@ matrix further.
 
 See also: [`wannier_monitor`](@ref).
 """
-function w90_read_hamr(sp::String = "")
+function w90_read_hamr(f::String, sp::String = "")
     # Print the header
     println("Parse hamiltonian in WF basis")
 
     # Build the filename
-    fhr = "w90" * sp * "_hr.dat"
+    fhr = joinpath(f, "w90" * sp * "_hr.dat")
     println("  > Open and read $fhr")
 
     # Read the `w90_hr.dat` file
@@ -2049,11 +2049,11 @@ function w90_diag_hamk(hamk::Array{C64,3})
     return eigs, evec
 end
 
-function w90_make_path(kstart::Array{F64,2}, kend::Array{F64,2})
+function w90_make_path(ndiv::I64, kstart::Array{F64,2}, kend::Array{F64,2})
     # Get parameters
     ndir, _ = size(kstart)
     @assert size(kstart) == size(kend)
-    ndiv = 100
+    @assert ndiv ≥ 10
 
     kdist = zeros(F64, ndir)
     kstep = zeros(F64, ndir)
