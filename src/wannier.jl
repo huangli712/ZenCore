@@ -2042,7 +2042,7 @@ function w90_diag_hamk(hamk::Array{C64,3})
     for k = 1:nkpt
         A = view(hamk, :, :, k)
         E = eigen(A)
-        @. eigs[:,k] = E.values
+        @. eigs[:,k] = real(E.values)
         @. evec[:,:,k] = E.vectors
     end
 
@@ -2066,8 +2066,12 @@ function w90_make_path(ndiv::I64, kstart::Array{F64,2}, kend::Array{F64,2})
                ( kstart[i,3] - kend[i,3] )^2
         kdist[i] = sqrt(kaux)
     end
-    kstep = cumsum(kdist)
-    kstep = kstep .- kstep[1]
+
+    kstep[1] = 0.0
+    for i = 2:ndir
+        kstep[i] = kstep[i-1] + kdist[i-1]
+    end
+    @show kstep
 
     for i = 1:ndir
         ks = kstart[i,:]
@@ -2086,6 +2090,28 @@ function w90_make_path(ndiv::I64, kstart::Array{F64,2}, kend::Array{F64,2})
 end
 
 function test_w90()
+    rdeg, rvec, hamr = w90_read_hamr("dft")
+
+    kstart = [0.0 0.0 0.0; # Γ
+              0.5 0.0 0.0; # X
+              0.5 0.5 0.0; # M
+              0.0 0.0 0.0] # Γ
+    kend   = [0.5 0.0 0.0; # X
+              0.5 0.5 0.0; # M
+              0.0 0.0 0.0; # Γ
+              0.5 0.5 0.5] # R
+    kpath, xpath = w90_make_path(100, kstart, kend)
+    hamk = w90_make_hamk(kpath, rdeg, rvec, hamr)
+    eigs, evec = w90_diag_hamk(hamk)
+    nband, nkpt = size(eigs)
+    open("test.dat", "r") do fout
+        for b = 1:nband
+            for k = 1:nkpt
+                println(fout, xpath[k], " ", eigs[b,k])
+            end
+            println(fout)
+        end
+    end
 end
 
 export w90_make_path
