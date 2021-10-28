@@ -2104,7 +2104,7 @@ function test_w90()
     hamk = w90_make_hamk(kpath, rdeg, rvec, hamr)
     eigs, evec = w90_diag_hamk(hamk)
     nband, nkpt = size(eigs)
-    open("test.dat", "r") do fout
+    open("test.dat", "w") do fout
         for b = 1:nband
             for k = 1:nkpt
                 println(fout, xpath[k], " ", eigs[b,k])
