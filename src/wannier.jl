@@ -2071,7 +2071,7 @@ function w90_make_path(ndiv::I64, kstart::Array{F64,2}, kend::Array{F64,2})
     for i = 2:ndir
         kstep[i] = kstep[i-1] + kdist[i-1]
     end
-    @show kstep
+    #@show kstep
 
     for i = 1:ndir
         ks = kstart[i,:]
@@ -2108,8 +2108,8 @@ function w90_make_cell(latt::Lattice)
     end
     #@show metric
 
-    rvec = []
-    rdeg = []
+    rtmp = []
+    rdeg = Int[]
 
     dist_dim = 1
     for i = 1:3
@@ -2153,10 +2153,15 @@ function w90_make_cell(latt::Lattice)
                         end
                     end
                     push!(rdeg, ndeg)
-                    push!(rvec, [n1 n2 n2])
+                    push!(rtmp, [n1, n2, n3])
                 end
             end
         end
+    end
+
+    rvec = zeros(I64, nrpts, 3)
+    for i = 1:nrpts
+        rvec[i,:] .= rtmp[i]
     end
 
     return rdeg, rvec
@@ -2166,9 +2171,13 @@ function test_w90()
     rdeg, rvec, hamr = w90_read_hamr("dft")
     latt = qeio_lattice("dft")
     rdeg_, rvec_ = w90_make_cell(latt)
-    @show rdeg
-    @show rdeg_
-    sorry()
+    #@show rdeg
+    #@show rdeg_
+    @assert rdeg == rdeg_
+    #@show size(rvec), size(rvec_)
+    @assert rvec == rvec_
+    println("damped")
+    #sorry()
 
     kstart = [0.0 0.0 0.0; # Γ
               0.5 0.0 0.0; # X
@@ -2179,10 +2188,10 @@ function test_w90()
               0.0 0.0 0.0; # Γ
               0.5 0.5 0.5] # R
     kpath, xpath = w90_make_path(100, kstart, kend)
-    hamk = w90_make_hamk(kpath, rdeg, rvec, hamr)
+    hamk = w90_make_hamk(kpath, rdeg_, rvec_, hamr)
     eigs, evec = w90_diag_hamk(hamk)
     nband, nkpt = size(eigs)
-    open("test.dat", "w") do fout
+    open("test_.dat", "w") do fout
         for b = 1:nband
             for k = 1:nkpt
                 println(fout, xpath[k], " ", eigs[b,k])
