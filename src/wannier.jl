@@ -2089,6 +2089,65 @@ function w90_make_path(ndiv::I64, kstart::Array{F64,2}, kend::Array{F64,2})
     return kpath, xpath
 end
 
+function w90_make_cell(metric::Array{F64,2})
+    @assert size(metric) == (3,3)
+    ws_search_size = 2
+    ws_distance_tol = 1.0E-5
+    mp_grid = [8 8 8]
+    ndiff = zeros(I64, 3)
+
+    rvec = []
+    rdeg = []
+
+    dist_dim = 1
+    for i = 1:3
+        dist_dim = dist_dim * ((ws_search_size + 1) * 2 + 1)
+    end
+    dist = zeros(F64, dist_dim)
+
+    nrpts = 0
+    for n1 = -ws_search_size * mp_grid[1] : ws_search_size * mp_grid[1]
+        for n2 = -ws_search_size * mp_grid[2] : ws_search_size * mp_grid[2]
+            for n3 = -ws_search_size * mp_grid[3] : ws_search_size * mp_grid[3]
+
+                icnt = 0
+                for i1 = -ws_search_size - 1 : ws_search_size + 1
+                    for i2 = -ws_search_size - 1 : ws_search_size + 1
+                        for i3 = -ws_search_size - 1 : ws_search_size + 1
+                            icnt = icnt + 1
+                            ndiff[1] = n1 - i1 * mp_grid[1]
+                            ndiff[2] = n2 - i2 * mp_grid[2]
+                            ndiff[3] = n3 - i3 * mp_grid[3]
+
+                            dist[icnt] = 0.0
+                            for i = 1:3
+                                for j = 1:3
+                                    dist[icnt] = dist[icnt] + ndiff[i] * metric[i,j] * ndiff[j]
+                                end
+                            end
+                        end
+                    end
+                end
+
+                dist_min = minimum(dist)
+                if abs(dist[(dist_dim + 1) / 2] - dist_min) < ws_distance_tol^2
+                    nrpts = nrpts + 1
+                    ndeg = 0
+                    for i = 1:dist_dim
+                        if abs(dist[i] - dist_min) < ws_distance_tol^2
+                            ndeg = ndeg + 1
+                        end
+                    end
+                    push!(rdeg, ndeg)
+                    push!(rvec, [n1 n2 n2])
+                end
+            end
+        end
+    end
+
+    return rdeg, rvec
+end
+
 function test_w90()
     rdeg, rvec, hamr = w90_read_hamr("dft")
 
