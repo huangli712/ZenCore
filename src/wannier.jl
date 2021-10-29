@@ -2106,6 +2106,7 @@ function w90_make_cell(latt::Lattice)
             end
         end
     end
+    #@show metric
 
     rvec = []
     rdeg = []
@@ -2115,6 +2116,7 @@ function w90_make_cell(latt::Lattice)
         dist_dim = dist_dim * ((ws_search_size + 1) * 2 + 1)
     end
     dist = zeros(F64, dist_dim)
+    #@show dist_dim
 
     nrpts = 0
     for n1 = -ws_search_size * mp_grid[1] : ws_search_size * mp_grid[1]
@@ -2141,7 +2143,8 @@ function w90_make_cell(latt::Lattice)
                 end
 
                 dist_min = minimum(dist)
-                if abs(dist[(dist_dim + 1) / 2] - dist_min) < ws_distance_tol^2
+                #@show dist_min
+                if abs(dist[Int((dist_dim + 1) / 2)] - dist_min) < ws_distance_tol^2
                     nrpts = nrpts + 1
                     ndeg = 0
                     for i = 1:dist_dim
@@ -2161,6 +2164,11 @@ end
 
 function test_w90()
     rdeg, rvec, hamr = w90_read_hamr("dft")
+    latt = qeio_lattice("dft")
+    rdeg_, rvec_ = w90_make_cell(latt)
+    @show rdeg
+    @show rdeg_
+    sorry()
 
     kstart = [0.0 0.0 0.0; # Γ
               0.5 0.0 0.0; # X
@@ -2188,5 +2196,6 @@ export w90_make_path
 export w90_make_hamr
 export w90_make_hamk
 export w90_diag_hamk
+export w90_make_cell
 export test_w90
 
