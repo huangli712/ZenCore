@@ -1983,6 +1983,8 @@ end
 
 """
     w90_make_hamr()
+
+See also: [`w90_make_hamk`](@ref).
 """
 function w90_make_hamr(kvec::Array{F64,2},
                        rdeg::Array{I64,1},
@@ -2007,6 +2009,8 @@ end
 
 """
     w90_make_hamk()
+
+See also: [`w90_make_hamr`](@ref).
 """
 function w90_make_hamk(kvec::Array{F64,2},
                        rdeg::Array{I64,1},
