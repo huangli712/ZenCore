@@ -2071,7 +2071,6 @@ function w90_make_path(ndiv::I64, kstart::Array{F64,2}, kend::Array{F64,2})
     for i = 2:ndir
         kstep[i] = kstep[i-1] + kdist[i-1]
     end
-    #@show kstep
 
     for i = 1:ndir
         ks = kstart[i,:]
@@ -2106,7 +2105,6 @@ function w90_make_cell(latt::Lattice)
             end
         end
     end
-    #@show metric
 
     rtmp = []
     rdeg = Int[]
@@ -2116,7 +2114,6 @@ function w90_make_cell(latt::Lattice)
         dist_dim = dist_dim * ((ws_search_size + 1) * 2 + 1)
     end
     dist = zeros(F64, dist_dim)
-    #@show dist_dim
 
     nrpts = 0
     for n1 = -ws_search_size * mp_grid[1] : ws_search_size * mp_grid[1]
@@ -2143,7 +2140,6 @@ function w90_make_cell(latt::Lattice)
                 end
 
                 dist_min = minimum(dist)
-                #@show dist_min
                 if abs(dist[Int((dist_dim + 1) / 2)] - dist_min) < ws_distance_tol^2
                     nrpts = nrpts + 1
                     ndeg = 0
@@ -2171,13 +2167,9 @@ function test_w90()
     rdeg, rvec, hamr = w90_read_hamr("dft")
     latt = qeio_lattice("dft")
     rdeg_, rvec_ = w90_make_cell(latt)
-    #@show rdeg
-    #@show rdeg_
     @assert rdeg == rdeg_
-    #@show size(rvec), size(rvec_)
     @assert rvec == rvec_
     println("damped")
-    #sorry()
 
     kstart = [0.0 0.0 0.0; # Γ
               0.5 0.0 0.0; # X
@@ -2207,4 +2199,3 @@ export w90_make_hamk
 export w90_diag_hamk
 export w90_make_cell
 export test_w90
-
