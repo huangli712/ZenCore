@@ -2089,12 +2089,23 @@ function w90_make_path(ndiv::I64, kstart::Array{F64,2}, kend::Array{F64,2})
     return kpath, xpath
 end
 
-function w90_make_cell(metric::Array{F64,2})
-    @assert size(metric) == (3,3)
+function w90_make_cell(latt::Lattice)
     ws_search_size = 2
     ws_distance_tol = 1.0E-5
     mp_grid = [8 8 8]
     ndiff = zeros(I64, 3)
+    metric = zeros(F64, 3, 3)
+
+    for j = 1:3
+        for i = 1:j
+            for l = 1:3
+                metric[i,j] = metric[i,j] + latt.scale^2 * latt.lvect[i,l] * latt.lvect[j,l]
+                if i < j
+                    metric[j,i] = metric[i,j]
+                end
+            end
+        end
+    end
 
     rvec = []
     rdeg = []
