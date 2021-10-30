@@ -2190,6 +2190,7 @@ function w90_diag_hamk(hamk::Array{C64,3})
         @. evec[:,:,k] = E.vectors
     end
 
+    # Return eigenvalues and eigenvectors
     return eigs, evec
 end
 
