@@ -1981,7 +1981,17 @@ function pw2wan_save(sp::String = "")
     end
 end
 
-function w90_make_path(ndiv::I64, kstart::Array{F64,2}, kend::Array{F64,2})
+"""
+    w90_make_path(ndiv::I64,
+                  kstart::Array{F64,2},
+                  kend::Array{F64,2})
+
+Try to generate 𝑘-path along the selected high-symmetry directions in
+the Brillouin zone.
+"""
+function w90_make_path(ndiv::I64,
+                       kstart::Array{F64,2},
+                       kend::Array{F64,2})
     # Get parameters
     ndir, _ = size(kstart)
     @assert size(kstart) == size(kend)
