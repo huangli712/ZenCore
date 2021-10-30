@@ -1981,86 +1981,6 @@ function pw2wan_save(sp::String = "")
     end
 end
 
-"""
-    w90_make_hamr(kvec::Array{F64,2},
-                  rvec::Array{I64,2},
-                  hamk::Array{C64,3})
-
-Convert the hamiltonian from 𝑘-space to 𝑟-space via the fast fourier
-transformation. The arguments `kvec` and `rvec` define the 𝑘-mesh and
-𝑟-mesh, respectively. `hamk` means ``H(𝑘)`` which should be defined in
-a uniform 𝑘-mesh.
-
-See also: [`w90_make_hamk`](@ref).
-"""
-function w90_make_hamr(kvec::Array{F64,2},
-                       rvec::Array{I64,2},
-                       hamk::Array{C64,3})
-    # Get dimensional parameters
-    nband, _, nkpt = size(hamk)
-    nrpt, _ = size(rvec)
-
-    # Create an empty array for ``H(r)``
-    hamr = zeros(C64, nband, nband, nrpt)
-
-    # Fourier transformation from 𝑘-space to 𝑟-space
-    for r = 1:nrpt
-        for k = 1:nkpt
-            rdotk = 2.0 * π * dot(kvec[k,:], rvec[r,:])
-            ratio = exp(-rdotk * im) / nkpt
-            hamr[:,:,r] = hamr[:,:,r] + ratio * hamk[:,:,k]
-        end # END OF K LOOP
-    end # END OF R LOOP
-
-    return hamr
-end
-
-"""
-    w90_make_hamk()
-
-See also: [`w90_make_hamr`](@ref).
-"""
-function w90_make_hamk(kvec::Array{F64,2},
-                       rdeg::Array{I64,1},
-                       rvec::Array{I64,2},
-                       hamr::Array{C64,3})
-    # Get parameters
-    nband, _, nrpt = size(hamr)
-    nkpt, _ = size(kvec)
-
-    hamk = zeros(C64, nband, nband, nkpt)
-
-    for k = 1:nkpt
-        for r = 1:nrpt
-            rdotk = 2.0 * π * dot(kvec[k,:], rvec[r,:])
-            ratio = exp(+rdotk * im) / rdeg[r]
-            hamk[:,:,k] = hamk[:,:,k] + ratio * hamr[:,:,r]
-        end
-    end
-
-    return hamk
-end
-
-"""
-    w90_diag_hamk()
-"""
-function w90_diag_hamk(hamk::Array{C64,3})
-    # Get parameters
-    nband, _, nkpt = size(hamk)
-
-    eigs = zeros(F64, nband, nkpt)
-    evec = zeros(C64, nband, nband, nkpt)
-
-    for k = 1:nkpt
-        A = view(hamk, :, :, k)
-        E = eigen(A)
-        @. eigs[:,k] = real(E.values)
-        @. evec[:,:,k] = E.vectors
-    end
-
-    return eigs, evec
-end
-
 function w90_make_path(ndiv::I64, kstart::Array{F64,2}, kend::Array{F64,2})
     # Get parameters
     ndir, _ = size(kstart)
@@ -2173,6 +2093,86 @@ function w90_make_cell(latt::Lattice)
     end
 
     return rdeg, rvec
+end
+
+"""
+    w90_make_hamr(kvec::Array{F64,2},
+                  rvec::Array{I64,2},
+                  hamk::Array{C64,3})
+
+Convert the hamiltonian from 𝑘-space to 𝑟-space via the fast fourier
+transformation. The arguments `kvec` and `rvec` define the 𝑘-mesh and
+𝑟-mesh, respectively. `hamk` means ``H(𝑘)`` which should be defined in
+a uniform 𝑘-mesh.
+
+See also: [`w90_make_hamk`](@ref).
+"""
+function w90_make_hamr(kvec::Array{F64,2},
+                       rvec::Array{I64,2},
+                       hamk::Array{C64,3})
+    # Get dimensional parameters
+    nband, _, nkpt = size(hamk)
+    nrpt, _ = size(rvec)
+
+    # Create an empty array for ``H(r)``
+    hamr = zeros(C64, nband, nband, nrpt)
+
+    # Fourier transformation from 𝑘-space to 𝑟-space
+    for r = 1:nrpt
+        for k = 1:nkpt
+            rdotk = 2.0 * π * dot(kvec[k,:], rvec[r,:])
+            ratio = exp(-rdotk * im) / nkpt
+            hamr[:,:,r] = hamr[:,:,r] + ratio * hamk[:,:,k]
+        end # END OF K LOOP
+    end # END OF R LOOP
+
+    return hamr
+end
+
+"""
+    w90_make_hamk()
+
+See also: [`w90_make_hamr`](@ref).
+"""
+function w90_make_hamk(kvec::Array{F64,2},
+                       rdeg::Array{I64,1},
+                       rvec::Array{I64,2},
+                       hamr::Array{C64,3})
+    # Get parameters
+    nband, _, nrpt = size(hamr)
+    nkpt, _ = size(kvec)
+
+    hamk = zeros(C64, nband, nband, nkpt)
+
+    for k = 1:nkpt
+        for r = 1:nrpt
+            rdotk = 2.0 * π * dot(kvec[k,:], rvec[r,:])
+            ratio = exp(+rdotk * im) / rdeg[r]
+            hamk[:,:,k] = hamk[:,:,k] + ratio * hamr[:,:,r]
+        end
+    end
+
+    return hamk
+end
+
+"""
+    w90_diag_hamk()
+"""
+function w90_diag_hamk(hamk::Array{C64,3})
+    # Get parameters
+    nband, _, nkpt = size(hamk)
+
+    eigs = zeros(F64, nband, nkpt)
+    evec = zeros(C64, nband, nband, nkpt)
+
+    for k = 1:nkpt
+        A = view(hamk, :, :, k)
+        E = eigen(A)
+        @. eigs[:,k] = real(E.values)
+        @. evec[:,:,k] = E.vectors
+    end
+
+    return eigs, evec
 end
 
 function test_w90()
