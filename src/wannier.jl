@@ -2102,7 +2102,7 @@ end
 
 Convert the hamiltonian from 𝑘-space to 𝑟-space via the fast fourier
 transformation. The arguments `kvec` and `rvec` define the 𝑘-mesh and
-𝑟-mesh, respectively. `hamk` means ``H(𝑘)`` which should be defined in
+𝑟-mesh, respectively. `hamk` means ``H(K)`` which should be defined in
 a uniform 𝑘-mesh.
 
 See also: [`w90_make_hamk`](@ref).
@@ -2126,11 +2126,20 @@ function w90_make_hamr(kvec::Array{F64,2},
         end # END OF K LOOP
     end # END OF R LOOP
 
+    # Return ``H(R)``
     return hamr
 end
 
 """
-    w90_make_hamk()
+    w90_make_hamk(kvec::Array{F64,2},
+                  rdeg::Array{I64,1},
+                  rvec::Array{I64,2},
+                  hamr::Array{C64,3})
+
+Convert the hamiltonian from 𝑟-space to 𝑘-space via the fast fourier
+transformation. The arguments `kvec` and `rvec` define the 𝑘-mesh and
+𝑟-mesh, respectively. `hamr` means ``H(R)`` which should be defined in
+a Wigner-Seitz cell.
 
 See also: [`w90_make_hamr`](@ref).
 """
