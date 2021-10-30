@@ -2168,19 +2168,25 @@ function w90_make_hamk(kvec::Array{F64,2},
 end
 
 """
-    w90_diag_hamk()
+    w90_diag_hamk(hamk::Array{C64,3})
+
+Diagonalize the hamiltonian to give band structure.
+
+See also: [`w90_make_hamk`](@ref).
 """
 function w90_diag_hamk(hamk::Array{C64,3})
-    # Get parameters
+    # Get dimensional parameters
     nband, _, nkpt = size(hamk)
 
+    # Allocate memories for eigenvalues and eigenvectors
     eigs = zeros(F64, nband, nkpt)
     evec = zeros(C64, nband, nband, nkpt)
 
+    # Diagonalize the hamiltonian for every 𝑘-point
     for k = 1:nkpt
         A = view(hamk, :, :, k)
-        E = eigen(A)
-        @. eigs[:,k] = real(E.values)
+        E = eigen(Hermitian(A))
+        @. eigs[:,k] = E.values
         @. evec[:,:,k] = E.vectors
     end
 
