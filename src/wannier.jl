@@ -1989,7 +1989,8 @@ end
 Try to generate 𝑘-path along the selected high-symmetry directions in
 the Brillouin zone. The argument `ndiv` means the number of divisions
 for each 𝑘-path. While `kstart` and `kend` denote the 𝑘 coordinates for
-the starting and ending points of the 𝑘-path, respectively.
+the starting and ending points of the 𝑘-path, respectively. Note that
+this function is used to perform wannier band interpolation.
 """
 function w90_make_path(ndiv::I64,
                        kstart::Array{F64,2},
