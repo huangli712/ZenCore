@@ -2185,7 +2185,7 @@ function w90_diag_hamk(hamk::Array{C64,3})
     # Diagonalize the hamiltonian for every 𝑘-point
     for k = 1:nkpt
         A = view(hamk, :, :, k)
-        E = eigen(Hermitian(A))
+        E = eigen(Hermitian(A)) # It must be a hermitian matrix
         @. eigs[:,k] = E.values
         @. evec[:,:,k] = E.vectors
     end
