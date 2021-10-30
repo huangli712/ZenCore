@@ -151,7 +151,7 @@ PSOLVER         -> Dict for quantum impurity solvers.
 AbstractEngine  -> Abstract DFT engine.
 NULLEngine      -> Null DFT engine.
 VASPEngine      -> vasp.
-QEEngine        -> quantum espresso. 
+QEEngine        -> quantum espresso.
 WANNIEREngine   -> wannier90.
 _engine_        -> The present DFT engine.
 #

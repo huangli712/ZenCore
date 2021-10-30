@@ -1995,16 +1995,18 @@ this function is used to perform wannier band interpolation.
 function w90_make_path(ndiv::I64,
                        kstart::Array{F64,2},
                        kend::Array{F64,2})
-    # Get parameters
+    # Get dimensional parameters
     ndir, _ = size(kstart)
     @assert size(kstart) == size(kend)
     @assert ndiv ≥ 10
 
+    # Allocate memories
     kdist = zeros(F64, ndir)
     kstep = zeros(F64, ndir)
     kpath = zeros(F64, ndir * ndiv + 1, 3)
     xpath = zeros(F64, ndir * ndiv + 1)
 
+    # Calculate the length for each 𝑘-path
     for i = 1:ndir
         kaux = ( kstart[i,1] - kend[i,1] )^2 +
                ( kstart[i,2] - kend[i,2] )^2 +
@@ -2012,20 +2014,22 @@ function w90_make_path(ndiv::I64,
         kdist[i] = sqrt(kaux)
     end
 
+    # kstep means the distances between the original point (0) and the
+    # starting points for each 𝑘-path.
+    kstep = circshift(cumsum(kdist), 1)
     kstep[1] = 0.0
-    for i = 2:ndir
-        kstep[i] = kstep[i-1] + kdist[i-1]
-    end
 
+    c = 0
     for i = 1:ndir
         ks = kstart[i,:]
         ke = kend[i,:]
         kd = ( ke - ks ) / ndiv
         for j = 1:ndiv
-            kpath[(i - 1) * ndiv + j, :] = ks + kd * (j - 1)
-            xpath[(i - 1) * ndiv + j] = kstep[i] + kdist[i] * (j - 1) / ndiv
-        end
-    end
+            c = c + 1
+            kpath[c, :] = ks + kd * (j - 1)
+            xpath[c] = kstep[i] + kdist[i] * (j - 1) / ndiv
+        end # END OF J LOOP
+    end # END OF I LOOP
 
     kpath[end,:] = kend[end,:]
     xpath[end] = sum(kdist)
