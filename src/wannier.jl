@@ -2019,11 +2019,13 @@ function w90_make_path(ndiv::I64,
     kstep = circshift(cumsum(kdist), 1)
     kstep[1] = 0.0
 
-    c = 0
+    # Setup the 𝑘-path, including the 𝑘-coordinates (`kpath`) and the
+    # distances from the original point (`xpath`).
+    c = 0 # A counter
     for i = 1:ndir
-        ks = kstart[i,:]
-        ke = kend[i,:]
-        kd = ( ke - ks ) / ndiv
+        ks = kstart[i,:] # Starting point for this 𝑘-segment
+        ke = kend[i,:]   # Ending point for this 𝑘-segment
+        kd = ( ke - ks ) / ndiv # Length for division
         for j = 1:ndiv
             c = c + 1
             kpath[c, :] = ks + kd * (j - 1)
@@ -2031,9 +2033,11 @@ function w90_make_path(ndiv::I64,
         end # END OF J LOOP
     end # END OF I LOOP
 
+    # Setup the final point for the 𝑘-path
     kpath[end,:] = kend[end,:]
     xpath[end] = sum(kdist)
 
+    # Return the desired arrays
     return kpath, xpath
 end
 
