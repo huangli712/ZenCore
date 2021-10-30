@@ -1996,19 +1996,21 @@ See also: [`w90_make_hamk`](@ref).
 function w90_make_hamr(kvec::Array{F64,2},
                        rvec::Array{I64,2},
                        hamk::Array{C64,3})
-    # Get parameters
+    # Get dimensional parameters
     nband, _, nkpt = size(hamk)
     nrpt, _ = size(rvec)
 
+    # Create an empty array for ``H(r)``
     hamr = zeros(C64, nband, nband, nrpt)
 
+    # Fourier transformation from 𝑘-space to 𝑟-space
     for r = 1:nrpt
         for k = 1:nkpt
             rdotk = 2.0 * π * dot(kvec[k,:], rvec[r,:])
             ratio = exp(-rdotk * im) / nkpt
             hamr[:,:,r] = hamr[:,:,r] + ratio * hamk[:,:,k]
-        end
-    end
+        end # END OF K LOOP
+    end # END OF R LOOP
 
     return hamr
 end
