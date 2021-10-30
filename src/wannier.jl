@@ -2114,7 +2114,7 @@ function w90_make_hamr(kvec::Array{F64,2},
     nband, _, nkpt = size(hamk)
     nrpt, _ = size(rvec)
 
-    # Create an empty array for ``H(r)``
+    # Create an empty array for ``H(R)``
     hamr = zeros(C64, nband, nband, nrpt)
 
     # Fourier transformation from 𝑘-space to 𝑟-space
@@ -2147,20 +2147,23 @@ function w90_make_hamk(kvec::Array{F64,2},
                        rdeg::Array{I64,1},
                        rvec::Array{I64,2},
                        hamr::Array{C64,3})
-    # Get parameters
+    # Get dimensional parameters
     nband, _, nrpt = size(hamr)
     nkpt, _ = size(kvec)
 
+    # Create an empty array for ``H(K)``
     hamk = zeros(C64, nband, nband, nkpt)
 
+    # Fourier transformation from 𝑟-space to 𝑘-space
     for k = 1:nkpt
         for r = 1:nrpt
             rdotk = 2.0 * π * dot(kvec[k,:], rvec[r,:])
             ratio = exp(+rdotk * im) / rdeg[r]
             hamk[:,:,k] = hamk[:,:,k] + ratio * hamr[:,:,r]
-        end
-    end
+        end # END OF R LOOP
+    end # END OF K LOOP
 
+    # Return ``H(K)``
     return hamk
 end
 
