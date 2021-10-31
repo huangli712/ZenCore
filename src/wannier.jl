@@ -2091,12 +2091,12 @@ function w90_make_cell(latt::Lattice)
 
     # The Wannier functions live in a supercell of the real space unit
     # cell. This supercell is mp_grid unit cells long in each direction.
-    # We loop over grid points  on a unit cell that is (2*ws_search_size+1)**3 times
-    # larger than this primitive supercell.
-    #
-    # One of these points is in the W-S cell if it is closer to R=0 than any of the
-    # other points, R (where R are the translation vectors of the supercell)
-
+    # We loop over grid points r on a unit cell that is
+    #     ( 2 * ws_search_size + 1)
+    # times larger than this primitive supercell. One of these points
+    # is in the Wigner-Seitz cell if it is closer to R = 0 than any of
+    # the other points, where R denotes the translation vectors of the
+    # supercell.
 
     nrpts = 0
     for n1 = -ws_search_size * mp_grid[1] : ws_search_size * mp_grid[1]
