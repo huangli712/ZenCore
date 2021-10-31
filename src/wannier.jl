@@ -2079,15 +2079,24 @@ function w90_make_cell(latt::Lattice)
         end # END OF I LOOP
     end # END OF J LOOP
 
-    dist_dim = 1
-    for i = 1:3
-        dist_dim = dist_dim * ((ws_search_size + 1) * 2 + 1)
-    end
+    # Prepare arrays
+    #
+    dist_dim = ((ws_search_size + 1) * 2 + 1)^3
     dist = zeros(F64, dist_dim)
-
+    #
+    ndiff = zeros(I64, 3)
+    #
     rtmp = []
     rdeg = Int[]
-    ndiff = zeros(I64, 3)
+
+    # The Wannier functions live in a supercell of the real space unit
+    # cell. This supercell is mp_grid unit cells long in each direction.
+    # We loop over grid points  on a unit cell that is (2*ws_search_size+1)**3 times
+    # larger than this primitive supercell.
+    #
+    # One of these points is in the W-S cell if it is closer to R=0 than any of the
+    # other points, R (where R are the translation vectors of the supercell)
+
 
     nrpts = 0
     for n1 = -ws_search_size * mp_grid[1] : ws_search_size * mp_grid[1]
