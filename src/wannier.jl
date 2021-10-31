@@ -2091,18 +2091,30 @@ function w90_make_cell(latt::Lattice)
 
     # The Wannier functions live in a supercell of the real space unit
     # cell. This supercell is mp_grid unit cells long in each direction.
-    # We loop over grid points r on a unit cell that is
-    #     ( 2 * ws_search_size + 1)
+    # We loop over grid points 𝑟 on a unit cell that is
+    #     ( 2 * ws_search_size + 1)³
     # times larger than this primitive supercell. One of these points
-    # is in the Wigner-Seitz cell if it is closer to R = 0 than any of
-    # the other points, where R denotes the translation vectors of the
+    # is in the Wigner-Seitz cell if it is closer to 𝑅 = 0 than any of
+    # the other points, where 𝑅 denotes the translation vectors of the
     # supercell.
 
+    # Loop over the lattice vectors of the primitive cell that live in
+    # a supercell which is
+    #     ( 2 * ws_search_size + 1)³
+    # larger than the Born-von Karman supercell.
     nrpts = 0
     for n1 = -ws_search_size * mp_grid[1] : ws_search_size * mp_grid[1]
         for n2 = -ws_search_size * mp_grid[2] : ws_search_size * mp_grid[2]
             for n3 = -ws_search_size * mp_grid[3] : ws_search_size * mp_grid[3]
 
+                # Loop over the lattice vectors R of the Born-von Karman
+                # supercell that contains all the points of the previous
+                # loop. There are
+                #     ( 2 * (ws_search_size + 1) + 1)³ points R. And 𝑅 = 0
+                # corresponds to
+                #     i₁ = i₂ = i₃ = 0,
+                # or
+                #     icnt = ( ( 2 * (ws_search_size + 1) + 1)³ + 1 ) / 2.
                 icnt = 0
                 for i1 = -ws_search_size - 1 : ws_search_size + 1
                     for i2 = -ws_search_size - 1 : ws_search_size + 1
