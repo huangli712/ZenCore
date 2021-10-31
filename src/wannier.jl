@@ -2053,8 +2053,16 @@ given lattice (`latt`).
 See also: [`w90_make_path`](@ref).
 """
 function w90_make_cell(latt::Lattice)
+    # Some internal parameters
+    #
+    # Maximum extension in each direction of the supercell of the BvK
+    # cell to search for points inside the Wigner-Seitz cell.
     ws_search_size = 2
+    #
+    # Absolute tolerance for the distance to equivalent positions
     ws_distance_tol = 1.0E-5
+    #
+    # Dimensions of the Monkhorst-Pack grid
     mp_grid = [8 8 8]
     ndiff = zeros(I64, 3)
     metric = zeros(F64, 3, 3)
