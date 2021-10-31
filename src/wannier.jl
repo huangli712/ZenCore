@@ -2134,6 +2134,8 @@ function w90_make_cell(latt::Lattice)
                     end # END OF LOOP I₂
                 end # END OF LOOP I₁
 
+                # Figure out the require 𝑟 points. Their degenerancies
+                # and coordinates are saved in ndeg and rtmp, respectively.
                 dist_min = minimum(dist)
                 if abs(dist[Int((dist_dim + 1) / 2)] - dist_min) < ws_distance_tol^2
                     nrpts = nrpts + 1
@@ -2146,15 +2148,17 @@ function w90_make_cell(latt::Lattice)
                     push!(rdeg, ndeg)
                     push!(rtmp, [n1, n2, n3])
                 end
-            end
-        end
-    end
+            end # END OF LOOP N₃
+        end # END OF LOOP N₂
+    end # END OF LOOP N₁
 
+    # Convert rtmp to rvec
     rvec = zeros(I64, nrpts, 3)
     for i = 1:nrpts
         rvec[i,:] .= rtmp[i]
     end
 
+    # Return the desired arrays
     return rdeg, rvec
 end
 
