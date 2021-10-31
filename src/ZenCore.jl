@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/27
+# Last modified: 2021/10/31
 #
 
 """
@@ -787,6 +787,11 @@ w90_make_group  -> Create and manipulate groups of WFs.
 w90_make_window -> Create and manipulate band windows of WFs.
 w90_make_chipsi -> Build projections.
 w90_find_bwin   -> Figure out the band window for disentanglement.
+w90_make_path   -> Create 𝑘-points along the high-symmetry directions.
+w90_make_cell   -> Create 𝑟-points within the Wigner-Seitz cell.
+w90_make_hamr   -> Create hamiltonian in 𝑟-space via wannier interpolation.
+w90_make_hamk   -> Create hamiltonian in 𝑘-space via wannier interpolation.
+w90_diag_hamk   -> Diagonalize the hamiltonian within the wannier basis.
 w90_read_amat   -> Read w90.amn file.
 w90_read_eigs   -> Read w90.eig file.
 w90_read_hamr   -> Read w90_hr.dat file.
@@ -816,6 +821,11 @@ export w90_make_group
 export w90_make_window
 export w90_make_chipsi
 export w90_find_bwin
+export w90_make_path
+export w90_make_cell
+export w90_make_hamr
+export w90_make_hamk
+export w90_diag_hamk
 export w90_read_amat
 export w90_read_eigs
 export w90_read_hamr

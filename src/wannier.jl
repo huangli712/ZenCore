@@ -2294,10 +2294,4 @@ function test_w90()
         end
     end
 end
-
-export w90_make_path
-export w90_make_hamr
-export w90_make_hamk
-export w90_diag_hamk
-export w90_make_cell
 export test_w90
