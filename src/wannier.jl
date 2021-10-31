@@ -2123,16 +2123,16 @@ function w90_make_cell(latt::Lattice)
                             ndiff[1] = n1 - i1 * mp_grid[1]
                             ndiff[2] = n2 - i2 * mp_grid[2]
                             ndiff[3] = n3 - i3 * mp_grid[3]
-
+                            # Calculate |𝑟 - 𝑅|²
                             dist[icnt] = 0.0
                             for i = 1:3
                                 for j = 1:3
                                     dist[icnt] = dist[icnt] + ndiff[i] * metric[i,j] * ndiff[j]
                                 end
                             end
-                        end
-                    end
-                end
+                        end # END OF LOOP I₃
+                    end # END OF LOOP I₂
+                end # END OF LOOP I₁
 
                 dist_min = minimum(dist)
                 if abs(dist[Int((dist_dim + 1) / 2)] - dist_min) < ws_distance_tol^2
