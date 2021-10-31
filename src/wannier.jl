@@ -1991,6 +1991,8 @@ the Brillouin zone. The argument `ndiv` means the number of divisions
 for each 𝑘-path. While `kstart` and `kend` denote the 𝑘 coordinates for
 the starting and ending points of the 𝑘-path, respectively. Note that
 this function is used to perform wannier band interpolation.
+
+See also: [`w90_make_cell`](@ref).
 """
 function w90_make_path(ndiv::I64,
                        kstart::Array{F64,2},
@@ -2041,6 +2043,15 @@ function w90_make_path(ndiv::I64,
     return kpath, xpath
 end
 
+"""
+    w90_make_cell(latt::Lattice)
+
+Calculates a grid of points that fall inside of (and eventually on the
+surface of) the Wigner-Seitz supercell centered on the origin of the
+given lattice (`latt`).
+
+See also: [`w90_make_path`](@ref).
+"""
 function w90_make_cell(latt::Lattice)
     ws_search_size = 2
     ws_distance_tol = 1.0E-5
