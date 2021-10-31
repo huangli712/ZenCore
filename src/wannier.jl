@@ -2064,9 +2064,10 @@ function w90_make_cell(latt::Lattice)
     #
     # Dimensions of the Monkhorst-Pack grid
     mp_grid = [8 8 8]
-    ndiff = zeros(I64, 3)
-    metric = zeros(F64, 3, 3)
 
+    # Calculate real space metrics
+    # See utility_metric() in utility.F90 (wannier90).
+    metric = zeros(F64, 3, 3)
     for j = 1:3
         for i = 1:j
             for l = 1:3
@@ -2075,17 +2076,18 @@ function w90_make_cell(latt::Lattice)
                     metric[j,i] = metric[i,j]
                 end
             end
-        end
-    end
-
-    rtmp = []
-    rdeg = Int[]
+        end # END OF I LOOP
+    end # END OF J LOOP
 
     dist_dim = 1
     for i = 1:3
         dist_dim = dist_dim * ((ws_search_size + 1) * 2 + 1)
     end
     dist = zeros(F64, dist_dim)
+
+    rtmp = []
+    rdeg = Int[]
+    ndiff = zeros(I64, 3)
 
     nrpts = 0
     for n1 = -ws_search_size * mp_grid[1] : ws_search_size * mp_grid[1]
