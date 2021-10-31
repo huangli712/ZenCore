@@ -1280,6 +1280,56 @@ function w90_make_chipsi(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1})
 end
 
 """
+    w90_find_bwin(ewin::Tuple{F64,F64}, enk::Array{F64,3})
+
+During the disentanglement procedure, we can define an outer energy
+window to restrict the Kohn-Sham eigenvalues. This function will return
+the corresponding band window, which will be used to displace the
+disentanglement matrix. Here, `ewin` is the outer energy window which
+is extracted from `w90.wout`, and `enk` is the Kohn-Sham eigenvalues.
+
+This function works for spin-unpolarized case only.
+
+See also: [`w90_read_udis`](@ref), [`w90_read_wout`](@ref).
+"""
+function w90_find_bwin(ewin::Tuple{F64,F64}, enk::Array{F64,3})
+    # Print the header
+    println("Extract band window for disentanglement")
+
+    # Extract key parameters
+    nband, nkpt, nspin = size(enk)
+    @assert nspin == 1
+
+    # Setup energy window
+    emin, emax = ewin
+
+    # Create an array for momentum-dependent band window
+    bwin = zeros(I64, nkpt, 2)
+
+    # Go through each k-point to figure out the band window
+    for k = 1:nkpt
+        bmin = findfirst(x -> x > emin, enk[:,k,1])
+        bmax = findfirst(x -> x > emax, enk[:,k,1]) - 1
+        bwin[k,1] = bmin
+        bwin[k,2] = bmax
+        @assert nband ≥ bmax > bmin ≥ 1
+    end
+
+    # Print some useful information
+    println("  > Number of k-points: ", nkpt)
+    println("  > Minimum band index: ", minimum(bwin[:,1]))
+    println("  > Maixmum band index: ", maximum(bwin[:,2]))
+    println("  > Shape of Array bwin: ", size(bwin))
+
+    # Return the desired array
+    return bwin
+end
+
+#=
+### *Service Functions* : *Group D*
+=#
+
+"""
     w90_make_path(ndiv::I64,
                   kstart::Array{F64,2},
                   kend::Array{F64,2})
@@ -1559,54 +1609,8 @@ function w90_diag_hamk(hamk::Array{C64,3})
     return eigs, evec
 end
 
-"""
-    w90_find_bwin(ewin::Tuple{F64,F64}, enk::Array{F64,3})
-
-During the disentanglement procedure, we can define an outer energy
-window to restrict the Kohn-Sham eigenvalues. This function will return
-the corresponding band window, which will be used to displace the
-disentanglement matrix. Here, `ewin` is the outer energy window which
-is extracted from `w90.wout`, and `enk` is the Kohn-Sham eigenvalues.
-
-This function works for spin-unpolarized case only.
-
-See also: [`w90_read_udis`](@ref), [`w90_read_wout`](@ref).
-"""
-function w90_find_bwin(ewin::Tuple{F64,F64}, enk::Array{F64,3})
-    # Print the header
-    println("Extract band window for disentanglement")
-
-    # Extract key parameters
-    nband, nkpt, nspin = size(enk)
-    @assert nspin == 1
-
-    # Setup energy window
-    emin, emax = ewin
-
-    # Create an array for momentum-dependent band window
-    bwin = zeros(I64, nkpt, 2)
-
-    # Go through each k-point to figure out the band window
-    for k = 1:nkpt
-        bmin = findfirst(x -> x > emin, enk[:,k,1])
-        bmax = findfirst(x -> x > emax, enk[:,k,1]) - 1
-        bwin[k,1] = bmin
-        bwin[k,2] = bmax
-        @assert nband ≥ bmax > bmin ≥ 1
-    end
-
-    # Print some useful information
-    println("  > Number of k-points: ", nkpt)
-    println("  > Minimum band index: ", minimum(bwin[:,1]))
-    println("  > Maixmum band index: ", maximum(bwin[:,2]))
-    println("  > Shape of Array bwin: ", size(bwin))
-
-    # Return the desired array
-    return bwin
-end
-
 #=
-### *Service Functions* : *Group D*
+### *Service Functions* : *Group E*
 =#
 
 """
@@ -2003,7 +2007,7 @@ function w90_read_wout(sp::String = "")
 end
 
 #=
-### *Service Functions* : *Group E*
+### *Service Functions* : *Group F*
 =#
 
 """
