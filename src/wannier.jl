@@ -2269,7 +2269,38 @@ function pw2wan_save(sp::String = "")
     end
 end
 
-function test_w90()
+function test_w90_level()
+    fermi = qeio_fermi("dft", false)
+    rdeg, rvec, hamr = w90_read_hamr("dft")
+
+#=
+    kstart = [0.0 0.0 0.0; # Γ
+              0.5 0.0 0.0; # X
+              0.5 0.5 0.0; # M
+              0.0 0.0 0.0] # Γ
+    kend   = [0.5 0.0 0.0; # X
+              0.5 0.5 0.0; # M
+              0.0 0.0 0.0; # Γ
+              0.5 0.5 0.5] # R
+    kpath, xpath = w90_make_kpath(100, kstart, kend)
+    hamk = w90_make_hamk(kpath, rdeg, rvec, hamr)
+=#
+
+    kmesh, weight = qeio_kmesh("dft")
+    hamk = w90_make_hamk(kmesh, rdeg, rvec, hamr)
+
+    nband, _, nkpt = size(hamk)
+    level = zeros(C64, nband, nband)
+    for k = 1:nkpt
+        @. level = level + hamk[:,:,k]
+    end
+    @. level = level / nkpt - fermi
+    for b = 1:nband
+        @show b, level[b,b]
+    end
+end
+
+function test_w90_band()
     fermi = qeio_fermi("dft", false)
     rdeg, rvec, hamr = w90_read_hamr("dft")
 
@@ -2284,34 +2315,17 @@ function test_w90()
     kpath, xpath = w90_make_kpath(100, kstart, kend)
     hamk = w90_make_hamk(kpath, rdeg, rvec, hamr)
 
-#=
-    kmesh, weight = qeio_kmesh("dft")
-    hamk = w90_make_hamk(kmesh, rdeg, rvec, hamr)
-=#
-
-    nband, _, nkpt = size(hamk)
-    level = zeros(C64, nband, nband)
-    for k = 1:nkpt
-        @. level = level + hamk[:,:,k]
-    end
-    @. level = level / nkpt - fermi
-    for b = 1:nband
-        @show b, level[b,b]
-    end
-
-#=
     eigs, evec = w90_diag_hamk(hamk)
     nband, nkpt = size(eigs)
     open("test.dat", "w") do fout
         for b = 1:nband
             for k = 1:nkpt
-                println(fout, xpath[k], " ", eigs[b,k])
+                println(fout, xpath[k], " ", eigs[b,k] - fermi)
             end
             println(fout)
         end
     end
-=#
-
 end
 
-export test_w90
+export test_w90_level
+export test_w90_band
