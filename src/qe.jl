@@ -1226,6 +1226,14 @@ function qeio_band(f::String)
 end
 
 """
+    qeio_band()
+
+Reading quantum espresso's `bands.out` file, return energy band structure
+information.
+"""
+qeio_band() = qeio_band(pwd())
+
+"""
     qeio_fermi(f::String, silent::Bool = true)
 
 Reading quantum espresso's `nscf.out` file, return the fermi level. Here

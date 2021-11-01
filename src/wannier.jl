@@ -2316,7 +2316,7 @@ function test_w90_band()
         end
     end
 
-    enk, occupy = qeio_eigen("dft", "bands.out")
+    enk, occupy = qeio_band("dft")
 end
 
 export test_w90_level
