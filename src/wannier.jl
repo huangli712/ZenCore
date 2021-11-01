@@ -442,6 +442,10 @@ function wannier_monitor(D::Dict{Symbol,Any})
     # Calculate and output effective atomic level
     level = calc_level(D[:PW], D[:Fchipsi], D[:weight], D[:enk])
     view_level(D[:PG], level)
+
+    # Calculate and output full hamiltonian
+    hamk = calc_hamk(D[:PW], D[:Fchipsi], D[:enk])
+    view_hamk(hamk)
 end
 
 #=
@@ -2279,7 +2283,7 @@ function test_w90()
     hamk = w90_make_hamk(kpath, rdeg, rvec, hamr)
     eigs, evec = w90_diag_hamk(hamk)
     nband, nkpt = size(eigs)
-    open("test_.dat", "w") do fout
+    open("test.dat", "w") do fout
         for b = 1:nband
             for k = 1:nkpt
                 println(fout, xpath[k], " ", eigs[b,k])
