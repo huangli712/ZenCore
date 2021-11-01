@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/25
+# Last modified: 2021/11/01
 #
 
 #=
@@ -1123,6 +1123,103 @@ information.
 See also: [`irio_eigen`](@ref).
 """
 qeio_eigen() = qeio_eigen(pwd())
+
+"""
+    qeio_band(f::String)
+
+Reading quantum espresso's `bands.out` file, return energy band structure
+information. Here `f` means only the directory that contains `bands.out`.
+
+Note that the difference between `qeio_band()` and `qeio_eigen()` is that
+the former does not return the occupy matrix. This function should not be
+called in the DFT + DMFT iterations.
+"""
+function qeio_band(f::String)
+    # Print the header
+    println("Parse enk only")
+    println("  > Open and read bands.out")
+
+    # Read in all lines in `bands.out`
+    lines = readlines(joinpath(f, "bands.out"))
+
+    # Extract number of 𝑘-points
+    ind = findfirst(x -> contains(x, "number of k points="), lines)
+    @assert ind > 0
+    nkpt = parse(I64, line_to_array(lines[ind])[5])
+
+    # Extract number of bands
+    ind = findfirst(x -> contains(x, "number of Kohn-Sham states"), lines)
+    @assert ind > 0
+    nband = parse(I64, line_to_array(lines[ind])[5])
+
+    # Determine number of spins
+    #
+    # The `bands.out` file contains `SPIN UP` and `SPIN DOWN` blocks if
+    # the system is spin-polarized.
+    ind = findall(x -> contains(x, " SPIN "), lines)
+    @assert length(ind) == 2 || length(ind) == 0
+    if length(ind) == 2
+        nspin = 2
+    else
+        nspin = 1
+    end
+
+    # Create array
+    enk = zeros(F64, nband, nkpt, nspin)
+
+    # Read in the energy bands and the corresponding occupations
+    #
+    # Determine the start of data block
+    start = findfirst(x -> contains(x, "End of band structure calculation"), lines)
+    @assert start > 0
+    #
+    # Determine how many lines are there for each k-point
+    elements_per_line = 8
+    nrow = div(nband, elements_per_line)
+    nrem = rem(nband, elements_per_line)
+    #
+    # Go through each spin
+    for s = 1:nspin
+        # Skip `SPIN UP` and `SPIN DOWN` lines.
+        if nspin == 2
+            start = start + 3
+        end
+        #
+        # Go through each k-point
+        for k = 1:nkpt
+            # Read eigenvalues
+            start = start + 3
+            if nrow > 1 # nband > elements_per_line
+                for r = 1:nrow
+                    start = start + 1
+                    bs = (r - 1) * elements_per_line + 1
+                    be = (r - 1) * elements_per_line + elements_per_line
+                    enk[bs:be,k,s] = parse.(F64, line_to_array(lines[start]))
+                end # END OF R LOOP
+                if nrem > 0
+                    start = start + 1
+                    bs = nrow * elements_per_line + 1
+                    be = nband
+                    @assert nrem == be - bs + 1
+                    enk[bs:be,k,s] = parse.(F64, line_to_array(lines[start]))
+                end
+            else
+                @assert nrow == 1
+                start = start + 1
+                enk[:,k,s] = parse.(F64, line_to_array(lines[start]))
+            end
+        end # END OF K LOOP
+    end # END OF S LOOP
+
+    # Print some useful information to check
+    println("  > Number of DFT bands: ", nband)
+    println("  > Number of k-points: ", nkpt)
+    println("  > Number of spins: ", nspin)
+    println("  > Shape of Array enk: ", size(enk))
+
+    # return the desired array
+    return enk
+end
 
 """
     qeio_fermi(f::String, silent::Bool = true)
