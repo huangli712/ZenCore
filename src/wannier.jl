@@ -2280,10 +2280,11 @@ function test_w90_level()
     for k = 1:nkpt
         @. level = level + hamk[:,:,k]
     end
-    @. level = level / nkpt - fermi
+    @. level = level / nkpt
     for b = 1:nband
-        @show b, level[b,b]
+        @show b, level[b,b] - fermi
     end
+    @show level
 end
 
 function test_w90_band()
