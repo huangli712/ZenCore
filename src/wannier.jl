@@ -2270,6 +2270,9 @@ function pw2wan_save(sp::String = "")
 end
 
 function test_w90()
+    fermi = qeio_fermi("dft", false)
+    rdeg, rvec, hamr = w90_read_hamr("dft")
+
     kstart = [0.0 0.0 0.0; # Γ
               0.5 0.0 0.0; # X
               0.5 0.5 0.0; # M
@@ -2279,8 +2282,24 @@ function test_w90()
               0.0 0.0 0.0; # Γ
               0.5 0.5 0.5] # R
     kpath, xpath = w90_make_kpath(100, kstart, kend)
-    rdeg, rvec, hamr = w90_read_hamr("dft")
     hamk = w90_make_hamk(kpath, rdeg, rvec, hamr)
+
+#=
+    kmesh, weight = qeio_kmesh("dft")
+    hamk = w90_make_hamk(kmesh, rdeg, rvec, hamr)
+=#
+
+    nband, _, nkpt = size(hamk)
+    level = zeros(C64, nband, nband)
+    for k = 1:nkpt
+        @. level = level + hamk[:,:,k]
+    end
+    @. level = level / nkpt - fermi
+    for b = 1:nband
+        @show b, level[b,b]
+    end
+
+#=
     eigs, evec = w90_diag_hamk(hamk)
     nband, nkpt = size(eigs)
     open("test.dat", "w") do fout
@@ -2291,6 +2310,8 @@ function test_w90()
             println(fout)
         end
     end
+=#
+
 end
 
 export test_w90
