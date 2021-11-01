@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/28
+# Last modified: 2021/11/01
 #
 
 #=
@@ -1330,9 +1330,9 @@ end
 =#
 
 """
-    w90_make_path(ndiv::I64,
-                  kstart::Array{F64,2},
-                  kend::Array{F64,2})
+    w90_make_kpath(ndiv::I64,
+                   kstart::Array{F64,2},
+                   kend::Array{F64,2})
 
 Try to generate 𝑘-path along the selected high-symmetry directions in
 the Brillouin zone. The argument `ndiv` means the number of divisions
@@ -1340,11 +1340,11 @@ for each 𝑘-path. While `kstart` and `kend` denote the 𝑘 coordinates for
 the starting and ending points of the 𝑘-path, respectively. Note that
 this function is used to perform wannier band interpolation.
 
-See also: [`w90_make_cell`](@ref).
+See also: [`w90_make_rcell`](@ref).
 """
-function w90_make_path(ndiv::I64,
-                       kstart::Array{F64,2},
-                       kend::Array{F64,2})
+function w90_make_kpath(ndiv::I64,
+                        kstart::Array{F64,2},
+                        kend::Array{F64,2})
     # Get dimensional parameters
     ndir, _ = size(kstart)
     @assert size(kstart) == size(kend)
@@ -1392,15 +1392,15 @@ function w90_make_path(ndiv::I64,
 end
 
 """
-    w90_make_cell(latt::Lattice)
+    w90_make_rcell(latt::Lattice)
 
 Calculates a grid of points that fall inside of (and eventually on the
 surface of) the Wigner-Seitz supercell centered on the origin of the
 given lattice (`latt`).
 
-See also: [`w90_make_path`](@ref).
+See also: [`w90_make_kpath`](@ref).
 """
-function w90_make_cell(latt::Lattice)
+function w90_make_rcell(latt::Lattice)
     # Some internal parameters
     #
     # Maximum extension in each direction of the supercell of the BvK
@@ -2274,7 +2274,7 @@ function test_w90()
               0.5 0.5 0.0; # M
               0.0 0.0 0.0; # Γ
               0.5 0.5 0.5] # R
-    kpath, xpath = w90_make_path(100, kstart, kend)
+    kpath, xpath = w90_make_kpath(100, kstart, kend)
     rdeg, rvec, hamr = w90_read_hamr("dft")
     hamk = w90_make_hamk(kpath, rdeg, rvec, hamr)
     eigs, evec = w90_diag_hamk(hamk)
@@ -2288,4 +2288,5 @@ function test_w90()
         end
     end
 end
+
 export test_w90
