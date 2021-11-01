@@ -632,7 +632,8 @@ qeq_files           -> Check essential output files.
 qeio_energy         -> Read DFT total energy.
 qeio_lattice        -> Read lattice information.
 qeio_kmesh          -> Read kmesh.
-qeio_eigen          -> Read eigenvalues.
+qeio_eigen          -> Read eigenvalues (general).
+qeio_band           -> Read eigenvalues (band structures).
 qeio_fermi          -> Read fermi level.
 #
 ReciprocalPoint     -> Represent single 𝑘-point.
@@ -674,6 +675,7 @@ export qeio_energy
 export qeio_lattice
 export qeio_kmesh
 export qeio_eigen
+export qeio_band
 export qeio_fermi
 #
 export ReciprocalPoint
