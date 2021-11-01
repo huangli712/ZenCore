@@ -2266,13 +2266,6 @@ function pw2wan_save(sp::String = "")
 end
 
 function test_w90()
-    rdeg, rvec, hamr = w90_read_hamr("dft")
-    latt = qeio_lattice("dft")
-    rdeg_, rvec_ = w90_make_cell(latt)
-    @assert rdeg == rdeg_
-    @assert rvec == rvec_
-    println("damped")
-
     kstart = [0.0 0.0 0.0; # Γ
               0.5 0.0 0.0; # X
               0.5 0.5 0.0; # M
@@ -2282,7 +2275,8 @@ function test_w90()
               0.0 0.0 0.0; # Γ
               0.5 0.5 0.5] # R
     kpath, xpath = w90_make_path(100, kstart, kend)
-    hamk = w90_make_hamk(kpath, rdeg_, rvec_, hamr)
+    rdeg, rvec, hamr = w90_read_hamr("dft")
+    hamk = w90_make_hamk(kpath, rdeg, rvec, hamr)
     eigs, evec = w90_diag_hamk(hamk)
     nband, nkpt = size(eigs)
     open("test_.dat", "w") do fout
