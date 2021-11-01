@@ -2310,12 +2310,13 @@ function test_w90_band()
             println(fout)
         end
     end
-
     open("kpath.dat", "w") do fout
         for k = 1:nkpt
             @printf(fout, "%12.6f %8.6f %8.6f %6.4f\n", kpath[k,:]..., 1.00)
         end
     end
+
+    enk, occupy = qeio_eigen("dft", "bands.out")
 end
 
 export test_w90_level
