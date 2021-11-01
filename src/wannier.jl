@@ -2310,6 +2310,12 @@ function test_w90_band()
             println(fout)
         end
     end
+
+    open("kpath.dat", "w") do fout
+        for k = 1:nkpt
+            @printf(fout, "%12.8f %12.8f %12.8f %12.8f", kpath[k,:]..., 1.00)
+        end
+    end
 end
 
 export test_w90_level
