@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/25
+# Last modified: 2021/11/01
 #
 
 #=
@@ -990,7 +990,7 @@ See also: [`irio_kmesh`](@ref).
 qeio_kmesh() = qeio_kmesh(pwd())
 
 """
-    qeio_eigen(f::String)
+    qeio_eigen(f::String, fn::String = "nscf.out")
 
 Reading quantum espresso's `nscf.out` file, return energy band structure
 information. Here `f` means only the directory that contains `nscf.out`.
@@ -1003,13 +1003,13 @@ should be updated by the values read from `case.eig`.
 
 See also: [`irio_eigen`](@ref).
 """
-function qeio_eigen(f::String)
+function qeio_eigen(f::String, fn::String = "nscf.out")
     # Print the header
     println("Parse enk and occupy")
-    println("  > Open and read nscf.out")
+    println("  > Open and read $fn")
 
     # Read in all lines in `nscf.out`
-    lines = readlines(joinpath(f, "nscf.out"))
+    lines = readlines(joinpath(f, fn))
 
     # Extract number of 𝑘-points
     ind = findfirst(x -> contains(x, "number of k points="), lines)
