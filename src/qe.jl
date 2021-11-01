@@ -1130,6 +1130,10 @@ qeio_eigen() = qeio_eigen(pwd())
 Reading quantum espresso's `bands.out` file, return energy band structure
 information. Here `f` means only the directory that contains `bands.out`.
 
+In order to generate the `bands.out` file, please change the calculation
+mode of quantum espresso to `bands`, and redirect the standard output to
+the `bands.out` file.
+
 Note that the difference between `qeio_band()` and `qeio_eigen()` is that
 the former does not return the occupy matrix. This function should not be
 called in the DFT + DMFT iterations.
