@@ -2313,7 +2313,7 @@ function test_w90_band()
 
     open("kpath.dat", "w") do fout
         for k = 1:nkpt
-            @printf(fout, "%12.8f %12.8f %12.8f %12.8f", kpath[k,:]..., 1.00)
+            @printf(fout, "%12.6f %8.6f %8.6f %6.4f\n", kpath[k,:]..., 1.00)
         end
     end
 end
