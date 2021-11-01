@@ -2272,20 +2272,6 @@ end
 function test_w90_level()
     fermi = qeio_fermi("dft", false)
     rdeg, rvec, hamr = w90_read_hamr("dft")
-
-#=
-    kstart = [0.0 0.0 0.0; # Γ
-              0.5 0.0 0.0; # X
-              0.5 0.5 0.0; # M
-              0.0 0.0 0.0] # Γ
-    kend   = [0.5 0.0 0.0; # X
-              0.5 0.5 0.0; # M
-              0.0 0.0 0.0; # Γ
-              0.5 0.5 0.5] # R
-    kpath, xpath = w90_make_kpath(100, kstart, kend)
-    hamk = w90_make_hamk(kpath, rdeg, rvec, hamr)
-=#
-
     kmesh, weight = qeio_kmesh("dft")
     hamk = w90_make_hamk(kmesh, rdeg, rvec, hamr)
 
@@ -2303,7 +2289,6 @@ end
 function test_w90_band()
     fermi = qeio_fermi("dft", false)
     rdeg, rvec, hamr = w90_read_hamr("dft")
-
     kstart = [0.0 0.0 0.0; # Γ
               0.5 0.0 0.0; # X
               0.5 0.5 0.0; # M
