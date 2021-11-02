@@ -2456,7 +2456,43 @@ function test_plo_hamk()
                 end
             end
         end
-    end    
+    end
+
+    # Get uniform 𝑘-mesh
+    kmesh, weight = vaspio_kmesh("dft")
+
+    # Generate 𝑟-points in Wigner-Seitz cell
+    latt = vaspio_lattice("dft")
+    rdeg, rvec = w90_make_rcell(latt)
+
+    # Calculate H(𝑟)
+    hamr = w90_make_hamr(kmesh, rvec, hamk[:,:,:,1])
+
+    # Build high-symmetry 𝑘-path
+    kstart = [0.0 0.0 0.0; # Γ
+              0.5 0.0 0.0; # X
+              0.5 0.5 0.0; # M
+              0.0 0.0 0.0] # Γ
+    kend   = [0.5 0.0 0.0; # X
+              0.5 0.5 0.0; # M
+              0.0 0.0 0.0; # Γ
+              0.5 0.5 0.5] # R
+    kpath, xpath = w90_make_kpath(100, kstart, kend)
+
+    # Build H(𝑘) along high-symmetry directions
+    newhamk = w90_make_hamk(kpath, rdeg, rvec, hamr)
+
+    # Calculate and output the band structures
+    eigs, evec = w90_diag_hamk(newhamk)
+    nband, nkpt = size(eigs)
+    open("newtest.dat", "w") do fout
+        for b = 1:nband
+            for k = 1:nkpt
+                println(fout, xpath[k], " ", eigs[b,k])
+            end
+            println(fout)
+        end
+    end
 end
 
 export test_w90_level
