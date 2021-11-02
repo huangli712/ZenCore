@@ -2311,6 +2311,7 @@ function test_w90_band()
         end
     end
 
+#=
     level = zeros(C64, nband, nband)
     for k = 1:nkpt
         @. level = level + hamk[:,:,k]
@@ -2319,6 +2320,7 @@ function test_w90_band()
     for b = 1:nband
         @show b, level[b,b] - fermi
     end
+=#
 
     enk = qeio_band("dft")
     nband, nkpt, _ = size(enk)
