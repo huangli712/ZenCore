@@ -2312,12 +2312,6 @@ function test_w90_band()
         end
     end
 
-    open("kpath.dat", "w") do fout
-        for k = 1:nkpt
-            @printf(fout, "%12.6f %8.6f %8.6f %6.4f\n", kpath[k,:]..., 1.00)
-        end
-    end
-
     enk = qeio_band("dft")
     nband, nkpt, _ = size(enk)
     @assert length(xpath) == nkpt
@@ -2329,6 +2323,15 @@ function test_w90_band()
             println(fout)
         end
     end
+
+#=
+    open("kpath.dat", "w") do fout
+        for k = 1:nkpt
+            @printf(fout, "%12.6f %8.6f %8.6f %6.4f\n", kpath[k,:]..., 1.00)
+        end
+    end
+=#
+
 end
 
 export test_w90_level
