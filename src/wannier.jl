@@ -2364,6 +2364,7 @@ function test_w90_hamr()
 end
 
 function test_w90_hamk()
+    # Read H(𝑘) in uniform 𝑘-mesh
     hamk = nothing
     open("dft/hamk.chk.1", "r") do fin
         readline(fin)
@@ -2391,10 +2392,17 @@ function test_w90_hamk()
         end
     end
 
+    # Get uniform 𝑘-mesh
     kmesh, weight = qeio_kmesh("dft")
+
+    # Generate 𝑟-points in Wigner-Seitz cell
     latt = qeio_lattice("dft")
     rdeg, rvec = w90_make_rcell(latt)
+
+    # Calculate H(𝑟)
     hamr = w90_make_hamr(kmesh, rvec, hamk[:,:,:,1])
+
+    # Build high-symmetry 𝑘-path
     kstart = [0.0 0.0 0.0; # Γ
               0.5 0.0 0.0; # X
               0.5 0.5 0.0; # M
@@ -2404,8 +2412,11 @@ function test_w90_hamk()
               0.0 0.0 0.0; # Γ
               0.5 0.5 0.5] # R
     kpath, xpath = w90_make_kpath(100, kstart, kend)
+
+    # Build H(𝑘) along high-symmetry directions
     newhamk = w90_make_hamk(kpath, rdeg, rvec, hamr)
 
+    # Calculate and output the band structures
     eigs, evec = w90_diag_hamk(newhamk)
     nband, nkpt = size(eigs)
     open("newtest.dat", "w") do fout
