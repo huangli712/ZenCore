@@ -2363,6 +2363,35 @@ function test_w90_hamr()
     end
 end
 
+function test_w90_hamk()
+    open("dft/hamk.chk.1", "r") do fin
+        readline(fin)
+        readline(fin)
+        readline(fin)
+
+        ngroup = parse(I64, line_to_array(fin)[3])
+        nproj = parse(I64, line_to_array(fin)[3])
+        nkpt = parse(I64, line_to_array(fin)[3])
+        nspin = parse(I64, line_to_array(fin)[3])
+        @assert ngroup == 1
+        @assert nspin == 1
+
+        hamk = zeros(C64, nproj, nproj, nkpt, nspin)
+        for s = 1:nspin
+            for k = 1:nkpt
+                for q = 1:nproj
+                    for p = 1:nproj
+                        _re, _im = parse.(F64, line_to_array(fin)[1:2])
+                        hamk[p,q,k,s] = _re + _im * im
+                    end
+                end
+            end
+        end
+    end
+    @show hamk
+end
+
 export test_w90_level
 export test_w90_band
 export test_w90_hamr
+export test_w90_hamk
