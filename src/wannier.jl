@@ -2364,6 +2364,7 @@ function test_w90_hamr()
 end
 
 function test_w90_hamk()
+    hamk = nothing
     open("dft/hamk.chk.1", "r") do fin
         readline(fin)
         readline(fin)
@@ -2375,6 +2376,7 @@ function test_w90_hamk()
         nspin = parse(I64, line_to_array(fin)[3])
         @assert ngroup == 1
         @assert nspin == 1
+        readline(fin)
 
         hamk = zeros(C64, nproj, nproj, nkpt, nspin)
         for s = 1:nspin
@@ -2388,7 +2390,32 @@ function test_w90_hamk()
             end
         end
     end
-    @show hamk
+
+    kmesh, weight = qeio_kmesh("dft")
+    latt = qeio_lattice("dft")
+    rdeg, rvec = w90_make_rcell(latt)
+    hamr = w90_make_hamr(kmesh, rvec, hamk[:,:,:,1])
+    kstart = [0.0 0.0 0.0; # Γ
+              0.5 0.0 0.0; # X
+              0.5 0.5 0.0; # M
+              0.0 0.0 0.0] # Γ
+    kend   = [0.5 0.0 0.0; # X
+              0.5 0.5 0.0; # M
+              0.0 0.0 0.0; # Γ
+              0.5 0.5 0.5] # R
+    kpath, xpath = w90_make_kpath(100, kstart, kend)
+    newhamk = w90_make_hamk(kpath, rdeg, rvec, hamr)
+
+    eigs, evec = w90_diag_hamk(newhamk)
+    nband, nkpt = size(eigs)
+    open("newtest.dat", "w") do fout
+        for b = 1:nband
+            for k = 1:nkpt
+                println(fout, xpath[k], " ", eigs[b,k])
+            end
+            println(fout)
+        end
+    end
 end
 
 export test_w90_level
