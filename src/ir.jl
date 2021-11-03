@@ -653,19 +653,26 @@ function irio_projs(f::String)
     # Check file's status
     fn = joinpath(f, "projs.ir")
     @assert isfile(fn)
-    
+
+    # Count how many groups there are
     lines = readlines(fn)
     filter!(x -> contains(x, "group"), lines)
     ngroup = length(lines)
-    
+    @assert ngroup ≥ 1
+
+    # Define the projectors. They will be filled later.
     chipsi = []
 
+    # Input the data
     open(fn, "r") do fin
+        # Skip the header
         readline(fin)
         readline(fin)
         readline(fin)
 
+        # Go through each PrGroup / PrWindow
         for g = 1:ngroup
+            # Extract some dimensional parameters
             _g    = parse(I64, line_to_array(fin)[3])
             ndim  = parse(I64, line_to_array(fin)[3])
             nbnd  = parse(I64, line_to_array(fin)[3])
@@ -673,7 +680,10 @@ function irio_projs(f::String)
             nspin = parse(I64, line_to_array(fin)[3])
             readline(fin)
 
+            # Allocate memory
             P = zeros(C64, ndim, nbnd, nkpt, nspin)
+
+            # Get the projectors
             for s = 1:nspin
                 for k = 1:nkpt
                     for b = 1:nbnd
@@ -682,19 +692,21 @@ function irio_projs(f::String)
                             _re = parse(F64, line[1])
                             _im = parse(F64, line[2])
                             P[d, b, k, s] = _re + _im * im
-                        end
-                    end
-                end
-            end
-            @show "here"
+                        end # END OF D LOOP
+                    end # END OF B LOOP
+                end # END OF K LOOP
+            end # END OF S LOOP
             readline(fin)
+
+            # Store P in chipsi
             push!(chipsi, P)
-        end
-    end
+        end # END OF G LOOP
+    end # END OF IOSTREAM
 
     # Print some useful information
     println("  > Open and parse the file projs.ir (chipsi)")
 
+    # Return the desired arrays
     return chipsi
 end
 
@@ -738,6 +750,7 @@ function irio_fermi(f::String)
     # Define the fermi level
     fermi = 0.0
 
+    # Input the data
     open(fn, "r") do fin
         # Skip the header
         readline(fin)
@@ -746,7 +759,7 @@ function irio_fermi(f::String)
 
         # Extract the fermi level
         fermi = parse(F64, line_to_array(fin)[3])
-    end
+    end # END OF IOSTREAM
 
     # Print some useful information
     println("  > Open and parse the file fermi.ir (fermi)")
