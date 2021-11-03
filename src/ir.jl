@@ -517,26 +517,35 @@ function irio_tetra(f::String)
     fn = joinpath(f, "tetra.ir")
     @assert isfile(fn)
 
+    # Define tetrahedra
     volt = 0.0
     itet = nothing
 
+    # Input the data
     open(fn, "r") do fin
         # Skip the header
         readline(fin)
         readline(fin)
         readline(fin)
 
+        # Extract some dimensional parameters
         ntet = parse(I64, line_to_array(fin)[3])
         volt = parse(F64, line_to_array(fin)[3])
         readline(fin)
 
+        # Allocate memory
         itet = zeros(I64, ntet, 5)
 
+        # Get the tetrahedra
         for t = 1:ntet
             itet[t, :] = parse.(I64, line_to_array(fin))
         end
     end # END OF IOSTREAM
 
+    # Print some useful information
+    println("  > Open and parse the file tetra.ir (itet and volt)")
+
+    # Return the desired arrays
     return volt, itet
 end
 
@@ -546,7 +555,7 @@ end
 Write the eigenvalues to `eigen.ir` using the IR format. Here `f` means
 only the directory that we want to use.
 
-See also: [`vaspio_eigen`](@ref).
+See also: [`vaspio_eigen`](@ref), [`qeio_eigen`](@ref).
 """
 function irio_eigen(f::String, enk::Array{F64,3}, occupy::Array{F64,3})
     # Extract some key parameters
