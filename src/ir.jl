@@ -479,8 +479,14 @@ function irio_kmesh(f::String)
     fn = joinpath(f, "kmesh.ir")
     @assert isfile(fn)
 
+    kmesh = nothing
+    weight = nothing
+
     # Print some useful information
     println("  > Open and parse the file kmesh.ir (kmesh and weight)")
+
+    # Return the desired arrays
+    return kmesh, weight
 end
 
 """
