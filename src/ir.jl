@@ -649,7 +649,7 @@ end
 Write the fermi level to `fermi.ir` using the IR format. Here `f` means
 only the directory that we want to use.
 
-See also: [`vaspio_fermi`](@ref).
+See also: [`vaspio_fermi`](@ref), [`qeio_fermi`](@ref).
 """
 function irio_fermi(f::String, fermi::F64)
     # Output the data
@@ -669,8 +669,26 @@ function irio_fermi(f::String, fermi::F64)
     println("  > Open and write the file fermi.ir (fermi)")
 end
 
+"""
+    irio_fermi(f::String)
+
+Extract the fermi level from `fermi.ir`. Here `f` means the directory
+that this file exists.
+"""
 function irio_fermi(f::String)
-    
+    fn = joinpath(f, "fermi.ir")
+    @assert isfile(fn)
+
+    fermi = 0.0
+
+    open(fn, "r") do fin
+        readline(fin)
+        readline(fin)
+        readline(fin)
+        fermi = parse(F64, line_to_array(fin)[3])
+    end
+
+    return fermi
 end
 
 """
