@@ -551,42 +551,52 @@ end
 
 """
     irio_eigen(f::String)
+
+Extract the eigenvalues from `eigen.ir`. Here `f` means the directory
+that this file exists.
 """
 function irio_eigen(f::String)
     # Check file's status
     fn = joinpath(f, "eigen.ir")
     @assert isfile(fn)
 
+    # Define eigenvalues and occupations
     enk = nothing
     occupy = nothing
 
+    # Input the data
     open(fn, "r") do fin
+        # Skip the header
         readline(fin)
         readline(fin)
         readline(fin)
 
+        # Extract some dimensional parameters
         nband = parse(I64, line_to_array(fin)[3])
-        nkpt = parse(I64, line_to_array(fin)[3])
+        nkpt  = parse(I64, line_to_array(fin)[3])
         nspin = parse(I64, line_to_array(fin)[3])
         readline(fin)
 
+        # Allocate memories
         enk = zeros(F64, nband, nkpt, nspin)
         occupy = zeros(F64, nband, nkpt, nspin)
     
+        # Get the eigenvalues and occupations
         for s = 1:nspin
             for k = 1:nkpt
                 for b = 1:nband
                     line = line_to_array(fin)
                     enk[b, k, s] = parse(F64, line[1])
                     occupy[b, k, s] = parse(F64, line[2])
-                end
-            end
-        end
-    end
+                end # END OF B LOOP
+            end # END OF K LOOP
+        end # END OF S LOOP
+    end # END OF IOSTREAM
 
     # Print some useful information
     println("  > Open and parse the file eigen.ir (enk and occupy)")
 
+    # Return the desired arrays
     return enk, occupy
 end
 
