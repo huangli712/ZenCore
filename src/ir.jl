@@ -644,6 +644,16 @@ function irio_projs(f::String, chipsi::Array{Array{C64,4},1})
 end
 
 """
+    irio_projs(f::String)
+"""
+function irio_projs(f::String)
+    # Check file's status
+    fn = joinpath(f, "projs.ir")
+    @assert isfile(fn)
+    
+end
+
+"""
     irio_fermi(f::String, fermi::F64)
 
 Write the fermi level to `fermi.ir` using the IR format. Here `f` means
