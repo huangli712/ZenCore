@@ -651,6 +651,48 @@ function irio_projs(f::String)
     fn = joinpath(f, "projs.ir")
     @assert isfile(fn)
     
+    lines = readlines(fn)
+    filter!(x -> contains(x, "group"), lines)
+    ngroup = length(lines)
+
+    chipsi = []
+
+    open(fn, "r") do fin
+        readline(fin)
+        readline(fin)
+        readline(fin)
+
+        for g = 1:ngroup
+            _g = parse(I64, line_to_array(fin)[3])
+            @assert _g == g
+            ndim = parse(I64, line_to_array(fin)[3])
+            nbnd = parse(I64, line_to_array(fin)[3])
+            nkpt = parse(I64, line_to_array(fin)[3])
+            nspin = parse(I64, line_to_array(fin)[3])
+
+            P = zeros(C64, ndim, nbnd, nkpt, nspin)
+            for s = 1:nspin
+                for k = 1:nkpt
+                    for b = 1:nbnd
+                        for d = 1:ndim
+                            line = line_to_array(fin)
+                            _re = parse(F64, line[1])
+                            _im = parse(F64, line[2])
+                            P[d, b, k, s] = _re + _im * im
+                        end
+                    end
+                end
+            end
+            readline(fin)
+
+            push!(chipsi, P)
+        end
+    end
+
+    # Print some useful information
+    println("  > Open and parse the file projs.ir (chipsi)")
+
+    return chipsi
 end
 
 """
