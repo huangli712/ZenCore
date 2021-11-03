@@ -509,8 +509,35 @@ end
 """
     irio_tetra(f::String)
 
+Extract the tetrahedra information from `tetra.ir`. Here `f` means the
+directory that this file exists.
 """
 function irio_tetra(f::String)
+    # Check file's status
+    fn = joinpath(f, "tetra.ir")
+    @assert isfile(fn)
+
+    volt = 0.0
+    itet = nothing
+
+    open(fn, "r") do fin
+        # Skip the header
+        readline(fin)
+        readline(fin)
+        readline(fin)
+
+        ntet = parse(I64, line_to_array(fin)[3])
+        volt = parse(F64, line_to_array(fin)[3])
+        readline(fin)
+
+        itet = zeros(I64, ntet, 5)
+
+        for t = 1:ntet
+            itet[t, :] = parse.(I64, line_to_array(fin))
+        end
+    end # END OF IOSTREAM
+
+    return volt, itet
 end
 
 """
