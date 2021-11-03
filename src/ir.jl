@@ -573,7 +573,19 @@ function irio_eigen(f::String)
         enk = zeros(F64, nband, nkpt, nspin)
         occupy = zeros(F64, nband, nkpt, nspin)
     
+        for s = 1:nspin
+            for k = 1:nkpt
+                for b = 1:nband
+                    line = line_to_array(fin)
+                    enk[b, k, s] = parse(F64, line[1])
+                    occupy[b, k, s] = parse(F64, line[2])
+                end
+            end
+        end
     end
+
+    # Print some useful information
+    println("  > Open and parse the file eigen.ir (enk and occupy)")
 
     return enk, occupy
 end
