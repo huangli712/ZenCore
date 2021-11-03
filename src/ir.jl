@@ -507,6 +507,13 @@ function irio_tetra(f::String, volt::F64, itet::Array{I64,2})
 end
 
 """
+    irio_tetra(f::String)
+
+"""
+function irio_tetra(f::String)
+end
+
+"""
     irio_eigen(f::String, enk::Array{F64,3}, occupy::Array{F64,3})
 
 Write the eigenvalues to `eigen.ir` using the IR format. Here `f` means
