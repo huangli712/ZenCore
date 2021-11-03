@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/16
+# Last modified: 2021/11/03
 #
 
 #=
@@ -667,6 +667,10 @@ function irio_fermi(f::String, fermi::F64)
 
     # Print some useful information
     println("  > Open and write the file fermi.ir (fermi)")
+end
+
+function irio_fermi(f::String)
+    
 end
 
 """
