@@ -482,6 +482,25 @@ function irio_kmesh(f::String)
     kmesh = nothing
     weight = nothing
 
+    open(fn, "r") do fin
+        readline(fin)
+        readline(fin)
+        readline(fin)
+
+        nkpt = parse(I64, line_to_array(fin)[3])
+        ndir = parse(I64, line_to_array(fin)[3])
+        readline(fin)
+
+        kmesh = zeros(F64, nkpt, ndir)
+        weight = zeros(F64, nkpt)
+
+        for k = 1:nkpt
+            line = line_to_array(fin)
+            kmesh[k,:] = parse.(F64, line[1:3])
+            weight[k] = parse(F64, line[4])
+        end
+    end # END OF IOSTREAM
+
     # Print some useful information
     println("  > Open and parse the file kmesh.ir (kmesh and weight)")
 
