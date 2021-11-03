@@ -471,7 +471,16 @@ function irio_kmesh(f::String, kmesh::Array{F64,2}, weight::Array{F64,1})
     println("  > Open and write the file kmesh.ir (kmesh and weight)")
 end
 
+"""
+    irio_kmesh(f::String)
+"""
 function irio_kmesh(f::String)
+    # Check file's status
+    fn = joinpath(f, "kmesh.ir")
+    @assert isfile(fn)
+
+    # Print some useful information
+    println("  > Open and parse the file kmesh.ir (kmesh and weight)")
 end
 
 """
