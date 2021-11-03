@@ -645,6 +645,9 @@ end
 
 """
     irio_projs(f::String)
+
+Extract the projectors from `projs.ir`. Here `f` means the directory
+that this file exists.
 """
 function irio_projs(f::String)
     # Check file's status
@@ -654,7 +657,7 @@ function irio_projs(f::String)
     lines = readlines(fn)
     filter!(x -> contains(x, "group"), lines)
     ngroup = length(lines)
-
+    
     chipsi = []
 
     open(fn, "r") do fin
@@ -663,12 +666,12 @@ function irio_projs(f::String)
         readline(fin)
 
         for g = 1:ngroup
-            _g = parse(I64, line_to_array(fin)[3])
-            @assert _g == g
-            ndim = parse(I64, line_to_array(fin)[3])
-            nbnd = parse(I64, line_to_array(fin)[3])
-            nkpt = parse(I64, line_to_array(fin)[3])
+            _g    = parse(I64, line_to_array(fin)[3])
+            ndim  = parse(I64, line_to_array(fin)[3])
+            nbnd  = parse(I64, line_to_array(fin)[3])
+            nkpt  = parse(I64, line_to_array(fin)[3])
             nspin = parse(I64, line_to_array(fin)[3])
+            readline(fin)
 
             P = zeros(C64, ndim, nbnd, nkpt, nspin)
             for s = 1:nspin
@@ -683,8 +686,8 @@ function irio_projs(f::String)
                     end
                 end
             end
+            @show "here"
             readline(fin)
-
             push!(chipsi, P)
         end
     end
