@@ -550,6 +550,35 @@ function irio_eigen(f::String, enk::Array{F64,3}, occupy::Array{F64,3})
 end
 
 """
+    irio_eigen(f::String)
+"""
+function irio_eigen(f::String)
+    # Check file's status
+    fn = joinpath(f, "eigen.ir")
+    @assert isfile(fn)
+
+    enk = nothing
+    occupy = nothing
+
+    open(fn, "r") do fin
+        readline(fin)
+        readline(fin)
+        readline(fin)
+
+        nband = parse(I64, line_to_array(fin)[3])
+        nkpt = parse(I64, line_to_array(fin)[3])
+        nspin = parse(I64, line_to_array(fin)[3])
+        readline(fin)
+
+        enk = zeros(F64, nband, nkpt, nspin)
+        occupy = zeros(F64, nband, nkpt, nspin)
+    
+    end
+
+    return enk, occupy
+end
+
+"""
     irio_projs(f::String, chipsi::Array{C64,4})
 
 Write the projectors to `projs.ir` using the IR format. Here `f` means
