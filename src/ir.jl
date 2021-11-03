@@ -676,18 +676,27 @@ Extract the fermi level from `fermi.ir`. Here `f` means the directory
 that this file exists.
 """
 function irio_fermi(f::String)
+    # Check file's status
     fn = joinpath(f, "fermi.ir")
     @assert isfile(fn)
 
+    # Define the fermi level
     fermi = 0.0
 
     open(fn, "r") do fin
+        # Skip the header
         readline(fin)
         readline(fin)
         readline(fin)
+
+        # Extract the fermi level
         fermi = parse(F64, line_to_array(fin)[3])
     end
 
+    # Print some useful information
+    println("  > Open and parse the file fermi.ir (fermi)")
+
+    # Return the desired value
     return fermi
 end
 
