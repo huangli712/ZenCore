@@ -471,6 +471,9 @@ function irio_kmesh(f::String, kmesh::Array{F64,2}, weight::Array{F64,1})
     println("  > Open and write the file kmesh.ir (kmesh and weight)")
 end
 
+function irio_kmesh(f::String)
+end
+
 """
     irio_tetra(f::String, volt::F64, itet::Array{I64,2})
 
