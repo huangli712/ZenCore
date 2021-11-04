@@ -433,6 +433,12 @@ function irio_lattice(f::String, latt::Lattice)
 end
 
 """
+    irio_lattice(f::String)
+"""
+function irio_lattice(f::String)
+end
+
+"""
     irio_kmesh(f::String, kmesh::Array{F64,2}, weight::Array{F64,1})
 
 Write the kmesh and weight information to `kmesh.ir` using the IR format.
