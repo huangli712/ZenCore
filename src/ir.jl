@@ -373,6 +373,16 @@ Extract the `PrWindow` information from `windows.ir`. Here `f` means the
 directory that this file exists.
 """
 function irio_windows(f::String)
+    # Check file's status
+    fn = joinpath(f, "windows.ir")
+    @assert isfile(fn)
+    
+    # Define array of PrWindow struct
+    PW = PrWindow[]
+
+    # Input the data
+    open(fn, "r") do fin
+    end # END OF IOSTREAM
 end
 
 """
