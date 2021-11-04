@@ -473,27 +473,37 @@ end
 
 """
     irio_kmesh(f::String)
+
+Extract the kmesh and weight information from `kmesh.ir`. Here `f` means
+the directory that this file exists.
 """
 function irio_kmesh(f::String)
     # Check file's status
     fn = joinpath(f, "kmesh.ir")
     @assert isfile(fn)
 
+    # Define kmesh and weight
     kmesh = nothing
     weight = nothing
 
+    # Input the data
     open(fn, "r") do fin
+        # Skip the header
         readline(fin)
         readline(fin)
         readline(fin)
 
+        # Extract some dimensional parameters
         nkpt = parse(I64, line_to_array(fin)[3])
         ndir = parse(I64, line_to_array(fin)[3])
+        @assert ndir == 3
         readline(fin)
 
+        # Allocate memories
         kmesh = zeros(F64, nkpt, ndir)
         weight = zeros(F64, nkpt)
 
+        # Get the kmesh and weight
         for k = 1:nkpt
             line = line_to_array(fin)
             kmesh[k,:] = parse.(F64, line[1:3])
