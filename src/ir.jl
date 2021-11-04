@@ -467,6 +467,12 @@ function irio_lattice(f::String)
         readline(fin)
         latt.sorts[:,1] = String.(line_to_array(fin))
         latt.sorts[:,2] = parse.(I64, line_to_array(fin))
+        readline(fin)
+
+        # For atoms part
+        readline(fin)
+        latt.atoms = String.(line_to_array(fin))
+        readline(fin)
 
     end # END OF IOSTREAM
     @show latt
