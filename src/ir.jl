@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/11/04
+# Last modified: 2021/11/05
 #
 
 #=
@@ -369,7 +369,7 @@ end
 """
     irio_windows(f::String)
 
-Extract the `PrWindow` information from `windows.ir`. Here `f` means the
+Extract the `PrWindow` struct from `windows.ir`. Here `f` means the
 directory that this file exists.
 """
 function irio_windows(f::String)
@@ -394,35 +394,44 @@ function irio_windows(f::String)
 
         # Go through each window
         for p = 1:nwnd
+            # Check index of current PrWindow
             _p = parse(I64, line_to_array(fin)[3])
             @assert _p == p
+
+            # Get some key parameters for this PrWindow
             bmin = parse(I64, line_to_array(fin)[3])
             bmax = parse(I64, line_to_array(fin)[3])
             nbnd = parse(I64, line_to_array(fin)[3])
             bwin = (bmin, bmax)
             readline(fin)
 
+            # Read data for kwin. All the data will be stored in lines.
             lines = []
+            c = 0 # Counter
             str = readline(fin)
-            c = 0
             while length(str) > 0
-                c  = c + 1
+                c  = c + 1 # Increase counter
                 push!(lines, str)
                 str = readline(fin)
             end
-            nkpt, nspin, _, _ = parse.(I64, line_to_array(lines[end]))
-            @show nkpt, nspin
 
+            # Extract dimensional parameters for this PrWindow (nkpt and nspin)
+            nkpt, nspin, _, _ = parse.(I64, line_to_array(lines[end]))
+
+            # Create array for kwin
             kwin = zeros(I64, nkpt, nspin, 2)
 
-            c = 0
+            # Now we parse the data in lines and fill in kwin
+            c = 0 # Counter
             for s = 1:nspin
                 for k = 1:nkpt
-                    c = c + 1
+                    c = c + 1 # Increase counter
                     arr = line_to_array(lines[c])
                     kwin[k,s,:] = parse.(I64,arr[3:4])
                 end
             end
+
+            # Initialize a PrWindow struct and store it in PW
             push!(PW, PrWindow(kwin,bwin))
         end # END OF P LOOP
     end # END OF IOSTREAM
