@@ -404,14 +404,15 @@ function irio_windows(f::String)
 
             lines = []
             str = readline(fin)
-            push!(lines, str)
+            c = 0
             while length(str) > 0
+                c  = c + 1
+                @show c
                 push!(lines, str)
+                str = readline(fin)
             end
-            lines
-            sorry()
-
-
+            nkpt, nspin, _, _ = parse.(I64, line_to_array(lines[end]))
+            @show nkpt, nspin
         end # END OF P LOOP
     end # END OF IOSTREAM
 
