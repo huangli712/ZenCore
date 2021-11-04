@@ -372,7 +372,7 @@ end
 Write the lattice information to `lattice.ir` using the IR format. Here
 `f` means only the directory that we want to use.
 
-See also: [`vaspio_lattice`](@ref).
+See also: [`vaspio_lattice`](@ref), [`qeio_lattice`](@ref).
 """
 function irio_lattice(f::String, latt::Lattice)
     # Print the header
@@ -452,6 +452,17 @@ function irio_lattice(f::String)
         readline(fin)
         readline(fin)
         readline(fin)
+
+        _case = line_to_array(fin)[3]
+        scale = parse(F64, line_to_array(fin)[3])
+        nsort = parse(I64, line_to_array(fin)[3])
+        natom = parse(I64, line_to_array(fin)[3])
+        @show _case, scale, nsort, natom
+
+        # Now all the parameters are ready, we would like to create
+        # a `Lattice` struct here.
+        latt = Lattice(_case, scale, nsort, natom)
+
 
     end # END OF IOSTREAM
 end
