@@ -474,6 +474,13 @@ function irio_lattice(f::String)
         latt.atoms = String.(line_to_array(fin))
         readline(fin)
 
+        # For lvect part
+        readline(fin)
+        for i = 1:3
+            latt.lvect[i,:] = parse.(F64, line_to_array(fin))
+        end
+        readline(fin)
+
     end # END OF IOSTREAM
     @show latt
 end
