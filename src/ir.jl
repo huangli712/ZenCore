@@ -382,7 +382,23 @@ function irio_windows(f::String)
 
     # Input the data
     open(fn, "r") do fin
+        # Skip the header
+        readline(fin)
+        readline(fin)
+        readline(fin)
+
+        # Get number of windows
+        nwnd = parse(I64, line_to_array(fin)[3])
+        @assert nwnd ≥ 1
+        readline(fin)
+
     end # END OF IOSTREAM
+
+    # Print some useful information
+    println("  > Open and parse the file windows.ir")
+
+    # Return the desired array
+    return PW
 end
 
 """
