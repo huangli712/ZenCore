@@ -427,7 +427,9 @@ function irio_windows(f::String)
                 for k = 1:nkpt
                     c = c + 1 # Increase counter
                     arr = line_to_array(lines[c])
-                    kwin[k,s,:] = parse.(I64,arr[3:4])
+                    _k, _s = parse.(I64, arr[1:2])
+                    @assert _k == k && _s == s
+                    kwin[k,s,:] = parse.(I64, arr[3:4])
                 end
             end
 
