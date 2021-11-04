@@ -407,12 +407,24 @@ function irio_windows(f::String)
             c = 0
             while length(str) > 0
                 c  = c + 1
-                @show c
                 push!(lines, str)
                 str = readline(fin)
             end
             nkpt, nspin, _, _ = parse.(I64, line_to_array(lines[end]))
             @show nkpt, nspin
+
+            kwin = zeros(I64, nkpt, nspin, 2)
+
+            c = 0
+            for s = 1:nspin
+                for k = 1:nkpt
+                    c = c + 1
+                    arr = line_to_array(lines[c])
+                    kwin[k,s,:] = parse.(I64,arr[3:4])
+                end
+            end
+
+            push!(PW, PrWindow(kwin,bwin))
         end # END OF P LOOP
     end # END OF IOSTREAM
 
