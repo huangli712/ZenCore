@@ -457,14 +457,19 @@ function irio_lattice(f::String)
         scale = parse(F64, line_to_array(fin)[3])
         nsort = parse(I64, line_to_array(fin)[3])
         natom = parse(I64, line_to_array(fin)[3])
-        @show _case, scale, nsort, natom
+        readline(fin)
 
         # Now all the parameters are ready, we would like to create
         # a `Lattice` struct here.
         latt = Lattice(_case, scale, nsort, natom)
 
+        # For sorts part
+        readline(fin)
+        latt.sorts[:,1] = String.(line_to_array(fin))
+        latt.sorts[:,2] = parse.(I64, line_to_array(fin))
 
     end # END OF IOSTREAM
+    @show latt
 end
 
 """
