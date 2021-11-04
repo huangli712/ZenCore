@@ -321,6 +321,13 @@ function irio_groups(f::String, PG::Array{PrGroup,1})
 end
 
 """
+    irio_groups(f::String)
+"""
+function irio_groups(f::String)
+
+end
+
+"""
     irio_windows(f::String, PW::Array{PrWindow,1})
 
 Write the information contained in `PrWindow` struct. Here `f` means only
