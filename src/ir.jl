@@ -434,8 +434,12 @@ end
 
 """
     irio_lattice(f::String)
+
+Extract the lattice information from `lattice.ir`. Here `f` means the
+directory that this file exists.
 """
 function irio_lattice(f::String)
+    
 end
 
 """
