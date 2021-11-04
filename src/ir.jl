@@ -481,8 +481,18 @@ function irio_lattice(f::String)
         end
         readline(fin)
 
+        # For coord part
+        readline(fin)
+        for i = 1:natom
+            latt.coord[i,:] = parse.(F64, line_to_array(fin))
+        end
     end # END OF IOSTREAM
-    @show latt
+
+    # Print some useful information
+    println("  > Open and parse the file lattice.ir (lattice)")
+
+    # Return the desired struct
+    return latt
 end
 
 """
