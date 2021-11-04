@@ -367,6 +367,15 @@ function irio_windows(f::String, PW::Array{PrWindow,1})
 end
 
 """
+    irio_windows(f::String)
+
+Extract the `PrWindow` information from `windows.ir`. Here `f` means the
+directory that this file exists.
+"""
+function irio_windows(f::String)
+end
+
+"""
     irio_lattice(f::String, latt::Lattice)
 
 Write the lattice information to `lattice.ir` using the IR format. Here
