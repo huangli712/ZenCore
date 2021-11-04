@@ -453,7 +453,7 @@ function irio_lattice(f::String)
         readline(fin)
         readline(fin)
 
-        _case = line_to_array(fin)[3]
+        _case = String(line_to_array(fin)[3])
         scale = parse(F64, line_to_array(fin)[3])
         nsort = parse(I64, line_to_array(fin)[3])
         natom = parse(I64, line_to_array(fin)[3])
