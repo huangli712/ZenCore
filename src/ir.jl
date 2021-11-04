@@ -423,7 +423,6 @@ function irio_windows(f::String)
                     kwin[k,s,:] = parse.(I64,arr[3:4])
                 end
             end
-
             push!(PW, PrWindow(kwin,bwin))
         end # END OF P LOOP
     end # END OF IOSTREAM
