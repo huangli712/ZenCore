@@ -392,6 +392,27 @@ function irio_windows(f::String)
         @assert nwnd ≥ 1
         readline(fin)
 
+        # Go through each window
+        for p = 1:nwnd
+            _p = parse(I64, line_to_array(fin)[3])
+            @assert _p == p
+            bmin = parse(I64, line_to_array(fin)[3])
+            bmax = parse(I64, line_to_array(fin)[3])
+            nbnd = parse(I64, line_to_array(fin)[3])
+            bwin = (bmin, bmax)
+            readline(fin)
+
+            lines = []
+            str = readline(fin)
+            push!(lines, str)
+            while length(str) > 0
+                push!(lines, str)
+            end
+            lines
+            sorry()
+
+
+        end # END OF P LOOP
     end # END OF IOSTREAM
 
     # Print some useful information
