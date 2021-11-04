@@ -439,7 +439,21 @@ Extract the lattice information from `lattice.ir`. Here `f` means the
 directory that this file exists.
 """
 function irio_lattice(f::String)
-    
+    # Check file's status
+    fn = joinpath(f, "lattice.ir")
+    @assert isfile(fn)
+
+    # Define lattice struct
+    latt = nothing
+
+    # Input the data
+    open(fn, "r") do fin
+        # Skip the header
+        readline(fin)
+        readline(fin)
+        readline(fin)
+
+    end # END OF IOSTREAM
 end
 
 """
