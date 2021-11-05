@@ -339,7 +339,7 @@ function irio_maps(f::String)
 
         # Build the MAP struct
         # Call the default constructor
-        MAP = pping(i_grp, i_wnd, g_imp, w_imp)
+        MAP = Mapping(i_grp, i_wnd, g_imp, w_imp)
     end
 
     # Print some useful information
