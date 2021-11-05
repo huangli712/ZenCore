@@ -360,8 +360,16 @@ function irio_groups(f::String)
             corr = parse(Bool, line_to_array(fin)[3])
             shell = line_to_array(fin)[3]
             ndim = parse(I64, line_to_array(fin)[3])
-        end
+            readline(fin)
 
+            # Create a PrGroup struct and further setup it
+            _pg = PrGroup(site, l)
+            _pg.corr = corr
+            _pg.shell = shell
+            
+            # Store this group in PG
+            push!(PG, _pg)
+        end # END OF P LOOP
     end # END OF IOSTREAM
 
     # Print some useful information
