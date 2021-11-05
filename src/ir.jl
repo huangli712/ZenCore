@@ -284,6 +284,17 @@ function irio_maps(f::String, MAP::Mapping)
 end
 
 """
+    irio_maps(f::String)
+
+Extract the `Mapping` struct from `maps.ir`. Here `f` means the
+directory that this file exists.
+
+See also: [`Mapping`](@ref).
+"""
+function irio_maps(f::String)
+end
+
+"""
     irio_groups(f::String, PG::Array{PrGroup,1})
 
 Write the information contained in `PrGroup` struct. Here `f` means only
