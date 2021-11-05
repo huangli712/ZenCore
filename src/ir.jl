@@ -1075,26 +1075,16 @@ function irio_fermi(f::String)
 end
 
 """
-    irio_charge(f::String)
-
-Write the charge density to `charge.ir` using the IR format. Here `f`
-means only the directory that we want to use.
-
-See also: [`vaspio_charge`](@ref).
-"""
-function irio_charge(f::String) end
-
-"""
-    irio_projs(f::String, chipsi::Array{C64,4})
+    irio_rawcp(f::String, chipsi::Array{C64,4})
 
 Write the projectors to `projs.ir` using the IR format. Here `f` means
 only the directory that we want to use.
 
 The projectors are original data. They have not been modified.
 
-See also: [`vaspio_projs`](@ref).
+See also: [`irio_projs`](@ref).
 """
-function irio_projs(f::String, chipsi::Array{C64,4})
+function irio_rawcp(f::String, chipsi::Array{C64,4})
     # Extract some key parameters
     nproj, nband, nkpt, nspin = size(chipsi)
 
@@ -1126,3 +1116,13 @@ function irio_projs(f::String, chipsi::Array{C64,4})
     # Print some useful information
     println("  > Open and write the file projs.ir (chipsi)")
 end
+
+"""
+    irio_charge(f::String)
+
+Write the charge density to `charge.ir` using the IR format. Here `f`
+means only the directory that we want to use.
+
+See also: [`vaspio_charge`](@ref).
+"""
+function irio_charge(f::String) end

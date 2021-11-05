@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/11/01
+# Last modified: 2021/11/05
 #
 
 """
@@ -861,8 +861,9 @@ irio_lattice -> Write lattice information.
 irio_kmesh   -> Write kmesh.
 irio_tetra   -> Write tetrahedra.
 irio_eigen   -> Write eigenvalues.
-irio_projs   -> Write projectors.
+irio_projs   -> Write projectors (normalized).
 irio_fermi   -> Write fermi level.
+irio_rawcp   -> Write projectors (raw).
 irio_charge  -> Write charge density.
 ```
 =#
