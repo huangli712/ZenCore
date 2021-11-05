@@ -324,7 +324,9 @@ end
     irio_groups(f::String)
 
 Extract the `PrGroup` struct from `groups.ir`. Here `f` means the
-directory that this file exists.
+directory that this file exists. Be careful, the returned `PrGroup`
+is not completely the same with the true one. For example, its `Pr`
+and `Tr` fields are not correct. But it doesn't matter.
 
 See also: [`PrGroup`](@ref).
 """
