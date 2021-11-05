@@ -322,9 +322,25 @@ end
 
 """
     irio_groups(f::String)
+
+Extract the `PrGroup` struct from `groups.ir`. Here `f` means the
+directory that this file exists.
+
+See also: [`PrGroup`](@ref).
 """
 function irio_groups(f::String)
+    # Check file's status
+    fn = joinpath(f, "groups.ir")
+    @assert isfile(fn)
 
+    # Define array of PrGroup struct
+    PG = PrGroup[]
+
+    # Print some useful information
+    println("  > Open and parse the file groups.ir")
+
+    # Return the desired array
+    return PG
 end
 
 """
@@ -378,6 +394,8 @@ end
 
 Extract the `PrWindow` struct from `windows.ir`. Here `f` means the
 directory that this file exists.
+
+See also: [`PrWindow`](@ref).
 """
 function irio_windows(f::String)
     # Check file's status
@@ -523,6 +541,8 @@ end
 
 Extract the lattice information from `lattice.ir`. Here `f` means the
 directory that this file exists.
+
+See also: [`Lattice`](@ref).
 """
 function irio_lattice(f::String)
     # Check file's status
