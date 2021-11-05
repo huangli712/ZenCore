@@ -348,6 +348,20 @@ function irio_groups(f::String)
         @assert ngrp ≥ 1
         readline(fin)
 
+        # Go through each group
+        for p = 1:ngrp
+            # Check index of the current group
+            _p = parse(I64, line_to_array(fin)[4])
+            @assert _p == p
+
+            # Get some key parameters for this group
+            site = parse(I64, line_to_array(fin)[3])
+            l    = parse(I64, line_to_array(fin)[3])
+            corr = parse(Bool, line_to_array(fin)[3])
+            shell = line_to_array(fin)[3]
+            ndim = parse(I64, line_to_array(fin)[3])
+        end
+
     end # END OF IOSTREAM
 
     # Print some useful information
@@ -433,11 +447,11 @@ function irio_windows(f::String)
 
         # Go through each window
         for p = 1:nwnd
-            # Check index of current PrWindow
+            # Check index of the current window
             _p = parse(I64, line_to_array(fin)[3])
             @assert _p == p
 
-            # Get some key parameters for this PrWindow
+            # Get some key parameters for this window
             bmin = parse(I64, line_to_array(fin)[3])
             bmax = parse(I64, line_to_array(fin)[3])
             nbnd = parse(I64, line_to_array(fin)[3])
