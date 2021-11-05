@@ -306,7 +306,18 @@ function irio_maps(f::String)
         readline(fin)
         readline(fin)
 
-        
+        # Extract some dimensional parameters
+        nsite = parse(I64, line_to_array(fin)[3])
+        ngrp  = parse(I64, line_to_array(fin)[3])
+        nwnd  = parse(I64, line_to_array(fin)[3])
+        @assert ngrp == nwnd
+        readline(fin)
+
+        # For i_grp part
+        # For i_wnd part
+        # For g_imp part
+        # For w_imp part
+
     end
 
     # Print some useful information
