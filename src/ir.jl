@@ -336,6 +336,20 @@ function irio_groups(f::String)
     # Define array of PrGroup struct
     PG = PrGroup[]
 
+    # Input the data
+    open(fn, "r") do fin
+        # Skip the header
+        readline(fin)
+        readline(fin)
+        readline(fin)
+
+        # Get number of groups
+        ngrp = parse(I64, line_to_array(fin)[3])
+        @assert ngrp ≥ 1
+        readline(fin)
+
+    end # END OF IOSTREAM
+
     # Print some useful information
     println("  > Open and parse the file groups.ir")
 
