@@ -296,6 +296,14 @@ function irio_maps(f::String)
     fn = joinpath(f, "maps.ir")
     @assert isfile(fn)
 
+    # Decalre an Mapping struct
+    MAP = nothing
+
+    # Print some useful information
+    println("  > Open and parse the file maps.ir")
+
+    # Return the desired value
+    return MAP
 end
 
 """
