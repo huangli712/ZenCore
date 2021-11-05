@@ -314,10 +314,32 @@ function irio_maps(f::String)
         readline(fin)
 
         # For i_grp part
+        readline(fin)
+        i_grp = parse.(I64, line_to_array(fin))
+        @assert length(i_grp) == nsite
+        readline(fin)
+    
         # For i_wnd part
-        # For g_imp part
-        # For w_imp part
+        readline(fin)
+        i_wnd = parse.(I64, line_to_array(fin))
+        @assert length(i_wnd) == nsite
+        readline(fin)
 
+        # For g_imp part
+        readline(fin)
+        g_imp = parse.(I64, line_to_array(fin))
+        @assert length(g_imp) == ngrp
+        readline(fin)
+
+        # For w_imp part
+        readline(fin)
+        w_imp = parse.(I64, line_to_array(fin))
+        @assert length(w_imp) == nwnd
+        readline(fin)
+
+        # Build the MAP struct
+        # Call the default constructor
+        MAP = pping(i_grp, i_wnd, g_imp, w_imp)
     end
 
     # Print some useful information
