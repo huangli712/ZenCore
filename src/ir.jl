@@ -292,6 +292,10 @@ directory that this file exists.
 See also: [`Mapping`](@ref).
 """
 function irio_maps(f::String)
+    # Check file's status
+    fn = joinpath(f, "maps.ir")
+    @assert isfile(fn)
+
 end
 
 """
