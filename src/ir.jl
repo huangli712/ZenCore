@@ -899,49 +899,6 @@ function irio_eigen(f::String)
 end
 
 """
-    irio_projs(f::String, chipsi::Array{C64,4})
-
-Write the projectors to `projs.ir` using the IR format. Here `f` means
-only the directory that we want to use.
-
-The projectors are original data. They have not been modified.
-
-See also: [`vaspio_projs`](@ref).
-"""
-function irio_projs(f::String, chipsi::Array{C64,4})
-    # Extract some key parameters
-    nproj, nband, nkpt, nspin = size(chipsi)
-
-    # Output the data
-    open(joinpath(f, "projs.ir"), "w") do fout
-        # Write the header
-        println(fout, "# File: projs.ir")
-        println(fout, "# Data: chipsi[nproj,nband,nkpt,nspin]")
-        println(fout)
-        println(fout, "nproj -> $nproj")
-        println(fout, "nband -> $nband")
-        println(fout, "nkpt  -> $nkpt ")
-        println(fout, "nspin -> $nspin")
-        println(fout)
-
-        # Write the body
-        for s = 1:nspin
-            for k = 1:nkpt
-                for b = 1:nband
-                    for p = 1:nproj
-                        z = chipsi[p, b, k, s]
-                        @printf(fout, "%16.12f %16.12f\n", real(z), imag(z))
-                    end # END OF P LOOP
-                end # END OF B LOOP
-            end # END OF K LOOP
-        end # END OF S LOOP
-    end # END OF IOSTREAM
-
-    # Print some useful information
-    println("  > Open and write the file projs.ir (chipsi)")
-end
-
-"""
     irio_projs(f::String, chipsi::Array{Array{C64,4},1})
 
 Write the projectors to `projs.ir` using the IR format. Here `f` means
@@ -1126,3 +1083,46 @@ means only the directory that we want to use.
 See also: [`vaspio_charge`](@ref).
 """
 function irio_charge(f::String) end
+
+"""
+    irio_projs(f::String, chipsi::Array{C64,4})
+
+Write the projectors to `projs.ir` using the IR format. Here `f` means
+only the directory that we want to use.
+
+The projectors are original data. They have not been modified.
+
+See also: [`vaspio_projs`](@ref).
+"""
+function irio_projs(f::String, chipsi::Array{C64,4})
+    # Extract some key parameters
+    nproj, nband, nkpt, nspin = size(chipsi)
+
+    # Output the data
+    open(joinpath(f, "projs.ir"), "w") do fout
+        # Write the header
+        println(fout, "# File: projs.ir")
+        println(fout, "# Data: chipsi[nproj,nband,nkpt,nspin]")
+        println(fout)
+        println(fout, "nproj -> $nproj")
+        println(fout, "nband -> $nband")
+        println(fout, "nkpt  -> $nkpt ")
+        println(fout, "nspin -> $nspin")
+        println(fout)
+
+        # Write the body
+        for s = 1:nspin
+            for k = 1:nkpt
+                for b = 1:nband
+                    for p = 1:nproj
+                        z = chipsi[p, b, k, s]
+                        @printf(fout, "%16.12f %16.12f\n", real(z), imag(z))
+                    end # END OF P LOOP
+                end # END OF B LOOP
+            end # END OF K LOOP
+        end # END OF S LOOP
+    end # END OF IOSTREAM
+
+    # Print some useful information
+    println("  > Open and write the file projs.ir (chipsi)")
+end
