@@ -124,6 +124,17 @@ function ir_read(f::String)
     D = Dict{Symbol,Any}()
 
     D[:MAP] = irio_maps(f)
+    D[:PG] = irio_groups(f)
+    D[:PW] = irio_windows(f)
+    D[:latt] = irio_lattice(f)
+    D[:kmesh], D[:weight] = irio_kmesh(f)
+    D[:enk], D[:occupy] = irio_eigen(f)
+    D[:Fchipsi] = irio_projs(f)
+    D[:fermi] = irio_fermi(f)
+
+    if get_d("smear") == "tetra" && is_qe()
+        D[:volt], D[:itet] = irio_tetra(f)
+    end
 
     return D
 end
