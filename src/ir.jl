@@ -123,19 +123,36 @@ function ir_read(f::String)
     # Create a dict which is used to store the Kohn-Sham data.
     D = Dict{Symbol,Any}()
 
+    # Get mapping between groups, windows and quantum impurity problems.
     D[:MAP] = irio_maps(f)
+
+    # Get groups of projectors
     D[:PG] = irio_groups(f)
+
+    # Get windows for projectors
     D[:PW] = irio_windows(f)
+
+    # Get crystal structure
     D[:latt] = irio_lattice(f)
+
+    # Get 𝑘-mesh and weights
     D[:kmesh], D[:weight] = irio_kmesh(f)
+
+    # Get eigenvalues and occupations
     D[:enk], D[:occupy] = irio_eigen(f)
+
+    # Get projectors (Normalized)
     D[:Fchipsi] = irio_projs(f)
+
+    # Get fermi level
     D[:fermi] = irio_fermi(f)
 
-    if get_d("smear") == "tetra" && is_qe()
+    # Get tetrahedra (Optional)
+    if get_d("smear") == "tetra" && !is_qe()
         D[:volt], D[:itet] = irio_tetra(f)
     end
 
+    # Return the desired dict
     return D
 end
 
