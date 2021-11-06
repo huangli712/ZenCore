@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/11/05
+# Last modified: 2021/11/06
 #
 
 """
@@ -853,6 +853,7 @@ Tools for the intermediate representation format (adaptor).
 ```text
 ir_adaptor   -> Adaptor support.
 ir_save      -> Save the output files by the adaptor.
+ir_read      -> Parse and return the output data by the adaptor.
 irio_params  -> Write key parameters extracted from Kohn-Sham data.
 irio_maps    -> Write Mapping.
 irio_groups  -> Write PrGroup.
@@ -873,6 +874,7 @@ include("ir.jl")
 #
 export ir_adaptor
 export ir_save
+export ir_read
 export irio_params
 export irio_maps
 export irio_groups

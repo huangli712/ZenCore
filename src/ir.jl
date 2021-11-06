@@ -114,11 +114,18 @@ end
 
 Read and parse `maps.ir`, `groups.ir`, `windows.ir`, `lattice.ir`,
 `kmesh.ir`, `tetra.ir`, `eigen.ir`, `projs.ir`, and `fermi.ir`. The data
-are encapsulated in a dictionary.
+are encapsulated in a dictionary. Here `f` means the directory where the
+files as mentioned above are available. 
 
 See also: [`ir_adaptor`](@ref).
 """
 function ir_read(f::String)
+    # Create a dict which is used to store the Kohn-Sham data.
+    D = Dict{Symbol,Any}()
+
+    D[:MAP] = irio_maps(f)
+
+    return D
 end
 
 #=
