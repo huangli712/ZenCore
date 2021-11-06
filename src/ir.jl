@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/11/05
+# Last modified: 2021/11/06
 #
 
 #=
@@ -24,7 +24,7 @@ the tetrahedron information might be absent.
 Write the Kohn-Sham dataset to specified files using the IR format. Note
 that the Kohn-Sham dataset are encapsulated in the `D` dict.
 
-See also: [`vasp_adaptor`](@ref), [`plo_adaptor`](@ref).
+See also: [`plo_adaptor`](@ref), [`wannier_adaptor`](@ref).
 """
 function ir_adaptor(D::Dict{Symbol,Any})
     # I01: Check the validity of the `D` dict
@@ -107,6 +107,18 @@ function ir_save(it::IterInfo)
         file_dst = file_list[i] * ".ir.$(it.I₃)"
         cp(file_src, file_dst, force = true)
     end
+end
+
+"""
+    ir_read(f::String)
+
+Read and parse `maps.ir`, `groups.ir`, `windows.ir`, `lattice.ir`,
+`kmesh.ir`, `tetra.ir`, `eigen.ir`, `projs.ir`, and `fermi.ir`. The data
+are encapsulated in a dictionary.
+
+See also: [`ir_adaptor`](@ref).
+"""
+function ir_read(f::String)
 end
 
 #=
