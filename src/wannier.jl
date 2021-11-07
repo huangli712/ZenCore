@@ -2458,15 +2458,17 @@ function test_plo_hamk()
         end
     end
 
+    D = ir_read("dft")
+
     # Get uniform 𝑘-mesh
-    kmesh, weight = vaspio_kmesh("dft")
+    #kmesh, weight = vaspio_kmesh("dft")
 
     # Generate 𝑟-points in Wigner-Seitz cell
     latt = vaspio_lattice("dft")
     rdeg, rvec = w90_make_rcell(latt)
 
     # Calculate H(𝑟)
-    hamr = w90_make_hamr(kmesh, rvec, hamk[:,:,:,1])
+    hamr = w90_make_hamr(D[:kmesh], rvec, hamk[:,:,:,1])
 
     # Build high-symmetry 𝑘-path
     kstart = [0.0 0.0 0.0; # Γ
