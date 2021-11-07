@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/11/06
+# Last modified: 2021/11/07
 #
 
 #=
@@ -1080,7 +1080,7 @@ function irio_projs(f::String)
     @assert ngroup ≥ 1
 
     # Define the projectors. They will be filled later.
-    chipsi = []
+    chipsi = Array{C64,4}[]
 
     # Input the data
     open(fn, "r") do fin
