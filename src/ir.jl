@@ -148,9 +148,7 @@ function ir_read(f::String)
     D[:fermi] = irio_fermi(f)
 
     # Get tetrahedra (Optional)
-    if get_d("smear") == "tetra" && !is_qe()
-        D[:volt], D[:itet] = irio_tetra(f)
-    end
+    D[:volt], D[:itet] = irio_tetra(f)
 
     # Return the desired dict
     return D
@@ -883,35 +881,36 @@ directory that this file exists.
 function irio_tetra(f::String)
     # Check file's status
     fn = joinpath(f, "tetra.ir")
-    @assert isfile(fn)
 
     # Define tetrahedra
     volt = 0.0
     itet = nothing
 
     # Input the data
-    open(fn, "r") do fin
-        # Skip the header
-        readline(fin)
-        readline(fin)
-        readline(fin)
+    if isfile(fn)
+        open(fn, "r") do fin
+            # Skip the header
+            readline(fin)
+            readline(fin)
+            readline(fin)
 
-        # Extract some dimensional parameters
-        ntet = parse(I64, line_to_array(fin)[3])
-        volt = parse(F64, line_to_array(fin)[3])
-        readline(fin)
+            # Extract some dimensional parameters
+            ntet = parse(I64, line_to_array(fin)[3])
+            volt = parse(F64, line_to_array(fin)[3])
+            readline(fin)
 
-        # Allocate memory
-        itet = zeros(I64, ntet, 5)
+            # Allocate memory
+            itet = zeros(I64, ntet, 5)
 
-        # Get the tetrahedra
-        for t = 1:ntet
-            itet[t, :] = parse.(I64, line_to_array(fin))
-        end
-    end # END OF IOSTREAM
+            # Get the tetrahedra
+            for t = 1:ntet
+                itet[t, :] = parse.(I64, line_to_array(fin))
+            end
+        end # END OF IOSTREAM
 
-    # Print some useful information
-    println("  > Open and parse the file tetra.ir (itet and volt)")
+        # Print some useful information
+        println("  > Open and parse the file tetra.ir (itet and volt)")
+    end
 
     # Return the desired arrays
     return volt, itet
