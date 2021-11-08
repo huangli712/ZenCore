@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/11/07
+# Last modified: 2021/11/08
 #
 
 #=
@@ -887,6 +887,7 @@ function irio_tetra(f::String)
     itet = nothing
 
     # Input the data
+    # If tetra.ir does not exist, we just return nothing.
     if isfile(fn)
         open(fn, "r") do fin
             # Skip the header
