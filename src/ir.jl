@@ -115,7 +115,7 @@ end
 Read and parse `maps.ir`, `groups.ir`, `windows.ir`, `lattice.ir`,
 `kmesh.ir`, `tetra.ir`, `eigen.ir`, `projs.ir`, and `fermi.ir`. The data
 are encapsulated in a dictionary. Here `f` means the directory where the
-files as mentioned above are available. 
+files as mentioned above are available.
 
 See also: [`ir_adaptor`](@ref).
 """
@@ -363,7 +363,7 @@ function irio_maps(f::String)
         i_grp = parse.(I64, line_to_array(fin))
         @assert length(i_grp) == nsite
         readline(fin)
-    
+
         # For i_wnd part
         readline(fin)
         i_wnd = parse.(I64, line_to_array(fin))
@@ -479,7 +479,7 @@ function irio_groups(f::String)
             _pg = PrGroup(site, l)
             _pg.corr = corr
             _pg.shell = shell
-            
+
             # Store this group in PG
             push!(PG, _pg)
         end # END OF P LOOP
@@ -550,7 +550,7 @@ function irio_windows(f::String)
     # Check file's status
     fn = joinpath(f, "windows.ir")
     @assert isfile(fn)
-    
+
     # Define array of PrWindow struct
     PW = PrWindow[]
 
@@ -991,7 +991,7 @@ function irio_eigen(f::String)
         # Allocate memories
         enk = zeros(F64, nband, nkpt, nspin)
         occupy = zeros(F64, nband, nkpt, nspin)
-    
+
         # Get the eigenvalues and occupations
         for s = 1:nspin
             for k = 1:nkpt
