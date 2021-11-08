@@ -2344,25 +2344,5 @@ function test_w90_band()
 
 end
 
-function test_w90_hamr()
-    rdeg, rvec, hamr = w90_read_hamr("dft")
-    kmesh, weight = qeio_kmesh("dft")
-    hamk = w90_make_hamk(kmesh, rdeg, rvec, hamr)
-    hamr_ = w90_make_hamr(kmesh, rvec, hamk)
-    nband, _, nrpt = size(hamr_)
-
-    for r = 1:nrpt
-        for p = 1:nband
-            for q = 1:nband
-                a = hamr[q,p,r] - hamr_[q,p,r]
-                if abs(a) ≥ 1.0E-12
-                    println("$r $p $q :", abs(a))
-                end
-            end
-        end
-    end
-end
-
 export test_w90_level
 export test_w90_band
-export test_w90_hamr
