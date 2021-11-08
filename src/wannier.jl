@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/11/01
+# Last modified: 2021/11/08
 #
 
 #=
@@ -2268,23 +2268,3 @@ function pw2wan_save(sp::String = "")
         end
     end
 end
-
-function test_w90_level()
-    fermi = qeio_fermi("dft", false)
-    rdeg, rvec, hamr = w90_read_hamr("dft")
-    kmesh, weight = qeio_kmesh("dft")
-    hamk = w90_make_hamk(kmesh, rdeg, rvec, hamr)
-
-    nband, _, nkpt = size(hamk)
-    level = zeros(C64, nband, nband)
-    for k = 1:nkpt
-        @. level = level + hamk[:,:,k]
-    end
-    @. level = level / nkpt
-    for b = 1:nband
-        @show b, level[b,b] - fermi
-    end
-end
-
-export test_w90_level
-export test_w90_band
