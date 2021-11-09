@@ -1185,7 +1185,7 @@ end
 """
     irio_rawcp(f::String, chipsi::Array{C64,4})
 
-Write the projectors to `projs.ir` using the IR format. Here `f` means
+Write the projectors to `rawcp.ir` using the IR format. Here `f` means
 only the directory that we want to use.
 
 The projectors are original data. They have not been modified.
@@ -1197,9 +1197,9 @@ function irio_rawcp(f::String, chipsi::Array{C64,4})
     nproj, nband, nkpt, nspin = size(chipsi)
 
     # Output the data
-    open(joinpath(f, "projs.ir"), "w") do fout
+    open(joinpath(f, "rawcp.ir"), "w") do fout
         # Write the header
-        println(fout, "# File: projs.ir")
+        println(fout, "# File: rawcp.ir")
         println(fout, "# Data: chipsi[nproj,nband,nkpt,nspin]")
         println(fout)
         println(fout, "nproj -> $nproj")
@@ -1222,7 +1222,7 @@ function irio_rawcp(f::String, chipsi::Array{C64,4})
     end # END OF IOSTREAM
 
     # Print some useful information
-    println("  > Open and write the file projs.ir (chipsi)")
+    println("  > Open and write the file rawcp.ir (chipsi)")
 end
 
 function irio_rawcp(f::String)
