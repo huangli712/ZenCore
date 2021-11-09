@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/11/06
+# Last modified: 2021/11/09
 #
 
 """
@@ -855,17 +855,17 @@ ir_adaptor   -> Adaptor support.
 ir_save      -> Save the output files by the adaptor.
 ir_read      -> Parse and return the output data by the adaptor.
 irio_params  -> Write key parameters extracted from Kohn-Sham data.
-irio_maps    -> Write Mapping.
-irio_groups  -> Write PrGroup.
-irio_windows -> Write PrWindow.
-irio_lattice -> Write lattice information.
-irio_kmesh   -> Write kmesh.
-irio_tetra   -> Write tetrahedra.
-irio_eigen   -> Write eigenvalues.
-irio_projs   -> Write projectors (normalized).
-irio_fermi   -> Write fermi level.
-irio_rawcp   -> Write projectors (raw).
-irio_charge  -> Write charge density.
+irio_maps    -> Write/read Mapping.
+irio_groups  -> Write/read PrGroup.
+irio_windows -> Write/read PrWindow.
+irio_lattice -> Write/read lattice information.
+irio_kmesh   -> Write/read kmesh.
+irio_tetra   -> Write/read tetrahedra.
+irio_eigen   -> Write/read eigenvalues.
+irio_projs   -> Write/read projectors (normalized).
+irio_fermi   -> Write/read fermi level.
+irio_rawcp   -> Write/read projectors (raw).
+irio_charge  -> Write/read charge density.
 ```
 =#
 
@@ -885,6 +885,7 @@ export irio_tetra
 export irio_eigen
 export irio_projs
 export irio_fermi
+export irio_rawcp
 export irio_charge
 
 #=
