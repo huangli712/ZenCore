@@ -825,7 +825,7 @@ function irio_kmesh(f::String)
         kmesh = zeros(F64, nkpt, ndir)
         weight = zeros(F64, nkpt)
 
-        # Get the kmesh and weight
+        # Read the body
         for k = 1:nkpt
             line = line_to_array(fin)
             kmesh[k,:] = parse.(F64, line[1:3])
@@ -905,7 +905,7 @@ function irio_tetra(f::String)
         # Allocate memory
         itet = zeros(I64, ntet, 5)
 
-        # Get the tetrahedra
+        # Read the body
         for t = 1:ntet
             itet[t, :] = parse.(I64, line_to_array(fin))
         end
@@ -993,7 +993,7 @@ function irio_eigen(f::String)
         enk = zeros(F64, nband, nkpt, nspin)
         occupy = zeros(F64, nband, nkpt, nspin)
 
-        # Get the eigenvalues and occupations
+        # Read the body
         for s = 1:nspin
             for k = 1:nkpt
                 for b = 1:nband
@@ -1066,8 +1066,8 @@ end
 """
     irio_projs(f::String)
 
-Extract the projectors from `projs.ir`. Here `f` means the directory
-that this file exists.
+Extract the normalized projectors from `projs.ir`. Here `f` means the
+directory that this file exists.
 """
 function irio_projs(f::String)
     # Check file's status
@@ -1103,7 +1103,7 @@ function irio_projs(f::String)
             # Allocate memory
             P = zeros(C64, ndim, nbnd, nkpt, nspin)
 
-            # Get the projectors
+            # Read the body
             for s = 1:nspin
                 for k = 1:nkpt
                     for b = 1:nbnd
@@ -1231,7 +1231,54 @@ function irio_rawcp(f::String, chipsi::Array{C64,4})
     println("  > Open and write the file rawcp.ir (chipsi)")
 end
 
+"""
+    irio_rawcp(f::String)
+
+Extract the raw projectors from `rawcp.ir`. Here `f` means the directory
+that this file exists.
+"""
 function irio_rawcp(f::String)
+    # Check file's status
+    fn = joinpath(f, "rawcp.ir")
+    @assert isfile(fn)
+
+    # Define the projectors
+    chipsi = nothing
+
+    # Input the data
+    open(fn, "r") do fin
+        # Skip the header
+        readline(fin)
+        readline(fin)
+        readline(fin)
+
+        # Extract some dimensional parameters
+        nproj = parse(I64, line_to_array(fin)[3])
+        nband = parse(I64, line_to_array(fin)[3])
+        nkpt  = parse(I64, line_to_array(fin)[3])
+        nspin = parse(I64, line_to_array(fin)[3])
+
+        # Allocate memory
+        chipsi = zeros(C64, nproj, nband, nkpt, nspin)
+
+        # Read the body
+        for s = 1:nspin
+            for k = 1:nkpt
+                for b = 1:nband
+                    for p = 1:nproj
+                        _re, _im = parse(F64, line_to_array(fin))
+                        chipsi[p, b, k, s] = _re + _im * im
+                    end # END OF P LOOP
+                end # END OF B LOOP
+            end # END OF K LOOP
+        end # END OF S LOOP
+    end # END OF IOSTREAM
+
+    # Print some useful information
+    println("  > Open and parse the file rawcp.ir (chipsi)")
+
+    # Return the desired arrays
+    return chipsi    
 end
 
 """
