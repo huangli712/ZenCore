@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/11/09
+# Last modified: 2021/11/10
 #
 
 #=
@@ -30,7 +30,7 @@ function ir_adaptor(D::Dict{Symbol,Any})
     # I01: Check the validity of the `D` dict
     key_list = [:MAP, :PG, :PW,
                 :latt, :kmesh, :weight,
-                :enk, :occupy, :Fchipsi, :fermi]
+                :enk, :occupy, :Fchipsi, :fermi, :chipsi]
     for k in key_list
         @assert haskey(D, k)
     end
@@ -69,7 +69,10 @@ function ir_adaptor(D::Dict{Symbol,Any})
     # I08: Write fermi level
     irio_fermi(pwd(), D[:fermi])
 
-    # I09: Check the validity of the `D` dict further (optional)
+    # I09: Write raw projectors
+    irio_rawcp(pwd(), D[:chipsi])
+
+    # I10: Check the validity of the `D` dict further (optional)
     if get_d("smear") == "tetra" && !is_qe()
         key_list = [:volt, :itet]
         for k in key_list
@@ -77,7 +80,7 @@ function ir_adaptor(D::Dict{Symbol,Any})
         end
     end
 
-    # I10: Write tetrahedron data if they are available
+    # I11: Write tetrahedron data if they are available
     if get_d("smear") == "tetra" && !is_qe()
         irio_tetra(pwd(), D[:volt], D[:itet])
     end
