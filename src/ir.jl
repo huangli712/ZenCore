@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/11/08
+# Last modified: 2021/11/09
 #
 
 #=
@@ -1223,6 +1223,9 @@ function irio_rawcp(f::String, chipsi::Array{C64,4})
 
     # Print some useful information
     println("  > Open and write the file projs.ir (chipsi)")
+end
+
+function irio_rawcp(f::String)
 end
 
 """
