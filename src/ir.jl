@@ -116,9 +116,9 @@ end
     ir_read(f::String)
 
 Read and parse `maps.ir`, `groups.ir`, `windows.ir`, `lattice.ir`,
-`kmesh.ir`, `eigen.ir`, `projs.ir`, and `fermi.ir`. The data are
-encapsulated in a dictionary. Here `f` means the directory where the
-files as mentioned above are available.
+`kmesh.ir`, `eigen.ir`, `projs.ir`, `fermi.ir`, and `rawcp.ir`. The
+data are encapsulated in a dictionary. Here `f` means the directory
+where the files as mentioned above are available.
 
 See also: [`ir_adaptor`](@ref).
 """
@@ -144,11 +144,14 @@ function ir_read(f::String)
     # Get eigenvalues and occupations
     D[:enk], D[:occupy] = irio_eigen(f)
 
-    # Get projectors (Normalized)
+    # Get normalized projectors
     D[:Fchipsi] = irio_projs(f)
 
     # Get fermi level
     D[:fermi] = irio_fermi(f)
+
+    # Get raw projectors
+    D[:chipsi] = irio_rawcp(f)
 
     # Return the desired dict
     return D
