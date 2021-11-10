@@ -448,6 +448,9 @@ and `Tr` fields are not correct. But it doesn't matter.
 See also: [`PrGroup`](@ref).
 """
 function irio_groups(f::String)
+    # Print the header
+    println("Open and parse the file groups.ir")
+
     # Check file's status
     fn = joinpath(f, "groups.ir")
     @assert isfile(fn)
@@ -488,11 +491,20 @@ function irio_groups(f::String)
 
             # Store this group in PG
             push!(PG, _pg)
+            println("  > Extract group [$p]")
         end # END OF P LOOP
     end # END OF IOSTREAM
 
-    # Print some useful information
-    println("  > Open and parse the file groups.ir")
+    # Print the summary
+    println("  > Summary of groups:")
+    for i in eachindex(PG)
+        print("    [ Group $i ]")
+        print("  site -> ", PG[i].site)
+        print("  l -> ", PG[i].l)
+        print("  corr -> ", PG[i].corr)
+        print("  shell -> ", PG[i].shell)
+        println("  Pr -> ", PG[i].Pr)
+    end
 
     # Return the desired array
     return PG
