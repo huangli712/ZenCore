@@ -1118,6 +1118,9 @@ Extract the normalized projectors from `projs.ir`. Here `f` means the
 directory that this file exists.
 """
 function irio_projs(f::String)
+    # Print the header
+    println("Open and parse the file projs.ir (chipsi)")
+
     # Check file's status
     fn = joinpath(f, "projs.ir")
     @assert isfile(fn)
@@ -1168,11 +1171,11 @@ function irio_projs(f::String)
 
             # Store P in chipsi
             push!(chipsi, P)
+
+            # Print some useful information
+            println("  > Shape of Array chipsi: ", size(P))
         end # END OF G LOOP
     end # END OF IOSTREAM
-
-    # Print some useful information
-    println("  > Open and parse the file projs.ir (chipsi)")
 
     # Return the desired arrays
     return chipsi
