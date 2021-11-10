@@ -1589,6 +1589,9 @@ function w90_make_hamk(kvec::Array{F64,2},
                        rdeg::Array{I64,1},
                        rvec::Array{I64,2},
                        hamr::Array{C64,3})
+    # Print the header
+    println("Build hamiltonian in 𝑘-space via wannier interpolation")
+    
     # Get dimensional parameters
     nband, _, nrpt = size(hamr)
     nkpt, _ = size(kvec)
@@ -1604,6 +1607,12 @@ function w90_make_hamk(kvec::Array{F64,2},
             hamk[:,:,k] = hamk[:,:,k] + ratio * hamr[:,:,r]
         end # END OF R LOOP
     end # END OF K LOOP
+
+    # Print some useful information
+    println("  > Number of 𝑘-points: ", nkpt)
+    println("  > Number of 𝑟-points: ", nrpt)
+    println("  > Shape of Array hamk: ", size(hamk))
+    println("  > Shape of Array hamr: ", size(hamr))
 
     # Return ``H(K)``
     return hamk
