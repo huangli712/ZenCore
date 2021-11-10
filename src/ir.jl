@@ -1214,6 +1214,9 @@ Extract the fermi level from `fermi.ir`. Here `f` means the directory
 that this file exists.
 """
 function irio_fermi(f::String)
+    # Print the header
+    println("Open and parse the file fermi.ir (fermi)")
+
     # Check file's status
     fn = joinpath(f, "fermi.ir")
     @assert isfile(fn)
@@ -1233,7 +1236,7 @@ function irio_fermi(f::String)
     end # END OF IOSTREAM
 
     # Print some useful information
-    println("  > Open and parse the file fermi.ir (fermi)")
+    println("  > Fermi level: $fermi eV")
 
     # Return the desired value
     return fermi
