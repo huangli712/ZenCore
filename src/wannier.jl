@@ -1626,6 +1626,9 @@ Diagonalize the hamiltonian to give band structure.
 See also: [`w90_make_hamk`](@ref).
 """
 function w90_diag_hamk(hamk::Array{C64,3})
+    # Print the header
+    println("Diagonalize hamiltonian in 𝑘-space")
+
     # Get dimensional parameters
     nband, _, nkpt = size(hamk)
 
@@ -1640,6 +1643,12 @@ function w90_diag_hamk(hamk::Array{C64,3})
         @. eigs[:,k] = E.values
         @. evec[:,:,k] = E.vectors
     end
+
+    # Print some useful information
+    println("  > Number of 𝑘-points: ", nkpt)
+    println("  > Shape of Array hamk: ", size(hamk))
+    println("  > Shape of Array eigs: ", size(eigs))
+    println("  > Shape of Array evec: ", size(evec))
 
     # Return eigenvalues and eigenvectors
     return eigs, evec
