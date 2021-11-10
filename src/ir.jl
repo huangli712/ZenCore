@@ -338,6 +338,9 @@ directory that this file exists.
 See also: [`Mapping`](@ref).
 """
 function irio_maps(f::String)
+    # Print the header
+    println("Open and parse the file maps.ir")
+
     # Check file's status
     fn = joinpath(f, "maps.ir")
     @assert isfile(fn)
@@ -389,7 +392,9 @@ function irio_maps(f::String)
     end
 
     # Print some useful information
-    println("  > Open and parse the file maps.ir")
+    println("  > Number of impurity sites: ", length(MAP.i_grp))
+    println("  > Number of groups: ", length(MAP.g_imp))
+    println("  > Number of windows: ", length(MAP.w_imp))
 
     # Return the desired value
     return MAP
