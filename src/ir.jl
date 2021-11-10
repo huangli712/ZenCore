@@ -1009,6 +1009,9 @@ Extract the eigenvalues from `eigen.ir`. Here `f` means the directory
 that this file exists.
 """
 function irio_eigen(f::String)
+    # Print the header
+    println("Open and parse the file eigen.ir (enk and occupy)")
+
     # Check file's status
     fn = joinpath(f, "eigen.ir")
     @assert isfile(fn)
