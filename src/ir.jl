@@ -723,6 +723,9 @@ directory that this file exists.
 See also: [`Lattice`](@ref).
 """
 function irio_lattice(f::String)
+    # Print the header
+    println("Open and parse the file lattice.ir (lattice)")
+
     # Check file's status
     fn = joinpath(f, "lattice.ir")
     @assert isfile(fn)
@@ -774,7 +777,8 @@ function irio_lattice(f::String)
     end # END OF IOSTREAM
 
     # Print some useful information
-    println("  > Open and parse the file lattice.ir (lattice)")
+    println("  > System: ", latt._case)
+    println("  > Atoms: ", latt.atoms)
 
     # Return the desired struct
     return latt
@@ -826,6 +830,9 @@ Extract the kmesh and weight information from `kmesh.ir`. Here `f` means
 the directory that this file exists.
 """
 function irio_kmesh(f::String)
+    # Print the header
+    println("Open and parse the file kmesh.ir (kmesh and weight)")
+
     # Check file's status
     fn = joinpath(f, "kmesh.ir")
     @assert isfile(fn)
@@ -860,7 +867,10 @@ function irio_kmesh(f::String)
     end # END OF IOSTREAM
 
     # Print some useful information
-    println("  > Open and parse the file kmesh.ir (kmesh and weight)")
+    println("  > Number of k-points: ", length(weight))
+    println("  > Total sum of weights: ", sum(weight))
+    println("  > Shape of Array kmesh: ", size(kmesh))
+    println("  > Shape of Array weight: ", size(weight))
 
     # Return the desired arrays
     return kmesh, weight
