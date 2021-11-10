@@ -1349,6 +1349,9 @@ See also: [`w90_make_rcell`](@ref).
 function w90_make_kpath(ndiv::I64,
                         kstart::Array{F64,2},
                         kend::Array{F64,2})
+    # Print the header
+    println("Generate high-symmetry directions in the Brillouin zone")
+
     # Get dimensional parameters
     ndir, _ = size(kstart)
     @assert size(kstart) == size(kend)
@@ -1390,6 +1393,11 @@ function w90_make_kpath(ndiv::I64,
     # Setup the final point for the 𝑘-path
     kpath[end,:] = kend[end,:]
     xpath[end] = sum(kdist)
+
+    # Print some useful information
+    println("  > Number of segments: ", ndir)
+    println("  > Number of 𝑘-points per segment: ", ndiv)
+    println("  > Number of total 𝑘-points: ", length(xpath))
 
     # Return the desired arrays
     return kpath, xpath
