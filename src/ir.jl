@@ -1050,7 +1050,11 @@ function irio_eigen(f::String)
     end # END OF IOSTREAM
 
     # Print some useful information
-    println("  > Open and parse the file eigen.ir (enk and occupy)")
+    println("  > Number of DFT bands: ", size(enk)[1])
+    println("  > Number of k-points: ", size(enk)[2])
+    println("  > Number of spins: ", size(enk)[3])
+    println("  > Shape of Array enk: ", size(enk))
+    println("  > Shape of Array occupy: ", size(occupy))
 
     # Return the desired arrays
     return enk, occupy
