@@ -1292,6 +1292,9 @@ Extract the raw projectors from `rawcp.ir`. Here `f` means the directory
 that this file exists.
 """
 function irio_rawcp(f::String)
+    # Print the header
+    println("Open and parse the file rawcp.ir (chipsi)")
+
     # Check file's status
     fn = joinpath(f, "rawcp.ir")
     @assert isfile(fn)
@@ -1329,7 +1332,7 @@ function irio_rawcp(f::String)
     end # END OF IOSTREAM
 
     # Print some useful information
-    println("  > Open and parse the file rawcp.ir (chipsi)")
+    println("  > Shape of Array chipsi: ", size(chipsi))
 
     # Return the desired arrays
     return chipsi    
