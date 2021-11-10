@@ -918,6 +918,9 @@ Extract the tetrahedra information from `tetra.ir`. Here `f` means the
 directory that this file exists.
 """
 function irio_tetra(f::String)
+    # Print the header
+    println("Open and parse the file tetra.ir (itet and volt)")
+
     # Check file's status
     fn = joinpath(f, "tetra.ir")
     @assert isfile(fn)
@@ -948,7 +951,9 @@ function irio_tetra(f::String)
     end # END OF IOSTREAM
 
     # Print some useful information
-    println("  > Open and parse the file tetra.ir (itet and volt)")
+    println("  > Number of tetrahedra: ", size(itet)[1])
+    println("  > Volume of one tetrahedron: ", volt)
+    println("  > Shape of Array itet: ", size(itet))    
 
     # Return the desired arrays
     return volt, itet
