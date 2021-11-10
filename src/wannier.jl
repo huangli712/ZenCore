@@ -1413,6 +1413,9 @@ given lattice (`latt`).
 See also: [`w90_make_kpath`](@ref).
 """
 function w90_make_rcell(latt::Lattice)
+    # Print the header
+    println("Generate 𝑟-points in the Wigner-Seitz cell")
+
     # Some internal parameters
     #
     # Maximum extension in each direction of the supercell of the BvK
@@ -1517,6 +1520,9 @@ function w90_make_rcell(latt::Lattice)
     for i = 1:nrpts
         rvec[i,:] .= rtmp[i]
     end
+
+    # Print some useful information
+    println("  > Number of 𝑟-points: ", nrpts)
 
     # Return the desired arrays
     return rdeg, rvec
