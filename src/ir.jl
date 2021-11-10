@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/11/10
+# Last modified: 2021/11/11
 #
 
 #=
@@ -1314,6 +1314,7 @@ function irio_rawcp(f::String)
         nband = parse(I64, line_to_array(fin)[3])
         nkpt  = parse(I64, line_to_array(fin)[3])
         nspin = parse(I64, line_to_array(fin)[3])
+        readline(fin)
 
         # Allocate memory
         chipsi = zeros(C64, nproj, nband, nkpt, nspin)
@@ -1323,7 +1324,7 @@ function irio_rawcp(f::String)
             for k = 1:nkpt
                 for b = 1:nband
                     for p = 1:nproj
-                        _re, _im = parse(F64, line_to_array(fin))
+                        _re, _im = parse.(F64, line_to_array(fin))
                         chipsi[p, b, k, s] = _re + _im * im
                     end # END OF P LOOP
                 end # END OF B LOOP
