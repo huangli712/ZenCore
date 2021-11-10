@@ -565,6 +565,9 @@ directory that this file exists.
 See also: [`PrWindow`](@ref).
 """
 function irio_windows(f::String)
+    # Print the header
+    println("Open and parse the file windows.ir")
+
     # Check file's status
     fn = joinpath(f, "windows.ir")
     @assert isfile(fn)
@@ -627,11 +630,19 @@ function irio_windows(f::String)
 
             # Initialize a PrWindow struct and store it in PW
             push!(PW, PrWindow(kwin,bwin))
+            println("  > Extract window [$p]")
         end # END OF P LOOP
     end # END OF IOSTREAM
 
-    # Print some useful information
-    println("  > Open and parse the file windows.ir")
+    # Print the summary
+    println("  > Summary of windows:")
+    for i in eachindex(PW)
+        print("    [ Window $i ]")
+        print("  bmin -> ", PW[i].bmin)
+        print("  bmax -> ", PW[i].bmax)
+        print("  nbnd -> ", PW[i].nbnd)
+        println("  bwin -> ", PW[i].bwin)
+    end
 
     # Return the desired array
     return PW
