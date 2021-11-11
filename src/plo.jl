@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/20
+# Last modified: 2021/11/11
 #
 
 #=
@@ -60,12 +60,6 @@ function plo_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
         @assert haskey(D, k)
     end
 
-    # How about the original projectors? We will try to calculate some
-    # physical observables to check the quality of the projectors.
-    isinteractive() &&
-    isfile(query_case()*".test") &&
-    plo_monitor(D)
-
     # P01: Create connections/mappings between projectors (or band
     # windows) and quantum impurity problems
     #
@@ -102,20 +96,6 @@ function plo_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     # D[:Fchipsi] will be updated. It contains the final data
     # for projector matrix.
     plo_orthog(D[:PW], D[:Fchipsi])
-
-    # Are the projectors correct?
-    #
-    # We will try to calculate some physical quantitites, which
-    # will be written to external files or terminal for reference.
-    #
-    # These physical quantities include density matrix, overlap
-    # matrix, local hamiltonian, full hamiltonian, and partial
-    # density of states. Of course, it is time-comsuming to do
-    # these things. So it is a good idea to turn off this feature
-    # if everything is on the way.
-    isinteractive() &&
-    isfile(query_case()*".test") &&
-    plo_monitor(D)
 end
 
 #=
