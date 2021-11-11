@@ -235,14 +235,6 @@ function wannier_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     #
     # D[:Fchipsi] will be created
     D[:Fchipsi] = w90_make_chipsi(D[:PW], D[:Rchipsi])
-
-    # Are the projectors correct?
-    #
-    # We will try to calculate some physical quantitites, which
-    # will be written to external files or terminal for reference.
-    isinteractive() &&
-    isfile(query_case()*".test") &&
-    wannier_monitor(D)
 end
 
 #=
@@ -1772,8 +1764,6 @@ matrix in WF representation, the Wigner-Seitz grid points, and their
 weights (degeneracies). The argument `sp` denotes the spin component.
 The data return by this function can be used to validate the projection
 matrix further.
-
-See also: [`wannier_monitor`](@ref).
 """
 function w90_read_hamr(f::String, sp::String = "")
     # Print the header
