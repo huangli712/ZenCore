@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/11/08
+# Last modified: 2021/11/12
 #
 
 #=
@@ -419,33 +419,6 @@ function wannier_save(sp::String = ""; op::String = "")
             end
         end
     end
-end
-
-"""
-    wannier_monitor(D::Dict{Symbol,Any})
-
-Try to check and examine whether the obtained wannier functions are
-correct and reasonable. Be careful, the calc_ovlp(), calc_dm(), and
-calc_level() functions are defined in plo.jl.
-
-See also: [`wannier_adaptor`](@ref), [`plo_monitor`](@ref).
-"""
-function wannier_monitor(D::Dict{Symbol,Any})
-    # Calculate and output overlap matrix
-    ovlp = calc_ovlp(D[:PW], D[:Fchipsi], D[:weight])
-    view_ovlp(D[:PG], ovlp)
-
-    # Calculate and output density matrix
-    dm = calc_dm(D[:PW], D[:Fchipsi], D[:weight], D[:occupy])
-    view_dm(D[:PG], dm)
-
-    # Calculate and output effective atomic level
-    level = calc_level(D[:PW], D[:Fchipsi], D[:weight], D[:enk])
-    view_level(D[:PG], level)
-
-    # Calculate and output full hamiltonian
-    hamk = calc_hamk(D[:PW], D[:Fchipsi], D[:enk])
-    view_hamk(hamk)
 end
 
 #=
