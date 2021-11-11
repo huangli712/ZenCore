@@ -636,54 +636,6 @@ function plo_orthog(PW::Array{PrWindow,1}, chipsi::Array{Array{C64,4},1})
     end
 end
 
-"""
-    plo_monitor(D::Dict{Symbol,Any})
-
-Generate some key physical quantities by using the projectors and the
-Kohn-Sham band structures. It is used for debug only.
-
-See also: [`plo_adaptor`](@ref), [`wannier_monitor`](@ref).
-"""
-function plo_monitor(D::Dict{Symbol,Any})
-    if haskey(D, :MAP)
-        # If D[:MAP] is ready, it means that D[:PW] is created and the
-        # projectors are normalized and orthogonalized.
-
-        # Calculate and output overlap matrix
-        ovlp = calc_ovlp(D[:PW], D[:Fchipsi], D[:weight])
-        view_ovlp(D[:PG], ovlp)
-
-        # Calculate and output density matrix
-        dm = calc_dm(D[:PW], D[:Fchipsi], D[:weight], D[:occupy])
-        view_dm(D[:PG], dm)
-
-        # Calculate and output effective atomic level
-        level = calc_level(D[:PW], D[:Fchipsi], D[:weight], D[:enk])
-        view_level(D[:PG], level)
-
-        # Calculate and output full hamiltonian
-        hamk = calc_hamk(D[:PW], D[:Fchipsi], D[:enk])
-        view_hamk(hamk)
-
-        # Calculate and output density of states
-        if get_d("smear") == "tetra"
-            mesh, dos = calc_dos(D[:PW], D[:Fchipsi], D[:itet], D[:enk])
-            view_dos(mesh, dos)
-        end
-    else
-        # If D[:MAP] is not ready, it means that the projectors have not
-        # been postprocessed.
-
-        # Calculate and output overlap matrix
-        ovlp = calc_ovlp(D[:chipsi], D[:weight])
-        view_ovlp(ovlp)
-
-        # Calculate and output density matrix
-        dm = calc_dm(D[:chipsi], D[:weight], D[:occupy])
-        view_dm(dm)
-    end
-end
-
 #=
 ### *Service Functions* : *Group B*
 =#
