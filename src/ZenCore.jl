@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/11/09
+# Last modified: 2021/11/11
 #
 
 """
@@ -714,7 +714,6 @@ plo_rotate   -> Rotate the projectors.
 plo_window   -> Setup band windows of projectors.
 plo_filter   -> Extract the projectors within a given energy window.
 plo_orthog   -> Orthogonalize / normalize the projectors.
-plo_monitor  -> Generate some physical quantities using the projectors.
 get_win1     -> Evaluate relevant Kohn-Sham window by band indices.
 get_win2     -> Evaluate relevant Kohn-Sham window by energies.
 get_win3     -> Evaluate relevant Kohn-Sham window automatically.
@@ -746,7 +745,6 @@ export plo_rotate
 export plo_window
 export plo_filter
 export plo_orthog
-export plo_monitor
 export get_win1
 export get_win2
 export get_win3
@@ -781,7 +779,6 @@ wannier_adaptor -> Adaptor support.
 wannier_init    -> Prepare wannier90's input files.
 wannier_exec    -> Execute wannier90 program.
 wannier_save    -> Backup wannier90's output files.
-wannier_monitor -> Check the WFs and projections.
 w90_make_ctrl   -> Prepare control parameters for wannier90.
 w90_make_proj   -> Define projections for wannier90.
 w90_make_map    -> Create connection between WFs and impurity problems.
@@ -815,7 +812,6 @@ export wannier_adaptor
 export wannier_init
 export wannier_exec
 export wannier_save
-export wannier_monitor
 export w90_make_ctrl
 export w90_make_proj
 export w90_make_map
