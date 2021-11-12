@@ -1767,7 +1767,7 @@ matrix further.
 """
 function w90_read_hamr(f::String, sp::String = "")
     # Print the header
-    println("Parse hamiltonian in WF basis")
+    println("Parse hamiltonian in wannier basis")
 
     # Build the filename
     fhr = joinpath(f, "w90" * sp * "_hr.dat")

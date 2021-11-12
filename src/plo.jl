@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/11/11
+# Last modified: 2021/11/12
 #
 
 #=
@@ -1150,6 +1150,30 @@ function calc_level(PW::Array{PrWindow,1},
 end
 
 """
+    calc_hamk(chipsi::Array{C64,4}, enk::Array{F64,3})
+"""
+function calc_hamk(chipsi::Array{C64,4}, enk::Array{F64,3})
+    # Extract some key parameters
+    nproj, nband, nkpt, nspin = size(chipsi)
+    @assert nband ≥ nproj
+
+    # Create hamiltonian array
+    hamk = zeros(C64, nproj, nproj, nkpt, nspin)
+
+    # Loop over spins and 𝑘-points
+    for s = 1:nspin
+        for k = 1:nkpt
+            eigs = enk[:, k ,s]
+            A = view(chipsi, :, :, k, s)
+            hamk[:, :, k, s] = A * Diagonal(eigs) * A'
+        end # END OF K LOOP
+    end # END OF S LOOP
+
+    # Return the desired array
+    return hamk
+end
+
+"""
     calc_hamk(PW::Array{PrWindow,1},
               chipsi::Array{Array{C64,4},1},
               enk::Array{F64,3})
@@ -1174,7 +1198,7 @@ function calc_hamk(PW::Array{PrWindow,1},
         # Create an array for the hamiltonian
         H = zeros(C64, ndim, ndim, nkpt, nspin)
 
-        # Loop over spins and k-points
+        # Loop over spins and 𝑘-points
         for s = 1:nspin
             for k = 1:nkpt
                 # Determine band window
