@@ -1105,6 +1105,24 @@ See also: [`view_level`](@ref).
 function calc_level(chipsi::Array{C64,4},
                     weight::Array{F64,1},
                     enk::Array{F64,3})
+    # Extract some key parameters
+    nproj, nband, nkpt, nspin = size(chipsi)
+    @assert nband ≥ nproj
+
+    # Create eimp array
+    level = zeros(C64, nproj, nproj, nspin)
+
+    for s = 1:nspin
+        for k = 1:nkpt
+            wght = weight[k] / nkpt
+            eigs = enk[:, k, s]
+            A = view(chipsi, :, :, k, s)
+            level[:, :, s] = level[:, :, s] + (A * Diagonal(eigs) * A') * wght
+        end # END OF K LOOP
+    end # END OF S LOOP
+
+    # Return the desired array
+    return level
 end
 
 """
