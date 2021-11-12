@@ -1093,15 +1093,30 @@ function calc_dm(PW::Array{PrWindow,1},
 end
 
 """
+    calc_level(chipsi::Array{C64,4},
+               weight::Array{F64,1},
+               enk::Array{F64,3})
+
+Try to build the effective band level in local basis.
+For raw projectors only.
+
+See also: [`view_level`](@ref).
+"""
+function calc_level(chipsi::Array{C64,4},
+                    weight::Array{F64,1},
+                    enk::Array{F64,3})
+end
+
+"""
     calc_level(PW::Array{PrWindow,1},
                chipsi::Array{Array{C64,4},1},
                weight::Array{F64,1},
                enk::Array{F64,3})
 
-Try to build the effective atomic level.
+Try to build the effective band level in local basis.
 For normalized projectors only.
 
-See also: [`view_level`](@ref), [`PrWindow`](@ref).
+See also: [`view_level`](@ref).
 """
 function calc_level(PW::Array{PrWindow,1},
                     chipsi::Array{Array{C64,4},1},
