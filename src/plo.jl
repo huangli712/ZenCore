@@ -1154,6 +1154,8 @@ end
 
 Try to build the hamiltonian matrix in local basis (momentum-dependent).
 For raw projectors only.
+
+See also: [`view_hamk`](@ref).
 """
 function calc_hamk(chipsi::Array{C64,4}, enk::Array{F64,3})
     # Extract some key parameters
@@ -1181,10 +1183,10 @@ end
               chipsi::Array{Array{C64,4},1},
               enk::Array{F64,3})
 
-Try to build the full hamiltonian matrix (momentum-dependent).
+Try to build the hamiltonian matrix in local basis (momentum-dependent).
 For normalized projectors only.
 
-See also: [`view_hamk`](@ref), [`PrWindow`](@ref).
+See also: [`view_hamk`](@ref).
 """
 function calc_hamk(PW::Array{PrWindow,1},
                    chipsi::Array{Array{C64,4},1},
