@@ -1151,6 +1151,9 @@ end
 
 """
     calc_hamk(chipsi::Array{C64,4}, enk::Array{F64,3})
+
+Try to build the hamiltonian matrix in local basis (momentum-dependent).
+For raw projectors only.
 """
 function calc_hamk(chipsi::Array{C64,4}, enk::Array{F64,3})
     # Extract some key parameters
@@ -1163,7 +1166,7 @@ function calc_hamk(chipsi::Array{C64,4}, enk::Array{F64,3})
     # Loop over spins and 𝑘-points
     for s = 1:nspin
         for k = 1:nkpt
-            eigs = enk[:, k ,s]
+            eigs = enk[:, k, s]
             A = view(chipsi, :, :, k, s)
             hamk[:, :, k, s] = A * Diagonal(eigs) * A'
         end # END OF K LOOP
