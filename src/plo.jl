@@ -1474,6 +1474,9 @@ function view_dm(PG::Array{PrGroup,1}, dm::Array{Array{F64,3},1})
     close(fn)
 end
 
+function view_level()
+end
+
 """
     view_level(PG::Array{PrGroup,1}, level::Array{Array{C64,3},1})
 
@@ -1527,6 +1530,9 @@ The data file `hamk.chk.i` is used to debug. It should not be read by
 the DMFT engine. That is the reason why we name this function as
 `view_hamk()` and put it in `plo.jl`.
 =#
+
+function view_hamk()
+end
 
 """
     view_hamk(hamk::Array{Array{C64,4},1})
