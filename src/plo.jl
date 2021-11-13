@@ -1474,7 +1474,15 @@ function view_dm(PG::Array{PrGroup,1}, dm::Array{Array{F64,3},1})
     close(fn)
 end
 
-function view_level()
+"""
+    view_level(level::Array{C64,3})
+
+Output the effective atomic level to `level.chk`.
+For raw projectors only.
+
+See also: [`calc_level`](@ref).
+"""
+function view_level(level::Array{C64,3})
 end
 
 """
