@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/11/12
+# Last modified: 2021/11/13
 #
 
 #=
@@ -961,7 +961,7 @@ end
 Calculate the overlap matrix out of projectors.
 For normalized projectors only.
 
-See also: [`view_ovlp`](@ref), [`PrWindow`](@ref).
+See also: [`view_ovlp`](@ref).
 """
 function calc_ovlp(PW::Array{PrWindow,1},
                    chipsi::Array{Array{C64,4},1},
@@ -1041,7 +1041,7 @@ end
 Calculate the density matrix out of projectors.
 For normalized projectors only.
 
-See also: [`view_dm`](@ref), [`PrWindow`](@ref).
+See also: [`view_dm`](@ref).
 """
 function calc_dm(PW::Array{PrWindow,1},
                  chipsi::Array{Array{C64,4},1},
