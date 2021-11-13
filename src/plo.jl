@@ -1272,7 +1272,7 @@ end
 Try to calculate the partial density of states using the analytical
 tetrahedron method.
 
-See also: [`view_dos`](@ref), [`PrWindow`](@ref).
+See also: [`view_dos`](@ref).
 """
 function calc_dos(PW::Array{PrWindow,1},
                   chipsi::Array{Array{C64,4},1},
@@ -1343,7 +1343,8 @@ end
 """
     view_ovlp(ovlp::Array{F64,3})
 
-Output the overlap matrix to screen. For raw projectors only.
+Output the overlap matrix to `ovlp.chk`.
+For raw projectors only.
 
 See also: [`calc_ovlp`](@ref).
 """
@@ -1373,9 +1374,10 @@ end
 """
     view_ovlp(PG::Array{PrGroup,1}, ovlp::Array{Array{F64,3},1})
 
-Output the overlap matrix to screen. For normalized projectors only.
+Output the overlap matrix to `ovlp.chk`.
+For normalized projectors only.
 
-See also: [`calc_ovlp`](@ref), [`PrGroup`](@ref).
+See also: [`calc_ovlp`](@ref).
 """
 function view_ovlp(PG::Array{PrGroup,1}, ovlp::Array{Array{F64,3},1})
     # Open IOStream
@@ -1408,7 +1410,8 @@ end
 """
     view_dm(dm::Array{F64,3})
 
-Output the density matrix to screen. For raw projectors only.
+Output the density matrix to `dm.chk`.
+For raw projectors only.
 
 See also: [`calc_dm`](@ref).
 """
@@ -1438,9 +1441,10 @@ end
 """
     view_dm(PG::Array{PrGroup,1}, dm::Array{Array{F64,3},1})
 
-Output the density matrix to screen. For normalized projectors only.
+Output the density matrix to `dm.chk`.
+For normalized projectors only.
 
-See also: [`calc_dm`](@ref), [`PrGroup`](@ref).
+See also: [`calc_dm`](@ref).
 """
 function view_dm(PG::Array{PrGroup,1}, dm::Array{Array{F64,3},1})
     # Open IOStream
@@ -1473,9 +1477,10 @@ end
 """
     view_level(PG::Array{PrGroup,1}, level::Array{Array{C64,3},1})
 
-Output the effective atomic level to screen. For normalized projectors only.
+Output the effective atomic level to `level.chk`.
+For normalized projectors only.
 
-See also: [`calc_level`](@ref), [`PrGroup`](@ref).
+See also: [`calc_level`](@ref).
 """
 function view_level(PG::Array{PrGroup,1}, level::Array{Array{C64,3},1})
     # Open IOStream
@@ -1520,13 +1525,14 @@ end
 
 The data file `hamk.chk.i` is used to debug. It should not be read by
 the DMFT engine. That is the reason why we name this function as
-`view_hamk()` and put it in plo.jl.
+`view_hamk()` and put it in `plo.jl`.
 =#
 
 """
     view_hamk(hamk::Array{Array{C64,4},1})
 
-Output the full hamiltonian to `hamk.chk.i`. For normalized projectors only.
+Output the hamiltonian matrix in local basis to `hamk.chk.i`.
+For normalized projectors only.
 
 See also: [`calc_hamk`](@ref).
 """
