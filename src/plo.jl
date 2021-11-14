@@ -1349,26 +1349,22 @@ For raw projectors only.
 See also: [`calc_ovlp`](@ref).
 """
 function view_ovlp(ovlp::Array{F64,3})
-    # Open IOStream
-    fn = open("ovlp.chk", "a")
-
-    # Print the header
-    println(fn, "<- Overlap Matrix ->")
-
     # Extract some key parameters
     _, nproj, nspin = size(ovlp)
 
-    # Output the data
-    for s = 1:nspin
-        println(fn, "Spin: $s")
-        for p = 1:nproj
-            foreach(x -> @printf(fn, "%12.7f", x), ovlp[p, :, s])
-            println(fn)
-        end
-    end # END OF S LOOP
+    open("ovlp.chk", "a") do fn
+        # Print the header
+        println(fn, "<- Overlap Matrix ->")
 
-    # Close IOStream
-    close(fn)
+        # Output the data
+        for s = 1:nspin
+            println(fn, "Spin: $s")
+            for p = 1:nproj
+                foreach(x -> @printf(fn, "%12.7f", x), ovlp[p, :, s])
+                println(fn)
+            end # END OF P LOOP
+        end # END OF S LOOP
+    end # END OF IOSTREAM
 end
 
 """
