@@ -1410,26 +1410,22 @@ For raw projectors only.
 See also: [`calc_dm`](@ref).
 """
 function view_dm(dm::Array{F64,3})
-    # Open IOStream
-    fn = open("dm.chk", "a")
-
-    # Print the header
-    println(fn, "<- Density Matrix ->")
-
     # Extract some key parameters
     _, nproj, nspin = size(dm)
 
-    # Output the data
-    for s = 1:nspin
-        println(fn, "Spin: $s")
-        for p = 1:nproj
-            foreach(x -> @printf(fn, "%12.7f", x), dm[p, :, s])
-            println(fn)
-        end
-    end # END OF S LOOP
+    open("dm.chk", "a") do fn
+        # Print the header
+        println(fn, "<- Density Matrix ->")
 
-    # Close IOStream
-    close(fn)
+        # Output the data
+        for s = 1:nspin
+            println(fn, "Spin: $s")
+            for p = 1:nproj
+                foreach(x -> @printf(fn, "%12.7f", x), dm[p, :, s])
+                println(fn)
+            end # END OF P LOOP
+        end # END OF S LOOP
+    end # END OF IOSTREAM
 end
 
 """
