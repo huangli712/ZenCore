@@ -1481,8 +1481,18 @@ function view_level(level::Array{C64,3})
         # Output the data
         for s = 1:nspin
             println(fn, "Spin: $s")
+
+            # Real parts
+            println(fn, "Re:")
             for p = 1:nproj
                 foreach(x -> @printf(fn, "%12.7f", real(x)), level[p, :, s])
+                println(fn)
+            end # END OF P LOOP
+
+            # Imag parts
+            println(fn, "Im:")
+            for p = 1:nproj
+                foreach(x -> @printf(fn, "%12.7f", imag(x)), level[p, :, s])
                 println(fn)
             end # END OF P LOOP
         end # END OF S LOOP
