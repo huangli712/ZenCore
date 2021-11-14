@@ -1471,6 +1471,22 @@ For raw projectors only.
 See also: [`calc_level`](@ref).
 """
 function view_level(level::Array{C64,3})
+    # Extract some key parameters
+    _, nproj, nspin = size(level)
+
+    open("level.chk", "a") do fn
+        # Print the header
+        println(fn, "<- Kohn-Sham Band Level ->")
+
+        # Output the data
+        for s = 1:nspin
+            println(fn, "Spin: $s")
+            for p = 1:nproj
+                foreach(x -> @printf(fn, "%12.7f", real(x)), level[p, :, s])
+                println(fn)
+            end # END OF P LOOP
+        end # END OF S LOOP
+    end # END OF IOSTREAM
 end
 
 """
