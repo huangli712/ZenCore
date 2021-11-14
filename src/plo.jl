@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/11/13
+# Last modified: 2021/11/15
 #
 
 #=
@@ -1508,11 +1508,9 @@ For normalized projectors only.
 See also: [`calc_level`](@ref).
 """
 function view_level(PG::Array{PrGroup,1}, level::Array{Array{C64,3},1})
-    # Open IOStream
-    fn = open("level.chk", "a")
-
-    # Print the header
-    println(fn, "<- Effective Atomic Level ->")
+    open("level.chk", "a") do fn
+        # Print the header
+        println(fn, "<- Kohn-Sham Band Level ->")
 
     # Go through each PrGroup
     for p in eachindex(PG)
@@ -1540,9 +1538,7 @@ function view_level(PG::Array{PrGroup,1}, level::Array{Array{C64,3},1})
             end
         end # END OF S LOOP
     end # END OF P LOOP
-
-    # Close IOStream
-    close(fn)
+    end # END OF IOSTREAM
 end
 
 #=
