@@ -1437,31 +1437,29 @@ For normalized projectors only.
 See also: [`calc_dm`](@ref).
 """
 function view_dm(PG::Array{PrGroup,1}, dm::Array{Array{F64,3},1})
-    # Open IOStream
-    fn = open("dm.chk", "a")
+    open("dm.chk", "a") do fn
+        # Print the header
+        println(fn, "<- Density Matrix ->")
 
-    # Print the header
-    println(fn, "<- Density Matrix ->")
+        # Go through each PrGroup
+        for p in eachindex(PG)
+            println(fn, "Site -> $(PG[p].site)")
+            println(fn, "L -> $(PG[p].l)")
+            println(fn, "Shell -> $(PG[p].shell)")
 
-    # Go through each PrGroup
-    for p in eachindex(PG)
-        println(fn, "Site -> $(PG[p].site) L -> $(PG[p].l) Shell -> $(PG[p].shell)")
+            # Extract some key parameters
+            _, ndim, nspin = size(dm[p])
 
-        # Extract some key parameters
-        _, ndim, nspin = size(dm[p])
-
-        # Output the data
-        for s = 1:nspin
-            println(fn, "Spin: $s")
-            for q = 1:ndim
-                foreach(x -> @printf(fn, "%12.7f", x), dm[p][q, 1:ndim, s])
-                println(fn)
-            end
-        end # END OF S LOOP
-    end # END OF P LOOP
-
-    # Close IOStream
-    close(fn)
+            # Output the data
+            for s = 1:nspin
+                println(fn, "Spin: $s")
+                for q = 1:ndim
+                    foreach(x -> @printf(fn, "%12.7f", x), dm[p][q, 1:ndim, s])
+                    println(fn)
+                end # END OF Q LOOP
+            end # END OF S LOOP
+        end # END OF P LOOP
+    end # END OF IOSTREAM
 end
 
 """
