@@ -1539,7 +1539,15 @@ the DMFT engine. That is the reason why we name this function as
 `view_hamk()` and put it in `plo.jl`.
 =#
 
-function view_hamk()
+"""
+    view_hamk(hamk::Array{C64,4})
+
+Output the hamiltonian matrix in local basis to `hamk.chk`.
+For raw projectors only.
+
+See also: [`calc_hamk`](@ref).
+"""
+function view_hamk(hamk::Array{C64,4})
 end
 
 """
