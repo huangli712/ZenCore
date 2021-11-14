@@ -1512,32 +1512,34 @@ function view_level(PG::Array{PrGroup,1}, level::Array{Array{C64,3},1})
         # Print the header
         println(fn, "<- Kohn-Sham Band Level ->")
 
-    # Go through each PrGroup
-    for p in eachindex(PG)
-        println(fn, "Site -> $(PG[p].site) L -> $(PG[p].l) Shell -> $(PG[p].shell)")
+        # Go through each PrGroup
+        for p in eachindex(PG)
+            println(fn, "Site -> $(PG[p].site)")
+            println(fn, "L -> $(PG[p].l)")
+            println(fn, "Shell -> $(PG[p].shell)")
 
-        # Extract some key parameters
-        _, ndim, nspin = size(level[p])
+            # Extract some key parameters
+            _, ndim, nspin = size(level[p])
 
-        # Output the data
-        for s = 1:nspin
-            println(fn, "Spin: $s")
+            # Output the data
+            for s = 1:nspin
+                println(fn, "Spin: $s")
 
-            # Real parts
-            println(fn, "Re:")
-            for q = 1:ndim
-                foreach(x -> @printf(fn, "%12.7f", x), real(level[p][q, 1:ndim, s]))
-                println(fn)
-            end
+                # Real parts
+                println(fn, "Re:")
+                for q = 1:ndim
+                    foreach(x -> @printf(fn, "%12.7f", real(x)), level[p][q, 1:ndim, s])
+                    println(fn)
+                end # END OF Q LOOP
 
-            # Imag parts
-            println(fn, "Im:")
-            for q = 1:ndim
-                foreach(x -> @printf(fn, "%12.7f", x), imag(level[p][q, 1:ndim, s]))
-                println(fn)
-            end
-        end # END OF S LOOP
-    end # END OF P LOOP
+                # Imag parts
+                println(fn, "Im:")
+                for q = 1:ndim
+                    foreach(x -> @printf(fn, "%12.7f", imag(x)), level[p][q, 1:ndim, s])
+                    println(fn)
+                end # END OF Q LOOP
+            end # END OF S LOOP
+        end # END OF P LOOP
     end # END OF IOSTREAM
 end
 
