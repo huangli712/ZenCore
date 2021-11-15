@@ -1382,9 +1382,8 @@ function view_ovlp(PG::Array{PrGroup,1}, ovlp::Array{Array{F64,3},1})
 
         # Go through each PrGroup
         for p in eachindex(PG)
-            println(fn, "Site -> $(PG[p].site)")
-            println(fn, "L -> $(PG[p].l)")
-            println(fn, "Shell -> $(PG[p].shell)")
+            site = PG[p].site; l = PG[p].l; shell = PG[p].shell
+            println(fn, "Site -> $site L -> $l Shell -> $shell")
 
             # Extract some key parameters
             _, ndim, nspin = size(ovlp[p])
@@ -1443,9 +1442,8 @@ function view_dm(PG::Array{PrGroup,1}, dm::Array{Array{F64,3},1})
 
         # Go through each PrGroup
         for p in eachindex(PG)
-            println(fn, "Site -> $(PG[p].site)")
-            println(fn, "L -> $(PG[p].l)")
-            println(fn, "Shell -> $(PG[p].shell)")
+            site = PG[p].site; l = PG[p].l; shell = PG[p].shell
+            println(fn, "Site -> $site L -> $l Shell -> $shell")
 
             # Extract some key parameters
             _, ndim, nspin = size(dm[p])
@@ -1514,9 +1512,8 @@ function view_level(PG::Array{PrGroup,1}, level::Array{Array{C64,3},1})
 
         # Go through each PrGroup
         for p in eachindex(PG)
-            println(fn, "Site -> $(PG[p].site)")
-            println(fn, "L -> $(PG[p].l)")
-            println(fn, "Shell -> $(PG[p].shell)")
+            site = PG[p].site; l = PG[p].l; shell = PG[p].shell
+            println(fn, "Site -> $site L -> $l Shell -> $shell")
 
             # Extract some key parameters
             _, ndim, nspin = size(level[p])
