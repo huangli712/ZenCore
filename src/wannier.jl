@@ -1556,7 +1556,7 @@ function w90_make_hamk(kvec::Array{F64,2},
                        hamr::Array{C64,3})
     # Print the header
     println("Build hamiltonian in 𝑘-space via wannier interpolation")
-    
+
     # Get dimensional parameters
     nband, _, nrpt = size(hamr)
     nkpt, _ = size(kvec)

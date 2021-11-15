@@ -953,7 +953,7 @@ function irio_tetra(f::String)
     # Print some useful information
     println("  > Number of tetrahedra: ", size(itet)[1])
     println("  > Volume of one tetrahedron: ", volt)
-    println("  > Shape of Array itet: ", size(itet))    
+    println("  > Shape of Array itet: ", size(itet))
 
     # Return the desired arrays
     return volt, itet
@@ -1336,7 +1336,7 @@ function irio_rawcp(f::String)
     println("  > Shape of Array chipsi: ", size(chipsi))
 
     # Return the desired arrays
-    return chipsi    
+    return chipsi
 end
 
 """
