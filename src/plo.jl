@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/11/15
+# Last modified: 2021/11/16
 #
 
 #=
@@ -96,6 +96,48 @@ function plo_adaptor(D::Dict{Symbol,Any}, ai::Array{Impurity,1})
     # D[:Fchipsi] will be updated. It contains the final data
     # for projector matrix.
     plo_orthog(D[:PW], D[:Fchipsi])
+end
+
+"""
+    plo_check(D::Dict{Symbol,Any})
+
+Generate some key physical quantities by using the projectors and the
+Kohn-Sham band structures. It is used for debug only.
+"""
+function plo_check(D::Dict{Symbol,Any})
+    # Calculate and output overlap matrix
+    ovlp = calc_ovlp(D[:chipsi], D[:weight])
+    view_ovlp(ovlp)
+    #
+    ovlp = calc_ovlp(D[:PW], D[:Fchipsi], D[:weight])
+    view_ovlp(D[:PG], ovlp)
+
+    # Calculate and output density matrix
+    dm = calc_dm(D[:chipsi], D[:weight], D[:occupy])
+    view_dm(dm)
+    #
+    dm = calc_dm(D[:PW], D[:Fchipsi], D[:weight], D[:occupy])
+    view_dm(D[:PG], dm)
+
+    # Calculate and output Kohn-Sham band level
+    level = calc_level(D[:chipsi], D[:weight], D[:enk])
+    view_level(level)
+    #
+    level = calc_level(D[:PW], D[:Fchipsi], D[:weight], D[:enk])
+    view_level(D[:PG], level)
+
+    # Calculate and output hamiltonian matrix in local basis
+    hamk = calc_hamk(D[:chipsi], D[:enk])
+    view_hamk(hamk)
+    #
+    hamk = calc_hamk(D[:PW], D[:Fchipsi], D[:enk])
+    view_hamk(hamk)
+
+    # Calculate and output density of states
+    if get_d("smear") == "tetra"
+        mesh, dos = calc_dos(D[:PW], D[:Fchipsi], D[:itet], D[:enk])
+        view_dos(mesh, dos)
+    end
 end
 
 #=

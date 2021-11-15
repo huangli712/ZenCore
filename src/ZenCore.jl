@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/11/11
+# Last modified: 2021/11/16
 #
 
 """
@@ -707,6 +707,7 @@ Tools for the projection on localized orbitals scheme (adaptor).
 ```text
 adaptor_call -> Launch the DFT-DMFT adaptor (for PLO scheme).
 plo_adaptor  -> Adaptor support.
+plo_check    -> Check the projectors.
 plo_map      -> Create connection between projectors and impurity problems.
 plo_fermi    -> Calibrate Kohn-Sham eigenvalues with respect to fermi level.
 plo_group    -> Setup groups of projectors.
@@ -738,6 +739,7 @@ include("plo.jl")
 #
 export adaptor_call
 export plo_adaptor
+export plo_check
 export plo_map
 export plo_fermi
 export plo_group
