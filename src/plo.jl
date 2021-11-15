@@ -1557,6 +1557,8 @@ For raw projectors only.
 See also: [`calc_hamk`](@ref).
 """
 function view_hamk(hamk::Array{C64,4})
+    # Extract some key parameters
+    nproj, _, nkpt, nspin = size(hamk)
 end
 
 """
