@@ -1343,7 +1343,7 @@ end
 """
     view_ovlp(ovlp::Array{F64,3})
 
-Output the overlap matrix to `ovlp.chk`.
+Output the overlap matrix to `ovlp.raw`.
 For raw projectors only.
 
 See also: [`calc_ovlp`](@ref).
@@ -1352,7 +1352,7 @@ function view_ovlp(ovlp::Array{F64,3})
     # Extract some key parameters
     _, nproj, nspin = size(ovlp)
 
-    open("ovlp.chk", "a") do fn
+    open("ovlp.raw", "w") do fn
         # Print the header
         println(fn, "<- Overlap Matrix ->")
 
@@ -1370,13 +1370,13 @@ end
 """
     view_ovlp(PG::Array{PrGroup,1}, ovlp::Array{Array{F64,3},1})
 
-Output the overlap matrix to `ovlp.chk`.
+Output the overlap matrix to `ovlp.nor`.
 For normalized projectors only.
 
 See also: [`calc_ovlp`](@ref).
 """
 function view_ovlp(PG::Array{PrGroup,1}, ovlp::Array{Array{F64,3},1})
-    open("ovlp.chk", "a") do fn
+    open("ovlp.nor", "w") do fn
         # Print the header
         println(fn, "<- Overlap Matrix ->")
 
@@ -1403,7 +1403,7 @@ end
 """
     view_dm(dm::Array{F64,3})
 
-Output the density matrix to `dm.chk`.
+Output the density matrix to `dm.raw`.
 For raw projectors only.
 
 See also: [`calc_dm`](@ref).
@@ -1412,7 +1412,7 @@ function view_dm(dm::Array{F64,3})
     # Extract some key parameters
     _, nproj, nspin = size(dm)
 
-    open("dm.chk", "a") do fn
+    open("dm.raw", "w") do fn
         # Print the header
         println(fn, "<- Density Matrix ->")
 
@@ -1430,13 +1430,13 @@ end
 """
     view_dm(PG::Array{PrGroup,1}, dm::Array{Array{F64,3},1})
 
-Output the density matrix to `dm.chk`.
+Output the density matrix to `dm.nor`.
 For normalized projectors only.
 
 See also: [`calc_dm`](@ref).
 """
 function view_dm(PG::Array{PrGroup,1}, dm::Array{Array{F64,3},1})
-    open("dm.chk", "a") do fn
+    open("dm.nor", "w") do fn
         # Print the header
         println(fn, "<- Density Matrix ->")
 
@@ -1463,7 +1463,7 @@ end
 """
     view_level(level::Array{C64,3})
 
-Output the effective atomic level to `level.chk`.
+Output the effective atomic level to `level.raw`.
 For raw projectors only.
 
 See also: [`calc_level`](@ref).
@@ -1472,7 +1472,7 @@ function view_level(level::Array{C64,3})
     # Extract some key parameters
     _, nproj, nspin = size(level)
 
-    open("level.chk", "a") do fn
+    open("level.raw", "w") do fn
         # Print the header
         println(fn, "<- Kohn-Sham Band Level ->")
 
@@ -1500,13 +1500,13 @@ end
 """
     view_level(PG::Array{PrGroup,1}, level::Array{Array{C64,3},1})
 
-Output the effective atomic level to `level.chk`.
+Output the effective atomic level to `level.nor`.
 For normalized projectors only.
 
 See also: [`calc_level`](@ref).
 """
 function view_level(PG::Array{PrGroup,1}, level::Array{Array{C64,3},1})
-    open("level.chk", "a") do fn
+    open("level.nor", "w") do fn
         # Print the header
         println(fn, "<- Kohn-Sham Band Level ->")
 
@@ -1543,7 +1543,7 @@ end
 #=
 *Remarks* :
 
-The data file `hamk.chk.i` is used to debug. It should not be read by
+The data file `hamk.nor.i` is used to debug. It should not be read by
 the DMFT engine. That is the reason why we name this function as
 `view_hamk()` and put it in `plo.jl`.
 =#
@@ -1551,7 +1551,7 @@ the DMFT engine. That is the reason why we name this function as
 """
     view_hamk(hamk::Array{C64,4})
 
-Output the hamiltonian matrix in local basis to `hamk.chk`.
+Output the hamiltonian matrix in local basis to `hamk.raw`.
 For raw projectors only.
 
 See also: [`calc_hamk`](@ref).
@@ -1559,12 +1559,36 @@ See also: [`calc_hamk`](@ref).
 function view_hamk(hamk::Array{C64,4})
     # Extract some key parameters
     nproj, _, nkpt, nspin = size(hamk)
+
+    # Output the data
+    open("hamk.raw", "w") do fout
+        # Write the header
+        println(fout, "# File: hamk.raw")
+        println(fout, "# Data: hamk[nproj,nproj,nkpt,nspin]")
+        println(fout)
+        println(fout, "nproj -> $nproj")
+        println(fout, "nkpt  -> $nkpt")
+        println(fout, "nspin -> $nspin")
+        println(fout)
+
+        # Write the body
+        for s = 1:nspin
+            for k = 1:nkpt
+                for q = 1:nproj
+                    for p = 1:nproj
+                        z = hamk[p, q, k, s]
+                        @printf(fout, "%16.12f %16.12f\n", real(z), imag(z))
+                    end # END OF P LOOP
+                end # END OF Q LOOP
+            end # END OF K LOOP
+        end # END OF S LOOP
+    end # END OF IOSTREAM
 end
 
 """
     view_hamk(hamk::Array{Array{C64,4},1})
 
-Output the hamiltonian matrix in local basis to `hamk.chk.i`.
+Output the hamiltonian matrix in local basis to `hamk.nor.i`.
 For normalized projectors only.
 
 See also: [`calc_hamk`](@ref).
@@ -1575,9 +1599,9 @@ function view_hamk(hamk::Array{Array{C64,4},1})
         nproj, _, nkpt, nspin = size(hamk[g])
 
         # Output the data
-        open("hamk.chk.$g", "w") do fout
+        open("hamk.nor.$g", "w") do fout
             # Write the header
-            println(fout, "# File: hamk.chk.$g")
+            println(fout, "# File: hamk.nor.$g")
             println(fout, "# Data: hamk[nproj,nproj,nkpt,nspin]")
             println(fout)
             println(fout, "group -> $g")
@@ -1593,19 +1617,19 @@ function view_hamk(hamk::Array{Array{C64,4},1})
                         for p = 1:nproj
                             z = hamk[g][p, q, k, s]
                             @printf(fout, "%16.12f %16.12f\n", real(z), imag(z))
-                        end
-                    end
+                        end # END OF P LOOP
+                    end # END OF Q LOOP
                 end # END OF K LOOP
             end # END OF S LOOP
         end # END OF IOSTREAM
-
     end # END OF G LOOP
 end
 
 """
     view_dos(mesh::Array{Array{F64,1},1}, dos::Array{Array{F64,3},1})
 
-Output the density of states to `dos.chk`. For normalized projectors only.
+Output the density of states to `dos.nor`.
+For normalized projectors only.
 
 See also: [`calc_dos`](@ref).
 """
@@ -1617,9 +1641,9 @@ function view_dos(mesh::Array{Array{F64,1},1}, dos::Array{Array{F64,3},1})
         @assert npnts == length(mesh[p])
 
         # Output the data
-        open("dos.chk.$p", "w") do fout
+        open("dos.nor.$p", "w") do fout
             # Write the header
-            println(fout, "# File: dos.chk")
+            println(fout, "# File: dos.nor")
             println(fout, "# Data: mesh[npnts] and dos[ndim,nspin,npnts]")
             println(fout)
             println(fout, "npnts -> $npnts")
