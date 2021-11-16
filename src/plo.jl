@@ -134,7 +134,7 @@ function plo_check(D::Dict{Symbol,Any})
     view_hamk(hamk)
 
     # Calculate and output density of states
-    if get_d("smear") == "tetra"
+    if get_d("smear") === "tetra"
         mesh, dos = calc_dos(D[:PW], D[:Fchipsi], D[:itet], D[:enk])
         view_dos(mesh, dos)
     end
