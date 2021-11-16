@@ -975,6 +975,9 @@ For raw projectors only.
 See also: [`view_ovlp`](@ref).
 """
 function calc_ovlp(chipsi::Array{C64,4}, weight::Array{F64,1})
+    # Print the header
+    println("Calculate overlap matrix using raw projectors")
+
     # Extract some key parameters
     nproj, nband, nkpt, nspin = size(chipsi)
     @assert nband ≥ nproj
@@ -1008,6 +1011,9 @@ See also: [`view_ovlp`](@ref).
 function calc_ovlp(PW::Array{PrWindow,1},
                    chipsi::Array{Array{C64,4},1},
                    weight::Array{F64,1})
+    # Print the header
+    println("Calculate overlap matrix using normalized projectors")
+
     # Create an empty array. Next we will fill it.
     ovlp = Array{F64,3}[]
 
@@ -1050,6 +1056,9 @@ See also: [`view_dm`](@ref).
 function calc_dm(chipsi::Array{C64,4},
                  weight::Array{F64,1},
                  occupy::Array{F64,3})
+    # Print the header
+    println("Calculate density matrix using raw projectors")
+
     # Extract some key parameters
     nproj, nband, nkpt, nspin = size(chipsi)
     @assert nband ≥ nproj
@@ -1089,6 +1098,9 @@ function calc_dm(PW::Array{PrWindow,1},
                  chipsi::Array{Array{C64,4},1},
                  weight::Array{F64,1},
                  occupy::Array{F64,3})
+    # Print the header
+    println("Calculate density matrix using normalized projectors")
+
     # Create an empty array. Next we will fill it.
     dm = Array{F64,3}[]
 
@@ -1147,6 +1159,9 @@ See also: [`view_level`](@ref).
 function calc_level(chipsi::Array{C64,4},
                     weight::Array{F64,1},
                     enk::Array{F64,3})
+    # Print the header
+    println("Calculate band levels using raw projectors")
+
     # Extract some key parameters
     nproj, nband, nkpt, nspin = size(chipsi)
     @assert nband ≥ nproj
@@ -1182,6 +1197,9 @@ function calc_level(PW::Array{PrWindow,1},
                     chipsi::Array{Array{C64,4},1},
                     weight::Array{F64,1},
                     enk::Array{F64,3})
+    # Print the header
+    println("Calculate band levels using normalized projectors")
+
     # Create an empty array. Next we will fill it.
     level = Array{C64,3}[]
 
@@ -1233,6 +1251,9 @@ For raw projectors only.
 See also: [`view_hamk`](@ref).
 """
 function calc_hamk(chipsi::Array{C64,4}, enk::Array{F64,3})
+    # Print the header
+    println("Calculate hamiltonian matrix using raw projectors")
+
     # Extract some key parameters
     nproj, nband, nkpt, nspin = size(chipsi)
     @assert nband ≥ nproj
@@ -1266,6 +1287,9 @@ See also: [`view_hamk`](@ref).
 function calc_hamk(PW::Array{PrWindow,1},
                    chipsi::Array{Array{C64,4},1},
                    enk::Array{F64,3})
+    # Print the header
+    println("Calculate hamiltonian matrix using normalized projectors")
+
     # Create an empty array. Next we will fill it.
     hamk = Array{C64,4}[]
 
@@ -1320,6 +1344,9 @@ function calc_dos(PW::Array{PrWindow,1},
                   chipsi::Array{Array{C64,4},1},
                   itet::Array{I64,2},
                   enk::Array{F64,3})
+    # Print the header
+    println("Calculate density of states using normalized projectors")
+
     # Create array of mesh
     MA = Array{F64,1}[]
 
