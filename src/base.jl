@@ -628,6 +628,7 @@ end
 """
 function correct()
     renew()
+    FixImpurity()
 end
 
 #=
