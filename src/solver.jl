@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/17
+# Last modified: 2021/11/18
 #
 
 #=
@@ -1075,6 +1075,12 @@ function GetImpurity()
 
     # Return the desired array
     return AI
+end
+
+"""
+    FixImpurity()
+"""
+function FixImpurity()
 end
 
 """

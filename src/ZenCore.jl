@@ -978,6 +978,7 @@ GetNimpx     -> Return the impurity occupancy.
 GetEdmft     -> Return the interaction energy (potential energy).
 GetSymmetry  -> Analyze orbital degeneracy via local impurity levels.
 GetImpurity  -> Build Impurity struct according to configuration file.
+FixImpurity  ->
 CatImpurity  -> Display Impurity struct that need to be solved.
 ```
 =#
@@ -1018,6 +1019,7 @@ export GetNimpx
 export GetEdmft
 export GetSymmetry
 export GetImpurity
+export FixImpurity
 export CatImpurity
 
 #=
