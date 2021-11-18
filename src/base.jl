@@ -627,6 +627,7 @@ end
     correct()
 """
 function correct()
+    renew()
 end
 
 #=
