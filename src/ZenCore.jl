@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/11/16
+# Last modified: 2021/11/18
 #
 
 """
@@ -389,7 +389,7 @@ They are stored in external files (case.toml) or dictionaries.
 ```text
 setup    -> Setup parameters.
 inp_toml -> Parse case.toml, return raw configuration information.
-rev_dict -> Update dicts for configuration parameters.
+fil_dict -> Update dicts for configuration parameters.
 chk_dict -> Check dicts for configuration parameters.
 exhibit  -> Display parameters for reference.
 _v       -> Verify dict's values.
@@ -416,7 +416,7 @@ include("config.jl")
 #
 export setup
 export inp_toml
-export rev_dict
+export fil_dict
 export chk_dict
 export exhibit
 export _v
