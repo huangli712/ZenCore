@@ -388,8 +388,10 @@ They are stored in external files (case.toml) or dictionaries.
 
 ```text
 setup    -> Setup parameters.
+renew    ->
 inp_toml -> Parse case.toml, return raw configuration information.
 fil_dict -> Update dicts for configuration parameters.
+rev_dict ->
 chk_dict -> Check dicts for configuration parameters.
 exhibit  -> Display parameters for reference.
 _v       -> Verify dict's values.
@@ -415,8 +417,10 @@ str_s    -> Extract value from dict (PSOLVER dict), return string.
 include("config.jl")
 #
 export setup
+export renew
 export inp_toml
 export fil_dict
+export rev_dict
 export chk_dict
 export exhibit
 export _v
