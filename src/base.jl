@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/10/18
+# Last modified: 2021/11/18
 #
 
 #=
@@ -622,6 +622,12 @@ end
 #=
 ### *Service Functions* : *Layer 1*
 =#
+
+"""
+    correct()
+"""
+function correct()
+end
 
 #=
 *Remarks* :
