@@ -151,6 +151,12 @@ function fil_dict(cfg::Dict{String,Any})
     end
 end
 
+"""
+    rev_dict()
+"""
+function rev_dict()
+end
+
 #=
 *Remarks* :
 
