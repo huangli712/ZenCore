@@ -43,6 +43,9 @@ function setup()
     flush(stdout)
 end
 
+"""
+    renew()
+"""
 function renew()
 end
 
