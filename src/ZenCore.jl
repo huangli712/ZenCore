@@ -1096,7 +1096,7 @@ mixer_delta -> Mix hybridization functions.
 mixer_eimpx -> Mix local impurity levels.
 mixer_gcorr -> Mix correction of density matrix Γ.
 amix        -> Return the mixing parameter.
-distance    -> Calculate the difference / distance between two arrays.
+distance    -> Calculate difference / distance between two given arrays.
 ```
 =#
 
