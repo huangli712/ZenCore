@@ -151,9 +151,9 @@ PSOLVER         -> Dict for quantum impurity solvers.
 #
 AbstractEngine  -> Abstract DFT engine.
 NULLEngine      -> Null DFT engine.
-VASPEngine      -> vasp.
-QEEngine        -> quantum espresso.
-WANNIEREngine   -> wannier90.
+VASPEngine      -> Vasp code.
+QEEngine        -> Quantum espresso code.
+WANNIEREngine   -> Wannier90 code.
 _engine_        -> The present DFT engine.
 #
 AbstractSolver  -> Abstract quantum impurity solver.
@@ -162,7 +162,7 @@ CTHYB₁Solver    -> CT-HYB₁ quantum impurity solver.
 CTHYB₂Solver    -> CT-HYB₂ quantum impurity solver.
 HIASolver       -> HIA quantum impurity solver.
 NORGSolver      -> NORG quantum impurity solver.
-ATOMSolver      -> atomic eigenvalue problem solver.
+ATOMSolver      -> Atomic eigenvalue problem solver.
 _solver_        -> The present quantum impurity solver.
 #
 AbstractAdaptor -> Abstract DFT-DMFT adaptor.
@@ -390,10 +390,10 @@ They are stored in external files (case.toml) or dictionaries.
 
 ```text
 setup    -> Setup parameters.
-renew    ->
+renew    -> Renew some parameters dynamically.
 inp_toml -> Parse case.toml, return raw configuration information.
-fil_dict -> Update dicts for configuration parameters.
-rev_dict ->
+fil_dict -> Fill dicts for configuration parameters.
+rev_dict -> Update dicts for configuration parameters.
 chk_dict -> Check dicts for configuration parameters.
 exhibit  -> Display parameters for reference.
 _v       -> Verify dict's values.
@@ -469,6 +469,7 @@ try_solver   -> Execute quantum impurity solvers only (for testing purpose).
 try_adaptor  -> Execute Kohn-Sham adaptor only (for testing purpose).
 try_sigma    -> Execute self-energy engine only (for testing purpose).
 try_mixer    -> Execute mixer engine only (for testing purpose).
+refresh      -> Refresh some special configuration parameters.
 monitor      -> Monitor the DFT + DMFT calculations.
 suspend      -> Suspend the DFT engine.
 suicide      -> Kill the DFT engine.
@@ -504,6 +505,7 @@ export try_solver
 export try_adaptor
 export try_sigma
 export try_mixer
+export refresh
 export monitor
 export suspend
 export suicide
