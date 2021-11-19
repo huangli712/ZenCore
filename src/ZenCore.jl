@@ -639,7 +639,7 @@ qeq_files           -> Check essential output files.
 #
 qeio_energy         -> Read DFT total energy.
 qeio_lattice        -> Read lattice information.
-qeio_kmesh          -> Read kmesh.
+qeio_kmesh          -> Read 𝑘-mesh.
 qeio_eigen          -> Read eigenvalues (general).
 qeio_band           -> Read eigenvalues (band structures).
 qeio_fermi          -> Read fermi level.
@@ -731,14 +731,14 @@ try_blk2     -> Orthogonalize / normalize the projectors with each other.
 try_diag     -> Orthogonalizes a projector defined by a rectangular matrix.
 calc_ovlp    -> Calculate overlap matrix.
 calc_dm      -> Calculate density matrix.
-calc_level   -> Calculate effective atomic level.
+calc_level   -> Calculate effective band level.
 calc_hamk    -> Calculate local hamiltonian or full hamiltonian.
 calc_dos     -> Calculate density of states.
-view_ovlp    -> Show overlap matrix for debug.
-view_dm      -> Show density matrix for debug.
-view_level   -> Show effective atomic level for debug.
-view_hamk    -> Show local hamiltonian for debug.
-view_dos     -> Show density of states for debug.
+view_ovlp    -> Output overlap matrix for debug.
+view_dm      -> Output density matrix for debug.
+view_level   -> Output effective band level for debug.
+view_hamk    -> Output local hamiltonian for debug.
+view_dos     -> Output density of states for debug.
 ```
 =#
 
@@ -982,7 +982,7 @@ GetNimpx     -> Return the impurity occupancy.
 GetEdmft     -> Return the interaction energy (potential energy).
 GetSymmetry  -> Analyze orbital degeneracy via local impurity levels.
 GetImpurity  -> Build Impurity struct according to configuration file.
-FixImpurity  ->
+FixImpurity  -> Renew Impurity struct according to configuration file.
 CatImpurity  -> Display Impurity struct that need to be solved.
 ```
 =#
