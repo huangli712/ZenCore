@@ -49,7 +49,8 @@ const PCASE  = Dict{String,ADT}(
 """
     PDFT
 
-Dictionary for configuration parameters: density functional theory calculations.
+Dictionary for configuration parameters: density functional theory
+calculations. Its entries can not be updated once they are initialized.
 
 See also: [`PCASE`](@ref), [`PDMFT`](@ref), [`PIMP`](@ref), [`PSOLVER`](@ref).
 """
