@@ -45,8 +45,20 @@ end
 
 """
     renew()
+
+Read parameters from configuration file, and then renew the related dicts.
+
+See also: [`inp_toml`](@ref), [`rev_dict`](@ref), [`chk_dict`](@ref).
 """
 function renew()
+    # R1: Parse the case.toml file to extract configuration parameters
+    cfg = inp_toml(query_args(), true)
+
+    # R2: Renew the configuration dictionaries
+    rev_dict(cfg)
+
+    # R3: Validate the configuration parameters    
+    chk_dict()
 end
 
 #=
