@@ -181,7 +181,7 @@ function rev_dict(cfg::Dict{String,Any})
     for key in ["dcount", "mixer", "mc", "cc", "ec", "sc", "lfermi"]
         if haskey(dmft, key) && haskey(PDMFT, key)
             if PDMFT[key][1] != dmft[key]
-                PDMFT[key][1] == dmft[key]
+                PDMFT[key][1] = dmft[key]
             end
         end
     end
@@ -191,7 +191,7 @@ function rev_dict(cfg::Dict{String,Any})
     for key in ["ising", "occup", "upara", "jpara", "lpara"]
         if haskey(impurity, key) && haskey(PIMP, key)
             if PIMP[key][1] != impurity[key]
-                PIMP[key][1] == impurity[key]
+                PIMP[key][1] = impurity[key]
             end
         end
     end
@@ -201,7 +201,7 @@ function rev_dict(cfg::Dict{String,Any})
     for key in ["params"]
         if haskey(solver, key) && haskey(PSOLVER, key)
             if PSOLVER[key][1] != solver[key]
-                PSOLVER[key][1] == solver[key]
+                PSOLVER[key][1] = solver[key]
             end
         end
     end
