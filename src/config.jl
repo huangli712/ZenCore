@@ -167,7 +167,7 @@ function fil_dict(cfg::Dict{String,Any})
 end
 
 """
-    rev_dict()
+    rev_dict(cfg::Dict{String,Any})
 
 Transfer configurations from dict `cfg` to internal dicts (including
 `PDMFT`, `PIMP`, and `PSOLVER`). This function is used to update some

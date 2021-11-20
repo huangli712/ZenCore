@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/11/18
+# Last modified: 2021/11/20
 #
 
 #=
@@ -1078,9 +1078,25 @@ function GetImpurity()
 end
 
 """
-    FixImpurity()
+    FixImpurity(ai::Array{Impurity,1})
+
+Update the quantum impurity problems encapsulated in `ai` according
+to the configuration parameters.
+
+See also: [`Impurity`](@ref).
 """
-function FixImpurity()
+function FixImpurity(ai::Array{Impurity,1})
+    # Sanity check
+    @assert length(ai) == get_i("nsite")
+
+    # Go through each quantum impurity problem
+    for i = 1:get_i("nsite")
+        ai[i].ising = get_i("ising")[i]
+        ai[i].occup = get_i("occup")[i]
+        ai[i].upara = get_i("upara")[i]
+        ai[i].jpara = get_i("jpara")[i]
+        ai[i].lpara = get_i("lpara")[i]
+    end # END OF I LOOP
 end
 
 """
