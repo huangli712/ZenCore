@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/11/19
+# Last modified: 2021/11/20
 #
 
 #=
@@ -72,7 +72,9 @@ const PDFT   = Dict{String,ADT}(
 """
     PDMFT
 
-Dictionary for configuration parameters: dynamical mean-field theory calculations.
+Dictionary for configuration parameters: dynamical mean-field theory
+calculations. Be careful, its entries (such as `dcount`, `mixer`, `mc`,
+`cc`, `ec`, `sc`, and `lfermi`) can be updated during the iteration.
 
 See also: [`PCASE`](@ref), [`PDFT`](@ref), [`PIMP`](@ref), [`PSOLVER`](@ref).
 """
@@ -94,7 +96,9 @@ const PDMFT  = Dict{String,ADT}(
 """
     PIMP
 
-Dictionary for configuration parameters: quantum impurity problems.
+Dictionary for configuration parameters: quantum impurity problems. Be
+careful, its entries (such as `ising`, `occup`, `upara`, `jpara`, and
+`lpara`) can be updated during the iteration. 
 
 See also: [`PCASE`](@ref), [`PDFT`](@ref), [`PDMFT`](@ref), [`PSOLVER`](@ref).
 """
