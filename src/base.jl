@@ -624,11 +624,19 @@ end
 =#
 
 """
-    refresh()
+    refresh(ai::Array{Impurity,1})
+
+Update the configuration parameters dynamically during the
+DFT + DMFT iterations.
+
+See also: [`renew`](@ref), [`FixImpurity`](@ref).
 """
-function refresh()
+function refresh(ai::Array{Impurity,1})
+    # Renew internal dicts which encapsulate configuration parameters
     renew()
-    FixImpurity()
+
+    # Renew quantum impurity problems
+    FixImpurity(ai)
 end
 
 #=
