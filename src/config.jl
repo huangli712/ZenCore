@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/11/18
+# Last modified: 2021/11/20
 #
 
 #=
@@ -156,8 +156,43 @@ end
 
 """
     rev_dict()
+
+Transfer configurations from dict `cfg` to internal dicts (including
+`PDMFT`, `PIMP`, and `PSOLVER`). This function is used to update some
+special configuration parameters dynamically.
+
+See also: [`chk_dict`](@ref).
 """
-function rev_dict()
+function rev_dict(cfg::Dict{String,Any})
+    # For dmft block
+    dmft = cfg["dmft"]
+    for key in ["dcount", "mixer", "mc", "cc", "ec", "sc", "lfermi"]
+        if haskey(dmft, key) && haskey(PDMFT, key)
+            if PDMFT[key][1] != dmft[key]
+                PDMFT[key][1] == dmft[key]
+            end
+        end
+    end
+
+    # For impurity block
+    impurity = cfg["impurity"]
+    for key in ["ising", "occup", "upara", "jpara", "lpara"]
+        if haskey(impurity, key) && haskey(PIMP, key)
+            if PIMP[key][1] != impurity[key]
+                PIMP[key][1] == impurity[key]
+            end
+        end
+    end
+
+    # For solver block
+    solver = cfg["solver"]
+    for key in ["params"]
+        if haskey(solver, key) && haskey(PSOLVER, key)
+            if PSOLVER[key][1] != solver[key]
+                PSOLVER[key][1] == solver[key]
+            end
+        end
+    end
 end
 
 #=
