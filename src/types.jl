@@ -117,7 +117,8 @@ const PIMP   = Dict{String,ADT}(
 """
     PSOLVER
 
-Dictionary for configuration parameters: quantum impurity solvers.
+Dictionary for configuration parameters: quantum impurity solvers. Be
+careful, its entry (only `params`) can be updated during the iteration.
 
 See also: [`PCASE`](@ref), [`PDFT`](@ref), [`PDMFT`](@ref), [`PIMP`](@ref).
 """
