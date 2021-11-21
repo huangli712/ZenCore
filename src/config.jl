@@ -61,7 +61,7 @@ function renew()
     chk_dict()
 
     # Print the footer
-    println("Refresh configuration parameters")
+    println("\n[ Refresh configuration parameters ]\n")
     flush(stdout)
 end
 
