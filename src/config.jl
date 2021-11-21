@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/11/20
+# Last modified: 2021/11/21
 #
 
 #=
@@ -59,6 +59,10 @@ function renew()
 
     # R3: Validate the configuration parameters    
     chk_dict()
+
+    # Print the footer
+    println("Refresh configuration parameters")
+    flush(stdout)
 end
 
 #=
