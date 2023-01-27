@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2021/11/20
+# Last modified: 2023/01/27
 #
 
 #=
@@ -53,7 +53,7 @@ end
 #
 function solver_call(::NORGSolver, it::IterInfo, imp::Impurity)
     # For NORG quantum impurity solver
-    s_norg_init(it)
+    s_norg_init(it, imp)
     s_norg_exec(it)
     s_norg_save(it)
 end
@@ -534,15 +534,22 @@ end
 =#
 
 """
-    s_norg_init(it::IterInfo)
+    s_norg_init(it::IterInfo, imp::Impurity)
 
 Check runtime environment of the NORG quantum impurity solver. Prepare
 the necessary input files.
 
+This quantum impurity solver is from the RUC Team.
+
 See also: [`s_norg_exec`](@ref), [`s_norg_save`](@ref).
 """
-function s_norg_init(it::IterInfo)
-    sorry()
+function s_norg_init(it::IterInfo, imp::Impurity)
+    # Print the header
+    println("Engine : NORG")
+    println("Try to solve the quantum impurity problem: [$(imp.index)]")
+    println("Current directory: ", pwd())
+    println("Prepare necessary input files for solver")
+    
 end
 
 """
