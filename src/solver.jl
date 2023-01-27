@@ -549,7 +549,10 @@ function s_norg_init(it::IterInfo, imp::Impurity)
     println("Try to solve the quantum impurity problem: [$(imp.index)]")
     println("Current directory: ", pwd())
     println("Prepare necessary input files for solver")
-    
+
+    # Generate configuration file for quantum impurity solver
+    norg_setup(imp)
+    println("  > File solver.norg.in is ready")
 end
 
 """
