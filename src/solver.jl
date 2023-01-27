@@ -561,7 +561,16 @@ function s_norg_init(it::IterInfo, imp::Impurity)
     #
     # Write frequency mesh and hybridization function to `solver.hyb.in`
     norg_delta(fmesh, Delta)
-    println("  > File solver.hyb.in is ready")    
+    println("  > File solver.hyb.in is ready")
+
+    # Prepare local impurity levels
+    #
+    # Extract local impurity levels from `dmft.eimpx`
+    Eimpx = read_eimpx(imp)
+    #
+    # Write local impurity levels to `solver.eimp.in`
+    norg_eimpx(Eimpx)
+    println("  > File solver.eimp.in is ready")
 end
 
 """
