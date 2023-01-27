@@ -846,6 +846,16 @@ function ctqmc_eimpx(Eimpx::Array{C64,3})
     end # END OF IOSTREAM
 end
 
+"""
+    norg_eimpx(Eimpx::Array{C64,3})
+
+Write the local impurity levels to the `solver.eimp.in` file, which is
+suitable for the NORG quantum impurity solver.
+
+See also: [`norg_delta`](@ref).
+"""
+norg_eimpx(Eimpx::Array{C64,3}) = ctqmc_eimpx(Eimpx)
+
 #=
 ### *Service Functions* : *Files I/O Operations*
 =#
