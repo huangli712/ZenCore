@@ -553,6 +553,15 @@ function s_norg_init(it::IterInfo, imp::Impurity)
     # Generate configuration file for quantum impurity solver
     norg_setup(imp)
     println("  > File solver.norg.in is ready")
+
+    # Prepare hybridization functions
+    #
+    # Extract frequency mesh and hybridization function from `dmft.delta`
+    fmesh, Delta = read_delta(imp)
+    #
+    # Write frequency mesh and hybridization function to `solver.hyb.in`
+    norg_delta(fmesh, Delta)
+    println("  > File solver.hyb.in is ready")    
 end
 
 """
@@ -776,6 +785,16 @@ function ctqmc_delta(fmesh::Array{F64,1}, Delta::Array{C64,4})
         end
     end # END OF IOSTREAM
 end
+
+"""
+    norg_delta(fmesh::Array{F64,1}, Delta::Array{C64,4})
+
+Write the hybridization functions to the `solver.hyb.in` file, which is
+suitable for the NORG quantum impurity solver.
+
+See also: [`norg_eimpx`](@ref).
+"""
+norg_delta(fmesh::Array{F64,1}, Delta::Array{C64,4}) = ctqmc_delta(fmesh, Delta)
 
 """
     ctqmc_eimpx(Eimpx::Array{C64,3})
