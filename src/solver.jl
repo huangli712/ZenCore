@@ -254,7 +254,7 @@ function s_qmc1_exec(it::IterInfo)
     println("  > Add the task to the scheduler's queue")
     println("  > Waiting ...")
 
-    # To ensure that the task is executed
+    # To ensure that the task is being executed
     while true
         sleep(2)
         istaskstarted(t) && break
@@ -578,10 +578,57 @@ end
 
 Launch the NORG quantum impurity solver.
 
+This quantum impurity solver is from the RUC Team.
+
 See also: [`s_norg_init`](@ref), [`s_norg_save`](@ref).
 """
 function s_norg_exec(it::IterInfo)
-    sorry()
+    # Print the header
+    println("Detect the runtime environment for solver")
+
+    # Determine mpi prefix (whether the solver is executed sequentially)
+    mpi_prefix = inp_toml("../MPI.toml", "solver", false)
+    numproc = parse(I64, line_to_array(mpi_prefix)[3])
+    println("  > Using $numproc processors (MPI)")
+
+    # Get the home directory of quantum impurity solver
+    solver_home = query_solver(_solver_)
+    println("  > Home directory for solver: ", solver_home)
+
+    # Select suitable solver program
+    solver_exe = "$solver_home/norg"
+    @assert isfile(solver_exe)
+    println("  > Executable program is available: ", basename(solver_exe))
+
+    # Assemble command
+    if isnothing(mpi_prefix)
+        solver_cmd = solver_exe
+    else
+        solver_cmd = split("$mpi_prefix $solver_exe", " ")
+    end
+    println("  > Assemble command: $(prod(x -> x * ' ', solver_cmd))")
+
+    # Print the header
+    println("Launch the computational engine (quantum impurity solver)")
+
+    # Create a task, but do not run it immediately
+    t = @task begin
+        run(pipeline(`$solver_cmd`, stdout = "solver.out"))
+    end
+    println("  > Create a task")
+
+    # Launch it, the terminal output is redirected to solver.out.
+    # Note that the task runs asynchronously. It will not block
+    # the execution.
+    schedule(t)
+    println("  > Add the task to the scheduler's queue")
+    println("  > Waiting ...")
+
+    # To ensure that the task is being executed
+    while true
+        sleep(2)
+        istaskstarted(t) && break
+    end
 end
 
 """
