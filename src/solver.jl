@@ -136,7 +136,7 @@ solver_nimpx(::NULLSolver, imp::Impurity) = sorry()
 solver_nimpx(::CTHYB₁Solver, imp::Impurity) = ctqmc_nimpx(imp)
 solver_nimpx(::CTHYB₂Solver, imp::Impurity) = ctqmc_nimpx(imp)
 solver_nimpx(::HIASolver, imp::Impurity) = sorry()
-solver_nimpx(::NORGSolver, imp::Impurity) = sorry()
+solver_nimpx(::NORGSolver, imp::Impurity) = norg_nimpx(imp)
 solver_nimpx(::ATOMSolver, imp::Impurity) = sorry()
 
 """
@@ -1012,6 +1012,10 @@ function ctqmc_nimpx(imp::Impurity)
     imp.nup = nup
     imp.ndown = ndown
     imp.occup = occup
+end
+
+function norg_nimpx(imp::Impurity)
+    return
 end
 
 """
