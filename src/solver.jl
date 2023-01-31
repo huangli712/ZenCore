@@ -1127,6 +1127,20 @@ function norg_sigma(imp::Impurity)
     # To make sure the data file is present
     @assert isfile(fsgm)
 
+    # Extract parameters from Impurity struct
+    nband = imp.nband
+    norbs = nband * 2
+
+    lines = readlines(fsgm)
+    filter!(x -> contains(x, "Re11"), lines)
+
+    nspin = 2 # In the CTHYB impurity solver, nspin is fixed to 2.
+
+    # We don't know how many frequency points are used a priori.
+    # Here, we used a trick to determine `nmesh`.
+    nline = countlines(fsgm)
+    nmesh = convert(I64, nline / norbs - 2)
+
 end
 
 """
