@@ -1153,7 +1153,11 @@ function norg_sigma(imp::Impurity)
 
     # Parse the data file for the self-energy functions
     open(fsgm, "r") do fin
+
     end # END OF IOSTREAM
+
+    # Return the desired arrays
+    return fmesh, Σ
 end
 
 """
