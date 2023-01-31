@@ -1131,16 +1131,29 @@ function norg_sigma(imp::Impurity)
     nband = imp.nband
     norbs = nband * 2
 
+    # Determine number of spin orientations
     lines = readlines(fsgm)
     filter!(x -> contains(x, "Re11"), lines)
-
-    nspin = 2 # In the CTHYB impurity solver, nspin is fixed to 2.
+    nspin = length(lines)
 
     # We don't know how many frequency points are used a priori.
     # Here, we used a trick to determine `nmesh`.
     nline = countlines(fsgm)
-    nmesh = convert(I64, nline / norbs - 2)
+    if nspin == 1
+        nmesh = nline - 1
+    else
+        nmesh = convert(I64, (nline - 2) / 2 - 1)
+    end
 
+    # Create an array for frequency mesh
+    fmesh = zeros(F64, nmesh)
+
+    # Create an array for self-energy functions
+    Σ = zeros(C64, nband, nband, nmesh, nspin)
+
+    # Parse the data file for the self-energy functions
+    open(fsgm, "r") do fin
+    end # END OF IOSTREAM
 end
 
 """
