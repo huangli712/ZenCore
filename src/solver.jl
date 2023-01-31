@@ -1129,7 +1129,6 @@ function norg_sigma(imp::Impurity)
 
     # Extract parameters from Impurity struct
     nband = imp.nband
-    norbs = nband * 2
 
     # Determine number of spin orientations
     lines = readlines(fsgm)
@@ -1165,13 +1164,14 @@ function norg_sigma(imp::Impurity)
                 arr = line_to_array(fin)
                 val = parse.(F64, arr)
 
-                # Go through each band
                 rshift = 1
                 ishift = convert(I64, nband * nband + 2)
+                # Go through each band
                 for p = 1:nband
                     # Go through each band
                     for q = 1:nband
                         rshift = rshift + 1
+                        ishift = ishift + 1
                         _re = val[rshift]
                         _im = val[ishift]
                         Σ[p,q,m,s] = _re + _im * im
