@@ -1163,15 +1163,20 @@ function norg_sigma(imp::Impurity)
             for m = 1:nmesh
                 # Split the line
                 arr = line_to_array(fin)
+                val = parse.(F64, arr)
 
+                # Go through each band
+                rshift = 1
+                ishift = convert(I64, nband * nband + 2)
                 for p = 1:nband
+                    # Go through each band
                     for q = 1:nband
-                        _re = 0 
-                        _im = 0
+                        rshift = rshift + 1
+                        _re = val[rshift]
+                        _im = val[ishift]
                         Σ[p,q,m,s] = _re + _im * im
-                    end
-                end
-
+                    end # END OF Q LOOP
+                end # END OF P LOOP
             end # END OF M LOOP
 
             # Skip two lines
