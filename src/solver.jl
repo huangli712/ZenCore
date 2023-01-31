@@ -298,7 +298,7 @@ function s_qmc1_exec(it::IterInfo)
     # Keep the last output
     println()
 
-    # Wait for the dmft task to finish
+    # Wait for the solver task to finish
     wait(t)
 
     # Extract how many monte carlo sampling blocks are executed
@@ -629,6 +629,47 @@ function s_norg_exec(it::IterInfo)
         sleep(2)
         istaskstarted(t) && break
     end
+
+    # Analyze the solver.out file during the calculation
+    #
+    # `c` is a time counter
+    c = 0
+    #
+    # Enter infinite loop
+    while true
+        # Sleep five seconds
+        sleep(5)
+
+        # Increase the counter
+        c = c + 1
+
+        # Parse solver.out file
+        lines = readlines("solver.out")
+        filter!(x -> contains(x, "iter:"), lines)
+
+        # Figure out the task that is doing
+        if length(lines) > 0
+            arr = line_to_array(lines[end])
+            c_sweep = parse(I64, arr[5])
+            t_sweep = parse(I64, arr[7])
+            R = c_sweep / t_sweep
+        else # Nothing
+            c_sweep = 0
+            R = 0.0
+        end
+
+        # Print the log to screen
+        @printf("  > Elapsed %4i seconds, current sweeps: %i (%4.2f)\r", 5*c, c_sweep, R)
+
+        # Break the loop
+        istaskdone(t) && break
+    end
+    #
+    # Keep the last output
+    println()
+
+    # Wait for the solver task to finish
+    wait(t)
 end
 
 """
