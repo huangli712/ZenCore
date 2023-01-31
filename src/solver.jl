@@ -688,7 +688,7 @@ function s_norg_exec(it::IterInfo)
 end
 
 """
-    s_norg_save(it::IterInfo)
+    s_norg_save(it::IterInfo, imp::Impurity)
 
 Backup output files of the NORG quantum impurity solver.
 
@@ -696,9 +696,37 @@ This quantum impurity solver is from the RUC Team.
 
 See also: [`s_norg_init`](@ref), [`s_norg_exec`](@ref).
 """
-function s_norg_save(it::IterInfo)
+function s_norg_save(it::IterInfo, imp::Impurity)
     # Print the header
     println("Finalize the computational task")
+
+    # Determine which files are important
+    #
+    # Major output
+    fout = ["solver.out"]
+    #
+    # Green's functions
+    fgrn = ["solver.grn.dat", "solver.green.dat"]
+    #
+    # Hybridization functions
+    fhyb = ["solver.hyb.dat", "solver.hybri.dat"]
+    #
+    # Self-energy functions
+    fsgm = ["solver.sgm.dat"]
+    #
+    # Auxiliary output files
+    faux = ["solver.nmat.dat", "solver.paux.dat", "solver.prob.dat", "solver.hist.dat"]
+
+    # Next, we have to backup the above files.
+    foreach( x ->
+        begin
+            file_src = x
+            file_dst = "$x.$(it.I₃).$(it.I₁)"
+            cp(file_src, file_dst, force = true)
+        end,
+        union(fout, fgrn, fhyb, fsgm, faux)
+    )
+    println("  > Save the key output files")
 
 end
 
