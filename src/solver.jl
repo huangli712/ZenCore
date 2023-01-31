@@ -55,7 +55,7 @@ function solver_call(::NORGSolver, it::IterInfo, imp::Impurity)
     # For NORG quantum impurity solver
     s_norg_init(it, imp)
     s_norg_exec(it)
-    s_norg_save(it)
+    s_norg_save(it, imp)
 end
 #
 function solver_call(::ATOMSolver, it::IterInfo, imp::Impurity)
@@ -692,10 +692,14 @@ end
 
 Backup output files of the NORG quantum impurity solver.
 
+This quantum impurity solver is from the RUC Team.
+
 See also: [`s_norg_init`](@ref), [`s_norg_exec`](@ref).
 """
 function s_norg_save(it::IterInfo)
-    sorry()
+    # Print the header
+    println("Finalize the computational task")
+
 end
 
 """
