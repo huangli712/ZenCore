@@ -757,16 +757,16 @@ function s_norg_copy(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
     fout = ["solver.out"]
     #
     # Green's functions
-    fgrn = ["solver.grn.dat", "solver.green.dat"]
+    fgrn = ["gfimp.txt"]
     #
-    # Hybridization functions
-    fhyb = ["solver.hyb.dat", "solver.hybri.dat"]
+    # Bath Green's functions
+    fhyb = ["g0imp.txt"]
     #
     # Self-energy functions
-    fsgm = ["solver.sgm.dat"]
+    fsgm = ["seimp.txt"]
     #
     # Auxiliary output files
-    faux = ["solver.nmat.dat", "solver.paux.dat", "solver.prob.dat", "solver.hist.dat"]
+    faux = ["hop.txt", "ose.txt", "nmat.txt"]
 
     # Determine the index for imp₁
     index = imp₁.index
@@ -783,8 +783,8 @@ function s_norg_copy(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
     println("  > Copy the key output files")
 
     # Update the `occup` field in `imp` (Impurity struct)
-    ctqmc_nimpx(imp₂)
-    println("  > Extract the impurity occupancy from solver.nmat.dat: $(imp₂.occup)")
+    norg_nimpx(imp₂)
+    println("  > Extract the impurity occupancy from nmat.txt: $(imp₂.occup)")
 
     # Update the `it` (IterInfo) struct
     it.nf[imp₂.index] = imp₂.occup
