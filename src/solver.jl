@@ -743,10 +743,51 @@ Duplicate output files of the NORG quantum impurity solver. We just copy
 selected output files from impurity.1 to impurity.2. Be careful, now we
 are already in directory `impurity.2`.
 
+This quantum impurity solver is from the RUC Team.
+
 See also: [`s_norg_init`](@ref), [`s_norg_exec`](@ref).
 """
 function s_norg_copy(it::IterInfo, imp₁::Impurity, imp₂::Impurity)
-    sorry()
+    # Print the header
+    println("Transfer results from impurity $(imp₁.index) to $(imp₂.index)")
+
+    # Determine which files are important
+    #
+    # Major output
+    fout = ["solver.out"]
+    #
+    # Green's functions
+    fgrn = ["solver.grn.dat", "solver.green.dat"]
+    #
+    # Hybridization functions
+    fhyb = ["solver.hyb.dat", "solver.hybri.dat"]
+    #
+    # Self-energy functions
+    fsgm = ["solver.sgm.dat"]
+    #
+    # Auxiliary output files
+    faux = ["solver.nmat.dat", "solver.paux.dat", "solver.prob.dat", "solver.hist.dat"]
+
+    # Determine the index for imp₁
+    index = imp₁.index
+
+    # Next, we have to backup the above files.
+    foreach( x ->
+        begin
+            file_src = "../impurity.$index/$x"
+            file_dst = "$x"
+            cp(file_src, file_dst, force = true)
+        end,
+        union(fout, fgrn, fhyb, fsgm, faux)
+    )
+    println("  > Copy the key output files")
+
+    # Update the `occup` field in `imp` (Impurity struct)
+    ctqmc_nimpx(imp₂)
+    println("  > Extract the impurity occupancy from solver.nmat.dat: $(imp₂.occup)")
+
+    # Update the `it` (IterInfo) struct
+    it.nf[imp₂.index] = imp₂.occup
 end
 
 #=
