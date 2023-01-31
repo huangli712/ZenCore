@@ -1154,6 +1154,31 @@ function norg_sigma(imp::Impurity)
     # Parse the data file for the self-energy functions
     open(fsgm, "r") do fin
 
+        # Go through each spin orientation
+        for s = 1:nspin
+            # Skip one line
+            readline(fin)
+
+            # Go through each frequency point
+            for m = 1:nmesh
+                # Split the line
+                arr = line_to_array(fin)
+
+                for p = 1:nband
+                    for q = 1:nband
+                        _re = 0 
+                        _im = 0
+                        Σ[p,q,m,s] = _re + _im * im
+                    end
+                end
+
+            end # END OF M LOOP
+
+            # Skip two lines
+            readline(fin)
+            readline(fin)
+        end # END OF S LOOP
+
     end # END OF IOSTREAM
 
     # Return the desired arrays
