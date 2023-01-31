@@ -277,7 +277,7 @@ function s_qmc1_exec(it::IterInfo)
         lines = readlines("solver.out")
         filter!(x -> contains(x, "iter:"), lines)
 
-        # Figure out the task that is doing
+        # Figure out the number of monte carlo sweeps
         if length(lines) > 0
             arr = line_to_array(lines[end])
             c_sweep = parse(I64, arr[5])
@@ -645,21 +645,17 @@ function s_norg_exec(it::IterInfo)
 
         # Parse solver.out file
         lines = readlines("solver.out")
-        filter!(x -> contains(x, "iter:"), lines)
+        filter!(x -> contains(x, "NORG begin"), lines)
 
-        # Figure out the task that is doing
+        # Figure out the number of norg runs
         if length(lines) > 0
-            arr = line_to_array(lines[end])
-            c_sweep = parse(I64, arr[5])
-            t_sweep = parse(I64, arr[7])
-            R = c_sweep / t_sweep
+            nrun = length(lines)
         else # Nothing
-            c_sweep = 0
-            R = 0.0
+            nrun = 0
         end
 
         # Print the log to screen
-        @printf("  > Elapsed %4i seconds, current sweeps: %i (%4.2f)\r", 5*c, c_sweep, R)
+        @printf("  > Elapsed %4i seconds, current norg runs: %4i \r", 5*c, nrun)
 
         # Break the loop
         istaskdone(t) && break
