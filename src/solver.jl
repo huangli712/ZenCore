@@ -667,7 +667,7 @@ function s_norg_exec(it::IterInfo)
     # Wait for the solver task to finish
     wait(t)
 
-    # Extract how many monte carlo sampling blocks are executed
+    # Extract how many norg blocks are executed
     lines = readlines("solver.out")
     filter!(x -> contains(x, "NORG begin"), lines)
     nrun = length(lines)
@@ -675,7 +675,7 @@ function s_norg_exec(it::IterInfo)
     lines = readlines("solver.out")
     filter!(x -> contains(x, "iter_norg_cnt"), lines)
     niter_norg = length(lines)
-    println("  > Finished after $(length(lines)) Monte Carlo sampling blocks")
+    println("  > Finished after $nrun norg runs ($niter_norg iterations)")
 
     # Extract perturbation expansion order information
     println("Report From CTHYB₁ Quantum Impurity Solver")
