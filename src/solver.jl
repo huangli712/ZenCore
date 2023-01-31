@@ -1121,7 +1121,12 @@ the `sigma.bare` file, which is essential for the DMFT engine.
 See also: [`GetSigma`](@ref), [`solver_sigma`](@ref).
 """
 function norg_sigma(imp::Impurity)
-    
+    # File name for self-energy functions
+    fsgm = "seimp.txt"
+
+    # To make sure the data file is present
+    @assert isfile(fsgm)
+
 end
 
 """
