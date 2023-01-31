@@ -156,7 +156,7 @@ solver_edmft(::NULLSolver) = sorry()
 solver_edmft(::CTHYB₁Solver) = ctqmc_edmft()
 solver_edmft(::CTHYB₂Solver) = ctqmc_edmft()
 solver_edmft(::HIASolver) = sorry()
-solver_edmft(::NORGSolver) = sorry()
+solver_edmft(::NORGSolver) = norg_edmft()
 solver_edmft(::ATOMSolver) = sorry()
 
 #=
