@@ -677,11 +677,11 @@ function s_norg_exec(it::IterInfo)
     niter_norg = length(lines)
     println("  > Finished after $nrun norg runs ($niter_norg iterations)")
 
-    # Extract perturbation expansion order information
-    println("Report From CTHYB₁ Quantum Impurity Solver")
+    # Extract impurity occupation information
+    println("Report From NORG Quantum Impurity Solver")
     lines = readlines("solver.out")
-    start = findlast(x -> contains(x, ">>> iter:"), lines) + 1
-    finish = start + 20
+    start = findlast(x -> contains(x, "iter_norg_cnt"), lines) + 1
+    finish = findlast(x -> contains(x, "groundE_pre"), lines) - 1
     println("  [")
     foreach(x -> println(x), lines[start:finish])
     println("  ]")
