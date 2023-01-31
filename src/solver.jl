@@ -116,7 +116,7 @@ solver_sigma(::NULLSolver, imp::Impurity) = sorry()
 solver_sigma(::CTHYB₁Solver, imp::Impurity) = ctqmc_sigma(imp)
 solver_sigma(::CTHYB₂Solver, imp::Impurity) = ctqmc_sigma(imp)
 solver_sigma(::HIASolver, imp::Impurity) = sorry()
-solver_sigma(::NORGSolver, imp::Impurity) = sorry()
+solver_sigma(::NORGSolver, imp::Impurity) = norg_sigma(imp)
 solver_sigma(::ATOMSolver, imp::Impurity) = sorry()
 
 """
