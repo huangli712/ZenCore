@@ -1139,9 +1139,9 @@ function norg_sigma(imp::Impurity)
     # Here, we used a trick to determine `nmesh`.
     nline = countlines(fsgm)
     if nspin == 1
-        nmesh = nline - 1
+        nmesh = nline - 3
     else
-        nmesh = convert(I64, (nline - 2) / 2 - 1)
+        nmesh = convert(I64, nline / 2 - 3)
     end
 
     # Create an array for frequency mesh
