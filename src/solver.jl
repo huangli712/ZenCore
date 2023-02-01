@@ -4,7 +4,7 @@
 # Author  : Li Huang (lihuang.dmft@gmail.com)
 # Status  : Unstable
 #
-# Last modified: 2023/02/01
+# Last modified: 2023/02/02
 #
 
 #=
@@ -1164,8 +1164,14 @@ function norg_sigma(imp::Impurity)
                 arr = line_to_array(fin)
                 val = parse.(F64, arr)
 
+                # Extract frequency
+                fmesh[m] = val[1]
+
+                # Extract self-energy functions
+                # Starting positions for real and imaginary parts
                 rshift = 1
                 ishift = convert(I64, nband * nband + 2)
+                #
                 # Go through each band
                 for p = 1:nband
                     # Go through each band
