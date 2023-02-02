@@ -819,6 +819,9 @@ function ctqmc_setup(imp::Impurity)
     mune  = 0.0
     beta  = imp.beta
 
+    # Get number of Matsubara frequency points
+    nmesh = get_m("nmesh")    
+
     # Create the configuration file
     open(fctqmc, "w") do fout
         # Print some warning message
@@ -845,6 +848,7 @@ function ctqmc_setup(imp::Impurity)
         println(fout, "# Standard parameters: Others")
         println(fout, "mune  = $mune")
         println(fout, "beta  = $beta")
+        println(fout, "mfreq = $nmesh")
         println(fout)
 
         # Print the user-supplied parameters
