@@ -889,6 +889,10 @@ function norg_setup(imp::Impurity)
     Uc    = imp.upara
     Jz    = imp.jpara
     mune  = 0.0
+    beta  = imp.beta
+
+    # Get number of Matsubara frequency points
+    nmesh = get_m("nmesh")
 
     # Create the configuration file
     open(fnorg, "w") do fout
@@ -914,6 +918,8 @@ function norg_setup(imp::Impurity)
         #
         println(fout, "# Standard parameters: Others")
         println(fout, "mune  = $mune")
+        println(fout, "beta  = $beta")
+        println(fout, "nmesh = $nmesh")
         println(fout)
 
         # Print the user-supplied parameters
