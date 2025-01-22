@@ -1022,6 +1022,7 @@ export ctqmc_edmft
 export norg_setup
 export norg_delta
 export norg_eimpx
+export norg_sigma
 export norg_edmft
 export GetSigma
 export GetNimpx
