@@ -1023,6 +1023,7 @@ export norg_setup
 export norg_delta
 export norg_eimpx
 export norg_sigma
+export norg_nimpx
 export norg_edmft
 export GetSigma
 export GetNimpx
