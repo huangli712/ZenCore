@@ -1,6 +1,6 @@
 # ZenCore
 
-ZenCore is the core library of the [**Zen**](https://github.com/huangli712/Zen) DFT + DMFT computation framework. In other words, it should not be used separately.
+ZenCore is the core library for the [**Zen**](https://github.com/huangli712/Zen) DFT + DMFT computation framework. In other words, it should not be used separately.
 
 This package is currently under heavy developement. **PLEASE USE IT AT YOUR OWN RISK!**
 
