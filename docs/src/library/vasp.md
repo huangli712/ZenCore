@@ -1,4 +1,4 @@
-# VASP
+# Vienna Ab initio Simulation Package
 
 *Tools for the vasp software package (adaptor). It provide a lot of functions to deal with the vasp-related files.*
 

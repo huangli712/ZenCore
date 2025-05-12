@@ -1,4 +1,4 @@
-# ZenCore
+# The ZenCore Module
 
 *Declare the module and public members.*
 
